@@ -835,6 +835,11 @@
     background: var(--panel);
   }
   .about-visual svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .about-visual video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
   .values { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem 2rem; margin-top: 1.8rem; list-style: none; }
   .values li { font-size: 0.92rem; color: var(--muted); display: flex; gap: 0.6rem; }
   .values li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; margin-top: 0.55rem; }
@@ -1681,6 +1686,11 @@
             <text x="24" y="404">ATLAS.TEC — BUILT FOR COMPLEXITY</text>
           </g>
         </svg>
+        <!-- Vídeo da marca: toca ao entrar na tela; se não carregar, a arte SVG acima permanece -->
+        <video id="brand-video" muted playsinline preload="none">
+          <source src="media/atlas-brand.mp4" type="video/mp4">
+          <source src="media/atlas-brand.webm" type="video/webm">
+        </video>
       </div>
     </div>
   </section>
@@ -2657,6 +2667,21 @@
       }
     }
     frame();
+  })();
+
+  /* ---------- Vídeo da marca: toca quando visível ---------- */
+  (function () {
+    const video = document.getElementById('brand-video');
+    if (!video) return;
+    const vio = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          video.play().catch(() => {});
+          vio.unobserve(video);
+        }
+      });
+    }, { threshold: 0.4 });
+    vio.observe(video);
   })();
 
   /* ---------- Scrollspy: link ativo no nav ---------- */
