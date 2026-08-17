@@ -21,6 +21,7 @@
   "@type": "ProfessionalService",
   "name": "Atlas Tec",
   "url": "https://atlas-partner.com",
+  "email": "sergio.lavezo@atlas-partner.com",
   "description": "Consultoria brasileira de tecnologia, dados, Business Intelligence, Inteligência Artificial e transformação digital.",
   "slogan": "Transformamos dados complexos em decisões extraordinárias.",
   "areaServed": "BR",
@@ -28,14 +29,14 @@
   "sameAs": ["https://www.instagram.com/atlas_tecnologia"]
 }
 </script>
-  <!-- Google Analytics: descomente e insira seu ID de medição (G-XXXXXXX)
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+  <!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B0QFW3ZH7K"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-XXXXXXX');
-</script> -->
+  gtag('config', 'G-B0QFW3ZH7K');
+</script>
   <title>Atlas Tec — Transformamos dados complexos em decisões extraordinárias</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -830,6 +831,15 @@
   .field textarea { min-height: 6.5rem; resize: vertical; }
   .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
   .form-note { font-size: 0.78rem; color: var(--dim); }
+  .form-error {
+    display: none;
+    font-size: 0.9rem;
+    color: #FF9C8F;
+    border: 1px solid rgba(255, 122, 107, 0.4);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+  }
+  .form-error a { color: var(--ink); font-weight: 600; }
   .form-success {
     position: absolute; inset: 0;
     background: var(--panel);
@@ -1553,13 +1563,16 @@
           caminho — mesmo que ele não passe pela gente.
         </p>
         <div class="contact-info">
-          <span>Conecte-se:</span>
+          <span>Fale direto:</span>
+          <a href="mailto:sergio.lavezo@atlas-partner.com">sergio.lavezo@atlas-partner.com</a>
+          <span style="margin-top:0.8rem">Conecte-se:</span>
           <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn ↗</a>
           <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram — @atlas_tecnologia ↗</a>
         </div>
       </div>
-      <!-- Para receber as mensagens, aponte o "action" do form para o seu endpoint
-           (Formspree, Getform ou backend próprio) e ajuste o handler no script. -->
+      <!-- Formulário enviado via FormSubmit (https://formsubmit.co) para
+           sergio.lavezo@atlas-partner.com — o primeiro envio dispara um e-mail
+           de ativação do FormSubmit que precisa ser confirmado uma única vez. -->
       <form class="form reveal d1" id="form" action="#" novalidate>
         <div class="form-row">
           <div class="field"><label for="c-nome">Nome</label><input id="c-nome" name="nome" type="text" autocomplete="name" required></div>
@@ -1584,6 +1597,10 @@
         <div class="field"><label for="c-desafio">Principal desafio</label><textarea id="c-desafio" name="desafio" required placeholder="Ex.: nossos dados estão espalhados em cinco sistemas e a diretoria decide sem indicadores confiáveis…"></textarea></div>
         <button class="btn btn-accent" type="submit" data-magnetic style="justify-content:center;">Enviar → </button>
         <p class="form-note">Seus dados são usados apenas para responder ao seu contato.</p>
+        <p class="form-error" id="form-error" role="alert">
+          Não foi possível enviar agora. Escreva direto para
+          <a href="mailto:sergio.lavezo@atlas-partner.com">sergio.lavezo@atlas-partner.com</a>.
+        </p>
         <div class="form-success" role="status">
           <div>
             <div class="ok"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="m6 13.5 5 5L20 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -1614,8 +1631,9 @@
       </ul>
     </nav>
     <div>
-      <h4>Social</h4>
+      <h4>Contato</h4>
       <ul>
+        <li><a href="mailto:sergio.lavezo@atlas-partner.com">sergio.lavezo@atlas-partner.com</a></li>
         <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a></li>
         <li><a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram</a></li>
         <li><a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></li>
@@ -2507,13 +2525,34 @@
   const track = document.getElementById('marquee-track');
   track.innerHTML += track.innerHTML;
 
-  /* ---------- Formulário ---------- */
+  /* ---------- Formulário → sergio.lavezo@atlas-partner.com (FormSubmit) ---------- */
   const form = document.getElementById('form');
-  form.addEventListener('submit', (e) => {
+  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/sergio.lavezo@atlas-partner.com';
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }
-    // Substitua este bloco por um fetch() para o seu endpoint de formulário.
-    form.classList.add('sent');
+    const btn = form.querySelector('button[type="submit"]');
+    const errEl = document.getElementById('form-error');
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    const data = Object.fromEntries(new FormData(form).entries());
+    data._subject = 'Novo contato pelo site — ' + (data.empresa || data.nome);
+    data._template = 'table';
+    try {
+      const r = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      form.classList.add('sent');
+    } catch (err) {
+      errEl.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Enviar → ';
+    }
   });
 })();
 </script>
