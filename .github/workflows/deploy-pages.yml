@@ -22,7 +22,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p /tmp/site/media
-          cp index.html robots.txt sitemap.xml /tmp/site/
+          cp index.html robots.txt sitemap.xml favicon.svg favicon.ico favicon-32.png apple-touch-icon.png /tmp/site/
           cp -r media/. /tmp/site/media/
           # O arquivo CNAME é adicionado ao gh-pages apenas quando o DNS do
           # domínio estiver apontado (ele define o custom domain no Pages).
