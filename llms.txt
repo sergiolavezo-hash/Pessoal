@@ -1,0 +1,31 @@
+# Atlas Tec
+
+> Consultoria brasileira de tecnologia e dados. Transformamos dados complexos em decisões extraordinárias: estratégia, engenharia de dados, Business Intelligence, Data Visualization, Inteligência Artificial, cloud e outsourcing de especialistas — da origem do dado à tomada de decisão.
+
+Site: https://atlas-partner.com
+Contato: formulário em https://atlas-partner.com/#contato
+Instagram: @atlas_tecnologia
+
+## O que fazemos
+
+- Data & Analytics: transformamos dados dispersos em inteligência acionável
+- Business Intelligence: Power BI, Looker, MicroStrategy e Tableau — indicadores e gestão orientada por dados
+- Data Visualization: design de dados com padrão editorial (protótipos em Figma)
+- Inteligência Artificial: modelos preditivos, machine learning e IA generativa em produção
+- Data Engineering: pipelines com dbt, Airflow, Pentaho e SSIS; governança e qualidade
+- Cloud & Modern Data Stack: Google Cloud (BigQuery), Microsoft Azure (Synapse, Databricks) e AWS; modernização de legado
+- Automação de processos e Transformação Digital
+- Outsourcing: alocação de especialistas em dados, BI, cloud e desenvolvimento
+
+## Experiência comprovada
+
+- Mais de 50 projetos entregues em 10+ setores: serviços financeiros, bancário, varejo, saúde, educação, turismo, food service, infraestrutura e software
+- Modernização de legado Oracle para Google Cloud (Data Lake, BigQuery, dbt, Airflow, Looker)
+- Migração de mais de 200 dashboards de Power BI para Looker com governança e self-service BI
+- Plataforma de dados omnichannel em Azure para grande varejista
+- Modelos preditivos de evasão de alunos para o setor educacional
+- Cases completos: https://atlas-partner.com/#cases
+
+## Para profissionais de TI
+
+Banco de talentos para especialistas em dados, BI, cloud e IA: https://atlas-partner.com/#talentos
