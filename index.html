@@ -2942,6 +2942,47 @@
     let stage = 0; // 0 = aguardando mensagem, 1 = aguardando contato, 2 = enviado
     let pendingMsg = '';
 
+    // ---- Som de notificação Atlas (sintetizado, sem arquivo) ----
+    // Duas notas em quinta perfeita (A5 → E6), ataque suave, decaimento
+    // rápido — minimalista como WhatsApp, timbre limpo como a marca.
+    let audioCtx = null, dingPlayed = false;
+    function unlockAudio() {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        if (!audioCtx) audioCtx = new AC();
+        if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+      } catch (e) {}
+    }
+    ['pointerdown', 'touchstart', 'keydown'].forEach((ev) =>
+      window.addEventListener(ev, unlockAudio, { once: true, passive: true }));
+    function playDing() {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        if (!audioCtx) audioCtx = new AC();
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().catch(() => {});
+          if (audioCtx.state === 'suspended') return; // navegador ainda bloqueia (sem gesto do usuário)
+        }
+        const t0 = audioCtx.currentTime + 0.02;
+        [[880, 0, 0.22], [1318.5, 0.095, 0.3]].forEach(([freq, dt, dur]) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0, t0 + dt);
+          gain.gain.linearRampToValueAtTime(0.13, t0 + dt + 0.012);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dt + dur);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(t0 + dt);
+          osc.stop(t0 + dt + dur + 0.05);
+        });
+        dingPlayed = true;
+      } catch (e) {}
+    }
+
     function addMsg(text, who) {
       const d = document.createElement('div');
       d.className = 'chat-msg ' + who;
@@ -2956,6 +2997,7 @@
     function openPanel() {
       hideTeaser();
       panel.classList.add('open');
+      if (!dingPlayed) playDing();
       try { sessionStorage.setItem('atlas-chat-seen', '1'); } catch (e) {}
       setTimeout(() => input.focus(), 350);
     }
@@ -2970,13 +3012,16 @@
       try { sessionStorage.setItem('atlas-chat-seen', '1'); } catch (e2) {}
     });
 
-    // Convite discreto 10s após entrar no site (uma vez por sessão)
+    // Convite discreto 5s após entrar no site (uma vez por sessão)
     let seen = false;
     try { seen = !!sessionStorage.getItem('atlas-chat-seen'); } catch (e) {}
     if (!seen) {
       setTimeout(() => {
-        if (!panel.classList.contains('open')) teaser.classList.add('show');
-      }, 10000);
+        if (!panel.classList.contains('open')) {
+          teaser.classList.add('show');
+          playDing();
+        }
+      }, 5000);
     }
 
     chips.addEventListener('click', (e) => {
