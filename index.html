@@ -1148,6 +1148,8 @@
     color: var(--accent-ink);
     border-bottom-right-radius: 4px;
   }
+  .chat-msg.bot a { color: var(--accent); font-weight: 600; text-decoration: underline; }
+  .chat-msg.bot a:hover { color: #3FFFDE; }
   .chat-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0 1rem 0.7rem; }
   .chat-chips button {
     background: none;
@@ -3002,6 +3004,22 @@
     function botSay(text, delay) {
       setTimeout(() => { addMsg(text, 'bot'); }, delay || 650);
     }
+    // Mensagem do bot com link de ação (usado no fallback de erro)
+    function botSayAction(text, linkText, href, delay) {
+      setTimeout(() => {
+        const d = document.createElement('div');
+        d.className = 'chat-msg bot';
+        d.appendChild(document.createTextNode(text + ' '));
+        const a = document.createElement('a');
+        a.href = href;
+        a.textContent = linkText;
+        a.addEventListener('click', closePanel);
+        d.appendChild(a);
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+        playRecv();
+      }, delay || 650);
+    }
     function hideTeaser() { teaser.classList.remove('show'); }
     function openPanel() {
       hideTeaser();
@@ -3075,7 +3093,9 @@
           stage = 1;
           input.disabled = false;
           sendBtn.disabled = false;
-          botSay('Ops, não consegui enviar agora. 😕 Tente novamente em instantes — ou chame a gente no Instagram @atlas_tecnologia.', 800);
+          botSayAction(
+            'Ops, tive uma instabilidade aqui e sua mensagem não saiu. 😕 Tente de novo em instantes — ou envie agora mesmo pelo nosso formulário:',
+            'ir para Fale conosco →', '#contato', 800);
         }
       }
     }
