@@ -2956,32 +2956,40 @@
     }
     ['pointerdown', 'touchstart', 'keydown'].forEach((ev) =>
       window.addEventListener(ev, unlockAudio, { once: true, passive: true }));
-    function playDing() {
+    // Sintetizador: notas = [freq, atraso, duração, volume, freqFinal?]
+    function tone(notes) {
       try {
         const AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return;
+        if (!AC) return false;
         if (!audioCtx) audioCtx = new AC();
         if (audioCtx.state === 'suspended') {
           audioCtx.resume().catch(() => {});
-          if (audioCtx.state === 'suspended') return; // navegador ainda bloqueia (sem gesto do usuário)
+          if (audioCtx.state === 'suspended') return false; // sem gesto do usuário ainda
         }
         const t0 = audioCtx.currentTime + 0.02;
-        [[880, 0, 0.22], [1318.5, 0.095, 0.3]].forEach(([freq, dt, dur]) => {
+        notes.forEach(([freq, dt, dur, vol, freqEnd]) => {
           const osc = audioCtx.createOscillator();
           const gain = audioCtx.createGain();
           osc.type = 'sine';
-          osc.frequency.value = freq;
+          osc.frequency.setValueAtTime(freq, t0 + dt);
+          if (freqEnd) osc.frequency.exponentialRampToValueAtTime(freqEnd, t0 + dt + dur);
           gain.gain.setValueAtTime(0, t0 + dt);
-          gain.gain.linearRampToValueAtTime(0.13, t0 + dt + 0.012);
+          gain.gain.linearRampToValueAtTime(vol, t0 + dt + 0.012);
           gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dt + dur);
           osc.connect(gain);
           gain.connect(audioCtx.destination);
           osc.start(t0 + dt);
           osc.stop(t0 + dt + dur + 0.05);
         });
-        dingPlayed = true;
-      } catch (e) {}
+        return true;
+      } catch (e) { return false; }
     }
+    // Convite do Átis: duas notas em quinta (A5 → E6)
+    function playDing() { if (tone([[880, 0, 0.22, 0.13], [1318.5, 0.095, 0.3, 0.13]])) dingPlayed = true; }
+    // Visitante envia: "pop" grave descendente, curtinho
+    function playSend() { tone([[520, 0, 0.1, 0.1, 330]]); }
+    // Átis responde: "ding" agudo suave, nota única
+    function playRecv() { tone([[1318.5, 0, 0.16, 0.09]]); }
 
     function addMsg(text, who) {
       const d = document.createElement('div');
@@ -2989,6 +2997,7 @@
       d.textContent = text;
       msgs.appendChild(d);
       msgs.scrollTop = msgs.scrollHeight;
+      if (who === 'user') playSend(); else playRecv();
     }
     function botSay(text, delay) {
       setTimeout(() => { addMsg(text, 'bot'); }, delay || 650);
