@@ -93,6 +93,42 @@ export function detectRelationships(columns: ProfiledColumnRef[]): DetectedRelat
     }
   }
 
+  // 3. Same column name across tables (covers cod_marca, id_cliente, sku…)
+  //    — no suffix requirement; generic names are excluded to avoid noise.
+  const GENERIC = new Set([
+    "id", "nome", "name", "status", "data", "date", "descricao", "description",
+    "valor", "value", "tipo", "type", "ativo", "active", "email", "created_at",
+    "updated_at", "quantidade", "qtd", "total", "obs", "observacao",
+  ]);
+  const byName = new Map<string, ProfiledColumnRef[]>();
+  for (const c of columns) {
+    const key = normalize(c.name);
+    if (GENERIC.has(c.name.toLowerCase())) continue;
+    (byName.get(key) ?? byName.set(key, []).get(key)!).push(c);
+  }
+  for (const group of byName.values()) {
+    const tablesInGroup = new Set(group.map((c) => c.tableId));
+    if (tablesInGroup.size < 2) continue;
+    // Target = the most unique side (the "one" side of the relationship).
+    const sorted = [...group].sort((a, b) => (b.cardinality ?? 0) - (a.cardinality ?? 0));
+    const target = sorted[0];
+    for (const source of group) {
+      if (source.tableId === target.tableId) continue;
+      if (!typesCompatible(source.dataType, target.dataType)) continue;
+      const key = `${source.id}->${target.id}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const targetUnique = (target.cardinality ?? 0) > 0.95;
+      results.push({
+        sourceColumnId: source.id,
+        targetColumnId: target.id,
+        relationshipType: "many-to-one",
+        confidence: targetUnique ? 0.85 : 0.7,
+        reason: `Column "${source.name}" exists in both ${source.tableName} and ${target.tableName}`,
+      });
+    }
+  }
+
   // Keep only the best target per source column.
   const bestBySource = new Map<string, DetectedRelationship>();
   for (const r of results) {

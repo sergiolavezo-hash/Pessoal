@@ -44,6 +44,30 @@ export async function syncDataSource(ctx: ApiContext, dataSourceId: string) {
   const { dataSource, connector } = await getConnectorFor(ctx, dataSourceId);
   const supabase = ctx.supabase;
 
+  // Fontes de arquivo: o catálogo é mantido pelo upload (dataset "files").
+  // Sincronizar pelo conector duplicaria as tabelas sob o schema físico
+  // "file_data" — em vez disso, remove duplicatas antigas e retorna.
+  if (dataSource.type === "file") {
+    await connector.close().catch(() => undefined);
+    const { data: stray } = await supabase
+      .from("datasets")
+      .select("id, name")
+      .eq("data_source_id", dataSource.id)
+      .neq("name", "files");
+    for (const ds of stray ?? []) {
+      await supabase.from("datasets").delete().eq("id", ds.id);
+    }
+    const { count } = await supabase
+      .from("catalog_tables")
+      .select("id", { count: "exact", head: true })
+      .eq("workspace_id", ctx.workspaceId);
+    await supabase
+      .from("data_sources")
+      .update({ status: "CONNECTED", last_sync_at: new Date().toISOString(), last_error: null })
+      .eq("id", dataSource.id);
+    return { schemas: 1, tables: count ?? 0, columns: 0, note: "file catalog managed by uploads" };
+  }
+
   await supabase.from("data_sources").update({ status: "SYNCING" }).eq("id", dataSource.id);
 
   try {
