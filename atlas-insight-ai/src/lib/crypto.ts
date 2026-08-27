@@ -1,74 +1,41 @@
-import { createCipheriv, createDecipheriv, randomBytes } from "node:crypto";
+import "server-only";
+import { createCipheriv, createDecipheriv, createHash, randomBytes } from "crypto";
+import { serverEnv } from "@/lib/env";
 
 /**
- * Criptografia de credenciais de fontes de dados — AES-256-GCM.
- * O ciphertext, IV e auth tag são persistidos em data_source_credentials
- * (tabela sem políticas RLS de cliente: somente service role lê/escreve).
- * A chave NUNCA vai para o banco: vem de ENCRYPTION_KEY no ambiente.
+ * AES-256-GCM encryption for data source credentials at rest.
+ * The key is derived from ENCRYPTION_KEY (env). Architecture note: swap this
+ * module for a Secrets Manager client without touching callers.
  */
 
-const ALGO = "aes-256-gcm";
-const IV_BYTES = 12;
-const KEY_BYTES = 32;
-
-export interface EncryptedPayload {
-  ciphertext: string; // base64
-  iv: string; // base64
-  authTag: string; // base64
-  keyVersion: number;
-}
-
-function decodeKey(base64Key: string): Buffer {
-  const key = Buffer.from(base64Key, "base64");
-  if (key.length !== KEY_BYTES) {
-    throw new Error(
-      `Chave de criptografia inválida: esperados ${KEY_BYTES} bytes, recebidos ${key.length}. ` +
-        "Gere com: openssl rand -base64 32"
-    );
+function key(): Buffer {
+  const env = serverEnv();
+  if (!env.ENCRYPTION_KEY) {
+    throw new Error("ENCRYPTION_KEY is not configured");
   }
-  return key;
+  return createHash("sha256").update(env.ENCRYPTION_KEY).digest();
 }
 
-export function encryptSecret(
-  plaintext: string,
-  base64Key: string,
-  keyVersion = 1
-): EncryptedPayload {
-  const key = decodeKey(base64Key);
-  const iv = randomBytes(IV_BYTES);
-  const cipher = createCipheriv(ALGO, key, iv);
-  const ciphertext = Buffer.concat([cipher.update(plaintext, "utf8"), cipher.final()]);
-  return {
-    ciphertext: ciphertext.toString("base64"),
-    iv: iv.toString("base64"),
-    authTag: cipher.getAuthTag().toString("base64"),
-    keyVersion,
-  };
+export function encryptJson(payload: unknown): string {
+  const iv = randomBytes(12);
+  const cipher = createCipheriv("aes-256-gcm", key(), iv);
+  const plaintext = Buffer.from(JSON.stringify(payload), "utf8");
+  const ciphertext = Buffer.concat([cipher.update(plaintext), cipher.final()]);
+  const tag = cipher.getAuthTag();
+  return Buffer.concat([iv, tag, ciphertext]).toString("base64");
 }
 
-export function decryptSecret(payload: EncryptedPayload, base64Key: string): string {
-  const key = decodeKey(base64Key);
-  const decipher = createDecipheriv(ALGO, key, Buffer.from(payload.iv, "base64"));
-  decipher.setAuthTag(Buffer.from(payload.authTag, "base64"));
-  const plaintext = Buffer.concat([
-    decipher.update(Buffer.from(payload.ciphertext, "base64")),
-    decipher.final(),
-  ]);
-  return plaintext.toString("utf8");
+export function decryptJson<T = unknown>(encoded: string): T {
+  const raw = Buffer.from(encoded, "base64");
+  const iv = raw.subarray(0, 12);
+  const tag = raw.subarray(12, 28);
+  const ciphertext = raw.subarray(28);
+  const decipher = createDecipheriv("aes-256-gcm", key(), iv);
+  decipher.setAuthTag(tag);
+  const plaintext = Buffer.concat([decipher.update(ciphertext), decipher.final()]);
+  return JSON.parse(plaintext.toString("utf8")) as T;
 }
 
-/** Serializa credenciais estruturadas (objeto) para armazenamento cifrado. */
-export function encryptCredentials(
-  credentials: Record<string, unknown>,
-  base64Key: string,
-  keyVersion = 1
-): EncryptedPayload {
-  return encryptSecret(JSON.stringify(credentials), base64Key, keyVersion);
-}
-
-export function decryptCredentials<T = Record<string, unknown>>(
-  payload: EncryptedPayload,
-  base64Key: string
-): T {
-  return JSON.parse(decryptSecret(payload, base64Key)) as T;
+export function sha256(text: string): string {
+  return createHash("sha256").update(text).digest("hex");
 }

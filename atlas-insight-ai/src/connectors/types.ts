@@ -1,76 +1,89 @@
-import type { DataSourceKind } from "@/types/domain";
+// Common connector contract. Every data source adapter implements this
+// interface — no connector-specific code may leak into the rest of the app.
 
-/**
- * Contrato único de conectores (spec §14): cada fonte de dados —
- * BigQuery, PostgreSQL, SQL Server, arquivos — implementa esta
- * interface. O motor de consultas só conhece o contrato, nunca o driver.
- */
-
-export interface ConnectionTestResult {
+export interface ConnectionResult {
   ok: boolean;
+  message: string;
   latencyMs?: number;
-  serverVersion?: string;
-  error?: string;
 }
 
-export interface TableRef {
-  schema: string | null;
+export interface SchemaInfo {
   name: string;
-  kind: "TABLE" | "VIEW";
-  rowCountEstimate?: number | null;
 }
 
-export interface ColumnRef {
+export interface TableInfo {
+  schema: string;
+  name: string;
+  rowCount?: number | null;
+}
+
+export interface ColumnInfo {
   name: string;
   dataType: string;
   nullable: boolean;
   ordinal: number;
 }
 
-export interface QueryResult {
-  columns: Array<{ name: string; type: string }>;
-  rows: Array<Record<string, unknown>>;
-  rowCount: number;
-  truncated: boolean;
-  elapsedMs: number;
-}
-
 export interface QueryOptions {
-  /** Teto de linhas retornadas — o guard aplica LIMIT quando ausente. */
+  /** Hard cap on returned rows. Connectors must enforce it server-side. */
   maxRows?: number;
-  /** Timeout de execução em ms. */
+  /** Statement timeout in milliseconds. */
   timeoutMs?: number;
+  /** Named parameters for parameterized execution where supported. */
+  params?: Record<string, unknown>;
 }
 
-/**
- * Um conector recebe credenciais JÁ decifradas (objeto), vindas do
- * serviço de credenciais — nunca lê variáveis de ambiente nem persiste
- * segredos.
- */
+export interface QueryResult {
+  columns: Array<{ name: string; type?: string }>;
+  rows: Record<string, unknown>[];
+  rowCount: number;
+  durationMs: number;
+  truncated: boolean;
+}
+
+export interface DataMetadata {
+  dialect: SqlDialect;
+  schemas: SchemaInfo[];
+  defaultSchema?: string;
+}
+
+export type SqlDialect = "bigquery" | "postgres" | "sqlserver";
+
 export interface DataConnector {
-  readonly kind: DataSourceKind;
-
-  /** Valida conectividade e credenciais sem efeitos colaterais. */
-  testConnection(): Promise<ConnectionTestResult>;
-
-  /** Lista tabelas e views visíveis. */
-  listTables(): Promise<TableRef[]>;
-
-  /** Lista colunas de uma tabela. */
-  listColumns(table: TableRef): Promise<ColumnRef[]>;
-
+  readonly dialect: SqlDialect;
+  testConnection(): Promise<ConnectionResult>;
+  getMetadata(): Promise<DataMetadata>;
+  listSchemas(): Promise<SchemaInfo[]>;
+  listTables(schema?: string): Promise<TableInfo[]>;
+  getColumns(table: string, schema?: string): Promise<ColumnInfo[]>;
+  getSampleData(table: string, limit?: number, schema?: string): Promise<Record<string, unknown>[]>;
   /**
-   * Executa uma consulta de LEITURA. Implementações devem chamar o
-   * sql-guard antes de tocar o driver — defesa em profundidade mesmo
-   * que o chamador já tenha validado.
+   * Executes a read-only query. Callers MUST validate the SQL with
+   * `validateReadOnlySql` before calling; connectors additionally enforce
+   * read-only sessions where the engine supports it.
    */
-  query(sql: string, options?: QueryOptions): Promise<QueryResult>;
-
-  /** Libera pools/handles. Idempotente. */
+  executeQuery(query: string, options?: QueryOptions): Promise<QueryResult>;
+  /** Quotes an identifier for this dialect. */
+  quoteIdentifier(identifier: string): string;
   close(): Promise<void>;
 }
 
-export type ConnectorFactory = (
-  config: Record<string, unknown>,
-  credentials: Record<string, unknown>
-) => DataConnector;
+export class ConnectorError extends Error {
+  constructor(
+    message: string,
+    public readonly code:
+      | "CONNECTION_FAILED"
+      | "AUTH_FAILED"
+      | "QUERY_FAILED"
+      | "TIMEOUT"
+      | "NOT_SUPPORTED"
+      | "BLOCKED" = "QUERY_FAILED"
+  ) {
+    super(message);
+    this.name = "ConnectorError";
+  }
+}
+
+export const DEFAULT_MAX_ROWS = 10_000;
+export const DEFAULT_TIMEOUT_MS = 30_000;
+export const SAMPLE_LIMIT = 100;

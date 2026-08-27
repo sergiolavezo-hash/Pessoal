@@ -1,0 +1,90 @@
+"use client";
+
+import { useState } from "react";
+import { Compass } from "lucide-react";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createClient } from "@/lib/supabase/client";
+import { slugify } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
+const schema = z.object({
+  organizationName: z.string().min(2, "Enter your company or team name"),
+  workspaceName: z.string().min(2, "Enter a workspace name"),
+});
+
+type FormValues = z.infer<typeof schema>;
+
+export default function OnboardingPage() {
+  const [serverError, setServerError] = useState<string | null>(null);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { workspaceName: "Main" },
+  });
+
+  async function onSubmit(values: FormValues) {
+    setServerError(null);
+    const supabase = createClient();
+    const slug = `${slugify(values.organizationName)}-${Math.random().toString(36).slice(2, 7)}`;
+    const { error } = await supabase.rpc("bootstrap_organization", {
+      org_name: values.organizationName,
+      org_slug: slug,
+      workspace_name: values.workspaceName,
+    });
+    if (error) {
+      setServerError(error.message);
+      return;
+    }
+    window.location.assign("/dashboard");
+  }
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background p-6">
+      <div className="w-full max-w-md">
+        <div className="mb-6 flex items-center justify-center gap-2 text-lg font-semibold">
+          <Compass className="h-6 w-6 text-primary" />
+          Atlas Insight AI
+        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Set up your organization</CardTitle>
+            <CardDescription>
+              Your organization holds your team, and workspaces hold your data sources, metrics
+              and dashboards.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form noValidate onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="organizationName">Organization name</Label>
+                <Input id="organizationName" placeholder="Acme Inc." {...register("organizationName")} />
+                {errors.organizationName && (
+                  <p className="text-xs text-destructive">{errors.organizationName.message}</p>
+                )}
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="workspaceName">First workspace</Label>
+                <Input id="workspaceName" placeholder="Main" {...register("workspaceName")} />
+                {errors.workspaceName && (
+                  <p className="text-xs text-destructive">{errors.workspaceName.message}</p>
+                )}
+              </div>
+              {serverError && <p className="text-sm text-destructive">{serverError}</p>}
+              <Button type="submit" className="w-full" loading={isSubmitting}>
+                Create workspace
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}

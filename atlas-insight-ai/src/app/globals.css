@@ -1,0 +1,125 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(0.985 0.002 247);
+  --foreground: oklch(0.21 0.015 262);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.015 262);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.015 262);
+  --primary: oklch(0.51 0.2 268);
+  --primary-foreground: oklch(0.985 0.002 247);
+  --secondary: oklch(0.955 0.004 255);
+  --secondary-foreground: oklch(0.3 0.02 262);
+  --muted: oklch(0.955 0.004 255);
+  --muted-foreground: oklch(0.52 0.015 260);
+  --accent: oklch(0.945 0.01 265);
+  --accent-foreground: oklch(0.3 0.02 262);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.985 0.002 247);
+  --success: oklch(0.6 0.14 155);
+  --warning: oklch(0.72 0.15 70);
+  --border: oklch(0.916 0.006 255);
+  --input: oklch(0.916 0.006 255);
+  --ring: oklch(0.51 0.2 268);
+  /* Categorical series palette — validated (CVD + normal-vision separation).
+     Fixed assignment order; never cycle. */
+  --chart-1: #2a78d6;
+  --chart-2: #eb6834;
+  --chart-3: #1baf7a;
+  --chart-4: #eda100;
+  --chart-5: #e87ba4;
+  --radius: 0.5rem;
+  --sidebar: oklch(0.975 0.003 250);
+  --sidebar-foreground: oklch(0.35 0.015 262);
+  --sidebar-accent: oklch(0.93 0.008 260);
+}
+
+.dark {
+  --background: oklch(0.17 0.012 262);
+  --foreground: oklch(0.93 0.005 250);
+  --card: oklch(0.2 0.014 262);
+  --card-foreground: oklch(0.93 0.005 250);
+  --popover: oklch(0.2 0.014 262);
+  --popover-foreground: oklch(0.93 0.005 250);
+  --primary: oklch(0.62 0.19 268);
+  --primary-foreground: oklch(0.985 0.002 247);
+  --secondary: oklch(0.25 0.015 262);
+  --secondary-foreground: oklch(0.9 0.005 250);
+  --muted: oklch(0.25 0.015 262);
+  --muted-foreground: oklch(0.65 0.012 258);
+  --accent: oklch(0.27 0.02 265);
+  --accent-foreground: oklch(0.9 0.005 250);
+  --destructive: oklch(0.62 0.19 27);
+  --destructive-foreground: oklch(0.985 0.002 247);
+  --success: oklch(0.66 0.13 155);
+  --warning: oklch(0.75 0.14 70);
+  --border: oklch(0.28 0.015 262);
+  --input: oklch(0.28 0.015 262);
+  --ring: oklch(0.62 0.19 268);
+  /* Same hues stepped for the dark surface (validated as a set). */
+  --chart-1: #3987e5;
+  --chart-2: #d95926;
+  --chart-3: #199e70;
+  --chart-4: #c98500;
+  --chart-5: #d55181;
+  --sidebar: oklch(0.15 0.012 262);
+  --sidebar-foreground: oklch(0.8 0.008 255);
+  --sidebar-accent: oklch(0.24 0.018 264);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+::selection {
+  background: color-mix(in oklch, var(--primary) 20%, transparent);
+}
