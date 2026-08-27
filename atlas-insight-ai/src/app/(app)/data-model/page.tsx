@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ModelActions } from "@/features/data-model/model-actions";
+import { ObjectMenu } from "@/components/ui/object-menu";
 import type { CatalogColumn, ColumnClassification } from "@/types";
 
 export const metadata = { title: "Data Model" };
@@ -76,9 +77,17 @@ export default async function DataModelPage() {
         <div className="mb-6 flex flex-wrap items-center gap-2">
           <span className="text-sm text-muted-foreground">Semantic models:</span>
           {(models ?? []).map((m) => (
-            <Badge key={m.id} variant={m.status === "ACTIVE" ? "success" : "secondary"}>
-              {m.name} v{m.version} · {m.status}
-            </Badge>
+            <span key={m.id} className="inline-flex items-center gap-0.5">
+              <Badge variant={m.status === "ACTIVE" ? "success" : "secondary"}>
+                {m.name} v{m.version} · {m.status}
+              </Badge>
+              {canEdit && (
+                <ObjectMenu
+                  deleteEndpoint={`/api/semantic-models/${m.id}?workspaceId=${ws}`}
+                  deleteConfirm={`Delete semantic model "${m.name}" (v${m.version})? Dashboards keep working; AI generation will fall back to the raw schema.`}
+                />
+              )}
+            </span>
           ))}
         </div>
       )}
