@@ -8,6 +8,11 @@ import type { BusinessRule, Metric } from "@/types";
 // 4. data profile, 5. documents, 6. raw schema.
 // Secrets and credentials NEVER enter this context.
 
+export interface RawSchemaTable {
+  table: string;
+  columns: Array<{ name: string; type: string }>;
+}
+
 export interface WorkspaceAiContext {
   dataSourceId: string | null;
   dialect: "postgres" | "sqlserver" | "bigquery" | null;
@@ -16,6 +21,12 @@ export interface WorkspaceAiContext {
   metrics: Metric[];
   businessRules: BusinessRule[];
   glossary: Array<{ term: string; synonyms: string[]; definition: string | null }>;
+  /**
+   * Physical schema discovered in the catalog for the selected data source.
+   * Always included when available — it is the ground truth of which
+   * columns exist, even when a semantic model is present.
+   */
+  rawSchema: RawSchemaTable[];
   /** Physical table identifiers the AI may reference in SQL. */
   allowedTables: string[];
   contextVersion: string;
@@ -46,10 +57,11 @@ export async function buildWorkspaceContext(
     ctx.supabase.from("glossary_terms").select("term, synonyms, definition").eq("workspace_id", ctx.workspaceId),
   ]);
 
-  const preferredModel = preferredDataSourceId
+  // When the caller selected a data source, NEVER fall back to another
+  // source's semantic model — mixing sources produces invented columns.
+  const modelRow = preferredDataSourceId
     ? (models ?? []).find((m) => m.data_source_id === preferredDataSourceId)
-    : undefined;
-  const modelRow = preferredModel ?? (models ?? [])[0];
+    : (models ?? [])[0];
 
   let semanticModel: SemanticModel | null = null;
   if (modelRow) {
@@ -57,13 +69,53 @@ export async function buildWorkspaceContext(
     semanticModel = parsed.success ? parsed.data : null;
   }
 
+  // Ground truth: the discovered physical schema of the selected source.
+  const dataSourceId = preferredDataSourceId ?? modelRow?.data_source_id ?? null;
+  const rawSchema: RawSchemaTable[] = [];
+  if (dataSourceId) {
+    const { data: datasets } = await ctx.supabase
+      .from("datasets")
+      .select("id")
+      .eq("data_source_id", dataSourceId);
+    const datasetIds = (datasets ?? []).map((d) => d.id);
+    if (datasetIds.length > 0) {
+      const { data: tables } = await ctx.supabase
+        .from("catalog_tables")
+        .select("id, name")
+        .in("dataset_id", datasetIds);
+      const tableIds = (tables ?? []).map((t) => t.id);
+      if (tableIds.length > 0) {
+        const { data: columns } = await ctx.supabase
+          .from("catalog_columns")
+          .select("table_id, name, data_type, ordinal")
+          .in("table_id", tableIds)
+          .order("ordinal");
+        for (const t of tables ?? []) {
+          rawSchema.push({
+            table: t.name,
+            columns: (columns ?? [])
+              .filter((c) => c.table_id === t.id)
+              .map((c) => ({ name: c.name, type: c.data_type })),
+          });
+        }
+      }
+    }
+  }
+
   // Certified metrics first — the AI must prefer them.
   const sortedMetrics = ((metrics ?? []) as Metric[]).sort(
     (a, b) => Number(b.certified) - Number(a.certified)
   );
 
+  const allowedTables = Array.from(
+    new Set([
+      ...(semanticModel?.entities.map((e) => e.table) ?? []),
+      ...rawSchema.map((t) => t.table),
+    ])
+  );
+
   return {
-    dataSourceId: modelRow?.data_source_id ?? preferredDataSourceId ?? null,
+    dataSourceId,
     dialect: semanticModel?.dialect ?? null,
     semanticModel,
     semanticModelId: modelRow?.id ?? null,
@@ -74,8 +126,9 @@ export async function buildWorkspaceContext(
       synonyms: g.synonyms ?? [],
       definition: g.definition,
     })),
-    allowedTables: semanticModel?.entities.map((e) => e.table) ?? [],
-    contextVersion: `${modelRow?.id ?? "none"}:${modelRow?.version ?? 0}:${(metrics ?? []).length}m:${(rules ?? []).length}r`,
+    rawSchema,
+    allowedTables,
+    contextVersion: `${modelRow?.id ?? "none"}:${modelRow?.version ?? 0}:${(metrics ?? []).length}m:${(rules ?? []).length}r:${rawSchema.length}t`,
   };
 }
 
@@ -136,6 +189,20 @@ export function renderContextForPrompt(context: WorkspaceAiContext): string {
               .map((r) => `- ${r.fromEntity}.${r.fromField} -> ${r.toEntity}.${r.toField} (${r.type})`)
               .join("\n")
           : "")
+    );
+  }
+
+  if (context.rawSchema.length > 0) {
+    parts.push(
+      "## Physical schema — GROUND TRUTH\n" +
+        "These are the ONLY tables and columns that exist. Any SQL referencing a column not listed here WILL FAIL.\n" +
+        context.rawSchema
+          .map(
+            (t) =>
+              `### Table: ${t.table}\n` +
+              t.columns.map((c) => `- ${c.name} (${c.type})`).join("\n")
+          )
+          .join("\n\n")
     );
   }
 

@@ -8,6 +8,7 @@ import {
   businessRulePrompt,
   chatAnswerPrompt,
   dashboardEditPrompt,
+  dashboardRepairPrompt,
   dashboardSpecPrompt,
   intentAndSqlPrompt,
   sqlRepairPrompt,
@@ -261,10 +262,15 @@ ${resultSample}`;
   /** Generates a validated DashboardSpec from a natural-language request. */
   async generateDashboard(request: string, preferredDataSourceId?: string): Promise<DashboardSpec> {
     const context = await buildWorkspaceContext(this.ctx, preferredDataSourceId);
-    if (!context.dataSourceId || !context.semanticModel) {
+    if (!context.dataSourceId) {
+      throw new ApiError(422, "Select a data source to ground the dashboard.");
+    }
+    // A semantic model is ideal, but the discovered physical schema is
+    // enough ground truth to generate safely.
+    if (!context.semanticModel && context.rawSchema.length === 0) {
       throw new ApiError(
         422,
-        "No active semantic model. Connect a data source, run profiling and generate a semantic model first."
+        "This data source has no synced schema yet. Open it in Data Sources and run Sync schema first."
       );
     }
     const system = `${dashboardSpecPrompt()}\n\n# Workspace data context\n${renderContextForPrompt(context)}`;
@@ -277,9 +283,77 @@ ${resultSample}`;
         maxTokens: 12000,
       });
 
-      const spec = await this.validateSpec(extractJson(response.text), context);
-      return { value: spec, inputTokens: response.inputTokens, outputTokens: response.outputTokens };
+      const raw = extractJson(response.text);
+      this.throwIfModelDeclined(raw);
+      let spec = await this.validateSpec(raw, context);
+      let inputTokens = response.inputTokens;
+      let outputTokens = response.outputTokens;
+
+      // Dry-run every widget query against the real source; give the model
+      // ONE repair round with the actual database errors before saving.
+      let failures = await this.dryRunWidgets(spec, context.dataSourceId!);
+      if (failures.length > 0) {
+        const repair = await this.provider.complete({
+          system: `${dashboardRepairPrompt(
+            JSON.stringify(spec, null, 2),
+            failures.map((f) => `- Widget "${f.title}": ${f.error}`).join("\n")
+          )}\n\n# Workspace data context\n${renderContextForPrompt(context)}`,
+          messages: [{ role: "user", content: "Fix the failing widgets." }],
+          jsonMode: true,
+          maxTokens: 12000,
+        });
+        inputTokens += repair.inputTokens;
+        outputTokens += repair.outputTokens;
+        const repairedRaw = extractJson(repair.text);
+        this.throwIfModelDeclined(repairedRaw);
+        spec = await this.validateSpec(repairedRaw, context);
+        failures = await this.dryRunWidgets(spec, context.dataSourceId!);
+        if (failures.length > 0) {
+          throw new ApiError(
+            422,
+            `The generated dashboard doesn't match this data source. Failing widgets: ${failures
+              .map((f) => `"${f.title}" (${f.error})`)
+              .join("; ")}. Try describing a dashboard based on the columns your data actually has.`
+          );
+        }
+      }
+
+      return { value: spec, inputTokens, outputTokens };
     });
+  }
+
+  /** The model may decline with {"error": "..."} when data and request don't match. */
+  private throwIfModelDeclined(raw: unknown): void {
+    if (
+      raw &&
+      typeof raw === "object" &&
+      "error" in raw &&
+      typeof (raw as { error: unknown }).error === "string"
+    ) {
+      throw new ApiError(422, (raw as { error: string }).error);
+    }
+  }
+
+  /** Executes each widget query with a 1-row cap; returns the failures. */
+  private async dryRunWidgets(
+    spec: DashboardSpec,
+    dataSourceId: string
+  ): Promise<Array<{ title: string; error: string }>> {
+    const failures: Array<{ title: string; error: string }> = [];
+    for (const widget of spec.widgets) {
+      try {
+        await executeQuery(this.ctx, dataSourceId, widget.query.sql, {
+          maxRows: 1,
+          context: { purpose: "dashboard_dry_run" },
+        });
+      } catch (error) {
+        failures.push({
+          title: widget.title,
+          error: error instanceof Error ? error.message : String(error),
+        });
+      }
+    }
+    return failures;
   }
 
   /** Applies a natural-language edit to an existing validated spec. */
@@ -294,7 +368,9 @@ ${resultSample}`;
         jsonMode: true,
         maxTokens: 12000,
       });
-      const spec = await this.validateSpec(extractJson(response.text), context);
+      const editedRaw = extractJson(response.text);
+      this.throwIfModelDeclined(editedRaw);
+      const spec = await this.validateSpec(editedRaw, context);
       return { value: spec, inputTokens: response.inputTokens, outputTokens: response.outputTokens };
     });
   }

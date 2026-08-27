@@ -8,7 +8,8 @@ import { assertAllowed, canRunDashboard, consumeDashboardRun } from "@/services/
 const bodySchema = z.object({
   workspaceId: z.string().uuid(),
   prompt: z.string().min(5).max(4000),
-  dataSourceId: z.string().uuid().optional(),
+  // Obrigatório: o painel é estruturado a partir de UMA fonte selecionada.
+  dataSourceId: z.string().uuid(),
 });
 
 /** Natural language -> validated DashboardSpecification -> stored dashboard. */

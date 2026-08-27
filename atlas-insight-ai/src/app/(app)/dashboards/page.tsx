@@ -16,12 +16,33 @@ export default async function DashboardsPage() {
   const ctx = await getAppContext();
   const supabase = await createClient();
 
-  const { data } = await supabase
-    .from("dashboards")
-    .select("*")
-    .eq("workspace_id", ctx.workspace.id)
-    .is("deleted_at", null)
-    .order("updated_at", { ascending: false });
+  const [{ data }, { data: sources }, { data: activeModels }] = await Promise.all([
+    supabase
+      .from("dashboards")
+      .select("*")
+      .eq("workspace_id", ctx.workspace.id)
+      .is("deleted_at", null)
+      .order("updated_at", { ascending: false }),
+    supabase
+      .from("data_sources")
+      .select("id, name, type")
+      .eq("workspace_id", ctx.workspace.id)
+      .is("deleted_at", null)
+      .order("created_at"),
+    supabase
+      .from("semantic_models")
+      .select("data_source_id")
+      .eq("workspace_id", ctx.workspace.id)
+      .eq("status", "ACTIVE"),
+  ]);
+
+  const withModel = new Set((activeModels ?? []).map((m) => m.data_source_id));
+  const sourceOptions = (sources ?? []).map((s) => ({
+    id: s.id as string,
+    name: s.name as string,
+    type: s.type as string,
+    hasModel: withModel.has(s.id),
+  }));
 
   const dashboards = (data ?? []) as Dashboard[];
   const canEdit = ctx.role !== "VIEWER";
@@ -31,7 +52,7 @@ export default async function DashboardsPage() {
       <PageHeader
         title="Dashboards"
         description="AI-generated, spec-driven dashboards backed by validated queries."
-        actions={canEdit ? <GenerateDashboardDialog workspaceId={ctx.workspace.id} /> : undefined}
+        actions={canEdit ? <GenerateDashboardDialog workspaceId={ctx.workspace.id} sources={sourceOptions} /> : undefined}
       />
 
       {dashboards.length === 0 ? (
@@ -39,7 +60,7 @@ export default async function DashboardsPage() {
           icon={LayoutDashboard}
           title="No dashboards yet"
           description="Describe what you want to analyze and Atlas will design the dashboard for you."
-          action={canEdit ? <GenerateDashboardDialog workspaceId={ctx.workspace.id} /> : undefined}
+          action={canEdit ? <GenerateDashboardDialog workspaceId={ctx.workspace.id} sources={sourceOptions} /> : undefined}
         />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

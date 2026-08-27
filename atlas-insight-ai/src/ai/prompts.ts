@@ -82,7 +82,23 @@ ${VISUAL_RULES.map((r) => `- ${r.goal} -> ${r.type}`).join("\n")}
 
 ${SQL_RULES}
 
+## Hard constraints (violations make the output unusable)
+- Use ONLY tables and columns that appear in the workspace data context (semantic model and/or Physical schema). NEVER invent, guess or translate a table or column name — copy names exactly as listed.
+- If the user's request cannot be answered with the available data (different domain, missing fields), DO NOT produce a spec. Instead return exactly: {"error": "<in the user's language: one short sentence saying what the data actually contains, plus one suggestion of a dashboard that IS possible with it>"}
+
 Create 4-8 widgets that best answer the request. Respond with ONLY the JSON object.`;
+}
+
+export function dashboardRepairPrompt(spec: string, failures: string): string {
+  return `You are Atlas. The dashboard specification below was generated, but some widget queries FAILED when executed against the real database. Fix ONLY the failing widgets so their SQL runs, using EXCLUSIVELY the tables and columns listed in the workspace data context — never invent a column. Keep all other widgets and ids untouched. Return the COMPLETE corrected JSON spec (same schema).
+
+Current specification:
+${spec}
+
+Execution failures:
+${failures}
+
+Respond with ONLY the corrected JSON object.`;
 }
 
 export function dashboardEditPrompt(currentSpec: string): string {
