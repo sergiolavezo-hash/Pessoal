@@ -231,19 +231,14 @@
 </footer>
 
 <script>
-  // Enquanto o app não estiver publicado em app.atlas-partner.com,
-  // os botões levam ao contato para entrar na lista de acesso antecipado.
+  // App publicado. Troque APP_BASE para 'https://app.atlas-partner.com'
+  // assim que o CNAME "app" estiver ativo no DNS.
   (function () {
-    var APP_LIVE = false; // mudar para true quando o app for deployado
-    if (!APP_LIVE) {
-      document.querySelectorAll('[data-app]').forEach(function (a) {
-        a.addEventListener('click', function (e) {
-          e.preventDefault();
-          alert('O Atlas Insight AI está em acesso antecipado. Deixe seu contato em "Fale conosco" que avisamos você no lançamento!');
-          location.href = '/#contato';
-        });
-      });
-    }
+    var APP_BASE = 'https://atlas-insight-ai.vercel.app';
+    document.querySelectorAll('[data-app]').forEach(function (a) {
+      var u = new URL(a.getAttribute('href'));
+      a.href = APP_BASE + u.pathname + u.search;
+    });
   })();
 </script>
 </body>
