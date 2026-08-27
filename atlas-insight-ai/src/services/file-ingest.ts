@@ -181,6 +181,20 @@ export async function ingestParsedFile(
 
   const physicalName = fileTableName(tableRow.id);
 
+  // Proteção de performance: arquivos gigantes degradam o motor de
+  // consultas — acima do teto, oriente conectar o banco de origem.
+  const MAX_FILE_ROWS = 200_000;
+  if (parsed.rows.length > MAX_FILE_ROWS) {
+    throw new Error(
+      `File has ${parsed.rows.length.toLocaleString()} rows — the limit for file uploads is ${MAX_FILE_ROWS.toLocaleString()}. For large data, connect the source database (PostgreSQL/SQL Server/BigQuery) instead: queries run at the source and stay fast.`
+    );
+  }
+
+  // Atualização garantida: re-enviar um arquivo com o MESMO nome substitui
+  // os dados anteriores (drop + recreate), refletindo a origem atualizada.
+  await admin.rpc("drop_file_table", { p_table_name: physicalName });
+  await ctx.supabase.from("catalog_columns").delete().eq("table_id", tableRow.id);
+
   // 4. Physical table + rows (service role RPCs; see migration 0006).
   const { error: createError } = await admin.rpc("create_file_table", {
     p_table_name: physicalName,

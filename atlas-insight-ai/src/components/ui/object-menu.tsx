@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { ExternalLink, Link2, MoreHorizontal, Trash2 } from "lucide-react";
+import { ExternalLink, FolderInput, Link2, MoreHorizontal, Trash2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,6 +24,9 @@ export function ObjectMenu({
   deleteConfirm = "Delete this item? This cannot be undone.",
   redirectAfterDelete,
   canDelete = true,
+  moveEndpoint,
+  moveBody = {},
+  currentFolder,
 }: {
   /** Optional "Open" item. */
   openHref?: string;
@@ -35,6 +38,10 @@ export function ObjectMenu({
   /** Where to go after delete (defaults to refreshing the current page). */
   redirectAfterDelete?: string;
   canDelete?: boolean;
+  /** PATCH endpoint for "Move to folder" — body merges moveBody + {folder}. */
+  moveEndpoint?: string;
+  moveBody?: Record<string, unknown>;
+  currentFolder?: string | null;
 }) {
   const router = useRouter();
   const [deleting, setDeleting] = useState(false);
@@ -106,6 +113,35 @@ export function ObjectMenu({
           >
             <Link2 />
             Copy link
+          </DropdownMenuItem>
+        )}
+        {moveEndpoint && (
+          <DropdownMenuItem
+            onSelect={async () => {
+              const folder = prompt(
+                'Folder name (empty removes it from any folder):',
+                currentFolder ?? ""
+              );
+              if (folder === null) return;
+              try {
+                const res = await fetch(moveEndpoint, {
+                  method: "PATCH",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ ...moveBody, folder: folder.trim() || null }),
+                });
+                if (!res.ok) {
+                  const json = await res.json().catch(() => ({}));
+                  throw new Error(json.error ?? "Move failed");
+                }
+                toast.success(folder.trim() ? `Moved to "${folder.trim()}"` : "Removed from folder");
+                router.refresh();
+              } catch (error) {
+                toast.error(error instanceof Error ? error.message : "Move failed");
+              }
+            }}
+          >
+            <FolderInput />
+            Move to folder…
           </DropdownMenuItem>
         )}
         {deleteEndpoint && canDelete && (

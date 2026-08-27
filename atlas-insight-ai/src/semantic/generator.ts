@@ -54,23 +54,25 @@ export async function generateSemanticModel(ctx: ApiContext, dataSourceId: strin
   const tableIds = tables.map((t) => t.id);
   const { data: columns } = await ctx.supabase
     .from("catalog_columns")
-    .select("id, table_id, name, data_type, classification, profile")
+    .select("id, table_id, name, data_type, classification, profile, excluded")
     .in("table_id", tableIds)
     .order("ordinal");
+
+  const usableColumns = (columns ?? []).filter((c) => !(c as { excluded?: boolean }).excluded);
 
   const { data: relationships } = await ctx.supabase
     .from("catalog_relationships")
     .select("source_column_id, target_column_id, relationship_type, confidence")
     .eq("workspace_id", ctx.workspaceId);
 
-  const columnById = new Map((columns ?? []).map((c) => [c.id, c]));
+  const columnById = new Map(usableColumns.map((c) => [c.id, c]));
   const tableById = new Map(tables.map((t) => [t.id, t]));
 
   const entities: SemanticEntity[] = tables.map((table) => {
     const dataset = table.datasets as unknown as { name: string };
     const physical =
       source.type === "file" ? `file_data.${fileTableName(table.id)}` : `${dataset.name}.${table.name}`;
-    const tableColumns = (columns ?? []).filter((c) => c.table_id === table.id);
+    const tableColumns = usableColumns.filter((c) => c.table_id === table.id);
     const pk = tableColumns.find((c) => c.classification?.classification === "ID");
 
     const fields: SemanticField[] = tableColumns.map((c) => {

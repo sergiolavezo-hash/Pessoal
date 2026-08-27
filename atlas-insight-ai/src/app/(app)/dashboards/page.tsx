@@ -64,8 +64,23 @@ export default async function DashboardsPage() {
           action={canEdit ? <GenerateDashboardDialog workspaceId={ctx.workspace.id} sources={sourceOptions} /> : undefined}
         />
       ) : (
+        Object.entries(
+          dashboards.reduce<Record<string, Dashboard[]>>((groups, d) => {
+            const key = (d as { folder?: string | null }).folder ?? "";
+            (groups[key] ??= []).push(d);
+            return groups;
+          }, {})
+        )
+          .sort(([a], [b]) => (a === "" ? 1 : b === "" ? -1 : a.localeCompare(b)))
+          .map(([folder, group]) => (
+            <div key={folder || "__root"} className="mb-6">
+              {folder && (
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  📁 {folder}
+                </p>
+              )}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {dashboards.map((d) => (
+          {group.map((d) => (
             <Link key={d.id} href={`/dashboards/${d.id}`}>
               <Card className="h-full transition-colors hover:border-primary/40">
                 <CardContent className="p-5">
@@ -78,6 +93,9 @@ export default async function DashboardsPage() {
                           openHref={`/dashboards/${d.id}`}
                           deleteEndpoint={`/api/dashboards/${d.id}?workspaceId=${ctx.workspace.id}`}
                           deleteConfirm={`Delete dashboard "${d.name}"?`}
+                          moveEndpoint={`/api/dashboards/${d.id}`}
+                          moveBody={{ workspaceId: ctx.workspace.id }}
+                          currentFolder={(d as { folder?: string | null }).folder ?? null}
                         />
                       )}
                     </div>
@@ -98,6 +116,8 @@ export default async function DashboardsPage() {
             </Link>
           ))}
         </div>
+            </div>
+          ))
       )}
     </div>
   );

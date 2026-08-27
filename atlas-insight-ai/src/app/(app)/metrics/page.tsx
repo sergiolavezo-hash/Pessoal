@@ -71,6 +71,9 @@ export default async function MetricsPage() {
                         {m.name}
                         {m.certified && <BadgeCheck className="h-4 w-4 text-success" />}
                       </Link>
+                      {(m as { folder?: string | null }).folder && (
+                        <p className="text-xs text-muted-foreground">📁 {(m as { folder?: string | null }).folder}</p>
+                      )}
                       {m.description && (
                         <p className="text-xs text-muted-foreground">{m.description}</p>
                       )}
@@ -87,6 +90,9 @@ export default async function MetricsPage() {
                           openHref={`/metrics/${m.id}`}
                           deleteEndpoint={`/api/metrics/${m.id}?workspaceId=${ctx.workspace.id}`}
                           deleteConfirm={`Delete metric "${m.name}"?`}
+                          moveEndpoint={`/api/metrics/${m.id}`}
+                          moveBody={{ workspaceId: ctx.workspace.id }}
+                          currentFolder={(m as { folder?: string | null }).folder ?? null}
                         />
                       )}
                     </TableCell>

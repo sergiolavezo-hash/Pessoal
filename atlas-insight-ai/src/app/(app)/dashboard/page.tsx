@@ -10,6 +10,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Button } from "@/components/ui/button";
 
 export const metadata = { title: "Overview" };
+export const dynamic = "force-dynamic";
 
 export default async function OverviewPage() {
   const ctx = await getAppContext();

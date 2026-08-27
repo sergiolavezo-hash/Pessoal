@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ModelActions } from "@/features/data-model/model-actions";
+import { PrepareTableDialog } from "@/features/data-model/prepare-table-dialog";
 import { ObjectMenu } from "@/components/ui/object-menu";
 import type { CatalogColumn, ColumnClassification } from "@/types";
 
@@ -101,17 +102,35 @@ export default async function DataModelPage() {
         <TabsContent value="tables" className="mt-4 grid gap-4 lg:grid-cols-2">
           {(tables ?? []).map((table) => {
             const tableColumns = allColumns.filter((c) => c.table_id === table.id);
-            const dataset = table.datasets as unknown as { name: string } | null;
+            const dataset = table.datasets as unknown as { name: string; data_source_id: string } | null;
+            const sourceType = (sources ?? []).find((s) => s.id === dataset?.data_source_id)?.type;
             return (
               <Card key={table.id}>
                 <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center justify-between text-sm">
-                    <span>
+                  <CardTitle className="flex items-center justify-between gap-2 text-sm">
+                    <span className="min-w-0 truncate">
                       <span className="text-muted-foreground">{dataset?.name}.</span>
                       {table.name}
                     </span>
-                    <span className="text-xs font-normal text-muted-foreground">
-                      {table.row_count != null ? `${Number(table.row_count).toLocaleString()} rows` : ""}
+                    <span className="flex shrink-0 items-center gap-2">
+                      <span className="text-xs font-normal text-muted-foreground">
+                        {table.row_count != null ? `${Number(table.row_count).toLocaleString()} rows` : ""}
+                      </span>
+                      {canEdit && (
+                        <PrepareTableDialog
+                          workspaceId={ws}
+                          tableId={table.id}
+                          tableName={table.name}
+                          isFile={sourceType === "file"}
+                          columns={tableColumns.map((c) => ({
+                            id: c.id,
+                            name: c.name,
+                            data_type: c.data_type,
+                            excluded: Boolean((c as { excluded?: boolean }).excluded),
+                            expression: (c as { expression?: string | null }).expression ?? null,
+                          }))}
+                        />
+                      )}
                     </span>
                   </CardTitle>
                 </CardHeader>

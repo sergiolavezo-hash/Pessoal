@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { z } from "zod";
 import { requireWorkspace, handleApiError, auditLog, ApiError } from "@/services/api-context";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sanitizeColumnName } from "@/services/file-ingest";
@@ -6,6 +7,33 @@ import { fileTableName } from "@/services/data-sources";
 import type { WorkspaceFile } from "@/types";
 
 type Params = { params: Promise<{ id: string }> };
+
+const patchSchema = z.object({
+  workspaceId: z.string().uuid(),
+  folder: z.string().max(80).nullable().optional(),
+});
+
+export async function PATCH(request: NextRequest, { params }: Params) {
+  try {
+    const { id } = await params;
+    const body = patchSchema.parse(await request.json());
+    const ctx = await requireWorkspace(body.workspaceId, "EDITOR");
+
+    const updates: Record<string, unknown> = {};
+    if (body.folder !== undefined) updates.folder = body.folder;
+    const { data, error } = await ctx.supabase
+      .from("workspace_files")
+      .update(updates)
+      .eq("id", id)
+      .eq("workspace_id", ctx.workspaceId)
+      .select()
+      .single();
+    if (error || !data) throw new ApiError(404, "File not found");
+    return NextResponse.json({ file: data });
+  } catch (error) {
+    return handleApiError(error);
+  }
+}
 
 /**
  * Exclui um arquivo enviado: tabela física de dados, entrada no catálogo,

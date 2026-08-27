@@ -66,7 +66,12 @@ export default async function FilesPage() {
               <TableBody>
                 {files.map((f) => (
                   <TableRow key={f.id}>
-                    <TableCell className="font-medium">{f.name}</TableCell>
+                    <TableCell className="font-medium">
+                      {f.name}
+                      {(f as unknown as { folder?: string | null }).folder && (
+                        <span className="ml-2 text-xs text-muted-foreground">📁 {(f as unknown as { folder?: string | null }).folder}</span>
+                      )}
+                    </TableCell>
                     <TableCell className="uppercase text-muted-foreground">
                       {f.name.split(".").pop()}
                     </TableCell>
@@ -86,6 +91,9 @@ export default async function FilesPage() {
                         <ObjectMenu
                           deleteEndpoint={`/api/files/${f.id}?workspaceId=${ctx.workspace.id}`}
                           deleteConfirm={`Delete file "${f.name}"? Its data table will be removed as well.`}
+                          moveEndpoint={`/api/files/${f.id}`}
+                          moveBody={{ workspaceId: ctx.workspace.id }}
+                          currentFolder={(f as unknown as { folder?: string | null }).folder ?? null}
                         />
                       )}
                     </TableCell>

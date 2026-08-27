@@ -8,6 +8,7 @@ const patchSchema = z.object({
   workspaceId: z.string().uuid(),
   name: z.string().min(2).max(120).optional(),
   status: z.enum(["DRAFT", "ACTIVE", "ARCHIVED"]).optional(),
+  folder: z.string().max(80).nullable().optional(),
 });
 
 export async function PATCH(request: NextRequest, { params }: Params) {
@@ -19,6 +20,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     const updates: Record<string, unknown> = {};
     if (body.name) updates.name = body.name;
     if (body.status) updates.status = body.status;
+    if (body.folder !== undefined) updates.folder = body.folder;
 
     const { data, error } = await ctx.supabase
       .from("business_rules")

@@ -21,6 +21,7 @@ const patchSchema = z.object({
   workspaceId: z.string().uuid(),
   name: z.string().min(2).max(80).optional(),
   config: z.record(z.string(), z.unknown()).optional(),
+  folder: z.string().max(80).nullable().optional(),
 });
 
 export async function PATCH(request: NextRequest, { params }: Params) {
@@ -33,6 +34,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     const updates: Record<string, unknown> = {};
     if (body.name) updates.name = body.name;
     if (body.config) updates.config = body.config;
+    if (body.folder !== undefined) updates.folder = body.folder;
 
     const { data, error } = await ctx.supabase
       .from("data_sources")

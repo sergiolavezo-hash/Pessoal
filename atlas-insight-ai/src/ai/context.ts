@@ -87,14 +87,14 @@ export async function buildWorkspaceContext(
       if (tableIds.length > 0) {
         const { data: columns } = await ctx.supabase
           .from("catalog_columns")
-          .select("table_id, name, data_type, ordinal")
+          .select("table_id, name, data_type, ordinal, excluded")
           .in("table_id", tableIds)
           .order("ordinal");
         for (const t of tables ?? []) {
           rawSchema.push({
             table: t.name,
             columns: (columns ?? [])
-              .filter((c) => c.table_id === t.id)
+              .filter((c) => c.table_id === t.id && !(c as { excluded?: boolean }).excluded)
               .map((c) => ({ name: c.name, type: c.data_type })),
           });
         }

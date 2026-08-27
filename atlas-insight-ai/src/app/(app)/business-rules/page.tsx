@@ -62,6 +62,9 @@ export default async function BusinessRulesPage() {
                         <ObjectMenu
                           deleteEndpoint={`/api/business-rules/${rule.id}?workspaceId=${ctx.workspace.id}`}
                           deleteConfirm={`Delete rule "${rule.name}"?`}
+                          moveEndpoint={`/api/business-rules/${rule.id}`}
+                          moveBody={{ workspaceId: ctx.workspace.id }}
+                          currentFolder={(rule as { folder?: string | null }).folder ?? null}
                         />
                       )}
                     </div>

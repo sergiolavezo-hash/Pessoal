@@ -69,6 +69,9 @@ export default async function DataSourcesPage() {
                             openHref={`/data-sources/${s.id}`}
                             deleteEndpoint={`/api/data-sources/${s.id}?workspaceId=${ctx.workspace.id}`}
                             deleteConfirm={`Delete data source "${s.name}"? Catalog metadata will be removed.`}
+                            moveEndpoint={`/api/data-sources/${s.id}`}
+                            moveBody={{ workspaceId: ctx.workspace.id }}
+                            currentFolder={(s as { folder?: string | null }).folder ?? null}
                           />
                         )}
                       </div>

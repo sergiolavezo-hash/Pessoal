@@ -13,6 +13,7 @@ const patchSchema = z.object({
   format: z.enum(["number", "currency", "percent", "decimal"]).optional(),
   status: z.enum(["DRAFT", "VALIDATED", "ACTIVE", "DEPRECATED"]).optional(),
   certified: z.boolean().optional(),
+  folder: z.string().max(80).nullable().optional(),
 });
 
 export async function PATCH(request: NextRequest, { params }: Params) {
@@ -44,6 +45,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     if (body.format) updates.format = body.format;
     if (body.status) updates.status = body.status;
     if (body.certified !== undefined) updates.certified = body.certified;
+    if (body.folder !== undefined) updates.folder = body.folder;
 
     const { data: metric, error } = await ctx.supabase
       .from("metrics")
