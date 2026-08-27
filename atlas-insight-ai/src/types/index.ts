@@ -61,6 +61,8 @@ export interface Subscription {
   current_period_end: string | null;
   cancel_at_period_end: boolean;
   canceled_at: string | null;
+  external_customer_id: string | null;
+  external_subscription_id: string | null;
 }
 
 export interface BillingPlan {

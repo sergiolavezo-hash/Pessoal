@@ -1,10 +1,15 @@
 import { getAppContext } from "@/services/context";
+import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { getSubscription, listPlans, listTransactions } from "@/services/billing";
+import {
+  BillingAnalytics,
+  ManageSubscriptionButton,
+  PlanCheckoutButtons,
+} from "@/features/billing/checkout-buttons";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export const metadata = { title: "Billing" };
@@ -49,8 +54,13 @@ export default async function BillingPage() {
     ? Math.max(0, Math.ceil((new Date(subscription.trial_ends_at).getTime() - Date.now()) / 86_400_000))
     : 0;
 
+  const canManage = ["OWNER", "ADMIN"].includes(ctx.role);
+
   return (
     <div>
+      <Suspense>
+        <BillingAnalytics />
+      </Suspense>
       <PageHeader
         title="Plan & Billing"
         description="Subscription, free trial status and purchase history."
@@ -60,7 +70,12 @@ export default async function BillingPage() {
         <CardHeader>
           <div className="flex flex-wrap items-center justify-between gap-2">
             <CardTitle className="text-sm">Current status</CardTitle>
-            <Badge variant={status.variant}>{status.label}</Badge>
+            <div className="flex items-center gap-2">
+              {canManage && subscription?.external_customer_id && (
+                <ManageSubscriptionButton organizationId={ctx.organization.id} />
+              )}
+              <Badge variant={status.variant}>{status.label}</Badge>
+            </div>
           </div>
           {subscription?.status === "trialing" && (
             <CardDescription>
@@ -97,18 +112,24 @@ export default async function BillingPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button
-                variant={plan.id === "pro" ? "default" : "outline"}
-                className="w-full"
-                disabled
-                title="Secure checkout (Stripe) is coming with the billing rollout"
-              >
-                {subscription?.plan_id === plan.id ? "Current plan" : "Subscribe (soon)"}
-              </Button>
+              <PlanCheckoutButtons
+                organizationId={ctx.organization.id}
+                planId={plan.id as "free" | "pro" | "business"}
+                monthlyLabel={plan.price_monthly_cents ? `${brl(plan.price_monthly_cents)}/mo` : null}
+                yearlyLabel={plan.price_yearly_cents ? `${brl(plan.price_yearly_cents)}/yr` : null}
+                isCurrent={subscription?.plan_id === plan.id}
+                canManage={["OWNER", "ADMIN"].includes(ctx.role)}
+              />
             </CardContent>
           </Card>
         ))}
       </div>
+
+      <p className="mt-3 text-xs text-muted-foreground">
+        Pagamento processado pelo Stripe (certificação PCI-DSS): dados de cartão nunca passam pela
+        Atlas. Em conformidade com a LGPD, armazenamos apenas identificadores da transação, valores
+        e notas — nada além do necessário para a cobrança.
+      </p>
 
       <Card className="mt-6">
         <CardHeader>

@@ -8,6 +8,7 @@ const PUBLIC_PATHS = [
   "/forgot-password",
   "/reset-password",
   "/auth",
+  "/api/billing/webhook", // autenticado pela assinatura do Stripe
 ];
 
 export async function updateSession(request: NextRequest) {

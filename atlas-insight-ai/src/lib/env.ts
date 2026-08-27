@@ -22,6 +22,9 @@ const serverEnvSchema = z.object({
   // Transactional email (welcome / signup notifications). Optional: when
   // absent, sending is skipped gracefully.
   RESEND_API_KEY: z.string().optional(),
+  // Billing (Stripe). Optional: checkout returns a friendly 503 when absent.
+  STRIPE_SECRET_KEY: z.string().optional(),
+  STRIPE_WEBHOOK_SECRET: z.string().optional(),
   EMAIL_FROM: z.string().optional(),
   SIGNUP_NOTIFY_ENDPOINT: z.string().url().optional(),
 });
