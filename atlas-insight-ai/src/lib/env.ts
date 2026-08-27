@@ -19,6 +19,11 @@ const serverEnvSchema = z.object({
   GOOGLE_AI_MODEL: z.string().optional(),
   QUERY_TIMEOUT_MS: z.coerce.number().default(30_000),
   QUERY_MAX_ROWS: z.coerce.number().default(10_000),
+  // Transactional email (welcome / signup notifications). Optional: when
+  // absent, sending is skipped gracefully.
+  RESEND_API_KEY: z.string().optional(),
+  EMAIL_FROM: z.string().optional(),
+  SIGNUP_NOTIFY_ENDPOINT: z.string().url().optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;

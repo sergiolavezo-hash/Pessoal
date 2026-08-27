@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,17 +11,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const schema = z.object({ email: z.string().email("Enter a valid email") });
+const schema = z.object({ email: z.string().email("Informe um e-mail válido") });
 type FormValues = z.infer<typeof schema>;
 
-export default function ForgotPasswordPage() {
+function ForgotPasswordForm() {
+  const searchParams = useSearchParams();
   const [sent, setSent] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { email: searchParams.get("email") ?? "" },
+  });
 
   async function onSubmit(values: FormValues) {
     setServerError(null);
@@ -38,12 +43,13 @@ export default function ForgotPasswordPage() {
   if (sent) {
     return (
       <div className="text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">Check your email</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Confira seu e-mail</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          If an account exists for that email, you&apos;ll receive a password reset link shortly.
+          Se existir uma conta para esse e-mail, você receberá em instantes um link para redefinir
+          a senha.
         </p>
         <Link href="/login" className="mt-6 inline-block text-sm text-primary hover:underline">
-          Back to sign in
+          Voltar para o login
         </Link>
       </div>
     );
@@ -51,26 +57,34 @@ export default function ForgotPasswordPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold tracking-tight">Reset your password</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Recuperar senha</h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        Enter your email and we&apos;ll send you a reset link.
+        Informe seu e-mail e enviaremos um link de redefinição.
       </p>
       <form noValidate onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4">
         <div className="space-y-1.5">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" autoComplete="email" {...register("email")} />
+          <Label htmlFor="email">E-mail</Label>
+          <Input id="email" type="email" autoComplete="email" placeholder="voce@empresa.com.br" {...register("email")} />
           {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
         </div>
         {serverError && <p className="text-sm text-destructive">{serverError}</p>}
         <Button type="submit" className="w-full" loading={isSubmitting}>
-          Send reset link
+          Enviar link de redefinição
         </Button>
       </form>
       <p className="mt-6 text-center text-sm text-muted-foreground">
         <Link href="/login" className="text-primary hover:underline">
-          Back to sign in
+          Voltar para o login
         </Link>
       </p>
     </div>
+  );
+}
+
+export default function ForgotPasswordPage() {
+  return (
+    <Suspense>
+      <ForgotPasswordForm />
+    </Suspense>
   );
 }

@@ -12,10 +12,17 @@ import { Label } from "@/components/ui/label";
 
 const schema = z
   .object({
-    password: z.string().min(8, "At least 8 characters"),
+    password: z
+      .string()
+      .min(8, "Mínimo de 8 caracteres")
+      .regex(/[a-zA-Z]/, "Inclua ao menos uma letra")
+      .regex(/\d/, "Inclua ao menos um número"),
     confirm: z.string(),
   })
-  .refine((v) => v.password === v.confirm, { path: ["confirm"], message: "Passwords don't match" });
+  .refine((v) => v.password === v.confirm, {
+    path: ["confirm"],
+    message: "As senhas não coincidem",
+  });
 
 type FormValues = z.infer<typeof schema>;
 
@@ -42,21 +49,24 @@ export default function ResetPasswordPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold tracking-tight">Set a new password</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Definir nova senha</h1>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Use ao menos 8 caracteres, com letras e números.
+      </p>
       <form noValidate onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4">
         <div className="space-y-1.5">
-          <Label htmlFor="password">New password</Label>
+          <Label htmlFor="password">Nova senha</Label>
           <Input id="password" type="password" autoComplete="new-password" {...register("password")} />
           {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="confirm">Confirm password</Label>
+          <Label htmlFor="confirm">Confirmar senha</Label>
           <Input id="confirm" type="password" autoComplete="new-password" {...register("confirm")} />
           {errors.confirm && <p className="text-xs text-destructive">{errors.confirm.message}</p>}
         </div>
         {serverError && <p className="text-sm text-destructive">{serverError}</p>}
         <Button type="submit" className="w-full" loading={isSubmitting}>
-          Update password
+          Salvar nova senha
         </Button>
       </form>
     </div>

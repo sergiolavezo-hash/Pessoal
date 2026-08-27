@@ -11,14 +11,19 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </Link>
         <div>
           <p className="max-w-md text-2xl font-medium leading-snug">
-            Your data. Your rules. Your intelligence.
+            Seus dados. Suas regras. Sua inteligência.
           </p>
           <p className="mt-4 max-w-md text-sm opacity-70">
-            Connect your data sources, let Atlas understand your business, and talk to your data
-            in plain language — with every number backed by a real query.
+            Conecte suas fontes de dados, deixe a Atlas entender o seu negócio e converse com os
+            seus dados em português — cada número sustentado por uma consulta real e auditável.
           </p>
         </div>
-        <p className="text-xs opacity-50">© {new Date().getFullYear()} Atlas Insight AI</p>
+        <p className="text-xs opacity-50">
+          © {new Date().getFullYear()} Atlas Tecnologia ·{" "}
+          <a href="https://atlas-partner.com" className="underline-offset-2 hover:underline">
+            atlas-partner.com
+          </a>
+        </p>
       </div>
       <div className="flex w-full items-center justify-center p-6 lg:w-1/2">
         <div className="w-full max-w-sm">{children}</div>

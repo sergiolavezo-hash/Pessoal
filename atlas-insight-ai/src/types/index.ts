@@ -9,6 +9,9 @@ export interface Profile {
   email: string;
   full_name: string | null;
   avatar_url: string | null;
+  phone: string | null;
+  company: string | null;
+  welcomed_at: string | null;
 }
 
 export interface Organization {

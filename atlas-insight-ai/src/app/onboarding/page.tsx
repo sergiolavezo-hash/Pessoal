@@ -13,8 +13,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const schema = z.object({
-  organizationName: z.string().min(2, "Enter your company or team name"),
-  workspaceName: z.string().min(2, "Enter a workspace name"),
+  organizationName: z.string().min(2, "Informe o nome da sua empresa ou time"),
+  workspaceName: z.string().min(2, "Informe o nome do workspace"),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -27,7 +27,7 @@ export default function OnboardingPage() {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { workspaceName: "Main" },
+    defaultValues: { workspaceName: "Principal" },
   });
 
   async function onSubmit(values: FormValues) {
@@ -55,31 +55,31 @@ export default function OnboardingPage() {
         </div>
         <Card>
           <CardHeader>
-            <CardTitle>Set up your organization</CardTitle>
+            <CardTitle>Configure sua organização</CardTitle>
             <CardDescription>
-              Your organization holds your team, and workspaces hold your data sources, metrics
-              and dashboards.
+              A organização reúne o seu time; os workspaces guardam fontes de dados, métricas e
+              dashboards. Seu teste gratuito (14 dias ou 1 dashboard) começa agora.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form noValidate onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="space-y-1.5">
-                <Label htmlFor="organizationName">Organization name</Label>
-                <Input id="organizationName" placeholder="Acme Inc." {...register("organizationName")} />
+                <Label htmlFor="organizationName">Nome da empresa</Label>
+                <Input id="organizationName" placeholder="Ex.: Atlas Tecnologia" {...register("organizationName")} />
                 {errors.organizationName && (
                   <p className="text-xs text-destructive">{errors.organizationName.message}</p>
                 )}
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="workspaceName">First workspace</Label>
-                <Input id="workspaceName" placeholder="Main" {...register("workspaceName")} />
+                <Label htmlFor="workspaceName">Primeiro workspace</Label>
+                <Input id="workspaceName" placeholder="Principal" {...register("workspaceName")} />
                 {errors.workspaceName && (
                   <p className="text-xs text-destructive">{errors.workspaceName.message}</p>
                 )}
               </div>
               {serverError && <p className="text-sm text-destructive">{serverError}</p>}
               <Button type="submit" className="w-full" loading={isSubmitting}>
-                Create workspace
+                Criar workspace
               </Button>
             </form>
           </CardContent>
