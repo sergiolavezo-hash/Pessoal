@@ -1,3 +1,4 @@
+import { ObjectMenu } from "@/components/ui/object-menu";
 import Link from "next/link";
 import { MessageSquarePlus } from "lucide-react";
 import { getAppContext } from "@/services/context";
@@ -69,17 +70,22 @@ export default async function AiAnalystPage({
           ) : (
             <ul className="space-y-1">
               {conversationList.map((conv) => (
-                <li key={conv.id}>
+                <li key={conv.id} className="group flex items-start gap-1">
                   <Link
                     href={`/ai-analyst?c=${conv.id}`}
                     className={cn(
-                      "block rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-accent",
+                      "block min-w-0 flex-1 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-accent",
                       selected?.id === conv.id && "bg-accent font-medium"
                     )}
                   >
                     <span className="line-clamp-1">{conv.title}</span>
                     <span className="text-xs text-muted-foreground">{relativeTime(conv.updated_at)}</span>
                   </Link>
+                  <ObjectMenu
+                    deleteEndpoint={`/api/ai/conversations/${conv.id}?workspaceId=${ctx.workspace.id}`}
+                    deleteConfirm={`Delete conversation "${conv.title}"? Its messages are removed permanently.`}
+                    redirectAfterDelete={selected?.id === conv.id ? "/ai-analyst" : undefined}
+                  />
                 </li>
               ))}
             </ul>

@@ -9,6 +9,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ModelActions } from "@/features/data-model/model-actions";
 import { PrepareTableDialog } from "@/features/data-model/prepare-table-dialog";
+import { NewRelationshipDialog } from "@/features/data-model/relationship-dialog";
 import { ObjectMenu } from "@/components/ui/object-menu";
 import type { CatalogColumn, ColumnClassification } from "@/types";
 
@@ -164,11 +165,20 @@ export default async function DataModelPage() {
         </TabsContent>
 
         <TabsContent value="relationships" className="mt-4">
+          {canEdit && (
+            <div className="mb-3 flex justify-end">
+              <NewRelationshipDialog
+                workspaceId={ws}
+                tables={(tables ?? []).map((t) => ({ id: t.id, name: t.name }))}
+                columns={allColumns.map((c) => ({ id: c.id, name: c.name, table_id: c.table_id }))}
+              />
+            </div>
+          )}
           {(relationships ?? []).length === 0 ? (
             <EmptyState
               icon={Network}
-              title="No relationships detected"
-              description='Run "Profile data" to detect primary/foreign key relationships.'
+              title="No relationships yet"
+              description='Click "New relationship" to declare one manually, or run "Profile data" to detect primary/foreign keys automatically (needs at least two tables).'
             />
           ) : (
             <Card>
@@ -192,6 +202,12 @@ export default async function DataModelPage() {
                           <Badge variant={Number(r.confidence) > 0.8 ? "success" : "warning"}>
                             {Math.round(Number(r.confidence) * 100)}%
                           </Badge>
+                          {canEdit && (
+                            <ObjectMenu
+                              deleteEndpoint={`/api/relationships/${r.id}?workspaceId=${ws}`}
+                              deleteConfirm="Delete this relationship?"
+                            />
+                          )}
                         </span>
                       </li>
                     );

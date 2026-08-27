@@ -21,6 +21,16 @@ import { ApiError } from "@/services/api-context";
 
 const MAX_SQL_ATTEMPTS = 3;
 
+/**
+ * Alguns modelos (ex.: Gemini) devolvem null em campos opcionais; o Zod
+ * espera undefined. Remove nulls recursivamente antes de validar.
+ */
+function stripNulls<T>(value: T): T {
+  if (value === null || value === undefined) return undefined as T;
+  return JSON.parse(JSON.stringify(value), (_key, v) => (v === null ? undefined : v)) as T;
+}
+
+
 const sqlAnswerSchema = z.object({
   intent: z.string().default(""),
   feasible: z.boolean().default(true),
@@ -149,10 +159,10 @@ export class AIOrchestrator {
     preferredDataSourceId?: string
   ): Promise<{ sqlAnswer: SqlAnswer; execution: ExecutionRecord; context: WorkspaceAiContext }> {
     const context = await buildWorkspaceContext(this.ctx, preferredDataSourceId);
-    if (!context.dataSourceId || !context.semanticModel) {
+    if (!context.dataSourceId || (!context.semanticModel && context.rawSchema.length === 0)) {
       throw new ApiError(
         422,
-        "No active semantic model. Connect a data source, run profiling and generate a semantic model first."
+        "No synced data yet. Connect a data source and run Sync schema first."
       );
     }
     const dataSourceId = context.dataSourceId;
@@ -171,7 +181,7 @@ export class AIOrchestrator {
         totalIn += response.inputTokens;
         totalOut += response.outputTokens;
 
-        const parsed = sqlAnswerSchema.parse(extractJson(response.text));
+        const parsed = sqlAnswerSchema.parse(stripNulls(extractJson(response.text)));
         if (!parsed.feasible) {
           throw new ApiError(422, parsed.infeasible_reason || "The question cannot be answered with the available data.");
         }
@@ -235,7 +245,7 @@ ${resultSample}`;
         maxTokens: 3000,
       });
       return {
-        value: chatAnswerSchema.parse(extractJson(response.text)),
+        value: chatAnswerSchema.parse(stripNulls(extractJson(response.text))),
         inputTokens: response.inputTokens,
         outputTokens: response.outputTokens,
         queryExecutionId: execution.executionId,
@@ -401,7 +411,7 @@ ${resultSample}`;
     const candidate = {
       dialect,
       dataSourceId: context.dataSourceId ?? undefined,
-      ...(raw as Record<string, unknown>),
+      ...(stripNulls(raw) as Record<string, unknown>),
     };
     const parsed = dashboardSpecSchema.safeParse(candidate);
     if (!parsed.success) {
