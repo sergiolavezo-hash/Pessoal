@@ -1,0 +1,29 @@
+-- ============================================================================
+-- Atlas Insight AI — 0009 Fix: run_file_query em Postgres gerenciado.
+-- O Postgres proíbe `SET ROLE` dentro de função SECURITY DEFINER
+-- ("cannot set parameter \"role\" within security-definer function").
+-- Em vez de trocar de papel em runtime, a função passa a PERTENCER ao
+-- papel restrito atlas_file_reader — o SECURITY DEFINER então executa
+-- as consultas já com privilégios SELECT-only sobre file_data.
+-- ============================================================================
+
+create or replace function public.run_file_query(p_query text, p_max_rows int default 10000, p_timeout_ms int default 30000)
+returns jsonb
+language plpgsql
+security definer set search_path = file_data, public
+as $$
+declare
+  result jsonb;
+begin
+  execute format('set local statement_timeout = %s', greatest(100, least(p_timeout_ms, 120000)));
+  execute format(
+    'select coalesce(jsonb_agg(row_to_json(q)), ''[]''::jsonb) from (%s) q limit 1',
+    format('select * from (%s) inner_q limit %s', p_query, greatest(1, least(p_max_rows, 50000)))
+  ) into result;
+  return result;
+end;
+$$;
+
+alter function public.run_file_query(text, int, int) owner to atlas_file_reader;
+revoke all on function public.run_file_query(text, int, int) from public;
+grant execute on function public.run_file_query(text, int, int) to service_role;
