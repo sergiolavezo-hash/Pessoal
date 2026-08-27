@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Atlas Insight AI — conecte suas fontes de dados, descreva o que quer analisar e receba dashboards e respostas com IA. Your data. Your rules. Your intelligence.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://atlas-partner.com/insight.html">
+  <meta property="og:title" content="Atlas Insight AI — Analytics com IA">
+  <meta property="og:description" content="Conecte seus dados, descreva o objetivo e receba dashboards e respostas com IA.">
+  <meta property="og:image" content="https://atlas-partner.com/media/og-cover.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <meta name="theme-color" content="#0A0A0C">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg0:#0A0A0C; --bg1:#101013; --panel:#16161A; --panel2:#1C1C22;
+      --line:rgba(244,243,239,.09); --ink:#F4F3EF; --muted:#A2A2AB; --dim:#6E6E78;
+      --accent:#00E7C4; --accent-ink:#01302A;
+      --display:'Manrope','Avenir Next',system-ui,sans-serif;
+      --body:'Inter','Segoe UI',system-ui,sans-serif;
+      --mono:'IBM Plex Mono',Consolas,monospace;
+      --ease:cubic-bezier(.22,1,.36,1);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg0);color:var(--ink);font-family:var(--body);font-size:1.05rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--accent);color:var(--accent-ink)}
+    a{color:inherit}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1.25rem,4vw,3rem)}
+    h1,h2,h3{font-family:var(--display);letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+    .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+    .btn{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--display);font-weight:700;font-size:.95rem;padding:.85rem 1.6rem;border-radius:999px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:all .25s var(--ease)}
+    .btn-accent{background:var(--accent);color:var(--accent-ink)}
+    .btn-accent:hover{background:#3FFFDE;transform:translateY(-1px)}
+    .btn-line{background:none;color:var(--ink);border-color:rgba(244,243,239,.25)}
+    .btn-line:hover{border-color:var(--accent);color:var(--accent)}
+
+    header{position:sticky;top:0;z-index:50;background:rgba(10,10,12,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    header .wrap{display:flex;align-items:center;justify-content:space-between;height:4.5rem}
+    .brand{font-family:var(--display);font-weight:800;font-size:1.1rem;text-decoration:none}
+    .brand i{font-style:normal;color:var(--accent)}
+    .brand small{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--dim);margin-left:.5rem}
+    .hactions{display:flex;gap:.7rem;align-items:center}
+    .hactions .back{font-size:.85rem;color:var(--muted);text-decoration:none;margin-right:.5rem}
+    .hactions .back:hover{color:var(--ink)}
+
+    .hero{position:relative;padding:6rem 0 5rem;overflow:hidden;background:radial-gradient(70rem 40rem at 85% -10%,rgba(0,231,196,.07),transparent 60%),var(--bg0)}
+    .badge{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--accent);border:1px solid rgba(0,231,196,.35);border-radius:999px;padding:.3rem .8rem;margin-bottom:1.2rem}
+    .badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+    .hero h1{font-size:clamp(2.5rem,6.5vw,4.6rem);font-weight:800;max-width:17ch;margin-bottom:1.1rem}
+    .hero h1 em{font-style:normal;color:var(--accent)}
+    .tagline{font-family:var(--mono);font-size:.85rem;letter-spacing:.1em;color:var(--dim);margin-bottom:1.4rem}
+    .hero p.sub{color:var(--muted);max-width:38rem;font-size:1.15rem;margin-bottom:2.2rem}
+    .ctas{display:flex;flex-wrap:wrap;gap:.9rem;align-items:center}
+    .ctas small{color:var(--dim);font-size:.82rem}
+
+    .flow{background:var(--bg1);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:4.5rem 0}
+    .flow h2,.feats h2,.pricing h2,.faq h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin:0.8rem 0 2.2rem}
+    .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}
+    .step{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.3rem 1.2rem}
+    .step .n{font-family:var(--mono);font-size:.72rem;color:var(--accent)}
+    .step b{display:block;font-family:var(--display);font-size:1rem;margin:.5rem 0 .3rem}
+    .step p{font-size:.85rem;color:var(--muted)}
+
+    .feats{padding:5rem 0}
+    .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .feat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.6rem 1.5rem;transition:border-color .3s}
+    .feat:hover{border-color:rgba(0,231,196,.35)}
+    .feat b{display:block;font-family:var(--display);font-size:1.1rem;margin-bottom:.45rem}
+    .feat b span{color:var(--accent);margin-right:.5rem}
+    .feat p{font-size:.92rem;color:var(--muted)}
+
+    .pricing{background:var(--bg1);border-top:1px solid var(--line);padding:5rem 0}
+    .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;align-items:stretch}
+    .plan{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.9rem 1.7rem;display:flex;flex-direction:column}
+    .plan.hot{border-color:var(--accent);position:relative}
+    .plan.hot::before{content:'MAIS POPULAR';position:absolute;top:-.7rem;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--accent-ink);font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;padding:.25rem .8rem;border-radius:999px}
+    .plan h3{font-size:1.2rem;font-weight:800}
+    .plan .price{font-family:var(--display);font-weight:800;font-size:2.2rem;letter-spacing:-.02em;margin:.8rem 0 .1rem}
+    .plan .price small{font-size:.85rem;font-weight:400;color:var(--muted)}
+    .plan .alt{font-size:.8rem;color:var(--accent);margin-bottom:1.1rem}
+    .plan ul{list-style:none;display:grid;gap:.5rem;margin:0 0 1.6rem;flex:1}
+    .plan li{font-size:.9rem;color:var(--muted);display:flex;gap:.5rem}
+    .plan li::before{content:'✓';color:var(--accent);font-weight:700}
+    .pnote{margin-top:1.4rem;font-size:.8rem;color:var(--dim)}
+
+    .faq{padding:5rem 0}
+    .faq details{border-bottom:1px solid var(--line);padding:1rem 0}
+    .faq summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:1.02rem;list-style:none;display:flex;justify-content:space-between}
+    .faq summary::after{content:'+';color:var(--accent);font-size:1.2rem}
+    .faq details[open] summary::after{content:'−'}
+    .faq details p{color:var(--muted);font-size:.95rem;padding-top:.6rem;max-width:52rem}
+
+    footer{border-top:1px solid var(--line);padding:2.2rem 0;font-size:.85rem;color:var(--dim)}
+    footer .wrap{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between}
+    footer a{color:var(--muted);text-decoration:none}
+    footer a:hover{color:var(--accent)}
+
+    @media(max-width:900px){.steps{grid-template-columns:1fr 1fr}.fgrid{grid-template-columns:1fr 1fr}.plans{grid-template-columns:1fr}}
+    @media(max-width:640px){.steps{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="insight.html">ATLAS<i>.</i>INSIGHT <i>AI</i><small>by Atlas Tec</small></a>
+    <div class="hactions">
+      <a class="back" href="/">← atlas-partner.com</a>
+      <a class="btn btn-line" href="https://app.atlas-partner.com/login" data-app>Entrar</a>
+      <a class="btn btn-accent" href="https://app.atlas-partner.com/signup" data-app>Criar conta →</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="badge">ACESSO ANTECIPADO</span>
+    <h1>Converse com seus dados. Receba <em>dashboards e respostas</em>, não tarefas.</h1>
+    <div class="tagline">YOUR DATA · YOUR RULES · YOUR INTELLIGENCE</div>
+    <p class="sub">
+      Conecte BigQuery, PostgreSQL, SQL Server ou planilhas. O Atlas Insight AI
+      entende sua estrutura, aprende suas regras de negócio e transforma um
+      pedido em português em métricas, dashboards interativos e insights — com
+      cada número rastreável até a query que o gerou.
+    </p>
+    <div class="ctas">
+      <a class="btn btn-accent" href="https://app.atlas-partner.com/signup" data-app>Começar grátis →</a>
+      <a class="btn btn-line" href="#planos">Ver planos</a>
+      <small>Sem cartão de crédito no teste</small>
+    </div>
+  </div>
+</section>
+
+<section class="flow">
+  <div class="wrap">
+    <span class="eyebrow">Como funciona</span>
+    <h2>Da conexão ao insight em cinco passos.</h2>
+    <div class="steps">
+      <div class="step"><span class="n">01</span><b>Conecte</b><p>BigQuery, PostgreSQL, SQL Server, CSV ou XLSX — leitura segura, somente-leitura.</p></div>
+      <div class="step"><span class="n">02</span><b>Entenda</b><p>Profiling automático: tipos, relacionamentos, dimensões e medidas detectados.</p></div>
+      <div class="step"><span class="n">03</span><b>Ensine</b><p>Suas regras em português: "cliente ativo comprou nos últimos 90 dias".</p></div>
+      <div class="step"><span class="n">04</span><b>Peça</b><p>"Dashboard executivo de vendas com margem por região vs. ano anterior."</p></div>
+      <div class="step"><span class="n">05</span><b>Decida</b><p>Dashboard pronto + AI Analyst para perguntar "por que a receita caiu?".</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="feats">
+  <div class="wrap">
+    <span class="eyebrow">Por dentro</span>
+    <h2>Não é um gerador de gráficos. É uma plataforma de inteligência.</h2>
+    <div class="fgrid">
+      <div class="feat"><b><span>◆</span>Camada semântica</b><p>A IA não adivinha nomes de colunas: trabalha sobre entidades, dimensões e medidas que descrevem o seu negócio.</p></div>
+      <div class="feat"><b><span>◆</span>Métricas certificadas</b><p>Receita, margem e ticket médio definidos uma vez, versionados e reutilizados em todos os dashboards.</p></div>
+      <div class="feat"><b><span>◆</span>Regras de negócio</b><p>Escreva a regra em português; o Atlas a aplica em toda análise — sem retrabalho em cada relatório.</p></div>
+      <div class="feat"><b><span>◆</span>Zero alucinação</b><p>Todo número vem de uma query executada e auditável. Clique em "como o Atlas calculou?" e veja o caminho completo.</p></div>
+      <div class="feat"><b><span>◆</span>AI Analyst</b><p>Chat que responde com evidências: valor, período, fonte, métrica e visualização — nunca opinião solta.</p></div>
+      <div class="feat"><b><span>◆</span>Segurança B2B</b><p>Multi-tenant com isolamento por workspace, acesso somente-leitura aos seus bancos e credenciais criptografadas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="planos">
+  <div class="wrap">
+    <span class="eyebrow">Planos</span>
+    <h2>Comece grátis. Cresça quando fizer sentido.</h2>
+    <div class="plans">
+      <div class="plan">
+        <h3>Teste Grátis</h3>
+        <div class="price">R$ 0</div>
+        <div class="alt">14 dias ou 1 dashboard gerado</div>
+        <ul>
+          <li>1 fonte de dados</li>
+          <li>1 dashboard gerado por IA</li>
+          <li>Profiling e modelo semântico</li>
+          <li>Sem cartão de crédito</li>
+        </ul>
+        <a class="btn btn-line" href="https://app.atlas-partner.com/signup" data-app>Começar grátis</a>
+      </div>
+      <div class="plan hot">
+        <h3>Pro</h3>
+        <div class="price">R$ 497<small>/mês</small></div>
+        <div class="alt">ou R$ 4.970/ano — 2 meses grátis</div>
+        <ul>
+          <li>5 fontes de dados</li>
+          <li>Dashboards ilimitados</li>
+          <li>AI Analyst completo</li>
+          <li>Regras de negócio e métricas certificadas</li>
+          <li>Suporte prioritário</li>
+        </ul>
+        <a class="btn btn-accent" href="https://app.atlas-partner.com/signup?plan=pro" data-app>Assinar Pro →</a>
+      </div>
+      <div class="plan">
+        <h3>Business</h3>
+        <div class="price">Sob consulta</div>
+        <div class="alt">Para times e governança</div>
+        <ul>
+          <li>20+ fontes de dados</li>
+          <li>Múltiplos usuários e papéis</li>
+          <li>Auditoria e governança</li>
+          <li>Onboarding assistido pela Atlas</li>
+        </ul>
+        <a class="btn btn-line" href="/#contato">Falar com a Atlas</a>
+      </div>
+    </div>
+    <p class="pnote">Valores de lançamento — assinatura mensal ou anual, cancele quando quiser. Pagamento processado com segurança via Stripe.</p>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="wrap">
+    <span class="eyebrow">Perguntas frequentes</span>
+    <h2>O essencial antes de começar.</h2>
+    <details><summary>Meus dados ficam seguros?</summary><p>Sim. O Atlas acessa suas fontes em modo somente-leitura, credenciais são criptografadas em repouso e cada workspace é isolado — nenhum outro cliente acessa seus dados. Comandos de escrita (INSERT, UPDATE, DELETE, DROP) são bloqueados por construção.</p></details>
+    <details><summary>Preciso saber SQL?</summary><p>Não. Você descreve o que quer em português. Usuários técnicos podem abrir cada resultado e ver o modelo, a métrica e a query que o geraram — transparência total, sem caixa preta.</p></details>
+    <details><summary>Como funciona o teste grátis?</summary><p>Você cria a conta sem cartão, conecta 1 fonte de dados e gera seu primeiro dashboard com IA. O teste vale por 14 dias ou 1 geração de dashboard — depois, escolha o plano mensal ou anual para continuar.</p></details>
+    <details><summary>Quais fontes são suportadas?</summary><p>No lançamento: Google BigQuery, PostgreSQL, SQL Server e arquivos CSV/XLSX. Em seguida: Databricks, Snowflake, Redshift e APIs REST.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Atlas Tecnologia · <a href="/">atlas-partner.com</a></span>
+    <span>Atlas Insight AI — acesso antecipado</span>
+  </div>
+</footer>
+
+<script>
+  // Enquanto o app não estiver publicado em app.atlas-partner.com,
+  // os botões levam ao contato para entrar na lista de acesso antecipado.
+  (function () {
+    var APP_LIVE = false; // mudar para true quando o app for deployado
+    if (!APP_LIVE) {
+      document.querySelectorAll('[data-app]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          alert('O Atlas Insight AI está em acesso antecipado. Deixe seu contato em "Fale conosco" que avisamos você no lançamento!');
+          location.href = '/#contato';
+        });
+      });
+    }
+  })();
+</script>
+</body>
+</html>
