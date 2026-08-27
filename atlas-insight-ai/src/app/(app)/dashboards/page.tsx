@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { GenerateDashboardDialog } from "@/features/dashboards/generate-dialog";
+import { ObjectMenu } from "@/components/ui/object-menu";
 import type { Dashboard } from "@/types";
 
 export const metadata = { title: "Dashboards" };
@@ -69,8 +70,17 @@ export default async function DashboardsPage() {
               <Card className="h-full transition-colors hover:border-primary/40">
                 <CardContent className="p-5">
                   <div className="flex items-start justify-between gap-2">
-                    <p className="font-medium">{d.name}</p>
-                    <Badge variant={d.status === "PUBLISHED" ? "success" : "secondary"}>{d.status}</Badge>
+                    <p className="min-w-0 truncate font-medium">{d.name}</p>
+                    <div className="flex shrink-0 items-center gap-1">
+                      <Badge variant={d.status === "PUBLISHED" ? "success" : "secondary"}>{d.status}</Badge>
+                      {canEdit && (
+                        <ObjectMenu
+                          openHref={`/dashboards/${d.id}`}
+                          deleteEndpoint={`/api/dashboards/${d.id}?workspaceId=${ctx.workspace.id}`}
+                          deleteConfirm={`Delete dashboard "${d.name}"?`}
+                        />
+                      )}
+                    </div>
                   </div>
                   {d.description && (
                     <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{d.description}</p>

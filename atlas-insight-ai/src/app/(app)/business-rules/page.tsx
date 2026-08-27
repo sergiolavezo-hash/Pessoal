@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { NewRuleDialog } from "@/features/business-rules/new-rule-dialog";
+import { ObjectMenu } from "@/components/ui/object-menu";
 import type { BusinessRule } from "@/types";
 
 export const metadata = { title: "Business Rules" };
@@ -57,6 +58,12 @@ export default async function BusinessRulesPage() {
                     <div className="flex items-center gap-2">
                       <Badge variant={rule.status === "ACTIVE" ? "success" : "secondary"}>{rule.status}</Badge>
                       <span className="text-xs text-muted-foreground">v{rule.version}</span>
+                      {canEdit && (
+                        <ObjectMenu
+                          deleteEndpoint={`/api/business-rules/${rule.id}?workspaceId=${ctx.workspace.id}`}
+                          deleteConfirm={`Delete rule "${rule.name}"?`}
+                        />
+                      )}
                     </div>
                   </div>
                   {sqlHint && (

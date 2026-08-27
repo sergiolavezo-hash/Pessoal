@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/ui/empty-state";
 import { NewSourceDialog } from "@/features/data-sources/new-source-dialog";
+import { ObjectMenu } from "@/components/ui/object-menu";
 import { CONNECTOR_CATALOG } from "@/features/data-sources/connector-catalog";
 import type { DataSource } from "@/types";
 
@@ -50,18 +51,27 @@ export default async function DataSourcesPage() {
               <Link key={s.id} href={`/data-sources/${s.id}`}>
                 <Card className="h-full transition-colors hover:border-primary/40">
                   <CardContent className="p-5">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="font-medium">{s.name}</p>
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <p className="truncate font-medium">{s.name}</p>
                         <p className="text-xs text-muted-foreground">{def?.name ?? s.type}</p>
                       </div>
-                      <Badge
-                        variant={
-                          s.status === "CONNECTED" ? "success" : s.status === "ERROR" ? "destructive" : "secondary"
-                        }
-                      >
-                        {s.status}
-                      </Badge>
+                      <div className="flex shrink-0 items-center gap-1">
+                        <Badge
+                          variant={
+                            s.status === "CONNECTED" ? "success" : s.status === "ERROR" ? "destructive" : "secondary"
+                          }
+                        >
+                          {s.status}
+                        </Badge>
+                        {canEdit && (
+                          <ObjectMenu
+                            openHref={`/data-sources/${s.id}`}
+                            deleteEndpoint={`/api/data-sources/${s.id}?workspaceId=${ctx.workspace.id}`}
+                            deleteConfirm={`Delete data source "${s.name}"? Catalog metadata will be removed.`}
+                          />
+                        )}
+                      </div>
                     </div>
                     <p className="mt-3 text-xs text-muted-foreground">
                       {s.last_sync_at ? `Last synchronized ${relativeTime(s.last_sync_at)}` : "Never synchronized"}

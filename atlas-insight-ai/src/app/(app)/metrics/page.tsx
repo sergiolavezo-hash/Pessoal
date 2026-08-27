@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ObjectMenu } from "@/components/ui/object-menu";
 import { NewMetricDialog } from "@/features/metrics/new-metric-dialog";
 import type { Metric, MetricStatus } from "@/types";
 
@@ -59,6 +60,7 @@ export default async function MetricsPage() {
                   <TableHead>Format</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Version</TableHead>
+                  <TableHead className="w-10" />
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -79,6 +81,15 @@ export default async function MetricsPage() {
                       <Badge variant={STATUS_VARIANT[m.status]}>{m.status}</Badge>
                     </TableCell>
                     <TableCell className="tabular-nums text-muted-foreground">v{m.version}</TableCell>
+                    <TableCell>
+                      {canEdit && (
+                        <ObjectMenu
+                          openHref={`/metrics/${m.id}`}
+                          deleteEndpoint={`/api/metrics/${m.id}?workspaceId=${ctx.workspace.id}`}
+                          deleteConfirm={`Delete metric "${m.name}"?`}
+                        />
+                      )}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

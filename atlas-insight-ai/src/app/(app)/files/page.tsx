@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { FileUpload } from "@/features/files/file-upload";
+import { ObjectMenu } from "@/components/ui/object-menu";
 import type { WorkspaceFile, Profile } from "@/types";
 
 export const metadata = { title: "Files" };
@@ -59,6 +60,7 @@ export default async function FilesPage() {
                   <TableHead>Uploaded by</TableHead>
                   <TableHead>Uploaded</TableHead>
                   <TableHead>Status</TableHead>
+                  <TableHead className="w-10" />
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -78,6 +80,14 @@ export default async function FilesPage() {
                     <TableCell>
                       <Badge variant={STATUS_VARIANT[f.status]}>{f.status}</Badge>
                       {f.error && <p className="mt-1 text-xs text-destructive">{f.error}</p>}
+                    </TableCell>
+                    <TableCell>
+                      {canEdit && (
+                        <ObjectMenu
+                          deleteEndpoint={`/api/files/${f.id}?workspaceId=${ctx.workspace.id}`}
+                          deleteConfirm={`Delete file "${f.name}"? Its data table will be removed as well.`}
+                        />
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
