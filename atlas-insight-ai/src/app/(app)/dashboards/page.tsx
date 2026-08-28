@@ -32,18 +32,29 @@ export default async function DashboardsPage() {
       .order("created_at"),
     supabase
       .from("semantic_models")
-      .select("data_source_id")
+      .select("data_source_id, name, version, created_at")
       .eq("workspace_id", ctx.workspace.id)
-      .eq("status", "ACTIVE"),
+      .eq("status", "ACTIVE")
+      .order("version", { ascending: false }),
   ]);
 
-  const withModel = new Set((activeModels ?? []).map((m) => m.data_source_id));
-  const sourceOptions = (sources ?? []).map((s) => ({
-    id: s.id as string,
-    name: s.name as string,
-    type: s.type as string,
-    hasModel: withModel.has(s.id),
-  }));
+  // Um modelo (o mais recente) por fonte; fontes sem modelo usam o esquema bruto.
+  const modelBySource = new Map<string, { name: string; version: number }>();
+  for (const m of activeModels ?? []) {
+    if (!modelBySource.has(m.data_source_id)) {
+      modelBySource.set(m.data_source_id, { name: m.name as string, version: m.version as number });
+    }
+  }
+  const sourceOptions = (sources ?? []).map((s) => {
+    const model = modelBySource.get(s.id);
+    return {
+      id: s.id as string,
+      name: s.name as string,
+      type: s.type as string,
+      hasModel: Boolean(model),
+      modelLabel: model ? `${model.name} v${model.version}` : null,
+    };
+  });
 
   const dashboards = (data ?? []) as Dashboard[];
   const canEdit = ctx.role !== "VIEWER";

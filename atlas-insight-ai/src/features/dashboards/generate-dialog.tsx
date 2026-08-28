@@ -23,6 +23,8 @@ export interface GenerateSourceOption {
   type: string;
   /** Whether an ACTIVE semantic model exists for this source. */
   hasModel: boolean;
+  /** e.g. "Uploaded Files model v3" — shown as the option label. */
+  modelLabel: string | null;
 }
 
 const SUGGESTIONS = [
@@ -106,7 +108,7 @@ export function GenerateDashboardDialog({
             }}
           >
             <div className="space-y-1.5">
-              <Label htmlFor="gen-source">Data source</Label>
+              <Label htmlFor="gen-source">Semantic model</Label>
               <select
                 id="gen-source"
                 required
@@ -115,12 +117,11 @@ export function GenerateDashboardDialog({
                 className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <option value="" disabled>
-                  Select the source that grounds this dashboard…
+                  Select the semantic model that grounds this dashboard…
                 </option>
                 {sources.map((s) => (
                   <option key={s.id} value={s.id}>
-                    {s.name} ({s.type}
-                    {s.hasModel ? " · semantic model" : ""})
+                    {s.modelLabel ? `${s.modelLabel} — ${s.name}` : `${s.name} (raw schema)`}
                   </option>
                 ))}
               </select>
