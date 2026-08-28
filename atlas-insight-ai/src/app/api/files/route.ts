@@ -13,6 +13,10 @@ import { AIOrchestrator } from "@/ai/orchestrator";
 import { profileDataSource } from "@/services/profiling";
 import { generateSemanticModel } from "@/semantic/generator";
 import { findDuplicate, hashFileContent, invalidateAiCache } from "@/services/file-dedup";
+import { publishRevision } from "@/services/datasets";
+import { buildWorkspaceContext } from "@/ai/context";
+import { scoreDataset } from "@/ai/dataset-quality";
+import { minDatasetQualityScore } from "@/ai/config";
 
 export const maxDuration = 60;
 
@@ -165,6 +169,24 @@ export async function POST(request: NextRequest) {
           await generateSemanticModel(ctx, result.dataSourceId);
         } catch (error) {
           console.error("[auto-pipeline] semantic model", error);
+        }
+        // A nota de qualidade só faz sentido depois do perfil: é dele que
+        // saem papéis das colunas, vazios e contagens. Publicar aqui é o que
+        // torna o portão real — uma base reprovada fica visível com o motivo,
+        // em vez de virar um painel de gráficos em branco.
+        try {
+          const context = await buildWorkspaceContext(ctx, result.dataSourceId);
+          const quality = scoreDataset(context);
+          await publishRevision(ctx.supabase, result.dataSourceId, {
+            score: quality.score,
+            problems: quality.problems,
+            rowCount: result.rowCount,
+            columnCount: parsed.columns.length,
+            contentHash,
+            minScore: minDatasetQualityScore(),
+          });
+        } catch (error) {
+          console.error("[auto-pipeline] publish revision", error);
         }
       });
 
