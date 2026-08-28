@@ -12,6 +12,12 @@ import {
  * Gemini Flash permite poucas requisições por dia) e um provedor fora do ar
  * não pode derrubar o produto: só devolvemos erro depois de tentar TODOS.
  */
+/**
+ * Tempo mínimo que vale a pena dar a um provedor. Abaixo disso, tentar só
+ * consome o que resta sem chance real de resposta.
+ */
+const MIN_PROVIDER_SLICE_MS = 6_000;
+
 export class FallbackLLMProvider implements LLMProvider {
   readonly name: string;
   readonly model: string;
@@ -25,13 +31,25 @@ export class FallbackLLMProvider implements LLMProvider {
   async complete(request: LLMRequest): Promise<LLMResponse> {
     const errors: string[] = [];
 
-    for (const provider of this.providers) {
-      if (remainingMs(request.deadline) <= 1_000) {
+    for (const [index, provider] of this.providers.entries()) {
+      const left = remainingMs(request.deadline);
+      if (left <= MIN_PROVIDER_SLICE_MS) {
         errors.push("prazo esgotado antes de tentar os demais provedores");
         break;
       }
+
+      // Reparte o tempo restante entre os provedores que ainda faltam. Sem
+      // isto, o primeiro da fila consome tudo e os seguintes — que poderiam
+      // responder em menos de um segundo — nunca chegam a ser chamados.
+      const providersLeft = this.providers.length - index;
+      const slice = Number.isFinite(left)
+        ? Math.max(Math.floor(left / providersLeft), MIN_PROVIDER_SLICE_MS)
+        : undefined;
+      const attempt =
+        slice == null ? request : { ...request, deadline: Date.now() + Math.min(slice, left) };
+
       try {
-        return await provider.complete(request);
+        return await provider.complete(attempt);
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         errors.push(`${provider.name}: ${message.slice(0, 200)}`);

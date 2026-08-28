@@ -17,7 +17,7 @@ const DEFAULT_MODEL = "gpt-4.1";
 const REASONING_HEADROOM_TOKENS = 8000;
 
 /** Teto por requisição: um modelo lento não pode consumir a função inteira. */
-const REQUEST_TIMEOUT_MS = 40_000;
+const REQUEST_TIMEOUT_MS = 18_000;
 
 /**
  * Fala o dialeto /chat/completions da OpenAI — que virou padrão de fato.

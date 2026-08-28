@@ -34,7 +34,7 @@ const FALLBACK_MODELS = [
  * Teto por modelo. Sem isso, um modelo lento consome todo o tempo da função
  * serverless e a requisição morre — melhor desistir dele e tentar o próximo.
  */
-const REQUEST_TIMEOUT_MS = 40_000;
+const REQUEST_TIMEOUT_MS = 18_000;
 
 /** Situações em que vale tentar outro modelo: cota estourada ou aposentado. */
 function shouldTryNextModel(status: number): boolean {
