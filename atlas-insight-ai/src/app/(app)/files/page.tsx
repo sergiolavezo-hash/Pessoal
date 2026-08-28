@@ -20,6 +20,27 @@ const STATUS_VARIANT = {
   ERROR: "destructive",
 } as const;
 
+const STATUS_LABEL: Record<string, string> = {
+  UPLOADING: "Enviando",
+  PROCESSING: "Processando",
+  READY: "Pronto",
+  ERROR: "Falhou",
+};
+
+/**
+ * Acima disto, um arquivo "processando" não está mais sendo processado: a
+ * função do servidor caiu ou estourou o tempo e nunca voltou para marcar o
+ * fim. Mostrar isso como falha evita o registro congelado para sempre.
+ */
+const STUCK_AFTER_MS = 10 * 60 * 1000;
+
+function isStuck(file: { status: string; created_at: string }): boolean {
+  return (
+    file.status === "PROCESSING" &&
+    Date.now() - new Date(file.created_at).getTime() > STUCK_AFTER_MS
+  );
+}
+
 export default async function FilesPage() {
   const ctx = await getAppContext();
   const supabase = await createClient();
@@ -50,16 +71,16 @@ export default async function FilesPage() {
         />
       ) : (
         <Card>
-          <CardContent className="p-0">
+          <CardContent className="overflow-x-auto p-0">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>File</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Size</TableHead>
-                  <TableHead>Uploaded by</TableHead>
-                  <TableHead>Uploaded</TableHead>
-                  <TableHead>Status</TableHead>
+                  <TableHead>Arquivo</TableHead>
+                  <TableHead className="hidden sm:table-cell">Tipo</TableHead>
+                  <TableHead className="hidden sm:table-cell">Tamanho</TableHead>
+                  <TableHead className="hidden lg:table-cell">Enviado por</TableHead>
+                  <TableHead className="hidden md:table-cell">Quando</TableHead>
+                  <TableHead>Situação</TableHead>
                   <TableHead className="w-10" />
                 </TableRow>
               </TableHeader>
@@ -72,25 +93,38 @@ export default async function FilesPage() {
                         <span className="ml-2 text-xs text-muted-foreground">📁 {(f as unknown as { folder?: string | null }).folder}</span>
                       )}
                     </TableCell>
-                    <TableCell className="uppercase text-muted-foreground">
+                    <TableCell className="hidden uppercase text-muted-foreground sm:table-cell">
                       {f.name.split(".").pop()}
                     </TableCell>
-                    <TableCell className="tabular-nums text-muted-foreground">
+                    <TableCell className="hidden tabular-nums text-muted-foreground sm:table-cell">
                       {f.size_bytes != null ? `${(f.size_bytes / 1024).toFixed(0)} KB` : "—"}
                     </TableCell>
-                    <TableCell className="text-muted-foreground">
+                    <TableCell className="hidden text-muted-foreground lg:table-cell">
                       {f.profiles?.full_name || f.profiles?.email || "—"}
                     </TableCell>
-                    <TableCell className="text-muted-foreground">{relativeTime(f.created_at)}</TableCell>
+                    <TableCell className="hidden text-muted-foreground md:table-cell">
+                      {relativeTime(f.created_at)}
+                    </TableCell>
                     <TableCell>
-                      <Badge variant={STATUS_VARIANT[f.status]}>{f.status}</Badge>
+                      {isStuck(f) ? (
+                        <>
+                          <Badge variant="destructive">Interrompido</Badge>
+                          <p className="mt-1 text-xs text-destructive">
+                            O processamento não foi concluído. Exclua e envie novamente.
+                          </p>
+                        </>
+                      ) : (
+                        <Badge variant={STATUS_VARIANT[f.status]}>
+                          {STATUS_LABEL[f.status] ?? f.status}
+                        </Badge>
+                      )}
                       {f.error && <p className="mt-1 text-xs text-destructive">{f.error}</p>}
                     </TableCell>
                     <TableCell>
                       {canEdit && (
                         <ObjectMenu
                           deleteEndpoint={`/api/files/${f.id}?workspaceId=${ctx.workspace.id}`}
-                          deleteConfirm={`Delete file "${f.name}"? Its data table will be removed as well.`}
+                          deleteConfirm={`Excluir o arquivo "${f.name}"? A tabela de dados também será removida.`}
                           moveEndpoint={`/api/files/${f.id}`}
                           moveBody={{ workspaceId: ctx.workspace.id }}
                           currentFolder={(f as unknown as { folder?: string | null }).folder ?? null}

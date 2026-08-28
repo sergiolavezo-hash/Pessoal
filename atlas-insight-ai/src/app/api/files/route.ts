@@ -1,4 +1,4 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse, after, type NextRequest } from "next/server";
 import { requireWorkspace, handleApiError, auditLog, ApiError } from "@/services/api-context";
 import { createAdminClient } from "@/lib/supabase/admin";
 import {
@@ -120,31 +120,31 @@ export async function POST(request: NextRequest) {
         table: result.physicalName,
       });
 
-      // Piloto automático: depois do upload, a inteligência roda sozinha —
-      // perfil das colunas, detecção de relacionamentos e modelo semântico.
-      // Cada etapa é best-effort: falhas não invalidam o upload.
-      const pipeline: { profiled: boolean; relationships: number; semanticModel: boolean } = {
-        profiled: false,
-        relationships: 0,
-        semanticModel: false,
-      };
-      try {
-        const prof = await profileDataSource(ctx, result.dataSourceId);
-        pipeline.profiled = true;
-        pipeline.relationships =
-          (prof as { relationships?: number } | undefined)?.relationships ?? 0;
-      } catch (error) {
-        console.error("[auto-pipeline] profiling", error);
-      }
-      try {
-        await generateSemanticModel(ctx, result.dataSourceId);
-        pipeline.semanticModel = true;
-      } catch (error) {
-        console.error("[auto-pipeline] semantic model", error);
-      }
+      // Piloto automático: perfil das colunas, relacionamentos e modelo
+      // semântico rodam DEPOIS da resposta. Antes eles ficavam no caminho do
+      // pedido e, somados à leitura por IA, estouravam o tempo da função — o
+      // upload morria e o arquivo ficava preso em "processando".
+      after(async () => {
+        try {
+          await profileDataSource(ctx, result.dataSourceId);
+        } catch (error) {
+          console.error("[auto-pipeline] profiling", error);
+        }
+        try {
+          await generateSemanticModel(ctx, result.dataSourceId);
+        } catch (error) {
+          console.error("[auto-pipeline] semantic model", error);
+        }
+      });
 
       return NextResponse.json(
-        { file: { ...fileRow, status: "READY" }, table: result, warnings: parsed.warnings, pipeline },
+        {
+          file: { ...fileRow, status: "READY" },
+          table: result,
+          warnings: parsed.warnings,
+          // O entendimento continua sendo montado em segundo plano.
+          pipelineQueued: true,
+        },
         { status: 201 }
       );
     } catch (processError) {

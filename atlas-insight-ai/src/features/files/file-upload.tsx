@@ -6,6 +6,28 @@ import { toast } from "sonner";
 import { Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+/**
+ * Lê a resposta com tolerância: quando a função do servidor cai ou estoura o
+ * tempo, o corpo é uma página de erro, não JSON. Sem isso, o usuário recebia
+ * a mensagem críptica do navegador ("The string did not match the expected
+ * pattern") em vez de saber o que aconteceu.
+ */
+async function readResponse(res: Response): Promise<Record<string, unknown>> {
+  const text = await res.text();
+  try {
+    return JSON.parse(text) as Record<string, unknown>;
+  } catch {
+    if (res.status === 504 || res.status === 408) {
+      throw new Error(
+        "O processamento demorou mais que o permitido. Arquivos muito grandes ou com layout complexo podem exceder o limite — tente novamente ou reduza o arquivo."
+      );
+    }
+    throw new Error(
+      `O servidor não concluiu o envio (erro ${res.status}). Tente novamente em instantes.`
+    );
+  }
+}
+
 export function FileUpload({ workspaceId }: { workspaceId: string }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -17,25 +39,33 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
       const formData = new FormData();
       formData.set("workspaceId", workspaceId);
       formData.set("file", file);
+
       const res = await fetch("/api/files", { method: "POST", body: formData });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Upload failed");
-      const deduped = json.table.dedupedCount ?? 0;
+      const json = await readResponse(res);
+      if (!res.ok) throw new Error((json.error as string) ?? "Falha no envio");
+
+      const table = (json.table ?? {}) as { rowCount?: number; dedupedCount?: number };
+      const deduped = table.dedupedCount ?? 0;
       toast.success(
-        `${file.name}: ${json.table.rowCount.toLocaleString()} rows ready` +
-          (deduped > 0 ? ` · ${deduped.toLocaleString()} duplicate rows removed automatically` : ""),
+        `${file.name}: ${(table.rowCount ?? 0).toLocaleString("pt-BR")} linhas prontas` +
+          (deduped > 0
+            ? ` · ${deduped.toLocaleString("pt-BR")} linhas duplicadas removidas automaticamente`
+            : ""),
         { duration: 8000 }
       );
-      if (json.pipeline?.semanticModel) {
-        toast.success(
-          `Atlas understood your data: profile, ${json.pipeline.relationships ?? 0} relationship(s) and semantic model ready. Go to Dashboards → Generate!`,
-          { duration: 10000 }
+      if (json.pipelineQueued) {
+        toast.info(
+          "Atlas está entendendo seus dados (perfil, relacionamentos e modelo). Em alguns instantes já dá para gerar um painel.",
+          { duration: 9000 }
         );
       }
-      for (const w of json.warnings ?? []) toast.warning(w);
+      for (const w of (json.warnings as string[]) ?? []) toast.warning(w, { duration: 9000 });
       router.refresh();
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Upload failed");
+      toast.error(error instanceof Error ? error.message : "Falha no envio", { duration: 12000 });
+      // O registro pode ter ficado em processamento: atualiza para o usuário
+      // ver a situação real em vez de um estado congelado.
+      router.refresh();
     } finally {
       setUploading(false);
       if (inputRef.current) inputRef.current.value = "";
@@ -56,7 +86,7 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
       />
       <Button onClick={() => inputRef.current?.click()} loading={uploading}>
         <Upload />
-        Upload file
+        Enviar arquivo
       </Button>
     </>
   );

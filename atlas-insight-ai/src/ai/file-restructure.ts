@@ -61,6 +61,14 @@ function stripNulls<T>(value: T): T {
   return JSON.parse(JSON.stringify(value), (_k, v) => (v === null ? undefined : v)) as T;
 }
 
+/**
+ * Orçamento de tempo da leitura por IA. O upload roda numa função com tempo
+ * limitado e a cadeia de fallback pode tentar vários modelos em sequência —
+ * sem um teto, o pedido inteiro morre e o arquivo fica preso em "processando".
+ * Estourado o prazo, seguimos com o leitor heurístico.
+ */
+export const LAYOUT_ANALYSIS_BUDGET_MS = 25_000;
+
 const MAX_SAMPLE_ROWS = 120;
 const MAX_SAMPLE_COLS = 26;
 const MAX_CELL_CHARS = 28;
@@ -125,20 +133,39 @@ Rules:
  */
 export async function analyzeFileLayout(
   matrix: unknown[][],
-  fileName: string
+  fileName: string,
+  budgetMs: number = LAYOUT_ANALYSIS_BUDGET_MS
 ): Promise<RestructurePlan | null> {
   const provider = getLLMProvider();
   const prompt = `File name: ${fileName}\nGrid (${matrix.length} rows):\n\n${renderMatrixSample(matrix)}`;
-  const response = await provider.complete({
+
+  const analysis = provider.complete({
     system: SYSTEM_PROMPT,
     messages: [{ role: "user", content: prompt }],
     jsonMode: true,
     maxTokens: 4000,
   });
-  const plan = restructurePlanSchema.parse(stripNulls(extractJson(response.text)));
-  if (!plan.needsRestructure) return null;
-  if (plan.columns.every((c) => c.role === "ignore")) return null;
-  return plan;
+
+  // Corrida com o relógio: o upload não pode ficar refém da IA.
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const deadline = new Promise<never>((_, reject) => {
+    timer = setTimeout(
+      () => reject(new Error(`Layout analysis exceeded ${budgetMs}ms`)),
+      budgetMs
+    );
+  });
+
+  try {
+    const response = await Promise.race([analysis, deadline]);
+    const plan = restructurePlanSchema.parse(stripNulls(extractJson(response.text)));
+    if (!plan.needsRestructure) return null;
+    if (plan.columns.every((c) => c.role === "ignore")) return null;
+    return plan;
+  } finally {
+    clearTimeout(timer);
+    // Evita "unhandled rejection" quando o prazo vence antes da resposta.
+    analysis.catch(() => {});
+  }
 }
 
 /** Comparação tolerante a acentos/caixa, para casar rótulos com nomes. */
