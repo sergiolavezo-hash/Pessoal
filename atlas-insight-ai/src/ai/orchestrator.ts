@@ -137,7 +137,7 @@ export class AIOrchestrator {
     }>
   ): Promise<T> {
     // Portão único de consumo: nenhuma operação de IA começa sem crédito.
-    assertHasCredits(await getCreditStatus(this.ctx.supabase, this.ctx.organizationId));
+    assertHasCredits(await getCreditStatus(this.ctx.organizationId));
 
     const { data: run } = await this.ctx.supabase
       .from("ai_runs")
@@ -161,13 +161,7 @@ export class AIOrchestrator {
       // fallback pode ter trocado de fornecedor, com preço bem diferente.
       const servedModel = model ?? this.provider.model;
       const cost = priceRun(servedModel, inputTokens, outputTokens);
-      await chargeAiUsage(
-        this.ctx.supabase,
-        this.ctx.organizationId,
-        cost.chargedCents,
-        run?.id,
-        kind
-      );
+      await chargeAiUsage(this.ctx.organizationId, cost.chargedCents, run?.id, kind);
       if (run) {
         await this.ctx.supabase
           .from("ai_runs")

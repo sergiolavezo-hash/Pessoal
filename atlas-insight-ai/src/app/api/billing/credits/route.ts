@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
   try {
     const workspaceId = request.nextUrl.searchParams.get("workspaceId");
     const ctx = await requireWorkspace(workspaceId);
-    const status = await getCreditStatus(ctx.supabase, ctx.organizationId);
+    const status = await getCreditStatus(ctx.organizationId);
     return NextResponse.json({ status, packs: CREDIT_PACKS });
   } catch (error) {
     return handleApiError(error);

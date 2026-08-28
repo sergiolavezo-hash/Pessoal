@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
         if (session.metadata?.kind === "ai_credits") {
           const creditCents = Number(session.metadata.credit_cents);
           if (orgId && Number.isFinite(creditCents) && creditCents > 0) {
-            await addCredits(db, orgId, creditCents, {
+            await addCredits(orgId, creditCents, {
               kind: "purchase",
               reference: session.id,
               note: `Recarga ${session.metadata.pack_id ?? ""}`.trim(),

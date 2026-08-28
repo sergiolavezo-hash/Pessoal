@@ -1,5 +1,5 @@
 import "server-only";
-import type { SupabaseClient } from "@supabase/supabase-js";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { ApiError } from "@/services/api-context";
 import { formatCents } from "@/services/ai-cost";
 
@@ -29,11 +29,15 @@ const PERMISSIVE: AiCreditStatus = {
   day_spent_cents: 0,
 };
 
-export async function getCreditStatus(
-  supabase: SupabaseClient,
-  organizationId: string
-): Promise<AiCreditStatus> {
-  const { data, error } = await supabase.rpc("ai_credits_status", { org: organizationId });
+/**
+ * As funções de carteira são SECURITY DEFINER e recebem a organização por
+ * parâmetro: só o service role pode executá-las. Chamá-las com o cliente do
+ * usuário falhava silenciosamente — o consumo nunca era debitado.
+ */
+export async function getCreditStatus(organizationId: string): Promise<AiCreditStatus> {
+  const { data, error } = await createAdminClient().rpc("ai_credits_status", {
+    org: organizationId,
+  });
   if (error) {
     console.warn(`[ai-credits] status unavailable: ${error.message}`);
     return PERMISSIVE;
@@ -43,14 +47,13 @@ export async function getCreditStatus(
 
 /** Debita o custo de uma execução. Falhas nunca derrubam o pedido do usuário. */
 export async function chargeAiUsage(
-  supabase: SupabaseClient,
   organizationId: string,
   cents: number,
   runId?: string,
   note?: string
 ): Promise<void> {
   if (cents <= 0) return;
-  const { error } = await supabase.rpc("ai_credits_consume", {
+  const { error } = await createAdminClient().rpc("ai_credits_consume", {
     org: organizationId,
     cents,
     run: runId ?? null,
@@ -61,12 +64,11 @@ export async function chargeAiUsage(
 
 /** Credita uma recarga aprovada. Idempotente pela referência do pagamento. */
 export async function addCredits(
-  supabase: SupabaseClient,
   organizationId: string,
   cents: number,
   options: { kind?: string; reference?: string; note?: string } = {}
 ): Promise<AiCreditStatus> {
-  const { data, error } = await supabase.rpc("ai_credits_add", {
+  const { data, error } = await createAdminClient().rpc("ai_credits_add", {
     org: organizationId,
     cents,
     entry_kind: options.kind ?? "purchase",

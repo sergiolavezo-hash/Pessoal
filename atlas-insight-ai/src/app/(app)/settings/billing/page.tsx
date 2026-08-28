@@ -43,7 +43,7 @@ export default async function BillingPage() {
     getSubscription(supabase, ctx.organization.id),
     listPlans(supabase),
     listTransactions(supabase, ctx.organization.id),
-    getCreditStatus(supabase, ctx.organization.id),
+    getCreditStatus(ctx.organization.id),
   ]);
 
   const status = STATUS_LABEL[subscription?.status ?? ""] ?? {
