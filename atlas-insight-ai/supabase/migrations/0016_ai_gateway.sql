@@ -111,15 +111,15 @@ declare
   running integer;
   lease uuid;
 begin
+  -- Cria e trava a linha num único passo. Com `do nothing` seguido de um
+  -- `select ... for update`, dois pedidos simultâneos de uma organização nova
+  -- podiam ambos não enxergar a linha do outro (ainda não commitada) e passar
+  -- sem contagem. O `do update` sempre devolve a linha e sempre a trava, então
+  -- o segundo pedido espera o primeiro e já lê o contador atualizado.
   insert into public.ai_tenant_usage (organization_id)
   values (org)
-  on conflict (organization_id) do nothing;
-
-  -- Trava a linha: dois pedidos simultâneos do mesmo cliente não podem ler o
-  -- mesmo contador antes de qualquer um deles incrementar.
-  select * into u from public.ai_tenant_usage
-   where organization_id = org
-   for update;
+  on conflict (organization_id) do update set updated_at = now()
+  returning * into u;
 
   -- Vira as janelas vencidas antes de comparar com os limites.
   if u.minute_key < date_trunc('minute', now()) then
