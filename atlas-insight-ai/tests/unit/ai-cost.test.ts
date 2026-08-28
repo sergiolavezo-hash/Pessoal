@@ -95,3 +95,23 @@ describe("formatCents", () => {
     expect(formatCents(1999).replace(/ /g, " ")).toBe("R$ 19,99");
   });
 });
+
+// Um painel gerado de graça pelo Groq estava sendo precificado como se
+// tivesse rodado no modelo mais caro que conhecemos.
+describe("modelos gratuitos", () => {
+  it("não custam nada ao provedor", () => {
+    for (const m of ["openai/gpt-oss-120b", "gpt-oss-120b", "qwen/qwen3.8-27b", "gemma-4-31b"]) {
+      expect(providerCostUsd(m, 100_000, 100_000), m).toBe(0);
+    }
+  });
+
+  it("ainda consomem o mínimo, para medir a cota compartilhada", () => {
+    // A franquia gratuita é compartilhada entre todos os clientes: sem
+    // medir, um usuário pesado esgota a de todos os outros.
+    expect(priceRun("openai/gpt-oss-120b", 1552, 1717).chargedCents).toBe(1);
+  });
+
+  it("não caem no preço conservador por engano", () => {
+    expect(priceFor("openai/gpt-oss-120b")).not.toEqual(FALLBACK_PRICE);
+  });
+});

@@ -105,6 +105,7 @@ export class OpenAIProvider implements LLMProvider {
     return {
       text: choice?.message?.content ?? "",
       model: json.model,
+      provider: this.name,
       inputTokens: json.usage?.prompt_tokens ?? 0,
       outputTokens: json.usage?.completion_tokens ?? 0,
     };

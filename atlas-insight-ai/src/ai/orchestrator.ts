@@ -132,6 +132,8 @@ export class AIOrchestrator {
       queryExecutionId?: string;
       /** Modelo que realmente respondeu; a cadeia de fallback pode trocá-lo. */
       model?: string;
+      /** Provedor que realmente respondeu. */
+      provider?: string;
     }>
   ): Promise<T> {
     // Portão único de consumo: nenhuma operação de IA começa sem crédito.
@@ -154,7 +156,7 @@ export class AIOrchestrator {
       .single();
 
     try {
-      const { value, inputTokens, outputTokens, queryExecutionId, model } = await fn();
+      const { value, inputTokens, outputTokens, queryExecutionId, model, provider } = await fn();
       // Cobra pelo modelo que ATENDEU, não pelo configurado: a cadeia de
       // fallback pode ter trocado de fornecedor, com preço bem diferente.
       const servedModel = model ?? this.provider.model;
@@ -171,6 +173,7 @@ export class AIOrchestrator {
           .from("ai_runs")
           .update({
             status: "SUCCEEDED",
+            provider: provider ?? this.provider.name,
             model: servedModel,
             input_tokens: inputTokens,
             output_tokens: outputTokens,
@@ -270,6 +273,7 @@ export class AIOrchestrator {
               outputTokens: totalOut,
               queryExecutionId: execution.executionId,
               model: response.model,
+        provider: response.provider,
             };
           } catch (error) {
             lastError = error instanceof Error ? error.message : "Execution failed";
@@ -318,6 +322,7 @@ ${resultSample}`;
         outputTokens: response.outputTokens,
         queryExecutionId: execution.executionId,
         model: response.model,
+        provider: response.provider,
       };
     });
 
@@ -396,6 +401,7 @@ Regras:
         inputTokens: response.inputTokens,
         outputTokens: response.outputTokens,
         model: response.model,
+        provider: response.provider,
       };
     });
   }
@@ -587,6 +593,7 @@ Regras:
         inputTokens: response.inputTokens,
         outputTokens: response.outputTokens,
         model: response.model,
+        provider: response.provider,
       };
     });
   }
@@ -608,6 +615,7 @@ Regras:
         inputTokens: response.inputTokens,
         outputTokens: response.outputTokens,
         model: response.model,
+        provider: response.provider,
       };
     });
   }

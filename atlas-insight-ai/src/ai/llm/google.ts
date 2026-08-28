@@ -136,6 +136,7 @@ export class GoogleProvider implements LLMProvider {
       return {
         text: (candidate?.content?.parts ?? []).map((p) => p.text ?? "").join(""),
         model: json.modelVersion ?? model,
+        provider: this.name,
         inputTokens: json.usageMetadata?.promptTokenCount ?? 0,
         outputTokens: json.usageMetadata?.candidatesTokenCount ?? 0,
       };

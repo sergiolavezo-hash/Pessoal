@@ -37,6 +37,17 @@ export const MODEL_PRICES: Record<string, ModelPrice> = {
   "gpt-4o": { inputPerMillionUsd: 2.5, outputPerMillionUsd: 10.0 },
   "gpt-4o-mini": { inputPerMillionUsd: 0.15, outputPerMillionUsd: 0.6 },
 
+  // Modelos abertos servidos por camadas gratuitas (Groq, Cerebras,
+  // OpenRouter). Não há custo de provedor; a Atlas cobra o mínimo de 1
+  // centavo por execução, definido em priceRun.
+  "openai/gpt-oss-120b": { inputPerMillionUsd: 0, outputPerMillionUsd: 0 },
+  "openai/gpt-oss-20b": { inputPerMillionUsd: 0, outputPerMillionUsd: 0 },
+  "gpt-oss-120b": { inputPerMillionUsd: 0, outputPerMillionUsd: 0 },
+  "gpt-oss-20b": { inputPerMillionUsd: 0, outputPerMillionUsd: 0 },
+  "qwen/qwen3.8-27b": { inputPerMillionUsd: 0, outputPerMillionUsd: 0 },
+  "qwen/qwen3.6-27b": { inputPerMillionUsd: 0, outputPerMillionUsd: 0 },
+  "gemma-4-31b": { inputPerMillionUsd: 0, outputPerMillionUsd: 0 },
+
   // Anthropic
   "claude-opus-5": { inputPerMillionUsd: 5.0, outputPerMillionUsd: 25.0 },
   "claude-sonnet-5": { inputPerMillionUsd: 2.0, outputPerMillionUsd: 10.0 },
@@ -93,13 +104,19 @@ export interface RunCost {
 }
 
 /**
- * Preço final de uma execução. Arredonda para cima em centavos: execuções
- * baratas ainda custam 1 centavo, então nenhum uso sai de graça.
+ * Preço final de uma execução. Arredonda para cima em centavos, com um
+ * mínimo de 1 centavo sempre que houve consumo real de tokens.
+ *
+ * O mínimo vale inclusive para provedores gratuitos: a cota gratuita é um
+ * recurso COMPARTILHADO entre todos os clientes, e sem medir, um usuário
+ * pesado esgota a franquia de todos os outros. Cobrar o mínimo mede o uso
+ * sem transformar o gratuito em caro.
  */
 export function priceRun(model: string, inputTokens: number, outputTokens: number): RunCost {
   const costUsd = providerCostUsd(model, inputTokens, outputTokens);
+  const consumed = Math.max(0, inputTokens) + Math.max(0, outputTokens) > 0;
   const chargedCents = Math.ceil(costUsd * marginMultiplier() * usdToBrl() * 100);
-  return { providerCostUsd: costUsd, chargedCents: Math.max(costUsd > 0 ? 1 : 0, chargedCents) };
+  return { providerCostUsd: costUsd, chargedCents: Math.max(consumed ? 1 : 0, chargedCents) };
 }
 
 /** Formata centavos como moeda brasileira para a interface. */

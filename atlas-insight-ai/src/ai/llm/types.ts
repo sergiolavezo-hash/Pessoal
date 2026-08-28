@@ -29,6 +29,8 @@ export function remainingMs(deadline?: number): number {
 export interface LLMResponse {
   text: string;
   model: string;
+  /** Provedor que realmente respondeu — a cadeia de fallback pode trocá-lo. */
+  provider?: string;
   inputTokens: number;
   outputTokens: number;
 }
