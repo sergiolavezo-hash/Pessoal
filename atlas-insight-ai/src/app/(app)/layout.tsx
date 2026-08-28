@@ -1,13 +1,17 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { getAppContext } from "@/services/context";
 import { createClient } from "@/lib/supabase/server";
 import { getSubscription } from "@/services/billing";
-import { AppSidebar } from "@/components/layout/app-sidebar";
+import { AppShell } from "@/components/layout/app-shell";
+import { SIDEBAR_COLLAPSED, SIDEBAR_COOKIE } from "@/lib/ui-preferences";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const ctx = await getAppContext();
   const supabase = await createClient();
   const subscription = await getSubscription(supabase, ctx.organization.id);
+  // Lido no servidor para a primeira pintura já sair no estado escolhido.
+  const collapsed = (await cookies()).get(SIDEBAR_COOKIE)?.value === SIDEBAR_COLLAPSED;
 
   const trial =
     subscription?.status === "trialing"
@@ -27,39 +31,43 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     ["past_due", "canceled", "expired", "incomplete"].includes(subscription.status);
 
   return (
-    <div className="flex min-h-screen">
-      <AppSidebar
-        profile={ctx.profile}
-        organization={ctx.organization}
-        workspaces={ctx.workspaces}
-        workspace={ctx.workspace}
-        role={ctx.role}
-      />
-      <main className="min-w-0 flex-1 bg-background">
-        {trial && (
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-warning/30 bg-warning/10 px-6 py-2 text-sm lg:px-8">
-            <span>
-              <strong>Free trial:</strong> {trial.daysLeft} day{trial.daysLeft === 1 ? "" : "s"} and{" "}
-              {trial.runsLeft} dashboard run{trial.runsLeft === 1 ? "" : "s"} remaining.
-            </span>
-            <Link href="/settings/billing" className="font-medium text-primary hover:underline">
-              Choose a plan →
-            </Link>
-          </div>
-        )}
-        {blocked && (
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-destructive/30 bg-destructive/10 px-6 py-2 text-sm lg:px-8">
-            <span>
-              <strong>Subscription inactive.</strong> Dashboard generation and data access are
-              paused.
-            </span>
-            <Link href="/settings/billing" className="font-medium text-primary hover:underline">
-              Fix billing →
-            </Link>
-          </div>
-        )}
-        <div className="mx-auto max-w-7xl px-6 py-6 lg:px-8">{children}</div>
-      </main>
-    </div>
+    <AppShell
+      profile={ctx.profile}
+      organization={ctx.organization}
+      workspaces={ctx.workspaces}
+      workspace={ctx.workspace}
+      role={ctx.role}
+      initialCollapsed={collapsed}
+      banners={
+        <>
+          {trial && (
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-warning/30 bg-warning/10 px-6 py-2 text-sm lg:px-8">
+              <span>
+                <strong>Teste gratuito:</strong> {trial.daysLeft} dia
+                {trial.daysLeft === 1 ? "" : "s"} e {trial.runsLeft} pain
+                {trial.runsLeft === 1 ? "el" : "éis"} restante
+                {trial.runsLeft === 1 ? "" : "s"}.
+              </span>
+              <Link href="/settings/billing" className="font-medium text-primary hover:underline">
+                Escolher um plano →
+              </Link>
+            </div>
+          )}
+          {blocked && (
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-destructive/30 bg-destructive/10 px-6 py-2 text-sm lg:px-8">
+              <span>
+                <strong>Assinatura inativa.</strong> A geração de painéis e o acesso aos dados
+                estão pausados.
+              </span>
+              <Link href="/settings/billing" className="font-medium text-primary hover:underline">
+                Regularizar →
+              </Link>
+            </div>
+          )}
+        </>
+      }
+    >
+      {children}
+    </AppShell>
   );
 }

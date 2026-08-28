@@ -12,7 +12,7 @@ import { ObjectMenu } from "@/components/ui/object-menu";
 import { CONNECTOR_CATALOG } from "@/features/data-sources/connector-catalog";
 import type { DataSource } from "@/types";
 
-export const metadata = { title: "Data Sources" };
+export const metadata = { title: "Fontes de dados" };
 
 export default async function DataSourcesPage() {
   const ctx = await getAppContext();
@@ -31,16 +31,16 @@ export default async function DataSourcesPage() {
   return (
     <div>
       <PageHeader
-        title="Data Sources"
-        description="Connect databases, warehouses and files."
+        title="Fontes de dados"
+        description="Conecte bancos de dados, data warehouses e arquivos."
         actions={canEdit ? <NewSourceDialog workspaceId={ctx.workspace.id} /> : undefined}
       />
 
       {sources.length === 0 ? (
         <EmptyState
           icon={Database}
-          title="No data sources connected"
-          description="Connect your first database, warehouse or spreadsheet to start analyzing your data."
+          title="Nenhuma fonte conectada"
+          description="Conecte seu primeiro banco, warehouse ou planilha para começar a analisar."
           action={canEdit ? <NewSourceDialog workspaceId={ctx.workspace.id} /> : undefined}
         />
       ) : (

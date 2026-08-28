@@ -11,7 +11,7 @@ import { ObjectMenu } from "@/components/ui/object-menu";
 import { NewMetricDialog } from "@/features/metrics/new-metric-dialog";
 import type { Metric, MetricStatus } from "@/types";
 
-export const metadata = { title: "Metrics" };
+export const metadata = { title: "Indicadores" };
 
 const STATUS_VARIANT: Record<MetricStatus, "secondary" | "success" | "default" | "destructive"> = {
   DRAFT: "secondary",
@@ -37,16 +37,16 @@ export default async function MetricsPage() {
   return (
     <div>
       <PageHeader
-        title="Metrics"
-        description="Governed, reusable calculations. Certified metrics are preferred by the AI."
+        title="Indicadores"
+        description="Cálculos padronizados e reutilizáveis. A IA dá preferência aos indicadores certificados."
         actions={canEdit ? <NewMetricDialog workspaceId={ctx.workspace.id} /> : undefined}
       />
 
       {metrics.length === 0 ? (
         <EmptyState
           icon={Sigma}
-          title="No metrics defined"
-          description="Create metrics like Revenue, Gross Margin or Average Ticket to give the AI a governed vocabulary."
+          title="Nenhum indicador definido"
+          description="Crie indicadores como Receita, Margem Bruta ou Ticket Médio para dar à IA um vocabulário confiável."
           action={canEdit ? <NewMetricDialog workspaceId={ctx.workspace.id} /> : undefined}
         />
       ) : (

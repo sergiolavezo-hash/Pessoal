@@ -13,7 +13,7 @@ import { NewRelationshipDialog } from "@/features/data-model/relationship-dialog
 import { ObjectMenu } from "@/components/ui/object-menu";
 import type { CatalogColumn, ColumnClassification } from "@/types";
 
-export const metadata = { title: "Data Model" };
+export const metadata = { title: "Modelo de dados" };
 
 const CLASS_VARIANT: Record<ColumnClassification, "default" | "secondary" | "success" | "warning" | "outline"> = {
   ID: "warning",
@@ -48,11 +48,11 @@ export default async function DataModelPage() {
   if ((tables ?? []).length === 0) {
     return (
       <div>
-        <PageHeader title="Data Model" description="Explore tables, columns and detected relationships." />
+        <PageHeader title="Modelo de dados" description="Explore tabelas, colunas e relacionamentos detectados." />
         <EmptyState
           icon={Network}
-          title="No cataloged tables"
-          description="Connect a data source and run a schema sync to populate the data model."
+          title="Nenhuma tabela catalogada"
+          description="Conecte uma fonte de dados e sincronize o esquema para montar o modelo."
           action={
             <Link href="/data-sources" className="text-sm text-primary hover:underline">
               Go to Data Sources <ArrowRight className="ml-1 inline h-3 w-3" />
@@ -66,8 +66,8 @@ export default async function DataModelPage() {
   return (
     <div>
       <PageHeader
-        title="Data Model"
-        description="Tables, columns, classifications and detected relationships."
+        title="Modelo de dados"
+        description="Tabelas, colunas, classificações e relacionamentos detectados."
         actions={
           (sources ?? []).length > 0 ? (
             <ModelActions workspaceId={ws} dataSourceId={(sources ?? [])[0].id} canEdit={canEdit} />
@@ -177,7 +177,7 @@ export default async function DataModelPage() {
           {(relationships ?? []).length === 0 ? (
             <EmptyState
               icon={Network}
-              title="No relationships yet"
+              title="Nenhum relacionamento ainda"
               description='Click "New relationship" to declare one manually, or run "Profile data" to detect primary/foreign keys automatically (needs at least two tables).'
             />
           ) : (

@@ -11,7 +11,7 @@ import { FileUpload } from "@/features/files/file-upload";
 import { ObjectMenu } from "@/components/ui/object-menu";
 import type { WorkspaceFile, Profile } from "@/types";
 
-export const metadata = { title: "Files" };
+export const metadata = { title: "Enviar dados" };
 
 const STATUS_VARIANT = {
   UPLOADING: "secondary",
@@ -36,16 +36,16 @@ export default async function FilesPage() {
   return (
     <div>
       <PageHeader
-        title="Files"
-        description="Upload CSV and XLSX files. Atlas detects the schema and makes the data queryable."
+        title="Enviar dados"
+        description="Envie arquivos CSV e XLSX. O Atlas lê o arquivo, entende os dados e deixa tudo pronto para análise."
         actions={canEdit ? <FileUpload workspaceId={ctx.workspace.id} /> : undefined}
       />
 
       {files.length === 0 ? (
         <EmptyState
           icon={FileText}
-          title="No files uploaded"
-          description="Upload a spreadsheet to analyze it with Atlas."
+          title="Nenhum arquivo enviado"
+          description="Envie uma planilha para analisar com o Atlas."
           action={canEdit ? <FileUpload workspaceId={ctx.workspace.id} /> : undefined}
         />
       ) : (

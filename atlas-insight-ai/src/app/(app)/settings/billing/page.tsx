@@ -14,7 +14,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-export const metadata = { title: "Billing" };
+export const metadata = { title: "Cobrança" };
 
 const STATUS_LABEL: Record<string, { label: string; variant: "success" | "warning" | "destructive" | "secondary" }> = {
   active: { label: "Active", variant: "success" },
@@ -65,8 +65,8 @@ export default async function BillingPage() {
         <BillingAnalytics />
       </Suspense>
       <PageHeader
-        title="Plan & Billing"
-        description="Subscription, free trial status and purchase history."
+        title="Plano e cobrança"
+        description="Assinatura, situação do teste gratuito e histórico de compras."
       />
 
       <div className="mb-6">

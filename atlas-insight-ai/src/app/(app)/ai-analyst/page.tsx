@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { AnalystChat } from "@/features/ai-analyst/chat";
 import type { AiConversation, AiMessage } from "@/types";
 
-export const metadata = { title: "AI Analyst" };
+export const metadata = { title: "Perguntar à IA" };
 
 const SUGGESTIONS = [
   "What was our total revenue last quarter?",
@@ -50,8 +50,8 @@ export default async function AiAnalystPage({
   return (
     <div>
       <PageHeader
-        title="AI Analyst"
-        description="Conversational analytics with evidence for every number."
+        title="Perguntar à IA"
+        description="Converse com seus dados. Todo número vem com a evidência de como foi calculado."
         actions={
           <Button variant="outline" asChild>
             <Link href="/ai-analyst">

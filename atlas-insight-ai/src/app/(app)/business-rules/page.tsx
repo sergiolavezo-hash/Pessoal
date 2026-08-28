@@ -10,7 +10,7 @@ import { NewRuleDialog } from "@/features/business-rules/new-rule-dialog";
 import { ObjectMenu } from "@/components/ui/object-menu";
 import type { BusinessRule } from "@/types";
 
-export const metadata = { title: "Business Rules" };
+export const metadata = { title: "Regras de negócio" };
 
 export default async function BusinessRulesPage() {
   const ctx = await getAppContext();
@@ -28,16 +28,16 @@ export default async function BusinessRulesPage() {
   return (
     <div>
       <PageHeader
-        title="Business Rules"
-        description="Teach Atlas how your business works. Rules are applied to every relevant analysis."
+        title="Regras de negócio"
+        description="Ensine ao Atlas como seu negócio funciona. As regras valem para toda análise relevante."
         actions={canEdit ? <NewRuleDialog workspaceId={ctx.workspace.id} /> : undefined}
       />
 
       {rules.length === 0 ? (
         <EmptyState
           icon={BookText}
-          title="No business rules yet"
-          description='Examples: "Only count approved sales." · "An active customer purchased in the last 90 days."'
+          title="Nenhuma regra de negócio ainda"
+          description='Exemplos: "Contar apenas vendas aprovadas." · "Cliente ativo é quem comprou nos últimos 90 dias."'
           action={canEdit ? <NewRuleDialog workspaceId={ctx.workspace.id} /> : undefined}
         />
       ) : (

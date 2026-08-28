@@ -11,7 +11,7 @@ import { GenerateDashboardDialog } from "@/features/dashboards/generate-dialog";
 import { ObjectMenu } from "@/components/ui/object-menu";
 import type { Dashboard } from "@/types";
 
-export const metadata = { title: "Dashboards" };
+export const metadata = { title: "Painéis" };
 
 export default async function DashboardsPage() {
   const ctx = await getAppContext();
@@ -86,16 +86,16 @@ export default async function DashboardsPage() {
   return (
     <div>
       <PageHeader
-        title="Dashboards"
-        description="AI-generated, spec-driven dashboards backed by validated queries."
+        title="Painéis"
+        description="Painéis criados pela IA, sempre apoiados em consultas validadas nos seus dados."
         actions={canEdit ? <GenerateDashboardDialog workspaceId={ctx.workspace.id} sources={sourceOptions} /> : undefined}
       />
 
       {dashboards.length === 0 ? (
         <EmptyState
           icon={LayoutDashboard}
-          title="No dashboards yet"
-          description="Describe what you want to analyze and Atlas will design the dashboard for you."
+          title="Nenhum painel ainda"
+          description="Descreva o que você quer analisar e o Atlas monta o painel para você."
           action={canEdit ? <GenerateDashboardDialog workspaceId={ctx.workspace.id} sources={sourceOptions} /> : undefined}
         />
       ) : (

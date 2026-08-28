@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import type { Profile } from "@/types";
 
-export const metadata = { title: "Settings" };
+export const metadata = { title: "Configurações" };
 
 export default async function SettingsPage() {
   const ctx = await getAppContext();
@@ -20,7 +20,7 @@ export default async function SettingsPage() {
 
   return (
     <div>
-      <PageHeader title="Settings" description="Organization, workspace and team management." />
+      <PageHeader title="Configurações" description="Gestão da organização, das áreas de trabalho e da equipe." />
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
