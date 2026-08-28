@@ -27,6 +27,23 @@ import { formatWait } from "@/lib/wait-time";
 const MIN_PROVIDER_SLICE_MS = 6_000;
 
 /**
+ * Tempo guardado para o provedor seguinte quando o atual falha.
+ *
+ * Este número fica entre dois defeitos reais, um de cada lado:
+ *
+ *  - reserva de menos: o primeiro provedor consome o orçamento inteiro
+ *    tentando seus modelos e os seguintes — que responderiam em menos de um
+ *    segundo — nunca chegam a ser chamados;
+ *  - reserva de mais: sobra tão pouco para quem está de fato respondendo que
+ *    a chamada é abortada no meio, e o usuário vê "nenhum provedor
+ *    respondeu" com todos os provedores saudáveis.
+ *
+ * 12s cobrem uma tentativa útil do suplente e ainda deixam ~26s do orçamento
+ * de 38s para o provedor da vez concluir uma geração real.
+ */
+const NEXT_ATTEMPT_RESERVE_MS = 12_000;
+
+/**
  * Limites por MINUTO (como o do Groq) se renovam sozinhos em segundos.
  * Quando todos os provedores recusaram por falta de capacidade e a espera
  * cabe no prazo, esperar e tentar de novo transforma uma falha em resposta —
@@ -61,12 +78,25 @@ export class FallbackLLMProvider implements LLMProvider {
         break;
       }
 
-      // Reparte o tempo restante entre os provedores que ainda faltam. Sem
-      // isto, o primeiro da fila consome tudo e os seguintes — que poderiam
-      // responder em menos de um segundo — nunca chegam a ser chamados.
-      const providersLeft = queue.length - index;
+      // Dá a esta tentativa quase todo o tempo restante, guardando apenas uma
+      // reserva para a próxima.
+      //
+      // Repartir o orçamento por igual entre os provedores parecia justo, mas
+      // garantia a falha: com 38s e cinco provedores, cada um recebia ~7,6s e
+      // era abortado no meio — nenhuma geração real termina nesse tempo, então
+      // os cinco falhavam por prazo e o usuário via "nenhum provedor
+      // respondeu" mesmo com todos saudáveis.
+      //
+      // As falhas que valem trocar de provedor (401, 402, 429, conexão
+      // recusada, modelo inexistente) voltam em milissegundos: reservar tempo
+      // para elas custa quase nada. Já um provedor que está de fato
+      // respondendo precisa do orçamento inteiro — cortá-lo para preservar
+      // suplentes troca uma resposta certa por cinco erros.
+      const isLast = index === queue.length - 1;
       const slice = Number.isFinite(left)
-        ? Math.max(Math.floor(left / providersLeft), MIN_PROVIDER_SLICE_MS)
+        ? isLast
+          ? left
+          : Math.max(left - NEXT_ATTEMPT_RESERVE_MS, MIN_PROVIDER_SLICE_MS)
         : undefined;
       const attempt =
         slice == null ? request : { ...request, deadline: Date.now() + Math.min(slice, left) };
