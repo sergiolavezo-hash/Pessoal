@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
+import { SocialAuth } from "@/features/auth/social-auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -98,6 +99,8 @@ function LoginForm() {
           Entrar
         </Button>
       </form>
+
+      <SocialAuth next={searchParams.get("next") ?? "/dashboard"} />
 
       <p className="mt-6 text-center text-sm text-muted-foreground">
         Ainda não tem conta?{" "}

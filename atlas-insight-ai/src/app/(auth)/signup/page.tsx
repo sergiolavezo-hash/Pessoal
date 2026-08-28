@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, Eye, EyeOff, X } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
+import { SocialAuth } from "@/features/auth/social-auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
@@ -177,6 +178,8 @@ export default function SignupPage() {
           plataforma e comunicações do produto, conforme a LGPD.
         </p>
       </form>
+
+      <SocialAuth next="/onboarding" />
 
       <p className="mt-4 text-center text-sm text-muted-foreground">
         Já tem conta?{" "}
