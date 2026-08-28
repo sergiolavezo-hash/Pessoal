@@ -2,6 +2,8 @@ import { getAppContext } from "@/services/context";
 import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { getSubscription, listPlans, listTransactions } from "@/services/billing";
+import { CREDIT_PACKS, getCreditStatus } from "@/services/ai-credits";
+import { CreditWallet } from "@/features/billing/credit-wallet";
 import {
   BillingAnalytics,
   ManageSubscriptionButton,
@@ -37,10 +39,11 @@ export default async function BillingPage() {
   const ctx = await getAppContext();
   const supabase = await createClient();
 
-  const [subscription, plans, transactions] = await Promise.all([
+  const [subscription, plans, transactions, credits] = await Promise.all([
     getSubscription(supabase, ctx.organization.id),
     listPlans(supabase),
     listTransactions(supabase, ctx.organization.id),
+    getCreditStatus(supabase, ctx.organization.id),
   ]);
 
   const status = STATUS_LABEL[subscription?.status ?? ""] ?? {
@@ -65,6 +68,23 @@ export default async function BillingPage() {
         title="Plan & Billing"
         description="Subscription, free trial status and purchase history."
       />
+
+      <div className="mb-6">
+        <CreditWallet
+          workspaceId={ctx.workspace.id}
+          state={{
+            dailyAllowanceCents: credits.daily_allowance_cents,
+            dailyRemainingCents: credits.daily_remaining_cents,
+            balanceCents: credits.balance_cents,
+          }}
+          packs={CREDIT_PACKS.map((p) => ({
+            id: p.id,
+            name: p.name,
+            priceCents: p.priceCents,
+            creditCents: p.creditCents,
+          }))}
+        />
+      </div>
 
       <Card>
         <CardHeader>

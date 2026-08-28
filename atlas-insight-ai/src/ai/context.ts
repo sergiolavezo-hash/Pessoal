@@ -57,6 +57,15 @@ export interface WorkspaceAiContext {
   contextVersion: string;
 }
 
+/**
+ * Tetos do contexto. Uma fonte com dezenas de tabelas geraria um prompt
+ * gigante em TODA chamada de IA — e o custo é por token de entrada. Cortamos
+ * pelo que cabe numa boa análise, mantendo primeiro o que é útil.
+ */
+const MAX_CONTEXT_TABLES = 12;
+const MAX_COLUMNS_PER_TABLE = 40;
+const MAX_SAMPLE_VALUES = 5;
+
 /** Normaliza a linha de catalog_columns no entendimento usado pelos prompts. */
 function toProfiledColumn(row: {
   name: string;
@@ -84,7 +93,7 @@ function toProfiledColumn(row: {
     max: profile.max ?? null,
     average: profile.average ?? null,
     sampleValues: (profile.sample_values ?? [])
-      .slice(0, 6)
+      .slice(0, MAX_SAMPLE_VALUES)
       .map((v) => String(v).slice(0, 40)),
   };
 }
@@ -181,18 +190,24 @@ export async function buildWorkspaceContext(
             sourceRow?.type === "file"
               ? `file_data.${fileTableName(t.id)}`
               : `${datasetName.get(t.dataset_id) ?? "public"}.${t.name}`;
+          const usable = (columns ?? [])
+            .filter((c) => c.table_id === t.id && !(c as { excluded?: boolean }).excluded)
+            .map((c) => toProfiledColumn(c));
           rawSchema.push({
             table: physical,
             label: t.name,
             context: t.context ?? null,
             rowCount: t.row_count ?? null,
-            columns: (columns ?? [])
-              .filter((c) => c.table_id === t.id && !(c as { excluded?: boolean }).excluded)
-              .map((c) => toProfiledColumn(c)),
+            columns: usable.slice(0, MAX_COLUMNS_PER_TABLE),
           });
         }
       }
     }
+  }
+
+  if (rawSchema.length > MAX_CONTEXT_TABLES) {
+    rawSchema.sort((a, b) => (b.rowCount ?? 0) - (a.rowCount ?? 0));
+    rawSchema.length = MAX_CONTEXT_TABLES;
   }
 
   // Quando um contexto de análise está ativo, o modelo semântico é reduzido

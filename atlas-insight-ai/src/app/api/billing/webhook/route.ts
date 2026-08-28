@@ -3,6 +3,7 @@ import type Stripe from "stripe";
 import { serverEnv } from "@/lib/env";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getStripe, PLAN_TIER } from "@/services/stripe";
+import { addCredits } from "@/services/ai-credits";
 
 /**
  * Webhook do Stripe — única porta de escrita do billing. Toda transação é
@@ -43,6 +44,21 @@ export async function POST(request: NextRequest) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
         const orgId = session.metadata?.organization_id ?? session.client_reference_id;
+
+        // Recarga de créditos de IA: não mexe na assinatura, só na carteira.
+        // Idempotente pela referência (o Stripe reenvia webhooks).
+        if (session.metadata?.kind === "ai_credits") {
+          const creditCents = Number(session.metadata.credit_cents);
+          if (orgId && Number.isFinite(creditCents) && creditCents > 0) {
+            await addCredits(db, orgId, creditCents, {
+              kind: "purchase",
+              reference: session.id,
+              note: `Recarga ${session.metadata.pack_id ?? ""}`.trim(),
+            });
+          }
+          break;
+        }
+
         const planId = session.metadata?.plan_id ?? "pro";
         const interval = session.metadata?.interval === "yearly" ? "yearly" : "monthly";
         if (!orgId) break;

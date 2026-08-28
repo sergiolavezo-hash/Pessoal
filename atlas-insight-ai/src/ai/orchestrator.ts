@@ -19,6 +19,8 @@ import { dashboardSpecSchema, type DashboardSpec } from "@/dashboards/spec";
 import { applyDashboardLayout, repairWidgetVisual } from "@/dashboards/layout";
 import type { ApiContext } from "@/services/api-context";
 import { ApiError } from "@/services/api-context";
+import { priceRun } from "@/services/ai-cost";
+import { assertHasCredits, chargeAiUsage, getCreditStatus } from "@/services/ai-credits";
 
 const MAX_SQL_ATTEMPTS = 3;
 
@@ -110,8 +112,18 @@ export class AIOrchestrator {
     kind: RunKind,
     prompt: string,
     contextVersion: string,
-    fn: () => Promise<{ value: T; inputTokens: number; outputTokens: number; queryExecutionId?: string }>
+    fn: () => Promise<{
+      value: T;
+      inputTokens: number;
+      outputTokens: number;
+      queryExecutionId?: string;
+      /** Modelo que realmente respondeu; a cadeia de fallback pode trocá-lo. */
+      model?: string;
+    }>
   ): Promise<T> {
+    // Portão único de consumo: nenhuma operação de IA começa sem crédito.
+    assertHasCredits(await getCreditStatus(this.ctx.supabase, this.ctx.organizationId));
+
     const { data: run } = await this.ctx.supabase
       .from("ai_runs")
       .insert({
@@ -129,14 +141,28 @@ export class AIOrchestrator {
       .single();
 
     try {
-      const { value, inputTokens, outputTokens, queryExecutionId } = await fn();
+      const { value, inputTokens, outputTokens, queryExecutionId, model } = await fn();
+      // Cobra pelo modelo que ATENDEU, não pelo configurado: a cadeia de
+      // fallback pode ter trocado de fornecedor, com preço bem diferente.
+      const servedModel = model ?? this.provider.model;
+      const cost = priceRun(servedModel, inputTokens, outputTokens);
+      await chargeAiUsage(
+        this.ctx.supabase,
+        this.ctx.organizationId,
+        cost.chargedCents,
+        run?.id,
+        kind
+      );
       if (run) {
         await this.ctx.supabase
           .from("ai_runs")
           .update({
             status: "SUCCEEDED",
+            model: servedModel,
             input_tokens: inputTokens,
             output_tokens: outputTokens,
+            provider_cost_usd: cost.providerCostUsd,
+            charged_cents: cost.chargedCents,
             completed_at: new Date().toISOString(),
             query_execution_id: queryExecutionId ?? null,
           })
@@ -223,6 +249,7 @@ export class AIOrchestrator {
               inputTokens: totalIn,
               outputTokens: totalOut,
               queryExecutionId: execution.executionId,
+              model: response.model,
             };
           } catch (error) {
             lastError = error instanceof Error ? error.message : "Execution failed";
@@ -270,6 +297,7 @@ ${resultSample}`;
         inputTokens: response.inputTokens,
         outputTokens: response.outputTokens,
         queryExecutionId: execution.executionId,
+        model: response.model,
       };
     });
 
@@ -325,6 +353,13 @@ Regras:
 
     const prompt = `Esquema disponível${analysisContext ? ` (assunto: ${analysisContext})` : ""}:\n${renderContextForPrompt(context)}`;
 
+    // A sugestão depende só do esquema, e o seletor da tela a pede a cada
+    // troca. Reaproveitar a última resposta para o mesmo contexto evita
+    // pagar tokens repetidamente pela mesma pergunta.
+    const cacheKey = sha256(`suggest:${context.contextVersion}:${prompt}`);
+    const cached = await this.readCachedSuggestion(cacheKey);
+    if (cached) return cached;
+
     return this.trackRun("insight", system + prompt, context.contextVersion, async () => {
       const response = await this.provider.complete({
         system,
@@ -332,12 +367,48 @@ Regras:
         jsonMode: true,
         maxTokens: 1500,
       });
+      const suggestion = dashboardPromptSuggestionSchema.parse(
+        stripNulls(extractJson(response.text))
+      );
+      await this.writeCachedSuggestion(cacheKey, suggestion);
       return {
-        value: dashboardPromptSuggestionSchema.parse(stripNulls(extractJson(response.text))),
+        value: suggestion,
         inputTokens: response.inputTokens,
         outputTokens: response.outputTokens,
+        model: response.model,
       };
     });
+  }
+
+  /**
+   * Cache das sugestões, guardado em ai_runs (result_cache) por hash do
+   * contexto. Sem tabela nova: a mesma pergunta sobre o mesmo esquema é
+   * respondida de graça.
+   */
+  private async readCachedSuggestion(
+    key: string
+  ): Promise<DashboardPromptSuggestion | null> {
+    const { data } = await this.ctx.supabase
+      .from("ai_suggestion_cache")
+      .select("payload")
+      .eq("workspace_id", this.ctx.workspaceId)
+      .eq("cache_key", key)
+      .maybeSingle();
+    if (!data?.payload) return null;
+    const parsed = dashboardPromptSuggestionSchema.safeParse(data.payload);
+    return parsed.success ? parsed.data : null;
+  }
+
+  private async writeCachedSuggestion(
+    key: string,
+    payload: DashboardPromptSuggestion
+  ): Promise<void> {
+    const { error } = await this.ctx.supabase.from("ai_suggestion_cache").upsert(
+      { workspace_id: this.ctx.workspaceId, cache_key: key, payload },
+      { onConflict: "workspace_id,cache_key" }
+    );
+    // Cache é conveniência: sem a tabela (migração pendente) seguimos sem ele.
+    if (error) console.warn(`[ai-cache] not stored: ${error.message}`);
   }
 
   /** Generates a validated DashboardSpec from a natural-language request. */
@@ -403,7 +474,7 @@ Regras:
         }
       }
 
-      return { value: this.finalizeSpec(spec, rowCounts), inputTokens, outputTokens };
+      return { value: this.finalizeSpec(spec, rowCounts), inputTokens, outputTokens, model: response.model };
     });
   }
 
@@ -486,6 +557,7 @@ Regras:
         value: this.finalizeSpec(spec, rowCounts),
         inputTokens: response.inputTokens,
         outputTokens: response.outputTokens,
+        model: response.model,
       };
     });
   }
@@ -506,6 +578,7 @@ Regras:
         value: extractJson<Record<string, unknown>>(response.text),
         inputTokens: response.inputTokens,
         outputTokens: response.outputTokens,
+        model: response.model,
       };
     });
   }
