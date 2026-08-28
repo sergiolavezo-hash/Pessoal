@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { cacheKey, singleFlight } from "@/services/ai-cache";
-import { budgetFor, tenantLimits } from "@/ai/config";
+import { budgetFor, tenantLimits, MIN_VIABLE_DAILY_TOKENS } from "@/ai/config";
 
 describe("cacheKey", () => {
   it("ignores differences that do not change the answer", () => {
@@ -86,8 +86,28 @@ describe("orçamento por operação", () => {
     }
   });
 
-  it("gives 100 tenants room inside the daily free-tier budget", () => {
-    // 200.000 tokens/dia é o teto da chave na Groq, somando todos os clientes.
-    expect(tenantLimits().dailyTokens * 100).toBeLessThanOrEqual(200_000);
+  /**
+   * O erro que este teste tranca: a fatia diária foi dimensionada dividindo
+   * 200.000 por 100 clientes, sem checar se 2.000 bastavam para UMA operação.
+   * Não bastavam — a portaria compara a estimativa (prompt + teto de saída)
+   * com o que resta do dia, então toda geração era recusada de saída e o
+   * controle de custo virava uma parada de produto.
+   */
+  it("leaves room for at least one dashboard generation per day", () => {
+    const generate = budgetFor("dashboard_generate");
+    const worstCaseEstimate =
+      Math.ceil(generate.maxPromptChars / 4) + generate.maxOutputTokens;
+    expect(tenantLimits().dailyTokens).toBeGreaterThan(worstCaseEstimate);
+  });
+
+  it("never drops below the viable floor, even if misconfigured", () => {
+    const previous = process.env.AI_TENANT_DAILY_TOKENS;
+    process.env.AI_TENANT_DAILY_TOKENS = "500";
+    try {
+      expect(tenantLimits().dailyTokens).toBeGreaterThanOrEqual(MIN_VIABLE_DAILY_TOKENS);
+    } finally {
+      if (previous === undefined) delete process.env.AI_TENANT_DAILY_TOKENS;
+      else process.env.AI_TENANT_DAILY_TOKENS = previous;
+    }
   });
 });

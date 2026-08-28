@@ -132,18 +132,32 @@ function intFromEnv(name: string, fallback: number): number {
 }
 
 /**
- * Padrões calculados para caber na camada gratuita com 100 clientes.
+ * Fatia diária de cada organização.
  *
- * A Groq concede 200.000 tokens/dia à chave. Reservar 2.000 por cliente
- * comporta 100 clientes ativos no mesmo dia dentro da cota — e, como quase
- * nunca todos usam no mesmo dia, o consumo real fica bem abaixo do teto.
- * Quem precisar de mais recarrega créditos e passa a usar um provedor pago.
+ * O valor tem um piso que não é opinião: a portaria recusa quando a
+ * ESTIMATIVA da chamada não cabe no que resta do dia, e uma geração de painel
+ * estima o prompt (~6.000 tokens de esquema) mais o teto de saída (4.000).
+ * Um limite diário abaixo disso recusaria toda geração já na primeira
+ * tentativa — o controle de custo viraria uma parada de produto.
+ *
+ * 20.000 comportam ~2 gerações de painel ou ~10 perguntas por dia, por
+ * cliente. Contra os 200.000/dia que a Groq concede à CHAVE (somando todos os
+ * clientes), isso significa ~10 clientes usando pesado no mesmo dia. Não são
+ * 100 simultâneos: 100 cadastrados só cabem porque raramente mais de 10%
+ * deles usa no mesmo dia. Passando disso, o caminho é crédito pago.
  */
+export const MIN_VIABLE_DAILY_TOKENS = 12_000;
+
 export function tenantLimits(): TenantLimits {
   return {
     requestsPerMinute: intFromEnv("AI_TENANT_RPM", 6),
     concurrentRequests: intFromEnv("AI_TENANT_CONCURRENCY", 2),
-    dailyTokens: intFromEnv("AI_TENANT_DAILY_TOKENS", 2000),
+    // Nunca abaixo do piso: uma configuração errada não pode deixar o produto
+    // sem gerar painel nenhum.
+    dailyTokens: Math.max(
+      intFromEnv("AI_TENANT_DAILY_TOKENS", 20_000),
+      MIN_VIABLE_DAILY_TOKENS
+    ),
   };
 }
 
