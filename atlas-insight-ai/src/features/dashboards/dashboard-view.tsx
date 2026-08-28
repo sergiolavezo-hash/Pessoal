@@ -24,6 +24,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { readJson } from "@/lib/api-client";
 
 interface WidgetData {
   widgetId: string;
@@ -61,9 +62,16 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
 
       if (!res.ok || !res.body) {
         // Sem corpo transmitido (erro, ou ambiente sem streaming): lê inteiro.
-        const json = await res.json().catch(() => ({}));
+        const json: { data?: WidgetData[]; error?: string } = await readJson<{
+          data?: WidgetData[];
+          error?: string;
+        }>(res).catch((e) => ({
+          // Sem JSON (ex.: tempo esgotado): a mensagem do leitor explica
+          // melhor do que um texto genérico.
+          error: e instanceof Error ? e.message : undefined,
+        }));
         if (!res.ok) throw new Error(json.error ?? "Não foi possível carregar os dados");
-        setData(new Map(((json.data ?? []) as WidgetData[]).map((d) => [d.widgetId, d])));
+        setData(new Map((json.data ?? []).map((d) => [d.widgetId, d])));
         return;
       }
 
@@ -118,7 +126,7 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, instruction }),
       });
-      const json = await res.json();
+      const json = await readJson<{ data?: WidgetData[]; error?: string }>(res);
       if (!res.ok) throw new Error(json.error ?? "Edit failed");
       toast.success("Dashboard updated by Atlas");
       setInstruction("");
@@ -136,7 +144,7 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ workspaceId, spec: newSpec, changeSummary: summary }),
     });
-    const json = await res.json();
+    const json = await readJson<{ data?: WidgetData[]; error?: string }>(res);
     if (!res.ok) throw new Error(json.error ?? "Update failed");
     router.refresh();
   }

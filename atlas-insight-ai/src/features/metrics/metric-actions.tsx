@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { BadgeCheck, CheckCircle2, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { readJson } from "@/lib/api-client";
 
 export function MetricActions({
   workspaceId,
@@ -34,7 +35,10 @@ export function MetricActions({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, ...payload }),
       });
-      const json = await res.json();
+      const json = await readJson<{
+        validation?: { valid?: boolean; errors?: string[] };
+        error?: string;
+      }>(res);
       if (!res.ok) throw new Error(json.error);
       toast.success(success);
       router.refresh();
@@ -53,13 +57,16 @@ export function MetricActions({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, formula, slug }),
       });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error);
-      if (json.validation.valid) {
-        toast.success("Formula is valid");
-        await patch({ status: "VALIDATED" }, "validate", "Metric marked as validated");
+      const json = await readJson<{
+        validation?: { valid?: boolean; errors?: string[] };
+        error?: string;
+      }>(res);
+      if (!res.ok) throw new Error(json.error ?? "Falha ao validar a fórmula");
+      if (json.validation?.valid) {
+        toast.success("Fórmula válida");
+        await patch({ status: "VALIDATED" }, "validate", "Indicador marcado como validado");
       } else {
-        for (const e of json.validation.errors) toast.error(e);
+        for (const e of json.validation?.errors ?? []) toast.error(e);
       }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Validation failed");
@@ -73,7 +80,7 @@ export function MetricActions({
     setBusy("delete");
     try {
       const res = await fetch(`/api/metrics/${metricId}?workspaceId=${workspaceId}`, { method: "DELETE" });
-      const json = await res.json();
+      const json = await readJson(res);
       if (!res.ok) throw new Error(json.error);
       toast.success("Metric deleted");
       router.push("/metrics");

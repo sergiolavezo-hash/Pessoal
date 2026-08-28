@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import type { AiMessage } from "@/types";
+import { readJson } from "@/lib/api-client";
 
 interface Evidence {
   sql: string;
@@ -191,7 +192,7 @@ export function AnalystChat({ workspaceId, conversationId, initialMessages, sugg
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, conversationId: conversationId ?? undefined, message: text }),
       });
-      const json = await res.json();
+      const json = await readJson(res);
       if (!res.ok) throw new Error(json.error ?? "Atlas could not answer");
       if (!conversationId) {
         router.push(`/ai-analyst?c=${json.conversationId}`);

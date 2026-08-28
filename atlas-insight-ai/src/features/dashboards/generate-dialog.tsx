@@ -16,6 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { readJson } from "@/lib/api-client";
 
 export interface GenerateSourceOption {
   id: string;
@@ -96,7 +97,7 @@ export function GenerateDashboardDialog({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, dataSourceId, ...(context ? { context } : {}) }),
       });
-      const json = await res.json();
+      const json = await readJson<{ suggestion?: PromptSuggestion; dashboard?: { id: string; name: string }; error?: string }>(res);
       if (!res.ok) throw new Error(json.error ?? "Não foi possível ler os dados");
       const next = json.suggestion as PromptSuggestion;
       setSuggestion(next);
@@ -128,11 +129,13 @@ export function GenerateDashboardDialog({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, prompt, dataSourceId, ...(context ? { context } : {}) }),
       });
-      const json = await res.json();
+      const json = await readJson<{ suggestion?: PromptSuggestion; dashboard?: { id: string; name: string }; error?: string }>(res);
       if (!res.ok) throw new Error(json.error ?? "Falha ao gerar o painel");
-      toast.success(`Painel "${json.dashboard.name}" gerado`);
+      const dashboard = json.dashboard;
+      if (!dashboard) throw new Error("O painel não foi devolvido pelo servidor.");
+      toast.success(`Painel "${dashboard.name}" gerado`);
       setOpen(false);
-      router.push(`/dashboards/${json.dashboard.id}`);
+      router.push(`/dashboards/${dashboard.id}`);
       router.refresh();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Falha ao gerar o painel", {

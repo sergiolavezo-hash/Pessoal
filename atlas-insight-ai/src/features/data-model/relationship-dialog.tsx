@@ -14,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { readJson } from "@/lib/api-client";
 
 export interface RelTable {
   id: string;
@@ -118,7 +119,7 @@ export function NewRelationshipDialog({
           relationshipType: type,
         }),
       });
-      const json = await res.json();
+      const json = await readJson(res);
       if (!res.ok) throw new Error(json.error ?? "Failed to create relationship");
       toast.success("Relationship created");
       setOpen(false);

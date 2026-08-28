@@ -17,6 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { readJson } from "@/lib/api-client";
 
 export interface PrepColumn {
   id: string;
@@ -63,7 +64,7 @@ export function PrepareTableDialog({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, ...payload }),
       });
-      const json = await res.json();
+      const json = await readJson(res);
       if (!res.ok) throw new Error(json.error ?? "Operation failed");
       toast.success(success);
       router.refresh();

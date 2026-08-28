@@ -1,5 +1,11 @@
 import "server-only";
-import { LLMError, type LLMProvider, type LLMRequest, type LLMResponse } from "@/ai/llm/types";
+import {
+  LLMError,
+  remainingMs,
+  type LLMProvider,
+  type LLMRequest,
+  type LLMResponse,
+} from "@/ai/llm/types";
 
 const DEFAULT_MODEL = "gpt-4.1";
 
@@ -29,9 +35,14 @@ export class OpenAIProvider implements LLMProvider {
     if (request.system) messages.push({ role: "system", content: request.system });
     for (const m of request.messages) messages.push({ role: m.role, content: m.content });
 
+    const left = remainingMs(request.deadline);
+    if (left <= 1_000) {
+      throw new LLMError("Tempo esgotado antes de obter resposta da IA", this.name, true);
+    }
+
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      signal: AbortSignal.timeout(Math.min(REQUEST_TIMEOUT_MS, left)),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${this.apiKey}`,

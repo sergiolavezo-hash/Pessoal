@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { readJson } from "@/lib/api-client";
 
 declare global {
   interface Window {
@@ -39,8 +40,9 @@ export function PlanCheckoutButtons({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ organizationId, planId, interval }),
       });
-      const json = await res.json();
+      const json = await readJson<{ url?: string; error?: string }>(res);
       if (!res.ok) throw new Error(json.error ?? "Checkout failed");
+      if (!json.url) throw new Error("O provedor de pagamento não devolveu o endereço de checkout.");
       window.location.assign(json.url);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Checkout failed", { duration: 8000 });
@@ -109,8 +111,9 @@ export function ManageSubscriptionButton({ organizationId }: { organizationId: s
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ organizationId }),
       });
-      const json = await res.json();
+      const json = await readJson<{ url?: string; error?: string }>(res);
       if (!res.ok) throw new Error(json.error ?? "Portal unavailable");
+      if (!json.url) throw new Error("O provedor de pagamento não devolveu o endereço do portal.");
       window.location.assign(json.url);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Portal unavailable");

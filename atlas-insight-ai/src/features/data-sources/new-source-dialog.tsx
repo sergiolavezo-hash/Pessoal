@@ -19,6 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { readJson } from "@/lib/api-client";
 
 const CATEGORIES = ["Cloud", "Databases", "Lakehouse", "Files", "APIs"] as const;
 // Keys owned by the credentials payload (never stored in plain config).
@@ -72,7 +73,11 @@ export function NewSourceDialog({ workspaceId }: { workspaceId: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, name, type: selected.type, config, credentials }),
       });
-      const json = await res.json();
+      const json = await readJson<{
+        test?: { ok?: boolean; message?: string };
+        dataSource?: { id: string };
+        error?: string;
+      }>(res);
       if (!res.ok) throw new Error(json.error ?? "Failed to create data source");
       if (json.test?.ok) {
         toast.success("Data source connected");
@@ -81,7 +86,7 @@ export function NewSourceDialog({ workspaceId }: { workspaceId: string }) {
       }
       setOpen(false);
       reset();
-      router.push(`/data-sources/${json.dataSource.id}`);
+      if (json.dataSource) router.push(`/data-sources/${json.dataSource.id}`);
       router.refresh();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Failed to create data source");

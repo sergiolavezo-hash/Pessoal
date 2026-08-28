@@ -12,6 +12,18 @@ export interface LLMRequest {
   maxTokens?: number;
   /** Hint that the response must be a single JSON object. */
   jsonMode?: boolean;
+  /**
+   * Instante (epoch ms) em que a operação inteira precisa ter terminado.
+   * A função serverless tem tempo limitado: sem isto, a cadeia de fallback
+   * pode tentar modelo após modelo até a plataforma matar o pedido — e o
+   * usuário recebe uma página de erro em vez de uma resposta.
+   */
+  deadline?: number;
+}
+
+/** Quanto ainda resta do prazo; Infinity quando não há prazo. */
+export function remainingMs(deadline?: number): number {
+  return deadline == null ? Number.POSITIVE_INFINITY : deadline - Date.now();
 }
 
 export interface LLMResponse {

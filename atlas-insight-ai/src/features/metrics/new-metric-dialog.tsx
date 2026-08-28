@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { readJson } from "@/lib/api-client";
 
 const EXAMPLES = [
   "SUM(Sales.revenue)",
@@ -50,7 +51,10 @@ export function NewMetricDialog({ workspaceId }: { workspaceId: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, name, description: description || undefined, formula, format }),
       });
-      const json = await res.json();
+      const json = await readJson<{
+        validation?: { valid?: boolean; errors?: string[] };
+        error?: string;
+      }>(res);
       if (!res.ok) throw new Error(json.error ?? "Failed to create metric");
       if (json.validation?.valid) {
         toast.success(`Metric "${name}" created and validated`);

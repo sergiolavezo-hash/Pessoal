@@ -14,7 +14,7 @@ import {
   sqlRepairPrompt,
 } from "@/ai/prompts";
 import { validateReadOnlySql } from "@/ai/query-engine/sql-validator";
-import { executeQuery, type ExecutionRecord } from "@/services/query-engine";
+import { executeQuery, executeQueryBatch, type ExecutionRecord } from "@/services/query-engine";
 import { dashboardSpecSchema, type DashboardSpec } from "@/dashboards/spec";
 import { applyDashboardLayout, repairWidgetVisual } from "@/dashboards/layout";
 import type { ApiContext } from "@/services/api-context";
@@ -29,6 +29,19 @@ const MAX_SQL_ATTEMPTS = 3;
  * resultado (e escolher o gráfico certo) sem custo de uma execução completa.
  */
 const DRY_RUN_MAX_ROWS = 200;
+
+/**
+ * Quanto tempo a IA pode consumir num pedido. A função serverless morre aos
+ * 60s; deixamos folga para validar, ensaiar as consultas e salvar. Vencido o
+ * prazo, o usuário recebe uma mensagem clara em vez da página de erro da
+ * plataforma (que nem JSON é).
+ */
+const AI_BUDGET_MS = 38_000;
+
+/** Prazo absoluto a partir de agora. */
+function budgetDeadline(ms: number = AI_BUDGET_MS): number {
+  return Date.now() + ms;
+}
 
 /**
  * Alguns modelos (ex.: Gemini) devolvem null em campos opcionais; o Zod
@@ -212,6 +225,7 @@ export class AIOrchestrator {
     const system = `${intentAndSqlPrompt()}\n\n# Workspace data context\n${renderContextForPrompt(context)}`;
 
     return this.trackRun("sql_generate", system + question, context.contextVersion, async () => {
+      const sqlDeadline = budgetDeadline();
       let totalIn = 0;
       let totalOut = 0;
       const messages: Array<{ role: "user" | "assistant"; content: string }> = [
@@ -220,7 +234,13 @@ export class AIOrchestrator {
 
       let lastError = "";
       for (let attempt = 1; attempt <= MAX_SQL_ATTEMPTS; attempt++) {
-        const response = await this.provider.complete({ system, messages, jsonMode: true, maxTokens: 4000 });
+        const response = await this.provider.complete({
+          system,
+          messages,
+          jsonMode: true,
+          maxTokens: 4000,
+          deadline: sqlDeadline,
+        });
         totalIn += response.inputTokens;
         totalOut += response.outputTokens;
 
@@ -432,11 +452,13 @@ Regras:
     const system = `${dashboardSpecPrompt()}\n\n# Workspace data context\n${renderContextForPrompt(context)}`;
 
     return this.trackRun("dashboard_generate", system + request, context.contextVersion, async () => {
+      const deadline = budgetDeadline();
       const response = await this.provider.complete({
         system,
         messages: [{ role: "user", content: request }],
         jsonMode: true,
         maxTokens: 12000,
+        deadline,
       });
 
       const raw = extractJson(response.text);
@@ -457,6 +479,8 @@ Regras:
           messages: [{ role: "user", content: "Fix the failing widgets." }],
           jsonMode: true,
           maxTokens: 12000,
+          // O reparo divide o mesmo prazo da geração.
+          deadline,
         });
         inputTokens += repair.inputTokens;
         outputTokens += repair.outputTokens;
@@ -504,19 +528,24 @@ Regras:
   }> {
     const failures: Array<{ title: string; error: string }> = [];
     const rowCounts = new Map<string, number>();
-    for (const widget of spec.widgets) {
-      try {
-        const { result } = await executeQuery(this.ctx, dataSourceId, widget.query.sql, {
-          maxRows: DRY_RUN_MAX_ROWS,
-          context: { purpose: "dashboard_dry_run" },
-        });
-        rowCounts.set(widget.id, result.rowCount);
-      } catch (error) {
-        failures.push({
-          title: widget.title,
-          error: error instanceof Error ? error.message : String(error),
-        });
-      }
+    const titleOf = new Map(spec.widgets.map((w) => [w.id, w.title]));
+
+    // Em paralelo e com a fonte resolvida uma única vez: em série, o ensaio
+    // de 8 widgets sozinho consumia boa parte do tempo da função.
+    const results = await executeQueryBatch(
+      this.ctx,
+      dataSourceId,
+      spec.widgets.map((w) => ({
+        key: w.id,
+        sql: w.query.sql,
+        context: { purpose: "dashboard_dry_run", widgetId: w.id },
+      })),
+      { maxRows: DRY_RUN_MAX_ROWS }
+    );
+
+    for (const r of results) {
+      if (r.error) failures.push({ title: titleOf.get(r.key) ?? r.key, error: r.error });
+      else if (r.result) rowCounts.set(r.key, r.result.rowCount);
     }
     return { failures, rowCounts };
   }

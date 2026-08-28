@@ -1,5 +1,11 @@
 import "server-only";
-import { LLMError, type LLMProvider, type LLMRequest, type LLMResponse } from "@/ai/llm/types";
+import {
+  LLMError,
+  remainingMs,
+  type LLMProvider,
+  type LLMRequest,
+  type LLMResponse,
+} from "@/ai/llm/types";
 
 const DEFAULT_MODEL = "gemini-flash-latest";
 
@@ -69,6 +75,16 @@ export class GoogleProvider implements LLMProvider {
     let lastError: LLMError | null = null;
 
     for (const model of chain) {
+      // Prazo vencido: tentar o próximo modelo só garantiria o timeout da
+      // função. Melhor falhar agora, com mensagem, do que morrer sem resposta.
+      const left = remainingMs(request.deadline);
+      if (left <= 1_000) {
+        throw (
+          lastError ??
+          new LLMError("Tempo esgotado antes de obter resposta da IA", this.name, true)
+        );
+      }
+
       let res: Response;
       try {
         res = await fetch(
@@ -77,7 +93,7 @@ export class GoogleProvider implements LLMProvider {
             method: "POST",
             headers: { "Content-Type": "application/json", "x-goog-api-key": this.apiKey },
             body,
-            signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+            signal: AbortSignal.timeout(Math.min(REQUEST_TIMEOUT_MS, left)),
           }
         );
       } catch (error) {

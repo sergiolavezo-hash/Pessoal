@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { PlugZap, RefreshCw, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { readJson } from "@/lib/api-client";
 
 export function SourceActions({
   workspaceId,
@@ -28,10 +29,13 @@ export function SourceActions({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId }),
       });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error);
-      if (json.result.ok) toast.success(`Connection OK (${json.result.latencyMs}ms)`);
-      else toast.error(`Connection failed: ${json.result.message}`);
+      const json = await readJson<{
+        result?: { ok?: boolean; latencyMs?: number; message?: string };
+        error?: string;
+      }>(res);
+      if (!res.ok) throw new Error(json.error ?? "Falha no teste de conexão");
+      if (json.result?.ok) toast.success(`Conexão OK (${json.result.latencyMs}ms)`);
+      else toast.error(`Falha na conexão: ${json.result?.message ?? "erro desconhecido"}`);
       router.refresh();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Test failed");
@@ -48,10 +52,15 @@ export function SourceActions({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId }),
       });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error);
+      const json = await readJson<{
+        summary?: { tables: number; columns: number };
+        error?: string;
+      }>(res);
+      if (!res.ok) throw new Error(json.error ?? "Falha ao sincronizar");
       toast.success(
-        `Discovered ${json.summary.tables} tables and ${json.summary.columns} columns`
+        json.summary
+          ? `${json.summary.tables} tabela(s) e ${json.summary.columns} coluna(s) descobertas`
+          : "Sincronização concluída"
       );
       router.refresh();
     } catch (error) {
@@ -68,7 +77,7 @@ export function SourceActions({
       const res = await fetch(`/api/data-sources/${dataSourceId}?workspaceId=${workspaceId}`, {
         method: "DELETE",
       });
-      const json = await res.json();
+      const json = await readJson(res);
       if (!res.ok) throw new Error(json.error);
       toast.success("Data source deleted");
       router.push("/data-sources");

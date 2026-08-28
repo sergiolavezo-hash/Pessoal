@@ -1,5 +1,11 @@
 import "server-only";
-import { LLMError, type LLMProvider, type LLMRequest, type LLMResponse } from "@/ai/llm/types";
+import {
+  LLMError,
+  remainingMs,
+  type LLMProvider,
+  type LLMRequest,
+  type LLMResponse,
+} from "@/ai/llm/types";
 
 /**
  * Encadeia todos os provedores configurados. Cotas gratuitas se esgotam (o
@@ -20,6 +26,10 @@ export class FallbackLLMProvider implements LLMProvider {
     const errors: string[] = [];
 
     for (const provider of this.providers) {
+      if (remainingMs(request.deadline) <= 1_000) {
+        errors.push("prazo esgotado antes de tentar os demais provedores");
+        break;
+      }
       try {
         return await provider.complete(request);
       } catch (error) {

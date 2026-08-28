@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { readJson } from "@/lib/api-client";
 
 /**
  * Menu padrão de ações (⋯) para qualquer objeto: abrir, copiar link e
@@ -57,7 +58,11 @@ export function ObjectMenu({
     try {
       const res = await fetch(deleteEndpoint, { method: "DELETE" });
       if (!res.ok) {
-        const json = await res.json().catch(() => ({}));
+        const json = await readJson<{ error?: string }>(res).catch((e) => ({
+                    // Sem JSON (ex.: tempo esgotado): a mensagem do leitor
+                    // explica melhor que um texto genérico.
+                    error: e instanceof Error ? e.message : undefined,
+                  }));
         throw new Error(json.error ?? "Delete failed");
       }
       toast.success("Deleted");
@@ -130,7 +135,11 @@ export function ObjectMenu({
                   body: JSON.stringify({ ...moveBody, folder: folder.trim() || null }),
                 });
                 if (!res.ok) {
-                  const json = await res.json().catch(() => ({}));
+                  const json = await readJson<{ error?: string }>(res).catch((e) => ({
+                    // Sem JSON (ex.: tempo esgotado): a mensagem do leitor
+                    // explica melhor que um texto genérico.
+                    error: e instanceof Error ? e.message : undefined,
+                  }));
                   throw new Error(json.error ?? "Move failed");
                 }
                 toast.success(folder.trim() ? `Moved to "${folder.trim()}"` : "Removed from folder");

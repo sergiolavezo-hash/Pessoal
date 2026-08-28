@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { readJson } from "@/lib/api-client";
 
 export interface CreditPackOption {
   id: string;
@@ -46,7 +47,7 @@ export function CreditWallet({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, packId }),
       });
-      const json = await res.json();
+      const json = await readJson<{ url?: string; error?: string }>(res);
       if (!res.ok) throw new Error(json.error ?? "Não foi possível iniciar a recarga");
       if (json.url) window.location.href = json.url;
     } catch (error) {

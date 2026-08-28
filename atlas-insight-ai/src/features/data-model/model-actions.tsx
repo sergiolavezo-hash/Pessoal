@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { ScanSearch, Boxes } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { readJson } from "@/lib/api-client";
 
 export function ModelActions({
   workspaceId,
@@ -27,10 +28,16 @@ export function ModelActions({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId }),
       });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error);
+      const json = await readJson<{
+        summary?: { columns: number; tables: number; relationships: number };
+        error?: string;
+      }>(res);
+      if (!res.ok) throw new Error(json.error ?? "Falha ao perfilar os dados");
+      const summary = json.summary;
       toast.success(
-        `Profiled ${json.summary.columns} columns in ${json.summary.tables} tables · ${json.summary.relationships} relationships detected`
+        summary
+          ? `${summary.columns} colunas perfiladas em ${summary.tables} tabela(s) · ${summary.relationships} relacionamento(s) detectado(s)`
+          : "Perfilamento concluído"
       );
       router.refresh();
     } catch (error) {
@@ -48,10 +55,16 @@ export function ModelActions({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, dataSourceId }),
       });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error);
+      const json = await readJson<{
+        semanticModel?: { version: number };
+        entityCount?: number;
+        error?: string;
+      }>(res);
+      if (!res.ok) throw new Error(json.error ?? "Falha ao gerar o modelo semântico");
       toast.success(
-        `Semantic model v${json.semanticModel.version} generated (${json.entityCount} entities)`
+        json.semanticModel
+          ? `Modelo semântico v${json.semanticModel.version} gerado (${json.entityCount ?? 0} entidades)`
+          : "Modelo semântico gerado"
       );
       router.refresh();
     } catch (error) {

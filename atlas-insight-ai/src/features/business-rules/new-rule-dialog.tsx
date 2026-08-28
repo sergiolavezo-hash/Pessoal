@@ -16,6 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { readJson } from "@/lib/api-client";
 
 export function NewRuleDialog({ workspaceId }: { workspaceId: string }) {
   const router = useRouter();
@@ -32,7 +33,7 @@ export function NewRuleDialog({ workspaceId }: { workspaceId: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, name, definition }),
       });
-      const json = await res.json();
+      const json = await readJson(res);
       if (!res.ok) throw new Error(json.error ?? "Failed to create rule");
       toast.success("Business rule created");
       setOpen(false);
