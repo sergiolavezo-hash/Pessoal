@@ -25,6 +25,14 @@ import {
  */
 const MIN_PROVIDER_SLICE_MS = 6_000;
 
+/**
+ * Limites por MINUTO (como o do Groq) se renovam sozinhos em segundos.
+ * Quando todos os provedores recusaram por falta de capacidade e a espera
+ * cabe no prazo, esperar e tentar de novo transforma uma falha em resposta —
+ * exatamente o caso de varios clientes usando o produto ao mesmo tempo.
+ */
+const MAX_WAIT_FOR_CAPACITY_MS = 12_000;
+
 export class FallbackLLMProvider implements LLMProvider {
   readonly name: string;
   readonly model: string;
@@ -35,7 +43,7 @@ export class FallbackLLMProvider implements LLMProvider {
     this.model = providers[0].model;
   }
 
-  async complete(request: LLMRequest): Promise<LLMResponse> {
+  async complete(request: LLMRequest, retried = false): Promise<LLMResponse> {
     const errors: string[] = [];
 
     // Provedores que já se sabem esgotados vão para o fim da fila em vez de
@@ -89,13 +97,34 @@ export class FallbackLLMProvider implements LLMProvider {
       }
     }
 
+    // Todos recusaram por capacidade: se algum volta logo e ainda há prazo,
+    // vale esperar em vez de devolver erro ao usuário.
+    if (!retried && errors.length > 0 && errors.every((e) => isCapacityError(e))) {
+      const soonest = queue
+        .map((p) => trippedUntil(p.name))
+        .filter((t): t is number => t != null)
+        .sort((a, b) => a - b)[0];
+      const wait = soonest != null ? soonest - Date.now() : null;
+      const budget = remainingMs(request.deadline);
+      if (
+        wait != null &&
+        wait > 0 &&
+        wait <= MAX_WAIT_FOR_CAPACITY_MS &&
+        budget > wait + MIN_PROVIDER_SLICE_MS
+      ) {
+        console.warn(`[llm] sem capacidade agora; aguardando ${Math.round(wait / 1000)}s`);
+        await new Promise((resolve) => setTimeout(resolve, wait + 250));
+        return this.complete(request, true);
+      }
+    }
+
     // Mensagem acionável: o usuário precisa saber o que fazer, não ler o
     // erro cru de cada fornecedor (que fica no log do servidor).
     console.error(`[llm] every provider failed: ${errors.join(" | ")}`);
     const allOutOfQuota = errors.every((e) => /429|quota|credit|insufficient/i.test(e));
     throw new LLMError(
       allOutOfQuota
-        ? "A cota de todos os provedores de IA configurados se esgotou. Adicione créditos (ou uma nova chave) em Configurações para voltar a gerar painéis."
+        ? "Todos os provedores de IA estão sem capacidade neste momento. Algumas cotas se renovam a cada minuto — tente de novo em instantes. Se persistir, adicione créditos em Configurações."
         : `Nenhum provedor de IA conseguiu responder agora. Tente novamente em alguns instantes. (${errors.length} tentativa(s))`,
       "fallback",
       true

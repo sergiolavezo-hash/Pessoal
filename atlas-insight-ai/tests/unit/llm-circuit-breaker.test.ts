@@ -90,3 +90,40 @@ describe("cadeia com disjuntor", () => {
     expect(b.complete).toHaveBeenCalledTimes(2);
   });
 });
+
+// Limites por minuto se renovam em segundos: desistir quando a espera é
+// curta transforma um pico de uso em falha desnecessária para o cliente.
+describe("espera por capacidade", () => {
+  function provider(name: string, fails: number) {
+    let calls = 0;
+    return {
+      name,
+      model: name,
+      complete: vi.fn(async () => {
+        calls++;
+        if (calls <= fails) {
+          throw new LLMError(`${name} 429 rate limit, try again in 1s`, name, true);
+        }
+        return { text: '{"ok":1}', model: name, inputTokens: 1, outputTokens: 1 };
+      }),
+    } as unknown as LLMProvider & { complete: ReturnType<typeof vi.fn> };
+  }
+
+  it("espera a renovação e responde, em vez de falhar", async () => {
+    const p = provider("groq", 1);
+    const chain = new FallbackLLMProvider([p]);
+    const res = await chain.complete({ ...request, deadline: Date.now() + 30_000 });
+    expect(res.text).toContain("ok");
+    expect(p.complete).toHaveBeenCalledTimes(2);
+  });
+
+  it("não espera quando o prazo não permite", async () => {
+    const p = provider("groq", 5);
+    const chain = new FallbackLLMProvider([p]);
+    await expect(
+      chain.complete({ ...request, deadline: Date.now() + 7_000 })
+    ).rejects.toThrow(/sem capacidade|cota/i);
+    // Uma tentativa só: não havia orçamento para esperar e repetir.
+    expect(p.complete).toHaveBeenCalledTimes(1);
+  });
+});
