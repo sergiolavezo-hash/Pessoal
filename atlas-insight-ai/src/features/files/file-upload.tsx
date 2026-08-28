@@ -28,6 +28,36 @@ async function readResponse(res: Response): Promise<Record<string, unknown>> {
   }
 }
 
+/**
+ * Registra a falha no servidor. Erros de navegador não aparecem em nenhum
+ * log — sem isto, um problema que só acontece no aparelho do usuário fica
+ * impossível de diagnosticar.
+ */
+async function reportClientError(
+  workspaceId: string,
+  error: unknown,
+  extra: Record<string, unknown>
+) {
+  try {
+    const e = error as { name?: string; message?: string; stack?: string };
+    await fetch("/api/client-errors", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        workspaceId,
+        context: "file-upload",
+        name: e?.name ?? typeof error,
+        message: e?.message ?? String(error),
+        stack: e?.stack?.slice(0, 1500),
+        userAgent: navigator.userAgent,
+        extra,
+      }),
+    });
+  } catch {
+    // Diagnóstico nunca pode piorar a falha original.
+  }
+}
+
 export function FileUpload({ workspaceId }: { workspaceId: string }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -62,7 +92,14 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
       for (const w of (json.warnings as string[]) ?? []) toast.warning(w, { duration: 9000 });
       router.refresh();
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Falha no envio", { duration: 12000 });
+      const detail = error instanceof Error ? error.message : String(error);
+      const name = error instanceof Error ? error.name : "Erro";
+      toast.error(`Falha no envio (${name}): ${detail}`, { duration: 15000 });
+      void reportClientError(workspaceId, error, {
+        file_name: file.name,
+        file_size: file.size,
+        file_type: file.type || null,
+      });
       // O registro pode ter ficado em processamento: atualiza para o usuário
       // ver a situação real em vez de um estado congelado.
       router.refresh();
@@ -77,7 +114,18 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
       <input
         ref={inputRef}
         type="file"
-        accept=".csv,.xlsx,.xls"
+        // O iOS Safari filtra mal por extensão: sem os tipos MIME, arquivos
+        // válidos aparecem esmaecidos e não dá para selecionar.
+        accept={[
+          ".csv",
+          ".xlsx",
+          ".xls",
+          "text/csv",
+          "text/comma-separated-values",
+          "application/csv",
+          "application/vnd.ms-excel",
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        ].join(",")}
         className="hidden"
         onChange={(e) => {
           const file = e.target.files?.[0];
