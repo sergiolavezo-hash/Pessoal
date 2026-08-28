@@ -48,6 +48,13 @@ export async function getCreditStatus(organizationId: string): Promise<AiCreditS
     org: organizationId,
   });
   if (error) {
+    // Carteira ainda não provisionada (migração pendente) é um estado sem
+    // ambiguidade e não deve derrubar o produto; qualquer outra falha é
+    // ambígua quanto ao saldo, e aí o certo é não gastar.
+    if (error.code === "42883" || error.code === "PGRST202") {
+      console.warn("[ai-credits] carteira ainda não provisionada; seguindo sem cota");
+      return { ...UNAVAILABLE, allowed: true };
+    }
     console.error(`[ai-credits] status unavailable: ${error.message}`);
     return UNAVAILABLE;
   }

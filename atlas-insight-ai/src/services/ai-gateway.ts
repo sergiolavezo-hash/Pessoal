@@ -64,10 +64,20 @@ export async function admit(
   });
 
   if (error) {
-    // A portaria existe para conter custo. Se ela não responde, não há como
-    // saber se este cliente ainda tem fatia — e liberar "na dúvida" é
-    // exatamente como uma conta gratuita vira uma fatura. Recusar é a
-    // escolha segura, e a mensagem diz que é temporário.
+    // Função ausente é um estado sem ambiguidade: a migração 0016 ainda não
+    // rodou neste banco. Recusar aqui derrubaria toda a IA no intervalo entre
+    // o deploy do código e a aplicação da migração — uma parada causada pelo
+    // próprio controle de custo. O crédito da organização já foi verificado
+    // antes desta chamada, então seguir sem a portaria é degradar, não abrir.
+    if (isMissingFunction(error)) {
+      console.warn(
+        "[ai-gateway] migração 0016 pendente: limites por cliente ainda não estão ativos"
+      );
+      return { lease: null, organizationId };
+    }
+    // Qualquer outra falha é ambígua — não dá para saber se este cliente
+    // ainda tem fatia, e liberar "na dúvida" é como uma conta gratuita vira
+    // uma fatura. Recusar é a escolha segura; a mensagem diz que é temporário.
     console.error(`[ai-gateway] admission unavailable: ${error.message}`);
     throw new ApiError(
       503,
@@ -90,6 +100,18 @@ export async function release(ticket: AdmissionTicket, usedTokens: number): Prom
   // A vaga tem validade própria no banco: se esta liberação falhar, ela se
   // limpa sozinha. Não vale derrubar o pedido do usuário por causa disso.
   if (error) console.warn(`[ai-gateway] release failed: ${error.message}`);
+}
+
+/**
+ * Distingue "esta função não existe" de uma falha de verdade.
+ *
+ * 42883 é o `undefined_function` do Postgres; PGRST202 é como o PostgREST
+ * relata uma função ausente do cache de esquema. Só esses dois casos contam
+ * como migração pendente — timeout, conexão recusada e permissão negada
+ * continuam sendo erro e continuam recusando.
+ */
+function isMissingFunction(error: { code?: string; message?: string }): boolean {
+  return error.code === "42883" || error.code === "PGRST202";
 }
 
 function admissionError(verdict: AdmitResponse): ApiError {
