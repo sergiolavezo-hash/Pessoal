@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Database, Sparkles } from "lucide-react";
+import { Database, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -27,6 +27,13 @@ export interface GenerateSourceOption {
   modelLabel: string | null;
   /** Analysis contexts (Looker-style subjects) discovered in this source. */
   contexts: string[];
+}
+
+interface PromptSuggestion {
+  title: string;
+  prompt: string;
+  alternatives: string[];
+  dataSummary: string;
 }
 
 interface GenerateChoice {
@@ -53,12 +60,6 @@ function buildChoices(sources: GenerateSourceOption[]): GenerateChoice[] {
   return choices;
 }
 
-const SUGGESTIONS = [
-  "Executive sales dashboard with revenue, margin, sales by region and by salesperson",
-  "Customer overview: active customers, orders per customer, revenue concentration",
-  "Monthly revenue trend with top products and top customers",
-];
-
 export function GenerateDashboardDialog({
   workspaceId,
   sources,
@@ -72,12 +73,51 @@ export function GenerateDashboardDialog({
   const [prompt, setPrompt] = useState("");
   const [choice, setChoice] = useState(choices.length === 1 ? choices[0].value : "");
   const [submitting, setSubmitting] = useState(false);
+  const [suggestion, setSuggestion] = useState<PromptSuggestion | null>(null);
+  const [suggesting, setSuggesting] = useState(false);
+  // Enquanto o usuário não escrever nada próprio, a sugestão da IA manda no
+  // campo; assim que ele edita, paramos de sobrescrever o texto dele.
+  const [promptTouched, setPromptTouched] = useState(false);
 
   const selected = choices.find((c) => c.value === choice)?.source;
 
+  /** Lê os dados selecionados e pré-carrega um prompt pronto. */
+  async function loadSuggestion(nextChoice: string) {
+    if (!nextChoice) {
+      setSuggestion(null);
+      return;
+    }
+    const [dataSourceId, context] = nextChoice.split("::");
+    setSuggesting(true);
+    setSuggestion(null);
+    try {
+      const res = await fetch("/api/dashboards/suggest-prompt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ workspaceId, dataSourceId, ...(context ? { context } : {}) }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error ?? "Não foi possível ler os dados");
+      const next = json.suggestion as PromptSuggestion;
+      setSuggestion(next);
+      // Só preenche se o usuário ainda não escreveu o próprio texto.
+      setPrompt((current) => (promptTouched && current.trim() !== "" ? current : next.prompt));
+    } catch {
+      // Sugestão é uma conveniência: sem ela o usuário escreve o próprio texto.
+      setSuggestion(null);
+    } finally {
+      setSuggesting(false);
+    }
+  }
+
+  function selectChoice(next: string) {
+    setChoice(next);
+    void loadSuggestion(next);
+  }
+
   async function submit() {
     if (!choice) {
-      toast.error("Select the data source that will ground this dashboard.");
+      toast.error("Selecione o modelo que dará base ao painel.");
       return;
     }
     setSubmitting(true);
@@ -89,13 +129,13 @@ export function GenerateDashboardDialog({
         body: JSON.stringify({ workspaceId, prompt, dataSourceId, ...(context ? { context } : {}) }),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Generation failed");
-      toast.success(`Dashboard "${json.dashboard.name}" generated`);
+      if (!res.ok) throw new Error(json.error ?? "Falha ao gerar o painel");
+      toast.success(`Painel "${json.dashboard.name}" gerado`);
       setOpen(false);
       router.push(`/dashboards/${json.dashboard.id}`);
       router.refresh();
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Generation failed", {
+      toast.error(error instanceof Error ? error.message : "Falha ao gerar o painel", {
         duration: 10000,
       });
     } finally {
@@ -103,28 +143,34 @@ export function GenerateDashboardDialog({
     }
   }
 
+  // Ao abrir com uma única opção já selecionada, sugere sem exigir clique.
+  function handleOpenChange(next: boolean) {
+    setOpen(next);
+    if (next && choice && !suggestion && !suggesting) void loadSuggestion(choice);
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button>
           <Sparkles />
-          Generate with AI
+          Gerar com IA
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-xl">
         <DialogHeader>
-          <DialogTitle>What do you want to analyze?</DialogTitle>
+          <DialogTitle>O que você quer analisar?</DialogTitle>
           <DialogDescription>
-            Pick the data source that grounds the dashboard, then describe it in plain language.
-            Atlas only uses tables and columns that actually exist in the selected source.
+            Escolha o modelo que dá base ao painel. Atlas lê os dados, sugere um prompt pronto e
+            usa somente tabelas e colunas que realmente existem.
           </DialogDescription>
         </DialogHeader>
         {sources.length === 0 ? (
           <div className="rounded-md border border-dashed p-6 text-center text-sm text-muted-foreground">
             <Database className="mx-auto mb-2 h-6 w-6" />
-            No data source connected yet.{" "}
+            Nenhuma fonte de dados conectada.{" "}
             <Link href="/data-sources" className="text-primary hover:underline">
-              Connect one first →
+              Conecte uma primeiro →
             </Link>
           </div>
         ) : (
@@ -136,16 +182,16 @@ export function GenerateDashboardDialog({
             }}
           >
             <div className="space-y-1.5">
-              <Label htmlFor="gen-source">Semantic model</Label>
+              <Label htmlFor="gen-source">Modelo semântico</Label>
               <select
                 id="gen-source"
                 required
                 value={choice}
-                onChange={(e) => setChoice(e.target.value)}
+                onChange={(e) => selectChoice(e.target.value)}
                 className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <option value="" disabled>
-                  Select the semantic model that grounds this dashboard…
+                  Selecione o modelo semântico que dá base a este painel…
                 </option>
                 {choices.map((c) => (
                   <option key={c.value} value={c.value}>
@@ -155,36 +201,79 @@ export function GenerateDashboardDialog({
               </select>
               {selected && !selected.hasModel && (
                 <p className="text-xs text-muted-foreground">
-                  No semantic model yet — Atlas will use the source&apos;s synced schema. For
-                  richer results, run Profile + Generate semantic model in Data Model.
+                  Ainda sem modelo semântico — Atlas usará o esquema sincronizado da fonte.
                 </p>
               )}
             </div>
+            {suggesting && (
+              <p className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Loader2 className="h-3 w-3 animate-spin" />
+                Atlas está lendo seus dados para sugerir o painel…
+              </p>
+            )}
+            {suggestion?.dataSummary && !suggesting && (
+              <p className="rounded-md bg-muted/50 px-3 py-2 text-xs text-muted-foreground">
+                <span className="font-medium text-foreground">O que Atlas viu nos dados: </span>
+                {suggestion.dataSummary}
+              </p>
+            )}
             <div className="space-y-1.5">
-              <Label>Describe your goal</Label>
+              <div className="flex items-center justify-between gap-2">
+                <Label>Descreva seu objetivo</Label>
+                {suggestion && prompt !== suggestion.prompt && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPrompt(suggestion.prompt);
+                      setPromptTouched(false);
+                    }}
+                    className="text-xs text-primary hover:underline"
+                  >
+                    Restaurar sugestão
+                  </button>
+                )}
+              </div>
               <Textarea
                 value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                rows={4}
-                placeholder={SUGGESTIONS[0]}
+                onChange={(e) => {
+                  setPrompt(e.target.value);
+                  setPromptTouched(true);
+                }}
+                rows={6}
+                placeholder={
+                  choice
+                    ? "Descreva o painel que você quer…"
+                    : "Selecione o modelo acima e Atlas escreve a sugestão para você."
+                }
                 required
                 minLength={5}
               />
+              <p className="text-xs text-muted-foreground">
+                Sugestão escrita a partir das colunas que existem nos seus dados. Edite à vontade.
+              </p>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {SUGGESTIONS.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => setPrompt(s)}
-                  className="rounded-full border px-3 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                >
-                  {s.slice(0, 48)}…
-                </button>
-              ))}
-            </div>
+            {(suggestion?.alternatives.length ?? 0) > 0 && (
+              <div className="space-y-1.5">
+                <Label className="text-xs text-muted-foreground">Outros ângulos de análise</Label>
+                <div className="flex flex-wrap gap-2">
+                  {suggestion?.alternatives.map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => {
+                        setPrompt(s);
+                        setPromptTouched(true);
+                      }}
+                      className="rounded-full border px-3 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             <Button type="submit" className="w-full" loading={submitting} disabled={!choice}>
-              {submitting ? "Atlas is designing and validating your dashboard…" : "Generate dashboard"}
+              {submitting ? "Atlas está desenhando e validando seu painel…" : "Gerar painel"}
             </Button>
           </form>
         )}

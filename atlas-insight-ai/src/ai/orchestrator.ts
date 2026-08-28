@@ -64,6 +64,15 @@ const chatAnswerSchema = z.object({
 
 export type ChatAnswer = z.infer<typeof chatAnswerSchema>;
 
+const dashboardPromptSuggestionSchema = z.object({
+  title: z.string().max(80).default(""),
+  prompt: z.string().min(10).max(2000),
+  alternatives: z.array(z.string().max(160)).max(4).default([]),
+  dataSummary: z.string().max(300).default(""),
+});
+
+export type DashboardPromptSuggestion = z.infer<typeof dashboardPromptSuggestionSchema>;
+
 type RunKind =
   | "analyze"
   | "chat"
@@ -272,6 +281,56 @@ ${resultSample}`;
         assumptions: sqlAnswer.assumptions,
       },
     };
+  }
+
+  /**
+   * Lê o que existe nos dados selecionados e escreve um prompt detalhado,
+   * pronto para uso, do painel que faz sentido construir com eles. O usuário
+   * não precisa saber descrever um dashboard — ele edita a sugestão.
+   */
+  async suggestDashboardPrompt(
+    preferredDataSourceId: string,
+    analysisContext?: string
+  ): Promise<DashboardPromptSuggestion> {
+    const context = await buildWorkspaceContext(this.ctx, preferredDataSourceId, analysisContext);
+    if (!context.semanticModel && context.rawSchema.length === 0) {
+      throw new ApiError(422, "This data source has no synced schema yet.");
+    }
+
+    const system = `Você é um analista de BI sênior que ajuda um empresário — não um desenvolvedor — a pedir o painel certo.
+
+Você recebe o esquema real dos dados. Escreva, em português do Brasil, um PROMPT pronto para o usuário enviar, descrevendo o painel mais útil que dá para construir COM ESSAS COLUNAS.
+
+Responda SOMENTE com JSON:
+{
+  "title": "nome curto do painel (máx. 60 caracteres)",
+  "prompt": "prompt detalhado em 1º pessoa ('Quero um painel...'), citando os indicadores, as quebras (por categoria, por mês...) e os gráficos desejados, usando os nomes de negócio das colunas que existem",
+  "alternatives": ["outro ângulo de análise", "mais um ângulo", "mais um"],
+  "dataSummary": "1 frase dizendo o que esses dados representam"
+}
+
+Regras:
+- Use APENAS colunas que existem no esquema. Nunca invente campos.
+- O prompt deve ter de 3 a 6 linhas: indicadores principais, quebras e gráficos.
+- Se houver uma coluna de período (mês, data), inclua a evolução no tempo.
+- As alternativas são frases curtas (máx. 90 caracteres), cada uma um recorte diferente.
+- Linguagem de negócio, sem jargão técnico e sem SQL.`;
+
+    const prompt = `Esquema disponível${analysisContext ? ` (assunto: ${analysisContext})` : ""}:\n${renderContextForPrompt(context)}`;
+
+    return this.trackRun("insight", system + prompt, context.contextVersion, async () => {
+      const response = await this.provider.complete({
+        system,
+        messages: [{ role: "user", content: prompt }],
+        jsonMode: true,
+        maxTokens: 1500,
+      });
+      return {
+        value: dashboardPromptSuggestionSchema.parse(stripNulls(extractJson(response.text))),
+        inputTokens: response.inputTokens,
+        outputTokens: response.outputTokens,
+      };
+    });
   }
 
   /** Generates a validated DashboardSpec from a natural-language request. */
