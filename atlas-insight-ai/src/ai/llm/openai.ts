@@ -19,15 +19,24 @@ const REASONING_HEADROOM_TOKENS = 8000;
 /** Teto por requisição: um modelo lento não pode consumir a função inteira. */
 const REQUEST_TIMEOUT_MS = 40_000;
 
+/**
+ * Fala o dialeto /chat/completions da OpenAI — que virou padrão de fato.
+ * Groq, Cerebras, OpenRouter, Mistral, Together e DeepSeek expõem a MESMA
+ * interface, então todos passam por aqui: muda só o endereço e a chave.
+ */
 export class OpenAIProvider implements LLMProvider {
-  readonly name = "openai";
+  readonly name: string;
   readonly model: string;
+  private readonly baseUrl: string;
 
   constructor(
     private readonly apiKey: string,
-    model?: string
+    model?: string,
+    options: { name?: string; baseUrl?: string; defaultModel?: string } = {}
   ) {
-    this.model = model ?? DEFAULT_MODEL;
+    this.name = options.name ?? "openai";
+    this.baseUrl = options.baseUrl ?? "https://api.openai.com/v1";
+    this.model = model ?? options.defaultModel ?? DEFAULT_MODEL;
   }
 
   async complete(request: LLMRequest): Promise<LLMResponse> {
@@ -40,7 +49,7 @@ export class OpenAIProvider implements LLMProvider {
       throw new LLMError("Tempo esgotado antes de obter resposta da IA", this.name, true);
     }
 
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    const res = await fetch(`${this.baseUrl}/chat/completions`, {
       method: "POST",
       signal: AbortSignal.timeout(Math.min(REQUEST_TIMEOUT_MS, left)),
       headers: {
@@ -57,7 +66,7 @@ export class OpenAIProvider implements LLMProvider {
 
     if (!res.ok) {
       const body = await res.text().catch(() => "");
-      throw new LLMError(`OpenAI API error ${res.status}: ${body.slice(0, 300)}`, this.name, res.status >= 500 || res.status === 429);
+      throw new LLMError(`${this.name} API error ${res.status}: ${body.slice(0, 300)}`, this.name, res.status >= 500 || res.status === 429);
     }
 
     const json = (await res.json()) as {
@@ -69,7 +78,7 @@ export class OpenAIProvider implements LLMProvider {
     const choice = json.choices[0];
     if (choice?.finish_reason === "length") {
       throw new LLMError(
-        `OpenAI response was truncated (length) after ${json.usage?.completion_tokens ?? 0} tokens`,
+        `${this.name} response was truncated (length) after ${json.usage?.completion_tokens ?? 0} tokens`,
         this.name,
         true
       );

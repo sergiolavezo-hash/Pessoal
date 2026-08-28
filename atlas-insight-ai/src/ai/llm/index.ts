@@ -5,6 +5,7 @@ import { AnthropicProvider } from "@/ai/llm/anthropic";
 import { OpenAIProvider } from "@/ai/llm/openai";
 import { GoogleProvider } from "@/ai/llm/google";
 import { FallbackLLMProvider } from "@/ai/llm/fallback";
+import { OPENAI_COMPATIBLE_VENDORS } from "@/ai/llm/vendors";
 
 type ProviderName = "anthropic" | "openai" | "google";
 
@@ -31,7 +32,23 @@ function buildProviders(): LLMProvider[] {
     ...(["google", "openai", "anthropic"] as ProviderName[]).filter((p) => p !== env.LLM_PROVIDER),
   ];
 
-  return order.map((name) => factories[name]()).filter((p): p is LLMProvider => p !== null);
+  const primary = order.map((name) => factories[name]()).filter((p): p is LLMProvider => p !== null);
+
+  // Provedores compatíveis com o dialeto da OpenAI entram depois dos
+  // principais: bastam as variáveis de ambiente, sem alterar código.
+  const extras = OPENAI_COMPATIBLE_VENDORS.flatMap((vendor) => {
+    const key = process.env[vendor.envKey];
+    if (!key) return [];
+    return [
+      new OpenAIProvider(key, process.env[vendor.envModel], {
+        name: vendor.id,
+        baseUrl: vendor.baseUrl,
+        defaultModel: vendor.defaultModel,
+      }),
+    ];
+  });
+
+  return [...primary, ...extras];
 }
 
 /**
