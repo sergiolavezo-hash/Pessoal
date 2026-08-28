@@ -13,6 +13,7 @@ import {
   tripBreaker,
   trippedUntil,
 } from "@/ai/llm/circuit-breaker";
+import { formatWait } from "@/lib/wait-time";
 
 /**
  * Encadeia todos os provedores configurados. Cotas gratuitas se esgotam (o
@@ -121,10 +122,15 @@ export class FallbackLLMProvider implements LLMProvider {
     // Mensagem acionável: o usuário precisa saber o que fazer, não ler o
     // erro cru de cada fornecedor (que fica no log do servidor).
     console.error(`[llm] every provider failed: ${errors.join(" | ")}`);
-    const allOutOfQuota = errors.every((e) => /429|quota|credit|insufficient/i.test(e));
+    // Mesmo critério do disjuntor: se ele considerou "sem capacidade" a ponto
+    // de pôr o provedor em descanso, a mensagem ao usuário tem de dizer o
+    // mesmo — e dizer quando volta.
+    const allOutOfQuota = errors.every((e) => isCapacityError(e));
     throw new LLMError(
       allOutOfQuota
-        ? "Todos os provedores de IA estão sem capacidade neste momento. Algumas cotas se renovam a cada minuto — tente de novo em instantes. Se persistir, adicione créditos em Configurações."
+        ? `Todos os provedores de IA estão sem capacidade neste momento. ${retryHint(
+            this.providers
+          )} Se precisar continuar agora, adicione créditos em Configurações → Cobrança.`
         : `Nenhum provedor de IA conseguiu responder agora. Tente novamente em alguns instantes. (${errors.length} tentativa(s))`,
       "fallback",
       true
@@ -140,4 +146,18 @@ function isWorthFailingOver(message: string): boolean {
   return /\b(429|402|401|403|404|quota|rate limit|credit balance|insufficient|unavailable|overloaded|not configured)\b/i.test(
     message
   );
+}
+
+/**
+ * Uma espera com prazo é aceitável; sem prazo, o produto parece quebrado.
+ * O disjuntor já sabe quando cada provedor volta — o mais próximo é o
+ * momento em que vale a pena tentar de novo.
+ */
+export function retryHint(providers: LLMProvider[]): string {
+  const soonest = providers
+    .map((p) => trippedUntil(p.name))
+    .filter((t): t is number => t != null)
+    .sort((a, b) => a - b)[0];
+  if (soonest == null) return "Tente de novo em instantes.";
+  return `Tente de novo ${formatWait(soonest - Date.now())}.`;
 }

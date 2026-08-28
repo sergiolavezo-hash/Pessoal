@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { FallbackLLMProvider } from "@/ai/llm/fallback";
+import { FallbackLLMProvider, retryHint } from "@/ai/llm/fallback";
+import { __resetAllBreakers } from "@/ai/llm/circuit-breaker";
 import { LLMError, type LLMProvider, type LLMResponse } from "@/ai/llm/types";
 
 function provider(name: string, behaviour: () => Promise<LLMResponse>): LLMProvider {
@@ -71,5 +72,31 @@ describe("FallbackLLMProvider", () => {
 
   it("refuses to be built with no providers", () => {
     expect(() => new FallbackLLMProvider([])).toThrow(/No LLM provider/);
+  });
+});
+
+describe("mensagem quando ninguém tem capacidade", () => {
+  it("diz em quanto tempo o provedor volta", async () => {
+    __resetAllBreakers();
+    const chain = new FallbackLLMProvider([
+      provider("groq", async () => {
+        throw new LLMError("Rate limit reached. Please try again in 42s", "groq", true);
+      }),
+      provider("google", async () => {
+        throw new LLMError("Google AI API error 429: quota exceeded", "google", true);
+      }),
+    ]);
+    // Prazo curto: não deve entrar no caminho de esperar-e-tentar-de-novo.
+    await expect(chain.complete({ ...request, deadline: Date.now() + 8_000 })).rejects.toThrow(
+      /Tente de novo em \d+ segundos?\./
+    );
+    __resetAllBreakers();
+  });
+
+  it("cai para 'em instantes' quando não há prazo conhecido", () => {
+    __resetAllBreakers();
+    expect(retryHint([{ name: "x", model: "m", complete: async () => answer("x") }])).toBe(
+      "Tente de novo em instantes."
+    );
   });
 });

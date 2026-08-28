@@ -2,6 +2,7 @@ import "server-only";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { ApiError } from "@/services/api-context";
 import { formatCents } from "@/services/ai-cost";
+import { dailyResetClock, formatWait, msUntilDailyReset } from "@/lib/wait-time";
 
 /**
  * Créditos de IA. A franquia diária do plano é consumida primeiro; depois, o
@@ -82,10 +83,13 @@ export async function addCredits(
 /** Bloqueia com 402 e uma mensagem que diz o que fazer. */
 export function assertHasCredits(status: AiCreditStatus): void {
   if (status.allowed) return;
+  // Diz QUANDO volta, não só que acabou: uma espera com prazo é aceitável.
+  const wait = formatWait(msUntilDailyReset());
   throw new ApiError(
     402,
     `Sua cota diária de IA (${formatCents(status.daily_allowance_cents)}) acabou e não há saldo de créditos. ` +
-      `Recarregue em Configurações → Cobrança para continuar agora, ou aguarde a renovação de amanhã.`
+      `Ela se renova ${wait}, às ${dailyResetClock()}. ` +
+      `Para continuar agora, recarregue em Configurações → Cobrança.`
   );
 }
 

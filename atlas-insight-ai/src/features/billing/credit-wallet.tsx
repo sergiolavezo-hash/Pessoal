@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { readJson } from "@/lib/api-client";
+import { dailyResetClock, formatWait, msUntilDailyReset } from "@/lib/wait-time";
 
 export interface CreditPackOption {
   id: string;
@@ -57,6 +58,15 @@ export function CreditWallet({
     }
   }
 
+  // Contagem regressiva viva: quem está sem cota precisa ver o prazo andando,
+  // não uma frase estática que pode estar velha na tela há uma hora.
+  const [now, setNow] = useState<Date | null>(null);
+  useEffect(() => {
+    setNow(new Date());
+    const timer = setInterval(() => setNow(new Date()), 30_000);
+    return () => clearInterval(timer);
+  }, []);
+
   const usedToday = state.dailyAllowanceCents - state.dailyRemainingCents;
   const usedPercent =
     state.dailyAllowanceCents > 0
@@ -93,6 +103,11 @@ export function CreditWallet({
                 style={{ width: `${usedPercent}%` }}
               />
             </div>
+            <p className="mt-2 text-xs text-muted-foreground">
+              {now
+                ? `Renova ${formatWait(msUntilDailyReset(now))}, às ${dailyResetClock(now)}.`
+                : "Renova na virada do dia."}
+            </p>
           </div>
           <div>
             <p className="text-xs text-muted-foreground">Saldo de créditos</p>
@@ -111,8 +126,11 @@ export function CreditWallet({
 
         {exhausted && (
           <p className="rounded-md border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm">
-            Sua cota de hoje acabou. Recarregue abaixo para continuar agora — ou aguarde a
-            renovação de amanhã.
+            Sua cota de hoje acabou.{" "}
+            {now
+              ? `Ela se renova ${formatWait(msUntilDailyReset(now))}, às ${dailyResetClock(now)}.`
+              : "Ela se renova na virada do dia."}{" "}
+            Para voltar a trabalhar agora, recarregue abaixo.
           </p>
         )}
 
