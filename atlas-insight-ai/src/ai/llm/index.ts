@@ -27,32 +27,54 @@ function buildProviders(): LLMProvider[] {
         : null,
   };
 
-  const order: ProviderName[] = [
-    env.LLM_PROVIDER,
-    ...(["google", "openai", "anthropic"] as ProviderName[]).filter((p) => p !== env.LLM_PROVIDER),
-  ];
+  const primary = (["google", "openai", "anthropic"] as ProviderName[])
+    .map((name) => [name, factories[name]()] as const)
+    .filter((entry): entry is readonly [ProviderName, LLMProvider] => entry[1] !== null);
 
-  const primary = order.map((name) => factories[name]()).filter((p): p is LLMProvider => p !== null);
-
-  // Provedores compatíveis com o dialeto da OpenAI entram depois dos
-  // principais: bastam as variáveis de ambiente, sem alterar código.
+  // Provedores compatíveis com o dialeto da OpenAI: bastam as variáveis de
+  // ambiente, sem alterar código.
   const extras = OPENAI_COMPATIBLE_VENDORS.flatMap((vendor) => {
     const key = process.env[vendor.envKey];
     if (!key) return [];
     return [
-      new OpenAIProvider(key, process.env[vendor.envModel], {
-        name: vendor.id,
-        baseUrl: vendor.baseUrl,
-        defaultModel: vendor.defaultModel,
-        // Só a OpenAI usa tokens de raciocínio; nos demais a folga estoura
-        // o limite por minuto das camadas gratuitas.
-        reasoningHeadroom: false,
-        maxOutputTokens: vendor.maxOutputTokens,
-      }),
+      [
+        vendor.id,
+        new OpenAIProvider(key, process.env[vendor.envModel], {
+          name: vendor.id,
+          baseUrl: vendor.baseUrl,
+          defaultModel: vendor.defaultModel,
+          // Só a OpenAI usa tokens de raciocínio; nos demais a folga estoura
+          // o limite por minuto das camadas gratuitas.
+          reasoningHeadroom: false,
+          maxOutputTokens: vendor.maxOutputTokens,
+        }),
+      ] as const,
     ];
   });
 
-  return [...primary, ...extras];
+  const byId = new Map<string, LLMProvider>([...primary, ...extras]);
+
+  // A ordem de tentativa é configuração, não código: LLM_PRIORITY aceita uma
+  // lista separada por vírgulas (ex.: "groq,google,openai"). Quem não for
+  // citado entra depois, na ordem em que foi construído.
+  const preferred = (process.env.LLM_PRIORITY ?? env.LLM_PROVIDER)
+    .split(",")
+    .map((id) => id.trim())
+    .filter(Boolean);
+
+  const ordered: LLMProvider[] = [];
+  const seen = new Set<string>();
+  for (const id of preferred) {
+    const provider = byId.get(id);
+    if (provider && !seen.has(id)) {
+      ordered.push(provider);
+      seen.add(id);
+    }
+  }
+  for (const [id, provider] of byId) {
+    if (!seen.has(id)) ordered.push(provider);
+  }
+  return ordered;
 }
 
 /**

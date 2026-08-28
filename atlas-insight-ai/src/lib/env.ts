@@ -11,6 +11,12 @@ const serverEnvSchema = z.object({
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
   ENCRYPTION_KEY: z.string().min(32).optional(),
   LLM_PROVIDER: z.enum(["anthropic", "openai", "google"]).default("anthropic"),
+  /**
+   * Ordem de tentativa dos provedores, separada por vírgulas
+   * (ex.: "groq,google,openai"). Quem não for citado entra depois.
+   * Sem isto, vale LLM_PROVIDER.
+   */
+  LLM_PRIORITY: z.string().optional(),
   ANTHROPIC_API_KEY: z.string().optional(),
   OPENAI_API_KEY: z.string().optional(),
   GOOGLE_AI_API_KEY: z.string().optional(),

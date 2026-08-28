@@ -6,6 +6,13 @@ import {
   type LLMRequest,
   type LLMResponse,
 } from "@/ai/llm/types";
+import {
+  isCapacityError,
+  isTripped,
+  resetBreaker,
+  tripBreaker,
+  trippedUntil,
+} from "@/ai/llm/circuit-breaker";
 
 /**
  * Encadeia todos os provedores configurados. Cotas gratuitas se esgotam (o
@@ -31,7 +38,14 @@ export class FallbackLLMProvider implements LLMProvider {
   async complete(request: LLMRequest): Promise<LLMResponse> {
     const errors: string[] = [];
 
-    for (const [index, provider] of this.providers.entries()) {
+    // Provedores que já se sabem esgotados vão para o fim da fila em vez de
+    // consumirem o prazo. Se TODOS estiverem em descanso, a ordem original
+    // é mantida — tentar é melhor do que recusar sem tentar.
+    const available = this.providers.filter((p) => !isTripped(p.name));
+    const resting = this.providers.filter((p) => isTripped(p.name));
+    const queue = available.length > 0 ? [...available, ...resting] : this.providers;
+
+    for (const [index, provider] of queue.entries()) {
       const left = remainingMs(request.deadline);
       if (left <= MIN_PROVIDER_SLICE_MS) {
         errors.push("prazo esgotado antes de tentar os demais provedores");
@@ -41,7 +55,7 @@ export class FallbackLLMProvider implements LLMProvider {
       // Reparte o tempo restante entre os provedores que ainda faltam. Sem
       // isto, o primeiro da fila consome tudo e os seguintes — que poderiam
       // responder em menos de um segundo — nunca chegam a ser chamados.
-      const providersLeft = this.providers.length - index;
+      const providersLeft = queue.length - index;
       const slice = Number.isFinite(left)
         ? Math.max(Math.floor(left / providersLeft), MIN_PROVIDER_SLICE_MS)
         : undefined;
@@ -49,10 +63,23 @@ export class FallbackLLMProvider implements LLMProvider {
         slice == null ? request : { ...request, deadline: Date.now() + Math.min(slice, left) };
 
       try {
-        return await provider.complete(attempt);
+        const response = await provider.complete(attempt);
+        resetBreaker(provider.name);
+        return response;
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         errors.push(`${provider.name}: ${message.slice(0, 200)}`);
+        // Sem capacidade: guarda por quanto tempo não vale a pena insistir,
+        // para os próximos pedidos não pagarem essa espera de novo.
+        if (isCapacityError(message)) {
+          tripBreaker(provider.name, message);
+          const until = trippedUntil(provider.name);
+          console.warn(
+            `[llm] ${provider.name} sem capacidade; em descanso por ${
+              until ? Math.round((until - Date.now()) / 1000) : "?"
+            }s`
+          );
+        }
         // Erro definitivo do pedido (ex.: prompt inválido) não melhora
         // trocando de provedor — só insistimos quando faz sentido.
         if (error instanceof LLMError && !error.retryable && !isWorthFailingOver(message)) {
