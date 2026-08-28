@@ -21,6 +21,17 @@ import type { ApiContext } from "@/services/api-context";
 import { ApiError } from "@/services/api-context";
 import { priceRun } from "@/services/ai-cost";
 import { assertHasCredits, chargeAiUsage, getCreditStatus } from "@/services/ai-credits";
+import { budgetFor, minDatasetQualityScore } from "@/ai/config";
+import { admit, estimateTokens, release } from "@/services/ai-gateway";
+import { cacheKey, readCache, singleFlight, writeCache } from "@/services/ai-cache";
+import { scoreDataset } from "@/ai/dataset-quality";
+import {
+  buildLayoutPrompt,
+  parseLayoutPlan,
+  LAYOUT_ANALYSIS_BUDGET_MS,
+  LAYOUT_SYSTEM_PROMPT,
+  type RestructurePlan,
+} from "@/ai/file-restructure";
 
 const MAX_SQL_ATTEMPTS = 3;
 
@@ -136,9 +147,46 @@ export class AIOrchestrator {
       provider?: string;
     }>
   ): Promise<T> {
-    // Portão único de consumo: nenhuma operação de IA começa sem crédito.
+    // Portão único de consumo. A ordem importa: cada etapa é mais cara que a
+    // anterior, então a mais barata julga primeiro.
+    //   1. crédito da organização (uma consulta);
+    //   2. portaria: requisições por minuto, simultâneas e tokens do dia.
+    // Só depois de passar nas duas é que o provedor é acionado.
     assertHasCredits(await getCreditStatus(this.ctx.organizationId));
 
+    const budget = budgetFor(kind);
+    const ticket = await admit(
+      this.ctx.organizationId,
+      kind,
+      estimateTokens(prompt, budget.maxOutputTokens)
+    );
+
+    try {
+      return await this.runTracked(kind, prompt, contextVersion, fn);
+    } finally {
+      // A vaga precisa voltar mesmo se a operação falhar, senão o cliente
+      // fica bloqueado até o lease vencer sozinho.
+      await release(ticket, this.lastRunTokens);
+      this.lastRunTokens = 0;
+    }
+  }
+
+  /** Tokens da última execução, para devolver à portaria mesmo em falha. */
+  private lastRunTokens = 0;
+
+  private async runTracked<T>(
+    kind: RunKind,
+    prompt: string,
+    contextVersion: string,
+    fn: () => Promise<{
+      value: T;
+      inputTokens: number;
+      outputTokens: number;
+      queryExecutionId?: string;
+      model?: string;
+      provider?: string;
+    }>
+  ): Promise<T> {
     const { data: run } = await this.ctx.supabase
       .from("ai_runs")
       .insert({
@@ -160,6 +208,7 @@ export class AIOrchestrator {
       // Cobra pelo modelo que ATENDEU, não pelo configurado: a cadeia de
       // fallback pode ter trocado de fornecedor, com preço bem diferente.
       const servedModel = model ?? this.provider.model;
+      this.lastRunTokens = inputTokens + outputTokens;
       const cost = priceRun(servedModel, inputTokens, outputTokens);
       await chargeAiUsage(this.ctx.organizationId, cost.chargedCents, run?.id, kind);
       if (run) {
@@ -188,6 +237,15 @@ export class AIOrchestrator {
       }
       return value;
     } catch (error) {
+      // Uma chamada que falhou depois de o provedor responder já gastou
+      // tokens de verdade. Não contabilizá-los deixava a tempestade de
+      // retentativas invisível e gratuita: o cliente que mais falha era o que
+      // menos aparecia no consumo. Sem o número exato (a exceção não o
+      // carrega), debitamos a estimativa da operação — melhor aproximar o
+      // gasto real do que registrar zero.
+      if (this.lastRunTokens === 0) {
+        this.lastRunTokens = Math.round(budgetFor(kind).maxOutputTokens / 2);
+      }
       if (run) {
         await this.ctx.supabase
           .from("ai_runs")
@@ -235,7 +293,7 @@ export class AIOrchestrator {
           system,
           messages,
           jsonMode: true,
-          maxTokens: 4000,
+          maxTokens: budgetFor("sql_generate").maxOutputTokens,
           deadline: sqlDeadline,
         });
         totalIn += response.inputTokens;
@@ -308,7 +366,10 @@ ${resultSample}`;
         system,
         messages: [{ role: "user", content: prompt }],
         jsonMode: true,
-        maxTokens: 3000,
+        maxTokens: budgetFor("chat").maxOutputTokens,
+        // Sem prazo, a cadeia de fallback percorria todos os provedores sem
+        // teto e o pedido morria na plataforma em vez de responder.
+        deadline: budgetDeadline(),
       });
       return {
         value: chatAnswerSchema.parse(stripNulls(extractJson(response.text))),
@@ -384,7 +445,8 @@ Regras:
         system,
         messages: [{ role: "user", content: prompt }],
         jsonMode: true,
-        maxTokens: 1500,
+        maxTokens: budgetFor("insight").maxOutputTokens,
+        deadline: budgetDeadline(),
       });
       const suggestion = dashboardPromptSuggestionSchema.parse(
         stripNulls(extractJson(response.text))
@@ -449,15 +511,50 @@ Regras:
         "This data source has no synced schema yet. Open it in Data Sources and run Sync schema first."
       );
     }
+    // Uma base sem medida, sem categoria ou praticamente vazia não produz
+    // painel — produz gráficos em branco. Descobrir isso pela aritmética do
+    // perfil custa zero token; descobrir pela IA custa a geração inteira e
+    // ainda devolve um resultado ruim.
+    this.assertDatasetIsUsable(context);
+
     const system = `${dashboardSpecPrompt()}\n\n# Workspace data context\n${renderContextForPrompt(context)}`;
 
+    // Mesmo pedido, mesmo esquema: a resposta já está pronta. E dois pedidos
+    // idênticos simultâneos (duplo clique, retry) viram uma única chamada.
+    const key = cacheKey("dashboard_generate", context.contextVersion, request);
+    const cached = await readCache<DashboardSpec>(this.ctx.workspaceId, key);
+    if (cached) return cached;
+
+    return singleFlight(`${this.ctx.workspaceId}:${key}`, () =>
+      this.generateDashboardUncached(system, request, context, key)
+    );
+  }
+
+  /** Barra a geração quando os dados não sustentam um painel confiável. */
+  private assertDatasetIsUsable(context: WorkspaceAiContext): void {
+    const quality = scoreDataset(context);
+    if (quality.score >= minDatasetQualityScore()) return;
+    throw new ApiError(
+      422,
+      `Estes dados ainda não sustentam um painel confiável (nota ${quality.score}/100). ` +
+        `${quality.problems.join(" ")} Ajuste a base e tente de novo — ` +
+        "assim você não gasta créditos de IA num resultado que sairia vazio."
+    );
+  }
+
+  private async generateDashboardUncached(
+    system: string,
+    request: string,
+    context: WorkspaceAiContext,
+    key: string
+  ): Promise<DashboardSpec> {
     return this.trackRun("dashboard_generate", system + request, context.contextVersion, async () => {
       const deadline = budgetDeadline();
       const response = await this.provider.complete({
         system,
         messages: [{ role: "user", content: request }],
         jsonMode: true,
-        maxTokens: 12000,
+        maxTokens: budgetFor("dashboard_generate").maxOutputTokens,
         deadline,
       });
 
@@ -478,7 +575,7 @@ Regras:
           )}\n\n# Workspace data context\n${renderContextForPrompt(context)}`,
           messages: [{ role: "user", content: "Fix the failing widgets." }],
           jsonMode: true,
-          maxTokens: 12000,
+          maxTokens: budgetFor("dashboard_generate").maxOutputTokens,
           // O reparo divide o mesmo prazo da geração.
           deadline,
         });
@@ -498,8 +595,18 @@ Regras:
         }
       }
 
+      const finalized = this.finalizeSpec(spec, rowCounts);
+      await writeCache(
+        this.ctx.workspaceId,
+        key,
+        "dashboard_generate",
+        finalized,
+        inputTokens,
+        outputTokens
+      );
+
       return {
-        value: this.finalizeSpec(spec, rowCounts),
+        value: finalized,
         inputTokens,
         outputTokens,
         model: response.model,
@@ -579,7 +686,8 @@ Regras:
         system,
         messages: [{ role: "user", content: instruction }],
         jsonMode: true,
-        maxTokens: 12000,
+        maxTokens: budgetFor("dashboard_edit").maxOutputTokens,
+        deadline: budgetDeadline(),
       });
       const editedRaw = extractJson(response.text);
       this.throwIfModelDeclined(editedRaw);
@@ -598,6 +706,35 @@ Regras:
     });
   }
 
+  /**
+   * Lê a grade bruta de uma planilha desestruturada e devolve o plano de
+   * reestruturação. Passa pelo mesmo portão das demais operações: sem
+   * crédito, sem cota ou acima do limite do cliente, não chama o provedor.
+   */
+  async analyzeFileLayout(
+    matrix: unknown[][],
+    fileName: string
+  ): Promise<RestructurePlan | null> {
+    const prompt = buildLayoutPrompt(matrix, fileName);
+
+    return this.trackRun("document_extract", prompt, "file-layout", async () => {
+      const response = await this.provider.complete({
+        system: LAYOUT_SYSTEM_PROMPT,
+        messages: [{ role: "user", content: prompt }],
+        jsonMode: true,
+        maxTokens: budgetFor("document_extract").maxOutputTokens,
+        deadline: budgetDeadline(LAYOUT_ANALYSIS_BUDGET_MS),
+      });
+      return {
+        value: parseLayoutPlan(response.text),
+        inputTokens: response.inputTokens,
+        outputTokens: response.outputTokens,
+        model: response.model,
+        provider: response.provider,
+      };
+    });
+  }
+
   /** Parses a natural-language business rule into a structured definition. */
   async parseBusinessRule(text: string): Promise<Record<string, unknown>> {
     const context = await buildWorkspaceContext(this.ctx);
@@ -608,7 +745,8 @@ Regras:
         system,
         messages: [{ role: "user", content: text }],
         jsonMode: true,
-        maxTokens: 2000,
+        maxTokens: budgetFor("business_rule_parse").maxOutputTokens,
+        deadline: budgetDeadline(),
       });
       return {
         value: extractJson<Record<string, unknown>>(response.text),

@@ -20,9 +20,17 @@ export interface AiCreditStatus {
   day_spent_cents: number;
 }
 
-/** Carteira ainda não provisionada (migração pendente) não bloqueia o uso. */
-const PERMISSIVE: AiCreditStatus = {
-  allowed: true,
+/**
+ * Resposta usada quando a carteira não pôde ser consultada.
+ *
+ * Antes este objeto vinha com `allowed: true`: qualquer falha na consulta
+ * liberava IA sem limite, que é exatamente como uma conta gratuita vira uma
+ * fatura. Na dúvida sobre o saldo, o certo é não gastar — a mensagem deixa
+ * claro que é temporário, e uma indisponibilidade de segundos custa menos que
+ * uma cota esgotada por todos os clientes.
+ */
+const UNAVAILABLE: AiCreditStatus = {
+  allowed: false,
   daily_allowance_cents: 0,
   daily_remaining_cents: 0,
   balance_cents: 0,
@@ -40,8 +48,8 @@ export async function getCreditStatus(organizationId: string): Promise<AiCreditS
     org: organizationId,
   });
   if (error) {
-    console.warn(`[ai-credits] status unavailable: ${error.message}`);
-    return PERMISSIVE;
+    console.error(`[ai-credits] status unavailable: ${error.message}`);
+    return UNAVAILABLE;
   }
   return data as AiCreditStatus;
 }

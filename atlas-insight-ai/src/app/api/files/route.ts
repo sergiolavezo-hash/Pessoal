@@ -8,7 +8,8 @@ import {
   parseXlsxMatrix,
   type ParsedFile,
 } from "@/services/file-ingest";
-import { analyzeFileLayout, applyRestructurePlan, looksUnstructured } from "@/ai/file-restructure";
+import { applyRestructurePlan, looksUnstructured } from "@/ai/file-restructure";
+import { AIOrchestrator } from "@/ai/orchestrator";
 import { profileDataSource } from "@/services/profiling";
 import { generateSemanticModel } from "@/semantic/generator";
 
@@ -99,7 +100,9 @@ export async function POST(request: NextRequest) {
       }
       if (!parsed || looksUnstructured(parsed)) {
         try {
-          const plan = await analyzeFileLayout(matrix, file.name);
+          // Pelo orquestrador: a análise de layout é uma chamada de IA como
+          // qualquer outra e precisa passar por crédito, cota e registro.
+          const plan = await new AIOrchestrator(ctx).analyzeFileLayout(matrix, file.name);
           if (plan) parsed = applyRestructurePlan(matrix, plan, parseWarnings);
         } catch (error) {
           console.error("[ai-restructure] fallback to heuristic parser", error);

@@ -131,13 +131,38 @@ Rules:
  * Retorna null quando a IA considera o arquivo já estruturado ou falha —
  * o chamador usa o parser heurístico nesses casos.
  */
+export function buildLayoutPrompt(matrix: unknown[][], fileName: string): string {
+  return `File name: ${fileName}\nGrid (${matrix.length} rows):\n\n${renderMatrixSample(matrix)}`;
+}
+
+export const LAYOUT_SYSTEM_PROMPT = SYSTEM_PROMPT;
+
+/**
+ * Interpreta a resposta do modelo. Fica separado da chamada para que o
+ * orquestrador — que é quem tem crédito, cota e registro — faça a chamada.
+ */
+export function parseLayoutPlan(text: string): RestructurePlan | null {
+  const plan = restructurePlanSchema.parse(stripNulls(extractJson(text)));
+  if (!plan.needsRestructure) return null;
+  if (plan.columns.every((c) => c.role === "ignore")) return null;
+  return plan;
+}
+
+/**
+ * Versão sem medição, mantida apenas para uso interno em testes.
+ *
+ * O caminho de produção passa por AIOrchestrator.analyzeFileLayout: esta
+ * função chamava o provedor diretamente, sem checar crédito, sem cota e sem
+ * gravar nada em ai_runs — qualquer upload de planilha bagunçada gerava uma
+ * chamada de IA invisível no consumo.
+ */
 export async function analyzeFileLayout(
   matrix: unknown[][],
   fileName: string,
   budgetMs: number = LAYOUT_ANALYSIS_BUDGET_MS
 ): Promise<RestructurePlan | null> {
   const provider = getLLMProvider();
-  const prompt = `File name: ${fileName}\nGrid (${matrix.length} rows):\n\n${renderMatrixSample(matrix)}`;
+  const prompt = buildLayoutPrompt(matrix, fileName);
 
   const analysis = provider.complete({
     system: SYSTEM_PROMPT,
