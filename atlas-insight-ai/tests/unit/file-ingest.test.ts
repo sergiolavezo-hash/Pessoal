@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { coerceValue, inferColumnType, parseCsv, sanitizeColumnName } from "@/services/file-ingest";
+import {
+  coerceValue,
+  detectHeaderRow,
+  inferColumnType,
+  parseCsv,
+  sanitizeColumnName,
+} from "@/services/file-ingest";
 
 describe("inferColumnType", () => {
   it("infers integers", () => expect(inferColumnType(["1", "42", "-7"])).toBe("bigint"));
@@ -59,5 +65,50 @@ describe("parseCsv", () => {
 
   it("throws on empty files", () => {
     expect(() => parseCsv("")).toThrow();
+  });
+
+  it("skips title and blank rows above the real header (messy layouts)", () => {
+    const csv = [
+      "Orçamento Pessoal 2025,,",
+      ",,",
+      "Categoria,Valor,Data",
+      "Mercado,850,2025-01-05",
+      "Aluguel,2000,2025-01-01",
+      ",,",
+    ].join("\n");
+    const parsed = parseCsv(csv);
+    expect(parsed.columns.map((c) => c.name)).toEqual(["categoria", "valor", "data"]);
+    expect(parsed.rows).toHaveLength(2);
+    expect(parsed.rows[0]).toEqual({ categoria: "Mercado", valor: 850, data: "2025-01-05" });
+    expect(parsed.warnings.some((w) => w.includes("Header detected at row 3"))).toBe(true);
+  });
+
+  it("drops fully empty columns and names blank headers", () => {
+    const csv = ["Nome,,Valor", "Ana,,10", "Bia,,20"].join("\n");
+    const parsed = parseCsv(csv);
+    expect(parsed.columns.map((c) => c.name)).toEqual(["nome", "valor"]);
+    expect(parsed.rows[1]).toEqual({ nome: "Bia", valor: 20 });
+  });
+});
+
+describe("detectHeaderRow", () => {
+  it("returns 0 for clean matrices", () => {
+    expect(
+      detectHeaderRow([
+        ["a", "b", "c"],
+        ["1", "2", "3"],
+      ])
+    ).toBe(0);
+  });
+
+  it("finds the dense textual row below titles", () => {
+    const matrix = [
+      ["Relatório de gastos", null, null],
+      [null, null, null],
+      ["Categoria", "Valor", "Mês"],
+      ["Mercado", 850, "Janeiro"],
+      ["Transporte", 300, "Janeiro"],
+    ];
+    expect(detectHeaderRow(matrix)).toBe(2);
   });
 });

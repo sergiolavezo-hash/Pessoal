@@ -72,13 +72,13 @@ export function coerceValue(value: unknown, type: InferredType): unknown {
 }
 
 export function parseCsv(content: string): ParsedFile {
-  const result = Papa.parse<Record<string, unknown>>(content, {
-    header: true,
-    skipEmptyLines: "greedy",
+  const result = Papa.parse<string[]>(content, {
+    header: false,
+    skipEmptyLines: false,
     dynamicTyping: false,
   });
   const warnings = result.errors.slice(0, 5).map((e) => `Row ${e.row}: ${e.message}`);
-  return buildParsed(result.meta.fields ?? [], result.data, warnings);
+  return buildParsedFromMatrix(result.data as unknown[][], warnings);
 }
 
 export function parseXlsx(buffer: ArrayBuffer): ParsedFile {
@@ -86,15 +86,96 @@ export function parseXlsx(buffer: ArrayBuffer): ParsedFile {
   const sheetName = workbook.SheetNames[0];
   if (!sheetName) throw new Error("Workbook has no sheets");
   const sheet = workbook.Sheets[sheetName];
-  const json = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { defval: null, raw: true });
-  const headers = json.length > 0 ? Object.keys(json[0]) : [];
+  const matrix = XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1, defval: null, raw: true });
   const warnings = workbook.SheetNames.length > 1
     ? [`Workbook has ${workbook.SheetNames.length} sheets; only "${sheetName}" was imported.`]
     : [];
-  return buildParsed(headers, json, warnings);
+  return buildParsedFromMatrix(matrix, warnings);
 }
 
-function buildParsed(headers: string[], data: Record<string, unknown>[], warnings: string[]): ParsedFile {
+/**
+ * Detecta a linha de cabeçalho em planilhas "de gente": títulos, linhas em
+ * branco e células soltas acima do cabeçalho real são ignorados. A melhor
+ * candidata é a linha com mais células preenchidas, únicas e textuais,
+ * seguida por linhas densas de dados.
+ */
+export function detectHeaderRow(matrix: unknown[][]): number {
+  const limit = Math.min(matrix.length, 20);
+  let best = 0;
+  let bestScore = -Infinity;
+  for (let i = 0; i < limit; i++) {
+    const cells = (matrix[i] ?? []).map((v) => (v == null ? "" : String(v).trim()));
+    const nonEmpty = cells.filter(Boolean);
+    if (nonEmpty.length < 2) continue;
+    const unique = new Set(nonEmpty.map((c) => c.toLowerCase())).size;
+    const textish = nonEmpty.filter((c) => !/^-?\d+([.,]\d+)?$/.test(c)).length;
+    const below = matrix.slice(i + 1, i + 6);
+    const belowFill =
+      below.length === 0
+        ? 0
+        : below.reduce(
+            (acc, r) => acc + (r ?? []).filter((v) => v != null && String(v).trim() !== "").length,
+            0
+          ) /
+          (below.length * Math.max(nonEmpty.length, 1));
+    const score = nonEmpty.length * 2 + unique + textish * 1.5 + belowFill * 10 - i * 0.5;
+    if (score > bestScore) {
+      bestScore = score;
+      best = i;
+    }
+  }
+  return best;
+}
+
+function buildParsedFromMatrix(matrix: unknown[][], warnings: string[]): ParsedFile {
+  const meaningful = matrix.filter((r) => (r ?? []).some((v) => v != null && String(v).trim() !== ""));
+  if (meaningful.length === 0) throw new Error("File has no data rows");
+
+  const headerIndex = detectHeaderRow(matrix);
+  if (headerIndex > 0) {
+    warnings.push(
+      `Header detected at row ${headerIndex + 1}; ${headerIndex} title/blank row(s) above were ignored.`
+    );
+  }
+  const headerCells = (matrix[headerIndex] ?? []).map((v) => (v == null ? "" : String(v).trim()));
+  const dataRows = matrix
+    .slice(headerIndex + 1)
+    .filter((r) => (r ?? []).some((v) => v != null && String(v).trim() !== ""));
+  if (dataRows.length === 0) throw new Error("File has no data rows");
+
+  // Mantém apenas colunas com cabeçalho OU dados (descarta colunas vazias).
+  const colCount = Math.max(headerCells.length, ...dataRows.map((r) => (r ?? []).length));
+  const kept: number[] = [];
+  for (let j = 0; j < colCount; j++) {
+    const hasHeader = Boolean(headerCells[j]);
+    const hasData = dataRows.some((r) => r?.[j] != null && String(r[j]).trim() !== "");
+    if (hasHeader || hasData) kept.push(j);
+  }
+  const dropped = colCount - kept.length;
+  if (dropped > 0) warnings.push(`${dropped} empty column(s) were removed automatically.`);
+  if (kept.length === 0) throw new Error("No header row found");
+
+  const rawHeaders = kept.map((j, k) => headerCells[j] || `coluna_${k + 1}`);
+  return buildParsed(
+    rawHeaders,
+    dataRows.map((r) => {
+      const obj: Record<string, unknown> = {};
+      kept.forEach((j, k) => {
+        obj[`__col_${k}`] = r?.[j] ?? null;
+      });
+      return obj;
+    }),
+    warnings,
+    kept.map((_, k) => `__col_${k}`)
+  );
+}
+
+function buildParsed(
+  headers: string[],
+  data: Record<string, unknown>[],
+  warnings: string[],
+  keys?: string[]
+): ParsedFile {
   if (headers.length === 0) throw new Error("No header row found");
   if (data.length === 0) throw new Error("File has no data rows");
   if (data.length > MAX_ROWS) {
@@ -104,9 +185,12 @@ function buildParsed(headers: string[], data: Record<string, unknown>[], warning
 
   const used = new Set<string>();
   const columns = headers.map((h, i) => {
+    // `keys` maps each header to the positional key used in the data objects
+    // (headers can repeat or be blank; positional keys are always unique).
+    const original = keys?.[i] ?? h;
     const name = sanitizeColumnName(h, i, used);
-    const sample = data.slice(0, 500).map((r) => r[h]);
-    return { original: h, name, type: inferColumnType(sample) };
+    const sample = data.slice(0, 500).map((r) => r[original]);
+    return { original, name, type: inferColumnType(sample) };
   });
 
   const rows = data.map((r) => {
@@ -116,6 +200,19 @@ function buildParsed(headers: string[], data: Record<string, unknown>[], warning
   });
 
   return { columns: columns.map(({ name, type }) => ({ name, type })), rows, warnings };
+}
+
+// Colunas genéricas demais para indicar afinidade de assunto entre tabelas
+// (usadas na atribuição automática de contexto de análise).
+const GENERIC_CONTEXT_COLUMNS = new Set([
+  "id", "nome", "name", "status", "data", "date", "descricao", "description",
+  "valor", "value", "tipo", "type", "ativo", "active", "email",
+  "created_at", "updated_at", "quantidade", "qtd", "total", "obs", "observacao",
+]);
+
+function isGenericColumn(name: string): boolean {
+  const n = name.toLowerCase();
+  return GENERIC_CONTEXT_COLUMNS.has(n) || /^col(una)?_\d+/.test(n);
 }
 
 /**
@@ -245,6 +342,34 @@ export async function ingestParsedFile(
       { onConflict: "table_id,name" }
     );
     if (cError) throw new Error(cError.message);
+  }
+
+  // 6. Contexto de análise (estilo Looker): tabelas que compartilham colunas
+  // não genéricas pertencem ao mesmo assunto; caso contrário o upload vira um
+  // contexto próprio. O usuário pode analisar cada contexto em separado ou
+  // todos juntos ao gerar um dashboard.
+  const { data: siblings, error: sibError } = await ctx.supabase
+    .from("catalog_tables")
+    .select("id, name, context, catalog_columns(name)")
+    .eq("dataset_id", dataset.id)
+    .neq("id", tableRow.id);
+  if (!sibError) {
+    const myColumns = new Set(
+      parsed.columns.map((c) => c.name.toLowerCase()).filter((n) => !isGenericColumn(n))
+    );
+    let context = logicalName;
+    for (const sibling of siblings ?? []) {
+      const siblingColumns = (sibling.catalog_columns ?? []) as Array<{ name: string }>;
+      const shared = siblingColumns.some(
+        (c) => myColumns.has(c.name.toLowerCase()) && !isGenericColumn(c.name)
+      );
+      if (shared) {
+        context = (sibling.context as string | null) ?? (sibling.name as string);
+        break;
+      }
+    }
+    // Ignora falha silenciosamente: a coluna `context` só existe após a 0011.
+    await ctx.supabase.from("catalog_tables").update({ context }).eq("id", tableRow.id);
   }
 
   return { dataSourceId, tableId: tableRow.id, physicalName, rowCount: parsed.rows.length, dedupedCount };

@@ -12,6 +12,8 @@ const bodySchema = z.object({
   prompt: z.string().min(5).max(4000),
   // Obrigatório: o painel é estruturado a partir de UMA fonte selecionada.
   dataSourceId: z.string().uuid(),
+  // Contexto de análise (assunto, estilo Looker) dentro da fonte; ausente = todos.
+  context: z.string().max(80).optional(),
 });
 
 /** Natural language -> validated DashboardSpecification -> stored dashboard. */
@@ -24,7 +26,7 @@ export async function POST(request: NextRequest) {
     assertAllowed(await canRunDashboard(ctx.supabase, ctx.organizationId));
 
     const orchestrator = new AIOrchestrator(ctx);
-    const spec = await orchestrator.generateDashboard(body.prompt, body.dataSourceId);
+    const spec = await orchestrator.generateDashboard(body.prompt, body.dataSourceId, body.context);
     const dashboard = await createDashboard(ctx, spec, { generatedByAi: true });
 
     await consumeDashboardRun(ctx.supabase, ctx.workspaceId, dashboard.id);

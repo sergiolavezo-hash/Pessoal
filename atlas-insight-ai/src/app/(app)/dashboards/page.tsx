@@ -45,6 +45,29 @@ export default async function DashboardsPage() {
       modelBySource.set(m.data_source_id, { name: m.name as string, version: m.version as number });
     }
   }
+
+  // Contextos de análise (assuntos, estilo Looker) por fonte. A coluna
+  // `context` só existe após a migração 0011 — em caso de erro, sem contextos.
+  const sourceIds = (sources ?? []).map((s) => s.id as string);
+  const contextsBySource = new Map<string, string[]>();
+  if (sourceIds.length > 0) {
+    const { data: contextRows, error: contextError } = await supabase
+      .from("datasets")
+      .select("data_source_id, catalog_tables(name, context)")
+      .in("data_source_id", sourceIds);
+    if (!contextError) {
+      for (const ds of contextRows ?? []) {
+        const tables = (ds.catalog_tables ?? []) as Array<{ name: string; context: string | null }>;
+        const set = contextsBySource.get(ds.data_source_id as string) ?? [];
+        for (const t of tables) {
+          const c = t.context ?? t.name;
+          if (c && !set.includes(c)) set.push(c);
+        }
+        contextsBySource.set(ds.data_source_id as string, set);
+      }
+    }
+  }
+
   const sourceOptions = (sources ?? []).map((s) => {
     const model = modelBySource.get(s.id);
     return {
@@ -53,6 +76,7 @@ export default async function DashboardsPage() {
       type: s.type as string,
       hasModel: Boolean(model),
       modelLabel: model ? `${model.name} v${model.version}` : null,
+      contexts: (contextsBySource.get(s.id as string) ?? []).sort((a, b) => a.localeCompare(b)),
     };
   });
 

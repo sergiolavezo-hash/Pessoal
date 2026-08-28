@@ -1,5 +1,6 @@
 import "server-only";
 import type { ApiContext } from "@/services/api-context";
+import { fileTableName } from "@/services/data-sources";
 import { semanticModelSchema, type SemanticModel } from "@/semantic/schema";
 import type { BusinessRule, Metric } from "@/types";
 
@@ -9,7 +10,12 @@ import type { BusinessRule, Metric } from "@/types";
 // Secrets and credentials NEVER enter this context.
 
 export interface RawSchemaTable {
+  /** Physical identifier the SQL must reference (e.g. "file_data.f_ab12cd"). */
   table: string;
+  /** Friendly logical name shown to the user (e.g. "orcamento_pessoal"). */
+  label: string;
+  /** Analysis context (Looker-style subject) this table belongs to. */
+  context: string | null;
   columns: Array<{ name: string; type: string }>;
 }
 
@@ -34,7 +40,8 @@ export interface WorkspaceAiContext {
 
 export async function buildWorkspaceContext(
   ctx: ApiContext,
-  preferredDataSourceId?: string
+  preferredDataSourceId?: string,
+  analysisContext?: string
 ): Promise<WorkspaceAiContext> {
   const [{ data: models }, { data: metrics }, { data: rules }, { data: glossary }] = await Promise.all([
     ctx.supabase
@@ -70,29 +77,55 @@ export async function buildWorkspaceContext(
   }
 
   // Ground truth: the discovered physical schema of the selected source.
+  // Table identifiers are PHYSICAL (what the SQL engine executes); logical
+  // names are kept as labels so the AI can map user vocabulary to them.
   const dataSourceId = preferredDataSourceId ?? modelRow?.data_source_id ?? null;
   const rawSchema: RawSchemaTable[] = [];
   if (dataSourceId) {
-    const { data: datasets } = await ctx.supabase
-      .from("datasets")
-      .select("id")
-      .eq("data_source_id", dataSourceId);
+    const [{ data: sourceRow }, { data: datasets }] = await Promise.all([
+      ctx.supabase.from("data_sources").select("id, type").eq("id", dataSourceId).maybeSingle(),
+      ctx.supabase.from("datasets").select("id, name").eq("data_source_id", dataSourceId),
+    ]);
+    const datasetName = new Map((datasets ?? []).map((d) => [d.id as string, d.name as string]));
     const datasetIds = (datasets ?? []).map((d) => d.id);
     if (datasetIds.length > 0) {
-      const { data: tables } = await ctx.supabase
+      // `context` só existe após a migração 0011 — fallback sem a coluna.
+      type TableRow = { id: string; dataset_id: string; name: string; context?: string | null };
+      let tables: TableRow[] = [];
+      const withContext = await ctx.supabase
         .from("catalog_tables")
-        .select("id, name")
+        .select("id, dataset_id, name, context")
         .in("dataset_id", datasetIds);
-      const tableIds = (tables ?? []).map((t) => t.id);
+      if (withContext.error) {
+        const plain = await ctx.supabase
+          .from("catalog_tables")
+          .select("id, dataset_id, name")
+          .in("dataset_id", datasetIds);
+        tables = (plain.data ?? []) as TableRow[];
+      } else {
+        tables = (withContext.data ?? []) as TableRow[];
+      }
+      // Contexto de análise (estilo Looker): quando informado, só as tabelas
+      // desse assunto entram no contexto da IA.
+      if (analysisContext) {
+        tables = tables.filter((t) => (t.context ?? t.name) === analysisContext);
+      }
+      const tableIds = tables.map((t) => t.id);
       if (tableIds.length > 0) {
         const { data: columns } = await ctx.supabase
           .from("catalog_columns")
           .select("table_id, name, data_type, ordinal, excluded")
           .in("table_id", tableIds)
           .order("ordinal");
-        for (const t of tables ?? []) {
+        for (const t of tables) {
+          const physical =
+            sourceRow?.type === "file"
+              ? `file_data.${fileTableName(t.id)}`
+              : `${datasetName.get(t.dataset_id) ?? "public"}.${t.name}`;
           rawSchema.push({
-            table: t.name,
+            table: physical,
+            label: t.name,
+            context: t.context ?? null,
             columns: (columns ?? [])
               .filter((c) => c.table_id === t.id && !(c as { excluded?: boolean }).excluded)
               .map((c) => ({ name: c.name, type: c.data_type })),
@@ -100,6 +133,25 @@ export async function buildWorkspaceContext(
         }
       }
     }
+  }
+
+  // Quando um contexto de análise está ativo, o modelo semântico é reduzido
+  // às entidades daquele assunto (e aos relacionamentos entre elas).
+  if (semanticModel && analysisContext) {
+    const inContext = new Set(rawSchema.flatMap((t) => [t.table.toLowerCase(), t.label.toLowerCase()]));
+    const bare = new Set(rawSchema.map((t) => t.table.split(".").pop()?.toLowerCase() ?? ""));
+    const entities = semanticModel.entities.filter((e) => {
+      const lower = e.table.toLowerCase();
+      return inContext.has(lower) || bare.has(lower.split(".").pop() ?? lower);
+    });
+    const entityNames = new Set(entities.map((e) => e.name));
+    semanticModel = {
+      ...semanticModel,
+      entities,
+      relationships: semanticModel.relationships.filter(
+        (r) => entityNames.has(r.fromEntity) && entityNames.has(r.toEntity)
+      ),
+    };
   }
 
   // Certified metrics first — the AI must prefer them.
@@ -128,7 +180,7 @@ export async function buildWorkspaceContext(
     })),
     rawSchema,
     allowedTables,
-    contextVersion: `${modelRow?.id ?? "none"}:${modelRow?.version ?? 0}:${(metrics ?? []).length}m:${(rules ?? []).length}r:${rawSchema.length}t`,
+    contextVersion: `${modelRow?.id ?? "none"}:${modelRow?.version ?? 0}:${(metrics ?? []).length}m:${(rules ?? []).length}r:${rawSchema.length}t${analysisContext ? `:${analysisContext}` : ""}`,
   };
 }
 
@@ -196,10 +248,11 @@ export function renderContextForPrompt(context: WorkspaceAiContext): string {
     parts.push(
       "## Physical schema — GROUND TRUTH\n" +
         "These are the ONLY tables and columns that exist. Any SQL referencing a column not listed here WILL FAIL.\n" +
+        'Always reference tables by their PHYSICAL identifier exactly as written after "Table:". The name in parentheses is only the friendly label users know the data by.\n' +
         context.rawSchema
           .map(
             (t) =>
-              `### Table: ${t.table}\n` +
+              `### Table: ${t.table} (known to the user as "${t.label}")${t.context ? ` [subject: ${t.context}]` : ""}\n` +
               t.columns.map((c) => `- ${c.name} (${c.type})`).join("\n")
           )
           .join("\n\n")

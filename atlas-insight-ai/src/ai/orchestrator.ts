@@ -156,9 +156,10 @@ export class AIOrchestrator {
    */
   async answerWithData(
     question: string,
-    preferredDataSourceId?: string
+    preferredDataSourceId?: string,
+    analysisContext?: string
   ): Promise<{ sqlAnswer: SqlAnswer; execution: ExecutionRecord; context: WorkspaceAiContext }> {
-    const context = await buildWorkspaceContext(this.ctx, preferredDataSourceId);
+    const context = await buildWorkspaceContext(this.ctx, preferredDataSourceId, analysisContext);
     if (!context.dataSourceId || (!context.semanticModel && context.rawSchema.length === 0)) {
       throw new ApiError(
         422,
@@ -222,8 +223,12 @@ export class AIOrchestrator {
   }
 
   /** Full AI Analyst turn: SQL -> execute -> interpret with evidence. */
-  async chat(question: string, preferredDataSourceId?: string) {
-    const { sqlAnswer, execution, context } = await this.answerWithData(question, preferredDataSourceId);
+  async chat(question: string, preferredDataSourceId?: string, analysisContext?: string) {
+    const { sqlAnswer, execution, context } = await this.answerWithData(
+      question,
+      preferredDataSourceId,
+      analysisContext
+    );
 
     const system = chatAnswerPrompt();
     const resultSample = JSON.stringify(execution.result.rows.slice(0, 50));
@@ -270,8 +275,12 @@ ${resultSample}`;
   }
 
   /** Generates a validated DashboardSpec from a natural-language request. */
-  async generateDashboard(request: string, preferredDataSourceId?: string): Promise<DashboardSpec> {
-    const context = await buildWorkspaceContext(this.ctx, preferredDataSourceId);
+  async generateDashboard(
+    request: string,
+    preferredDataSourceId?: string,
+    analysisContext?: string
+  ): Promise<DashboardSpec> {
+    const context = await buildWorkspaceContext(this.ctx, preferredDataSourceId, analysisContext);
     if (!context.dataSourceId) {
       throw new ApiError(422, "Select a data source to ground the dashboard.");
     }
