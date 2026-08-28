@@ -16,10 +16,17 @@ import {
 import { validateReadOnlySql } from "@/ai/query-engine/sql-validator";
 import { executeQuery, type ExecutionRecord } from "@/services/query-engine";
 import { dashboardSpecSchema, type DashboardSpec } from "@/dashboards/spec";
+import { applyDashboardLayout, repairWidgetVisual } from "@/dashboards/layout";
 import type { ApiContext } from "@/services/api-context";
 import { ApiError } from "@/services/api-context";
 
 const MAX_SQL_ATTEMPTS = 3;
+
+/**
+ * Teto de linhas do ensaio dos widgets: suficiente para saber o formato do
+ * resultado (e escolher o gráfico certo) sem custo de uma execução completa.
+ */
+const DRY_RUN_MAX_ROWS = 200;
 
 /**
  * Alguns modelos (ex.: Gemini) devolvem null em campos opcionais; o Zod
@@ -369,7 +376,7 @@ Regras:
 
       // Dry-run every widget query against the real source; give the model
       // ONE repair round with the actual database errors before saving.
-      let failures = await this.dryRunWidgets(spec, context.dataSourceId!);
+      let { failures, rowCounts } = await this.dryRunWidgets(spec, context.dataSourceId!);
       if (failures.length > 0) {
         const repair = await this.provider.complete({
           system: `${dashboardRepairPrompt(
@@ -385,7 +392,7 @@ Regras:
         const repairedRaw = extractJson(repair.text);
         this.throwIfModelDeclined(repairedRaw);
         spec = await this.validateSpec(repairedRaw, context);
-        failures = await this.dryRunWidgets(spec, context.dataSourceId!);
+        ({ failures, rowCounts } = await this.dryRunWidgets(spec, context.dataSourceId!));
         if (failures.length > 0) {
           throw new ApiError(
             422,
@@ -396,7 +403,7 @@ Regras:
         }
       }
 
-      return { value: spec, inputTokens, outputTokens };
+      return { value: this.finalizeSpec(spec, rowCounts), inputTokens, outputTokens };
     });
   }
 
@@ -412,18 +419,27 @@ Regras:
     }
   }
 
-  /** Executes each widget query with a 1-row cap; returns the failures. */
+  /**
+   * Executa a consulta de cada widget de verdade e devolve as falhas e o
+   * número de linhas retornado — é o formato REAL do resultado que permite
+   * corrigir a escolha de gráfico depois.
+   */
   private async dryRunWidgets(
     spec: DashboardSpec,
     dataSourceId: string
-  ): Promise<Array<{ title: string; error: string }>> {
+  ): Promise<{
+    failures: Array<{ title: string; error: string }>;
+    rowCounts: Map<string, number>;
+  }> {
     const failures: Array<{ title: string; error: string }> = [];
+    const rowCounts = new Map<string, number>();
     for (const widget of spec.widgets) {
       try {
-        await executeQuery(this.ctx, dataSourceId, widget.query.sql, {
-          maxRows: 1,
+        const { result } = await executeQuery(this.ctx, dataSourceId, widget.query.sql, {
+          maxRows: DRY_RUN_MAX_ROWS,
           context: { purpose: "dashboard_dry_run" },
         });
+        rowCounts.set(widget.id, result.rowCount);
       } catch (error) {
         failures.push({
           title: widget.title,
@@ -431,7 +447,20 @@ Regras:
         });
       }
     }
-    return failures;
+    return { failures, rowCounts };
+  }
+
+  /**
+   * Última etapa antes de salvar: corrige o tipo de gráfico com base no que a
+   * consulta realmente devolveu e posiciona tudo na grade. Assim o painel
+   * nunca sai desalinhado, independentemente do que o modelo escreveu.
+   */
+  private finalizeSpec(spec: DashboardSpec, rowCounts: Map<string, number>): DashboardSpec {
+    const widgets = spec.widgets.map((w) => {
+      const rows = rowCounts.get(w.id);
+      return rows == null ? w : repairWidgetVisual(w, rows);
+    });
+    return { ...spec, widgets: applyDashboardLayout(widgets) };
   }
 
   /** Applies a natural-language edit to an existing validated spec. */
@@ -449,7 +478,15 @@ Regras:
       const editedRaw = extractJson(response.text);
       this.throwIfModelDeclined(editedRaw);
       const spec = await this.validateSpec(editedRaw, context);
-      return { value: spec, inputTokens: response.inputTokens, outputTokens: response.outputTokens };
+      // Sem fonte resolvida não há como medir o resultado: reposiciona só.
+      const rowCounts = context.dataSourceId
+        ? (await this.dryRunWidgets(spec, context.dataSourceId)).rowCounts
+        : new Map<string, number>();
+      return {
+        value: this.finalizeSpec(spec, rowCounts),
+        inputTokens: response.inputTokens,
+        outputTokens: response.outputTokens,
+      };
     });
   }
 

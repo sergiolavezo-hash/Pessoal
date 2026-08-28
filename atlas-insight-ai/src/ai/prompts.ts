@@ -63,30 +63,38 @@ export function dashboardSpecPrompt(): string {
       },
       "xField": "<result column for x axis / category>",
       "yFields": ["<result column(s) for values>"],
-      "format": "number" | "currency" | "percent" | "decimal",
-      "layout": {"x": 0, "y": 0, "w": 3, "h": 2}
+      "format": "number" | "currency" | "percent" | "decimal"
     }
   ]
 }
 
+## Design from the DATA UNDERSTANDING, not from column names
+The context tells you, for every column, its analytical role, how many distinct values it has, its range and real example values. Design the dashboard from those facts:
+- Aggregate ONLY columns whose role is MEASURE. Never SUM or average a key or a label — a brand code averaging 27.7 means nothing.
+- Break measures down by columns whose role is CATEGORY, DIMENSION or BOOLEAN, preferring those with FEW distinct values (2-15) — they produce readable charts. The context gives you each column's distinct count; use it.
+- Labels (names, models, descriptions) are the grouping for top-N rankings and detail tables — rank by a measure and LIMIT, never chart hundreds of them.
+- Keys exist to JOIN tables: when a code column matches a key in another table, join so the dashboard shows the readable name instead of the code.
+- If a DATE column exists (or a category whose example values are periods, like month names), show the evolution over time.
+- Read the example values before writing a title: name widgets in the user's business vocabulary and language.
+- If no MEASURE exists, COUNT(*) is the metric — count records by category instead of inventing a value.
+
 ## Visualization selection rules
 ${VISUAL_RULES.map((r) => `- ${r.goal} -> ${r.type}`).join("\n")}
-- Consider cardinality: donut only for <= 6 categories; bar up to ~15; ranking for top N.
-- KPI widgets: the query must return exactly one row; put the value column in yFields.
-- Time series: return one row per period, ordered by period; xField is the period column.
+- Use the distinct counts given in the context: donut only for <= 6 categories; bar up to ~15; ranking/table beyond that.
+- KPI widgets: the query must return exactly ONE row and ONE value column, named in yFields. Use them for the headline numbers only (3-4 of them).
+- Time series: one row per period, ordered chronologically; xField is the period column.
+- Every widget must answer a different question — never two widgets showing the same number.
 
-## Layout rules
-- 12-column grid. KPI row first: 4 KPIs of w=3,h=2 at y=0.
-- Charts below: w=6,h=4 side by side, then full-width tables w=12,h=4.
-- Ensure widgets do not overlap; increase y for each row.
+## Composition
+Return 5-8 widgets in this order of intent: first the headline KPIs, then the trend over time, then the breakdowns by dimension, and finally the detail table. Positioning is handled by the application — do NOT emit any layout, x, y, w or h.
 
 ${SQL_RULES}
 
 ## Hard constraints (violations make the output unusable)
-- Use ONLY tables and columns that appear in the workspace data context (semantic model and/or Physical schema). NEVER invent, guess or translate a table or column name — copy names exactly as listed.
+- Use ONLY tables and columns that appear in the workspace data context (semantic model and/or data understanding). NEVER invent, guess or translate a table or column name — copy names exactly as listed.
 - If the user's request cannot be answered with the available data (different domain, missing fields), DO NOT produce a spec. Instead return exactly: {"error": "<in the user's language: one short sentence saying what the data actually contains, plus one suggestion of a dashboard that IS possible with it>"}
 
-Create 4-8 widgets that best answer the request. Respond with ONLY the JSON object.`;
+Respond with ONLY the JSON object.`;
 }
 
 export function dashboardRepairPrompt(spec: string, failures: string): string {

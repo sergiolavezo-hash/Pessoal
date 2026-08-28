@@ -41,13 +41,20 @@ export const widgetSchema = z.object({
   /** Columns of the result plotted as series/values. */
   yFields: z.array(z.string()).default([]),
   format: z.enum(["number", "currency", "percent", "decimal"]).optional(),
-  /** Grid layout: 12-column grid. */
-  layout: z.object({
-    x: z.number().int().min(0).max(11),
-    y: z.number().int().min(0),
-    w: z.number().int().min(1).max(12),
-    h: z.number().int().min(1).max(12),
-  }),
+  /**
+   * Posição na grade de 12 colunas. Calculada pela aplicação
+   * (applyDashboardLayout), não pelo modelo — LLMs produzem linhas
+   * desalinhadas e sobreposições. O default existe só para aceitar
+   * especificações sem layout vindas do modelo.
+   */
+  layout: z
+    .object({
+      x: z.number().int().min(0).max(11),
+      y: z.number().int().min(0),
+      w: z.number().int().min(1).max(12),
+      h: z.number().int().min(1).max(12),
+    })
+    .default({ x: 0, y: 0, w: 6, h: 4 }),
 });
 
 export const dashboardFilterSchema = z.object({

@@ -9,6 +9,24 @@ import type { BusinessRule, Metric } from "@/types";
 // 4. data profile, 5. documents, 6. raw schema.
 // Secrets and credentials NEVER enter this context.
 
+/**
+ * O que o perfilamento descobriu sobre uma coluna. É isto — e não o nome do
+ * arquivo ou a ordem das colunas — que permite à IA escolher indicadores:
+ * o que é medida, o que é dimensão, o que é tempo, e com que valores.
+ */
+export interface ProfiledColumn {
+  name: string;
+  type: string;
+  /** MEASURE / DIMENSION / DATE / IDENTIFIER / FOREIGN_KEY / BOOLEAN. */
+  role: string | null;
+  distinctCount: number | null;
+  nullPercentage: number | null;
+  min: string | number | null;
+  max: string | number | null;
+  average: number | null;
+  sampleValues: string[];
+}
+
 export interface RawSchemaTable {
   /** Physical identifier the SQL must reference (e.g. "file_data.f_ab12cd"). */
   table: string;
@@ -16,7 +34,8 @@ export interface RawSchemaTable {
   label: string;
   /** Analysis context (Looker-style subject) this table belongs to. */
   context: string | null;
-  columns: Array<{ name: string; type: string }>;
+  rowCount: number | null;
+  columns: ProfiledColumn[];
 }
 
 export interface WorkspaceAiContext {
@@ -36,6 +55,38 @@ export interface WorkspaceAiContext {
   /** Physical table identifiers the AI may reference in SQL. */
   allowedTables: string[];
   contextVersion: string;
+}
+
+/** Normaliza a linha de catalog_columns no entendimento usado pelos prompts. */
+function toProfiledColumn(row: {
+  name: string;
+  data_type: string;
+  profile?: unknown;
+  classification?: unknown;
+}): ProfiledColumn {
+  const profile = (row.profile ?? {}) as {
+    unique_count?: number;
+    null_percentage?: number;
+    min?: string | number;
+    max?: string | number;
+    average?: number;
+    sample_values?: unknown[];
+  };
+  // classification é jsonb: {"classification": "MEASURE", "confidence": 0.97}
+  const classification = (row.classification ?? {}) as { classification?: string };
+  return {
+    name: row.name,
+    type: row.data_type,
+    role: classification.classification ?? null,
+    distinctCount: profile.unique_count ?? null,
+    nullPercentage: profile.null_percentage ?? null,
+    min: profile.min ?? null,
+    max: profile.max ?? null,
+    average: profile.average ?? null,
+    sampleValues: (profile.sample_values ?? [])
+      .slice(0, 6)
+      .map((v) => String(v).slice(0, 40)),
+  };
 }
 
 export async function buildWorkspaceContext(
@@ -90,16 +141,22 @@ export async function buildWorkspaceContext(
     const datasetIds = (datasets ?? []).map((d) => d.id);
     if (datasetIds.length > 0) {
       // `context` só existe após a migração 0011 — fallback sem a coluna.
-      type TableRow = { id: string; dataset_id: string; name: string; context?: string | null };
+      type TableRow = {
+        id: string;
+        dataset_id: string;
+        name: string;
+        row_count?: number | null;
+        context?: string | null;
+      };
       let tables: TableRow[] = [];
       const withContext = await ctx.supabase
         .from("catalog_tables")
-        .select("id, dataset_id, name, context")
+        .select("id, dataset_id, name, row_count, context")
         .in("dataset_id", datasetIds);
       if (withContext.error) {
         const plain = await ctx.supabase
           .from("catalog_tables")
-          .select("id, dataset_id, name")
+          .select("id, dataset_id, name, row_count")
           .in("dataset_id", datasetIds);
         tables = (plain.data ?? []) as TableRow[];
       } else {
@@ -112,9 +169,11 @@ export async function buildWorkspaceContext(
       }
       const tableIds = tables.map((t) => t.id);
       if (tableIds.length > 0) {
+        // profile/classification vêm do perfilamento (roda no upload) e são o
+        // entendimento real dos dados; sem eles, só nome e tipo.
         const { data: columns } = await ctx.supabase
           .from("catalog_columns")
-          .select("table_id, name, data_type, ordinal, excluded")
+          .select("table_id, name, data_type, ordinal, excluded, profile, classification")
           .in("table_id", tableIds)
           .order("ordinal");
         for (const t of tables) {
@@ -126,9 +185,10 @@ export async function buildWorkspaceContext(
             table: physical,
             label: t.name,
             context: t.context ?? null,
+            rowCount: t.row_count ?? null,
             columns: (columns ?? [])
               .filter((c) => c.table_id === t.id && !(c as { excluded?: boolean }).excluded)
-              .map((c) => ({ name: c.name, type: c.data_type })),
+              .map((c) => toProfiledColumn(c)),
           });
         }
       }
@@ -182,6 +242,64 @@ export async function buildWorkspaceContext(
     allowedTables,
     contextVersion: `${modelRow?.id ?? "none"}:${modelRow?.version ?? 0}:${(metrics ?? []).length}m:${(rules ?? []).length}r:${rawSchema.length}t${analysisContext ? `:${analysisContext}` : ""}`,
   };
+}
+
+/**
+ * Descreve uma tabela como um analista descreveria: papel de cada coluna,
+ * quantos valores distintos, faixa e exemplos reais. É o que permite à IA
+ * escolher medidas, quebras e tipos de gráfico sem adivinhar pelo nome.
+ */
+function renderTableUnderstanding(t: RawSchemaTable): string {
+  const header =
+    `### Table: ${t.table} (known to the user as "${t.label}")` +
+    `${t.context ? ` [subject: ${t.context}]` : ""}` +
+    `${t.rowCount != null ? ` — ${t.rowCount} rows` : ""}`;
+
+  const columns = t.columns.map((c) => {
+    const facts: string[] = [];
+    if (c.role) facts.push(`role: ${c.role}`);
+    if (c.distinctCount != null) facts.push(`${c.distinctCount} distinct`);
+    if (c.min != null || c.max != null) facts.push(`range: ${c.min ?? "?"} … ${c.max ?? "?"}`);
+    if (c.average != null) facts.push(`avg: ${c.average}`);
+    if (c.nullPercentage != null && c.nullPercentage > 0.05) {
+      facts.push(`${Math.round(c.nullPercentage * 100)}% empty`);
+    }
+    const examples = c.sampleValues.length > 0 ? ` — e.g. ${c.sampleValues.join(", ")}` : "";
+    return `- ${c.name} (${c.type}${facts.length ? `; ${facts.join("; ")}` : ""})${examples}`;
+  });
+
+  // Um resumo explícito evita que o modelo tenha de deduzir os papéis. Os
+  // rótulos vêm do perfilador: MEASURE agrega; CATEGORY/DIMENSION/BOOLEAN
+  // agrupam; TEXT/ID/FOREIGN_KEY identificam uma linha e não servem de quebra.
+  const byRole = (...roles: string[]) =>
+    t.columns.filter((c) => c.role != null && roles.includes(c.role));
+  const measures = byRole("MEASURE").map((c) => c.name);
+  const dates = byRole("DATE").map((c) => c.name);
+  const groupable = byRole("CATEGORY", "DIMENSION", "BOOLEAN")
+    .filter((c) => (c.distinctCount ?? 0) > 1)
+    .sort((a, b) => (a.distinctCount ?? 0) - (b.distinctCount ?? 0))
+    .map((c) => `${c.name} (${c.distinctCount ?? "?"} values)`);
+  // Rótulos legíveis (nomes, modelos, descrições) servem para ranking e
+  // detalhe; chaves opacas só servem para juntar tabelas. Confundir os dois
+  // ou proibir ambos empobrece o painel.
+  const labels = byRole("TEXT").map((c) => `${c.name} (${c.distinctCount ?? "?"} values)`);
+  const keys = byRole("ID", "FOREIGN_KEY").map((c) => c.name);
+
+  const guide: string[] = [];
+  if (measures.length > 0) guide.push(`Measures to aggregate: ${measures.join(", ")}`);
+  if (dates.length > 0) guide.push(`Time columns: ${dates.join(", ")}`);
+  if (groupable.length > 0) guide.push(`Break down by: ${groupable.join(", ")}`);
+  if (labels.length > 0) {
+    guide.push(`Labels (use for top-N rankings and detail tables): ${labels.join(", ")}`);
+  }
+  if (keys.length > 0) {
+    guide.push(`Keys (never aggregate; use only to join tables): ${keys.join(", ")}`);
+  }
+  if (measures.length === 0) {
+    guide.push("No numeric measure detected: count records (COUNT(*)) as the metric.");
+  }
+
+  return [header, ...columns, ...(guide.length ? ["", ...guide] : [])].join("\n");
 }
 
 /** Renders the context as the system-prompt data section for the LLM. */
@@ -246,16 +364,11 @@ export function renderContextForPrompt(context: WorkspaceAiContext): string {
 
   if (context.rawSchema.length > 0) {
     parts.push(
-      "## Physical schema — GROUND TRUTH\n" +
+      "## Data understanding — GROUND TRUTH\n" +
         "These are the ONLY tables and columns that exist. Any SQL referencing a column not listed here WILL FAIL.\n" +
         'Always reference tables by their PHYSICAL identifier exactly as written after "Table:". The name in parentheses is only the friendly label users know the data by.\n' +
-        context.rawSchema
-          .map(
-            (t) =>
-              `### Table: ${t.table} (known to the user as "${t.label}")${t.context ? ` [subject: ${t.context}]` : ""}\n` +
-              t.columns.map((c) => `- ${c.name} (${c.type})`).join("\n")
-          )
-          .join("\n\n")
+        "Each column carries what profiling actually found in the data: its analytical role, how many distinct values it holds, its range and real example values. USE THIS to decide what to measure and how to break it down — never guess from column names alone.\n\n" +
+        context.rawSchema.map(renderTableUnderstanding).join("\n\n")
     );
   }
 

@@ -25,6 +25,10 @@ describe("normalizeNumericString", () => {
     expect(normalizeNumericString("2,75")).toBe("2.75");
     expect(normalizeNumericString("(123,45)")).toBe("-123.45");
     expect(normalizeNumericString("592.77")).toBe("592.77");
+    // Preços exportados com cifrão precisam virar número, senão a coluna
+    // de preço é classificada como texto e nunca entra num indicador.
+    expect(normalizeNumericString("$78401.95")).toBe("78401.95");
+    expect(normalizeNumericString("US$ 1.234,56")).toBe("1234.56");
   });
   it("rejects non-numbers", () => {
     expect(normalizeNumericString("abc")).toBeNull();

@@ -26,6 +26,26 @@ describe("profileColumn", () => {
     expect(classification.classification).toBe("FOREIGN_KEY");
   });
 
+  // Sem isto a IA soma códigos como se fossem dinheiro: `cod_marca` tem
+  // média 27,7 e nada disso significa qualquer coisa para o negócio.
+  it("never treats a Portuguese-named key as a measure", () => {
+    const repeating = Array.from({ length: 1000 }, (_, i) => (i % 56) + 1);
+    expect(profileColumn("cod_marca", "bigint", repeating).classification.classification).toBe(
+      "FOREIGN_KEY"
+    );
+    const unique = Array.from({ length: 1000 }, (_, i) => i + 1);
+    expect(profileColumn("id_carro", "bigint", unique).classification.classification).toBe("ID");
+    expect(profileColumn("codigo_produto", "bigint", repeating).classification.classification).toBe(
+      "FOREIGN_KEY"
+    );
+  });
+
+  it("still recognises real Portuguese measures", () => {
+    const values = Array.from({ length: 100 }, (_, i) => 1000 + i * 7.5);
+    expect(profileColumn("valor", "numeric", values).classification.classification).toBe("MEASURE");
+    expect(profileColumn("preco", "numeric", values).classification.classification).toBe("MEASURE");
+  });
+
   it("classifies dates by type", () => {
     const { classification } = profileColumn("created_at", "timestamp with time zone", ["2024-01-01"]);
     expect(classification.classification).toBe("DATE");

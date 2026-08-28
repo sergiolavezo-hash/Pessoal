@@ -10,6 +10,13 @@ export interface ColumnProfileResult {
 
 const ID_NAME_RE = /(^|_)(id|key|code|uuid|guid)$/i;
 const FK_NAME_RE = /(^|_)(\w+?)_(id|key|code)$/i;
+/**
+ * Nomes de chave em inglês E português. Sem o lado pt-BR, colunas como
+ * `cod_marca` caem na regra de números e viram MEDIDA — e a IA passa a somar
+ * códigos de marca, produzindo indicadores sem sentido.
+ */
+const KEY_NAME_RE =
+  /(^|_)(id|key|code|uuid|guid|codigo|cod|chave)$|^(id|cod|codigo|chave|fk)_|_(codigo|chave)$/i;
 const DATE_NAME_RE = /(^|_)(date|time|created|updated|at|dt)($|_)/i;
 const MEASURE_NAME_RE =
   /(amount|value|price|cost|revenue|total|qty|quantity|profit|margin|salary|weight|balance|receita|faturamento|valor|custo|lucro|preco)/i;
@@ -74,16 +81,21 @@ export function classifyColumn(
     return { classification: "DATE", confidence: 0.85 };
   }
 
-  // Foreign keys before primary IDs: "<entity>_id" naming.
-  if (FK_NAME_RE.test(name) && !/^id$/i.test(name)) {
-    const confidence = cardinality < 0.95 ? 0.9 : 0.7;
-    return { classification: "FOREIGN_KEY", confidence };
+  // Chaves antes de qualquer outra regra: um identificador nunca é medida,
+  // mesmo sendo numérico. Único por linha => ID; repetido => chave estrangeira.
+  if (KEY_NAME_RE.test(name) || FK_NAME_RE.test(name)) {
+    return cardinality > 0.95
+      ? { classification: "ID", confidence: 0.95 }
+      : { classification: "FOREIGN_KEY", confidence: 0.9 };
   }
 
   if (ID_NAME_RE.test(name) && cardinality > 0.95) {
     return { classification: "ID", confidence: 0.95 };
   }
-  if (cardinality >= 0.999 && !isNumericMeasureName(name) && (profile.row_count ?? 0) >= 50) {
+  // Só chamamos de identificador uma coluna única em tabela grande: numa
+  // tabela-dimensão pequena (56 marcas, uma por linha) o nome legível é a
+  // dimensão natural do painel, não uma chave opaca.
+  if (cardinality >= 0.999 && !isNumericMeasureName(name) && (profile.row_count ?? 0) >= 200) {
     return { classification: "ID", confidence: 0.6 };
   }
 
