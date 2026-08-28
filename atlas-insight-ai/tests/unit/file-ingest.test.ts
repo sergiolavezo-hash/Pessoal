@@ -135,3 +135,45 @@ describe("detectHeaderRow", () => {
     expect(detectHeaderRow(matrix)).toBe(2);
   });
 });
+
+// Sem IA disponível (cota esgotada), o leitor heurístico é o único caminho —
+// e é ele que precisa evitar somar a própria soma.
+describe("heuristic parser hardening", () => {
+  const messy = [
+    "Relatório de Vendas 2026,,,",
+    ",,,",
+    "Categoria,Produto,Janeiro,Fevereiro",
+    'Bebidas,Café,"R$ 1.200,50","R$ 980,00"',
+    'Bebidas,Chá,"R$ 300,00","R$ 410,25"',
+    'Alimentos,Pão,"R$ 2.100,00","R$ 1.870,40"',
+    ',,Total,"R$ 3.600,50"',
+  ].join("\n");
+
+  it("drops the closing total row", () => {
+    const parsed = parseCsv(messy);
+    expect(parsed.rows).toHaveLength(3);
+    expect(parsed.rows.some((r) => String(r.janeiro ?? "").includes("Total"))).toBe(false);
+    expect(parsed.warnings.some((w) => w.includes("total/subtotal"))).toBe(true);
+  });
+
+  it("keeps a currency column numeric so it can become an indicator", () => {
+    const parsed = parseCsv(messy);
+    const janeiro = parsed.columns.find((c) => c.name === "janeiro");
+    expect(janeiro?.type).toBe("double precision");
+    const total = parsed.rows.reduce((a, r) => a + Number(r.janeiro ?? 0), 0);
+    expect(total).toBeCloseTo(3600.5);
+  });
+
+  it("nulls stray text in a numeric column instead of turning it into zero", () => {
+    const csv = ["item,valor", "a,10", "b,20", "c,30", "d,n/d"].join("\n");
+    const parsed = parseCsv(csv);
+    expect(parsed.columns.find((c) => c.name === "valor")?.type).toBe("double precision");
+    expect(parsed.rows[3].valor).toBeNull();
+  });
+
+  it("does not mistake a legitimate row for a total", () => {
+    const csv = ["produto,valor", "Totem de senha,100", "Cafeteira,200"].join("\n");
+    const parsed = parseCsv(csv);
+    expect(parsed.rows).toHaveLength(2);
+  });
+});

@@ -168,6 +168,20 @@ export function detectHeaderRow(matrix: unknown[][]): number {
   return best;
 }
 
+/**
+ * Rótulos de linha de fechamento. Somar uma tabela que contém a própria
+ * soma dobra todo indicador — e quando a IA não está disponível, ninguém
+ * mais remove essas linhas.
+ */
+const TOTAL_ROW_RE = /^(total|subtotal|soma|totais|% ?sobre|percentual)\b/i;
+
+function looksLikeTotalRow(cells: string[]): boolean {
+  const filled = cells.filter(Boolean);
+  if (filled.length === 0) return false;
+  // Linha de fechamento tem poucos rótulos e um deles anuncia o total.
+  return filled.some((c) => TOTAL_ROW_RE.test(c));
+}
+
 export function buildParsedFromMatrix(matrix: unknown[][], warnings: string[]): ParsedFile {
   const meaningful = matrix.filter((r) => (r ?? []).some((v) => v != null && String(v).trim() !== ""));
   if (meaningful.length === 0) throw new Error("File has no data rows");
@@ -197,9 +211,21 @@ export function buildParsedFromMatrix(matrix: unknown[][], warnings: string[]): 
   if (kept.length === 0) throw new Error("No header row found");
 
   const rawHeaders = kept.map((j, k) => headerCells[j] || `coluna_${k + 1}`);
+
+  const keptRows = dataRows.filter(
+    (r) => !looksLikeTotalRow(kept.map((j) => (r?.[j] == null ? "" : String(r[j]).trim())))
+  );
+  const removedTotals = dataRows.length - keptRows.length;
+  if (removedTotals > 0) {
+    warnings.push(
+      `${removedTotals} linha(s) de total/subtotal foram removidas para não somar os mesmos valores duas vezes.`
+    );
+  }
+  if (keptRows.length === 0) throw new Error("File has no data rows");
+
   return buildParsed(
     rawHeaders,
-    dataRows.map((r) => {
+    keptRows.map((r) => {
       const obj: Record<string, unknown> = {};
       kept.forEach((j, k) => {
         obj[`__col_${k}`] = r?.[j] ?? null;
@@ -231,12 +257,38 @@ export function buildParsed(
     const original = keys?.[i] ?? h;
     const name = sanitizeColumnName(h, i, used);
     const sample = data.slice(0, 500).map((r) => r[original]);
-    return { original, name, type: inferColumnType(sample) };
+    let type = inferColumnType(sample);
+
+    // Uma célula de texto solta ("Total", "n/d") não pode transformar uma
+    // coluna de dinheiro inteira em texto — ela deixaria de virar indicador.
+    if (type === "text") {
+      const present = sample
+        .filter((v) => v != null && String(v).trim() !== "")
+        .map((v) => String(v).trim());
+      const numeric = present.filter((v) => normalizeNumericString(v) != null).length;
+      if (present.length >= 3 && numeric / present.length >= 0.7) {
+        type = "double precision";
+        warnings.push(
+          `Coluna "${h}": ${present.length - numeric} valor(es) de texto ignorados para manter a coluna numérica.`
+        );
+      }
+    }
+    return { original, name, type };
   });
 
   const rows = data.map((r) => {
     const out: Record<string, unknown> = {};
-    for (const col of columns) out[col.name] = coerceValue(r[col.original], col.type);
+    for (const col of columns) {
+      const raw = r[col.original];
+      // Texto numa coluna numérica vira vazio, não zero: zero mentiria na soma.
+      if (col.type === "double precision" && raw != null && String(raw).trim() !== "") {
+        out[col.name] = normalizeNumericString(String(raw)) == null
+          ? null
+          : coerceValue(raw, col.type);
+        continue;
+      }
+      out[col.name] = coerceValue(raw, col.type);
+    }
     return out;
   });
 
