@@ -27,3 +27,15 @@ describe("provedores compatíveis com o dialeto da OpenAI", () => {
     }
   });
 });
+
+// O Groq recusou o pedido INTEIRO ("Request too large") porque a folga de
+// raciocínio da OpenAI inflava o orçamento acima do limite por minuto.
+describe("teto de tokens por provedor", () => {
+  it("provedores com camada gratuita declaram teto de saída", () => {
+    for (const v of OPENAI_COMPATIBLE_VENDORS.filter((x) => ["groq", "cerebras"].includes(x.id))) {
+      expect(v.maxOutputTokens, v.id).toBeDefined();
+      // Precisa caber no limite por minuto junto com o prompt.
+      expect(v.maxOutputTokens!, v.id).toBeLessThanOrEqual(6000);
+    }
+  });
+});

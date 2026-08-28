@@ -44,6 +44,10 @@ function buildProviders(): LLMProvider[] {
         name: vendor.id,
         baseUrl: vendor.baseUrl,
         defaultModel: vendor.defaultModel,
+        // Só a OpenAI usa tokens de raciocínio; nos demais a folga estoura
+        // o limite por minuto das camadas gratuitas.
+        reasoningHeadroom: false,
+        maxOutputTokens: vendor.maxOutputTokens,
       }),
     ];
   });

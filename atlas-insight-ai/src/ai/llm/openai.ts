@@ -29,14 +29,27 @@ export class OpenAIProvider implements LLMProvider {
   readonly model: string;
   private readonly baseUrl: string;
 
+  private readonly reasoningHeadroom: boolean;
+  private readonly maxOutputTokens: number;
+
   constructor(
     private readonly apiKey: string,
     model?: string,
-    options: { name?: string; baseUrl?: string; defaultModel?: string } = {}
+    options: {
+      name?: string;
+      baseUrl?: string;
+      defaultModel?: string;
+      /** Só a OpenAI cobra tokens de raciocínio do mesmo orçamento. */
+      reasoningHeadroom?: boolean;
+      /** Teto do provedor. Camadas gratuitas limitam tokens por minuto. */
+      maxOutputTokens?: number;
+    } = {}
   ) {
     this.name = options.name ?? "openai";
     this.baseUrl = options.baseUrl ?? "https://api.openai.com/v1";
     this.model = model ?? options.defaultModel ?? DEFAULT_MODEL;
+    this.reasoningHeadroom = options.reasoningHeadroom ?? true;
+    this.maxOutputTokens = options.maxOutputTokens ?? Number.POSITIVE_INFINITY;
   }
 
   async complete(request: LLMRequest): Promise<LLMResponse> {
@@ -58,7 +71,12 @@ export class OpenAIProvider implements LLMProvider {
       },
       body: JSON.stringify({
         model: this.model,
-        max_completion_tokens: (request.maxTokens ?? 16000) + REASONING_HEADROOM_TOKENS,
+        // A folga de raciocínio só existe na OpenAI; em provedores com teto
+        // por minuto ela inflava o pedido e o servidor recusava tudo.
+        max_completion_tokens: Math.min(
+          (request.maxTokens ?? 16000) + (this.reasoningHeadroom ? REASONING_HEADROOM_TOKENS : 0),
+          this.maxOutputTokens
+        ),
         messages,
         ...(request.jsonMode ? { response_format: { type: "json_object" } } : {}),
       }),

@@ -24,6 +24,12 @@ export interface CompatibleVendor {
    * para o próximo — nunca derruba o pedido.
    */
   defaultModel: string;
+  /**
+   * Teto de tokens de saída. As camadas gratuitas limitam tokens por MINUTO
+   * (o Groq permite 8.000, contando entrada + saída): pedir mais que isso faz
+   * o servidor recusar o pedido inteiro, não truncar a resposta.
+   */
+  maxOutputTokens?: number;
 }
 
 export const OPENAI_COMPATIBLE_VENDORS: CompatibleVendor[] = [
@@ -33,7 +39,11 @@ export const OPENAI_COMPATIBLE_VENDORS: CompatibleVendor[] = [
     baseUrl: "https://api.groq.com/openai/v1",
     envKey: "GROQ_API_KEY",
     envModel: "GROQ_MODEL",
-    defaultModel: "llama-3.3-70b-versatile",
+    // Verificado na API do Groq: responde JSON válido em menos de 1s.
+    defaultModel: "openai/gpt-oss-120b",
+    // Limite gratuito de 8.000 tokens/minuto contando o prompt; deixamos
+    // folga para o esquema de dados, que é a maior parte da entrada.
+    maxOutputTokens: 4000,
   },
   {
     id: "cerebras",
@@ -41,7 +51,8 @@ export const OPENAI_COMPATIBLE_VENDORS: CompatibleVendor[] = [
     baseUrl: "https://api.cerebras.ai/v1",
     envKey: "CEREBRAS_API_KEY",
     envModel: "CEREBRAS_MODEL",
-    defaultModel: "llama-3.3-70b",
+    defaultModel: "gpt-oss-120b",
+    maxOutputTokens: 4000,
   },
   {
     id: "openrouter",
@@ -50,6 +61,7 @@ export const OPENAI_COMPATIBLE_VENDORS: CompatibleVendor[] = [
     envKey: "OPENROUTER_API_KEY",
     envModel: "OPENROUTER_MODEL",
     defaultModel: "meta-llama/llama-3.3-70b-instruct:free",
+    maxOutputTokens: 4000,
   },
   {
     id: "mistral",
