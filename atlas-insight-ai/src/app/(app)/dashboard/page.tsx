@@ -3,6 +3,7 @@ import { Bot, Database, LayoutDashboard, Sigma, Table2, FileText } from "lucide-
 import { getAppContext } from "@/services/context";
 import { createClient } from "@/lib/supabase/server";
 import { relativeTime } from "@/lib/utils";
+import { auditLabel, sourceStatusLabel } from "@/lib/labels";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeader } from "@/components/layout/page-header";
 import { Badge } from "@/components/ui/badge";
@@ -30,11 +31,11 @@ export default async function OverviewPage() {
     ]);
 
   const stats = [
-    { label: "Data Sources", value: dataSources.count ?? 0, icon: Database, href: "/data-sources" },
-    { label: "Dashboards", value: dashboards.count ?? 0, icon: LayoutDashboard, href: "/dashboards" },
-    { label: "Metrics", value: metrics.count ?? 0, icon: Sigma, href: "/metrics" },
-    { label: "Tables", value: tables.count ?? 0, icon: Table2, href: "/data-model" },
-    { label: "AI Analyses", value: aiRuns.count ?? 0, icon: Bot, href: "/ai-analyst" },
+    { label: "Fontes de dados", value: dataSources.count ?? 0, icon: Database, href: "/data-sources" },
+    { label: "Painéis", value: dashboards.count ?? 0, icon: LayoutDashboard, href: "/dashboards" },
+    { label: "Indicadores", value: metrics.count ?? 0, icon: Sigma, href: "/metrics" },
+    { label: "Tabelas", value: tables.count ?? 0, icon: Table2, href: "/data-model" },
+    { label: "Análises de IA", value: aiRuns.count ?? 0, icon: Bot, href: "/ai-analyst" },
   ];
 
   const isEmpty = (dataSources.count ?? 0) === 0;
@@ -42,21 +43,21 @@ export default async function OverviewPage() {
   return (
     <div>
       <PageHeader
-        title={`Welcome back${ctx.profile.full_name ? `, ${ctx.profile.full_name.split(" ")[0]}` : ""}`}
-        description={`Workspace: ${ctx.workspace.name}`}
+        title={`Bem-vindo${ctx.profile.full_name ? `, ${ctx.profile.full_name.split(" ")[0]}` : ""}`}
+        description={`Área de trabalho: ${ctx.workspace.name}`}
       />
 
       {isEmpty && (
         <Card className="mb-6 border-primary/30 bg-primary/5">
           <CardContent className="flex flex-wrap items-center justify-between gap-4 p-5">
             <div>
-              <p className="font-medium">Connect your first data source</p>
+              <p className="font-medium">Conecte sua primeira fonte de dados</p>
               <p className="text-sm text-muted-foreground">
-                Atlas will discover your schema, profile your data and build a semantic model automatically.
+                O Atlas lê o esquema, perfila os dados e monta o modelo semântico sozinho.
               </p>
             </div>
             <Button asChild>
-              <Link href="/data-sources">Connect data</Link>
+              <Link href="/data-sources">Conectar dados</Link>
             </Button>
           </CardContent>
         </Card>
@@ -71,7 +72,7 @@ export default async function OverviewPage() {
                   <s.icon className="h-4 w-4" />
                   <span className="text-xs font-medium uppercase tracking-wide">{s.label}</span>
                 </div>
-                <p className="mt-2 text-2xl font-semibold tabular-nums">{s.value}</p>
+                <p className="viz-figure mt-2 text-2xl font-semibold">{s.value}</p>
               </CardContent>
             </Card>
           </Link>
@@ -81,11 +82,11 @@ export default async function OverviewPage() {
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle className="text-sm">Recent Dashboards</CardTitle>
+            <CardTitle className="text-sm">Painéis recentes</CardTitle>
           </CardHeader>
           <CardContent>
             {(recentDashboards.data ?? []).length === 0 ? (
-              <EmptyState icon={LayoutDashboard} title="No dashboards yet" className="border-0 p-6" />
+              <EmptyState icon={LayoutDashboard} title="Nenhum painel ainda" className="border-0 p-6" />
             ) : (
               <ul className="space-y-2">
                 {(recentDashboards.data ?? []).map((d) => (
@@ -106,11 +107,11 @@ export default async function OverviewPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-sm">Recent Data Sources</CardTitle>
+            <CardTitle className="text-sm">Fontes de dados recentes</CardTitle>
           </CardHeader>
           <CardContent>
             {(recentSources.data ?? []).length === 0 ? (
-              <EmptyState icon={Database} title="No data sources yet" className="border-0 p-6" />
+              <EmptyState icon={Database} title="Nenhuma fonte de dados ainda" className="border-0 p-6" />
             ) : (
               <ul className="space-y-2">
                 {(recentSources.data ?? []).map((s) => (
@@ -121,7 +122,7 @@ export default async function OverviewPage() {
                     >
                       <span className="truncate">{s.name}</span>
                       <Badge variant={s.status === "CONNECTED" ? "success" : s.status === "ERROR" ? "destructive" : "secondary"}>
-                        {s.status}
+                        {sourceStatusLabel(s.status)}
                       </Badge>
                     </Link>
                   </li>
@@ -133,18 +134,17 @@ export default async function OverviewPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-sm">Recent Activity</CardTitle>
+            <CardTitle className="text-sm">Atividade recente</CardTitle>
           </CardHeader>
           <CardContent>
             {(auditEvents.data ?? []).length === 0 ? (
-              <EmptyState icon={FileText} title="No activity yet" className="border-0 p-6" />
+              <EmptyState icon={FileText} title="Nenhuma atividade ainda" className="border-0 p-6" />
             ) : (
               <ul className="space-y-2">
                 {(auditEvents.data ?? []).map((e) => (
                   <li key={e.id} className="flex items-center justify-between px-2 py-1 text-sm">
                     <span className="truncate text-muted-foreground">
-                      {e.action.replaceAll("_", " ")}
-                      {e.resource_type ? ` · ${e.resource_type}` : ""}
+                      {auditLabel(e.action, e.resource_type)}
                     </span>
                     <span className="shrink-0 text-xs text-muted-foreground">{relativeTime(e.created_at)}</span>
                   </li>

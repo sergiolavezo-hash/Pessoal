@@ -333,7 +333,7 @@ export async function ingestParsedFile(
       .from("data_sources")
       .insert({
         workspace_id: ctx.workspaceId,
-        name: "Uploaded Files",
+        name: "Arquivos enviados",
         type: "file",
         status: "CONNECTED",
         created_by: ctx.user.id,
