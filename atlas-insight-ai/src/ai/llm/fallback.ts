@@ -34,8 +34,14 @@ export class FallbackLLMProvider implements LLMProvider {
       }
     }
 
+    // Mensagem acionável: o usuário precisa saber o que fazer, não ler o
+    // erro cru de cada fornecedor (que fica no log do servidor).
+    console.error(`[llm] every provider failed: ${errors.join(" | ")}`);
+    const allOutOfQuota = errors.every((e) => /429|quota|credit|insufficient/i.test(e));
     throw new LLMError(
-      `Todos os provedores de IA falharam. Detalhes: ${errors.join(" | ")}`,
+      allOutOfQuota
+        ? "A cota de todos os provedores de IA configurados se esgotou. Adicione créditos (ou uma nova chave) em Configurações para voltar a gerar painéis."
+        : `Nenhum provedor de IA conseguiu responder agora. Tente novamente em alguns instantes. (${errors.length} tentativa(s))`,
       "fallback",
       true
     );

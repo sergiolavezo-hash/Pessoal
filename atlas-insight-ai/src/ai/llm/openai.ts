@@ -1,7 +1,17 @@
 import "server-only";
 import { LLMError, type LLMProvider, type LLMRequest, type LLMResponse } from "@/ai/llm/types";
 
-const DEFAULT_MODEL = "gpt-4o";
+const DEFAULT_MODEL = "gpt-4.1";
+
+/**
+ * Modelos de raciocínio (família GPT-5) descontam os tokens de raciocínio do
+ * mesmo max_completion_tokens da resposta — sem folga, o JSON volta cortado.
+ * Modelos sem raciocínio simplesmente não usam essa margem.
+ */
+const REASONING_HEADROOM_TOKENS = 8000;
+
+/** Teto por requisição: um modelo lento não pode consumir a função inteira. */
+const REQUEST_TIMEOUT_MS = 40_000;
 
 export class OpenAIProvider implements LLMProvider {
   readonly name = "openai";
@@ -21,13 +31,14 @@ export class OpenAIProvider implements LLMProvider {
 
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${this.apiKey}`,
       },
       body: JSON.stringify({
         model: this.model,
-        max_completion_tokens: request.maxTokens ?? 16000,
+        max_completion_tokens: (request.maxTokens ?? 16000) + REASONING_HEADROOM_TOKENS,
         messages,
         ...(request.jsonMode ? { response_format: { type: "json_object" } } : {}),
       }),
@@ -39,13 +50,22 @@ export class OpenAIProvider implements LLMProvider {
     }
 
     const json = (await res.json()) as {
-      choices: Array<{ message: { content: string | null } }>;
+      choices: Array<{ message: { content: string | null }; finish_reason?: string }>;
       usage?: { prompt_tokens?: number; completion_tokens?: number };
       model: string;
     };
 
+    const choice = json.choices[0];
+    if (choice?.finish_reason === "length") {
+      throw new LLMError(
+        `OpenAI response was truncated (length) after ${json.usage?.completion_tokens ?? 0} tokens`,
+        this.name,
+        true
+      );
+    }
+
     return {
-      text: json.choices[0]?.message?.content ?? "",
+      text: choice?.message?.content ?? "",
       model: json.model,
       inputTokens: json.usage?.prompt_tokens ?? 0,
       outputTokens: json.usage?.completion_tokens ?? 0,

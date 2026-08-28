@@ -65,7 +65,7 @@ describe("FallbackLLMProvider", () => {
       })
     );
     const chain = new FallbackLLMProvider(providers);
-    await expect(chain.complete(request)).rejects.toThrow(/Todos os provedores/);
+    await expect(chain.complete(request)).rejects.toThrow(/cota de todos os provedores/i);
     for (const p of providers) expect(p.complete).toHaveBeenCalledOnce();
   });
 
