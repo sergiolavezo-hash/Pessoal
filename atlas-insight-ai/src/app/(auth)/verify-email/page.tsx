@@ -16,6 +16,9 @@ function VerifyEmailForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") ?? "";
+  // Quem chegou aqui pelo link quebrado do e-mail precisa entender por quê,
+  // em vez de ver a tela de código sem explicação.
+  const reason = searchParams.get("reason");
 
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -28,6 +31,15 @@ function VerifyEmailForm() {
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  useEffect(() => {
+    if (!reason) return;
+    setInfo(
+      reason.includes("expired")
+        ? "O link do e-mail expirou. Peça um novo código abaixo e digite-o aqui."
+        : "Não foi possível confirmar pelo link do e-mail. Use o código de 6 dígitos abaixo."
+    );
+  }, [reason]);
 
   useEffect(() => {
     if (cooldown <= 0) return;

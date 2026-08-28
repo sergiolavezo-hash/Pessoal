@@ -36,6 +36,8 @@ export interface RawSchemaTable {
   context: string | null;
   rowCount: number | null;
   columns: ProfiledColumn[];
+  /** Quantas colunas ficaram de fora do contexto (tabelas muito largas). */
+  omittedColumns?: number;
 }
 
 export interface WorkspaceAiContext {
@@ -63,8 +65,31 @@ export interface WorkspaceAiContext {
  * pelo que cabe numa boa análise, mantendo primeiro o que é útil.
  */
 const MAX_CONTEXT_TABLES = 12;
-const MAX_COLUMNS_PER_TABLE = 40;
+/**
+ * Tabelas muito largas (planilhas de exportação chegam a centenas de colunas)
+ * precisam caber inteiras sempre que possível. O teto existe apenas para que
+ * uma fonte gigantesca não estoure a janela do modelo — e, quando ele é
+ * atingido, as colunas ANALITICAMENTE úteis entram primeiro, nunca as
+ * primeiras da planilha por acaso.
+ */
+const MAX_COLUMNS_PER_TABLE = 150;
 const MAX_SAMPLE_VALUES = 5;
+
+/** Ordem de utilidade para um painel: o que se agrega, o que quebra, o resto. */
+const ROLE_PRIORITY: Record<string, number> = {
+  MEASURE: 0,
+  DATE: 1,
+  CATEGORY: 2,
+  DIMENSION: 3,
+  BOOLEAN: 4,
+  TEXT: 5,
+  FOREIGN_KEY: 6,
+  ID: 7,
+};
+
+function byAnalyticalValue(a: ProfiledColumn, b: ProfiledColumn): number {
+  return (ROLE_PRIORITY[a.role ?? ""] ?? 9) - (ROLE_PRIORITY[b.role ?? ""] ?? 9);
+}
 
 /** Normaliza a linha de catalog_columns no entendimento usado pelos prompts. */
 function toProfiledColumn(row: {
@@ -193,12 +218,19 @@ export async function buildWorkspaceContext(
           const usable = (columns ?? [])
             .filter((c) => c.table_id === t.id && !(c as { excluded?: boolean }).excluded)
             .map((c) => toProfiledColumn(c));
+          // Só reordena quando não cabe tudo: assim a ordem original da
+          // planilha é preservada no caso comum.
+          const kept =
+            usable.length <= MAX_COLUMNS_PER_TABLE
+              ? usable
+              : [...usable].sort(byAnalyticalValue).slice(0, MAX_COLUMNS_PER_TABLE);
           rawSchema.push({
             table: physical,
             label: t.name,
             context: t.context ?? null,
             rowCount: t.row_count ?? null,
-            columns: usable.slice(0, MAX_COLUMNS_PER_TABLE),
+            columns: kept,
+            omittedColumns: usable.length - kept.length,
           });
         }
       }
@@ -312,6 +344,12 @@ function renderTableUnderstanding(t: RawSchemaTable): string {
   }
   if (measures.length === 0) {
     guide.push("No numeric measure detected: count records (COUNT(*)) as the metric.");
+  }
+
+  if (t.omittedColumns && t.omittedColumns > 0) {
+    guide.push(
+      `Note: this table has ${t.omittedColumns} further column(s) not listed here (very wide table). Use the ones above.`
+    );
   }
 
   return [header, ...columns, ...(guide.length ? ["", ...guide] : [])].join("\n");
