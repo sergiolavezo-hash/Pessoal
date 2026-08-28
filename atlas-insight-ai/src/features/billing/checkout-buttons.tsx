@@ -62,7 +62,7 @@ export function PlanCheckoutButtons({
     return (
       <Button asChild variant="outline" className="w-full">
         <a href={contactHref ?? "https://atlas-partner.com/#contato"} target="_blank" rel="noreferrer">
-          Talk to sales
+          Falar com vendas
         </a>
       </Button>
     );
@@ -83,9 +83,9 @@ export function PlanCheckoutButtons({
         loading={loading === "monthly"}
         disabled={!canManage || loading !== null}
         onClick={() => checkout("monthly")}
-        title={canManage ? undefined : "Only OWNER/ADMIN can subscribe"}
+        title={canManage ? undefined : "Somente dono ou administrador pode assinar"}
       >
-        Subscribe monthly {monthlyLabel ? `· ${monthlyLabel}` : ""}
+        Assinar mensal {monthlyLabel ? `· ${monthlyLabel}` : ""}
       </Button>
       <Button
         variant="outline"
@@ -94,7 +94,7 @@ export function PlanCheckoutButtons({
         disabled={!canManage || loading !== null}
         onClick={() => checkout("yearly")}
       >
-        Subscribe yearly {yearlyLabel ? `· ${yearlyLabel}` : ""}
+        Assinar anual {yearlyLabel ? `· ${yearlyLabel}` : ""}
       </Button>
     </div>
   );
@@ -112,18 +112,18 @@ export function ManageSubscriptionButton({ organizationId }: { organizationId: s
         body: JSON.stringify({ organizationId }),
       });
       const json = await readJson<{ url?: string; error?: string }>(res);
-      if (!res.ok) throw new Error(json.error ?? "Portal unavailable");
+      if (!res.ok) throw new Error(json.error ?? "Portal de cobrança indisponível");
       if (!json.url) throw new Error("O provedor de pagamento não devolveu o endereço do portal.");
       window.location.assign(json.url);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Portal unavailable");
+      toast.error(error instanceof Error ? error.message : "Portal de cobrança indisponível");
       setLoading(false);
     }
   }
 
   return (
     <Button variant="outline" size="sm" loading={loading} onClick={openPortal}>
-      Manage subscription
+      Gerenciar assinatura
     </Button>
   );
 }
