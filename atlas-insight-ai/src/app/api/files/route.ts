@@ -12,6 +12,7 @@ import { applyRestructurePlan, looksUnstructured } from "@/ai/file-restructure";
 import { AIOrchestrator } from "@/ai/orchestrator";
 import { profileDataSource } from "@/services/profiling";
 import { generateSemanticModel } from "@/semantic/generator";
+import { findDuplicate, hashFileContent, invalidateAiCache } from "@/services/file-dedup";
 
 export const maxDuration = 60;
 
@@ -55,6 +56,29 @@ export async function POST(request: NextRequest) {
 
     const admin = createAdminClient();
 
+    // Impressão digital do conteúdo antes de qualquer processamento: o mesmo
+    // arquivo reenviado refazia parse, perfil, modelo semântico e — quando o
+    // layout parecia bagunçado — uma chamada de IA, para chegar ao dataset que
+    // já existia. Comparar o hash custa milissegundos e evita tudo isso.
+    const buffer = await file.arrayBuffer();
+    const contentHash = hashFileContent(buffer);
+    const duplicate = await findDuplicate(ctx.workspaceId, contentHash);
+    if (duplicate) {
+      return NextResponse.json(
+        {
+          duplicate: true,
+          message: "Este arquivo já está cadastrado no Atlas.",
+          file: {
+            id: duplicate.id,
+            name: duplicate.name,
+            dataSourceId: duplicate.dataSourceId,
+            createdAt: duplicate.createdAt,
+          },
+        },
+        { status: 409 }
+      );
+    }
+
     // Track the upload.
     const { data: fileRow, error: fileError } = await ctx.supabase
       .from("workspace_files")
@@ -64,6 +88,7 @@ export async function POST(request: NextRequest) {
         kind: "data",
         mime_type: file.type || null,
         size_bytes: file.size,
+        content_hash: contentHash,
         storage_path: `${ctx.workspaceId}/pending/${file.name}`,
         status: "PROCESSING",
         uploaded_by: ctx.user.id,
@@ -75,7 +100,6 @@ export async function POST(request: NextRequest) {
     try {
       // Keep the raw file in Storage for reprocessing/audit.
       const storagePath = `${ctx.workspaceId}/${fileRow.id}/${file.name}`;
-      const buffer = await file.arrayBuffer();
       const { error: uploadError } = await admin.storage
         .from("workspace-files")
         .upload(storagePath, buffer, { contentType: file.type || "application/octet-stream", upsert: true });
@@ -116,6 +140,10 @@ export async function POST(request: NextRequest) {
         .from("workspace_files")
         .update({ status: "READY", storage_path: storagePath, data_source_id: result.dataSourceId })
         .eq("id", fileRow.id);
+
+      // Dados novos tornam as respostas guardadas obsoletas: o cache expira
+      // por tempo, mas não sabe que a base mudou.
+      await invalidateAiCache(ctx.workspaceId);
 
       await auditLog(ctx, "uploaded_file", "file", fileRow.id, {
         rows: result.rowCount,

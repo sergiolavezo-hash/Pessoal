@@ -43,7 +43,12 @@ import {
 const NAV_GROUPS: Array<{ label: string | null; items: Array<{ href: string; label: string; icon: typeof Gauge }> }> = [
   {
     label: null,
-    items: [{ href: "/dashboard", label: "Início", icon: Gauge }],
+    items: [
+      // Primeiro item de propósito: quem chega sem saber por onde começar
+      // encontra o caminho antes de encontrar as telas técnicas.
+      { href: "/como-usar", label: "Como usar o Atlas", icon: Compass },
+      { href: "/dashboard", label: "Início", icon: Gauge },
+    ],
   },
   {
     label: "1 · Seus dados",
