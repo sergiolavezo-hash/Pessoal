@@ -20,7 +20,18 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
       const res = await fetch("/api/files", { method: "POST", body: formData });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error ?? "Upload failed");
-      toast.success(`Imported ${json.table.rowCount.toLocaleString()} rows from ${file.name}`);
+      const deduped = json.table.dedupedCount ?? 0;
+      toast.success(
+        `${file.name}: ${json.table.rowCount.toLocaleString()} rows ready` +
+          (deduped > 0 ? ` · ${deduped.toLocaleString()} duplicate rows removed automatically` : ""),
+        { duration: 8000 }
+      );
+      if (json.pipeline?.semanticModel) {
+        toast.success(
+          `Atlas understood your data: profile, ${json.pipeline.relationships ?? 0} relationship(s) and semantic model ready. Go to Dashboards → Generate!`,
+          { duration: 10000 }
+        );
+      }
       for (const w of json.warnings ?? []) toast.warning(w);
       router.refresh();
     } catch (error) {

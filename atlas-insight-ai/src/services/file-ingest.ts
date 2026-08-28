@@ -127,7 +127,7 @@ export async function ingestParsedFile(
   admin: SupabaseClient,
   fileName: string,
   parsed: ParsedFile
-): Promise<{ dataSourceId: string; tableId: string; physicalName: string; rowCount: number }> {
+): Promise<{ dataSourceId: string; tableId: string; physicalName: string; rowCount: number; dedupedCount: number }> {
   // 1. Find or create the workspace's file data source.
   const { data: existing } = await ctx.supabase
     .from("data_sources")
@@ -181,6 +181,25 @@ export async function ingestParsedFile(
 
   const physicalName = fileTableName(tableRow.id);
 
+  // Camada ouro: deduplicação automática de linhas idênticas na ingestão.
+  // O usuário recebe dados prontos para análise sem duplicatas exatas.
+  const uniqueRows: Record<string, unknown>[] = [];
+  const seenRows = new Set<string>();
+  for (const row of parsed.rows) {
+    const key = JSON.stringify(row);
+    if (seenRows.has(key)) continue;
+    seenRows.add(key);
+    uniqueRows.push(row);
+  }
+  const dedupedCount = parsed.rows.length - uniqueRows.length;
+  if (dedupedCount > 0) {
+    parsed = { ...parsed, rows: uniqueRows };
+    await ctx.supabase
+      .from("catalog_tables")
+      .update({ row_count: uniqueRows.length })
+      .eq("id", tableRow.id);
+  }
+
   // Proteção de performance: arquivos gigantes degradam o motor de
   // consultas — acima do teto, oriente conectar o banco de origem.
   const MAX_FILE_ROWS = 200_000;
@@ -228,5 +247,5 @@ export async function ingestParsedFile(
     if (cError) throw new Error(cError.message);
   }
 
-  return { dataSourceId, tableId: tableRow.id, physicalName, rowCount: parsed.rows.length };
+  return { dataSourceId, tableId: tableRow.id, physicalName, rowCount: parsed.rows.length, dedupedCount };
 }

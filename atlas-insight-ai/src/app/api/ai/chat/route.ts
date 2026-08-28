@@ -3,6 +3,8 @@ import { z } from "zod";
 import { requireWorkspace, handleApiError, ApiError } from "@/services/api-context";
 import { AIOrchestrator } from "@/ai/orchestrator";
 
+export const maxDuration = 60;
+
 const bodySchema = z.object({
   workspaceId: z.string().uuid(),
   conversationId: z.string().uuid().optional(),

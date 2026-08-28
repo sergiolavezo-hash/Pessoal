@@ -3,6 +3,8 @@ import { z } from "zod";
 import { requireWorkspace, handleApiError, auditLog } from "@/services/api-context";
 import { profileDataSource } from "@/services/profiling";
 
+export const maxDuration = 60;
+
 const bodySchema = z.object({ workspaceId: z.string().uuid() });
 
 /** POST /api/profiling/:dataSourceId — profile all tables of a data source. */

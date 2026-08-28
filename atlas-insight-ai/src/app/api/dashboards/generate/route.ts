@@ -5,6 +5,8 @@ import { AIOrchestrator } from "@/ai/orchestrator";
 import { createDashboard } from "@/services/dashboards";
 import { assertAllowed, canRunDashboard, consumeDashboardRun } from "@/services/billing";
 
+export const maxDuration = 60;
+
 const bodySchema = z.object({
   workspaceId: z.string().uuid(),
   prompt: z.string().min(5).max(4000),

@@ -2,6 +2,10 @@ import { NextResponse, type NextRequest } from "next/server";
 import { requireWorkspace, handleApiError, auditLog, ApiError } from "@/services/api-context";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { ingestParsedFile, parseCsv, parseXlsx } from "@/services/file-ingest";
+import { profileDataSource } from "@/services/profiling";
+import { generateSemanticModel } from "@/semantic/generator";
+
+export const maxDuration = 60;
 
 const MAX_FILE_BYTES = 50 * 1024 * 1024; // 50 MB
 const ALLOWED_EXTENSIONS = new Set(["csv", "xlsx", "xls"]);
@@ -83,11 +87,35 @@ export async function POST(request: NextRequest) {
 
       await auditLog(ctx, "uploaded_file", "file", fileRow.id, {
         rows: result.rowCount,
+        deduped: result.dedupedCount,
         table: result.physicalName,
       });
 
+      // Piloto automático: depois do upload, a inteligência roda sozinha —
+      // perfil das colunas, detecção de relacionamentos e modelo semântico.
+      // Cada etapa é best-effort: falhas não invalidam o upload.
+      const pipeline: { profiled: boolean; relationships: number; semanticModel: boolean } = {
+        profiled: false,
+        relationships: 0,
+        semanticModel: false,
+      };
+      try {
+        const prof = await profileDataSource(ctx, result.dataSourceId);
+        pipeline.profiled = true;
+        pipeline.relationships =
+          (prof as { relationships?: number } | undefined)?.relationships ?? 0;
+      } catch (error) {
+        console.error("[auto-pipeline] profiling", error);
+      }
+      try {
+        await generateSemanticModel(ctx, result.dataSourceId);
+        pipeline.semanticModel = true;
+      } catch (error) {
+        console.error("[auto-pipeline] semantic model", error);
+      }
+
       return NextResponse.json(
-        { file: { ...fileRow, status: "READY" }, table: result, warnings: parsed.warnings },
+        { file: { ...fileRow, status: "READY" }, table: result, warnings: parsed.warnings, pipeline },
         { status: 201 }
       );
     } catch (processError) {

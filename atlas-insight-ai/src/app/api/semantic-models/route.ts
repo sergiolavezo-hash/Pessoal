@@ -3,6 +3,8 @@ import { z } from "zod";
 import { requireWorkspace, handleApiError, auditLog, ApiError } from "@/services/api-context";
 import { generateSemanticModel } from "@/semantic/generator";
 
+export const maxDuration = 60;
+
 export async function GET(request: NextRequest) {
   try {
     const workspaceId = request.nextUrl.searchParams.get("workspaceId");
