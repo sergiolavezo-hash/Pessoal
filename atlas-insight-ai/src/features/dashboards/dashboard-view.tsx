@@ -51,17 +51,50 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
 
   const load = useCallback(async () => {
     setLoading(true);
+    setData(new Map());
     try {
       const res = await fetch(`/api/dashboards/${dashboardId}/data`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ workspaceId }),
+        body: JSON.stringify({ workspaceId, stream: true }),
       });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Failed to load data");
-      setData(new Map((json.data as WidgetData[]).map((d) => [d.widgetId, d])));
+
+      if (!res.ok || !res.body) {
+        // Sem corpo transmitido (erro, ou ambiente sem streaming): lê inteiro.
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(json.error ?? "Não foi possível carregar os dados");
+        setData(new Map(((json.data ?? []) as WidgetData[]).map((d) => [d.widgetId, d])));
+        return;
+      }
+
+      // NDJSON: cada linha é um widget pronto. Renderiza na hora, em vez de
+      // esperar o gráfico mais lento para mostrar qualquer coisa.
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      const apply = (line: string) => {
+        if (!line.trim()) return;
+        const parsedLine = JSON.parse(line) as WidgetData & { error?: string };
+        if (!parsedLine.widgetId) {
+          if (parsedLine.error) toast.error(parsedLine.error);
+          return;
+        }
+        setData((current) => new Map(current).set(parsedLine.widgetId, parsedLine));
+      };
+
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() ?? "";
+        for (const line of lines) apply(line);
+      }
+      apply(buffer);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Failed to load dashboard data");
+      toast.error(
+        error instanceof Error ? error.message : "Não foi possível carregar os dados do painel"
+      );
     } finally {
       setLoading(false);
     }
@@ -171,8 +204,18 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
           </DropdownMenu>
         </div>
         <div className="min-h-0 flex-1 p-4 pt-2" style={heightPx ? { height: heightPx } : undefined}>
-          {loading ? (
-            <Skeleton className="h-full w-full" />
+          {/* Esqueleto por widget: cada gráfico aparece quando SEU dado chega,
+              sem esperar o mais lento do painel. */}
+          {!wd ? (
+            loading ? (
+              <Skeleton className="h-full w-full" />
+            ) : (
+              <div className="flex h-full items-center justify-center">
+                <Button variant="outline" size="sm" onClick={load}>
+                  <RefreshCw /> Carregar
+                </Button>
+              </div>
+            )
           ) : wd?.error ? (
             <div className="flex h-full flex-col items-center justify-center gap-2 text-center">
               <p className="text-xs text-destructive">{wd.error}</p>
