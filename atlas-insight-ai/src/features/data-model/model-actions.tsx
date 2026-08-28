@@ -80,7 +80,7 @@ export function ModelActions({
     <div className="flex items-center gap-2">
       <Button variant="outline" size="sm" onClick={profile} loading={profiling}>
         <ScanSearch />
-        Profile data
+        Perfilar dados
       </Button>
       <Button size="sm" onClick={generate} loading={generating}>
         <Boxes />

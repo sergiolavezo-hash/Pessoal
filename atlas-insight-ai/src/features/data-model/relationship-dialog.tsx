@@ -136,7 +136,7 @@ export function NewRelationshipDialog({
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
           <Link2 />
-          New relationship
+          Novo relacionamento
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-lg">
@@ -150,7 +150,7 @@ export function NewRelationshipDialog({
         {singleTable ? (
           <p className="rounded-md border border-dashed p-4 text-sm text-muted-foreground">
             You need at least two tables to create a relationship. Upload another file or connect
-            another source — automatic detection also runs when you click &quot;Profile data&quot;.
+            de outra — a detecção automática também roda quando você clica em &quot;Perfilar dados&quot;.
           </p>
         ) : (
           <form

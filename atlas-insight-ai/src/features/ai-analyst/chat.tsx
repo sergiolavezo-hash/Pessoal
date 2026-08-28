@@ -193,7 +193,7 @@ export function AnalystChat({ workspaceId, conversationId, initialMessages, sugg
         body: JSON.stringify({ workspaceId, conversationId: conversationId ?? undefined, message: text }),
       });
       const json = await readJson(res);
-      if (!res.ok) throw new Error(json.error ?? "Atlas could not answer");
+      if (!res.ok) throw new Error(json.error ?? "O Atlas não conseguiu responder");
       if (!conversationId) {
         router.push(`/ai-analyst?c=${json.conversationId}`);
         router.refresh();
@@ -201,7 +201,7 @@ export function AnalystChat({ workspaceId, conversationId, initialMessages, sugg
       }
       setMessages((m) => [...m, json.message as AiMessage]);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Atlas could not answer");
+      toast.error(error instanceof Error ? error.message : "O Atlas não conseguiu responder");
       setMessages((m) => m.filter((msg) => msg.id !== optimistic.id));
       setInput(text);
     } finally {
@@ -303,7 +303,7 @@ export function AnalystChat({ workspaceId, conversationId, initialMessages, sugg
               send(input);
             }
           }}
-          placeholder='Ask Atlas… e.g. "Why did revenue drop last month?"'
+          placeholder='Pergunte ao Atlas… ex.: "Por que o faturamento caiu no mês passado?"'
           rows={2}
           className="resize-none"
           disabled={thinking}

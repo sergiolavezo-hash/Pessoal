@@ -47,7 +47,9 @@ export default async function DataSourceDetailPage({ params }: { params: Promise
       <PageHeader
         title={dataSource.name}
         description={`${def?.name ?? dataSource.type} · ${
-          dataSource.last_sync_at ? `Last synchronized ${relativeTime(dataSource.last_sync_at)}` : "Never synchronized"
+          dataSource.last_sync_at
+            ? `Sincronizada ${relativeTime(dataSource.last_sync_at)}`
+            : "Nunca sincronizada"
         }`}
         actions={<SourceActions workspaceId={ctx.workspace.id} dataSourceId={id} canEdit={canEdit} />}
       />

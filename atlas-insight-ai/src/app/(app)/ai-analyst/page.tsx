@@ -12,10 +12,10 @@ import type { AiConversation, AiMessage } from "@/types";
 export const metadata = { title: "Perguntar à IA" };
 
 const SUGGESTIONS = [
-  "What was our total revenue last quarter?",
-  "Which region grew the most?",
-  "Who are the top 5 salespeople by revenue?",
-  "Compare this month with the previous month",
+  "Qual foi o faturamento total do último trimestre?",
+  "Qual região mais cresceu?",
+  "Quais são os 5 maiores vendedores por faturamento?",
+  "Compare este mês com o mês anterior",
 ];
 
 export default async function AiAnalystPage({

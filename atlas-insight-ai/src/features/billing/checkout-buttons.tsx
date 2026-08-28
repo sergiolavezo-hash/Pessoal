@@ -41,11 +41,11 @@ export function PlanCheckoutButtons({
         body: JSON.stringify({ organizationId, planId, interval }),
       });
       const json = await readJson<{ url?: string; error?: string }>(res);
-      if (!res.ok) throw new Error(json.error ?? "Checkout failed");
+      if (!res.ok) throw new Error(json.error ?? "Não foi possível abrir o pagamento");
       if (!json.url) throw new Error("O provedor de pagamento não devolveu o endereço de checkout.");
       window.location.assign(json.url);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Checkout failed", { duration: 8000 });
+      toast.error(error instanceof Error ? error.message : "Não foi possível abrir o pagamento", { duration: 8000 });
       setLoading(null);
     }
   }
@@ -53,7 +53,7 @@ export function PlanCheckoutButtons({
   if (planId === "free") {
     return (
       <Button variant="outline" className="w-full" disabled>
-        {isCurrent ? "Current plan" : "Free trial"}
+        {isCurrent ? "Plano atual" : "Teste gratuito"}
       </Button>
     );
   }
@@ -71,7 +71,7 @@ export function PlanCheckoutButtons({
   if (isCurrent) {
     return (
       <Button variant="outline" className="w-full" disabled>
-        Current plan
+        Plano atual
       </Button>
     );
   }

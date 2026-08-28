@@ -77,7 +77,7 @@ export default async function DataSourcesPage() {
                       </div>
                     </div>
                     <p className="mt-3 text-xs text-muted-foreground">
-                      {s.last_sync_at ? `Last synchronized ${relativeTime(s.last_sync_at)}` : "Never synchronized"}
+                      {s.last_sync_at ? `Sincronizada ${relativeTime(s.last_sync_at)}` : "Nunca sincronizada"}
                     </p>
                     {s.last_error && (
                       <p className="mt-1 truncate text-xs text-destructive">{s.last_error}</p>

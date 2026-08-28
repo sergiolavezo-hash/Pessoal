@@ -91,20 +91,31 @@ function categoryAxisProps(rows: Record<string, unknown>[], xField: string) {
   const labels = rows.map((r) => categoryLabel(r[xField]));
   const longest = labels.reduce((max, l) => Math.max(max, l.length), 0);
   const tilt = labels.length > 6 || longest > 10;
+  const limit = tilt ? 12 : 16;
+  // ~6px por caractere na fonte de 11px. O último rótulo é centrado na
+  // última marca, na borda do gráfico: sem essa folga, metade dele fica
+  // fora do SVG e o usuário lê "Fevereir".
+  const lastLabel = Math.min(labels[labels.length - 1]?.length ?? 0, limit);
+  const marginRight = tilt ? 16 : Math.min(56, Math.max(16, Math.round(lastLabel * 3.2)));
+  // Rótulo inclinado cresce para a ESQUERDA a partir da marca; o primeiro
+  // deles precisa de espaço antes do eixo de valores.
+  const marginLeft = tilt ? 12 : 0;
   return {
     tilt,
+    marginRight,
+    marginLeft,
     props: tilt
       ? {
           angle: -35 as const,
           textAnchor: "end" as const,
           height: 62,
           interval: (labels.length > 18 ? "preserveStartEnd" : 0) as 0 | "preserveStartEnd",
-          tickFormatter: (v: unknown) => shortenLabel(categoryLabel(v), 14),
+          tickFormatter: (v: unknown) => shortenLabel(categoryLabel(v), limit),
         }
       : {
           height: 24,
           interval: 0 as const,
-          tickFormatter: (v: unknown) => shortenLabel(categoryLabel(v), 16),
+          tickFormatter: (v: unknown) => shortenLabel(categoryLabel(v), limit),
         },
   };
 }
@@ -169,7 +180,7 @@ export function ChartRenderer({ widget, rows, tableView }: ChartRendererProps) {
     case "line":
       return (
         <ChartFrame legend={<ChartLegend entries={legendEntries(yFields)} shape="line" />}>
-          <LineChart data={rows} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
+          <LineChart data={rows} margin={{ top: 8, right: axis.marginRight, left: axis.marginLeft, bottom: 0 }}>
             <CartesianGrid {...GRID} vertical={false} />
             <XAxis
               dataKey={xField}
@@ -225,7 +236,7 @@ export function ChartRenderer({ widget, rows, tableView }: ChartRendererProps) {
     case "area":
       return (
         <ChartFrame legend={<ChartLegend entries={legendEntries(yFields)} />}>
-          <AreaChart data={rows} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
+          <AreaChart data={rows} margin={{ top: 8, right: axis.marginRight, left: axis.marginLeft, bottom: 0 }}>
             <CartesianGrid {...GRID} vertical={false} />
             <XAxis
               dataKey={xField}
@@ -272,7 +283,7 @@ export function ChartRenderer({ widget, rows, tableView }: ChartRendererProps) {
         <ChartFrame legend={<ChartLegend entries={legendEntries(yFields)} />}>
           <BarChart
             data={rows}
-            margin={{ top: labelled ? 18 : 8, right: 16, left: 0, bottom: 0 }}
+            margin={{ top: labelled ? 18 : 8, right: axis.marginRight, left: axis.marginLeft, bottom: 0 }}
             barCategoryGap="28%"
             barGap={MARK.gap}
           >
@@ -647,9 +658,11 @@ function FunnelBars({
 }) {
   const stages = rows.map((r) => ({ name: categoryLabel(r[xField]), value: toNumber(r[yField]) }));
   const top = Math.max(...stages.map((s) => s.value), 1);
-  // O degrau mais claro da rampa ainda precisa se destacar do branco: começar
-  // no segundo passo, não no primeiro.
-  const ordinal = SEQUENTIAL_RAMP.slice(1);
+  // Escala ordenada, do escuro (primeira etapa, maior) ao claro. Ao contrário,
+  // a cor mais forte cairia na barra menor e brigaria com o comprimento. O
+  // degrau mais claro ainda precisa se destacar do branco: começa no segundo
+  // passo da rampa, nunca no primeiro.
+  const ordinal = [...SEQUENTIAL_RAMP.slice(1)].reverse();
 
   return (
     <div className="flex h-full flex-col justify-center gap-2 overflow-auto py-1">

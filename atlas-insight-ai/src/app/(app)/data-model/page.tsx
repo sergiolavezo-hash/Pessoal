@@ -178,7 +178,7 @@ export default async function DataModelPage() {
             <EmptyState
               icon={Network}
               title="Nenhum relacionamento ainda"
-              description='Click "New relationship" to declare one manually, or run "Profile data" to detect primary/foreign keys automatically (needs at least two tables).'
+              description='Use "Novo relacionamento" para declarar um à mão, ou "Perfilar dados" para detectar chaves automaticamente (precisa de pelo menos duas tabelas).'
             />
           ) : (
             <Card>
@@ -205,7 +205,7 @@ export default async function DataModelPage() {
                           {canEdit && (
                             <ObjectMenu
                               deleteEndpoint={`/api/relationships/${r.id}?workspaceId=${ws}`}
-                              deleteConfirm="Delete this relationship?"
+                              deleteConfirm="Excluir este relacionamento?"
                             />
                           )}
                         </span>

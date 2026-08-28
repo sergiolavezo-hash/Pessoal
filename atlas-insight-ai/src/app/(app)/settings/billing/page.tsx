@@ -18,7 +18,7 @@ export const metadata = { title: "Cobrança" };
 
 const STATUS_LABEL: Record<string, { label: string; variant: "success" | "warning" | "destructive" | "secondary" }> = {
   active: { label: "Active", variant: "success" },
-  trialing: { label: "Free trial", variant: "warning" },
+  trialing: { label: "Teste gratuito", variant: "warning" },
   past_due: { label: "Past due", variant: "destructive" },
   canceled: { label: "Canceled", variant: "secondary" },
   incomplete: { label: "Incomplete", variant: "secondary" },
