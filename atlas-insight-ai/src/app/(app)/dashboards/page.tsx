@@ -2,7 +2,7 @@ import Link from "next/link";
 import { LayoutDashboard, Sparkles } from "lucide-react";
 import { getAppContext } from "@/services/context";
 import { createClient } from "@/lib/supabase/server";
-import { relativeTime } from "@/lib/utils";
+import { relativeTime, statusLabel } from "@/lib/utils";
 import { PageHeader } from "@/components/layout/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -122,7 +122,9 @@ export default async function DashboardsPage() {
                   <div className="flex items-start justify-between gap-2">
                     <p className="min-w-0 truncate font-medium">{d.name}</p>
                     <div className="flex shrink-0 items-center gap-1">
-                      <Badge variant={d.status === "PUBLISHED" ? "success" : "secondary"}>{d.status}</Badge>
+                      <Badge variant={d.status === "PUBLISHED" ? "success" : "secondary"}>
+                        {statusLabel(d.status)}
+                      </Badge>
                       {canEdit && (
                         <ObjectMenu
                           openHref={`/dashboards/${d.id}`}
@@ -144,7 +146,7 @@ export default async function DashboardsPage() {
                         <Sparkles className="h-3 w-3" /> AI
                       </span>
                     )}
-                    v{d.version} · Updated {relativeTime(d.updated_at)}
+                    v{d.version} · atualizado {relativeTime(d.updated_at)}
                   </p>
                 </CardContent>
               </Card>

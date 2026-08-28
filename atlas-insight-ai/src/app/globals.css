@@ -25,13 +25,32 @@
   --border: oklch(0.916 0.006 255);
   --input: oklch(0.916 0.006 255);
   --ring: oklch(0.51 0.2 268);
-  /* Categorical series palette — validated (CVD + normal-vision separation).
-     Fixed assignment order; never cycle. */
+  /* Paleta categórica — validada contra a superfície branca dos cartões
+     (banda de luminosidade, piso de croma, separação para daltonismo e para
+     visão normal). A ORDEM é o mecanismo de segurança: atribuir sempre na
+     mesma sequência, nunca reciclar. A partir do 9º, agrupar em "Outros". */
   --chart-1: #2a78d6;
   --chart-2: #eb6834;
   --chart-3: #1baf7a;
   --chart-4: #eda100;
   --chart-5: #e87ba4;
+  --chart-6: #008300;
+  --chart-7: #4a3aa7;
+  --chart-8: #e34948;
+  /* Cinza de contexto: séries dobradas em "Outros" e realce (uma série na cor,
+     o resto neste cinza). */
+  --chart-other: oklch(0.72 0.008 258);
+  /* Cromo do gráfico: recessivo por definição — a tinta forte é o dado. */
+  --chart-surface: var(--card);
+  --chart-grid: oklch(0.925 0.004 255);
+  --chart-axis: oklch(0.845 0.006 255);
+  --chart-label: oklch(0.53 0.013 258);
+  /* Rampa sequencial (uma cor, claro→escuro) para magnitude contínua. */
+  --chart-seq-100: #cde2fb;
+  --chart-seq-250: #86b6ef;
+  --chart-seq-400: #3987e5;
+  --chart-seq-550: #1c5cab;
+  --chart-seq-700: #0d366b;
   --radius: 0.5rem;
   --sidebar: oklch(0.975 0.003 250);
   --sidebar-foreground: oklch(0.35 0.015 262);
@@ -60,12 +79,26 @@
   --border: oklch(0.28 0.015 262);
   --input: oklch(0.28 0.015 262);
   --ring: oklch(0.62 0.19 268);
-  /* Same hues stepped for the dark surface (validated as a set). */
+  /* Mesmas matizes, degraus escolhidos para a superfície escura (validados
+     como conjunto — não é uma inversão automática do tema claro). */
   --chart-1: #3987e5;
   --chart-2: #d95926;
   --chart-3: #199e70;
   --chart-4: #c98500;
   --chart-5: #d55181;
+  --chart-6: #008300;
+  --chart-7: #9085e9;
+  --chart-8: #e66767;
+  --chart-other: oklch(0.45 0.01 258);
+  --chart-surface: var(--card);
+  --chart-grid: oklch(0.27 0.012 262);
+  --chart-axis: oklch(0.33 0.014 262);
+  --chart-label: oklch(0.68 0.012 258);
+  --chart-seq-100: #0d366b;
+  --chart-seq-250: #1c5cab;
+  --chart-seq-400: #2a78d6;
+  --chart-seq-550: #5598e7;
+  --chart-seq-700: #9ec5f4;
   --sidebar: oklch(0.15 0.012 262);
   --sidebar-foreground: oklch(0.8 0.008 255);
   --sidebar-accent: oklch(0.24 0.018 264);
@@ -98,6 +131,14 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
+  --color-chart-other: var(--chart-other);
+  --color-chart-surface: var(--chart-surface);
+  --color-chart-grid: var(--chart-grid);
+  --color-chart-axis: var(--chart-axis);
+  --color-chart-label: var(--chart-label);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-accent: var(--sidebar-accent);
@@ -122,4 +163,17 @@ body {
 
 ::selection {
   background: color-mix(in oklch, var(--primary) 20%, transparent);
+}
+
+/* Números grandes e isolados (KPI, número-herói) usam os algarismos
+   proporcionais da fonte: `tabular-nums` dá a todo dígito a largura do zero e
+   deixa "121" frouxo em corpo grande. Alinhamento vertical (colunas de tabela,
+   marcas de eixo) continua tabular. */
+.viz-figure {
+  font-variant-numeric: proportional-nums;
+  letter-spacing: -0.02em;
+}
+
+.viz-tabular {
+  font-variant-numeric: tabular-nums;
 }

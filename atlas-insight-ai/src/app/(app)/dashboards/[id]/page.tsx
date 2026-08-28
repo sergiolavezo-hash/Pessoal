@@ -3,6 +3,7 @@ import { Sparkles } from "lucide-react";
 import { getAppContext } from "@/services/context";
 import { createClient } from "@/lib/supabase/server";
 import { dashboardSpecSchema } from "@/dashboards/spec";
+import { statusLabel } from "@/lib/utils";
 import { PageHeader } from "@/components/layout/page-header";
 import { Badge } from "@/components/ui/badge";
 import { ErrorState } from "@/components/ui/empty-state";
@@ -38,11 +39,11 @@ export default async function DashboardDetailPage({ params }: { params: Promise<
           <div className="flex items-center gap-2">
             {dashboard.generated_by_ai && (
               <Badge>
-                <Sparkles className="h-3 w-3" /> AI generated
+                <Sparkles className="h-3 w-3" /> Gerado por IA
               </Badge>
             )}
             <Badge variant={dashboard.status === "PUBLISHED" ? "success" : "secondary"}>
-              {dashboard.status}
+              {statusLabel(dashboard.status)}
             </Badge>
             <Badge variant="outline">v{dashboard.version}</Badge>
           </div>
@@ -51,8 +52,8 @@ export default async function DashboardDetailPage({ params }: { params: Promise<
 
       {!parsed.success ? (
         <ErrorState
-          title="This dashboard's specification is invalid"
-          description="The stored specification failed validation and cannot be rendered."
+          title="A especificação deste painel está inválida"
+          description="O que está salvo não passou na validação e não pode ser desenhado. Gere o painel de novo ou peça um ajuste ao Atlas."
         />
       ) : (
         <DashboardView

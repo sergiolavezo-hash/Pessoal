@@ -20,7 +20,7 @@ export function KpiCard({ label, value, format, delta, deltaLabel, invertDelta, 
   return (
     <Card className={cn("p-5", className)}>
       <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
-      <p className="mt-2 text-2xl font-semibold tabular-nums tracking-tight">
+      <p className="viz-figure mt-2 text-2xl font-semibold">
         {numeric ? formatNumber(value, format) : value}
       </p>
       {delta != null && (
@@ -39,7 +39,7 @@ export function KpiCard({ label, value, format, delta, deltaLabel, invertDelta, 
           ) : (
             <Minus className="h-3.5 w-3.5" />
           )}
-          {new Intl.NumberFormat("en-US", { style: "percent", maximumFractionDigits: 1 }).format(Math.abs(delta))}
+          {new Intl.NumberFormat("pt-BR", { style: "percent", maximumFractionDigits: 1 }).format(Math.abs(delta))}
           {deltaLabel && <span className="font-normal text-muted-foreground">{deltaLabel}</span>}
         </p>
       )}

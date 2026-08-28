@@ -32,7 +32,7 @@ function brl(cents: number | null): string {
 
 function fmtDate(iso: string | null): string {
   if (!iso) return "—";
-  return new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(iso));
+  return new Intl.DateTimeFormat("pt-BR", { dateStyle: "medium" }).format(new Date(iso));
 }
 
 export default async function BillingPage() {
