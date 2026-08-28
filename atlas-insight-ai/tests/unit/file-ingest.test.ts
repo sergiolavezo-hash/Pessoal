@@ -3,6 +3,7 @@ import {
   coerceValue,
   detectHeaderRow,
   inferColumnType,
+  normalizeNumericString,
   parseCsv,
   sanitizeColumnName,
 } from "@/services/file-ingest";
@@ -15,6 +16,24 @@ describe("inferColumnType", () => {
   it("infers timestamps", () => expect(inferColumnType(["2024-01-01T10:00:00Z"])).toBe("timestamptz"));
   it("falls back to text", () => expect(inferColumnType(["abc", "1"])).toBe("text"));
   it("handles all-null columns", () => expect(inferColumnType([null, "", undefined])).toBe("text"));
+});
+
+describe("normalizeNumericString", () => {
+  it("parses Brazilian currency formats", () => {
+    expect(normalizeNumericString("R$ 1.234,56")).toBe("1234.56");
+    expect(normalizeNumericString("1.234,56")).toBe("1234.56");
+    expect(normalizeNumericString("2,75")).toBe("2.75");
+    expect(normalizeNumericString("(123,45)")).toBe("-123.45");
+    expect(normalizeNumericString("592.77")).toBe("592.77");
+  });
+  it("rejects non-numbers", () => {
+    expect(normalizeNumericString("abc")).toBeNull();
+    expect(normalizeNumericString("12a")).toBeNull();
+  });
+  it("feeds type inference and coercion", () => {
+    expect(inferColumnType(["R$ 1.234,56", "2,75"])).toBe("double precision");
+    expect(coerceValue("R$ 1.234,56", "double precision")).toBeCloseTo(1234.56);
+  });
 });
 
 describe("coerceValue", () => {

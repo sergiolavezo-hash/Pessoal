@@ -3,6 +3,12 @@ import { LLMError, type LLMProvider, type LLMRequest, type LLMResponse } from "@
 
 const DEFAULT_MODEL = "gemini-2.0-flash";
 
+// Modelos com raciocínio (Gemini 2.5/3.x) descontam os tokens de "thinking"
+// do mesmo maxOutputTokens da resposta. Sem folga, respostas JSON longas são
+// cortadas com finishReason MAX_TOKENS. Reservamos espaço para o raciocínio
+// além do que o chamador pediu; modelos sem thinking simplesmente não usam.
+const THINKING_HEADROOM_TOKENS = 8000;
+
 export class GoogleProvider implements LLMProvider {
   readonly name = "google";
   readonly model: string;
@@ -32,7 +38,7 @@ export class GoogleProvider implements LLMProvider {
           ...(request.system ? { systemInstruction: { parts: [{ text: request.system }] } } : {}),
           contents,
           generationConfig: {
-            maxOutputTokens: request.maxTokens ?? 16000,
+            maxOutputTokens: (request.maxTokens ?? 16000) + THINKING_HEADROOM_TOKENS,
             ...(request.jsonMode ? { responseMimeType: "application/json" } : {}),
           },
         }),
@@ -45,12 +51,20 @@ export class GoogleProvider implements LLMProvider {
     }
 
     const json = (await res.json()) as {
-      candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+      candidates?: Array<{ content?: { parts?: Array<{ text?: string }> }; finishReason?: string }>;
       usageMetadata?: { promptTokenCount?: number; candidatesTokenCount?: number };
       modelVersion?: string;
     };
 
-    const text = (json.candidates?.[0]?.content?.parts ?? []).map((p) => p.text ?? "").join("");
+    const candidate = json.candidates?.[0];
+    const text = (candidate?.content?.parts ?? []).map((p) => p.text ?? "").join("");
+    if (candidate?.finishReason === "MAX_TOKENS") {
+      throw new LLMError(
+        `Google AI response was truncated (MAX_TOKENS) after ${json.usageMetadata?.candidatesTokenCount ?? 0} tokens`,
+        this.name,
+        true
+      );
+    }
     return {
       text,
       model: json.modelVersion ?? this.model,

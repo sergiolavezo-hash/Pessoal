@@ -1,7 +1,14 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { requireWorkspace, handleApiError, auditLog, ApiError } from "@/services/api-context";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { ingestParsedFile, parseCsv, parseXlsx } from "@/services/file-ingest";
+import {
+  buildParsedFromMatrix,
+  ingestParsedFile,
+  parseCsvMatrix,
+  parseXlsxMatrix,
+  type ParsedFile,
+} from "@/services/file-ingest";
+import { analyzeFileLayout, applyRestructurePlan, looksUnstructured } from "@/ai/file-restructure";
 import { profileDataSource } from "@/services/profiling";
 import { generateSemanticModel } from "@/semantic/generator";
 
@@ -73,10 +80,32 @@ export async function POST(request: NextRequest) {
         .upload(storagePath, buffer, { contentType: file.type || "application/octet-stream", upsert: true });
       if (uploadError) throw new Error(`Storage upload failed: ${uploadError.message}`);
 
-      const parsed =
+      const { matrix, warnings: parseWarnings } =
         extension === "csv"
-          ? parseCsv(new TextDecoder().decode(buffer))
-          : parseXlsx(buffer);
+          ? parseCsvMatrix(new TextDecoder().decode(buffer))
+          : parseXlsxMatrix(buffer);
+
+      // Entendimento inteligente: o parser heurístico tenta primeiro; se o
+      // resultado tem cara de layout desestruturado (colunas sem nome,
+      // cabeçalho fora do lugar), a IA analisa a grade como um todo e devolve
+      // um plano de reestruturação (seções, células mescladas, subtotais,
+      // meses em colunas → formato longo). Falhas caem no heurístico.
+      let parsed: ParsedFile | null = null;
+      let heuristicError: unknown = null;
+      try {
+        parsed = buildParsedFromMatrix(matrix, [...parseWarnings]);
+      } catch (error) {
+        heuristicError = error;
+      }
+      if (!parsed || looksUnstructured(parsed)) {
+        try {
+          const plan = await analyzeFileLayout(matrix, file.name);
+          if (plan) parsed = applyRestructurePlan(matrix, plan, parseWarnings);
+        } catch (error) {
+          console.error("[ai-restructure] fallback to heuristic parser", error);
+        }
+      }
+      if (!parsed) throw heuristicError instanceof Error ? heuristicError : new Error("File could not be parsed");
 
       const result = await ingestParsedFile(ctx, admin, file.name, parsed);
 

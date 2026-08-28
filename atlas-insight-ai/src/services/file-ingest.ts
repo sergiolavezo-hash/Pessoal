@@ -32,10 +32,36 @@ export function sanitizeColumnName(raw: string, index: number, used: Set<string>
 }
 
 const INT_RE = /^-?\d{1,18}$/;
-const FLOAT_RE = /^-?\d+([.,]\d+)?([eE][+-]?\d+)?$/;
+const FLOAT_RE = /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const DATETIME_RE = /^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}/;
 const BOOL_VALUES = new Set(["true", "false", "yes", "no", "0", "1", "sim", "não", "nao"]);
+
+/**
+ * Normaliza números "de gente": R$ 1.234,56 / 1.234,56 / (123,45) / 2,75.
+ * Retorna a forma canônica com ponto decimal, ou null se não for número.
+ */
+export function normalizeNumericString(raw: string): string | null {
+  let s = raw.trim().replace(/^(r\$|us\$|\$|€)\s*/i, "");
+  let negative = false;
+  const paren = s.match(/^\((.+)\)$/);
+  if (paren) {
+    negative = true;
+    s = paren[1].trim();
+  }
+  s = s.replace(/\s/g, "");
+  const hasComma = s.includes(",");
+  const hasDot = s.includes(".");
+  if (hasComma && hasDot) {
+    // O último separador é o decimal; o outro é milhar.
+    if (s.lastIndexOf(",") > s.lastIndexOf(".")) s = s.replaceAll(".", "").replace(",", ".");
+    else s = s.replaceAll(",", "");
+  } else if (hasComma) {
+    s = s.replace(",", ".");
+  }
+  if (!FLOAT_RE.test(s)) return null;
+  return negative ? `-${s}` : s;
+}
 
 export function inferColumnType(values: unknown[]): InferredType {
   const nonNull = values.filter((v) => v != null && String(v).trim() !== "").map((v) => String(v).trim());
@@ -44,7 +70,7 @@ export function inferColumnType(values: unknown[]): InferredType {
   const check = (pred: (v: string) => boolean) => nonNull.every(pred);
 
   if (check((v) => INT_RE.test(v))) return "bigint";
-  if (check((v) => FLOAT_RE.test(v.replace(",", ".")))) return "double precision";
+  if (check((v) => normalizeNumericString(v) != null)) return "double precision";
   if (check((v) => BOOL_VALUES.has(v.toLowerCase())) && new Set(nonNull.map((v) => v.toLowerCase())).size <= 2)
     return "boolean";
   if (check((v) => DATE_RE.test(v))) return "date";
@@ -60,7 +86,7 @@ export function coerceValue(value: unknown, type: InferredType): unknown {
     case "bigint":
       return Number.parseInt(s, 10);
     case "double precision":
-      return Number.parseFloat(s.replace(",", "."));
+      return Number.parseFloat(normalizeNumericString(s) ?? s.replace(",", "."));
     case "boolean":
       return ["true", "yes", "1", "sim"].includes(s.toLowerCase());
     case "date":
@@ -71,17 +97,22 @@ export function coerceValue(value: unknown, type: InferredType): unknown {
   }
 }
 
-export function parseCsv(content: string): ParsedFile {
+export interface ParsedMatrix {
+  matrix: unknown[][];
+  warnings: string[];
+}
+
+export function parseCsvMatrix(content: string): ParsedMatrix {
   const result = Papa.parse<string[]>(content, {
     header: false,
     skipEmptyLines: false,
     dynamicTyping: false,
   });
   const warnings = result.errors.slice(0, 5).map((e) => `Row ${e.row}: ${e.message}`);
-  return buildParsedFromMatrix(result.data as unknown[][], warnings);
+  return { matrix: result.data as unknown[][], warnings };
 }
 
-export function parseXlsx(buffer: ArrayBuffer): ParsedFile {
+export function parseXlsxMatrix(buffer: ArrayBuffer): ParsedMatrix {
   const workbook = XLSX.read(buffer, { type: "array" });
   const sheetName = workbook.SheetNames[0];
   if (!sheetName) throw new Error("Workbook has no sheets");
@@ -90,6 +121,16 @@ export function parseXlsx(buffer: ArrayBuffer): ParsedFile {
   const warnings = workbook.SheetNames.length > 1
     ? [`Workbook has ${workbook.SheetNames.length} sheets; only "${sheetName}" was imported.`]
     : [];
+  return { matrix, warnings };
+}
+
+export function parseCsv(content: string): ParsedFile {
+  const { matrix, warnings } = parseCsvMatrix(content);
+  return buildParsedFromMatrix(matrix, warnings);
+}
+
+export function parseXlsx(buffer: ArrayBuffer): ParsedFile {
+  const { matrix, warnings } = parseXlsxMatrix(buffer);
   return buildParsedFromMatrix(matrix, warnings);
 }
 
@@ -127,7 +168,7 @@ export function detectHeaderRow(matrix: unknown[][]): number {
   return best;
 }
 
-function buildParsedFromMatrix(matrix: unknown[][], warnings: string[]): ParsedFile {
+export function buildParsedFromMatrix(matrix: unknown[][], warnings: string[]): ParsedFile {
   const meaningful = matrix.filter((r) => (r ?? []).some((v) => v != null && String(v).trim() !== ""));
   if (meaningful.length === 0) throw new Error("File has no data rows");
 
@@ -170,7 +211,7 @@ function buildParsedFromMatrix(matrix: unknown[][], warnings: string[]): ParsedF
   );
 }
 
-function buildParsed(
+export function buildParsed(
   headers: string[],
   data: Record<string, unknown>[],
   warnings: string[],
