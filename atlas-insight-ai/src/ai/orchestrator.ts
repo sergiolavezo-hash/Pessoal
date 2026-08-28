@@ -504,7 +504,13 @@ Regras:
         }
       }
 
-      return { value: this.finalizeSpec(spec, rowCounts), inputTokens, outputTokens, model: response.model };
+      return {
+        value: this.finalizeSpec(spec, rowCounts),
+        inputTokens,
+        outputTokens,
+        model: response.model,
+        provider: response.provider,
+      };
     });
   }
 
