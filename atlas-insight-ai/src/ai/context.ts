@@ -19,6 +19,10 @@ export interface ProfiledColumn {
   type: string;
   /** MEASURE / DIMENSION / DATE / IDENTIFIER / FOREIGN_KEY / BOOLEAN. */
   role: string | null;
+  /** Nome de negócio dado pelo usuário; o físico continua em `name`. */
+  displayName: string | null;
+  /** O que a coluna significa, nas palavras de quem conhece o negócio. */
+  description: string | null;
   distinctCount: number | null;
   nullPercentage: number | null;
   min: string | number | null;
@@ -108,10 +112,17 @@ function toProfiledColumn(row: {
   };
   // classification é jsonb: {"classification": "MEASURE", "confidence": 0.97}
   const classification = (row.classification ?? {}) as { classification?: string };
+  // A correção do usuário vence o palpite do perfilador. Ela mora em colunas
+  // próprias justamente para não ser apagada no próximo reperfilamento.
+  const override = (row as { role_override?: string | null }).role_override ?? null;
+  const displayName = (row as { display_name?: string | null }).display_name ?? null;
+  const description = (row as { description?: string | null }).description ?? null;
   return {
     name: row.name,
     type: row.data_type,
-    role: classification.classification ?? null,
+    role: override ?? classification.classification ?? null,
+    displayName,
+    description,
     distinctCount: profile.unique_count ?? null,
     nullPercentage: profile.null_percentage ?? null,
     min: profile.min ?? null,
@@ -181,16 +192,18 @@ export async function buildWorkspaceContext(
         name: string;
         row_count?: number | null;
         context?: string | null;
+        display_name?: string | null;
+        description?: string | null;
       };
       let tables: TableRow[] = [];
       const withContext = await ctx.supabase
         .from("catalog_tables")
-        .select("id, dataset_id, name, row_count, context")
+        .select("id, dataset_id, name, row_count, context, display_name, description")
         .in("dataset_id", datasetIds);
       if (withContext.error) {
         const plain = await ctx.supabase
           .from("catalog_tables")
-          .select("id, dataset_id, name, row_count")
+          .select("id, dataset_id, name, row_count, display_name, description")
           .in("dataset_id", datasetIds);
         tables = (plain.data ?? []) as TableRow[];
       } else {
@@ -207,7 +220,7 @@ export async function buildWorkspaceContext(
         // entendimento real dos dados; sem eles, só nome e tipo.
         const { data: columns } = await ctx.supabase
           .from("catalog_columns")
-          .select("table_id, name, data_type, ordinal, excluded, profile, classification")
+          .select("table_id, name, data_type, ordinal, excluded, profile, classification, display_name, description, role_override")
           .in("table_id", tableIds)
           .order("ordinal");
         for (const t of tables) {
@@ -226,7 +239,7 @@ export async function buildWorkspaceContext(
               : [...usable].sort(byAnalyticalValue).slice(0, MAX_COLUMNS_PER_TABLE);
           rawSchema.push({
             table: physical,
-            label: t.name,
+            label: t.display_name || t.name,
             context: t.context ?? null,
             rowCount: t.row_count ?? null,
             columns: kept,
@@ -304,6 +317,10 @@ function renderTableUnderstanding(t: RawSchemaTable): string {
 
   const columns = t.columns.map((c) => {
     const facts: string[] = [];
+    // O nome de negócio vem primeiro: é o vocabulário em que o usuário
+    // pergunta. O físico fica junto porque é o que o SQL precisa citar.
+    if (c.displayName && c.displayName !== c.name) facts.push(`chamada de "${c.displayName}"`);
+    if (c.description) facts.push(`significa: ${c.description}`);
     if (c.role) facts.push(`role: ${c.role}`);
     if (c.distinctCount != null) facts.push(`${c.distinctCount} distinct`);
     if (c.min != null || c.max != null) facts.push(`range: ${c.min ?? "?"} … ${c.max ?? "?"}`);
