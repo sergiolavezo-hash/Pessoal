@@ -6,6 +6,9 @@ import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/layout/page-header";
 import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/ui/empty-state";
+import { EditModelDialog } from "@/features/models/edit-model-dialog";
+import { listSelectableTables } from "@/services/analysis-models";
+import { requireWorkspace } from "@/services/api-context";
 
 export const metadata = { title: "Modelo" };
 
@@ -69,6 +72,13 @@ export default async function ModeloDetailPage({ params }: { params: Promise<{ i
     .filter((t): t is NonNullable<typeof t> => t != null)
     .sort((a, b) => a.name.localeCompare(b.name));
 
+  const canEdit = ctx.role !== "VIEWER";
+  // Todas as tabelas do workspace, para o diálogo de edição poder oferecer
+  // as que ainda não estão no modelo.
+  const allTables = canEdit
+    ? await listSelectableTables(await requireWorkspace(ctx.workspace.id))
+    : [];
+
   // Origens distintas das tabelas escolhidas, só para dar contexto na tela.
   const sources = [
     ...new Map(
@@ -85,12 +95,24 @@ export default async function ModeloDetailPage({ params }: { params: Promise<{ i
         title={model.name as string}
         description={(model.description as string | null) ?? "As tabelas deste modelo e o que o Atlas entendeu de cada uma."}
         actions={
-          <Link
-            href={`/dashboards?model=${id}`}
-            className="text-sm text-primary hover:underline"
-          >
-            Criar painel →
-          </Link>
+          <div className="flex items-center gap-2">
+            {canEdit && (
+              <EditModelDialog
+                modelId={id}
+                workspaceId={ctx.workspace.id}
+                currentName={model.name as string}
+                currentDescription={(model.description as string | null) ?? null}
+                currentTableIds={tableList.map((t) => t.id)}
+                tables={allTables}
+              />
+            )}
+            <Link
+              href={`/dashboards?model=${id}`}
+              className="text-sm text-primary hover:underline"
+            >
+              Criar painel →
+            </Link>
+          </div>
         }
       />
 
