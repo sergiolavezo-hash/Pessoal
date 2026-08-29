@@ -7,7 +7,9 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { NewModelDialog, type SelectableDataset } from "@/features/models/new-model-dialog";
+import { NewModelDialog } from "@/features/models/new-model-dialog";
+import { listSelectableTables } from "@/services/analysis-models";
+import { requireWorkspace } from "@/services/api-context";
 
 export const metadata = { title: "Modelos" };
 
@@ -16,7 +18,7 @@ interface ModelRow {
   name: string;
   description: string | null;
   updated_at: string;
-  analysis_model_datasets: Array<{ model_id: string }> | null;
+  analysis_model_tables: Array<{ model_id: string }> | null;
 }
 
 /**
@@ -39,26 +41,16 @@ export default async function ModelosPage({
   const [modelsResult, sourcesResult] = await Promise.all([
     supabase
       .from("analysis_models")
-      .select("id, name, description, updated_at, analysis_model_datasets(model_id)")
+      .select("id, name, description, updated_at, analysis_model_tables(model_id)")
       .eq("workspace_id", ctx.workspace.id)
       .eq("status", "ACTIVE")
       .order("updated_at", { ascending: false }),
-    supabase
-      .from("data_sources")
-      .select("id, name, quality_score, row_count")
-      .eq("workspace_id", ctx.workspace.id)
-      .is("deleted_at", null)
-      .order("name"),
+    listSelectableTables(await requireWorkspace(ctx.workspace.id)),
   ]);
 
   // Migração 0018 pendente: a tela existe e explica, em vez de estourar.
   const models = (modelsResult.data ?? []) as unknown as ModelRow[];
-  const datasets: SelectableDataset[] = (sourcesResult.data ?? []).map((row) => ({
-    id: row.id as string,
-    name: row.name as string,
-    qualityScore: (row.quality_score as number | null) ?? null,
-    rowCount: (row.row_count as number | null) ?? null,
-  }));
+  const tables = sourcesResult;
 
   const canEdit = ctx.role !== "VIEWER";
 
@@ -71,7 +63,7 @@ export default async function ModelosPage({
           canEdit ? (
             <NewModelDialog
               workspaceId={ctx.workspace.id}
-              datasets={datasets}
+              tables={tables}
               autoOpen={Boolean(novo)}
               preselected={novo ? [novo] : []}
             />
@@ -84,15 +76,15 @@ export default async function ModelosPage({
           icon={Boxes}
           title="Nenhum modelo ainda"
           description={
-            datasets.length === 0
-              ? "Envie seus dados primeiro. Depois você reúne os conjuntos num modelo e faz perguntas sobre eles."
-              : 'Crie seu primeiro modelo — por exemplo "Modelo Comercial", reunindo Vendas, Clientes e Produtos.'
+            tables.length === 0
+              ? "Envie seus dados primeiro. Depois você escolhe quais tabelas entram em cada modelo."
+              : 'Crie seu primeiro modelo — por exemplo "Modelo Comercial", escolhendo as tabelas de Vendas, Clientes e Produtos.'
           }
         />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {models.map((model) => {
-            const count = model.analysis_model_datasets?.length ?? 0;
+            const count = model.analysis_model_tables?.length ?? 0;
             return (
               <Card key={model.id}>
                 <CardContent className="p-4">
@@ -109,7 +101,7 @@ export default async function ModelosPage({
 
                   <p className="mt-3 flex items-center gap-1.5 text-sm text-muted-foreground">
                     <Database className="h-3.5 w-3.5" />
-                    {count} {count === 1 ? "conjunto de dados" : "conjuntos de dados"}
+                    {count} {count === 1 ? "tabela" : "tabelas"}
                   </p>
 
                   <p className="mt-1 text-xs text-muted-foreground">

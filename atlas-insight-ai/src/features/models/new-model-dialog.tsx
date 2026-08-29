@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Plus } from "lucide-react";
@@ -18,32 +18,28 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { readJson } from "@/lib/api-client";
-
-export interface SelectableDataset {
-  id: string;
-  name: string;
-  qualityScore: number | null;
-  rowCount: number | null;
-}
+import type { SelectableTable } from "@/services/analysis-models";
 
 /**
- * O usuário dá o nome e escolhe quais conjuntos de dados entram no modelo.
+ * O usuário nomeia o modelo e escolhe TABELA A TABELA o que entra nele.
  *
- * O nome é dele e não carrega versão: quem cria "Modelo Comercial" espera
- * encontrar "Modelo Comercial" depois, não "Modelo Comercial V3". A revisão
- * interna sobe a cada alteração, mas fica no banco.
+ * Antes a escolha era por fonte de dados, e isso quebrava o caso mais comum:
+ * todo arquivo enviado cai na mesma fonte ("Arquivos enviados"), então um
+ * clique arrastava todas as planilhas já subidas. Aqui cada tabela tem sua
+ * própria marcação, agrupada pela origem — dá para juntar duas tabelas de um
+ * banco com um arquivo, ou levar uma tabela sozinha para um painel só dela.
  */
 export function NewModelDialog({
   workspaceId,
-  datasets,
+  tables,
   autoOpen = false,
   preselected = [],
 }: {
   workspaceId: string;
-  datasets: SelectableDataset[];
+  tables: SelectableTable[];
   /** Abre já aberto quando o usuário chega do envio de um arquivo. */
   autoOpen?: boolean;
-  /** Conjuntos já marcados — normalmente o que acabou de ser importado. */
+  /** Tabelas já marcadas — normalmente a que acabou de ser importada. */
   preselected?: string[];
 }) {
   const router = useRouter();
@@ -53,9 +49,31 @@ export function NewModelDialog({
   const [selected, setSelected] = useState<string[]>(preselected);
   const [submitting, setSubmitting] = useState(false);
 
+  // Agrupar por origem devolve a noção de "este arquivo" e "aquele banco"
+  // sem obrigar o usuário a levar a origem inteira.
+  const groups = useMemo(() => {
+    const bySource = new Map<string, { name: string; tables: SelectableTable[] }>();
+    for (const table of tables) {
+      const group = bySource.get(table.sourceId) ?? { name: table.sourceName, tables: [] };
+      group.tables.push(table);
+      bySource.set(table.sourceId, group);
+    }
+    return [...bySource.entries()].map(([id, group]) => ({ id, ...group }));
+  }, [tables]);
+
   function toggle(id: string) {
     setSelected((current) =>
       current.includes(id) ? current.filter((x) => x !== id) : [...current, id]
+    );
+  }
+
+  function toggleGroup(groupTables: SelectableTable[]) {
+    const ids = groupTables.map((t) => t.id);
+    const allSelected = ids.every((id) => selected.includes(id));
+    setSelected((current) =>
+      allSelected
+        ? current.filter((id) => !ids.includes(id))
+        : [...new Set([...current, ...ids])]
     );
   }
 
@@ -69,10 +87,10 @@ export function NewModelDialog({
           workspaceId,
           name,
           description: description || undefined,
-          dataSourceIds: selected,
+          tableIds: selected,
         }),
       });
-      const json = await readJson(res);
+      const json = (await readJson(res)) as { error?: string };
       if (!res.ok) throw new Error(json.error ?? "Não foi possível criar o modelo");
       toast.success("Modelo criado");
       setOpen(false);
@@ -92,7 +110,7 @@ export function NewModelDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button disabled={datasets.length === 0}>
+        <Button disabled={tables.length === 0}>
           <Plus />
           Novo modelo
         </Button>
@@ -101,8 +119,8 @@ export function NewModelDialog({
         <DialogHeader>
           <DialogTitle>Criar modelo</DialogTitle>
           <DialogDescription>
-            Um modelo reúne os conjuntos de dados que você quer analisar juntos. O mesmo conjunto
-            pode participar de vários modelos.
+            Escolha as tabelas que você quer analisar juntas. Pode ser uma só, para um painel
+            simples, ou várias de origens diferentes.
           </DialogDescription>
         </DialogHeader>
 
@@ -131,32 +149,55 @@ export function NewModelDialog({
           </div>
 
           <div className="space-y-2">
-            <Label>Conjuntos de dados</Label>
-            <div className="max-h-56 space-y-1 overflow-y-auto rounded-md border p-2">
-              {datasets.map((dataset) => (
-                <label
-                  key={dataset.id}
-                  className="flex cursor-pointer items-center gap-3 rounded px-2 py-1.5 text-sm hover:bg-muted"
-                >
-                  <input
-                    type="checkbox"
-                    className="h-4 w-4 accent-primary"
-                    checked={selected.includes(dataset.id)}
-                    onChange={() => toggle(dataset.id)}
-                  />
-                  <span className="flex-1 truncate">{dataset.name}</span>
-                  {dataset.rowCount != null && (
-                    <span className="text-xs text-muted-foreground">
-                      {dataset.rowCount.toLocaleString("pt-BR")} linhas
-                    </span>
-                  )}
-                </label>
-              ))}
+            <Label>Tabelas e arquivos</Label>
+            <div className="max-h-64 space-y-3 overflow-y-auto rounded-md border p-2">
+              {groups.map((group) => {
+                const ids = group.tables.map((t) => t.id);
+                const allSelected = ids.every((id) => selected.includes(id));
+                return (
+                  <div key={group.id}>
+                    <div className="flex items-center justify-between px-2 pb-1">
+                      <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                        {group.name}
+                      </span>
+                      {group.tables.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => toggleGroup(group.tables)}
+                          className="text-xs text-primary hover:underline"
+                        >
+                          {allSelected ? "Limpar" : "Selecionar todas"}
+                        </button>
+                      )}
+                    </div>
+                    {group.tables.map((table) => (
+                      <label
+                        key={table.id}
+                        className="flex cursor-pointer items-center gap-3 rounded px-2 py-1.5 text-sm hover:bg-muted"
+                      >
+                        <input
+                          type="checkbox"
+                          className="h-4 w-4 accent-primary"
+                          checked={selected.includes(table.id)}
+                          onChange={() => toggle(table.id)}
+                        />
+                        <span className="flex-1 truncate">{table.name}</span>
+                        <span className="shrink-0 text-xs text-muted-foreground">
+                          {table.rowCount != null
+                            ? `${table.rowCount.toLocaleString("pt-BR")} linhas · `
+                            : ""}
+                          {table.columnCount} campos
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                );
+              })}
             </div>
             <p className="text-xs text-muted-foreground">
               {selected.length === 0
-                ? "Escolha ao menos um conjunto."
-                : `${selected.length} selecionado(s).`}
+                ? "Escolha ao menos uma tabela."
+                : `${selected.length} tabela(s) selecionada(s).`}
             </p>
           </div>
         </div>

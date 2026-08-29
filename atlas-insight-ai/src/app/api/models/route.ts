@@ -7,7 +7,7 @@ const createSchema = z.object({
   workspaceId: z.string().uuid(),
   name: z.string().min(2).max(80),
   description: z.string().max(500).optional(),
-  dataSourceIds: z.array(z.string().uuid()).min(1, "Escolha ao menos um conjunto de dados"),
+  tableIds: z.array(z.string().uuid()).min(1, "Escolha ao menos uma tabela"),
 });
 
 export async function GET(request: NextRequest) {
@@ -27,11 +27,11 @@ export async function POST(request: NextRequest) {
     const model = await createModel(ctx, {
       name: body.name,
       description: body.description,
-      dataSourceIds: body.dataSourceIds,
+      tableIds: body.tableIds,
     });
 
     await auditLog(ctx, "created_model", "model", model.id, {
-      datasets: body.dataSourceIds.length,
+      tables: body.tableIds.length,
     });
 
     return NextResponse.json({ model }, { status: 201 });

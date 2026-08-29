@@ -94,9 +94,11 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
       // O arquivo sozinho não analisa nada: ele precisa entrar num modelo.
       // Levar o usuário para lá com a fonte já selecionada evita o passo em
       // que ele volta ao menu e tenta adivinhar qual tela abrir.
-      const dataSourceId = (json.table as { dataSourceId?: string } | undefined)?.dataSourceId;
-      if (dataSourceId) {
-        router.push(`/modelos?novo=${encodeURIComponent(dataSourceId)}`);
+      // A TABELA recém-criada, não a fonte: todos os arquivos compartilham a
+      // mesma fonte, então marcar a fonte traria todas as planilhas juntas.
+      const tableId = (json.table as { tableId?: string } | undefined)?.tableId;
+      if (tableId) {
+        router.push(`/modelos?novo=${encodeURIComponent(tableId)}`);
         return;
       }
       router.refresh();

@@ -3,14 +3,19 @@ import type { ApiContext } from "@/services/api-context";
 import { ApiError } from "@/services/api-context";
 
 /**
- * Modelos de análise: conjuntos de datasets nomeados pelo usuário.
+ * Modelos de análise: conjuntos de TABELAS nomeados pelo usuário.
  *
- * "Modelo Comercial", "Modelo Financeiro" — o nome é dele, e não carrega
+ * O grão é a tabela, não a fonte. Todo arquivo enviado cai na mesma fonte
+ * ("Arquivos enviados"), então escolher por fonte arrastava todas as
+ * planilhas do cliente de uma vez. Ele precisa poder montar um modelo com
+ * duas tabelas de um banco mais um arquivo, ou olhar uma tabela sozinha para
+ * fazer um painel só dela.
+ *
+ * "Modelo Comercial", "Modelo Financeiro" — o nome é dele e não carrega
  * número de versão. A revisão interna existe para auditoria e fica fora da
- * tela, porque um nome que muda sozinho ("Modelo Comercial V3") faz o usuário
- * procurar o que ele mesmo criou.
+ * tela: um nome que muda sozinho faz a pessoa procurar o que ela criou.
  *
- * O modelo REFERENCIA datasets; nunca copia. O mesmo dataset participa de
+ * O modelo REFERENCIA tabelas; nunca copia. A mesma tabela participa de
  * vários modelos e o dado continua existindo uma única vez.
  */
 
@@ -19,23 +24,22 @@ export interface AnalysisModel {
   name: string;
   description: string | null;
   status: "ACTIVE" | "ARCHIVED";
-  datasetCount: number;
+  tableCount: number;
   updatedAt: string;
 }
 
-export interface AnalysisModelDetail extends AnalysisModel {
-  datasets: Array<{
-    id: string;
-    name: string;
-    datasetStatus: string | null;
-    qualityScore: number | null;
-    rowCount: number | null;
-  }>;
+/** Uma tabela que pode entrar num modelo, com a origem para agrupar na tela. */
+export interface SelectableTable {
+  id: string;
+  name: string;
+  rowCount: number | null;
+  columnCount: number;
+  sourceId: string;
+  sourceName: string;
 }
 
 const NAME_MAX = 80;
 
-/** Nomes que só diferem em espaço ou caixa são o mesmo nome para quem lê. */
 function normalizeName(name: string): string {
   return name.trim().replace(/\s+/g, " ");
 }
@@ -46,20 +50,59 @@ export function assertValidName(name: string): string {
   if (clean.length > NAME_MAX) {
     throw new ApiError(400, `O nome do modelo deve ter até ${NAME_MAX} caracteres.`);
   }
-  // Números de versão no nome são o problema que a revisão interna resolve.
   return clean;
+}
+
+/**
+ * Todas as tabelas do workspace, com a fonte a que pertencem.
+ *
+ * Agrupar por fonte na tela é o que devolve ao usuário a noção de "este
+ * arquivo" e "aquele banco" sem obrigá-lo a levar a fonte inteira.
+ */
+export async function listSelectableTables(ctx: ApiContext): Promise<SelectableTable[]> {
+  const { data, error } = await ctx.supabase
+    .from("catalog_tables")
+    .select(
+      "id, name, row_count, catalog_columns(id), datasets!inner(data_source_id, data_sources!inner(id, name, deleted_at))"
+    )
+    .eq("workspace_id", ctx.workspaceId)
+    .order("name");
+
+  if (error) {
+    if (error.code === "42P01") return [];
+    throw new ApiError(500, error.message);
+  }
+
+  return (data ?? [])
+    .map((row) => {
+      const dataset = row.datasets as unknown as {
+        data_sources: { id: string; name: string; deleted_at: string | null } | null;
+      } | null;
+      const source = dataset?.data_sources;
+      if (!source || source.deleted_at) return null;
+
+      return {
+        id: row.id as string,
+        name: row.name as string,
+        rowCount: (row.row_count as number | null) ?? null,
+        columnCount: Array.isArray(row.catalog_columns) ? row.catalog_columns.length : 0,
+        sourceId: source.id,
+        sourceName: source.name,
+      };
+    })
+    .filter((t): t is SelectableTable => t != null);
 }
 
 export async function listModels(ctx: ApiContext): Promise<AnalysisModel[]> {
   const { data, error } = await ctx.supabase
     .from("analysis_models")
-    .select("id, name, description, status, updated_at, analysis_model_datasets(model_id)")
+    .select("id, name, description, status, updated_at, analysis_model_tables(model_id)")
     .eq("workspace_id", ctx.workspaceId)
     .eq("status", "ACTIVE")
     .order("updated_at", { ascending: false });
 
   if (error) {
-    if (error.code === "42P01") return []; // migração 0018 pendente
+    if (error.code === "42P01") return []; // migração pendente
     throw new ApiError(500, error.message);
   }
 
@@ -68,21 +111,19 @@ export async function listModels(ctx: ApiContext): Promise<AnalysisModel[]> {
     name: row.name as string,
     description: (row.description as string | null) ?? null,
     status: row.status as "ACTIVE" | "ARCHIVED",
-    datasetCount: Array.isArray(row.analysis_model_datasets)
-      ? row.analysis_model_datasets.length
-      : 0,
+    tableCount: Array.isArray(row.analysis_model_tables) ? row.analysis_model_tables.length : 0,
     updatedAt: row.updated_at as string,
   }));
 }
 
 export async function createModel(
   ctx: ApiContext,
-  input: { name: string; description?: string; dataSourceIds: string[] }
+  input: { name: string; description?: string; tableIds: string[] }
 ): Promise<{ id: string }> {
   const name = assertValidName(input.name);
 
-  if (input.dataSourceIds.length === 0) {
-    throw new ApiError(400, "Escolha ao menos um conjunto de dados para o modelo.");
+  if (input.tableIds.length === 0) {
+    throw new ApiError(400, "Escolha ao menos uma tabela para o modelo.");
   }
 
   const { data: model, error } = await ctx.supabase
@@ -103,47 +144,48 @@ export async function createModel(
     throw new ApiError(500, error?.message ?? "Falha ao criar o modelo.");
   }
 
-  await setModelDatasets(ctx, model.id as string, input.dataSourceIds);
+  await setModelTables(ctx, model.id as string, input.tableIds);
   return { id: model.id as string };
 }
 
 /**
- * Substitui a lista de datasets do modelo. Escrever a lista inteira, em vez
- * de diferenças, evita que uma falha no meio deixe o modelo com metade dos
- * datasets antigos e metade dos novos.
+ * Substitui a lista de tabelas do modelo.
+ *
+ * Escrever a lista inteira, em vez de diferenças, evita que uma falha no meio
+ * deixe o modelo com metade das tabelas antigas e metade das novas.
  */
-export async function setModelDatasets(
+export async function setModelTables(
   ctx: ApiContext,
   modelId: string,
-  dataSourceIds: string[]
+  tableIds: string[]
 ): Promise<void> {
-  const unique = [...new Set(dataSourceIds)];
+  const unique = [...new Set(tableIds)];
 
-  // As fontes precisam ser deste workspace — o id vem do cliente.
+  // Os ids vêm do cliente: confirmar que são deste workspace antes de gravar.
   const { data: owned, error: ownedError } = await ctx.supabase
-    .from("data_sources")
+    .from("catalog_tables")
     .select("id")
     .eq("workspace_id", ctx.workspaceId)
     .in("id", unique);
   if (ownedError) throw new ApiError(500, ownedError.message);
 
   const allowed = new Set((owned ?? []).map((r) => r.id as string));
-  const rejected = unique.filter((id) => !allowed.has(id));
-  if (rejected.length > 0) {
-    throw new ApiError(400, "Um dos conjuntos de dados escolhidos não pertence a este workspace.");
+  if (unique.some((id) => !allowed.has(id))) {
+    throw new ApiError(400, "Uma das tabelas escolhidas não pertence a este workspace.");
   }
 
-  await ctx.supabase.from("analysis_model_datasets").delete().eq("model_id", modelId);
+  await ctx.supabase.from("analysis_model_tables").delete().eq("model_id", modelId);
 
-  if (allowed.size === 0) return;
-  const { error } = await ctx.supabase.from("analysis_model_datasets").insert(
-    [...allowed].map((dataSourceId) => ({
-      model_id: modelId,
-      data_source_id: dataSourceId,
-      workspace_id: ctx.workspaceId,
-    }))
-  );
-  if (error) throw new ApiError(500, error.message);
+  if (allowed.size > 0) {
+    const { error } = await ctx.supabase.from("analysis_model_tables").insert(
+      [...allowed].map((tableId) => ({
+        model_id: modelId,
+        table_id: tableId,
+        workspace_id: ctx.workspaceId,
+      }))
+    );
+    if (error) throw new ApiError(500, error.message);
+  }
 
   // A revisão sobe a cada mudança de composição; o nome permanece o mesmo.
   await bumpRevision(ctx, modelId);

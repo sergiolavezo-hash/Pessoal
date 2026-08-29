@@ -5,9 +5,7 @@ import { getAppContext } from "@/services/context";
 import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/layout/page-header";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { DATASET_STATUS_LABEL, DATASET_STATUS_VARIANT, type DatasetStatus } from "@/services/datasets";
 
 export const metadata = { title: "Modelo" };
 
@@ -48,49 +46,44 @@ export default async function ModeloDetailPage({ params }: { params: Promise<{ i
     .maybeSingle();
   if (!model) notFound();
 
+  // As tabelas escolhidas para ESTE modelo — não todas as da fonte.
   const { data: links } = await supabase
-    .from("analysis_model_datasets")
-    .select("data_source_id, data_sources(id, name, dataset_status, quality_score, row_count)")
+    .from("analysis_model_tables")
+    .select(
+      "table_id, catalog_tables(id, name, row_count, catalog_columns(name, data_type, classification), datasets(data_sources(id, name)))"
+    )
     .eq("model_id", id);
 
-  const sources = (links ?? [])
-    .map((row) => row.data_sources as unknown as {
+  const tableList = (links ?? [])
+    .map((row) => row.catalog_tables as unknown as {
       id: string;
       name: string;
-      dataset_status: string | null;
-      quality_score: number | null;
       row_count: number | null;
+      catalog_columns: Array<{
+        name: string;
+        data_type: string;
+        classification: { classification?: string } | null;
+      }> | null;
+      datasets: { data_sources: { id: string; name: string } | null } | null;
     } | null)
-    .filter((s): s is NonNullable<typeof s> => s != null);
+    .filter((t): t is NonNullable<typeof t> => t != null)
+    .sort((a, b) => a.name.localeCompare(b.name));
 
-  const sourceIds = sources.map((s) => s.id);
-
-  const { data: tables } = sourceIds.length
-    ? await supabase
-        .from("catalog_tables")
-        .select(
-          "id, name, row_count, datasets!inner(data_source_id), catalog_columns(name, data_type, classification)"
-        )
-        .in("datasets.data_source_id", sourceIds)
-        .order("name")
-    : { data: [] };
-
-  const tableList = (tables ?? []) as unknown as Array<{
-    id: string;
-    name: string;
-    row_count: number | null;
-    catalog_columns: Array<{
-      name: string;
-      data_type: string;
-      classification: { classification?: string } | null;
-    }> | null;
-  }>;
+  // Origens distintas das tabelas escolhidas, só para dar contexto na tela.
+  const sources = [
+    ...new Map(
+      tableList
+        .map((t) => t.datasets?.data_sources)
+        .filter((s): s is { id: string; name: string } => s != null)
+        .map((s) => [s.id, s])
+    ).values(),
+  ];
 
   return (
     <div>
       <PageHeader
         title={model.name as string}
-        description={(model.description as string | null) ?? "Os conjuntos de dados deste modelo e o que o Atlas entendeu de cada um."}
+        description={(model.description as string | null) ?? "As tabelas deste modelo e o que o Atlas entendeu de cada uma."}
         actions={
           <Link
             href={`/dashboards?model=${id}`}
@@ -102,50 +95,27 @@ export default async function ModeloDetailPage({ params }: { params: Promise<{ i
       />
 
       <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-        Conjuntos de dados ({sources.length})
+        Origens ({sources.length})
       </h2>
 
       {sources.length === 0 ? (
         <EmptyState
           icon={Database}
-          title="Este modelo ainda não tem dados"
-          description="Edite o modelo e escolha ao menos um conjunto de dados."
+          title="Este modelo ainda não tem tabelas"
+          description="Edite o modelo e escolha ao menos uma tabela."
         />
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {sources.map((source) => {
-            const status = source.dataset_status as DatasetStatus | null;
-            return (
-              <Card key={source.id}>
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between gap-2">
-                    <Link
-                      href={`/data-sources/${source.id}`}
-                      className="truncate font-medium hover:underline"
-                    >
-                      {source.name}
-                    </Link>
-                    {status && status in DATASET_STATUS_LABEL && (
-                      <Badge variant={DATASET_STATUS_VARIANT[status]}>
-                        {DATASET_STATUS_LABEL[status]}
-                      </Badge>
-                    )}
-                  </div>
-                  <p className="mt-2 text-xs text-muted-foreground">
-                    {source.row_count != null
-                      ? `${source.row_count.toLocaleString("pt-BR")} registros`
-                      : "Contagem não disponível"}
-                    {source.quality_score != null && ` · Qualidade ${source.quality_score}/100`}
-                  </p>
-                </CardContent>
-              </Card>
-            );
-          })}
+        <div className="flex flex-wrap gap-2">
+          {sources.map((source) => (
+            <Link key={source.id} href={`/data-sources/${source.id}`}>
+              <Badge variant="secondary">{source.name}</Badge>
+            </Link>
+          ))}
         </div>
       )}
 
       <h2 className="mb-3 mt-8 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-        Tabelas ({tableList.length})
+        Tabelas neste modelo ({tableList.length})
       </h2>
 
       {tableList.length === 0 ? (
