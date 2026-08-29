@@ -55,6 +55,10 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const dataSourceId = spec.dataSourceId;
 
     const widgets = spec.widgets.filter((w) => !body.widgetIds || body.widgetIds.includes(w.id));
+    // Os filtros NÃO entram aqui: eles agem sobre as linhas já carregadas, no
+    // navegador. Como só se filtra por coluna presente no resultado, o efeito
+    // é idêntico ao de um WHERE externo — sem disparar uma rodada de SELECTs
+    // por widget a cada clique num seletor.
     const items = widgets.map((w) => ({
       key: w.id,
       sql: w.query.sql,

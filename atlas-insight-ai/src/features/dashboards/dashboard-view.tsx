@@ -11,6 +11,7 @@ import {
   Expand,
   Download,
   Printer,
+  Filter as FilterIcon,
   MoreHorizontal,
   RefreshCw,
   Sparkles,
@@ -44,6 +45,13 @@ import {
   safeFileName,
   type CsvSection,
 } from "@/dashboards/download";
+import { FilterControls } from "@/features/dashboards/filter-controls";
+import {
+  distinctValues,
+  filterRows,
+  type DashboardFilter,
+  type FilterValue,
+} from "@/dashboards/filters";
 
 interface WidgetData {
   widgetId: string;
@@ -86,6 +94,9 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
   // Tela cheia do PAINEL (o estado `fullscreen` abaixo é de um widget só).
   const shellRef = useRef<HTMLDivElement>(null);
   const [presenting, setPresenting] = useState(false);
+  const [filterValues, setFilterValues] = useState<FilterValue[]>([]);
+  const [widgetFilters, setWidgetFilters] = useState<Record<string, FilterValue[]>>({});
+  const [filtering, setFiltering] = useState<DashboardWidget | null>(null);
   const themeStyle = useMemo(
     () => dashboardThemeStyle(sanitizeTheme(spec.theme)),
     [spec.theme]
@@ -282,8 +293,64 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
     }
   }
 
+  /**
+   * Filtros do painel: os campos que o autor declarou, com as opções lidas
+   * dos dados já carregados. Um campo declarado que nenhum widget devolve
+   * some da barra — filtro que não filtra corrói a confiança na tela.
+   */
+  const globalFilters: DashboardFilter[] = useMemo(() => {
+    const everyColumn = new Set(
+      spec.widgets.flatMap((w) =>
+        [w.xField, ...(w.yFields ?? [])].filter(
+          (c): c is string => typeof c === "string" && c.length > 0
+        )
+      )
+    );
+    const allRows = [...data.values()].flatMap((d) => d.rows);
+    return (spec.filters ?? [])
+      .filter((f) => everyColumn.has(f.field))
+      .map((f) => ({
+        field: f.field,
+        label: f.label,
+        type: f.type,
+        options: f.options?.length ? f.options : distinctValues(allRows, f.field),
+      }));
+  }, [spec.filters, spec.widgets, data]);
+
+  /** Colunas que o widget realmente devolve — o que dá para filtrar. */
+  function outputColumnsOf(widget: DashboardWidget): string[] {
+    return [widget.xField, ...(widget.yFields ?? [])].filter(
+      (c): c is string => typeof c === "string" && c.length > 0
+    );
+  }
+
+  /**
+   * Filtros oferecidos para UM widget: só os campos que ele devolve, com as
+   * opções tiradas dos próprios dados já carregados.
+   */
+  function widgetFilterOptions(widget: DashboardWidget): DashboardFilter[] {
+    const rows = data.get(widget.id)?.rows ?? [];
+    return outputColumnsOf(widget).map((field) => ({
+      field,
+      label: field,
+      type: "multi_select" as const,
+      options: distinctValues(rows, field),
+    }));
+  }
+
   function renderWidget(widget: DashboardWidget, options?: { fullHeight?: boolean }) {
-    const wd = data.get(widget.id);
+    const raw = data.get(widget.id);
+    // Filtra em memória: mesma resposta de um WHERE externo, sem consulta nova.
+    const wd = raw
+      ? {
+          ...raw,
+          rows: filterRows(
+            raw.rows,
+            [...filterValues, ...(widgetFilters[widget.id] ?? [])],
+            outputColumnsOf(widget)
+          ),
+        }
+      : raw;
     const isKpi = widget.type === "kpi";
     const showingTable = asTable.has(widget.id);
     return (
@@ -323,6 +390,9 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
                   <Table2 /> {showingTable ? "Ver gráfico" : "Ver como tabela"}
                 </DropdownMenuItem>
               )}
+              <DropdownMenuItem onSelect={() => setFiltering(widget)}>
+                <FilterIcon /> Filtrar este widget
+              </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => setFullscreen(widget)}>
                 <Maximize2 /> Tela cheia
               </DropdownMenuItem>
@@ -396,6 +466,16 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
           {presenting ? "Sair da tela cheia" : "Tela cheia"}
         </Button>
       </div>
+
+      {globalFilters.length > 0 && (
+        <div className="print-hide mb-4 rounded-lg border bg-card p-3">
+          <FilterControls
+            filters={globalFilters}
+            values={filterValues}
+            onChange={setFilterValues}
+          />
+        </div>
+      )}
 
       {canEdit && !presenting && (
         <form
@@ -520,6 +600,28 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
                 </p>
               )}
             </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={filtering !== null} onOpenChange={(o) => !o && setFiltering(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Filtrar &ldquo;{filtering?.title}&rdquo;</DialogTitle>
+            <DialogDescription>
+              Vale só para este widget e soma aos filtros do painel. Os valores
+              vêm dos dados já carregados, então a mudança é imediata.
+            </DialogDescription>
+          </DialogHeader>
+          {filtering && (
+            <FilterControls
+              compact
+              filters={widgetFilterOptions(filtering)}
+              values={widgetFilters[filtering.id] ?? []}
+              onChange={(next) =>
+                setWidgetFilters((current) => ({ ...current, [filtering.id]: next }))
+              }
+            />
           )}
         </DialogContent>
       </Dialog>
