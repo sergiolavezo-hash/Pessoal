@@ -191,10 +191,17 @@ export function GenerateDashboardDialog({
     }
   }
 
-  // Ao abrir com uma única opção já selecionada, sugere sem exigir clique.
+  // Ao abrir com uma opção já selecionada, sugere sem exigir clique.
+  //
+  // Precisa olhar a escolha EFETIVA: com um modelo pré-selecionado (vindo de
+  // "Criar painel" dentro dele, ou por ser o único), `choice` está vazio e a
+  // sugestão nunca carregava — o usuário via o campo em branco e o botão
+  // apagado, sem nada para clicar que resolvesse.
   function handleOpenChange(next: boolean) {
     setOpen(next);
-    if (next && choice && !suggestion && !suggesting) void loadSuggestion(choice);
+    if (next && effectiveChoice && !suggestion && !suggesting) {
+      void loadSuggestion(effectiveChoice);
+    }
   }
 
   return (
@@ -353,7 +360,7 @@ export function GenerateDashboardDialog({
                 </div>
               </div>
             )}
-            <Button type="submit" className="w-full" loading={submitting} disabled={!choice}>
+            <Button type="submit" className="w-full" loading={submitting} disabled={!effectiveChoice}>
               {submitting ? "Atlas está desenhando e validando seu painel…" : "Gerar painel"}
             </Button>
           </form>
