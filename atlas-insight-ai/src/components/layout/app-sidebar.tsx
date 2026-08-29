@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   BookText,
   Bot,
+  Boxes,
   Check,
   ChevronsUpDown,
   Compass,
@@ -56,6 +57,7 @@ const NAV_GROUPS: Array<{ label: string | null; items: Array<{ href: string; lab
       { href: "/files", label: "Enviar dados", icon: FileUp },
       { href: "/data-sources", label: "Fontes de dados", icon: Database },
       { href: "/data-model", label: "Modelo de dados", icon: Network },
+      { href: "/modelos", label: "Modelos", icon: Boxes },
     ],
   },
   {

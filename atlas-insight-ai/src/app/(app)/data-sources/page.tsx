@@ -6,6 +6,11 @@ import { relativeTime } from "@/lib/utils";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  DATASET_STATUS_LABEL,
+  DATASET_STATUS_VARIANT,
+  type DatasetStatus,
+} from "@/services/datasets";
 import { EmptyState } from "@/components/ui/empty-state";
 import { NewSourceDialog } from "@/features/data-sources/new-source-dialog";
 import { ObjectMenu } from "@/components/ui/object-menu";
@@ -13,6 +18,24 @@ import { CONNECTOR_CATALOG } from "@/features/data-sources/connector-catalog";
 import type { DataSource } from "@/types";
 
 export const metadata = { title: "Fontes de dados" };
+
+/**
+ * O usuário lê o estado dos DADOS, não o da conexão. Enquanto a migração 0018
+ * não roda, dataset_status não existe e caímos no status técnico de sempre.
+ */
+type SourceRow = { status: string; dataset_status?: string | null };
+
+function datasetLabel(s: SourceRow): string {
+  const status = s.dataset_status as DatasetStatus | null | undefined;
+  if (status && status in DATASET_STATUS_LABEL) return DATASET_STATUS_LABEL[status];
+  return s.status === "CONNECTED" ? "Conectada" : s.status === "ERROR" ? "Erro" : "Pendente";
+}
+
+function datasetVariant(s: SourceRow): "success" | "warning" | "destructive" | "secondary" {
+  const status = s.dataset_status as DatasetStatus | null | undefined;
+  if (status && status in DATASET_STATUS_VARIANT) return DATASET_STATUS_VARIANT[status];
+  return s.status === "CONNECTED" ? "success" : s.status === "ERROR" ? "destructive" : "secondary";
+}
 
 export default async function DataSourcesPage() {
   const ctx = await getAppContext();
@@ -57,13 +80,7 @@ export default async function DataSourcesPage() {
                         <p className="text-xs text-muted-foreground">{def?.name ?? s.type}</p>
                       </div>
                       <div className="flex shrink-0 items-center gap-1">
-                        <Badge
-                          variant={
-                            s.status === "CONNECTED" ? "success" : s.status === "ERROR" ? "destructive" : "secondary"
-                          }
-                        >
-                          {s.status}
-                        </Badge>
+                        <Badge variant={datasetVariant(s)}>{datasetLabel(s)}</Badge>
                         {canEdit && (
                           <ObjectMenu
                             openHref={`/data-sources/${s.id}`}
