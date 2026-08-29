@@ -9,6 +9,8 @@ import {
   Maximize2,
   Minimize2,
   Expand,
+  Download,
+  Printer,
   MoreHorizontal,
   RefreshCw,
   Sparkles,
@@ -36,6 +38,12 @@ import {
 import { readJson } from "@/lib/api-client";
 import { cn } from "@/lib/utils";
 import { dashboardThemeStyle, sanitizeTheme } from "@/dashboards/dashboard-theme";
+import {
+  buildDashboardCsv,
+  downloadCsv,
+  safeFileName,
+  type CsvSection,
+} from "@/dashboards/download";
 
 interface WidgetData {
   widgetId: string;
@@ -101,6 +109,26 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
     document.addEventListener("fullscreenchange", sync);
     return () => document.removeEventListener("fullscreenchange", sync);
   }, []);
+
+  /**
+   * Baixa os NÚMEROS do painel. A impressão leva o desenho; o CSV leva o dado
+   * para quem vai continuar a conta numa planilha.
+   */
+  function downloadData() {
+    const sections: CsvSection[] = spec.widgets.map((w) => {
+      const rows = data.get(w.id)?.rows ?? [];
+      // União das chaves, não as da primeira linha: uma coluna nula no
+      // primeiro registro sumiria do arquivo inteiro.
+      const columns = [...new Set(rows.flatMap((r) => Object.keys(r)))];
+      return { title: w.title, columns, rows };
+    });
+    const csv = buildDashboardCsv(sections);
+    if (!csv) {
+      toast.error("Ainda não há dados carregados para baixar.");
+      return;
+    }
+    downloadCsv(safeFileName(spec.name, "csv"), csv);
+  }
 
   async function togglePresent() {
     try {
@@ -354,7 +382,15 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
       style={themeStyle}
       className={presenting ? "overflow-auto bg-background p-6" : undefined}
     >
-      <div className="mb-3 flex justify-end">
+      <div className="print-hide mb-3 flex flex-wrap justify-end gap-2">
+        <Button variant="outline" size="sm" onClick={downloadData}>
+          <Download />
+          Baixar dados
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => window.print()}>
+          <Printer />
+          Imprimir / PDF
+        </Button>
         <Button variant="outline" size="sm" onClick={togglePresent}>
           {presenting ? <Minimize2 /> : <Expand />}
           {presenting ? "Sair da tela cheia" : "Tela cheia"}
@@ -363,7 +399,7 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
 
       {canEdit && !presenting && (
         <form
-          className="mb-5 flex items-center gap-2"
+          className="print-hide mb-5 flex items-center gap-2"
           onSubmit={(e) => {
             e.preventDefault();
             askAtlas();
@@ -392,7 +428,9 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
             <div
               key={widget.id}
               className={cn(
-                "group overflow-hidden rounded-xl border border-border/70 bg-card shadow-[0_1px_2px_rgba(16,24,40,0.04),0_1px_3px_rgba(16,24,40,0.06)] transition-shadow hover:shadow-[0_2px_4px_rgba(16,24,40,0.06),0_4px_12px_rgba(16,24,40,0.08)]",
+                // print-keep: sem isto o gráfico é cortado na virada de
+                // página e perde o eixo, virando ruído no PDF.
+                "print-keep group overflow-hidden rounded-xl border border-border/70 bg-card shadow-[0_1px_2px_rgba(16,24,40,0.04),0_1px_3px_rgba(16,24,40,0.06)] transition-shadow hover:shadow-[0_2px_4px_rgba(16,24,40,0.06),0_4px_12px_rgba(16,24,40,0.08)]",
                 // Indicadores ocupam meia largura já no celular; gráficos
                 // ficam com a linha inteira, senão nada é legível.
                 isKpi ? "col-span-1" : "col-span-2",

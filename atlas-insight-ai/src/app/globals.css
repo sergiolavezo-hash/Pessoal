@@ -177,3 +177,32 @@ body {
 .viz-tabular {
   font-variant-numeric: tabular-nums;
 }
+
+/*
+ * Impressão / salvar em PDF.
+ *
+ * O navegador já sabe gerar PDF; o que faltava era o painel caber na folha.
+ * Sem isto sai o menu lateral, os botões e um gráfico cortado ao meio na
+ * virada de página — que é pior do que não ter exportação.
+ */
+@media print {
+  .print-hide,
+  aside,
+  nav {
+    display: none !important;
+  }
+
+  /* Widget cortado ao meio entre páginas perde o eixo e vira ruído. */
+  .print-keep {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+}
