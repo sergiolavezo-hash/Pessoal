@@ -110,6 +110,21 @@ export function GenerateDashboardDialog({
   const effectiveChoice = selectedModel ? selectedModel.dataSourceId : choice;
   const selected = choices.find((c) => c.value === effectiveChoice)?.source;
 
+  /**
+   * Por que o botão está desativado — ou null quando dá para gerar.
+   *
+   * Um botão apagado sem explicação é um beco sem saída: o usuário vê o
+   * modelo escolhido, o campo vazio e nada em que clicar. Dizer o que falta
+   * transforma isso numa instrução.
+   */
+  const blockedReason: string | null = !effectiveChoice
+    ? "Selecione um modelo para continuar."
+    : suggesting
+      ? "Aguarde o Atlas ler seus dados…"
+      : prompt.trim().length < 5
+        ? "Descreva o que você quer analisar para gerar o painel."
+        : null;
+
   /** Lê os dados selecionados e pré-carrega um prompt pronto. */
   async function loadSuggestion(nextChoice: string) {
     if (!nextChoice) {
@@ -329,9 +344,11 @@ export function GenerateDashboardDialog({
                 }}
                 rows={6}
                 placeholder={
-                  choice
-                    ? "Descreva o painel que você quer…"
-                    : "Selecione o modelo acima e Atlas escreve a sugestão para você."
+                  suggesting
+                    ? "Atlas está lendo seus dados…"
+                    : effectiveChoice
+                      ? "Descreva o painel que você quer…"
+                      : "Selecione o modelo acima e Atlas escreve a sugestão para você."
                 }
                 required
                 minLength={5}
@@ -360,7 +377,15 @@ export function GenerateDashboardDialog({
                 </div>
               </div>
             )}
-            <Button type="submit" className="w-full" loading={submitting} disabled={!effectiveChoice}>
+            {blockedReason && (
+              <p className="text-center text-xs text-muted-foreground">{blockedReason}</p>
+            )}
+            <Button
+              type="submit"
+              className="w-full"
+              loading={submitting}
+              disabled={blockedReason !== null}
+            >
               {submitting ? "Atlas está desenhando e validando seu painel…" : "Gerar painel"}
             </Button>
           </form>
