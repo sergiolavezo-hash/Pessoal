@@ -4,5 +4,15 @@
       "path": "/api/cron/refresh-datasets",
       "schedule": "0 6 * * *"
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "claude/atlas-insight-ai-saas-7u62zg": false,
+      "gh-pages": false,
+      "claude/clash-royale-deck-prompt-er8tdg": false,
+      "claude/atlas-tec-sales-machine-8st5js": false,
+      "claude/reacher-project-master-ubmnp2": false,
+      "claude/tiktok-shop-sales-strategy-v7tua5": false
+    }
+  }
 }

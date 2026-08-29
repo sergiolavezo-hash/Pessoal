@@ -34,3 +34,39 @@
 - Observability: `ai_runs` (AI latency/tokens/errors), `query_executions`
   (query latency/status), `audit_logs` and `usage_events` are the built-in
   telemetry tables; ship structured logs to your platform's log drain.
+
+## Orçamento de deployments (plano Hobby)
+
+O plano gratuito da Vercel corta em **100 deployments por 24 horas**. Passando
+disso, a Vercel **para de criar deployments** — sem erro de build, sem aviso no
+GitHub. O site simplesmente congela no último que passou, e promover um build
+existente também é recusado:
+
+```
+Resource is limited - try again in 24 hours
+(more than 100, code: "api-deployments-free-per-day")
+```
+
+Isso já aconteceu: sete commits seguidos não geraram deployment nenhum, e a
+produção ficou nove commits atrás enquanto o GitHub mostrava tudo verde. O
+sintoma é idêntico ao de um bug real no produto, então vale saber reconhecê-lo.
+
+O consumo estava em **três deployments por commit**:
+
+| origem | o que era |
+|---|---|
+| push na branch de produção | o deployment que interessa |
+| push na branch de trabalho | Preview que ninguém abre |
+| push do workflow em `gh-pages` | falha em 1s (a branch não tem o app) |
+
+Duas travas cortaram isso para um:
+
+- `vercel.json` → `git.deploymentEnabled` desliga as branches que não são a de
+  produção. **A branch de produção é `claude/atlas-partner-site-upgrade-gqecba`**
+  e ela NÃO aparece nessa lista — se aparecer, a produção para de atualizar.
+  Para desfazer, basta remover a entrada.
+- `.github/workflows/deploy-pages.yml` só roda quando um arquivo do site
+  estático muda, em vez de a cada commit do app.
+
+A terceira trava não é configuração: **agrupar o trabalho**. Um commit por
+ajuste minúsculo, cada um com push, é o que esgota o teto.
