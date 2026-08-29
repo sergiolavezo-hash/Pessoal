@@ -13,7 +13,13 @@ import type { Dashboard } from "@/types";
 
 export const metadata = { title: "Painéis" };
 
-export default async function DashboardsPage() {
+export default async function DashboardsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ model?: string }>;
+}) {
+  // "Criar painel" dentro de um modelo chega com ele já escolhido.
+  const { model: initialModelId } = await searchParams;
   const ctx = await getAppContext();
   const supabase = await createClient();
 
@@ -37,6 +43,46 @@ export default async function DashboardsPage() {
       .eq("status", "ACTIVE")
       .order("version", { ascending: false }),
   ]);
+
+  // Modelos criados pelo usuário, com a fonte das tabelas de cada um. É o que
+  // o seletor de geração passa a oferecer: "Modelo Comercial" diz algo a quem
+  // o montou; "Arquivos enviados model v3" é artefato interno do Atlas.
+  const { data: userModelRows } = await supabase
+    .from("analysis_models")
+    .select(
+      "id, name, analysis_model_tables(table_id, catalog_tables(datasets(data_source_id)))"
+    )
+    .eq("workspace_id", ctx.workspace.id)
+    .eq("status", "ACTIVE")
+    .order("updated_at", { ascending: false });
+
+  // O cliente do Supabase tipa relações aninhadas ora como objeto, ora como
+  // array conforme a cardinalidade que ele infere; normalizar aqui evita
+  // depender de qual das duas formas veio.
+  const first = <T,>(value: T | T[] | null | undefined): T | null =>
+    Array.isArray(value) ? value[0] ?? null : value ?? null;
+
+  const userModels = (userModelRows ?? [])
+    .map((m) => {
+      const links = (m.analysis_model_tables ?? []) as unknown as Array<{
+        catalog_tables:
+          | { datasets: { data_source_id: string } | { data_source_id: string }[] | null }
+          | { datasets: { data_source_id: string } | { data_source_id: string }[] | null }[]
+          | null;
+      }>;
+      const dataSourceId = links
+        .map((l) => first(first(l.catalog_tables)?.datasets)?.data_source_id)
+        .find((id): id is string => Boolean(id));
+      // Modelo sem fonte resolvível não tem como ancorar a geração.
+      if (!dataSourceId) return null;
+      return {
+        id: m.id as string,
+        name: m.name as string,
+        dataSourceId,
+        tableCount: links.length,
+      };
+    })
+    .filter((m): m is NonNullable<typeof m> => m != null);
 
   // Um modelo (o mais recente) por fonte; fontes sem modelo usam o esquema bruto.
   const modelBySource = new Map<string, { name: string; version: number }>();
@@ -88,7 +134,12 @@ export default async function DashboardsPage() {
       <PageHeader
         title="Painéis"
         description="Painéis criados pela IA, sempre apoiados em consultas validadas nos seus dados."
-        actions={canEdit ? <GenerateDashboardDialog workspaceId={ctx.workspace.id} sources={sourceOptions} /> : undefined}
+        actions={canEdit ? <GenerateDashboardDialog
+            workspaceId={ctx.workspace.id}
+            sources={sourceOptions}
+            models={userModels}
+            initialModelId={initialModelId}
+          /> : undefined}
       />
 
       {dashboards.length === 0 ? (
@@ -96,7 +147,12 @@ export default async function DashboardsPage() {
           icon={LayoutDashboard}
           title="Nenhum painel ainda"
           description="Descreva o que você quer analisar e o Atlas monta o painel para você."
-          action={canEdit ? <GenerateDashboardDialog workspaceId={ctx.workspace.id} sources={sourceOptions} /> : undefined}
+          action={canEdit ? <GenerateDashboardDialog
+            workspaceId={ctx.workspace.id}
+            sources={sourceOptions}
+            models={userModels}
+            initialModelId={initialModelId}
+          /> : undefined}
         />
       ) : (
         Object.entries(

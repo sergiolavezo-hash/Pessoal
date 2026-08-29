@@ -137,8 +137,29 @@ function toProfiledColumn(row: {
 export async function buildWorkspaceContext(
   ctx: ApiContext,
   preferredDataSourceId?: string,
-  analysisContext?: string
+  analysisContext?: string,
+  /**
+   * Modelo de análise escolhido pelo usuário. Quando presente, SÓ as tabelas
+   * que ele reúne entram no contexto — é o que faz a escolha do modelo valer
+   * de verdade em vez de ser decorativa.
+   */
+  analysisModelId?: string
 ): Promise<WorkspaceAiContext> {
+  // Tabelas do modelo, quando houver um. Resolvido antes de tudo porque a
+  // fonte pode ser deduzida delas.
+  let modelTableIds: Set<string> | null = null;
+  if (analysisModelId) {
+    const { data: links } = await ctx.supabase
+      .from("analysis_model_tables")
+      .select("table_id")
+      .eq("model_id", analysisModelId)
+      .eq("workspace_id", ctx.workspaceId);
+    const ids = (links ?? []).map((r) => r.table_id as string);
+    // Modelo vazio não deve virar "todas as tabelas": seria o oposto do que
+    // o usuário pediu ao escolhê-lo.
+    if (ids.length > 0) modelTableIds = new Set(ids);
+  }
+
   const [{ data: models }, { data: metrics }, { data: rules }, { data: glossary }] = await Promise.all([
     ctx.supabase
       .from("semantic_models")
@@ -213,6 +234,9 @@ export async function buildWorkspaceContext(
       // desse assunto entram no contexto da IA.
       if (analysisContext) {
         tables = tables.filter((t) => (t.context ?? t.name) === analysisContext);
+      }
+      if (modelTableIds) {
+        tables = tables.filter((t) => modelTableIds.has(t.id));
       }
       const tableIds = tables.map((t) => t.id);
       if (tableIds.length > 0) {

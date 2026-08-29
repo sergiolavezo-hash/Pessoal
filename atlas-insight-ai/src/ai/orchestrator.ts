@@ -445,9 +445,15 @@ ${resultSample}`;
    */
   async suggestDashboardPrompt(
     preferredDataSourceId: string,
-    analysisContext?: string
+    analysisContext?: string,
+    analysisModelId?: string
   ): Promise<DashboardPromptSuggestion> {
-    const context = await buildWorkspaceContext(this.ctx, preferredDataSourceId, analysisContext);
+    const context = await buildWorkspaceContext(
+      this.ctx,
+      preferredDataSourceId,
+      analysisContext,
+      analysisModelId
+    );
     if (!context.semanticModel && context.rawSchema.length === 0) {
       throw new ApiError(422, "This data source has no synced schema yet.");
     }
@@ -537,9 +543,15 @@ Regras:
   async generateDashboard(
     request: string,
     preferredDataSourceId?: string,
-    analysisContext?: string
+    analysisContext?: string,
+    analysisModelId?: string
   ): Promise<DashboardSpec> {
-    const context = await buildWorkspaceContext(this.ctx, preferredDataSourceId, analysisContext);
+    const context = await buildWorkspaceContext(
+      this.ctx,
+      preferredDataSourceId,
+      analysisContext,
+      analysisModelId
+    );
     if (!context.dataSourceId) {
       throw new ApiError(422, "Select a data source to ground the dashboard.");
     }

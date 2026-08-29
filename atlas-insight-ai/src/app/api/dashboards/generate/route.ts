@@ -14,6 +14,8 @@ const bodySchema = z.object({
   dataSourceId: z.string().uuid(),
   // Contexto de análise (assunto, estilo Looker) dentro da fonte; ausente = todos.
   context: z.string().max(80).optional(),
+  // Modelo de análise escolhido: restringe as tabelas que a IA enxerga.
+  modelId: z.string().uuid().optional(),
 });
 
 /** Natural language -> validated DashboardSpecification -> stored dashboard. */
@@ -26,7 +28,12 @@ export async function POST(request: NextRequest) {
     assertAllowed(await canRunDashboard(ctx.supabase, ctx.organizationId));
 
     const orchestrator = new AIOrchestrator(ctx);
-    const spec = await orchestrator.generateDashboard(body.prompt, body.dataSourceId, body.context);
+    const spec = await orchestrator.generateDashboard(
+      body.prompt,
+      body.dataSourceId,
+      body.context,
+      body.modelId
+    );
     const dashboard = await createDashboard(ctx, spec, { generatedByAi: true });
 
     await consumeDashboardRun(ctx.supabase, ctx.workspaceId, dashboard.id);

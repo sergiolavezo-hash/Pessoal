@@ -10,6 +10,7 @@ const bodySchema = z.object({
   dataSourceId: z.string().uuid(),
   /** Contexto de análise (assunto) dentro da fonte; ausente = todos. */
   context: z.string().max(80).optional(),
+  modelId: z.string().uuid().optional(),
 });
 
 /**
@@ -23,7 +24,11 @@ export async function POST(request: NextRequest) {
     const ctx = await requireWorkspace(body.workspaceId, "EDITOR");
 
     const orchestrator = new AIOrchestrator(ctx);
-    const suggestion = await orchestrator.suggestDashboardPrompt(body.dataSourceId, body.context);
+    const suggestion = await orchestrator.suggestDashboardPrompt(
+      body.dataSourceId,
+      body.context,
+      body.modelId
+    );
 
     return NextResponse.json({ suggestion });
   } catch (error) {

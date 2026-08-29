@@ -18,6 +18,22 @@ import {
 } from "@/components/ui/dialog";
 import { readJson } from "@/lib/api-client";
 
+/**
+ * Um modelo criado pelo usuário.
+ *
+ * O seletor listava os modelos SEMÂNTICOS automáticos ("Arquivos enviados
+ * model v3"), que são artefato interno do Atlas e não dizem nada a quem
+ * montou "Modelo Comercial". Agora lista o que o usuário criou, e a escolha
+ * restringe de verdade as tabelas que a IA enxerga.
+ */
+export interface GenerateModelOption {
+  id: string;
+  name: string;
+  /** Fonte das tabelas do modelo; a geração é ancorada nela. */
+  dataSourceId: string;
+  tableCount: number;
+}
+
 export interface GenerateSourceOption {
   id: string;
   name: string;
@@ -64,14 +80,22 @@ function buildChoices(sources: GenerateSourceOption[]): GenerateChoice[] {
 export function GenerateDashboardDialog({
   workspaceId,
   sources,
+  models = [],
+  initialModelId,
 }: {
   workspaceId: string;
   sources: GenerateSourceOption[];
+  models?: GenerateModelOption[];
+  /** Vindo de "Criar painel" dentro de um modelo: já chega escolhido. */
+  initialModelId?: string;
 }) {
   const router = useRouter();
   const choices = buildChoices(sources);
   const [open, setOpen] = useState(false);
   const [prompt, setPrompt] = useState("");
+  const [modelId, setModelId] = useState(
+    initialModelId ?? (models.length === 1 ? models[0].id : "")
+  );
   const [choice, setChoice] = useState(choices.length === 1 ? choices[0].value : "");
   const [submitting, setSubmitting] = useState(false);
   const [suggestion, setSuggestion] = useState<PromptSuggestion | null>(null);
@@ -80,7 +104,11 @@ export function GenerateDashboardDialog({
   // campo; assim que ele edita, paramos de sobrescrever o texto dele.
   const [promptTouched, setPromptTouched] = useState(false);
 
-  const selected = choices.find((c) => c.value === choice)?.source;
+  const selectedModel = models.find((m) => m.id === modelId) ?? null;
+  // Com um modelo escolhido, a fonte vem dele; sem modelos criados, o
+  // seletor antigo por fonte continua servindo de saída.
+  const effectiveChoice = selectedModel ? selectedModel.dataSourceId : choice;
+  const selected = choices.find((c) => c.value === effectiveChoice)?.source;
 
   /** Lê os dados selecionados e pré-carrega um prompt pronto. */
   async function loadSuggestion(nextChoice: string) {
@@ -95,7 +123,12 @@ export function GenerateDashboardDialog({
       const res = await fetch("/api/dashboards/suggest-prompt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ workspaceId, dataSourceId, ...(context ? { context } : {}) }),
+        body: JSON.stringify({
+          workspaceId,
+          dataSourceId,
+          ...(context ? { context } : {}),
+          ...(modelId ? { modelId } : {}),
+        }),
       });
       const json = await readJson<{ suggestion?: PromptSuggestion; dashboard?: { id: string; name: string }; error?: string }>(res);
       if (!res.ok) throw new Error(json.error ?? "Não foi possível ler os dados");
@@ -116,18 +149,30 @@ export function GenerateDashboardDialog({
     void loadSuggestion(next);
   }
 
+  function selectModel(next: string) {
+    setModelId(next);
+    const model = models.find((m) => m.id === next);
+    if (model) void loadSuggestion(model.dataSourceId);
+  }
+
   async function submit() {
-    if (!choice) {
+    if (!effectiveChoice) {
       toast.error("Selecione o modelo que dará base ao painel.");
       return;
     }
     setSubmitting(true);
     try {
-      const [dataSourceId, context] = choice.split("::");
+      const [dataSourceId, context] = effectiveChoice.split("::");
       const res = await fetch("/api/dashboards/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ workspaceId, prompt, dataSourceId, ...(context ? { context } : {}) }),
+        body: JSON.stringify({
+          workspaceId,
+          prompt,
+          dataSourceId,
+          ...(context ? { context } : {}),
+          ...(modelId ? { modelId } : {}),
+        }),
       });
       const json = await readJson<{ suggestion?: PromptSuggestion; dashboard?: { id: string; name: string }; error?: string }>(res);
       if (!res.ok) throw new Error(json.error ?? "Falha ao gerar o painel");
@@ -185,26 +230,59 @@ export function GenerateDashboardDialog({
             }}
           >
             <div className="space-y-1.5">
-              <Label htmlFor="gen-source">Modelo semântico</Label>
-              <select
-                id="gen-source"
-                required
-                value={choice}
-                onChange={(e) => selectChoice(e.target.value)}
-                className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                <option value="" disabled>
-                  Selecione o modelo semântico que dá base a este painel…
-                </option>
-                {choices.map((c) => (
-                  <option key={c.value} value={c.value}>
-                    {c.label}
-                  </option>
-                ))}
-              </select>
-              {selected && !selected.hasModel && (
+              <Label htmlFor="gen-model">Modelo</Label>
+              {models.length > 0 ? (
+                <>
+                  <select
+                    id="gen-model"
+                    required
+                    value={modelId}
+                    onChange={(e) => selectModel(e.target.value)}
+                    className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    <option value="" disabled>
+                      Selecione o modelo que dá base a este painel…
+                    </option>
+                    {models.map((m) => (
+                      <option key={m.id} value={m.id}>
+                        {m.name} · {m.tableCount}{" "}
+                        {m.tableCount === 1 ? "tabela" : "tabelas"}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-xs text-muted-foreground">
+                    O painel usará somente as tabelas deste modelo.
+                  </p>
+                </>
+              ) : (
+                // Sem modelos criados o produto não deve travar: cair para as
+                // fontes evita a tela sem saída de quem acabou de subir dados.
+                <>
+                  <select
+                    id="gen-model"
+                    required
+                    value={choice}
+                    onChange={(e) => selectChoice(e.target.value)}
+                    className="flex h-9 w-full rounded-md border border-input bg-card px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    <option value="" disabled>
+                      Selecione a fonte que dá base a este painel…
+                    </option>
+                    {choices.map((c) => (
+                      <option key={c.value} value={c.value}>
+                        {c.label}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-xs text-muted-foreground">
+                    Você ainda não criou nenhum modelo. Crie um em Modelos para escolher
+                    exatamente quais tabelas entram no painel.
+                  </p>
+                </>
+              )}
+              {selected && !selected.hasModel && models.length === 0 && (
                 <p className="text-xs text-muted-foreground">
-                  Ainda sem modelo semântico — Atlas usará o esquema sincronizado da fonte.
+                  Atlas usará o esquema sincronizado da fonte.
                 </p>
               )}
             </div>
