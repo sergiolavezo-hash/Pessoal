@@ -92,6 +92,16 @@ export const dashboardInsightSchema = z.object({
   evidenceWidgetId: z.string().optional(),
 });
 
+/**
+ * Tema opcional. Sem modelos de cor fechados: quem pede "um painel azul" ou a
+ * identidade da própria empresa recebe isso, porque os gráficos leem
+ * variáveis CSS em vez de cores fixas.
+ */
+export const dashboardThemeSchema = z.object({
+  colors: z.array(z.string().regex(/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/)).min(1).max(8),
+  surface: z.string().regex(/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/).optional(),
+});
+
 export const dashboardSpecSchema = z.object({
   name: z.string().min(1).max(120),
   purpose: z.string().optional(),
@@ -99,6 +109,7 @@ export const dashboardSpecSchema = z.object({
   dataSourceId: z.string().uuid().optional(),
   filters: z.array(dashboardFilterSchema).default([]),
   widgets: z.array(widgetSchema).min(1).max(24),
+  theme: dashboardThemeSchema.optional(),
   insights: z.array(dashboardInsightSchema).default([]),
 });
 

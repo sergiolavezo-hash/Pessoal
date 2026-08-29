@@ -99,6 +99,11 @@ ${VISUAL_RULES.map((r) => `- ${r.goal} -> ${r.type}`).join("\n")}
   that order in yFields. Without a target the needle has nothing to point at and
   a KPI says the same thing in less space.
 - Funnel: ordered stages of one process, largest first — not unrelated categories.
+- Theme: when the user names colours, a mood ("moderno", "sóbrio") or their
+  company's identity, emit "theme": {"colors": ["#1b4ed8", ...]} with 3-6 hex
+  colours, the main one first, plus "surface" only if they asked for a
+  background. Omit theme entirely when they said nothing about looks — an
+  invented palette overrides a product default that was chosen for contrast.
 - Fewer widgets beat more. Every extra visual costs render time and reader
   attention, so drop anything that does not change a decision.
 - Time series: one row per period, ordered chronologically; xField is the period column.

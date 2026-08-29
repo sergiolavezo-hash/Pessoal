@@ -7,6 +7,8 @@ import {
   Copy,
   Info,
   Maximize2,
+  Minimize2,
+  Expand,
   MoreHorizontal,
   RefreshCw,
   Sparkles,
@@ -33,6 +35,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { readJson } from "@/lib/api-client";
 import { cn } from "@/lib/utils";
+import { dashboardThemeStyle, sanitizeTheme } from "@/dashboards/dashboard-theme";
 
 interface WidgetData {
   widgetId: string;
@@ -72,6 +75,13 @@ const INSIGHT_LABELS: Record<string, string> = {
 
 export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: DashboardViewProps) {
   const router = useRouter();
+  // Tela cheia do PAINEL (o estado `fullscreen` abaixo é de um widget só).
+  const shellRef = useRef<HTMLDivElement>(null);
+  const [presenting, setPresenting] = useState(false);
+  const themeStyle = useMemo(
+    () => dashboardThemeStyle(sanitizeTheme(spec.theme)),
+    [spec.theme]
+  );
   const [data, setData] = useState<Map<string, WidgetData>>(new Map());
   const [loading, setLoading] = useState(true);
   const [explain, setExplain] = useState<DashboardWidget | null>(null);
@@ -83,6 +93,24 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
   // opacidade menor — esqueleto piscando a cada refresh derruba o layout e
   // faz o painel parecer instável.
   const loadedOnce = useRef(false);
+
+  // O navegador pode sair da tela cheia por conta própria (Esc, troca de aba).
+  // Sem ouvir o evento, o botão continuaria dizendo "Sair" fora dela.
+  useEffect(() => {
+    const sync = () => setPresenting(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", sync);
+    return () => document.removeEventListener("fullscreenchange", sync);
+  }, []);
+
+  async function togglePresent() {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await shellRef.current?.requestFullscreen();
+    } catch {
+      // Alguns navegadores recusam sem gesto do usuário; não vale derrubar a tela.
+      toast.error("Seu navegador não permitiu a tela cheia.");
+    }
+  }
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -321,8 +349,19 @@ export function DashboardView({ workspaceId, dashboardId, spec, canEdit }: Dashb
   }
 
   return (
-    <div>
-      {canEdit && (
+    <div
+      ref={shellRef}
+      style={themeStyle}
+      className={presenting ? "overflow-auto bg-background p-6" : undefined}
+    >
+      <div className="mb-3 flex justify-end">
+        <Button variant="outline" size="sm" onClick={togglePresent}>
+          {presenting ? <Minimize2 /> : <Expand />}
+          {presenting ? "Sair da tela cheia" : "Tela cheia"}
+        </Button>
+      </div>
+
+      {canEdit && !presenting && (
         <form
           className="mb-5 flex items-center gap-2"
           onSubmit={(e) => {
