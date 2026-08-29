@@ -4,9 +4,9 @@ import * as XLSX from "xlsx";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { slugify } from "@/lib/utils";
 import { fileTableName } from "@/services/data-sources";
+import { maxOf } from "@/lib/extremes";
 import type { ApiContext } from "@/services/api-context";
 
-const MAX_ROWS = 500_000;
 /**
  * Linhas por chamada ao banco.
  *
@@ -20,15 +20,27 @@ const MAX_ROWS = 500_000;
 const INSERT_BATCH = 2_000;
 
 /**
- * Teto de linhas por arquivo.
+ * Teto de linhas por arquivo. UM número, cobrado em UM lugar.
  *
- * O limite real aqui é MEMÓRIA, não tempo: a ingestão em pedaços resolveu o
- * tempo, mas o arquivo inteiro ainda é carregado para ser lido. Medido, cada
- * linha custa cerca de 1,2 KB de heap — um milhão de linhas encosta no teto
- * de memória da função. Acima disso a orientação continua sendo conectar o
- * banco de origem, onde a consulta roda na fonte.
+ * Havia dois, e o de cima era invisível: a leitura CORTAVA em 500 mil linhas e
+ * só empurrava um aviso, então o teto de baixo (que recusava o arquivo e
+ * mandava conectar o banco de origem) nunca chegava a disparar. Uma base de
+ * 700 mil linhas entrava com 500 mil, marcada como pronta, e o cliente montava
+ * painel sobre 71% dos dados achando que tinha tudo — o único sinal era um
+ * aviso amarelo no meio de outros, depois de um aviso VERDE dizendo que deu
+ * certo. Perder dado do cliente em silêncio é pior do que recusar o arquivo.
+ *
+ * O limite é de MEMÓRIA, não de tempo: a ingestão em fatias resolveu o tempo,
+ * mas o arquivo inteiro ainda é carregado para ser lido. Medido num CSV real,
+ * cada linha custa cerca de 1,2 KB de heap — 500 mil linhas ficam perto de
+ * 600 MB, que é o que dá para sustentar dentro da função.
  */
-export const MAX_FILE_ROWS = 1_000_000;
+export const MAX_FILE_ROWS = 500_000;
+
+/** A recusa, escrita uma vez só para os dois pontos que a aplicam. */
+export function tooManyRowsMessage(rows: number): string {
+  return `O arquivo tem ${rows.toLocaleString("pt-BR")} linhas e o limite por upload é ${MAX_FILE_ROWS.toLocaleString("pt-BR")}. Nada foi importado pela metade. Para bases maiores, conecte o banco de origem (PostgreSQL/SQL Server/BigQuery): a consulta roda na fonte e continua rápida.`;
+}
 
 export type InferredType = "text" | "bigint" | "double precision" | "boolean" | "timestamptz" | "date";
 
@@ -220,7 +232,13 @@ export function buildParsedFromMatrix(matrix: unknown[][], warnings: string[]): 
   if (dataRows.length === 0) throw new Error("File has no data rows");
 
   // Mantém apenas colunas com cabeçalho OU dados (descarta colunas vazias).
-  const colCount = Math.max(headerCells.length, ...dataRows.map((r) => (r ?? []).length));
+  // Sem espalhar em argumentos: uma linha por argumento estoura a pilha do V8
+  // acima de ~125 mil linhas, que é o tamanho de arquivo que este produto
+  // existe para analisar. Ver src/lib/extremes.ts.
+  const colCount = Math.max(
+    headerCells.length,
+    maxOf(dataRows.map((r) => (r ?? []).length)) ?? 0
+  );
   const kept: number[] = [];
   for (let j = 0; j < colCount; j++) {
     const hasHeader = Boolean(headerCells[j]);
@@ -266,10 +284,8 @@ export function buildParsed(
 ): ParsedFile {
   if (headers.length === 0) throw new Error("No header row found");
   if (data.length === 0) throw new Error("File has no data rows");
-  if (data.length > MAX_ROWS) {
-    warnings.push(`File has ${data.length} rows; only the first ${MAX_ROWS} were imported.`);
-    data = data.slice(0, MAX_ROWS);
-  }
+  // Recusa, não corte. Ver MAX_FILE_ROWS.
+  if (data.length > MAX_FILE_ROWS) throw new Error(tooManyRowsMessage(data.length));
 
   const used = new Set<string>();
   const columns = headers.map((h, i) => {
@@ -337,6 +353,36 @@ function isGenericColumn(name: string): boolean {
  * ligeiramente diferentes desta regra fariam a retomada apontar para a linha
  * errada — dado duplicado ou dado faltando na base do cliente.
  */
+/**
+ * Nome lógico da tabela de um arquivo.
+ *
+ * É daqui que sai a tabela física, então quem precisar saber se dois arquivos
+ * disputam o mesmo destino tem de perguntar a ESTA função — comparar o nome do
+ * arquivo não serve: "Vendas 2024.csv" e "vendas-2024.xlsx" são nomes
+ * diferentes e o mesmo destino.
+ */
+export function logicalTableName(fileName: string): string {
+  return sanitizeColumnName(fileName.replace(/\.[^.]+$/, ""), 0, new Set<string>());
+}
+
+/**
+ * Primeiro nome livre a partir de `base`: base, base_2, base_3...
+ *
+ * Existe porque dois arquivos de nomes diferentes podem cair no MESMO nome
+ * normalizado, e a tabela física vem dele. Sem desempatar, o segundo arquivo
+ * derruba a tabela do primeiro e o cliente passa a ler, num painel antigo,
+ * dados de outra planilha — sem aviso nenhum.
+ */
+export function firstFreeTableName(base: string, taken: string[]): string {
+  const used = new Set(taken);
+  if (!used.has(base)) return base;
+  for (let n = 2; n < 1000; n++) {
+    const candidate = `${base}_${n}`;
+    if (!used.has(candidate)) return candidate;
+  }
+  throw new Error(`Não há nome de tabela livre para "${base}".`);
+}
+
 export function dedupeRows(rows: Record<string, unknown>[]): Record<string, unknown>[] {
   const unique: Record<string, unknown>[] = [];
   const seen = new Set<string>();
@@ -347,6 +393,76 @@ export function dedupeRows(rows: Record<string, unknown>[]): Record<string, unkn
     unique.push(row);
   }
   return unique;
+}
+
+/** Coluna ausente = migração 0021 pendente; não pode travar upload nenhum. */
+function isMissingOwnershipColumn(error: { code?: string } | null): boolean {
+  return error?.code === "42703" || error?.code === "PGRST204";
+}
+
+/**
+ * Nome da tabela para este arquivo, respeitando quem já é dono do quê.
+ *
+ * Três casos: (1) este mesmo arquivo já tem tabela — reusa, que é a
+ * substituição desejada ao reenviar; (2) o nome está livre — usa; (3) outro
+ * arquivo já ocupa o nome — pega o próximo livre, em vez de derrubar a tabela
+ * dele. Sem a 0021 aplicada, cai no comportamento antigo (só o nome), porque
+ * recusar upload por causa de migração pendente seria pior.
+ */
+async function resolveTableName(
+  ctx: ApiContext,
+  datasetId: string,
+  fileName: string
+): Promise<string> {
+  const base = logicalTableName(fileName);
+
+  const { data: owners, error } = await ctx.supabase
+    .from("workspace_files")
+    .select("name, catalog_table_id")
+    .eq("workspace_id", ctx.workspaceId)
+    .eq("status", "READY")
+    .not("catalog_table_id", "is", null);
+
+  if (error) {
+    if (!isMissingOwnershipColumn(error)) {
+      console.warn(`[file-ingest] posse de tabela não pôde ser lida: ${error.message}`);
+    }
+    return base;
+  }
+  if (!owners || owners.length === 0) return base;
+
+  const ids = [...new Set(owners.map((o) => o.catalog_table_id as string))];
+  const { data: tables } = await ctx.supabase
+    .from("catalog_tables")
+    .select("id, name")
+    .eq("dataset_id", datasetId)
+    .in("id", ids);
+
+  const nameById = new Map((tables ?? []).map((t) => [t.id as string, t.name as string]));
+  const taken: string[] = [];
+  for (const owner of owners) {
+    const tableName = nameById.get(owner.catalog_table_id as string);
+    if (!tableName) continue;
+    // O próprio arquivo: reenviar substitui, é o que o usuário espera.
+    if (owner.name === fileName) return tableName;
+    taken.push(tableName);
+  }
+
+  return firstFreeTableName(base, taken);
+}
+
+async function recordTableOwnership(
+  ctx: ApiContext,
+  fileId: string,
+  tableId: string
+): Promise<void> {
+  const { error } = await ctx.supabase
+    .from("workspace_files")
+    .update({ catalog_table_id: tableId })
+    .eq("id", fileId);
+  if (error && !isMissingOwnershipColumn(error)) {
+    console.warn(`[file-ingest] posse de tabela não pôde ser gravada: ${error.message}`);
+  }
 }
 
 export interface IngestPlan {
@@ -375,7 +491,8 @@ export async function prepareIngest(
   ctx: ApiContext,
   admin: SupabaseClient,
   fileName: string,
-  parsed: ParsedFile
+  parsed: ParsedFile,
+  fileId?: string
 ): Promise<IngestPlan> {
   // 1. Find or create the workspace's file data source.
   const { data: existing } = await ctx.supabase
@@ -415,13 +532,19 @@ export async function prepareIngest(
     .single();
   if (dsError || !dataset) throw new Error(dsError?.message ?? "Failed to create dataset");
 
-  // 3. Catalog table (logical name derived from the file name).
-  const used = new Set<string>();
-  const logicalName = sanitizeColumnName(fileName.replace(/\.[^.]+$/, ""), 0, used);
+  // 3. Catalog table. O nome sai do arquivo, mas o destino é conferido contra
+  // quem já é dono de quê: reenviar o MESMO nome substitui (é atualização),
+  // enquanto OUTRO arquivo que caia no mesmo nome normalizado ganha um nome
+  // próprio em vez de derrubar a tabela alheia. Ver migração 0021.
+  const logicalName = await resolveTableName(ctx, dataset.id, fileName);
   const { data: tableRow, error: tError } = await ctx.supabase
     .from("catalog_tables")
     .upsert(
-      { workspace_id: ctx.workspaceId, dataset_id: dataset.id, name: logicalName, row_count: parsed.rows.length },
+      // row_count 0 até a ingestão terminar. Gravar o total aqui fazia uma
+      // importação abandonada no meio ficar visível em /modelos anunciando
+      // "306.431 linhas" com 190 mil dentro — e todo painel montado em cima
+      // somava errado sem um único aviso.
+      { workspace_id: ctx.workspaceId, dataset_id: dataset.id, name: logicalName, row_count: 0 },
       { onConflict: "dataset_id,name" }
     )
     .select("id")
@@ -430,21 +553,13 @@ export async function prepareIngest(
 
   const physicalName = fileTableName(tableRow.id);
 
+  if (fileId) await recordTableOwnership(ctx, fileId, tableRow.id);
+
   const uniqueRows = dedupeRows(parsed.rows);
   const dedupedCount = parsed.rows.length - uniqueRows.length;
-  if (dedupedCount > 0) {
-    parsed = { ...parsed, rows: uniqueRows };
-    await ctx.supabase
-      .from("catalog_tables")
-      .update({ row_count: uniqueRows.length })
-      .eq("id", tableRow.id);
-  }
+  if (dedupedCount > 0) parsed = { ...parsed, rows: uniqueRows };
 
-  if (parsed.rows.length > MAX_FILE_ROWS) {
-    throw new Error(
-      `O arquivo tem ${parsed.rows.length.toLocaleString("pt-BR")} linhas e o limite por upload é ${MAX_FILE_ROWS.toLocaleString("pt-BR")}. Para bases maiores, conecte o banco de origem (PostgreSQL/SQL Server/BigQuery): a consulta roda na fonte e continua rápida.`
-    );
-  }
+  if (parsed.rows.length > MAX_FILE_ROWS) throw new Error(tooManyRowsMessage(parsed.rows.length));
 
   // Atualização garantida: re-enviar um arquivo com o MESMO nome substitui
   // os dados anteriores (drop + recreate), refletindo a origem atualizada.

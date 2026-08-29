@@ -10,6 +10,8 @@
  * en-US/USD não é detalhe estético — mostra o valor errado ao usuário.
  */
 
+import { maxOf } from "@/lib/extremes";
+
 export type ValueFormat = "number" | "currency" | "percent" | "decimal";
 
 const LOCALE = "pt-BR";
@@ -95,7 +97,7 @@ export function shortenLabel(label: string, max: number): string {
  */
 export function niceScale(values: number[], count = 4): { domain: [number, number]; ticks: number[] } {
   const finite = values.filter((v) => Number.isFinite(v));
-  const rawMax = finite.length > 0 ? Math.max(...finite) : 0;
+  const rawMax = maxOf(finite) ?? 0;
   const rawMin = Math.min(0, ...finite);
   if (rawMax === 0 && rawMin === 0) return { domain: [0, 1], ticks: [0, 1] };
 

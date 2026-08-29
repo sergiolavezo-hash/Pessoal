@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import {
   buildParsedFromMatrix,
   insertRowsFrom,
+  logicalTableName,
   parseCsvMatrix,
   parseXlsxMatrix,
   prepareIngest,
@@ -140,19 +141,24 @@ export async function POST(request: NextRequest) {
     const since = new Date(Date.now() - 30 * 60 * 1000).toISOString();
     const { data: running } = await ctx.supabase
       .from("workspace_files")
-      .select("id")
+      .select("id, name")
       .eq("workspace_id", ctx.workspaceId)
-      .eq("name", fileName)
       .eq("status", "PROCESSING")
       .neq("id", fileRow.id)
-      .gte("created_at", since)
-      .limit(1);
-    if (running && running.length > 0) {
+      .gte("created_at", since);
+    // Compara o nome LÓGICO, não o nome do arquivo. A tabela física vem do
+    // nome já normalizado, então "Vendas 2024.csv" e "vendas-2024.xlsx"
+    // disputam a MESMA tabela — e a guarda antiga, que comparava o nome cru,
+    // deixava as duas passarem. A segunda derrubava a tabela que a primeira
+    // ainda estava preenchendo.
+    const mine = logicalTableName(fileName);
+    const clashing = (running ?? []).filter((f) => logicalTableName(f.name as string) === mine);
+    if (clashing.length > 0) {
       await ctx.supabase.from("workspace_files").delete().eq("id", fileRow.id);
       await admin.storage.from(FILES_BUCKET).remove([storagePath]);
       throw new ApiError(
         409,
-        "Já existe uma importação em andamento para um arquivo com este nome. Aguarde ela terminar."
+        "Já existe uma importação em andamento que grava na mesma tabela deste arquivo. Aguarde ela terminar."
       );
     }
 
@@ -192,7 +198,7 @@ export async function POST(request: NextRequest) {
       }
       if (!parsed) throw heuristicError instanceof Error ? heuristicError : new Error("File could not be parsed");
 
-      const plan = await prepareIngest(ctx, admin, fileName, parsed);
+      const plan = await prepareIngest(ctx, admin, fileName, parsed, fileRow.id);
 
       // A fonte é gravada ANTES de inserir: se o pedido morrer no meio, é por
       // ela que a continuação encontra a tabela para retomar.
@@ -206,23 +212,37 @@ export async function POST(request: NextRequest) {
       // continuação — a resposta diz onde parou e o navegador volta para
       // terminar, em vez de o upload morrer a meio caminho.
       //
+      // O prazo vale SEMPRE, inclusive no caminho da IA. Antes ele era
+      // infinito ali, na esperança de que "planilha remontada pela IA é
+      // pequena" — e não é: bastava um separador sobrando no fim das linhas
+      // para um arquivo de 150 mil linhas cair nesse caminho. A função era
+      // morta aos 60s no meio das inserções, o catch nunca rodava, e o
+      // arquivo ficava preso em "processando" para sempre.
+      const inserted = await insertRowsFrom(
+        admin,
+        plan.physicalName,
+        plan.rows,
+        0,
+        startedAt + INGEST_BUDGET_MS
+      );
+
       // A continuação só existe quando a leitura é REPRODUZÍVEL: se o layout
-      // foi remontado pela IA, repetir a leitura exigiria repetir a chamada
-      // (e o token), então esses arquivos vão inteiros de uma vez.
-      const deadlineAt = usedAi ? Number.POSITIVE_INFINITY : startedAt + INGEST_BUDGET_MS;
-      const inserted = await insertRowsFrom(admin, plan.physicalName, plan.rows, 0, deadlineAt);
+      // foi remontado pela IA, refazer a leitura exigiria refazer a chamada
+      // (e o token), e um plano diferente colocaria as linhas fora de ordem.
+      // Então aqui a única saída honesta é recusar com o motivo, em vez de
+      // deixar uma base pela metade parecendo pronta.
+      if (usedAi && inserted < plan.rows.length) {
+        throw new Error(
+          `Esta planilha precisou ter o layout remontado, e com ${plan.rows.length.toLocaleString("pt-BR")} linhas isso não cabe numa única importação. Exporte os dados como CSV simples (uma linha de cabeçalho e uma linha por registro) e envie de novo.`
+        );
+      }
 
       if (inserted < plan.rows.length) {
         return NextResponse.json(
           {
             file: fileRow,
             warnings: parsed.warnings,
-            ingest: {
-              fileId: fileRow.id,
-              tableId: plan.tableId,
-              offset: inserted,
-              total: plan.rows.length,
-            },
+            ingest: { fileId: fileRow.id, offset: inserted, total: plan.rows.length },
           },
           { status: 202 }
         );
@@ -230,6 +250,7 @@ export async function POST(request: NextRequest) {
 
       await finishIngest(ctx, {
         fileId: fileRow.id,
+        tableId: plan.tableId,
         dataSourceId: plan.dataSourceId,
         rowCount: plan.rows.length,
         columnCount: parsed.columns.length,

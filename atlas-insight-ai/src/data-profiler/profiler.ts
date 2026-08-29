@@ -1,4 +1,5 @@
 import type { ColumnClassification, ColumnProfile } from "@/types";
+import { maxOf, minOf } from "@/lib/extremes";
 
 // Pure profiling logic — no I/O. The profiling service feeds sample rows in
 // and persists the results.
@@ -51,8 +52,10 @@ export function profileColumn(
   };
 
   if (isNumeric && numericValues.length > 0) {
-    profile.min = Math.min(...numericValues);
-    profile.max = Math.max(...numericValues);
+    // Laço, não espalhamento: uma coluna com muitos valores estouraria a
+    // pilha do V8. Ver src/lib/extremes.ts.
+    profile.min = minOf(numericValues);
+    profile.max = maxOf(numericValues);
     profile.average = round(numericValues.reduce((a, b) => a + b, 0) / numericValues.length);
   } else if (nonNull.length > 0) {
     const sorted = nonNull.map(String).sort();

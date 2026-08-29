@@ -3,7 +3,12 @@ import { z } from "zod";
 import { requireWorkspace, handleApiError, ApiError } from "@/services/api-context";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { fileTableName } from "@/services/data-sources";
-import { countIngestedRows, dedupeRows, insertRowsFrom } from "@/services/file-ingest";
+import {
+  countIngestedRows,
+  dedupeRows,
+  insertRowsFrom,
+  logicalTableName,
+} from "@/services/file-ingest";
 import { INGEST_BUDGET_MS, downloadUpload, finishIngest, parseUpload } from "@/services/file-pipeline";
 import { extensionOf } from "@/lib/uploads";
 
@@ -11,7 +16,6 @@ export const maxDuration = 60;
 
 const bodySchema = z.object({
   workspaceId: z.string().uuid(),
-  tableId: z.string().uuid(),
 });
 
 type Params = { params: Promise<{ id: string }> };
@@ -40,7 +44,7 @@ export async function POST(request: NextRequest, { params }: Params) {
     // aparece, então não há o que conferir depois.
     const { data: fileRow } = await ctx.supabase
       .from("workspace_files")
-      .select("id, name, status, storage_path, data_source_id, content_hash")
+      .select("id, name, status, storage_path, data_source_id, content_hash, catalog_table_id")
       .eq("id", id)
       .eq("workspace_id", ctx.workspaceId)
       .maybeSingle();
@@ -52,18 +56,30 @@ export async function POST(request: NextRequest, { params }: Params) {
       throw new ApiError(409, "A ingestão deste arquivo não chegou a começar. Reenvie o arquivo.");
     }
 
-    // A tabela precisa ser deste workspace E deste arquivo: sem a segunda
-    // conferência, um id de tabela trocado faria as linhas deste arquivo
-    // entrarem na tabela de outro.
-    const { data: tableRow } = await ctx.supabase
+    // A tabela de destino é DERIVADA do arquivo, no servidor. Antes ela vinha
+    // no corpo do pedido, e a conferência comparava a data_source da tabela
+    // com a do arquivo — só que TODO upload do workspace divide uma única
+    // fonte "Arquivos enviados", então aquela conferência passava para
+    // qualquer tabela do workspace. Um cliente adulterado mandava o id da
+    // tabela de "faturamento" e despejava as linhas de "clientes" dentro
+    // dela. Não recebendo o id, não há o que forjar.
+    // A posse gravada na preparação é a resposta exata; o nome derivado é só
+    // o caminho de volta para uploads anteriores à migração 0021. Derivar
+    // sempre pelo nome ficaria ERRADO desde que dois arquivos podem colidir e
+    // o segundo receber um nome com sufixo.
+    const ownedTableId = (fileRow.catalog_table_id as string | null) ?? null;
+    const query = ctx.supabase
       .from("catalog_tables")
-      .select("id, dataset_id, datasets(data_source_id)")
-      .eq("id", body.tableId)
+      .select("id, datasets!inner(data_source_id)")
       .eq("workspace_id", ctx.workspaceId)
-      .maybeSingle();
-    const owner = (tableRow?.datasets as { data_source_id?: string } | null)?.data_source_id;
-    if (!tableRow || owner !== fileRow.data_source_id) {
-      throw new ApiError(404, "Tabela de destino não encontrada.");
+      .eq("datasets.data_source_id", fileRow.data_source_id);
+
+    const { data: tableRow } = ownedTableId
+      ? await query.eq("id", ownedTableId).maybeSingle()
+      : await query.eq("name", logicalTableName(fileRow.name as string)).maybeSingle();
+
+    if (!tableRow) {
+      throw new ApiError(404, "A tabela deste arquivo não existe mais. Reenvie o arquivo.");
     }
 
     const admin = createAdminClient();
@@ -93,13 +109,14 @@ export async function POST(request: NextRequest, { params }: Params) {
 
     if (inserted < rows.length) {
       return NextResponse.json(
-        { ingest: { fileId: fileRow.id, tableId: tableRow.id, offset: inserted, total: rows.length } },
+        { ingest: { fileId: fileRow.id, offset: inserted, total: rows.length } },
         { status: 202 }
       );
     }
 
     await finishIngest(ctx, {
       fileId: fileRow.id,
+      tableId: tableRow.id,
       dataSourceId: fileRow.data_source_id,
       rowCount: rows.length,
       columnCount: parsed.columns.length,

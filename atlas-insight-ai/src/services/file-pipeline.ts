@@ -60,6 +60,8 @@ export function parseUpload(buffer: ArrayBuffer, extension: string): ParsedFile 
 
 export interface FinishedIngest {
   fileId: string;
+  /** Tabela do catálogo: é aqui que o total de linhas vira oficial. */
+  tableId: string;
   dataSourceId: string;
   rowCount: number;
   columnCount: number;
@@ -76,6 +78,13 @@ export interface FinishedIngest {
  * upload morria com o arquivo preso em "processando".
  */
 export async function finishIngest(ctx: ApiContext, result: FinishedIngest): Promise<void> {
+  // O total de linhas só vale quando TODAS entraram. Escrito na preparação,
+  // ele fazia uma importação abandonada no meio se apresentar como completa.
+  await ctx.supabase
+    .from("catalog_tables")
+    .update({ row_count: result.rowCount })
+    .eq("id", result.tableId);
+
   await ctx.supabase
     .from("workspace_files")
     .update({ status: "READY", data_source_id: result.dataSourceId })

@@ -92,8 +92,13 @@ function renderMatrixSample(matrix: unknown[][]): string {
 export function looksUnstructured(parsed: ParsedFile): boolean {
   return (
     parsed.columns.some((c) => /^col(una)?_\d+/.test(c.name)) ||
-    parsed.warnings.some((w) => w.startsWith("Header detected") || w.includes("empty column"))
+    parsed.warnings.some((w) => w.startsWith("Header detected"))
   );
+  // "empty column(s) were removed" NÃO entra aqui. Coluna vazia é separador
+  // sobrando no fim da linha — o export mais comum que existe — e não diz
+  // nada sobre o layout. Enquanto contava, um CSV limpo de 300 mil linhas
+  // virava candidato a remontagem por IA: gastava token à toa e caía no
+  // caminho que ingere tudo num pedido só.
 }
 
 const SYSTEM_PROMPT = `You are a senior data engineer who turns messy human spreadsheets into clean analytical tables.

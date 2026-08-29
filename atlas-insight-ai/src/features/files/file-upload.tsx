@@ -71,7 +71,6 @@ async function reportClientError(
 
 interface IngestState {
   fileId: string;
-  tableId: string;
   offset: number;
   total: number;
 }
@@ -102,7 +101,10 @@ async function continueIngest(
     const res = await fetch(`/api/files/${current.fileId}/ingest`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ workspaceId, tableId: current.tableId }),
+      // Sem tableId: o servidor deriva a tabela do próprio arquivo. Mandar o
+      // destino daqui era o que permitia apontar a importação para a tabela
+      // de outro arquivo do workspace.
+      body: JSON.stringify({ workspaceId }),
     });
     const json = await readResponse(res, "importar linhas");
     if (!res.ok) throw new Error((json.error as string) ?? "Falha ao concluir a importação");
