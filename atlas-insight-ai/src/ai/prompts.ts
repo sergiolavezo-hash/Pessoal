@@ -88,6 +88,11 @@ ${VISUAL_RULES.map((r) => `- ${r.goal} -> ${r.type}`).join("\n")}
 - The dashboard must answer its main questions in about 5 seconds of looking at it.
   If a widget needs study to be understood, it is the wrong widget.
 - KPI widgets: the query must return exactly ONE row and ONE value column, named in yFields. Use them for the headline numbers only (3-4 of them).
+- A KPI is not the same thing as a metric. "Number of visits" is a metric; a KPI
+  answers "are we hitting the goal?" and is actionable. Prefer KPI widgets that a
+  manager could act on, not counts that merely describe.
+- Fewer widgets beat more. Every extra visual costs render time and reader
+  attention, so drop anything that does not change a decision.
 - Time series: one row per period, ordered chronologically; xField is the period column.
 - Every widget must answer a different question — never two widgets showing the same number.
 
