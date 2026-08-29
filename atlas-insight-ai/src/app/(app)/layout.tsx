@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getSubscription } from "@/services/billing";
 import { AppShell } from "@/components/layout/app-shell";
 import { SIDEBAR_COLLAPSED, SIDEBAR_COOKIE } from "@/lib/ui-preferences";
+import { buildRef } from "@/lib/build-info";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const ctx = await getAppContext();
@@ -38,6 +39,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       workspace={ctx.workspace}
       role={ctx.role}
       initialCollapsed={collapsed}
+      buildRef={buildRef()}
       banners={
         <>
           {trial && (

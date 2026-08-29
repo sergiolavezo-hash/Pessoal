@@ -26,6 +26,7 @@ export function AppShell({
   workspace,
   role,
   initialCollapsed,
+  buildRef,
   banners,
   children,
 }: {
@@ -34,6 +35,7 @@ export function AppShell({
   workspaces: Workspace[];
   workspace: Workspace;
   role: OrgRole;
+  buildRef?: string | null;
   initialCollapsed: boolean;
   banners?: React.ReactNode;
   children: React.ReactNode;
@@ -55,6 +57,7 @@ export function AppShell({
         workspaces={workspaces}
         workspace={workspace}
         role={role}
+        buildRef={buildRef}
         collapsed={collapsed}
         onToggle={toggle}
       />

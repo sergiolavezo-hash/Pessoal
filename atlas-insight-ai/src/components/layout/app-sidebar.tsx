@@ -94,6 +94,8 @@ interface AppSidebarProps {
   workspaces: Workspace[];
   workspace: Workspace;
   role: OrgRole;
+  /** Commit que gerou o build no ar; ausente fora da Vercel. */
+  buildRef?: string | null;
   collapsed: boolean;
   onToggle: () => void;
 }
@@ -104,6 +106,7 @@ export function AppSidebar({
   workspaces,
   workspace,
   role,
+  buildRef,
   collapsed,
   onToggle,
 }: AppSidebarProps) {
@@ -259,6 +262,19 @@ export function AppSidebar({
               <LogOut />
               Sair
             </DropdownMenuItem>
+            {buildRef && (
+              <>
+                <DropdownMenuSeparator />
+                {/*
+                  Qual versao esta no ar. Um deploy que ainda nao terminou e um
+                  defeito de verdade dao o mesmo sintoma na tela; sem esta marca,
+                  distinguir os dois vira adivinhacao.
+                */}
+                <div className="px-2 py-1.5 text-[11px] text-muted-foreground">
+                  versão <span className="font-mono">{buildRef}</span>
+                </div>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

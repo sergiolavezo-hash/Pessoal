@@ -14,18 +14,27 @@ import { FILES_BUCKET, uploadRejection } from "@/lib/uploads";
  * a mensagem críptica do navegador ("The string did not match the expected
  * pattern") em vez de saber o que aconteceu.
  */
-async function readResponse(res: Response): Promise<Record<string, unknown>> {
+async function readResponse(res: Response, step: string): Promise<Record<string, unknown>> {
   const text = await res.text();
   try {
     return JSON.parse(text) as Record<string, unknown>;
   } catch {
     if (res.status === 504 || res.status === 408) {
       throw new Error(
-        "O processamento demorou mais que o permitido. Arquivos muito grandes ou com layout complexo podem exceder o limite — tente novamente ou reduza o arquivo."
+        `O processamento demorou mais que o permitido (${step}). Arquivos muito grandes ou com layout complexo podem exceder o limite — tente novamente ou reduza o arquivo.`
+      );
+    }
+    // O 413 merece frase propria: e o unico erro daqui cuja causa e o TAMANHO
+    // do que trafegou, e dizer qual etapa estourou é o que separa "o arquivo
+    // e grande demais" de "esta rodando uma versao antiga do site" — nas duas
+    // o usuario via exatamente a mesma mensagem.
+    if (res.status === 413) {
+      throw new Error(
+        `O servidor recusou o tamanho do envio na etapa "${step}". Nesta versão o arquivo não passa pela API, então isso não deveria acontecer: recarregue a página com Ctrl+Shift+R e tente de novo. Se repetir, me mostre esta mensagem inteira.`
       );
     }
     throw new Error(
-      `O servidor não concluiu o envio (erro ${res.status}). Tente novamente em instantes.`
+      `O servidor não concluiu o envio (erro ${res.status} na etapa "${step}"). Tente novamente em instantes.`
     );
   }
 }
@@ -95,7 +104,7 @@ async function continueIngest(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ workspaceId, tableId: current.tableId }),
     });
-    const json = await readResponse(res);
+    const json = await readResponse(res, "importar linhas");
     if (!res.ok) throw new Error((json.error as string) ?? "Falha ao concluir a importação");
     if (json.done) {
       onProgress(null);
@@ -147,7 +156,7 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspaceId, name: file.name, size: file.size }),
       });
-      const ticket = await readResponse(ticketRes);
+      const ticket = await readResponse(ticketRes, "preparar envio");
       if (!ticketRes.ok) throw new Error((ticket.error as string) ?? "Falha ao preparar o envio");
 
       const { error: storageError } = await createClient()
@@ -169,7 +178,7 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
           mimeType: file.type || null,
         }),
       });
-      let json = await readResponse(res);
+      let json = await readResponse(res, "registrar arquivo");
       // Arquivo já cadastrado não é falha: o Atlas reconheceu o conteúdo e
       // não vai refazer parse, perfil e modelo para chegar ao mesmo dataset.
       if (res.status === 409 && json.duplicate) {
