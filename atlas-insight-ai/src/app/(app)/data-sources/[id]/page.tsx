@@ -10,6 +10,8 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { SourceActions } from "@/features/data-sources/source-actions";
 import { RefreshButton } from "@/features/data-sources/refresh-button";
+import { ScheduleSelect } from "@/features/data-sources/schedule-select";
+import { isValidSchedule, type RefreshSchedule } from "@/services/refresh-schedule";
 import {
   DATASET_STATUS_LABEL,
   DATASET_STATUS_VARIANT,
@@ -77,6 +79,8 @@ export default async function DataSourceDetailPage({ params }: { params: Promise
           ? ("destructive" as const)
           : ("secondary" as const);
   const qualityScore = (dataSource as { quality_score?: number | null }).quality_score ?? null;
+  const rawSchedule = (dataSource as { refresh_schedule?: string | null }).refresh_schedule;
+  const schedule: RefreshSchedule = isValidSchedule(rawSchedule) ? rawSchedule : "manual";
   const history = (revisions ?? []) as Array<{
     revision: number;
     status: string;
@@ -112,6 +116,17 @@ export default async function DataSourceDetailPage({ params }: { params: Promise
         )}
         {dataSource.last_error && <p className="text-sm text-destructive">{dataSource.last_error}</p>}
       </div>
+
+      {canEdit && (
+        <div className="mb-6 flex flex-wrap items-center gap-3">
+          <span className="text-sm text-muted-foreground">Atualizar automaticamente:</span>
+          <ScheduleSelect
+            dataSourceId={id}
+            workspaceId={ctx.workspace.id}
+            current={schedule}
+          />
+        </div>
+      )}
 
       <Card>
         <CardHeader>
