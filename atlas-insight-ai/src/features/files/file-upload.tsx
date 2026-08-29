@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/client";
+import { FILES_BUCKET, uploadRejection } from "@/lib/uploads";
 
 /**
  * Lê a resposta com tolerância: quando a função do servidor cai ou estoura o
@@ -63,15 +65,64 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
 
+  /**
+   * Envio em duas etapas.
+   *
+   * O arquivo NÃO passa mais pela API: a função serverless recusa corpo acima
+   * de ~4,5 MB antes mesmo de rodar, e qualquer planilha de trabalho estoura
+   * isso — era essa a origem do "erro 413" sem explicação. Agora o navegador
+   * pede uma permissão de escrita, manda os bytes direto para o Storage e a
+   * API recebe só o caminho.
+   */
   async function onFile(file: File) {
+    // Recusa local primeiro: não faz sentido subir 40 MB para descobrir no
+    // fim que o tipo não serve.
+    const localRejection = uploadRejection(file.name, file.size);
+    if (localRejection) {
+      toast.error(localRejection, { duration: 10000 });
+      if (inputRef.current) inputRef.current.value = "";
+      return;
+    }
+
     setUploading(true);
     try {
-      const formData = new FormData();
-      formData.set("workspaceId", workspaceId);
-      formData.set("file", file);
+      const ticketRes = await fetch("/api/files/upload-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ workspaceId, name: file.name, size: file.size }),
+      });
+      const ticket = await readResponse(ticketRes);
+      if (!ticketRes.ok) throw new Error((ticket.error as string) ?? "Falha ao preparar o envio");
 
-      const res = await fetch("/api/files", { method: "POST", body: formData });
+      const { error: storageError } = await createClient()
+        .storage.from(FILES_BUCKET)
+        .uploadToSignedUrl(ticket.path as string, ticket.token as string, file, {
+          contentType: file.type || "application/octet-stream",
+        });
+      if (storageError) {
+        throw new Error(`Não foi possível enviar o arquivo: ${storageError.message}`);
+      }
+
+      const res = await fetch("/api/files", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          workspaceId,
+          storagePath: ticket.path,
+          name: file.name,
+          mimeType: file.type || null,
+        }),
+      });
       const json = await readResponse(res);
+      // Arquivo já cadastrado não é falha: o Atlas reconheceu o conteúdo e
+      // não vai refazer parse, perfil e modelo para chegar ao mesmo dataset.
+      if (res.status === 409 && json.duplicate) {
+        toast.info((json.message as string) ?? "Este arquivo já está cadastrado no Atlas.", {
+          duration: 9000,
+        });
+        router.refresh();
+        return;
+      }
       if (!res.ok) throw new Error((json.error as string) ?? "Falha no envio");
 
       const table = (json.table ?? {}) as { rowCount?: number; dedupedCount?: number };

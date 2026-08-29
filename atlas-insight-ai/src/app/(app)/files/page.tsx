@@ -58,7 +58,7 @@ export default async function FilesPage() {
     <div>
       <PageHeader
         title="Enviar dados"
-        description="Envie arquivos CSV e XLSX. O Atlas lê o arquivo, entende os dados e deixa tudo pronto para análise."
+        description="Envie arquivos CSV e XLSX de até 50 MB. O Atlas lê o arquivo, entende os dados e deixa tudo pronto para análise."
         actions={canEdit ? <FileUpload workspaceId={ctx.workspace.id} /> : undefined}
       />
 

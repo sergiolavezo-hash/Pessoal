@@ -17,11 +17,14 @@ import { publishRevision } from "@/services/datasets";
 import { buildWorkspaceContext } from "@/ai/context";
 import { scoreDataset } from "@/ai/dataset-quality";
 import { minDatasetQualityScore } from "@/ai/config";
+import {
+  FILES_BUCKET,
+  extensionOf,
+  isUploadPathFor,
+  uploadRejection,
+} from "@/lib/uploads";
 
 export const maxDuration = 60;
-
-const MAX_FILE_BYTES = 50 * 1024 * 1024; // 50 MB
-const ALLOWED_EXTENSIONS = new Set(["csv", "xlsx", "xls"]);
 
 export async function GET(request: NextRequest) {
   try {
@@ -39,35 +42,77 @@ export async function GET(request: NextRequest) {
   }
 }
 
+/**
+ * Segunda etapa do envio: o arquivo JÁ está no Storage, e o que chega aqui é
+ * o caminho dele — algumas centenas de bytes.
+ *
+ * O corpo do pedido deixou de carregar a planilha porque a função da Vercel
+ * recusa corpo acima de ~4,5 MB na borda, antes de este código rodar: o
+ * usuário via um 413 sem explicação e o limite de 50 MB escrito aqui nunca
+ * chegava a ser conferido. Ver src/lib/uploads.ts.
+ */
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.formData();
-    const workspaceId = formData.get("workspaceId");
-    const file = formData.get("file");
+    const body = (await request.json().catch(() => null)) as {
+      workspaceId?: unknown;
+      storagePath?: unknown;
+      name?: unknown;
+      mimeType?: unknown;
+    } | null;
 
-    if (typeof workspaceId !== "string") throw new ApiError(400, "workspaceId is required");
-    if (!(file instanceof File)) throw new ApiError(400, "file is required");
-
-    const ctx = await requireWorkspace(workspaceId, "EDITOR");
-
-    const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
-    if (!ALLOWED_EXTENSIONS.has(extension)) {
-      throw new ApiError(400, `Unsupported file type ".${extension}". Upload CSV or XLSX.`);
+    if (typeof body?.workspaceId !== "string") throw new ApiError(400, "workspaceId is required");
+    if (typeof body.name !== "string" || body.name.trim() === "") {
+      throw new ApiError(400, "name is required");
     }
-    if (file.size > MAX_FILE_BYTES) {
-      throw new ApiError(400, `File exceeds the ${MAX_FILE_BYTES / 1024 / 1024} MB limit`);
+
+    const ctx = await requireWorkspace(body.workspaceId, "EDITOR");
+
+    // O caminho volta pela mão do navegador, então é texto não confiável: sem
+    // esta conferência um membro deste workspace poderia mandar importar o
+    // objeto de outro. O formato fechado também impede travessia de pasta.
+    if (!isUploadPathFor(body.storagePath, ctx.workspaceId)) {
+      throw new ApiError(400, "Envio inválido. Recomece o upload do arquivo.");
     }
+    const storagePath = body.storagePath;
+
+    const fileName = body.name;
+    const mimeType = typeof body.mimeType === "string" && body.mimeType ? body.mimeType : null;
+    const extension = extensionOf(fileName);
 
     const admin = createAdminClient();
+
+    // O tamanho é conferido no OBJETO, não no que o navegador declarou: o
+    // tamanho anunciado na etapa da URL assinada é só um número num JSON, e
+    // quem envia escolhe o número.
+    const { data: info } = await admin.storage.from(FILES_BUCKET).info(storagePath);
+    const objectSize = typeof info?.size === "number" ? info.size : null;
+    if (objectSize === null) {
+      throw new ApiError(400, "Arquivo não encontrado no armazenamento. Recomece o envio.");
+    }
+    const rejection = uploadRejection(fileName, objectSize);
+    if (rejection) {
+      // Recusado é recusado: deixar o objeto no bucket ocuparia espaço que
+      // ninguém mais vai procurar.
+      await admin.storage.from(FILES_BUCKET).remove([storagePath]);
+      throw new ApiError(400, rejection);
+    }
+
+    const { data: blob, error: downloadError } = await admin.storage
+      .from(FILES_BUCKET)
+      .download(storagePath);
+    if (downloadError || !blob) {
+      throw new ApiError(422, downloadError?.message ?? "Não foi possível ler o arquivo enviado.");
+    }
+    const buffer = await blob.arrayBuffer();
 
     // Impressão digital do conteúdo antes de qualquer processamento: o mesmo
     // arquivo reenviado refazia parse, perfil, modelo semântico e — quando o
     // layout parecia bagunçado — uma chamada de IA, para chegar ao dataset que
     // já existia. Comparar o hash custa milissegundos e evita tudo isso.
-    const buffer = await file.arrayBuffer();
     const contentHash = hashFileContent(buffer);
     const duplicate = await findDuplicate(ctx.workspaceId, contentHash);
     if (duplicate) {
+      await admin.storage.from(FILES_BUCKET).remove([storagePath]);
       return NextResponse.json(
         {
           duplicate: true,
@@ -88,12 +133,12 @@ export async function POST(request: NextRequest) {
       .from("workspace_files")
       .insert({
         workspace_id: ctx.workspaceId,
-        name: file.name,
+        name: fileName,
         kind: "data",
-        mime_type: file.type || null,
-        size_bytes: file.size,
+        mime_type: mimeType,
+        size_bytes: objectSize,
         content_hash: contentHash,
-        storage_path: `${ctx.workspaceId}/pending/${file.name}`,
+        storage_path: storagePath,
         status: "PROCESSING",
         uploaded_by: ctx.user.id,
       })
@@ -102,13 +147,8 @@ export async function POST(request: NextRequest) {
     if (fileError || !fileRow) throw new ApiError(500, fileError?.message ?? "Failed to record file");
 
     try {
-      // Keep the raw file in Storage for reprocessing/audit.
-      const storagePath = `${ctx.workspaceId}/${fileRow.id}/${file.name}`;
-      const { error: uploadError } = await admin.storage
-        .from("workspace-files")
-        .upload(storagePath, buffer, { contentType: file.type || "application/octet-stream", upsert: true });
-      if (uploadError) throw new Error(`Storage upload failed: ${uploadError.message}`);
-
+      // O arquivo cru fica no Storage, no caminho para onde o navegador o
+      // enviou, para reprocessamento e auditoria.
       const { matrix, warnings: parseWarnings } =
         extension === "csv"
           ? parseCsvMatrix(new TextDecoder().decode(buffer))
@@ -130,7 +170,7 @@ export async function POST(request: NextRequest) {
         try {
           // Pelo orquestrador: a análise de layout é uma chamada de IA como
           // qualquer outra e precisa passar por crédito, cota e registro.
-          const plan = await new AIOrchestrator(ctx).analyzeFileLayout(matrix, file.name);
+          const plan = await new AIOrchestrator(ctx).analyzeFileLayout(matrix, fileName);
           if (plan) parsed = applyRestructurePlan(matrix, plan, parseWarnings);
         } catch (error) {
           console.error("[ai-restructure] fallback to heuristic parser", error);
@@ -138,11 +178,11 @@ export async function POST(request: NextRequest) {
       }
       if (!parsed) throw heuristicError instanceof Error ? heuristicError : new Error("File could not be parsed");
 
-      const result = await ingestParsedFile(ctx, admin, file.name, parsed);
+      const result = await ingestParsedFile(ctx, admin, fileName, parsed);
 
       await ctx.supabase
         .from("workspace_files")
-        .update({ status: "READY", storage_path: storagePath, data_source_id: result.dataSourceId })
+        .update({ status: "READY", data_source_id: result.dataSourceId })
         .eq("id", fileRow.id);
 
       // Dados novos tornam as respostas guardadas obsoletas: o cache expira
