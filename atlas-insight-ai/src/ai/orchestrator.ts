@@ -25,6 +25,7 @@ import { budgetFor, minDatasetQualityScore } from "@/ai/config";
 import { admit, estimateTokens, release } from "@/services/ai-gateway";
 import { cacheKey, readCache, singleFlight, writeCache } from "@/services/ai-cache";
 import { scoreDataset } from "@/ai/dataset-quality";
+import { narrowSchemaToBudget } from "@/ai/schema-index";
 import {
   buildLayoutPrompt,
   parseLayoutPlan,
@@ -52,6 +53,45 @@ const AI_BUDGET_MS = 38_000;
 /** Prazo absoluto a partir de agora. */
 function budgetDeadline(ms: number = AI_BUDGET_MS): number {
   return Date.now() + ms;
+}
+
+/**
+ * Renderiza o contexto respeitando o teto da operação.
+ *
+ * O esquema é reenviado a cada chamada e cresce com o número de tabelas:
+ * medido, 8 tabelas de 30 colunas já dão 12.446 tokens, acima dos 8.000 por
+ * minuto da camada gratuita — o provedor recusa o pedido inteiro, não trunca.
+ * O teto por operação existia em ai/config desde o início, mas não estava
+ * sendo aplicado em lugar nenhum.
+ *
+ * Quando o esquema inteiro cabe, nada muda. Quando não cabe, o detalhe fica
+ * nas tabelas que a pergunta pede e o ÍNDICE de todas continua no prompt,
+ * para o modelo saber que as outras existem em vez de inventar colunas.
+ */
+function renderContextWithin(
+  context: WorkspaceAiContext,
+  question: string,
+  maxChars: number
+): string {
+  const full = renderContextForPrompt(context);
+  const { tables, index, narrowed } = narrowSchemaToBudget(
+    context,
+    question,
+    full.length,
+    maxChars
+  );
+  if (!narrowed) return full;
+
+  const focused = renderContextForPrompt({ ...context, rawSchema: tables });
+  return [
+    index,
+    "",
+    "Detalhe completo apenas das tabelas mais relacionadas ao pedido. " +
+      "Se precisar de uma tabela que só aparece no índice acima, diga isso " +
+      "em vez de supor os nomes das colunas dela.",
+    "",
+    focused,
+  ].join("\n");
 }
 
 /**
@@ -277,7 +317,7 @@ export class AIOrchestrator {
       );
     }
     const dataSourceId = context.dataSourceId;
-    const system = `${intentAndSqlPrompt()}\n\n# Workspace data context\n${renderContextForPrompt(context)}`;
+    const system = `${intentAndSqlPrompt()}\n\n# Workspace data context\n${renderContextWithin(context, question, budgetFor("sql_generate").maxPromptChars)}`;
 
     return this.trackRun("sql_generate", system + question, context.contextVersion, async () => {
       const sqlDeadline = budgetDeadline();
@@ -517,7 +557,7 @@ Regras:
     // ainda devolve um resultado ruim.
     this.assertDatasetIsUsable(context);
 
-    const system = `${dashboardSpecPrompt()}\n\n# Workspace data context\n${renderContextForPrompt(context)}`;
+    const system = `${dashboardSpecPrompt()}\n\n# Workspace data context\n${renderContextWithin(context, request, budgetFor("dashboard_generate").maxPromptChars)}`;
 
     // Mesmo pedido, mesmo esquema: a resposta já está pronta. E dois pedidos
     // idênticos simultâneos (duplo clique, retry) viram uma única chamada.
@@ -679,7 +719,7 @@ Regras:
   /** Applies a natural-language edit to an existing validated spec. */
   async editDashboard(currentSpec: DashboardSpec, instruction: string): Promise<DashboardSpec> {
     const context = await buildWorkspaceContext(this.ctx, currentSpec.dataSourceId ?? undefined);
-    const system = `${dashboardEditPrompt(JSON.stringify(currentSpec, null, 2))}\n\n# Workspace data context\n${renderContextForPrompt(context)}`;
+    const system = `${dashboardEditPrompt(JSON.stringify(currentSpec, null, 2))}\n\n# Workspace data context\n${renderContextWithin(context, instruction, budgetFor("dashboard_edit").maxPromptChars)}`;
 
     return this.trackRun("dashboard_edit", system + instruction, context.contextVersion, async () => {
       const response = await this.provider.complete({
