@@ -1,28 +1,19 @@
-import { NextResponse, after, type NextRequest } from "next/server";
-import { requireWorkspace, handleApiError, auditLog, ApiError } from "@/services/api-context";
+import { NextResponse, type NextRequest } from "next/server";
+import { requireWorkspace, handleApiError, ApiError } from "@/services/api-context";
 import { createAdminClient } from "@/lib/supabase/admin";
 import {
   buildParsedFromMatrix,
-  ingestParsedFile,
+  insertRowsFrom,
   parseCsvMatrix,
   parseXlsxMatrix,
+  prepareIngest,
   type ParsedFile,
 } from "@/services/file-ingest";
 import { applyRestructurePlan, looksUnstructured } from "@/ai/file-restructure";
 import { AIOrchestrator } from "@/ai/orchestrator";
-import { profileDataSource } from "@/services/profiling";
-import { generateSemanticModel } from "@/semantic/generator";
-import { findDuplicate, hashFileContent, invalidateAiCache } from "@/services/file-dedup";
-import { publishRevision } from "@/services/datasets";
-import { buildWorkspaceContext } from "@/ai/context";
-import { scoreDataset } from "@/ai/dataset-quality";
-import { minDatasetQualityScore } from "@/ai/config";
-import {
-  FILES_BUCKET,
-  extensionOf,
-  isUploadPathFor,
-  uploadRejection,
-} from "@/lib/uploads";
+import { findDuplicate, hashFileContent } from "@/services/file-dedup";
+import { INGEST_BUDGET_MS, downloadUpload, finishIngest } from "@/services/file-pipeline";
+import { FILES_BUCKET, extensionOf, isUploadPathFor, uploadRejection } from "@/lib/uploads";
 
 export const maxDuration = 60;
 
@@ -52,6 +43,7 @@ export async function GET(request: NextRequest) {
  * chegava a ser conferido. Ver src/lib/uploads.ts.
  */
 export async function POST(request: NextRequest) {
+  const startedAt = Date.now();
   try {
     const body = (await request.json().catch(() => null)) as {
       workspaceId?: unknown;
@@ -97,13 +89,7 @@ export async function POST(request: NextRequest) {
       throw new ApiError(400, rejection);
     }
 
-    const { data: blob, error: downloadError } = await admin.storage
-      .from(FILES_BUCKET)
-      .download(storagePath);
-    if (downloadError || !blob) {
-      throw new ApiError(422, downloadError?.message ?? "Não foi possível ler o arquivo enviado.");
-    }
-    const buffer = await blob.arrayBuffer();
+    const buffer = await downloadUpload(admin, storagePath);
 
     // Impressão digital do conteúdo antes de qualquer processamento: o mesmo
     // arquivo reenviado refazia parse, perfil, modelo semântico e — quando o
@@ -146,6 +132,30 @@ export async function POST(request: NextRequest) {
       .single();
     if (fileError || !fileRow) throw new ApiError(500, fileError?.message ?? "Failed to record file");
 
+    // Duas importações do MESMO nome ao mesmo tempo se atropelam: a tabela
+    // física é derivada do nome do arquivo, e preparar a segunda derruba a
+    // tabela que a primeira ainda está preenchendo — o cliente ficaria com as
+    // duas leituras misturadas. O corte de 30 minutos existe para que um
+    // envio que morreu no meio não bloqueie o próximo para sempre.
+    const since = new Date(Date.now() - 30 * 60 * 1000).toISOString();
+    const { data: running } = await ctx.supabase
+      .from("workspace_files")
+      .select("id")
+      .eq("workspace_id", ctx.workspaceId)
+      .eq("name", fileName)
+      .eq("status", "PROCESSING")
+      .neq("id", fileRow.id)
+      .gte("created_at", since)
+      .limit(1);
+    if (running && running.length > 0) {
+      await ctx.supabase.from("workspace_files").delete().eq("id", fileRow.id);
+      await admin.storage.from(FILES_BUCKET).remove([storagePath]);
+      throw new ApiError(
+        409,
+        "Já existe uma importação em andamento para um arquivo com este nome. Aguarde ela terminar."
+      );
+    }
+
     try {
       // O arquivo cru fica no Storage, no caminho para onde o navegador o
       // enviou, para reprocessamento e auditoria.
@@ -161,6 +171,7 @@ export async function POST(request: NextRequest) {
       // meses em colunas → formato longo). Falhas caem no heurístico.
       let parsed: ParsedFile | null = null;
       let heuristicError: unknown = null;
+      let usedAi = false;
       try {
         parsed = buildParsedFromMatrix(matrix, [...parseWarnings]);
       } catch (error) {
@@ -171,69 +182,72 @@ export async function POST(request: NextRequest) {
           // Pelo orquestrador: a análise de layout é uma chamada de IA como
           // qualquer outra e precisa passar por crédito, cota e registro.
           const plan = await new AIOrchestrator(ctx).analyzeFileLayout(matrix, fileName);
-          if (plan) parsed = applyRestructurePlan(matrix, plan, parseWarnings);
+          if (plan) {
+            parsed = applyRestructurePlan(matrix, plan, parseWarnings);
+            usedAi = true;
+          }
         } catch (error) {
           console.error("[ai-restructure] fallback to heuristic parser", error);
         }
       }
       if (!parsed) throw heuristicError instanceof Error ? heuristicError : new Error("File could not be parsed");
 
-      const result = await ingestParsedFile(ctx, admin, fileName, parsed);
+      const plan = await prepareIngest(ctx, admin, fileName, parsed);
 
+      // A fonte é gravada ANTES de inserir: se o pedido morrer no meio, é por
+      // ela que a continuação encontra a tabela para retomar.
       await ctx.supabase
         .from("workspace_files")
-        .update({ status: "READY", data_source_id: result.dataSourceId })
+        .update({ data_source_id: plan.dataSourceId })
         .eq("id", fileRow.id);
 
-      // Dados novos tornam as respostas guardadas obsoletas: o cache expira
-      // por tempo, mas não sabe que a base mudou.
-      await invalidateAiCache(ctx.workspaceId);
+      // A inserção respeita o relógio da função: 300 mil linhas são 150 idas
+      // ao banco e não cabem em 60 segundos. O que não couber vira uma
+      // continuação — a resposta diz onde parou e o navegador volta para
+      // terminar, em vez de o upload morrer a meio caminho.
+      //
+      // A continuação só existe quando a leitura é REPRODUZÍVEL: se o layout
+      // foi remontado pela IA, repetir a leitura exigiria repetir a chamada
+      // (e o token), então esses arquivos vão inteiros de uma vez.
+      const deadlineAt = usedAi ? Number.POSITIVE_INFINITY : startedAt + INGEST_BUDGET_MS;
+      const inserted = await insertRowsFrom(admin, plan.physicalName, plan.rows, 0, deadlineAt);
 
-      await auditLog(ctx, "uploaded_file", "file", fileRow.id, {
-        rows: result.rowCount,
-        deduped: result.dedupedCount,
-        table: result.physicalName,
-      });
+      if (inserted < plan.rows.length) {
+        return NextResponse.json(
+          {
+            file: fileRow,
+            warnings: parsed.warnings,
+            ingest: {
+              fileId: fileRow.id,
+              tableId: plan.tableId,
+              offset: inserted,
+              total: plan.rows.length,
+            },
+          },
+          { status: 202 }
+        );
+      }
 
-      // Piloto automático: perfil das colunas, relacionamentos e modelo
-      // semântico rodam DEPOIS da resposta. Antes eles ficavam no caminho do
-      // pedido e, somados à leitura por IA, estouravam o tempo da função — o
-      // upload morria e o arquivo ficava preso em "processando".
-      after(async () => {
-        try {
-          await profileDataSource(ctx, result.dataSourceId);
-        } catch (error) {
-          console.error("[auto-pipeline] profiling", error);
-        }
-        try {
-          await generateSemanticModel(ctx, result.dataSourceId);
-        } catch (error) {
-          console.error("[auto-pipeline] semantic model", error);
-        }
-        // A nota de qualidade só faz sentido depois do perfil: é dele que
-        // saem papéis das colunas, vazios e contagens. Publicar aqui é o que
-        // torna o portão real — uma base reprovada fica visível com o motivo,
-        // em vez de virar um painel de gráficos em branco.
-        try {
-          const context = await buildWorkspaceContext(ctx, result.dataSourceId);
-          const quality = scoreDataset(context);
-          await publishRevision(ctx.supabase, result.dataSourceId, {
-            score: quality.score,
-            problems: quality.problems,
-            rowCount: result.rowCount,
-            columnCount: parsed.columns.length,
-            contentHash,
-            minScore: minDatasetQualityScore(),
-          });
-        } catch (error) {
-          console.error("[auto-pipeline] publish revision", error);
-        }
+      await finishIngest(ctx, {
+        fileId: fileRow.id,
+        dataSourceId: plan.dataSourceId,
+        rowCount: plan.rows.length,
+        columnCount: parsed.columns.length,
+        physicalName: plan.physicalName,
+        dedupedCount: plan.dedupedCount,
+        contentHash,
       });
 
       return NextResponse.json(
         {
           file: { ...fileRow, status: "READY" },
-          table: result,
+          table: {
+            dataSourceId: plan.dataSourceId,
+            tableId: plan.tableId,
+            physicalName: plan.physicalName,
+            rowCount: plan.rows.length,
+            dedupedCount: plan.dedupedCount,
+          },
           warnings: parsed.warnings,
           // O entendimento continua sendo montado em segundo plano.
           pipelineQueued: true,

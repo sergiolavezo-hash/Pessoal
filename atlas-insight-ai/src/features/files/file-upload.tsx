@@ -60,10 +60,66 @@ async function reportClientError(
   }
 }
 
+interface IngestState {
+  fileId: string;
+  tableId: string;
+  offset: number;
+  total: number;
+}
+
+/**
+ * Continua a ingestão até o servidor dizer que acabou.
+ *
+ * Cada rodada insere a fatia que couber nos 60 segundos da função e devolve
+ * onde parou. O laço tem um teto de rodadas porque um servidor que devolvesse
+ * sempre o mesmo offset viraria um laço infinito na aba do usuário — o
+ * servidor garante progresso inserindo ao menos um lote, mas o teto é o que
+ * torna essa garantia irrelevante para quem está olhando a tela.
+ */
+async function continueIngest(
+  workspaceId: string,
+  state: IngestState,
+  onProgress: (text: string | null) => void
+): Promise<Record<string, unknown>> {
+  const MAX_ROUNDS = 200;
+  let current = state;
+
+  for (let round = 0; round < MAX_ROUNDS; round++) {
+    const percent = Math.floor((current.offset / Math.max(current.total, 1)) * 100);
+    onProgress(
+      `${percent}% · ${current.offset.toLocaleString("pt-BR")} de ${current.total.toLocaleString("pt-BR")} linhas`
+    );
+
+    const res = await fetch(`/api/files/${current.fileId}/ingest`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ workspaceId, tableId: current.tableId }),
+    });
+    const json = await readResponse(res);
+    if (!res.ok) throw new Error((json.error as string) ?? "Falha ao concluir a importação");
+    if (json.done) {
+      onProgress(null);
+      return json;
+    }
+    const next = json.ingest as IngestState | undefined;
+    if (!next) throw new Error("Resposta inesperada do servidor durante a importação");
+    // Sem avanço, insistir só repete o mesmo pedido para sempre.
+    if (next.offset <= current.offset) {
+      throw new Error(
+        `A importação parou em ${current.offset.toLocaleString("pt-BR")} de ${current.total.toLocaleString("pt-BR")} linhas. Tente reenviar o arquivo.`
+      );
+    }
+    current = next;
+  }
+
+  throw new Error("A importação não terminou no tempo esperado. Reenvie o arquivo.");
+}
+
 export function FileUpload({ workspaceId }: { workspaceId: string }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState<string | null>(null);
 
   /**
    * Envio em duas etapas.
@@ -113,7 +169,7 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
           mimeType: file.type || null,
         }),
       });
-      const json = await readResponse(res);
+      let json = await readResponse(res);
       // Arquivo já cadastrado não é falha: o Atlas reconheceu o conteúdo e
       // não vai refazer parse, perfil e modelo para chegar ao mesmo dataset.
       if (res.status === 409 && json.duplicate) {
@@ -124,6 +180,13 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
         return;
       }
       if (!res.ok) throw new Error((json.error as string) ?? "Falha no envio");
+
+      // Arquivo grande entra em fatias: cada pedido insere o que cabe em 60
+      // segundos e diz onde parou. Sem isso, uma base de 300 mil linhas
+      // simplesmente estourava o tempo da função e morria pela metade.
+      if (json.ingest) {
+        json = await continueIngest(workspaceId, json.ingest as IngestState, setProgress);
+      }
 
       const table = (json.table ?? {}) as { rowCount?: number; dedupedCount?: number };
       const deduped = table.dedupedCount ?? 0;
@@ -167,6 +230,7 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
       router.refresh();
     } finally {
       setUploading(false);
+      setProgress(null);
       if (inputRef.current) inputRef.current.value = "";
     }
   }
@@ -196,7 +260,7 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
       />
       <Button onClick={() => inputRef.current?.click()} loading={uploading}>
         <Upload />
-        Enviar arquivo
+        {progress ? `Importando ${progress}` : "Enviar arquivo"}
       </Button>
     </>
   );

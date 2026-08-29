@@ -7,7 +7,28 @@ import { fileTableName } from "@/services/data-sources";
 import type { ApiContext } from "@/services/api-context";
 
 const MAX_ROWS = 500_000;
-const INSERT_BATCH = 1_000;
+/**
+ * Linhas por chamada ao banco.
+ *
+ * O gargalo da ingestão não é ler o arquivo — medido num CSV de 22 MB com
+ * 306 mil linhas, parse e deduplicação juntos levam menos de 1 segundo. O
+ * custo está nas IDAS AO BANCO: com lotes de mil, o mesmo arquivo faz 307
+ * chamadas de rede e estoura o tempo da função. Dois mil por lote dá ~360 KB
+ * de JSON por chamada — grande o bastante para cortar as idas pela metade e
+ * pequeno o bastante para não travar num pedido lento.
+ */
+const INSERT_BATCH = 2_000;
+
+/**
+ * Teto de linhas por arquivo.
+ *
+ * O limite real aqui é MEMÓRIA, não tempo: a ingestão em pedaços resolveu o
+ * tempo, mas o arquivo inteiro ainda é carregado para ser lido. Medido, cada
+ * linha custa cerca de 1,2 KB de heap — um milhão de linhas encosta no teto
+ * de memória da função. Acima disso a orientação continua sendo conectar o
+ * banco de origem, onde a consulta roda na fonte.
+ */
+export const MAX_FILE_ROWS = 1_000_000;
 
 export type InferredType = "text" | "bigint" | "double precision" | "boolean" | "timestamptz" | "date";
 
@@ -309,15 +330,53 @@ function isGenericColumn(name: string): boolean {
 }
 
 /**
- * Materializes a parsed file as a physical Postgres table and registers it
- * in the catalog under the workspace's "Files" data source.
+ * Camada ouro: remove linhas idênticas na ingestão, preservando a ordem.
+ *
+ * Precisa ser DETERMINÍSTICA e viver num lugar só: a continuação de um
+ * arquivo grande refaz esta lista para descobrir onde parou, e duas versões
+ * ligeiramente diferentes desta regra fariam a retomada apontar para a linha
+ * errada — dado duplicado ou dado faltando na base do cliente.
  */
-export async function ingestParsedFile(
+export function dedupeRows(rows: Record<string, unknown>[]): Record<string, unknown>[] {
+  const unique: Record<string, unknown>[] = [];
+  const seen = new Set<string>();
+  for (const row of rows) {
+    const key = JSON.stringify(row);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(row);
+  }
+  return unique;
+}
+
+export interface IngestPlan {
+  dataSourceId: string;
+  tableId: string;
+  physicalName: string;
+  /** Linhas únicas, NA ORDEM em que entram na tabela. */
+  rows: Record<string, unknown>[];
+  dedupedCount: number;
+}
+
+/**
+ * Prepara o destino: fonte, dataset, tabela do catálogo, tabela física e
+ * colunas. Não insere linha nenhuma.
+ *
+ * A separação existe porque inserir 300 mil linhas não cabe num pedido só —
+ * a função da Vercel tem 60 segundos e cada lote é uma ida ao banco. Quem
+ * chama insere o quanto der no tempo que tem e volta depois para continuar,
+ * com esta preparação já feita.
+ *
+ * ATENÇÃO: esta função DERRUBA e recria a tabela física. Chamá-la de novo no
+ * meio de uma ingestão apagaria o que já entrou — a continuação usa
+ * insertRowsFrom direto.
+ */
+export async function prepareIngest(
   ctx: ApiContext,
   admin: SupabaseClient,
   fileName: string,
   parsed: ParsedFile
-): Promise<{ dataSourceId: string; tableId: string; physicalName: string; rowCount: number; dedupedCount: number }> {
+): Promise<IngestPlan> {
   // 1. Find or create the workspace's file data source.
   const { data: existing } = await ctx.supabase
     .from("data_sources")
@@ -371,16 +430,7 @@ export async function ingestParsedFile(
 
   const physicalName = fileTableName(tableRow.id);
 
-  // Camada ouro: deduplicação automática de linhas idênticas na ingestão.
-  // O usuário recebe dados prontos para análise sem duplicatas exatas.
-  const uniqueRows: Record<string, unknown>[] = [];
-  const seenRows = new Set<string>();
-  for (const row of parsed.rows) {
-    const key = JSON.stringify(row);
-    if (seenRows.has(key)) continue;
-    seenRows.add(key);
-    uniqueRows.push(row);
-  }
+  const uniqueRows = dedupeRows(parsed.rows);
   const dedupedCount = parsed.rows.length - uniqueRows.length;
   if (dedupedCount > 0) {
     parsed = { ...parsed, rows: uniqueRows };
@@ -390,12 +440,9 @@ export async function ingestParsedFile(
       .eq("id", tableRow.id);
   }
 
-  // Proteção de performance: arquivos gigantes degradam o motor de
-  // consultas — acima do teto, oriente conectar o banco de origem.
-  const MAX_FILE_ROWS = 200_000;
   if (parsed.rows.length > MAX_FILE_ROWS) {
     throw new Error(
-      `File has ${parsed.rows.length.toLocaleString()} rows — the limit for file uploads is ${MAX_FILE_ROWS.toLocaleString()}. For large data, connect the source database (PostgreSQL/SQL Server/BigQuery) instead: queries run at the source and stay fast.`
+      `O arquivo tem ${parsed.rows.length.toLocaleString("pt-BR")} linhas e o limite por upload é ${MAX_FILE_ROWS.toLocaleString("pt-BR")}. Para bases maiores, conecte o banco de origem (PostgreSQL/SQL Server/BigQuery): a consulta roda na fonte e continua rápida.`
     );
   }
 
@@ -410,15 +457,6 @@ export async function ingestParsedFile(
     p_columns: parsed.columns,
   });
   if (createError) throw new Error(`Failed to create table: ${createError.message}`);
-
-  for (let i = 0; i < parsed.rows.length; i += INSERT_BATCH) {
-    const batch = parsed.rows.slice(i, i + INSERT_BATCH);
-    const { error: insertError } = await admin.rpc("insert_file_rows", {
-      p_table_name: physicalName,
-      p_rows: batch,
-    });
-    if (insertError) throw new Error(`Failed to insert rows: ${insertError.message}`);
-  }
 
   // 5. Catalog columns.
   for (let i = 0; i < parsed.columns.length; i++) {
@@ -465,5 +503,86 @@ export async function ingestParsedFile(
     await ctx.supabase.from("catalog_tables").update({ context }).eq("id", tableRow.id);
   }
 
-  return { dataSourceId, tableId: tableRow.id, physicalName, rowCount: parsed.rows.length, dedupedCount };
+  return { dataSourceId, tableId: tableRow.id, physicalName, rows: parsed.rows, dedupedCount };
+}
+
+/** Nome de tabela física aceitável — o mesmo formato exigido pelas RPCs. */
+const PHYSICAL_NAME = /^[a-z][a-z0-9_]{0,62}$/;
+
+/**
+ * Insere as linhas a partir de `offset` até acabar OU até o prazo estourar.
+ *
+ * Devolve o próximo offset. Igual a rows.length significa terminado; menor
+ * significa "continue de onde parei" — é assim que um arquivo de 300 mil
+ * linhas atravessa vários pedidos de 60 segundos sem que nenhum deles morra
+ * no meio.
+ *
+ * Sempre insere ao menos um lote, mesmo com o prazo já vencido: devolver zero
+ * progresso faria o navegador repetir o mesmo pedido para sempre.
+ */
+export async function insertRowsFrom(
+  admin: SupabaseClient,
+  physicalName: string,
+  rows: Record<string, unknown>[],
+  offset: number,
+  deadlineAt: number
+): Promise<number> {
+  if (!PHYSICAL_NAME.test(physicalName)) throw new Error("invalid table name");
+
+  let i = Math.max(0, offset);
+  while (i < rows.length) {
+    const batch = rows.slice(i, i + INSERT_BATCH);
+    const { error } = await admin.rpc("insert_file_rows", {
+      p_table_name: physicalName,
+      p_rows: batch,
+    });
+    if (error) throw new Error(`Failed to insert rows: ${error.message}`);
+    i += batch.length;
+    if (Date.now() >= deadlineAt) break;
+  }
+  return i;
+}
+
+/**
+ * Quantas linhas já estão na tabela física.
+ *
+ * A continuação NÃO confia no offset que o navegador manda: ele é palpite de
+ * quem pode ter recarregado a página no meio. Contar no banco é a única fonte
+ * que não mente — e como cada lote é uma instrução só, ou entrou inteiro ou
+ * não entrou, então a contagem bate exatamente com o ponto de parada.
+ */
+export async function countIngestedRows(
+  admin: SupabaseClient,
+  physicalName: string
+): Promise<number> {
+  if (!PHYSICAL_NAME.test(physicalName)) throw new Error("invalid table name");
+  const { data, error } = await admin.rpc("run_file_query", {
+    p_query: `select count(*)::bigint as n from ${physicalName}`,
+    p_max_rows: 1,
+  });
+  if (error) throw new Error(`Failed to count rows: ${error.message}`);
+  const rows = (data ?? []) as Array<{ n?: number | string }>;
+  return Number(rows[0]?.n ?? 0);
+}
+
+/**
+ * Ingestão completa num pedido só. Serve para arquivo pequeno e para o caso
+ * em que a leitura NÃO é reproduzível (layout remontado pela IA), onde
+ * continuar depois exigiria repetir a chamada de IA.
+ */
+export async function ingestParsedFile(
+  ctx: ApiContext,
+  admin: SupabaseClient,
+  fileName: string,
+  parsed: ParsedFile
+): Promise<{ dataSourceId: string; tableId: string; physicalName: string; rowCount: number; dedupedCount: number }> {
+  const plan = await prepareIngest(ctx, admin, fileName, parsed);
+  await insertRowsFrom(admin, plan.physicalName, plan.rows, 0, Number.POSITIVE_INFINITY);
+  return {
+    dataSourceId: plan.dataSourceId,
+    tableId: plan.tableId,
+    physicalName: plan.physicalName,
+    rowCount: plan.rows.length,
+    dedupedCount: plan.dedupedCount,
+  };
 }
