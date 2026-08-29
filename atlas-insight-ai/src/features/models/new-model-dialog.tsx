@@ -36,15 +36,21 @@ export interface SelectableDataset {
 export function NewModelDialog({
   workspaceId,
   datasets,
+  autoOpen = false,
+  preselected = [],
 }: {
   workspaceId: string;
   datasets: SelectableDataset[];
+  /** Abre já aberto quando o usuário chega do envio de um arquivo. */
+  autoOpen?: boolean;
+  /** Conjuntos já marcados — normalmente o que acabou de ser importado. */
+  preselected?: string[];
 }) {
   const router = useRouter();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(autoOpen);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<string[]>(preselected);
   const [submitting, setSubmitting] = useState(false);
 
   function toggle(id: string) {

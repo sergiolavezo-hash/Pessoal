@@ -25,7 +25,14 @@ interface ModelRow {
  * existe no banco e não aparece aqui de propósito — um nome que muda sozinho
  * faz a pessoa procurar o que ela criou.
  */
-export default async function ModelosPage() {
+export default async function ModelosPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ novo?: string }>;
+}) {
+  // Vindo do upload: a fonte recém-importada já chega marcada, para o
+  // usuário só dar um nome ao modelo em vez de reencontrá-la na lista.
+  const { novo } = await searchParams;
   const ctx = await getAppContext();
   const supabase = await createClient();
 
@@ -62,7 +69,12 @@ export default async function ModelosPage() {
         description="Um modelo reúne os conjuntos de dados que você quer analisar juntos. O mesmo conjunto pode participar de vários modelos, sem duplicar dados."
         actions={
           canEdit ? (
-            <NewModelDialog workspaceId={ctx.workspace.id} datasets={datasets} />
+            <NewModelDialog
+              workspaceId={ctx.workspace.id}
+              datasets={datasets}
+              autoOpen={Boolean(novo)}
+              preselected={novo ? [novo] : []}
+            />
           ) : undefined
         }
       />
@@ -105,10 +117,10 @@ export default async function ModelosPage() {
                   </p>
 
                   <Link
-                    href={`/dashboards?model=${model.id}`}
+                    href={`/modelos/${model.id}`}
                     className="mt-3 inline-block text-sm text-primary hover:underline"
                   >
-                    Criar painel com este modelo →
+                    Abrir modelo →
                   </Link>
                 </CardContent>
               </Card>

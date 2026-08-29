@@ -8,6 +8,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Badge } from "@/components/ui/badge";
 import { ErrorState } from "@/components/ui/empty-state";
 import { DashboardView } from "@/features/dashboards/dashboard-view";
+import { AskPanel } from "@/features/dashboards/ask-panel";
 import type { Dashboard } from "@/types";
 
 export const metadata = { title: "Dashboard" };
@@ -56,12 +57,18 @@ export default async function DashboardDetailPage({ params }: { params: Promise<
           description="O que está salvo não passou na validação e não pode ser desenhado. Gere o painel de novo ou peça um ajuste ao Atlas."
         />
       ) : (
-        <DashboardView
-          workspaceId={ctx.workspace.id}
-          dashboardId={dashboard.id}
-          spec={parsed.data}
-          canEdit={canEdit}
-        />
+        <>
+          <DashboardView
+            workspaceId={ctx.workspace.id}
+            dashboardId={dashboard.id}
+            spec={parsed.data}
+            canEdit={canEdit}
+          />
+          {/* A pergunta vive aqui, junto dos dados já entendidos e dos
+              resultados já calculados — é isso que permite responder sem
+              gastar cota de novo. */}
+          <AskPanel dashboardId={dashboard.id} workspaceId={ctx.workspace.id} />
+        </>
       )}
     </div>
   );

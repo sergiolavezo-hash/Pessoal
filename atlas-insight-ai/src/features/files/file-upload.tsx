@@ -90,6 +90,15 @@ export function FileUpload({ workspaceId }: { workspaceId: string }) {
         );
       }
       for (const w of (json.warnings as string[]) ?? []) toast.warning(w, { duration: 9000 });
+
+      // O arquivo sozinho não analisa nada: ele precisa entrar num modelo.
+      // Levar o usuário para lá com a fonte já selecionada evita o passo em
+      // que ele volta ao menu e tenta adivinhar qual tela abrir.
+      const dataSourceId = (json.table as { dataSourceId?: string } | undefined)?.dataSourceId;
+      if (dataSourceId) {
+        router.push(`/modelos?novo=${encodeURIComponent(dataSourceId)}`);
+        return;
+      }
       router.refresh();
     } catch (error) {
       const detail = error instanceof Error ? error.message : String(error);
