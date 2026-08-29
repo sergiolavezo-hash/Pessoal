@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   BookText,
-  Bot,
   Boxes,
   Check,
   ChevronsUpDown,
@@ -15,7 +14,6 @@ import {
   Gauge,
   LayoutDashboard,
   LogOut,
-  Network,
   PanelLeftClose,
   PanelLeftOpen,
   Settings,
@@ -56,7 +54,10 @@ const NAV_GROUPS: Array<{ label: string | null; items: Array<{ href: string; lab
     items: [
       { href: "/files", label: "Enviar dados", icon: FileUp },
       { href: "/data-sources", label: "Fontes de dados", icon: Database },
-      { href: "/data-model", label: "Modelo de dados", icon: Network },
+      // Um único lugar para modelos. Antes havia "Modelos" e "Modelo de
+      // dados" lado a lado: dois nomes quase iguais para coisas que o
+      // usuário lê como a mesma, e ele precisava adivinhar qual abrir.
+      // A estrutura das tabelas agora vive dentro do modelo a que pertence.
       { href: "/modelos", label: "Modelos", icon: Boxes },
     ],
   },
@@ -70,8 +71,10 @@ const NAV_GROUPS: Array<{ label: string | null; items: Array<{ href: string; lab
   {
     label: "3 · Análise",
     items: [
+      // Perguntar à IA deixou de ser um destino próprio: a pergunta acontece
+      // dentro do painel, onde estão os dados já entendidos e os resultados
+      // já calculados — que é o que permite responder sem gastar token de novo.
       { href: "/dashboards", label: "Painéis", icon: LayoutDashboard },
-      { href: "/ai-analyst", label: "Perguntar à IA", icon: Bot },
     ],
   },
   {

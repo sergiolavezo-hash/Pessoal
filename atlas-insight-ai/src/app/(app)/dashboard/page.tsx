@@ -34,8 +34,8 @@ export default async function OverviewPage() {
     { label: "Fontes de dados", value: dataSources.count ?? 0, icon: Database, href: "/data-sources" },
     { label: "Painéis", value: dashboards.count ?? 0, icon: LayoutDashboard, href: "/dashboards" },
     { label: "Indicadores", value: metrics.count ?? 0, icon: Sigma, href: "/metrics" },
-    { label: "Tabelas", value: tables.count ?? 0, icon: Table2, href: "/data-model" },
-    { label: "Análises de IA", value: aiRuns.count ?? 0, icon: Bot, href: "/ai-analyst" },
+    { label: "Tabelas", value: tables.count ?? 0, icon: Table2, href: "/modelos" },
+    { label: "Análises de IA", value: aiRuns.count ?? 0, icon: Bot, href: "/dashboards" },
   ];
 
   const isEmpty = (dataSources.count ?? 0) === 0;

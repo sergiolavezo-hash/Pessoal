@@ -105,10 +105,10 @@ export default async function ModelosPage() {
                   </p>
 
                   <Link
-                    href={`/ai-analyst?model=${model.id}`}
+                    href={`/dashboards?model=${model.id}`}
                     className="mt-3 inline-block text-sm text-primary hover:underline"
                   >
-                    Perguntar a este modelo →
+                    Criar painel com este modelo →
                   </Link>
                 </CardContent>
               </Card>

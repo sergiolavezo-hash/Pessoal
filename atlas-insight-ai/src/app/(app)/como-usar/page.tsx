@@ -31,10 +31,10 @@ const STEPS = [
   },
   {
     n: 4,
-    title: "Confira o modelo de dados",
-    body: "O Atlas identifica o que é valor, o que é categoria e o que é data, e sugere como as tabelas se ligam. Você pode corrigir o que ele entendeu errado.",
-    href: "/data-model",
-    hrefLabel: "Modelo de dados",
+    title: "Monte seu modelo",
+    body: "Reúna num modelo os arquivos e conexões que você quer analisar juntos, e dê um nome a ele. O Atlas já identificou o que é valor, o que é categoria e o que é data.",
+    href: "/modelos",
+    hrefLabel: "Modelos",
   },
   {
     n: 5,
@@ -53,9 +53,9 @@ const STEPS = [
   {
     n: 7,
     title: "Pergunte aos seus dados",
-    body: "Faça perguntas em linguagem natural. A resposta vem com o número, o gráfico e a consulta que foi executada, para você poder conferir.",
-    href: "/ai-analyst",
-    hrefLabel: "Perguntar à IA",
+    body: "Dentro do painel, faça perguntas em linguagem natural. A resposta vem com o número, o gráfico e a consulta executada, para você conferir — e quando ela já estiver no painel, vem sem gastar sua cota de IA.",
+    href: "/dashboards",
+    hrefLabel: "Painéis",
   },
 ];
 
