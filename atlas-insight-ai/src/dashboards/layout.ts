@@ -70,8 +70,8 @@ export function applyDashboardLayout(widgets: DashboardWidget[]): DashboardWidge
 
 /**
  * Corrige o tipo de gráfico com base no formato REAL do resultado — a IA
- * escolhe às cegas, sem saber quantas categorias a consulta devolve. Um donut
- * com 40 fatias ou uma "tendência" de 2 pontos é ilegível.
+ * escolhe às cegas, sem saber quantas categorias a consulta devolve. Uma
+ * "tendência" de 2 pontos é ilegível.
  */
 export function repairWidgetVisual(widget: DashboardWidget, rowCount: number): DashboardWidget {
   const retype = (type: WidgetType) => ({ ...widget, type });
@@ -80,9 +80,6 @@ export function repairWidgetVisual(widget: DashboardWidget, rowCount: number): D
     case "kpi":
       // Um indicador precisa de um número só; várias linhas viram comparação.
       return rowCount > 1 && widget.xField ? retype("bar") : widget;
-    case "donut":
-      if (rowCount > 12) return retype("horizontal_bar");
-      return rowCount > 6 ? retype("bar") : widget;
     case "bar":
     case "stacked_bar":
       // Muitas categorias: rótulos horizontais ficam ilegíveis em pé.

@@ -80,13 +80,19 @@ The context tells you, for every column, its analytical role, how many distinct 
 
 ## Visualization selection rules
 ${VISUAL_RULES.map((r) => `- ${r.goal} -> ${r.type}`).join("\n")}
-- Use the distinct counts given in the context: donut only for <= 6 categories; bar up to ~15; ranking/table beyond that.
+- NEVER use a pie or donut chart. Comparing angles is harder than comparing
+  lengths, so a bar answers the same question faster; share of total goes in a
+  horizontal bar with the percentage in the label.
+- Use the distinct counts given in the context: bar up to ~15 categories; ranking/table beyond that.
+- Choose the chart because it communicates the data best, never because it looks impressive.
+- The dashboard must answer its main questions in about 5 seconds of looking at it.
+  If a widget needs study to be understood, it is the wrong widget.
 - KPI widgets: the query must return exactly ONE row and ONE value column, named in yFields. Use them for the headline numbers only (3-4 of them).
 - Time series: one row per period, ordered chronologically; xField is the period column.
 - Every widget must answer a different question — never two widgets showing the same number.
 
 ## Composition
-Return 5-8 widgets in this order of intent: first the headline KPIs, then the trend over time, then the breakdowns by dimension, and finally the detail table. Positioning is handled by the application — do NOT emit any layout, x, y, w or h.
+Return 5-8 widgets in this order of intent: first the headline KPIs, then the trend over time, then the breakdowns by dimension, and finally the detail table. People read a dashboard in a Z/F pattern, so what matters most has to come first — it lands top-left, where the eye starts. Positioning is handled by the application — do NOT emit any layout, x, y, w or h.
 
 ${SQL_RULES}
 
@@ -128,7 +134,7 @@ export function chatAnswerPrompt(): string {
   "highlights": [{"label": "<short label>", "value": "<formatted number>"}],
   "insights": [{"kind": "growth"|"decline"|"trend"|"anomaly"|"outlier"|"concentration"|"top_performer"|"bottom_performer"|"observation", "text": "<evidence-based insight>"}],
   "chart": {
-    "type": "line"|"bar"|"horizontal_bar"|"donut"|"table"|null,
+    "type": "line"|"bar"|"horizontal_bar"|"table"|null,
     "title": "<chart title>",
     "xField": "<column>",
     "yFields": ["<columns>"]

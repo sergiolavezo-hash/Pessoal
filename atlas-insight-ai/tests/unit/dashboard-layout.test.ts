@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { applyDashboardLayout, balancedRows, repairWidgetVisual } from "@/dashboards/layout";
-import type { DashboardWidget, WidgetType } from "@/dashboards/spec";
+import { widgetSchema, type DashboardWidget, type WidgetType } from "@/dashboards/spec";
 
 function widget(id: string, type: WidgetType): DashboardWidget {
   return {
@@ -66,8 +66,8 @@ describe("applyDashboardLayout", () => {
       ["kpi"],
       ["kpi", "kpi", "kpi"],
       ["kpi", "kpi", "kpi", "kpi", "kpi"],
-      ["bar", "line", "donut"],
-      ["kpi", "kpi", "kpi", "kpi", "line", "bar", "donut", "table"],
+      ["bar", "line", "scatter"],
+      ["kpi", "kpi", "kpi", "kpi", "line", "bar", "area", "table"],
       ["table", "table"],
     ];
     for (const mix of mixes) {
@@ -87,10 +87,20 @@ describe("applyDashboardLayout", () => {
 });
 
 describe("repairWidgetVisual", () => {
-  it("turns an unreadable donut into a bar chart", () => {
-    expect(repairWidgetVisual(widget("d", "donut"), 9).type).toBe("bar");
-    expect(repairWidgetVisual(widget("d", "donut"), 40).type).toBe("horizontal_bar");
-    expect(repairWidgetVisual(widget("d", "donut"), 4).type).toBe("donut");
+  /**
+   * Pizza saiu do produto: comparar ângulos é mais difícil que comparar
+   * comprimentos, e uma barra responde a mesma pergunta mais rápido. Painéis
+   * antigos com donut continuam abrindo — o tipo é convertido, não recusado,
+   * senão o usuário perderia um painel que funcionava.
+   */
+  it("accepts a legacy donut spec and turns it into a bar", () => {
+    const parsed = widgetSchema.parse({
+      id: "legacy",
+      type: "donut",
+      title: "Participação",
+      query: { sql: "select 1", metrics: [] },
+    });
+    expect(parsed.type).toBe("horizontal_bar");
   });
 
   it("flips crowded bars to horizontal and huge ones to a table", () => {

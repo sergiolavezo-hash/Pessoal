@@ -11,7 +11,6 @@ export const WIDGET_TYPES = [
   "horizontal_bar",
   "stacked_bar",
   "area",
-  "donut",
   "scatter",
   "table",
   "ranking",
@@ -32,7 +31,16 @@ export const widgetQuerySchema = z.object({
 
 export const widgetSchema = z.object({
   id: z.string().min(1),
-  type: z.enum(WIDGET_TYPES),
+  /**
+   * Tipos antigos continuam sendo ACEITOS e convertidos, nunca recusados.
+   * Painéis gerados antes de o gráfico de pizza sair do produto ficariam com
+   * "especificação inválida" e parariam de abrir — o usuário perderia um
+   * painel que funcionava por causa de uma decisão de estilo nossa.
+   */
+  type: z.preprocess(
+    (value) => (value === "donut" || value === "pie" ? "horizontal_bar" : value),
+    z.enum(WIDGET_TYPES)
+  ),
   title: z.string().min(1),
   description: z.string().optional(),
   query: widgetQuerySchema,
@@ -107,7 +115,7 @@ export const VISUAL_RULES = [
   { goal: "comparison between categories", type: "bar" },
   { goal: "composition over time", type: "stacked_bar" },
   { goal: "cumulative trend", type: "area" },
-  { goal: "share of total (<= 6 slices)", type: "donut" },
+  { goal: "share of total", type: "horizontal_bar" },
   { goal: "correlation between two measures", type: "scatter" },
   { goal: "detailed records", type: "table" },
   { goal: "top N list with values", type: "ranking" },

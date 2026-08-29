@@ -7,12 +7,9 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  Cell,
   LabelList,
   Line,
   LineChart,
-  Pie,
-  PieChart,
   ResponsiveContainer,
   Scatter,
   ScatterChart,
@@ -41,7 +38,6 @@ import {
   CHART_INK,
   MARK,
   MAX_SERIES,
-  OTHER_COLOR,
   SEQUENTIAL_RAMP,
   sequentialStep,
   seriesColor,
@@ -392,73 +388,6 @@ export function ChartRenderer({ widget, rows, tableView }: ChartRendererProps) {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
-      );
-    }
-
-    case "donut": {
-      // Parte-do-todo só funciona de relance: acima de 6 fatias o olho não
-      // compara ângulos. O excedente vira "Outros" em vez de virar confete.
-      const field = yFields[0];
-      const ordered = [...rows].sort((a, b) => toNumber(b[field]) - toNumber(a[field]));
-      const head = ordered.slice(0, 5).map((r) => ({
-        name: categoryLabel(r[xField]),
-        value: toNumber(r[field]),
-      }));
-      const tail = ordered.slice(5);
-      const data =
-        tail.length > 0
-          ? [...head, { name: `Outros (${tail.length})`, value: tail.reduce((s, r) => s + toNumber(r[field]), 0) }]
-          : head;
-      const total = data.reduce((s, d) => s + d.value, 0);
-      const sliceColor = (i: number) =>
-        i === data.length - 1 && tail.length > 0 ? OTHER_COLOR : seriesColor(i);
-      return (
-        <ChartFrame
-          legend={
-            <ChartLegend entries={data.map((d, i) => ({ label: d.name, color: sliceColor(i) }))} />
-          }
-          // O buraco do donut é espaço morto; o total ali dá o denominador
-          // que faz cada fatia significar alguma coisa.
-          overlay={
-            <div className="pointer-events-none flex flex-col items-center">
-              <span className="text-[10px] uppercase tracking-wide text-muted-foreground">Total</span>
-              <span className="viz-figure text-lg font-semibold">
-                {formatCompact(total, widget.format)}
-              </span>
-            </div>
-          }
-        >
-          <PieChart margin={{ top: 4, right: 4, left: 4, bottom: 4 }}>
-            {tooltip("rect", total)}
-            <Pie
-              data={data}
-              dataKey="value"
-              nameKey="name"
-              innerRadius="58%"
-              outerRadius="82%"
-              paddingAngle={1}
-              stroke={CHART_INK.surface}
-              strokeWidth={MARK.gap}
-              isAnimationActive={false}
-            >
-              {data.map((d, i) => (
-                <Cell key={d.name} fill={sliceColor(i)} />
-              ))}
-              {/* Participação escrita fora da fatia: a cor sozinha não diz
-                  quanto, e três das matizes claras não alcançam contraste de
-                  texto sobre o branco. */}
-              <LabelList
-                dataKey="value"
-                position="outside"
-                offset={10}
-                style={{ fontSize: 11, fill: CHART_INK.label }}
-                formatter={(v: unknown) =>
-                  total > 0 ? `${Math.round((toNumber(v) / total) * 100)}%` : ""
-                }
-              />
-            </Pie>
-          </PieChart>
-        </ChartFrame>
       );
     }
 

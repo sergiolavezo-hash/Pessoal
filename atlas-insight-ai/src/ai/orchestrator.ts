@@ -125,7 +125,7 @@ const chatAnswerSchema = z.object({
     .default([]),
   chart: z
     .object({
-      type: z.enum(["line", "bar", "horizontal_bar", "donut", "table"]).nullable(),
+      type: z.enum(["line", "bar", "horizontal_bar", "table"]).nullable(),
       title: z.string().optional(),
       xField: z.string().optional(),
       yFields: z.array(z.string()).default([]),
