@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { projectStates, toUf, UF_NAMES } from "@/dashboards/geo/brazil-states";
 import {
   Area,
   AreaChart,
@@ -436,6 +437,12 @@ export function ChartRenderer({ widget, rows, tableView }: ChartRendererProps) {
     case "funnel":
       return <FunnelBars rows={rows} xField={xField} yField={yFields[0]} format={widget.format} />;
 
+    case "map":
+      return <BrazilMap rows={rows} xField={xField} yField={yFields[0]} format={widget.format} />;
+
+    case "gauge":
+      return <Gauge rows={rows} yFields={yFields} format={widget.format} />;
+
     case "heatmap":
       return <Heatmap rows={rows} xField={xField} yFields={yFields} format={widget.format} />;
 
@@ -762,6 +769,141 @@ function DataTable({
           ))}
         </TableBody>
       </Table>
+    </div>
+  );
+}
+
+/**
+ * Mapa coroplético por estado brasileiro.
+ *
+ * Estados sem dado ficam com o traço, mas sem preenchimento — deixá-los na
+ * cor mais clara da rampa os faria parecer "valor baixo" em vez de "sem
+ * informação", que é uma leitura completamente diferente.
+ */
+function BrazilMap({
+  rows,
+  xField,
+  yField,
+  format,
+}: {
+  rows: Record<string, unknown>[];
+  xField: string;
+  yField: string;
+  format?: string;
+}) {
+  const WIDTH = 420;
+  const HEIGHT = 400;
+
+  const byUf = useMemo(() => {
+    const acc = new Map<string, number>();
+    for (const row of rows) {
+      const uf = toUf(row[xField]);
+      if (!uf) continue;
+      acc.set(uf, (acc.get(uf) ?? 0) + toNumber(row[yField]));
+    }
+    return acc;
+  }, [rows, xField, yField]);
+
+  const shapes = useMemo(() => projectStates(WIDTH, HEIGHT), []);
+  const values = [...byUf.values()];
+  const min = values.length ? Math.min(...values) : 0;
+  const max = values.length ? Math.max(...values) : 0;
+  const span = max - min || 1;
+
+  return (
+    <div className="flex h-full flex-col">
+      <div className="min-h-0 flex-1">
+        <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="h-full w-full" role="img"
+             aria-label="Mapa do Brasil por estado">
+          {shapes.map((shape) => {
+            const value = byUf.get(shape.uf);
+            const step =
+              value == null
+                ? null
+                : SEQUENTIAL_RAMP[
+                    Math.min(
+                      SEQUENTIAL_RAMP.length - 1,
+                      Math.floor(((value - min) / span) * SEQUENTIAL_RAMP.length)
+                    )
+                  ];
+            return (
+              <path
+                key={shape.uf}
+                d={shape.path}
+                fill={step ?? "transparent"}
+                stroke={CHART_INK.grid}
+                strokeWidth={0.7}
+              >
+                <title>
+                  {`${UF_NAMES[shape.uf]}: ${
+                    value == null ? "sem dados" : formatValue(value, format)
+                  }`}
+                </title>
+              </path>
+            );
+          })}
+        </svg>
+      </div>
+      <ScaleLegend steps={SEQUENTIAL_RAMP} min={min} max={max} format={format} />
+    </div>
+  );
+}
+
+/**
+ * Velocímetro: um número contra a meta.
+ *
+ * Só faz sentido quando existe um alvo — sem ele o ponteiro não tem contra o
+ * que apontar e o widget vira um número enfeitado, que um KPI comunica melhor
+ * e em menos espaço. O segundo valor da consulta é lido como a meta.
+ */
+function Gauge({
+  rows,
+  yFields,
+  format,
+}: {
+  rows: Record<string, unknown>[];
+  yFields: string[];
+  format?: string;
+}) {
+  const row = rows[0] ?? {};
+  const value = toNumber(row[yFields[0]]);
+  const targetRaw = yFields[1] != null ? toNumber(row[yFields[1]]) : 0;
+  const target = targetRaw > 0 ? targetRaw : value > 0 ? value : 1;
+  const ratio = Math.max(0, Math.min(1.25, value / target));
+
+  // Semicírculo: 180 graus da esquerda para a direita.
+  const R = 90;
+  const CX = 110;
+  const CY = 105;
+  const angle = Math.PI * (1 - Math.min(ratio, 1));
+  const endX = CX + R * Math.cos(angle);
+  const endY = CY - R * Math.sin(angle);
+
+  const reached = ratio >= 1;
+
+  return (
+    <div className="flex h-full flex-col items-center justify-center">
+      <svg viewBox="0 0 220 130" className="w-full max-w-[260px]" role="img"
+           aria-label={`${formatValue(value, format)} de ${formatValue(target, format)}`}>
+        <path
+          d={`M${CX - R},${CY} A${R},${R} 0 0 1 ${CX + R},${CY}`}
+          fill="none"
+          stroke={CHART_INK.grid}
+          strokeWidth={14}
+          strokeLinecap="round"
+        />
+        <path
+          d={`M${CX - R},${CY} A${R},${R} 0 0 1 ${endX.toFixed(1)},${endY.toFixed(1)}`}
+          fill="none"
+          stroke={reached ? "var(--success)" : SEQUENTIAL_RAMP[SEQUENTIAL_RAMP.length - 2]}
+          strokeWidth={14}
+          strokeLinecap="round"
+        />
+      </svg>
+      <p className="viz-tabular -mt-6 text-2xl font-semibold">{formatValue(value, format)}</p>
+      <p className="text-xs text-muted-foreground">
+        {`${Math.round(ratio * 100)}% da meta de ${formatValue(target, format)}`}
+      </p>
     </div>
   );
 }

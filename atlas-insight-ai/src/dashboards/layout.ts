@@ -77,6 +77,15 @@ export function repairWidgetVisual(widget: DashboardWidget, rowCount: number): D
   const retype = (type: WidgetType) => ({ ...widget, type });
 
   switch (widget.type) {
+    case "gauge":
+      // Velocímetro mostra UM número contra a meta; várias linhas não cabem
+      // no ponteiro e viram comparação.
+      return rowCount > 1 ? retype("bar") : widget;
+    case "map":
+      // O Brasil tem 27 unidades federativas. Mais linhas que isso significa
+      // que a coluna não é de estados (cidades, produtos), e um mapa quase
+      // todo cinza comunica "não vendi nada lá" em vez de "não é geográfico".
+      return rowCount > 27 ? retype("horizontal_bar") : widget;
     case "kpi":
       // Um indicador precisa de um número só; várias linhas viram comparação.
       return rowCount > 1 && widget.xField ? retype("bar") : widget;

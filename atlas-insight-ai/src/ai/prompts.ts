@@ -91,6 +91,14 @@ ${VISUAL_RULES.map((r) => `- ${r.goal} -> ${r.type}`).join("\n")}
 - A KPI is not the same thing as a metric. "Number of visits" is a metric; a KPI
   answers "are we hitting the goal?" and is actionable. Prefer KPI widgets that a
   manager could act on, not counts that merely describe.
+- Map: only when a column holds Brazilian states (UF codes like SP, or names
+  like "São Paulo"). Cities, countries or product names are NOT a map — use a
+  bar, because a mostly grey map reads as "nothing sold there" rather than "not
+  geographic". One row per state.
+- Gauge: only when the query returns ONE row with the value AND its target, in
+  that order in yFields. Without a target the needle has nothing to point at and
+  a KPI says the same thing in less space.
+- Funnel: ordered stages of one process, largest first — not unrelated categories.
 - Fewer widgets beat more. Every extra visual costs render time and reader
   attention, so drop anything that does not change a decision.
 - Time series: one row per period, ordered chronologically; xField is the period column.

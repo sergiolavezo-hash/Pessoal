@@ -16,6 +16,8 @@ export const WIDGET_TYPES = [
   "ranking",
   "heatmap",
   "funnel",
+  "map",
+  "gauge",
 ] as const;
 
 export type WidgetType = (typeof WIDGET_TYPES)[number];
@@ -121,4 +123,6 @@ export const VISUAL_RULES = [
   { goal: "top N list with values", type: "ranking" },
   { goal: "matrix of intensity", type: "heatmap" },
   { goal: "stage conversion", type: "funnel" },
+  { goal: "value by Brazilian state", type: "map" },
+  { goal: "single value against a target", type: "gauge" },
 ] as const;
