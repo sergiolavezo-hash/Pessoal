@@ -3,6 +3,24 @@ name: Publish site to gh-pages
 on:
   push:
     branches: [claude/atlas-partner-site-upgrade-gqecba]
+    # Só quando o SITE muda. Antes, todo commit do app disparava este job,
+    # que reescreve a branch gh-pages — e cada reescrita fazia a Vercel criar
+    # um deployment que morre em 1 segundo (a gh-pages não tem o app). Era um
+    # deployment desperdiçado por commit, num plano com teto diário.
+    paths:
+      - index.html
+      - insight.html
+      - robots.txt
+      - sitemap.xml
+      - llms.txt
+      - favicon.svg
+      - favicon.ico
+      - favicon-32.png
+      - apple-touch-icon.png
+      - CNAME
+      - .publish-cname
+      - media/**
+      - .github/workflows/deploy-pages.yml
   workflow_dispatch:
 
 permissions:
