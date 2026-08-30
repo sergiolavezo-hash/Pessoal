@@ -24,6 +24,7 @@ function describeNonJson(res: Response, body: string): string {
   if (/an error occurred/i.test(body) || res.status === 504 || res.status === 408) {
     return "A operação demorou mais que o tempo permitido e foi interrompida. Tente novamente — se persistir, reduza o escopo (menos dados ou um pedido mais simples).";
   }
+  if (res.status === 401) return "Sua sessão expirou. Entre novamente para continuar.";
   if (res.status === 413) return "O conteúdo enviado é grande demais.";
   if (res.status >= 500) {
     return `O servidor não conseguiu concluir (erro ${res.status}). Tente novamente em instantes.`;

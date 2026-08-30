@@ -58,9 +58,12 @@ async function reportClientError(
         workspaceId,
         context: "file-upload",
         name: e?.name ?? typeof error,
-        message: e?.message ?? String(error),
+        // Cortados nos limites que o servidor aceita (600 e 400). Sem isso, um
+        // erro longo era REJEITADO inteiro pela validação — e o diagnóstico
+        // sumia justamente nos casos mais difíceis, que são os longos.
+        message: (e?.message ?? String(error)).slice(0, 600),
         stack: e?.stack?.slice(0, 1500),
-        userAgent: navigator.userAgent,
+        userAgent: navigator.userAgent.slice(0, 400),
         extra,
       }),
     });

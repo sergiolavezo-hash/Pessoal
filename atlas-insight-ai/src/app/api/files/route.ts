@@ -77,7 +77,16 @@ export async function POST(request: NextRequest) {
     // O tamanho é conferido no OBJETO, não no que o navegador declarou: o
     // tamanho anunciado na etapa da URL assinada é só um número num JSON, e
     // quem envia escolhe o número.
-    const { data: info } = await admin.storage.from(FILES_BUCKET).info(storagePath);
+    // O erro do Storage não pode ser engolido: falha de permissão ou serviço
+    // fora do ar viravam "arquivo não encontrado", mandando o usuário reenviar
+    // um arquivo que está lá — e escondendo a causa de quem for investigar.
+    const { data: info, error: infoError } = await admin.storage
+      .from(FILES_BUCKET)
+      .info(storagePath);
+    if (infoError) {
+      console.error("[files] storage.info", infoError);
+      throw new ApiError(502, `O armazenamento não respondeu: ${infoError.message}`);
+    }
     const objectSize = typeof info?.size === "number" ? info.size : null;
     if (objectSize === null) {
       throw new ApiError(400, "Arquivo não encontrado no armazenamento. Recomece o envio.");

@@ -47,6 +47,18 @@ export async function updateSession(request: NextRequest) {
   const isPublic = PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 
   if (!user && !isPublic && pathname !== "/") {
+    // Rota de API não redireciona: quem chamou espera JSON. Redirecionando, o
+    // fetch SEGUE para /login, recebe o HTML da tela de login com status 200,
+    // e o cliente reporta "resposta inesperada do servidor (200)" — a pior
+    // mensagem possível para o que é apenas uma sessão expirada. Isso ficou
+    // mais provável desde que importar um arquivo grande passou a levar
+    // vários minutos e várias requisições.
+    if (pathname.startsWith("/api/")) {
+      return NextResponse.json(
+        { error: "Sua sessão expirou. Entre novamente para continuar." },
+        { status: 401 }
+      );
+    }
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     url.searchParams.set("next", pathname);
