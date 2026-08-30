@@ -10,8 +10,19 @@ import type { WorkspaceAiContext } from "@/ai/context";
  * inteligência: dá para responder antes de gastar qualquer token.
  */
 
+/**
+ * Nota de uma base que só falta o Atlas terminar de ler.
+ *
+ * Fica ABAIXO do corte de propósito — gerar painel sem papel de coluna faz a
+ * IA adivinhar e errar. Mas é uma nota separada das notas de dado ruim,
+ * porque a saída é outra: aqui basta perfilar, não mexer na base.
+ */
+export const PENDING_PROFILE_SCORE = 35;
+
 export interface DatasetQuality {
   score: number;
+  /** A base só espera o perfilamento; não há nada errado com os dados. */
+  pendingProfile?: boolean;
   /** Motivos legíveis do desconto, para explicar ao usuário o que corrigir. */
   problems: string[];
 }
@@ -48,6 +59,25 @@ export function scoreDataset(context: WorkspaceAiContext): DatasetQuality {
     problems.push(`A base tem apenas ${totalRows} linha(s) — pouco para uma análise.`);
   }
 
+  // Perfil ausente cala TODO o resto do diagnóstico.
+  //
+  // Papel de coluna vem do perfilamento. Sem ele, "não há coluna numérica",
+  // "não há categoria" e "não há data" não são fatos sobre a base — são
+  // consequências de o Atlas ainda não ter olhado para ela. Reportar as
+  // quatro coisas juntas somava −70 e devolvia nota 30 numa base perfeita,
+  // acusando o dado do cliente por uma falha nossa e mandando ele "ajustar a
+  // base", conselho que não tinha como funcionar. Uma causa, um problema.
+  const profiled = columns.filter((c) => c.role != null);
+  if (columns.length > 0 && profiled.length / columns.length < 0.5) {
+    return {
+      score: PENDING_PROFILE_SCORE,
+      problems: [
+        "O Atlas ainda não terminou de entender esta base (as colunas não foram perfiladas). Isso é uma etapa nossa, não um problema dos seus dados.",
+      ],
+      pendingProfile: true,
+    };
+  }
+
   // Sem medida numérica e sem data, o painel vira uma lista — a IA não tem o
   // que agregar nem por onde evoluir no tempo.
   const measures = columns.filter((c) => c.role === "MEASURE");
@@ -80,14 +110,6 @@ export function scoreDataset(context: WorkspaceAiContext): DatasetQuality {
     problems.push(
       `${mostlyEmpty.length} de ${columns.length} colunas estão quase totalmente vazias.`
     );
-  }
-
-  // Perfil ausente não é fatal, mas degrada muito a geração: sem papéis, o
-  // modelo adivinha e erra mais, o que dispara a rodada de reparo.
-  const profiled = columns.filter((c) => c.role != null);
-  if (profiled.length / columns.length < 0.5) {
-    score -= 15;
-    problems.push("As colunas ainda não foram perfiladas — a análise pode sair imprecisa.");
   }
 
   return { score: Math.max(0, Math.min(100, score)), problems };

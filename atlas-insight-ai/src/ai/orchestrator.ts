@@ -4,6 +4,7 @@ import { sha256 } from "@/lib/crypto";
 import { getLLMProvider } from "@/ai/llm";
 import { extractJson, type LLMProvider } from "@/ai/llm/types";
 import { buildWorkspaceContext, renderContextForPrompt, type WorkspaceAiContext } from "@/ai/context";
+import { profileDataSource } from "@/services/profiling";
 import {
   businessRulePrompt,
   chatAnswerPrompt,
@@ -567,25 +568,69 @@ Regras:
     // painel — produz gráficos em branco. Descobrir isso pela aritmética do
     // perfil custa zero token; descobrir pela IA custa a geração inteira e
     // ainda devolve um resultado ruim.
-    this.assertDatasetIsUsable(context);
+    const ready = await this.ensureProfiled(context);
+    this.assertDatasetIsUsable(ready);
 
-    const system = `${dashboardSpecPrompt()}\n\n# Workspace data context\n${renderContextWithin(context, request, budgetFor("dashboard_generate").maxPromptChars)}`;
+    const system = `${dashboardSpecPrompt()}\n\n# Workspace data context\n${renderContextWithin(ready, request, budgetFor("dashboard_generate").maxPromptChars)}`;
 
     // Mesmo pedido, mesmo esquema: a resposta já está pronta. E dois pedidos
     // idênticos simultâneos (duplo clique, retry) viram uma única chamada.
-    const key = cacheKey("dashboard_generate", context.contextVersion, request);
+    const key = cacheKey("dashboard_generate", ready.contextVersion, request);
     const cached = await readCache<DashboardSpec>(this.ctx.workspaceId, key);
     if (cached) return cached;
 
     return singleFlight(`${this.ctx.workspaceId}:${key}`, () =>
-      this.generateDashboardUncached(system, request, context, key)
+      this.generateDashboardUncached(system, request, ready, key)
     );
+  }
+
+  /**
+   * Perfila agora, se ninguém perfilou ainda.
+   *
+   * O perfilamento roda em `after()`, DEPOIS da resposta do upload, dividindo
+   * os mesmos 60 segundos que a ingestão já gastou — num arquivo grande ele
+   * simplesmente não chega ao fim, e não havia nada que percebesse isso. O
+   * usuário via "estes dados não sustentam um painel" numa base perfeita, sem
+   * nenhuma saída na tela.
+   *
+   * Aqui é o lugar certo de recuperar: é o momento em que alguém realmente
+   * precisa do entendimento. Não custa token nenhum — perfilar é consulta ao
+   * banco, não chamada de IA. Falhando, segue para o portão, que agora sabe
+   * dizer que o problema é nosso e não do dado.
+   */
+  private async ensureProfiled(context: WorkspaceAiContext): Promise<WorkspaceAiContext> {
+    if (!scoreDataset(context).pendingProfile) return context;
+    const dataSourceId = context.dataSourceId;
+    if (!dataSourceId) return context;
+
+    try {
+      await profileDataSource(this.ctx, dataSourceId);
+    } catch (error) {
+      console.error("[quality-gate] perfilamento sob demanda falhou", error);
+      return context;
+    }
+    // Recarrega: o contexto em memória ainda tem os papéis vazios.
+    try {
+      return await buildWorkspaceContext(this.ctx, dataSourceId);
+    } catch {
+      return context;
+    }
   }
 
   /** Barra a geração quando os dados não sustentam um painel confiável. */
   private assertDatasetIsUsable(context: WorkspaceAiContext): void {
     const quality = scoreDataset(context);
     if (quality.score >= minDatasetQualityScore()) return;
+
+    // Falha nossa e falha do dado pedem ações diferentes: mandar "ajuste a
+    // base" para quem tem uma base boa é conselho que não pode dar certo.
+    if (quality.pendingProfile) {
+      throw new ApiError(
+        422,
+        `${quality.problems[0]} Tente de novo em alguns instantes; se continuar, abra o modelo e use "Analisar dados" para refazer a leitura.`
+      );
+    }
+
     throw new ApiError(
       422,
       `Estes dados ainda não sustentam um painel confiável (nota ${quality.score}/100). ` +
