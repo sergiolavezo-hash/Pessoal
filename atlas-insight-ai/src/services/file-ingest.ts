@@ -43,7 +43,23 @@ export function tooManyRowsMessage(rows: number): string {
   return `O arquivo tem ${rows.toLocaleString("pt-BR")} linhas e o limite por upload é ${MAX_FILE_ROWS.toLocaleString("pt-BR")}. Nada foi importado pela metade. Para bases maiores, conecte o banco de origem (PostgreSQL/SQL Server/BigQuery): a consulta roda na fonte e continua rápida.`;
 }
 
-export type InferredType = "text" | "bigint" | "double precision" | "boolean" | "timestamptz" | "date";
+/**
+ * `numeric` e não `double precision` para os decimais.
+ *
+ * Dois motivos, os dois medidos num Postgres real com as 306 mil linhas da
+ * base COVID:
+ *
+ * 1. `round(x, 2)` NÃO EXISTE para double precision no Postgres. A IA escreve
+ *    `round(sum(a)/sum(b), 2)` o tempo todo, o widget quebrava, e o reparo
+ *    custava outra chamada de IA — dinheiro gasto por causa do tipo.
+ * 2. Float mente somando dinheiro: 0,1 + 0,2 + 0,3 dá 0,6000000000000001 em
+ *    double e 0,6 em numeric. Num produto que mostra faturamento, isso
+ *    aparece na tela do cliente.
+ *
+ * O custo medido é de 11 ms sobre 306 mil linhas (17 ms → 28 ms). Barato
+ * demais para justificar um total errado.
+ */
+export type InferredType = "text" | "bigint" | "numeric" | "boolean" | "timestamptz" | "date";
 
 export interface ParsedFile {
   columns: Array<{ name: string; type: InferredType }>;
@@ -104,7 +120,7 @@ export function inferColumnType(values: unknown[]): InferredType {
   const check = (pred: (v: string) => boolean) => nonNull.every(pred);
 
   if (check((v) => INT_RE.test(v))) return "bigint";
-  if (check((v) => normalizeNumericString(v) != null)) return "double precision";
+  if (check((v) => normalizeNumericString(v) != null)) return "numeric";
   if (check((v) => BOOL_VALUES.has(v.toLowerCase())) && new Set(nonNull.map((v) => v.toLowerCase())).size <= 2)
     return "boolean";
   if (check((v) => DATE_RE.test(v))) return "date";
@@ -126,8 +142,11 @@ export function coerceValue(value: unknown, type: InferredType): unknown {
   switch (type) {
     case "bigint":
       return Number.parseInt(s, 10);
-    case "double precision":
-      return Number.parseFloat(normalizeNumericString(s) ?? s.replace(",", "."));
+    case "numeric":
+      // Devolve TEXTO, não número: um float de JavaScript já perderia dígitos
+      // antes mesmo de chegar ao banco. O Postgres converte a string para
+      // numeric exato, e a precisão do cliente chega inteira.
+      return normalizeNumericString(s) ?? s.replace(",", ".");
     case "boolean":
       return ["true", "yes", "1", "sim"].includes(s.toLowerCase());
     case "date":
@@ -312,7 +331,7 @@ export function buildParsed(
         .map((v) => String(v).trim());
       const numeric = present.filter((v) => normalizeNumericString(v) != null).length;
       if (present.length >= 3 && numeric / present.length >= 0.7) {
-        type = "double precision";
+        type = "numeric";
         warnings.push(
           `Coluna "${h}": ${present.length - numeric} valor(es) de texto ignorados para manter a coluna numérica.`
         );
@@ -338,7 +357,7 @@ export function buildParsed(
     for (const col of columns) {
       const raw = r[col.original];
       // Texto numa coluna numérica vira vazio, não zero: zero mentiria na soma.
-      if (col.type === "double precision" && raw != null && String(raw).trim() !== "") {
+      if (col.type === "numeric" && raw != null && String(raw).trim() !== "") {
         out[col.name] = normalizeNumericString(String(raw)) == null
           ? null
           : coerceValue(raw, col.type);

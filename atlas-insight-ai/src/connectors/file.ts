@@ -76,9 +76,22 @@ export class FileConnector implements DataConnector {
     }));
   }
 
+  /**
+   * Amostra ALEATÓRIA, não as primeiras linhas.
+   *
+   * `LIMIT n` sem ordenar devolve o começo da tabela, e arquivo de negócio
+   * quase sempre chega em ordem cronológica — então a amostra era sempre o
+   * passado mais antigo. Medido na base COVID: nas primeiras 500 linhas a
+   * coluna `deaths` é quase toda zero, com 11 valores distintos, e o perfil
+   * a classificava como CATEGORIA em vez de MÉTRICA. O painel perdia a
+   * coluna de óbitos inteira.
+   *
+   * O sorteio custa uma varredura, mas o perfil roda uma vez por fonte, e
+   * um perfil enviesado erra em silêncio para sempre.
+   */
   async getSampleData(table: string, limit = SAMPLE_LIMIT): Promise<Record<string, unknown>[]> {
     const result = await this.executeQuery(
-      `SELECT * FROM ${this.quoteIdentifier(table)} LIMIT ${Math.min(limit, 1000)}`
+      `SELECT * FROM ${this.quoteIdentifier(table)} ORDER BY random() LIMIT ${Math.min(limit, 1000)}`
     );
     return result.rows;
   }

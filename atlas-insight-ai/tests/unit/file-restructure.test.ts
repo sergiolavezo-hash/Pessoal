@@ -37,7 +37,10 @@ describe("applyRestructurePlan", () => {
     // 3 linhas de dados × meses preenchidos: Condomínio (2) + Prestação (1) + Seguro Moto (2)
     expect(parsed.rows).toHaveLength(5);
     const prestacao = parsed.rows.find((r) => r.despesa === "Prestação da casa");
-    expect(prestacao).toMatchObject({ categoria: "Habitação", mes: "janeiro", valor: 2792.9 });
+    expect(prestacao).toMatchObject({ categoria: "Habitação", mes: "janeiro", valor: "2792.90" });
+    // "2792.90", com as duas casas que o cliente escreveu: como float o
+    // segundo zero se perderia, e um relatorio de dinheiro mostraria
+    // R$ 2.792,9.
     const seguro = parsed.rows.filter((r) => r.despesa === "Seguro Moto");
     expect(seguro.map((r) => r.categoria)).toEqual(["Transporte", "Transporte"]);
     expect(parsed.rows.some((r) => String(r.despesa ?? "").includes("Total"))).toBe(false);
@@ -108,7 +111,7 @@ describe("applyRestructurePlan guards", () => {
     );
     const cinema = parsed.rows.find((r) => r.despesa === "Cinema");
     expect(cinema?.janeiro).toBeNull();
-    expect(parsed.columns.find((c) => c.name === "janeiro")?.type).toBe("double precision");
+    expect(parsed.columns.find((c) => c.name === "janeiro")?.type).toBe("numeric");
     expect(parsed.warnings.some((w) => w.includes("texto em colunas numéricas"))).toBe(true);
   });
 });

@@ -10,7 +10,7 @@ import {
 
 describe("inferColumnType", () => {
   it("infers integers", () => expect(inferColumnType(["1", "42", "-7"])).toBe("bigint"));
-  it("infers floats", () => expect(inferColumnType(["1.5", "2,75", "3"])).toBe("double precision"));
+  it("infers floats", () => expect(inferColumnType(["1.5", "2,75", "3"])).toBe("numeric"));
   it("infers booleans", () => expect(inferColumnType(["true", "false", "true"])).toBe("boolean"));
   it("infers dates", () => expect(inferColumnType(["2024-01-01", "2024-02-15"])).toBe("date"));
   it("infers timestamps", () => expect(inferColumnType(["2024-01-01T10:00:00Z"])).toBe("timestamptz"));
@@ -35,14 +35,15 @@ describe("normalizeNumericString", () => {
     expect(normalizeNumericString("12a")).toBeNull();
   });
   it("feeds type inference and coercion", () => {
-    expect(inferColumnType(["R$ 1.234,56", "2,75"])).toBe("double precision");
-    expect(coerceValue("R$ 1.234,56", "double precision")).toBeCloseTo(1234.56);
+    expect(inferColumnType(["R$ 1.234,56", "2,75"])).toBe("numeric");
+    // numeric chega como TEXTO exato: float perderia digitos antes do banco.
+    expect(coerceValue("R$ 1.234,56", "numeric")).toBe("1234.56");
   });
 });
 
 describe("coerceValue", () => {
   it("coerces numbers", () => {
-    expect(coerceValue("1.234,5".replace(".", ""), "double precision")).toBeCloseTo(1234.5);
+    expect(coerceValue("1.234,5".replace(".", ""), "numeric")).toBe("1234.5");
     expect(coerceValue("42", "bigint")).toBe(42);
   });
   it("coerces booleans including pt-BR", () => {
@@ -80,10 +81,13 @@ describe("parseCsv", () => {
     const parsed = parseCsv(csv);
     expect(parsed.columns).toEqual([
       { name: "region", type: "text" },
-      { name: "revenue", type: "double precision" },
+      { name: "revenue", type: "numeric" },
       { name: "date", type: "date" },
     ]);
-    expect(parsed.rows[0]).toEqual({ region: "North", revenue: 1000, date: "2024-01-01" });
+    // O valor decimal chega como TEXTO exato: um float de JavaScript ja
+    // perderia digitos antes de o numero chegar ao banco, e o Postgres
+    // converte a string para numeric sem perda.
+    expect(parsed.rows[0]).toEqual({ region: "North", revenue: "1000", date: "2024-01-01" });
   });
 
   it("throws on empty files", () => {
@@ -159,7 +163,7 @@ describe("heuristic parser hardening", () => {
   it("keeps a currency column numeric so it can become an indicator", () => {
     const parsed = parseCsv(messy);
     const janeiro = parsed.columns.find((c) => c.name === "janeiro");
-    expect(janeiro?.type).toBe("double precision");
+    expect(janeiro?.type).toBe("numeric");
     const total = parsed.rows.reduce((a, r) => a + Number(r.janeiro ?? 0), 0);
     expect(total).toBeCloseTo(3600.5);
   });
@@ -167,7 +171,7 @@ describe("heuristic parser hardening", () => {
   it("nulls stray text in a numeric column instead of turning it into zero", () => {
     const csv = ["item,valor", "a,10", "b,20", "c,30", "d,n/d"].join("\n");
     const parsed = parseCsv(csv);
-    expect(parsed.columns.find((c) => c.name === "valor")?.type).toBe("double precision");
+    expect(parsed.columns.find((c) => c.name === "valor")?.type).toBe("numeric");
     expect(parsed.rows[3].valor).toBeNull();
   });
 

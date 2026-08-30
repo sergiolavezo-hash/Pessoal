@@ -84,7 +84,8 @@ export const PREP_COLUMN_TYPES = [
   "text",
   "numeric",
   "bigint",
-  "double precision",
+  "numeric",
+  "double precision", // aceito em bases legadas; novas usam numeric
   "date",
   "timestamptz",
   "boolean",

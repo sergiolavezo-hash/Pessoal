@@ -66,6 +66,12 @@ export function profileColumn(
   return { profile, classification: classifyColumn(name, dataType, profile, isNumeric) };
 }
 
+/**
+ * Acima disto, um número com poucos valores distintos ainda é medida, não
+ * código: status, tipo e faixa não chegam à casa dos milhares.
+ */
+const CODE_LIKE_MAX = 1000;
+
 export function classifyColumn(
   name: string,
   dataType: string,
@@ -107,7 +113,15 @@ export function classifyColumn(
     // High-cardinality continuous numbers are measures; low-cardinality
     // integers are more likely categorical dimensions.
     if (cardinality > 0.5) return { classification: "MEASURE", confidence: 0.75 };
-    if (uniqueCount <= 25) return { classification: "CATEGORY", confidence: 0.6 };
+    // Poucos valores distintos sugerem código (status 1/2/3), mas só quando
+    // os números são PEQUENOS. Uma métrica que ainda está no começo da série
+    // — óbitos no primeiro mês de uma epidemia, vendas de um produto novo —
+    // também tem poucos distintos, e chamá-la de categoria tira do painel a
+    // coluna que mais importa. Código de verdade não chega a milhares.
+    const max = typeof profile.max === "number" ? Math.abs(profile.max) : 0;
+    if (uniqueCount <= 25 && max < CODE_LIKE_MAX) {
+      return { classification: "CATEGORY", confidence: 0.6 };
+    }
     return { classification: "MEASURE", confidence: 0.55 };
   }
 

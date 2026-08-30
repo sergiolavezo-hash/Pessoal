@@ -112,7 +112,7 @@ describe("o que NÃO é data", () => {
 
   // Número nunca chega ao detector: o tipo numérico é decidido antes.
   it("keeps money and counts numeric", () => {
-    expect(inferColumnType(["R$ 1.234,56", "R$ 89,90"])).toBe("double precision");
+    expect(inferColumnType(["R$ 1.234,56", "R$ 89,90"])).toBe("numeric");
     expect(inferColumnType(["1", "2", "3"])).toBe("bigint");
   });
 });
