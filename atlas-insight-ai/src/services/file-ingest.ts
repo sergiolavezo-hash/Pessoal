@@ -5,6 +5,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { slugify } from "@/lib/utils";
 import { fileTableName } from "@/services/data-sources";
 import { maxOf } from "@/lib/extremes";
+import { describeDayMonth, detectDateFormat, toIsoDate, type DateFormat } from "@/services/dates";
 import type { ApiContext } from "@/services/api-context";
 
 /**
@@ -108,6 +109,13 @@ export function inferColumnType(values: unknown[]): InferredType {
     return "boolean";
   if (check((v) => DATE_RE.test(v))) return "date";
   if (check((v) => DATETIME_RE.test(v) && !Number.isNaN(Date.parse(v)))) return "timestamptz";
+
+  // Data escrita como gente escreve: dd/mm/aaaa, mm/dd/aaaa, dd-mm-aaaa, com
+  // ou sem hora. Sem isto a coluna virava texto, e como o papel DATE é
+  // atribuído pelo TIPO, a base inteira ficava "sem evolução no tempo".
+  const format = detectDateFormat(nonNull);
+  if (format) return format.withTime ? "timestamptz" : "date";
+
   return "text";
 }
 
@@ -310,7 +318,19 @@ export function buildParsed(
         );
       }
     }
-    return { original, name, type };
+    // O formato é decidido uma vez, olhando a coluna inteira — nunca valor a
+    // valor. "01/02/2020" sozinho é ambíguo; a coluna quase nunca é.
+    let dateFormat: DateFormat | null = null;
+    if (type === "date" || type === "timestamptz") {
+      const all = data.map((r) => r[original]);
+      dateFormat = detectDateFormat(all);
+      if (dateFormat?.ambiguous) {
+        warnings.push(
+          `Coluna "${h}": não deu para saber se o primeiro número é o dia ou o mês, e foi lida como ${describeDayMonth(dateFormat.dayMonth)}. Se estiver trocado, corrija o modelo antes de gerar painéis.`
+        );
+      }
+    }
+    return { original, name, type, dateFormat };
   });
 
   const rows = data.map((r) => {
@@ -322,6 +342,12 @@ export function buildParsed(
         out[col.name] = normalizeNumericString(String(raw)) == null
           ? null
           : coerceValue(raw, col.type);
+        continue;
+      }
+      // Data vai para o banco em ISO: é o que o Postgres aceita sem depender
+      // de locale, e é o que permite ordenar e agrupar por período.
+      if (col.dateFormat) {
+        out[col.name] = toIsoDate(raw, col.dateFormat);
         continue;
       }
       out[col.name] = coerceValue(raw, col.type);
