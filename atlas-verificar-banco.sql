@@ -72,7 +72,17 @@ with verificacoes(migracao, o_que_procura, aplicada) as (
     ('0022_bucket_size_limit',
      'bucket workspace-files com teto de 50 MiB',
      exists (select 1 from storage.buckets
-             where id = 'workspace-files' and file_size_limit = 52428800))
+             where id = 'workspace-files' and file_size_limit = 52428800)),
+
+    -- Duas conferências numa linha só de propósito: a coluna sem a função
+    -- deixaria a franquia parada no default, e a função sem a coluna nem
+    -- compila. Metade aplicada é o pior estado, e ele tem de aparecer.
+    ('0023_plan_credits',
+     'billing_plans.ai_daily_credits e função ai_credits_sync_plan',
+     exists (select 1 from information_schema.columns
+             where table_schema = 'public' and table_name = 'billing_plans'
+               and column_name = 'ai_daily_credits')
+       and to_regprocedure('public.ai_credits_sync_plan(uuid)') is not null)
 )
 select
   migracao,
