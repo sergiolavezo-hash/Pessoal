@@ -11,6 +11,19 @@ import { dailyResetClock, formatWait, msUntilDailyReset } from "@/lib/wait-time"
  * 0012) para ser atômica sob uso simultâneo.
  */
 
+/**
+ * 1 crédito = 1 centavo de custo real de IA (provedor + margem).
+ *
+ * Não é moeda inventada: 500 créditos são R$ 5,00 de IA de verdade. Manter a
+ * unidade colada ao custo é o que deixa o extrato conciliável e impede a
+ * conta do produto de mentir para dentro.
+ */
+export const CENTS_PER_CREDIT = 1;
+
+export function toCredits(cents: number): number {
+  return Math.round(cents / CENTS_PER_CREDIT);
+}
+
 export interface AiCreditStatus {
   allowed: boolean;
   daily_allowance_cents: number;
@@ -44,7 +57,18 @@ const UNAVAILABLE: AiCreditStatus = {
  * usuário falhava silenciosamente — o consumo nunca era debitado.
  */
 export async function getCreditStatus(organizationId: string): Promise<AiCreditStatus> {
-  const { data, error } = await createAdminClient().rpc("ai_credits_status", {
+  const admin = createAdminClient();
+
+  // A franquia é atributo do PLANO, não da carteira. Sincronizar aqui é o que
+  // faz assinar (ou cancelar) valer na hora, sem job nenhum — e é o que
+  // provisiona a carteira de uma organização nova, que antes só nascia no
+  // primeiro consumo e até lá não tinha o que mostrar na tela.
+  const { error: syncError } = await admin.rpc("ai_credits_sync_plan", { org: organizationId });
+  if (syncError && syncError.code !== "42883" && syncError.code !== "PGRST202") {
+    console.error(`[ai-credits] sync de plano falhou: ${syncError.message}`);
+  }
+
+  const { data, error } = await admin.rpc("ai_credits_status", {
     org: organizationId,
   });
   if (error) {

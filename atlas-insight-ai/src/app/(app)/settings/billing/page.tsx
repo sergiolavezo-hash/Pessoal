@@ -2,8 +2,9 @@ import { getAppContext } from "@/services/context";
 import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { getSubscription, listPlans, listTransactions } from "@/services/billing";
-import { CREDIT_PACKS, getCreditStatus } from "@/services/ai-credits";
+import { CREDIT_PACKS, getCreditStatus, toCredits } from "@/services/ai-credits";
 import { CreditWallet } from "@/features/billing/credit-wallet";
+import { CreditsMeter } from "@/features/billing/credits-meter";
 import {
   BillingAnalytics,
   ManageSubscriptionButton,
@@ -65,6 +66,7 @@ export default async function BillingPage() {
     : 0;
 
   const canManage = ["OWNER", "ADMIN"].includes(ctx.role);
+  const planName = plans.find((p) => p.id === subscription?.plan_id)?.name ?? "Gratuito";
 
   return (
     <div>
@@ -77,6 +79,16 @@ export default async function BillingPage() {
       />
 
       <div className="mb-6">
+        <CreditsMeter
+          planName={planName}
+          allowance={toCredits(credits.daily_allowance_cents)}
+          remaining={toCredits(credits.daily_remaining_cents)}
+          extraBalance={toCredits(credits.balance_cents)}
+          href="#recarga"
+        />
+      </div>
+
+      <div className="mb-6" id="recarga">
         <CreditWallet
           workspaceId={ctx.workspace.id}
           state={{

@@ -2,7 +2,8 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { getAppContext } from "@/services/context";
 import { createClient } from "@/lib/supabase/server";
-import { getSubscription } from "@/services/billing";
+import { getSubscription, listPlans } from "@/services/billing";
+import { getCreditStatus, toCredits } from "@/services/ai-credits";
 import { AppShell } from "@/components/layout/app-shell";
 import { SIDEBAR_COLLAPSED, SIDEBAR_COOKIE } from "@/lib/ui-preferences";
 import { buildRef } from "@/lib/build-info";
@@ -10,7 +11,11 @@ import { buildRef } from "@/lib/build-info";
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const ctx = await getAppContext();
   const supabase = await createClient();
-  const subscription = await getSubscription(supabase, ctx.organization.id);
+  const [subscription, plans, credits] = await Promise.all([
+    getSubscription(supabase, ctx.organization.id),
+    listPlans(supabase),
+    getCreditStatus(ctx.organization.id),
+  ]);
   // Lido no servidor para a primeira pintura já sair no estado escolhido.
   const collapsed = (await cookies()).get(SIDEBAR_COOKIE)?.value === SIDEBAR_COLLAPSED;
 
@@ -40,6 +45,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       role={ctx.role}
       initialCollapsed={collapsed}
       buildRef={buildRef()}
+      credits={{
+        planName: plans.find((p) => p.id === subscription?.plan_id)?.name ?? "Gratuito",
+        allowance: toCredits(credits.daily_allowance_cents),
+        remaining: toCredits(credits.daily_remaining_cents),
+        extraBalance: toCredits(credits.balance_cents),
+      }}
       banners={
         <>
           {trial && (

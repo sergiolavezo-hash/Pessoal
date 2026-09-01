@@ -10,6 +10,7 @@ import {
   SIDEBAR_EXPANDED,
 } from "@/lib/ui-preferences";
 import type { OrgRole, Organization, Profile, Workspace } from "@/types";
+import type { CreditsSummary } from "@/components/layout/app-sidebar";
 
 /**
  * Guarda o estado do menu e expande a área de conteúdo quando ele é
@@ -27,6 +28,7 @@ export function AppShell({
   role,
   initialCollapsed,
   buildRef,
+  credits,
   banners,
   children,
 }: {
@@ -36,6 +38,7 @@ export function AppShell({
   workspace: Workspace;
   role: OrgRole;
   buildRef?: string | null;
+  credits?: CreditsSummary;
   initialCollapsed: boolean;
   banners?: React.ReactNode;
   children: React.ReactNode;
@@ -58,6 +61,7 @@ export function AppShell({
         workspace={workspace}
         role={role}
         buildRef={buildRef}
+        credits={credits}
         collapsed={collapsed}
         onToggle={toggle}
       />

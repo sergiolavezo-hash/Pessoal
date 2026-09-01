@@ -20,6 +20,7 @@ import {
   Sigma,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CreditsMeter } from "@/features/billing/credits-meter";
 import type { OrgRole, Organization, Profile, Workspace } from "@/types";
 import { switchWorkspace, signOut } from "@/app/actions/workspace";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -88,6 +89,13 @@ const NAV_GROUPS: Array<{ label: string | null; items: Array<{ href: string; lab
 
 const ALL_ITEMS = NAV_GROUPS.flatMap((g) => g.items);
 
+export interface CreditsSummary {
+  planName: string;
+  allowance: number;
+  remaining: number;
+  extraBalance: number;
+}
+
 interface AppSidebarProps {
   profile: Profile;
   organization: Organization;
@@ -96,6 +104,7 @@ interface AppSidebarProps {
   role: OrgRole;
   /** Commit que gerou o build no ar; ausente fora da Vercel. */
   buildRef?: string | null;
+  credits?: CreditsSummary;
   collapsed: boolean;
   onToggle: () => void;
 }
@@ -107,6 +116,7 @@ export function AppSidebar({
   workspace,
   role,
   buildRef,
+  credits,
   collapsed,
   onToggle,
 }: AppSidebarProps) {
@@ -203,6 +213,25 @@ export function AppSidebar({
       </nav>
 
       <div className={cn("border-t", collapsed ? "p-2" : "p-3")}>
+        {/*
+          O limite precisa ser visto ANTES de doer. Sem isto o usuário
+          descobria a franquia no instante em que ela acabava, no meio de
+          gerar um painel — e um bloqueio sem aviso parece defeito, não plano.
+          Recolhido o menu não cabe número, e meio número engana mais que
+          nenhum.
+        */}
+        {credits && !collapsed && (
+          <div className="mb-2">
+            <CreditsMeter
+              planName={credits.planName}
+              allowance={credits.allowance}
+              remaining={credits.remaining}
+              extraBalance={credits.extraBalance}
+              compact
+            />
+          </div>
+        )}
+
         <button
           type="button"
           onClick={onToggle}
