@@ -151,6 +151,28 @@
     footer a{color:var(--muted);text-decoration:none}
     footer a:hover{color:var(--accent)}
 
+
+    /* ------------------------------------------------- primeiro plano */
+    /* Bokeh: pontos fora de foco NA FRENTE da cena. Sem eles o campo fica
+       preso atrás de um vidro e a página tem duas camadas chapadas; com eles
+       o leitor sente que está dentro do volume. Ficam só na metade direita,
+       onde não há texto — profundidade não pode custar legibilidade. */
+    .bokeh{position:fixed;inset:0;z-index:3;pointer-events:none;display:none;overflow:hidden}
+    .has-stage .bokeh{display:block}
+    .bokeh i{position:absolute;border-radius:50%;display:block;
+      background:radial-gradient(circle at 38% 34%,var(--glow) 0%,color-mix(in oklch,var(--glow) 45%,transparent) 42%,transparent 72%);
+      filter:blur(var(--soft));opacity:var(--alpha);
+      animation:drift var(--dur) ease-in-out infinite alternate;animation-delay:var(--lag)}
+    @keyframes drift{
+      from{transform:translate3d(0,0,0) scale(1)}
+      to{transform:translate3d(var(--dx),var(--dy),0) scale(1.16)}
+    }
+    @media(max-width:900px){
+      /* Na tela estreita o texto ocupa tudo: sobra o rodapé do quadro. */
+      .bokeh i{top:auto!important;bottom:calc(var(--b,8) * 1%);opacity:calc(var(--alpha) * .7)}
+      .bokeh i:nth-child(n+5){display:none}
+    }
+
     /* ------------------------------------------------------- revelações */
     /* Só escondem quando há JS para revelar (classe .js). Sem script, tudo
        nasce visível — o conteúdo nunca depende da animação. */
@@ -199,9 +221,19 @@
       .js [data-reveal="words"] .word{color:var(--ink);-webkit-text-stroke-color:transparent}
       .js [data-reveal="words"] .word.accent{color:var(--accent)}
       .badge::before{animation:none}
+      .bokeh i{animation:none}
     }
 
     @media(max-width:900px){.steps{grid-template-columns:1fr 1fr}.fgrid{grid-template-columns:1fr 1fr}.plans{grid-template-columns:1fr}}
+    @media(max-width:560px){
+      /* Três elementos não cabem em 390px sem cortar o botão principal. O
+         sufixo "AI" sai da marca (que continua reconhecível) e os botões
+         encolhem — perder o "Entrar" custaria mais ao cliente que volta. */
+      .brand i:last-of-type{display:none}
+      .brand{font-size:.88rem;letter-spacing:-.01em}
+      .hactions{gap:.45rem}
+      .hactions .btn{padding:.55rem .8rem;font-size:.78rem}
+    }
     @media(max-width:720px){
       header .wrap{height:3.9rem;gap:.5rem}
       .brand{font-size:.95rem;white-space:nowrap}
@@ -223,6 +255,15 @@
 <body>
 <canvas id="stage" aria-hidden="true"></canvas>
 <div class="stage-veil" aria-hidden="true"></div>
+
+<div class="bokeh" aria-hidden="true">
+  <i style="--glow:var(--accent);--alpha:.34;--soft:16px;--dur:52s;--lag:0s;--dx:34px;--dy:-46px;--b:26;left:62%;top:22%;width:96px;height:96px"></i>
+  <i style="--glow:var(--accent-warm);--alpha:.26;--soft:22px;--dur:67s;--lag:-9s;--dx:-42px;--dy:38px;--b:14;left:81%;top:58%;width:150px;height:150px"></i>
+  <i style="--glow:var(--accent);--alpha:.20;--soft:28px;--dur:79s;--lag:-22s;--dx:28px;--dy:52px;--b:40;left:70%;top:74%;width:210px;height:210px"></i>
+  <i style="--glow:var(--accent-warm);--alpha:.42;--soft:9px;--dur:44s;--lag:-4s;--dx:-26px;--dy:-30px;--b:60;left:90%;top:34%;width:58px;height:58px"></i>
+  <i style="--glow:var(--accent);--alpha:.24;--soft:19px;--dur:61s;--lag:-15s;--dx:40px;--dy:24px;left:57%;top:80%;width:120px;height:120px"></i>
+  <i style="--glow:var(--accent);--alpha:.17;--soft:26px;--dur:88s;--lag:-31s;--dx:-30px;--dy:-40px;left:75%;top:8%;width:170px;height:170px"></i>
+</div>
 
 <header>
   <div class="wrap">

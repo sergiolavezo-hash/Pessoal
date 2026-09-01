@@ -3,9 +3,9 @@
  *
  * A promessa do produto é "dado bruto vira entendimento vira painel". Em vez
  * de ilustrar isso com um vídeo, a página faz a coisa acontecer: um campo de
- * partículas se reorganiza conforme o leitor rola — nuvem dispersa, depois
- * malha estruturada, depois gráfico. A rolagem não dispara uma animação; ela
- * É a animação, e por isso o leitor controla o ritmo.
+ * partículas se reorganiza conforme o leitor rola — filamentos de dados
+ * chegando, malha estruturada, rede de relacionamentos, painel. A rolagem não
+ * dispara uma animação; ela É a animação, e por isso o leitor controla o ritmo.
  *
  * Sem biblioteca: WebGL2 e GLSL escritos à mão. Numa página de vendas o peso
  * é conversão — 300 KB de engine 3D para desenhar pontos seria pagar caro por
@@ -16,7 +16,7 @@
 const VERTEX_SHADER = `#version 300 es
 precision highp float;
 
-in vec3 aCloud;
+in vec3 aFlow;
 in vec3 aGrid;
 in vec3 aGraph;
 in vec3 aChart;
@@ -25,7 +25,7 @@ in vec4 aSeed;
 
 uniform mat4 uProjection;
 uniform mat4 uView;
-uniform float uMorph;       // 0 nuvem · 1 malha · 2 relacionamentos · 3 painel
+uniform float uMorph;       // 0 fluxo · 1 malha · 2 relacionamentos · 3 painel
 uniform float uTime;
 uniform float uPixelScale;
 
@@ -47,7 +47,7 @@ void main() {
 
   if (uMorph < 1.0) {
     local = staggered(uMorph, aSeed.y);
-    position = mix(aCloud, aGrid, smoothstep(0.0, 1.0, local));
+    position = mix(aFlow, aGrid, smoothstep(0.0, 1.0, local));
   } else if (uMorph < 2.0) {
     local = staggered(uMorph - 1.0, aSeed.y);
     position = mix(aGrid, aGraph, smoothstep(0.0, 1.0, local));
@@ -134,25 +134,73 @@ function orbitView(yaw, pitch, distance, offsetX, offsetY) {
 
 /* ------------------------------------------------------------------ formas */
 
-/** Nuvem: dados brutos, sem ordem. Raio com expoente para não ficar oco. */
-function buildCloud(count, random) {
+/**
+ * Fluxo: filamentos de dados chegando das fontes.
+ *
+ * Era uma casca esférica — a mais fraca das quatro formas, porque uma bola de
+ * pontos não diz nada sobre o produto. Fios que serpenteiam dizem: é dado em
+ * movimento, ainda sem ordem, exatamente o que entra pela conexão antes de o
+ * Atlas entender qualquer coisa. E o contraste com a malha que vem depois
+ * fica muito maior do que era saindo de um borrão redondo.
+ *
+ * Cada fio é uma curva suave feita de senos sobrepostos: duas frequências
+ * bastam para meandrar de forma orgânica, sem o custo (e a rigidez) de uma
+ * spline com pontos de controle.
+ */
+function buildFlow(count, random, highlightStart) {
   const data = new Float32Array(count * 3);
-  for (let i = 0; i < count; i++) {
-    const radius = 8.4 * (0.42 + 0.58 * Math.pow(random(), 0.5));
-    const theta = random() * Math.PI * 2;
-    const phi = Math.acos(2 * random() - 1);
-    const sinPhi = Math.sin(phi);
-    data[i * 3] = radius * sinPhi * Math.cos(theta) * 1.15;
-    data[i * 3 + 1] = radius * Math.cos(phi) * 0.82;
-    data[i * 3 + 2] = radius * sinPhi * Math.sin(theta) * 0.85;
-  }
+  const STRANDS = 30;
+  const HIGHLIGHT_STRANDS = 4;
+
+  const strand = (index) => ({
+    // Direção geral: sobem da esquerda para a direita, em diagonal — uma
+    // corrente que atravessa o quadro, não um novelo parado no centro.
+    startX: -11 - random() * 2.5,
+    endX: 11 + random() * 2.5,
+    baseY: (random() - 0.5) * 9.4,
+    riseY: (random() - 0.5) * 5.4,
+    baseZ: (random() - 0.5) * 4.6,
+    // Poucas ondulações, de amplitude contida: cada fio faz uma curva longa
+    // que atravessa o quadro. Com frequência alta viram rabiscos apertados e
+    // o conjunto lê como novelo, não como corrente.
+    ampY: 0.8 + random() * 1.5,
+    ampZ: 0.7 + random() * 1.4,
+    freqA: 0.75 + random() * 1.05,
+    freqB: 1.6 + random() * 1.7,
+    phaseA: random() * Math.PI * 2,
+    phaseB: random() * Math.PI * 2,
+    // Espessura do fio: fino o bastante para ler como traço, não como tubo.
+    thickness: 0.05 + random() * 0.09,
+    index,
+  });
+
+  const normal = [];
+  for (let i = 0; i < STRANDS - HIGHLIGHT_STRANDS; i++) normal.push(strand(i));
+  const bright = [];
+  for (let i = 0; i < HIGHLIGHT_STRANDS; i++) bright.push(strand(i));
+
+  const place = (i, s) => {
+    const t = random();
+    const wave = Math.sin(t * s.freqA * Math.PI + s.phaseA);
+    const ripple = Math.sin(t * s.freqB * Math.PI + s.phaseB);
+    data[i * 3] = s.startX + (s.endX - s.startX) * t + (random() - 0.5) * s.thickness;
+    data[i * 3 + 1] =
+      s.baseY + s.riseY * t + wave * s.ampY + ripple * s.ampY * 0.28 + (random() - 0.5) * s.thickness;
+    data[i * 3 + 2] =
+      s.baseZ + ripple * s.ampZ + wave * s.ampZ * 0.34 + (random() - 0.5) * s.thickness;
+  };
+
+  for (let i = 0; i < highlightStart; i++) place(i, normal[i % normal.length]);
+  // Os fios de destaque são poucos e dourados — o mesmo conjunto que vira a
+  // curva de tendência no painel. É o fio de ouro atravessando a corrente.
+  for (let i = highlightStart; i < count; i++) place(i, bright[(i - highlightStart) % bright.length]);
   return data;
 }
 
 /**
  * Malha: a mesma matéria, agora com linhas e colunas.
  *
- * Distribuir uma partícula por sítio da grade não funciona — a nuvem precisa
+ * Distribuir uma partícula por sítio da grade não funciona — o campo precisa
  * de dezenas de milhares de pontos, e uma grade com dezenas de milhares de
  * sítios fica fina demais para o olho separar: vira ruído. Aqui as partículas
  * se agrupam em CÉLULAS, várias por célula, e cada célula lê como um dado.
@@ -425,7 +473,7 @@ export function mountStage(canvas) {
 
   const random = seededRandom(20260901);
   const chart = buildChart(count, random);
-  const cloud = buildCloud(count, random);
+  const flow = buildFlow(count, random, highlightStart(count));
   const grid = buildGrid(count, random);
   const graph = buildGraph(count, random, highlightStart(count));
   const seeds = buildSeeds(count, random, chart);
@@ -439,7 +487,7 @@ export function mountStage(canvas) {
   }
   gl.useProgram(program);
 
-  attribute(gl, program, "aCloud", cloud, 3);
+  attribute(gl, program, "aFlow", flow, 3);
   attribute(gl, program, "aGrid", grid, 3);
   attribute(gl, program, "aGraph", graph, 3);
   attribute(gl, program, "aChart", chart, 3);
