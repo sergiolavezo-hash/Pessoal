@@ -5,6 +5,8 @@ import { getSubscription, listPlans, listTransactions } from "@/services/billing
 import { CREDIT_PACKS, getCreditStatus, toCredits } from "@/services/ai-credits";
 import { CreditWallet } from "@/features/billing/credit-wallet";
 import { CreditsMeter } from "@/features/billing/credits-meter";
+import { DataUsageMeter } from "@/features/billing/data-usage-meter";
+import { getDataQuota } from "@/services/data-quota";
 import {
   BillingAnalytics,
   ManageSubscriptionButton,
@@ -47,11 +49,12 @@ export default async function BillingPage() {
   const ctx = await getAppContext();
   const supabase = await createClient();
 
-  const [subscription, plans, transactions, credits] = await Promise.all([
+  const [subscription, plans, transactions, credits, dataQuota] = await Promise.all([
     getSubscription(supabase, ctx.organization.id),
     listPlans(supabase),
     listTransactions(supabase, ctx.organization.id),
     getCreditStatus(ctx.organization.id),
+    getDataQuota(supabase, ctx.organization.id),
   ]);
 
   const status = STATUS_LABEL[subscription?.status ?? ""] ?? {
@@ -78,7 +81,12 @@ export default async function BillingPage() {
         description="Assinatura, situação do teste gratuito e histórico de compras."
       />
 
-      <div className="mb-6">
+      <div className="mb-6 grid gap-4 sm:grid-cols-2">
+        <DataUsageMeter
+          planName={planName}
+          usedRows={dataQuota.usedRows}
+          maxRows={dataQuota.maxRows}
+        />
         <CreditsMeter
           planName={planName}
           allowance={toCredits(credits.daily_allowance_cents)}

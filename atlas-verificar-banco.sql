@@ -82,7 +82,14 @@ with verificacoes(migracao, o_que_procura, aplicada) as (
      exists (select 1 from information_schema.columns
              where table_schema = 'public' and table_name = 'billing_plans'
                and column_name = 'ai_daily_credits')
-       and to_regprocedure('public.ai_credits_sync_plan(uuid)') is not null)
+       and to_regprocedure('public.ai_credits_sync_plan(uuid)') is not null),
+
+    ('0024_plan_data_quota',
+     'billing_plans.max_data_rows e função data_quota_status',
+     exists (select 1 from information_schema.columns
+             where table_schema = 'public' and table_name = 'billing_plans'
+               and column_name = 'max_data_rows')
+       and to_regprocedure('public.data_quota_status(uuid)') is not null)
 )
 select
   migracao,

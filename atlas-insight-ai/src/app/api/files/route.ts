@@ -14,6 +14,7 @@ import { applyRestructurePlan, looksUnstructured } from "@/ai/file-restructure";
 import { AIOrchestrator } from "@/ai/orchestrator";
 import { findDuplicate, hashFileContent } from "@/services/file-dedup";
 import { INGEST_BUDGET_MS, downloadUpload, finishIngest } from "@/services/file-pipeline";
+import { assertFitsInQuota, getDataQuota } from "@/services/data-quota";
 import { FILES_BUCKET, extensionOf, isUploadPathFor, uploadRejection } from "@/lib/uploads";
 
 export const maxDuration = 60;
@@ -206,6 +207,11 @@ export async function POST(request: NextRequest) {
         }
       }
       if (!parsed) throw heuristicError instanceof Error ? heuristicError : new Error("File could not be parsed");
+
+      // O teto é cobrado AQUI: a contagem de linhas já é conhecida e nada foi
+      // gravado ainda, então a recusa não deixa base pela metade. Cobrar
+      // depois de criar a tabela seria descobrir o limite com o estrago feito.
+      assertFitsInQuota(await getDataQuota(ctx.supabase, ctx.organizationId), parsed.rows.length);
 
       const plan = await prepareIngest(ctx, admin, fileName, parsed, fileRow.id);
 
