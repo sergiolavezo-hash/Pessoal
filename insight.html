@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Atlas Insight AI — conecte suas fontes de dados, descreva o que quer analisar e receba dashboards e respostas com IA. Your data. Your rules. Your intelligence.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://atlas-partner.com/insight.html">
+  <meta property="og:title" content="Atlas Insight AI — Analytics com IA">
+  <meta property="og:description" content="Conecte seus dados, descreva o objetivo e receba dashboards e respostas com IA.">
+  <meta property="og:image" content="https://atlas-partner.com/media/og-cover.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <meta name="theme-color" content="#0A0A0C">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    document.documentElement.classList.add('js');
+    // Plano B: se o módulo do palco não carregar (rede, bloqueador, erro), o
+    // conteúdo NÃO pode ficar invisível. Página de vendas em branco é falha
+    // pior do que página sem animação.
+    setTimeout(function () {
+      if (document.documentElement.classList.contains('reveals-ready')) return;
+      document.querySelectorAll('[data-reveal]').forEach(function (el) {
+        el.classList.add('is-revealed');
+      });
+    }, 2500);
+  </script>
+  <style>
+    :root {
+      --bg0:#0A0A0C; --bg1:#101013; --panel:#16161A; --panel2:#1C1C22;
+      --line:rgba(244,243,239,.09); --ink:#F4F3EF; --muted:#A2A2AB; --dim:#6E6E78;
+      --accent:#00E7C4; --accent-ink:#01302A; --accent-warm:#FFE9A8;
+      --display:'Manrope','Avenir Next',system-ui,sans-serif;
+      --body:'Inter','Segoe UI',system-ui,sans-serif;
+      --mono:'IBM Plex Mono',Consolas,monospace;
+      --ease:cubic-bezier(.22,1,.36,1);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg0);color:var(--ink);font-family:var(--body);font-size:1.05rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--accent);color:var(--accent-ink)}
+    a{color:inherit}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1.25rem,4vw,3rem)}
+    h1,h2,h3{font-family:var(--display);letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+    .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+    .btn{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--display);font-weight:700;font-size:.95rem;padding:.85rem 1.6rem;border-radius:999px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:all .25s var(--ease)}
+    .btn-accent{background:var(--accent);color:var(--accent-ink)}
+    .btn-accent:hover{background:#3FFFDE;transform:translateY(-1px);box-shadow:0 0 32px rgba(0,231,196,.35)}
+    .btn-line{background:none;color:var(--ink);border-color:rgba(244,243,239,.25)}
+    .btn-line:hover{border-color:var(--accent);color:var(--accent)}
+
+    /* ---------------------------------------------------------- o palco 3D */
+    /* Fixo atrás de tudo: as três primeiras seções são transparentes e
+       deslizam por cima do mesmo campo de partículas, que se reorganiza. */
+    #stage{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:none}
+    .has-stage #stage{display:block}
+    /* Véu: mantém a coluna de texto escura enquanto as partículas brilham do
+       outro lado. Sem ele o contraste do texto depende de onde as partículas
+       estiverem — ou seja, não dá para garantir. */
+    .stage-veil{position:fixed;inset:0;z-index:1;pointer-events:none;display:none;
+      background:linear-gradient(100deg,rgba(10,10,12,.97) 0%,rgba(10,10,12,.93) 30%,rgba(10,10,12,.6) 46%,rgba(10,10,12,.12) 68%,rgba(10,10,12,0) 88%)}
+    .has-stage .stage-veil{display:block}
+    @media(max-width:900px){
+      .stage-veil{background:linear-gradient(180deg,rgba(10,10,12,.96) 0%,rgba(10,10,12,.9) 34%,rgba(10,10,12,.55) 62%,rgba(10,10,12,.1) 88%)}
+    }
+    header,main,footer{position:relative;z-index:2}
+
+    header{position:sticky;top:0;z-index:50;background:rgba(10,10,12,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    header .wrap{display:flex;align-items:center;justify-content:space-between;height:4.5rem}
+    .brand{font-family:var(--display);font-weight:800;font-size:1.1rem;text-decoration:none}
+    .brand i{font-style:normal;color:var(--accent)}
+    .brand small{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--dim);margin-left:.5rem}
+    .hactions{display:flex;gap:.7rem;align-items:center}
+    .hactions .back{font-size:.85rem;color:var(--muted);text-decoration:none;margin-right:.5rem}
+    .hactions .back:hover{color:var(--ink)}
+
+    /* Sem WebGL a página volta a ser a de sempre: gradiente e fundo sólido. */
+    .hero{position:relative;padding:3.6rem 0 3.4rem;overflow:hidden;
+      background:radial-gradient(70rem 40rem at 85% -10%,rgba(0,231,196,.07),transparent 60%),var(--bg0)}
+    .flow{background:var(--bg1);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:5.5rem 0}
+    .feats{padding:5rem 0;background:var(--bg0)}
+    .feats + .feats{padding-top:1rem}
+    .has-stage .hero,.has-stage .flow,.has-stage .feats{background:transparent}
+    .has-stage .hero{min-height:clamp(32rem,84vh,50rem);display:flex;align-items:center}
+    .has-stage .hero>.wrap{width:100%}
+    .has-stage .flow{border-color:transparent}
+    /* A partir do preço o palco já apagou; fundo sólido para a decisão. */
+    .pricing,.faq,footer{position:relative;background:var(--bg0)}
+    .pricing{background:var(--bg1)}
+
+    .badge{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--accent);border:1px solid rgba(0,231,196,.35);border-radius:999px;padding:.3rem .8rem;margin-bottom:1.2rem}
+    .badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+    .hero h1{font-size:clamp(2.1rem,4vw,3.3rem);font-weight:800;max-width:17ch;margin-bottom:1rem}
+    .hero h1 em{font-style:normal;color:var(--accent)}
+    .tagline{font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;color:var(--dim);margin-bottom:1.2rem}
+    .hero p.sub{color:var(--muted);max-width:30rem;font-size:1rem;line-height:1.6;margin-bottom:1.7rem}
+    .ctas{display:flex;flex-wrap:wrap;gap:.9rem;align-items:center;max-width:34rem}
+    .ctas small{color:var(--dim);font-size:.82rem}
+
+    /* Legenda do que está acontecendo atrás: o movimento vira argumento, não
+       enfeite — o leitor entende que aquilo é o próprio produto operando. */
+    .stage-note{display:none;margin-top:1.8rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+    .has-stage .stage-note{display:flex;align-items:center;gap:.7rem}
+    .stage-note b{color:var(--accent);font-weight:500}
+    .stage-note::before{content:'';width:2rem;height:1px;background:linear-gradient(90deg,var(--accent),transparent)}
+
+    .flow h2,.feats h2,.pricing h2,.faq h2{font-size:clamp(1.8rem,3.6vw,2.5rem);font-weight:800;margin:0.8rem 0 2.2rem;max-width:24ch}
+    .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}
+    .step{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.3rem 1.2rem;transition:border-color .3s var(--ease),transform .3s var(--ease)}
+    .has-stage .step{background:rgba(22,22,26,.72);backdrop-filter:blur(10px)}
+    .step:hover{border-color:rgba(0,231,196,.35);transform:translateY(-2px)}
+    .step .n{font-family:var(--mono);font-size:.72rem;color:var(--accent)}
+    .step b{display:block;font-family:var(--display);font-size:1rem;margin:.5rem 0 .3rem}
+    .step p{font-size:.85rem;color:var(--muted)}
+
+    .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .fgrid-3{max-width:none}
+    .feat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.6rem 1.5rem;transition:border-color .3s var(--ease),transform .3s var(--ease)}
+    .has-stage .feat{background:rgba(22,22,26,.72);backdrop-filter:blur(10px)}
+    .feat:hover{border-color:rgba(0,231,196,.35);transform:translateY(-2px)}
+    .feat b{display:block;font-family:var(--display);font-size:1.1rem;margin-bottom:.45rem}
+    .feat b span{color:var(--accent);margin-right:.5rem}
+    .feat p{font-size:.92rem;color:var(--muted)}
+
+    .pricing{border-top:1px solid var(--line);padding:5rem 0}
+    .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;align-items:stretch}
+    .plan{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.9rem 1.7rem;display:flex;flex-direction:column}
+    .plan.hot{border-color:var(--accent);position:relative;box-shadow:0 0 60px rgba(0,231,196,.08)}
+    .plan.hot::before{content:'MAIS POPULAR';position:absolute;top:-.7rem;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--accent-ink);font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;padding:.25rem .8rem;border-radius:999px}
+    .plan h3{font-size:1.2rem;font-weight:800}
+    .plan .price{font-family:var(--display);font-weight:800;font-size:2.2rem;letter-spacing:-.02em;margin:.8rem 0 .1rem}
+    .plan .price small{font-size:.85rem;font-weight:400;color:var(--muted)}
+    .plan .alt{font-size:.8rem;color:var(--accent);margin-bottom:1.1rem}
+    .plan ul{list-style:none;display:grid;gap:.5rem;margin:0 0 1.6rem;flex:1}
+    .plan li{font-size:.9rem;color:var(--muted);display:flex;gap:.5rem}
+    .plan li::before{content:'✓';color:var(--accent);font-weight:700}
+    .pnote{margin-top:1.4rem;font-size:.8rem;color:var(--dim)}
+
+    .faq{padding:5rem 0}
+    .faq details{border-bottom:1px solid var(--line);padding:1rem 0}
+    .faq summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:1.02rem;list-style:none;display:flex;justify-content:space-between}
+    .faq summary::after{content:'+';color:var(--accent);font-size:1.2rem}
+    .faq details[open] summary::after{content:'−'}
+    .faq details p{color:var(--muted);font-size:.95rem;padding-top:.6rem;max-width:52rem}
+
+    footer{border-top:1px solid var(--line);padding:2.2rem 0;font-size:.85rem;color:var(--dim)}
+    footer .wrap{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between}
+    footer a{color:var(--muted);text-decoration:none}
+    footer a:hover{color:var(--accent)}
+
+
+    /* -------------------------------------------------- prévia do produto */
+    /* A landing prometia "dashboards" e nunca mostrava um. Aqui está o painel
+       real, construído em HTML e SVG — não uma imagem: fica nítido em
+       qualquer tela, pesa alguns KB em vez de centenas, e as cores saem das
+       MESMAS variáveis do produto, então ele não pode divergir do que o
+       cliente recebe sem alguém perceber. */
+    .proof{padding:5rem 0 5.5rem;background:var(--bg0);position:relative}
+    .frame{
+      --paper:#FFFFFF; --plane:#F7F8FA; --edge:#E7E9EE;
+      --ink-1:#171821; --ink-2:#5A5E6B;
+      --serie-1:#2a78d6; --serie-2:#eb6834; --serie-3:#1baf7a;
+      margin-top:2.5rem;border-radius:14px;overflow:hidden;background:var(--plane);
+      border:1px solid rgba(244,243,239,.14);
+      box-shadow:0 40px 90px -30px rgba(0,0,0,.85),0 0 0 1px rgba(0,231,196,.08),
+        0 0 70px -20px rgba(0,231,196,.18)}
+    .frame-bar{display:flex;align-items:center;gap:.6rem;padding:.6rem .9rem;
+      background:#EDEFF3;border-bottom:1px solid var(--edge)}
+    .frame-bar u{width:10px;height:10px;border-radius:50%;background:#D3D7DE;display:block}
+    .frame-bar span{margin-left:.4rem;font-family:var(--mono);font-size:.68rem;color:#8C919C;
+      background:var(--paper);border:1px solid var(--edge);border-radius:6px;padding:.15rem .7rem}
+    .board{padding:1.4rem;display:grid;gap:.9rem;color:var(--ink-1);
+      font-family:var(--body);background:var(--plane)}
+    .board-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.6rem}
+    .board-top b{font-family:var(--display);font-size:1.05rem;font-weight:800;letter-spacing:-.01em}
+    .board-top i{font-style:normal;font-family:var(--mono);font-size:.68rem;color:#8C919C}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+    .card{background:var(--paper);border:1px solid var(--edge);border-radius:11px;padding:.85rem .95rem;
+      box-shadow:0 1px 2px rgba(16,24,40,.04)}
+    .card em{display:block;font-style:normal;font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:#8C919C}
+    /* Algarismos proporcionais em número grande e isolado; tabulares só em
+       coluna. É a mesma regra que vale dentro do produto. */
+    .card b{display:block;margin-top:.3rem;font-family:var(--display);font-size:1.5rem;font-weight:800;
+      letter-spacing:-.02em;font-variant-numeric:proportional-nums}
+    .card s{display:block;margin-top:.15rem;text-decoration:none;font-size:.7rem;color:var(--serie-3)}
+    .card s.down{color:#D03B3B}
+    .panes{display:grid;grid-template-columns:1.55fr 1fr;gap:.7rem;align-items:start}
+    .pane{background:var(--paper);border:1px solid var(--edge);border-radius:11px;padding:.9rem .95rem;
+      box-shadow:0 1px 2px rgba(16,24,40,.04)}
+    .pane>p{font-size:.78rem;font-weight:600;margin-bottom:.5rem}
+    .pane svg{display:block;width:100%;height:auto;overflow:visible}
+    .grid-line{stroke:#EDEFF2;stroke-width:1}
+    .axis-text{fill:#8C919C;font-size:7px;font-family:var(--body)}
+    .bar-value{fill:#5A5E6B;font-size:7px;font-family:var(--body)}
+    /* Barra fina com ponta arredondada, crescendo da linha zero — o mesmo
+       desenho que o renderizador do produto faz. */
+    .bar{fill:var(--serie-1);transform-box:fill-box;transform-origin:bottom;transform:scaleY(.02)}
+    .is-revealed .bar{transition:transform 1.05s var(--ease);transform:scaleY(1)}
+    .bar:nth-of-type(2){transition-delay:.07s}
+    .bar:nth-of-type(3){transition-delay:.14s}
+    .bar:nth-of-type(4){transition-delay:.21s}
+    .bar:nth-of-type(5){transition-delay:.28s}
+    .bar:nth-of-type(6){transition-delay:.35s}
+    .pane svg.ring{max-width:236px;margin:0 auto}
+    .ring circle{fill:none;stroke-width:11;transform:rotate(-90deg);transform-origin:center}
+    .ring .track{stroke:#EEF0F4}
+    .ring .arc{stroke-dasharray:var(--len) 999;stroke-dashoffset:var(--len);stroke-linecap:butt}
+    .is-revealed .ring .arc{transition:stroke-dashoffset 1.2s var(--ease);stroke-dashoffset:0}
+    .ring .arc.b{transition-delay:.18s}
+    .ring-total{text-anchor:middle;fill:var(--ink-1);font-family:var(--display);font-weight:800;font-size:13px;
+      font-variant-numeric:proportional-nums}
+    .ring-label{text-anchor:middle;fill:#8C919C;font-size:7px;letter-spacing:.1em}
+    .legend{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.5rem}
+    .legend span{display:flex;align-items:center;gap:.35rem;font-size:.68rem;color:#5A5E6B}
+    .legend i{width:9px;height:9px;border-radius:2px;display:block}
+    .proof-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+    .proof-notes p{font-size:.88rem;color:var(--muted)}
+    .proof-notes b{display:block;font-family:var(--display);color:var(--ink);font-size:.95rem;margin-bottom:.25rem}
+    .proof-notes b span{color:var(--accent);margin-right:.4rem}
+    @media(max-width:900px){
+      .panes{grid-template-columns:1fr}
+      .proof-notes{grid-template-columns:1fr;gap:1.2rem}
+    }
+    @media(max-width:640px){
+      .kpis{grid-template-columns:1fr}
+      .board{padding:1rem}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .bar{transform:scaleY(1)}
+      .ring .arc{stroke-dashoffset:0}
+    }
+
+    /* ------------------------------------------------- primeiro plano */
+    /* Bokeh: pontos fora de foco NA FRENTE da cena. Sem eles o campo fica
+       preso atrás de um vidro e a página tem duas camadas chapadas; com eles
+       o leitor sente que está dentro do volume. Ficam só na metade direita,
+       onde não há texto — profundidade não pode custar legibilidade. */
+    .bokeh{position:fixed;inset:0;z-index:3;pointer-events:none;display:none;overflow:hidden;
+      transition:opacity .5s ease}
+    .has-stage .bokeh{display:block}
+    .bokeh i{position:absolute;border-radius:50%;display:block;
+      background:radial-gradient(circle at 38% 34%,var(--glow) 0%,color-mix(in oklch,var(--glow) 45%,transparent) 42%,transparent 72%);
+      filter:blur(var(--soft));opacity:var(--alpha);
+      animation:drift var(--dur) ease-in-out infinite alternate;animation-delay:var(--lag)}
+    @keyframes drift{
+      from{transform:translate3d(0,0,0) scale(1)}
+      to{transform:translate3d(var(--dx),var(--dy),0) scale(1.16)}
+    }
+    @media(max-width:900px){
+      /* Na tela estreita o texto ocupa tudo: sobra o rodapé do quadro. */
+      .bokeh i{top:auto!important;bottom:calc(var(--b,8) * 1%);opacity:calc(var(--alpha) * .7)}
+      .bokeh i:nth-child(n+5){display:none}
+    }
+
+    /* ------------------------------------------------------- revelações */
+    /* Só escondem quando há JS para revelar (classe .js). Sem script, tudo
+       nasce visível — o conteúdo nunca depende da animação. */
+    .js [data-reveal]{opacity:0;transform:translateY(20px);filter:blur(7px);
+      transition:opacity .95s var(--ease),transform .95s var(--ease),filter .95s var(--ease)}
+    .js [data-reveal].is-revealed{opacity:1;transform:none;filter:none}
+    .js [data-reveal][data-reveal="words"]{opacity:1;transform:none;filter:none}
+    .js [data-reveal="words"] .word{display:inline-block;opacity:0;transform:translateY(.42em);filter:blur(4px);
+      transition:opacity .55s var(--ease),transform .55s var(--ease),filter .55s var(--ease);
+      transition-delay:calc(var(--i) * 42ms)}
+    .js [data-reveal="words"].is-revealed .word{opacity:1;transform:none;filter:none}
+    [data-reveal="words"] .word.accent{color:var(--accent)}
+    .hero h1 em{font-style:normal;color:var(--accent)}
+
+    /* A palavra chega como contorno vazado e se PREENCHE — o texto se
+       materializa em vez de simplesmente aparecer. Fica atrás de @supports
+       porque, sem suporte a text-stroke, "color:transparent" deixaria o
+       título invisível até a revelação: um risco que a estética não paga. */
+    @supports (-webkit-text-stroke: 1px currentColor){
+      .js [data-reveal="words"] .word{
+        color:transparent;
+        -webkit-text-stroke:1px color-mix(in oklch,var(--ink) 62%,transparent);
+        /* Duas velocidades de propósito: a palavra chega e fica NÍTIDA como
+           contorno, e só então a tinta entra. Preenchendo junto com a
+           entrada, o contorno passa rápido demais para ser percebido — e o
+           efeito vira um fade comum. */
+        transition:opacity .55s var(--ease),transform .55s var(--ease),filter .55s var(--ease),
+          color .85s var(--ease),-webkit-text-stroke-color .85s var(--ease);
+        transition-delay:calc(var(--i) * 42ms),calc(var(--i) * 42ms),calc(var(--i) * 42ms),
+          calc(var(--i) * 42ms + 340ms),calc(var(--i) * 42ms + 340ms);
+      }
+      .js [data-reveal="words"] .word.accent{
+        color:transparent;
+        -webkit-text-stroke-color:color-mix(in oklch,var(--accent) 65%,transparent);
+      }
+      .js [data-reveal="words"].is-revealed .word{color:var(--ink);-webkit-text-stroke-color:transparent}
+      .js [data-reveal="words"].is-revealed .word.accent{color:var(--accent)}
+    }
+    .js [data-delay="1"]{transition-delay:.12s}
+    .js [data-delay="2"]{transition-delay:.24s}
+    .js [data-delay="3"]{transition-delay:.36s}
+
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .js [data-reveal],.js [data-reveal="words"] .word{transition-duration:.01ms;opacity:1;transform:none;filter:none}
+      .js [data-reveal="words"] .word{color:var(--ink);-webkit-text-stroke-color:transparent}
+      .js [data-reveal="words"] .word.accent{color:var(--accent)}
+      .badge::before{animation:none}
+      .bokeh i{animation:none}
+    }
+
+    @media(max-width:900px){.steps{grid-template-columns:1fr 1fr}.fgrid{grid-template-columns:1fr 1fr}.plans{grid-template-columns:1fr}}
+    @media(max-width:560px){
+      /* Três elementos não cabem em 390px sem cortar o botão principal. O
+         sufixo "AI" sai da marca (que continua reconhecível) e os botões
+         encolhem — perder o "Entrar" custaria mais ao cliente que volta. */
+      .brand i:last-of-type{display:none}
+      .brand{font-size:.88rem;letter-spacing:-.01em}
+      .hactions{gap:.45rem}
+      .hactions .btn{padding:.55rem .8rem;font-size:.78rem}
+    }
+    @media(max-width:720px){
+      header .wrap{height:3.9rem;gap:.5rem}
+      .brand{font-size:.95rem;white-space:nowrap}
+      .brand small,.hactions .back{display:none}
+      .hactions .btn{padding:.6rem 1rem;font-size:.85rem;white-space:nowrap}
+      .has-stage .hero{min-height:auto}
+      .hero{padding:2.6rem 0 3rem}
+      .hero h1{font-size:clamp(1.95rem,8.4vw,2.6rem);max-width:none}
+      .hero p.sub{font-size:.98rem;max-width:none}
+      .ctas{max-width:none}
+      .ctas .btn{flex:1 1 100%;justify-content:center}
+      .flow,.feats,.pricing,.faq{padding:3.4rem 0}
+      .stage-note{flex-wrap:wrap;row-gap:.2rem}
+      .stage-note::before{width:1.4rem}
+    }
+    @media(max-width:640px){.steps{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<canvas id="stage" aria-hidden="true"></canvas>
+<div class="stage-veil" aria-hidden="true"></div>
+
+<div class="bokeh" aria-hidden="true">
+  <i style="--glow:var(--accent);--alpha:.34;--soft:16px;--dur:52s;--lag:0s;--dx:34px;--dy:-46px;--b:26;left:62%;top:22%;width:96px;height:96px"></i>
+  <i style="--glow:var(--accent-warm);--alpha:.26;--soft:22px;--dur:67s;--lag:-9s;--dx:-42px;--dy:38px;--b:14;left:81%;top:58%;width:150px;height:150px"></i>
+  <i style="--glow:var(--accent);--alpha:.20;--soft:28px;--dur:79s;--lag:-22s;--dx:28px;--dy:52px;--b:40;left:70%;top:74%;width:210px;height:210px"></i>
+  <i style="--glow:var(--accent-warm);--alpha:.42;--soft:9px;--dur:44s;--lag:-4s;--dx:-26px;--dy:-30px;--b:60;left:90%;top:34%;width:58px;height:58px"></i>
+  <i style="--glow:var(--accent);--alpha:.24;--soft:19px;--dur:61s;--lag:-15s;--dx:40px;--dy:24px;left:57%;top:80%;width:120px;height:120px"></i>
+  <i style="--glow:var(--accent);--alpha:.17;--soft:26px;--dur:88s;--lag:-31s;--dx:-30px;--dy:-40px;left:75%;top:8%;width:170px;height:170px"></i>
+</div>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="insight.html">ATLAS<i>.</i>INSIGHT <i>AI</i><small>by Atlas Tec</small></a>
+    <div class="hactions">
+      <a class="back" href="/">← atlas-partner.com</a>
+      <a class="btn btn-line" href="https://app.atlas-partner.com/login" data-app>Entrar</a>
+      <a class="btn btn-accent" href="https://app.atlas-partner.com/signup" data-app>Criar conta →</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" data-stage="0">
+  <div class="wrap">
+    <span class="badge" data-reveal>ACESSO ANTECIPADO</span>
+    <h1 data-reveal="words" data-accent="5,6,7">Converse com seus dados. Receba dashboards e respostas, não tarefas.</h1>
+    <div class="tagline" data-reveal data-delay="1">YOUR DATA · YOUR RULES · YOUR INTELLIGENCE</div>
+    <p class="sub" data-reveal data-delay="2">
+      Conecte BigQuery, PostgreSQL, SQL Server ou planilhas. O Atlas Insight AI
+      entende sua estrutura, aprende suas regras de negócio e transforma um
+      pedido em português em métricas, dashboards interativos e insights — com
+      cada número rastreável até a query que o gerou.
+    </p>
+    <div class="ctas" data-reveal data-delay="3">
+      <a class="btn btn-accent" href="https://app.atlas-partner.com/signup" data-app>Começar grátis →</a>
+      <a class="btn btn-line" href="#planos">Ver planos</a>
+      <small>Sem cartão de crédito no teste</small>
+    </div>
+    <p class="stage-note"><b>Role a página:</b> seus dados brutos se organizam</p>
+  </div>
+</section>
+
+<section class="flow" data-stage="1">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>Como funciona</span>
+    <h2 data-reveal="words">Da conexão ao insight em cinco passos.</h2>
+    <div class="steps">
+      <div class="step" data-reveal><span class="n">01</span><b>Conecte</b><p>BigQuery, PostgreSQL, SQL Server, CSV ou XLSX — leitura segura, somente-leitura.</p></div>
+      <div class="step" data-reveal data-delay="1"><span class="n">02</span><b>Entenda</b><p>Profiling automático: tipos, relacionamentos, dimensões e medidas detectados.</p></div>
+      <div class="step" data-reveal data-delay="2"><span class="n">03</span><b>Ensine</b><p>Suas regras em português: "cliente ativo comprou nos últimos 90 dias".</p></div>
+      <div class="step" data-reveal data-delay="3"><span class="n">04</span><b>Peça</b><p>"Dashboard executivo de vendas com margem por região vs. ano anterior."</p></div>
+      <div class="step" data-reveal data-delay="3"><span class="n">05</span><b>Decida</b><p>Dashboard pronto + AI Analyst para perguntar "por que a receita caiu?".</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="feats" data-stage="2">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>O modelo</span>
+    <h2 data-reveal="words">A IA não adivinha o seu negócio. Ela aprende a estrutura dele.</h2>
+    <div class="fgrid fgrid-3">
+      <div class="feat" data-reveal><b><span>◆</span>Camada semântica</b><p>A IA não adivinha nomes de colunas: trabalha sobre entidades, dimensões e medidas que descrevem o seu negócio.</p></div>
+      <div class="feat" data-reveal data-delay="1"><b><span>◆</span>Métricas certificadas</b><p>Receita, margem e ticket médio definidos uma vez, versionados e reutilizados em todos os dashboards.</p></div>
+      <div class="feat" data-reveal data-delay="2"><b><span>◆</span>Regras de negócio</b><p>Escreva a regra em português; o Atlas a aplica em toda análise — sem retrabalho em cada relatório.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="feats" data-stage="3">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>A inteligência</span>
+    <h2 data-reveal="words">Não é um gerador de gráficos. Todo número tem endereço.</h2>
+    <div class="fgrid fgrid-3">
+      <div class="feat" data-reveal><b><span>◆</span>Zero alucinação</b><p>Todo número vem de uma query executada e auditável. Clique em "como o Atlas calculou?" e veja o caminho completo.</p></div>
+      <div class="feat" data-reveal data-delay="1"><b><span>◆</span>AI Analyst</b><p>Chat que responde com evidências: valor, período, fonte, métrica e visualização — nunca opinião solta.</p></div>
+      <div class="feat" data-reveal data-delay="2"><b><span>◆</span>Segurança B2B</b><p>Multi-tenant com isolamento por workspace, acesso somente-leitura aos seus bancos e credenciais criptografadas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>O resultado</span>
+    <h2 data-reveal="words">Você descreve o objetivo. Isto chega pronto.</h2>
+
+    <div class="frame" data-reveal>
+      <div class="frame-bar" aria-hidden="true">
+        <u></u><u></u><u></u><span>app.atlas-partner.com/dashboards</span>
+      </div>
+      <div class="board">
+        <div class="board-top">
+          <b>Receita por mês e por linha de produto</b>
+          <i>GERADO PELA IA · 6 VISUAIS · 4 CONSULTAS</i>
+        </div>
+
+        <div class="kpis">
+          <div class="card"><em>Receita no período</em><b>R$ 1.410.200</b><s>▲ 18,2% vs. semestre anterior</s></div>
+          <div class="card"><em>Ticket médio</em><b>R$ 3.847</b><s>▲ 4,1% vs. semestre anterior</s></div>
+          <div class="card"><em>Churn de contratos</em><b>2,4%</b><s class="down">▼ 0,6 p.p. vs. semestre anterior</s></div>
+        </div>
+
+        <div class="panes">
+          <div class="pane">
+            <p>Receita por mês <span style="font-weight:400;color:#8C919C">(em milhares)</span></p>
+            <svg viewBox="0 0 300 120" role="img" aria-label="Receita por mês, de 182 mil em janeiro a 308 mil em junho"><line class="grid-line" x1="26" y1="104.0" x2="294" y2="104.0"/><text class="axis-text" x="21" y="106.5" text-anchor="end">0</text><line class="grid-line" x1="26" y1="81.5" x2="294" y2="81.5"/><text class="axis-text" x="21" y="84.0" text-anchor="end">100</text><line class="grid-line" x1="26" y1="59.0" x2="294" y2="59.0"/><text class="axis-text" x="21" y="61.5" text-anchor="end">200</text><line class="grid-line" x1="26" y1="36.5" x2="294" y2="36.5"/><text class="axis-text" x="21" y="39.0" text-anchor="end">300</text><line class="grid-line" x1="26" y1="14.0" x2="294" y2="14.0"/><text class="axis-text" x="21" y="16.5" text-anchor="end">400</text><rect class="bar" x="39.3" y="63.0" width="18.0" height="41.0" rx="3"/><rect class="bar" x="84.0" y="55.8" width="18.0" height="48.2" rx="3"/><rect class="bar" x="128.7" y="59.5" width="18.0" height="44.5" rx="3"/><rect class="bar" x="173.3" y="48.4" width="18.0" height="55.6" rx="3"/><rect class="bar" x="218.0" y="45.3" width="18.0" height="58.7" rx="3"/><rect class="bar" x="262.7" y="34.7" width="18.0" height="69.3" rx="3"/><text class="bar-value" x="48.3" y="60.0" text-anchor="middle">182</text><text class="axis-text" x="48.3" y="116" text-anchor="middle">Jan</text><text class="bar-value" x="93.0" y="52.8" text-anchor="middle">214</text><text class="axis-text" x="93.0" y="116" text-anchor="middle">Fev</text><text class="bar-value" x="137.7" y="56.5" text-anchor="middle">198</text><text class="axis-text" x="137.7" y="116" text-anchor="middle">Mar</text><text class="bar-value" x="182.3" y="45.4" text-anchor="middle">247</text><text class="axis-text" x="182.3" y="116" text-anchor="middle">Abr</text><text class="bar-value" x="227.0" y="42.3" text-anchor="middle">261</text><text class="axis-text" x="227.0" y="116" text-anchor="middle">Mai</text><text class="bar-value" x="271.7" y="31.7" text-anchor="middle">308</text><text class="axis-text" x="271.7" y="116" text-anchor="middle">Jun</text><line class="grid-line" x1="26" y1="104" x2="294" y2="104" stroke="#D8DBE1"/></svg>
+          </div>
+          <div class="pane">
+            <p>Participação por contrato</p>
+            <svg viewBox="0 0 130 130" class="ring" role="img" aria-label="Participação: Recorrente 62 por cento, Avulso 38 por cento"><circle class="track" cx="65" cy="65" r="46"/><circle class="arc" cx="65" cy="65" r="46" stroke="var(--serie-1)" style="--len:179.2"/><circle class="arc b" cx="65" cy="65" r="46" stroke="var(--serie-2)" style="--len:109.8;stroke-dasharray:109.8 999;transform:rotate(133deg)"/><text class="ring-label" x="65" y="59">TOTAL</text><text class="ring-total" x="65" y="76">R$ 1,4 mi</text></svg>
+            <div class="legend">
+              <span><i style="background:var(--serie-1)"></i>Recorrente 62%</span>
+              <span><i style="background:var(--serie-2)"></i>Avulso 38%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:.9rem;font-size:.78rem;color:var(--dim)">
+      Representação do painel gerado pelo Atlas, com números ilustrativos.
+    </p>
+
+    <div class="proof-notes">
+      <p data-reveal><b><span>◆</span>Eixo que se lê</b>Marcas em números redondos, rótulo direto na barra e valores em real — não a saída crua de uma biblioteca de gráficos.</p>
+      <p data-reveal data-delay="1"><b><span>◆</span>Toda linha tem origem</b>No menu de cada visual: "Como foi calculado?" abre o modelo, a métrica e a consulta que produziu aquele número.</p>
+      <p data-reveal data-delay="2"><b><span>◆</span>Também em tabela</b>Todo gráfico tem a gêmea em tabela, para quem precisa do número exato — ou usa leitor de tela.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="planos">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>Planos</span>
+    <h2 data-reveal="words">Comece grátis. Cresça quando fizer sentido.</h2>
+    <div class="plans">
+      <div class="plan" data-reveal>
+        <h3>Teste Grátis</h3>
+        <div class="price">R$ 0</div>
+        <div class="alt">14 dias ou 1 dashboard gerado</div>
+        <ul>
+          <li>1 fonte de dados</li>
+          <li>1 dashboard gerado por IA</li>
+          <li>Profiling e modelo semântico</li>
+          <li>Sem cartão de crédito</li>
+        </ul>
+        <a class="btn btn-line" href="https://app.atlas-partner.com/signup" data-app>Começar grátis</a>
+      </div>
+      <div class="plan hot" data-reveal data-delay="1">
+        <h3>Pro</h3>
+        <div class="price">R$ 197<small>/mês</small></div>
+        <div class="alt">ou R$ 1.970/ano — 2 meses grátis</div>
+        <ul>
+          <li>5 fontes de dados</li>
+          <li>Dashboards ilimitados</li>
+          <li>AI Analyst completo</li>
+          <li>Regras de negócio e métricas certificadas</li>
+          <li>Suporte prioritário</li>
+        </ul>
+        <a class="btn btn-accent" href="https://app.atlas-partner.com/signup?plan=pro" data-app>Assinar Pro →</a>
+      </div>
+      <div class="plan" data-reveal data-delay="2">
+        <h3>Business</h3>
+        <div class="price">Sob consulta</div>
+        <div class="alt">Para times e governança</div>
+        <ul>
+          <li>20+ fontes de dados</li>
+          <li>Múltiplos usuários e papéis</li>
+          <li>Auditoria e governança</li>
+          <li>Onboarding assistido pela Atlas</li>
+        </ul>
+        <a class="btn btn-line" href="/#contato">Falar com a Atlas</a>
+      </div>
+    </div>
+    <p class="pnote">Valores de lançamento — assinatura mensal ou anual, cancele quando quiser. Pagamento processado com segurança via Stripe.</p>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>Perguntas frequentes</span>
+    <h2 data-reveal="words">O essencial antes de começar.</h2>
+    <details><summary>Meus dados ficam seguros?</summary><p>Sim. O Atlas acessa suas fontes em modo somente-leitura, credenciais são criptografadas em repouso e cada workspace é isolado — nenhum outro cliente acessa seus dados. Comandos de escrita (INSERT, UPDATE, DELETE, DROP) são bloqueados por construção.</p></details>
+    <details><summary>Preciso saber SQL?</summary><p>Não. Você descreve o que quer em português. Usuários técnicos podem abrir cada resultado e ver o modelo, a métrica e a query que o geraram — transparência total, sem caixa preta.</p></details>
+    <details><summary>Como funciona o teste grátis?</summary><p>Você cria a conta sem cartão, conecta 1 fonte de dados e gera seu primeiro dashboard com IA. O teste vale por 14 dias ou 1 geração de dashboard — depois, escolha o plano mensal ou anual para continuar.</p></details>
+    <details><summary>Quais fontes são suportadas?</summary><p>No lançamento: Google BigQuery, PostgreSQL, SQL Server e arquivos CSV/XLSX. Em seguida: Databricks, Snowflake, Redshift e APIs REST.</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Atlas Tecnologia · <a href="/">atlas-partner.com</a></span>
+    <span>Atlas Insight AI — acesso antecipado</span>
+  </div>
+</footer>
+
+<script type="module" src="media/stage.js"></script>
+<script>
+  // App publicado. Troque APP_BASE para 'https://app.atlas-partner.com'
+  // assim que o CNAME "app" estiver ativo no DNS.
+  (function () {
+    var APP_BASE = 'https://atlas-insight-ai.vercel.app';
+    document.querySelectorAll('[data-app]').forEach(function (a) {
+      var u = new URL(a.getAttribute('href'));
+      a.href = APP_BASE + u.pathname + u.search;
+    });
+  })();
+</script>
+</body>
+</html>
