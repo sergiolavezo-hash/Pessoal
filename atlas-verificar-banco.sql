@@ -89,7 +89,16 @@ with verificacoes(migracao, o_que_procura, aplicada) as (
      exists (select 1 from information_schema.columns
              where table_schema = 'public' and table_name = 'billing_plans'
                and column_name = 'max_data_rows')
-       and to_regprocedure('public.data_quota_status(uuid)') is not null)
+       and to_regprocedure('public.data_quota_status(uuid)') is not null),
+
+    ('0025_store_foundation',
+     'tabelas da loja e função store_grant_order',
+     to_regclass('public.store_entitlements') is not null
+       and to_regprocedure('public.store_grant_order(uuid)') is not null),
+
+    ('0025_store_foundation (bucket)',
+     'bucket store-assets PRIVADO',
+     exists (select 1 from storage.buckets where id = 'store-assets' and public = false))
 )
 select
   migracao,
