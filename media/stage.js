@@ -18,13 +18,14 @@ precision highp float;
 
 in vec3 aCloud;
 in vec3 aGrid;
+in vec3 aGraph;
 in vec3 aChart;
 // x: aleatório por partícula · y: atraso no morph · z: matiz · w: tamanho
 in vec4 aSeed;
 
 uniform mat4 uProjection;
 uniform mat4 uView;
-uniform float uMorph;       // 0 = nuvem · 1 = malha · 2 = gráfico
+uniform float uMorph;       // 0 nuvem · 1 malha · 2 relacionamentos · 3 painel
 uniform float uTime;
 uniform float uPixelScale;
 
@@ -47,9 +48,12 @@ void main() {
   if (uMorph < 1.0) {
     local = staggered(uMorph, aSeed.y);
     position = mix(aCloud, aGrid, smoothstep(0.0, 1.0, local));
-  } else {
+  } else if (uMorph < 2.0) {
     local = staggered(uMorph - 1.0, aSeed.y);
-    position = mix(aGrid, aChart, smoothstep(0.0, 1.0, local));
+    position = mix(aGrid, aGraph, smoothstep(0.0, 1.0, local));
+  } else {
+    local = staggered(uMorph - 2.0, aSeed.y);
+    position = mix(aGraph, aChart, smoothstep(0.0, 1.0, local));
   }
 
   // Inquietação máxima no meio da transição e zero quando a forma assenta:
@@ -190,6 +194,97 @@ function buildGrid(count, random) {
   return data;
 }
 
+/**
+ * Relacionamentos: nós ligados por arestas.
+ *
+ * É a forma mais literal das quatro — o produto realmente detecta chaves e
+ * liga tabelas, e é isso que o leitor vê enquanto lê sobre o modelo. As
+ * arestas são feitas de PONTOS ao longo do segmento, não de linhas: mantém
+ * um único shader e uma única chamada de desenho, e de longe uma fileira
+ * densa de pontos lê como linha do mesmo jeito.
+ *
+ * O conjunto de destaque (o mesmo que vira a curva de tendência no gráfico)
+ * assume aqui o papel de NÓ. Reaproveitar o papel entre as formas evita ter
+ * de carregar cor e tamanho por estado — o brilho já vem certo de graça.
+ */
+function buildGraph(count, random, highlightStart) {
+  const data = new Float32Array(count * 3);
+  const NODE_COUNT = 150;
+
+  const nodes = [];
+  for (let i = 0; i < NODE_COUNT; i++) {
+    nodes.push([
+      (random() - 0.5) * 17.4,
+      (random() - 0.5) * 10.2,
+      (random() - 0.5) * 4.2,
+    ]);
+  }
+
+  // Cada nó se liga aos três mais próximos. Ligar por proximidade — e não ao
+  // acaso — é o que produz o desenho de constelação; arestas aleatórias
+  // cruzam a cena inteira e viram emaranhado.
+  const edges = [];
+  const seen = new Set();
+  for (let i = 0; i < NODE_COUNT; i++) {
+    const distances = [];
+    for (let j = 0; j < NODE_COUNT; j++) {
+      if (i === j) continue;
+      const dx = nodes[i][0] - nodes[j][0];
+      const dy = nodes[i][1] - nodes[j][1];
+      const dz = nodes[i][2] - nodes[j][2];
+      distances.push([dx * dx + dy * dy + dz * dz, j]);
+    }
+    distances.sort((a, b) => a[0] - b[0]);
+    for (const [, j] of distances.slice(0, 3)) {
+      const key = i < j ? `${i}:${j}` : `${j}:${i}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      edges.push([i, j, Math.sqrt(distances.find((d) => d[1] === j)[0])]);
+    }
+  }
+
+  // Partículas por aresta em proporção ao comprimento: sem isso as arestas
+  // curtas ficam saturadas e as longas, pontilhadas.
+  const totalLength = edges.reduce((sum, e) => sum + e[2], 0) || 1;
+  const cumulative = [];
+  let running = 0;
+  for (const edge of edges) {
+    running += edge[2] / totalLength;
+    cumulative.push(running);
+  }
+
+  // Nem toda partícula vai para uma aresta. Com todas nas linhas, as ligações
+  // viram tubos sólidos e ofuscam os nós — que são o assunto. Um terço fica
+  // como poeira no volume, dando profundidade e afinando o traço.
+  const dustEnd = Math.floor(highlightStart * 0.34);
+  for (let i = 0; i < dustEnd; i++) {
+    data[i * 3] = (random() - 0.5) * 19.5;
+    data[i * 3 + 1] = (random() - 0.5) * 11.4;
+    data[i * 3 + 2] = (random() - 0.5) * 6.5;
+  }
+
+  const onEdges = highlightStart - dustEnd;
+  for (let i = dustEnd; i < highlightStart; i++) {
+    const pick = (i - dustEnd + 0.5) / onEdges;
+    let index = 0;
+    while (index < edges.length - 1 && pick > cumulative[index]) index++;
+    const [from, to] = edges[index];
+    const t = random();
+    data[i * 3] = nodes[from][0] + (nodes[to][0] - nodes[from][0]) * t + (random() - 0.5) * 0.05;
+    data[i * 3 + 1] = nodes[from][1] + (nodes[to][1] - nodes[from][1]) * t + (random() - 0.5) * 0.05;
+    data[i * 3 + 2] = nodes[from][2] + (nodes[to][2] - nodes[from][2]) * t + (random() - 0.5) * 0.05;
+  }
+
+  const perNode = Math.max(1, Math.floor((count - highlightStart) / NODE_COUNT));
+  for (let i = highlightStart; i < count; i++) {
+    const node = nodes[Math.floor((i - highlightStart) / perNode) % NODE_COUNT];
+    data[i * 3] = node[0] + (random() - 0.5) * 0.28;
+    data[i * 3 + 1] = node[1] + (random() - 0.5) * 0.28;
+    data[i * 3 + 2] = node[2] + (random() - 0.5) * 0.28;
+  }
+  return data;
+}
+
 /** Perfil das barras: uma tendência de alta com variação, não um degrau. */
 function barHeights(bars) {
   const heights = new Float32Array(bars);
@@ -215,8 +310,8 @@ function buildChart(count, random) {
   const SCALE = 7.6;
   const barWidth = (SPAN / BARS) * 0.62;
 
-  const lineCount = Math.floor(count * 0.11);
-  const barCount = count - lineCount;
+  const barCount = highlightStart(count);
+  const lineCount = count - barCount;
 
   const total = heights.reduce((sum, h) => sum + h, 0);
   const cumulative = new Float32Array(BARS);
@@ -249,10 +344,17 @@ function buildChart(count, random) {
   return data;
 }
 
+/** Fatia de partículas que carrega o destaque em todas as formas. */
+const HIGHLIGHT_SHARE = 0.11;
+
+function highlightStart(count) {
+  return count - Math.floor(count * HIGHLIGHT_SHARE);
+}
+
 /** Semente por partícula: aleatoriedade, atraso, matiz e tamanho. */
 function buildSeeds(count, random, chart) {
   const data = new Float32Array(count * 4);
-  const lineStart = count - Math.floor(count * 0.11);
+  const lineStart = highlightStart(count);
   for (let i = 0; i < count; i++) {
     const isTrendLine = i >= lineStart;
     data[i * 4] = random();
@@ -325,6 +427,7 @@ export function mountStage(canvas) {
   const chart = buildChart(count, random);
   const cloud = buildCloud(count, random);
   const grid = buildGrid(count, random);
+  const graph = buildGraph(count, random, highlightStart(count));
   const seeds = buildSeeds(count, random, chart);
 
   const program = gl.createProgram();
@@ -338,6 +441,7 @@ export function mountStage(canvas) {
 
   attribute(gl, program, "aCloud", cloud, 3);
   attribute(gl, program, "aGrid", grid, 3);
+  attribute(gl, program, "aGraph", graph, 3);
   attribute(gl, program, "aChart", chart, 3);
   attribute(gl, program, "aSeed", seeds, 4);
 
@@ -383,7 +487,7 @@ export function mountStage(canvas) {
   const baseOffsetY = narrow ? -7.4 : 0;
 
   function draw(time) {
-    const reach = state.morph / 2;
+    const reach = state.morph / 3;
     // A nuvem é vista de viés; o gráfico se apruma de frente para o leitor,
     // que é como se lê um painel.
     const yaw = (0.52 - reach * 0.52) + state.pointerX * 0.16 + Math.sin(time * 0.00008) * 0.05;
@@ -470,7 +574,7 @@ export function runStage() {
   const last = anchors[anchors.length - 1];
 
   function syncTargets() {
-    stage.state.targetMorph = Math.max(0, Math.min(2, morphFromScroll(anchors)));
+    stage.state.targetMorph = Math.max(0, Math.min(3, morphFromScroll(anchors)));
     // O palco se apaga quando o texto de preço começa: ali o leitor decide,
     // e movimento atrás de uma tabela de preços atrapalha em vez de encantar.
     const box = last.getBoundingClientRect();

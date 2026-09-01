@@ -80,7 +80,8 @@
     .hero{position:relative;padding:3.6rem 0 3.4rem;overflow:hidden;
       background:radial-gradient(70rem 40rem at 85% -10%,rgba(0,231,196,.07),transparent 60%),var(--bg0)}
     .flow{background:var(--bg1);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:5.5rem 0}
-    .feats{padding:6rem 0;background:var(--bg0)}
+    .feats{padding:5rem 0;background:var(--bg0)}
+    .feats + .feats{padding-top:1rem}
     .has-stage .hero,.has-stage .flow,.has-stage .feats{background:transparent}
     .has-stage .hero{min-height:clamp(32rem,84vh,50rem);display:flex;align-items:center}
     .has-stage .hero>.wrap{width:100%}
@@ -116,6 +117,7 @@
     .step p{font-size:.85rem;color:var(--muted)}
 
     .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .fgrid-3{max-width:none}
     .feat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.6rem 1.5rem;transition:border-color .3s var(--ease),transform .3s var(--ease)}
     .has-stage .feat{background:rgba(22,22,26,.72);backdrop-filter:blur(10px)}
     .feat:hover{border-color:rgba(0,231,196,.35);transform:translateY(-2px)}
@@ -156,12 +158,37 @@
       transition:opacity .95s var(--ease),transform .95s var(--ease),filter .95s var(--ease)}
     .js [data-reveal].is-revealed{opacity:1;transform:none;filter:none}
     .js [data-reveal][data-reveal="words"]{opacity:1;transform:none;filter:none}
-    .js [data-reveal="words"] .word{display:inline-block;opacity:0;transform:translateY(.42em);filter:blur(9px);
-      transition:opacity .8s var(--ease),transform .8s var(--ease),filter .8s var(--ease);
+    .js [data-reveal="words"] .word{display:inline-block;opacity:0;transform:translateY(.42em);filter:blur(4px);
+      transition:opacity .55s var(--ease),transform .55s var(--ease),filter .55s var(--ease);
       transition-delay:calc(var(--i) * 42ms)}
     .js [data-reveal="words"].is-revealed .word{opacity:1;transform:none;filter:none}
     [data-reveal="words"] .word.accent{color:var(--accent)}
     .hero h1 em{font-style:normal;color:var(--accent)}
+
+    /* A palavra chega como contorno vazado e se PREENCHE — o texto se
+       materializa em vez de simplesmente aparecer. Fica atrás de @supports
+       porque, sem suporte a text-stroke, "color:transparent" deixaria o
+       título invisível até a revelação: um risco que a estética não paga. */
+    @supports (-webkit-text-stroke: 1px currentColor){
+      .js [data-reveal="words"] .word{
+        color:transparent;
+        -webkit-text-stroke:1px color-mix(in oklch,var(--ink) 62%,transparent);
+        /* Duas velocidades de propósito: a palavra chega e fica NÍTIDA como
+           contorno, e só então a tinta entra. Preenchendo junto com a
+           entrada, o contorno passa rápido demais para ser percebido — e o
+           efeito vira um fade comum. */
+        transition:opacity .55s var(--ease),transform .55s var(--ease),filter .55s var(--ease),
+          color .85s var(--ease),-webkit-text-stroke-color .85s var(--ease);
+        transition-delay:calc(var(--i) * 42ms),calc(var(--i) * 42ms),calc(var(--i) * 42ms),
+          calc(var(--i) * 42ms + 340ms),calc(var(--i) * 42ms + 340ms);
+      }
+      .js [data-reveal="words"] .word.accent{
+        color:transparent;
+        -webkit-text-stroke-color:color-mix(in oklch,var(--accent) 65%,transparent);
+      }
+      .js [data-reveal="words"].is-revealed .word{color:var(--ink);-webkit-text-stroke-color:transparent}
+      .js [data-reveal="words"].is-revealed .word.accent{color:var(--accent)}
+    }
     .js [data-delay="1"]{transition-delay:.12s}
     .js [data-delay="2"]{transition-delay:.24s}
     .js [data-delay="3"]{transition-delay:.36s}
@@ -169,6 +196,8 @@
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
       .js [data-reveal],.js [data-reveal="words"] .word{transition-duration:.01ms;opacity:1;transform:none;filter:none}
+      .js [data-reveal="words"] .word{color:var(--ink);-webkit-text-stroke-color:transparent}
+      .js [data-reveal="words"] .word.accent{color:var(--accent)}
       .badge::before{animation:none}
     }
 
@@ -243,12 +272,21 @@
 
 <section class="feats" data-stage="2">
   <div class="wrap">
-    <span class="eyebrow" data-reveal>Por dentro</span>
-    <h2 data-reveal="words">Não é um gerador de gráficos. É uma plataforma de inteligência.</h2>
-    <div class="fgrid">
+    <span class="eyebrow" data-reveal>O modelo</span>
+    <h2 data-reveal="words">A IA não adivinha o seu negócio. Ela aprende a estrutura dele.</h2>
+    <div class="fgrid fgrid-3">
       <div class="feat" data-reveal><b><span>◆</span>Camada semântica</b><p>A IA não adivinha nomes de colunas: trabalha sobre entidades, dimensões e medidas que descrevem o seu negócio.</p></div>
       <div class="feat" data-reveal data-delay="1"><b><span>◆</span>Métricas certificadas</b><p>Receita, margem e ticket médio definidos uma vez, versionados e reutilizados em todos os dashboards.</p></div>
       <div class="feat" data-reveal data-delay="2"><b><span>◆</span>Regras de negócio</b><p>Escreva a regra em português; o Atlas a aplica em toda análise — sem retrabalho em cada relatório.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="feats" data-stage="3">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>A inteligência</span>
+    <h2 data-reveal="words">Não é um gerador de gráficos. Todo número tem endereço.</h2>
+    <div class="fgrid fgrid-3">
       <div class="feat" data-reveal><b><span>◆</span>Zero alucinação</b><p>Todo número vem de uma query executada e auditável. Clique em "como o Atlas calculou?" e veja o caminho completo.</p></div>
       <div class="feat" data-reveal data-delay="1"><b><span>◆</span>AI Analyst</b><p>Chat que responde com evidências: valor, período, fonte, métrica e visualização — nunca opinião solta.</p></div>
       <div class="feat" data-reveal data-delay="2"><b><span>◆</span>Segurança B2B</b><p>Multi-tenant com isolamento por workspace, acesso somente-leitura aos seus bancos e credenciais criptografadas.</p></div>
