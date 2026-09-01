@@ -33,6 +33,16 @@ const serverEnvSchema = z.object({
   STRIPE_WEBHOOK_SECRET: z.string().optional(),
   EMAIL_FROM: z.string().optional(),
   SIGNUP_NOTIFY_ENDPOINT: z.string().url().optional(),
+  /**
+   * Quem administra a LOJA (catálogo, preços, arquivos, pedidos).
+   *
+   * É a Atlas vendendo, não o cliente gerindo a conta dele — então o papel
+   * OWNER de uma organização NÃO serve aqui: ele daria a qualquer cliente o
+   * poder de editar preço e baixar todos os .pbix. Lista de e-mails separada
+   * por vírgula. Vazia significa loja sem administração, que é o padrão
+   * seguro: ninguém entra por engano.
+   */
+  STORE_ADMIN_EMAILS: z.string().optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;
