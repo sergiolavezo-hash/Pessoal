@@ -621,6 +621,13 @@ export function runStage() {
   const stillPreferred = matchMedia("(prefers-reduced-motion: reduce)");
   const last = anchors[anchors.length - 1];
 
+  // O bokeh pertence ao palco: aceso enquanto há cena, apagado depois dela.
+  // Sem isso ele continua flutuando sobre as seções claras que vêm a seguir
+  // (a prévia do produto é um cartão BRANCO) e vira mancha esverdeada. Subir
+  // o z-index da seção não resolve: <main> é um contexto de empilhamento, e
+  // nada dentro dele ultrapassa uma camada irmã de <body>.
+  const bokeh = document.querySelector(".bokeh");
+
   function syncTargets() {
     stage.state.targetMorph = Math.max(0, Math.min(3, morphFromScroll(anchors)));
     // O palco se apaga quando o texto de preço começa: ali o leitor decide,
@@ -629,6 +636,9 @@ export function runStage() {
     const end = box.top + scrollY + box.height;
     const fade = innerHeight * 0.45;
     stage.state.targetOpacity = Math.max(0, Math.min(1, (end - scrollY) / fade));
+    // Escrito na rolagem, não a cada quadro: o valor só muda quando o leitor
+    // se move, e uma transição no CSS cobre a diferença.
+    if (bokeh) bokeh.style.opacity = String(stage.state.targetOpacity);
   }
 
   let frame = 0;

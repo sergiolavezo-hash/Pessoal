@@ -152,12 +152,94 @@
     footer a:hover{color:var(--accent)}
 
 
+    /* -------------------------------------------------- prévia do produto */
+    /* A landing prometia "dashboards" e nunca mostrava um. Aqui está o painel
+       real, construído em HTML e SVG — não uma imagem: fica nítido em
+       qualquer tela, pesa alguns KB em vez de centenas, e as cores saem das
+       MESMAS variáveis do produto, então ele não pode divergir do que o
+       cliente recebe sem alguém perceber. */
+    .proof{padding:5rem 0 5.5rem;background:var(--bg0);position:relative}
+    .frame{
+      --paper:#FFFFFF; --plane:#F7F8FA; --edge:#E7E9EE;
+      --ink-1:#171821; --ink-2:#5A5E6B;
+      --serie-1:#2a78d6; --serie-2:#eb6834; --serie-3:#1baf7a;
+      margin-top:2.5rem;border-radius:14px;overflow:hidden;background:var(--plane);
+      border:1px solid rgba(244,243,239,.14);
+      box-shadow:0 40px 90px -30px rgba(0,0,0,.85),0 0 0 1px rgba(0,231,196,.08),
+        0 0 70px -20px rgba(0,231,196,.18)}
+    .frame-bar{display:flex;align-items:center;gap:.6rem;padding:.6rem .9rem;
+      background:#EDEFF3;border-bottom:1px solid var(--edge)}
+    .frame-bar u{width:10px;height:10px;border-radius:50%;background:#D3D7DE;display:block}
+    .frame-bar span{margin-left:.4rem;font-family:var(--mono);font-size:.68rem;color:#8C919C;
+      background:var(--paper);border:1px solid var(--edge);border-radius:6px;padding:.15rem .7rem}
+    .board{padding:1.4rem;display:grid;gap:.9rem;color:var(--ink-1);
+      font-family:var(--body);background:var(--plane)}
+    .board-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.6rem}
+    .board-top b{font-family:var(--display);font-size:1.05rem;font-weight:800;letter-spacing:-.01em}
+    .board-top i{font-style:normal;font-family:var(--mono);font-size:.68rem;color:#8C919C}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+    .card{background:var(--paper);border:1px solid var(--edge);border-radius:11px;padding:.85rem .95rem;
+      box-shadow:0 1px 2px rgba(16,24,40,.04)}
+    .card em{display:block;font-style:normal;font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:#8C919C}
+    /* Algarismos proporcionais em número grande e isolado; tabulares só em
+       coluna. É a mesma regra que vale dentro do produto. */
+    .card b{display:block;margin-top:.3rem;font-family:var(--display);font-size:1.5rem;font-weight:800;
+      letter-spacing:-.02em;font-variant-numeric:proportional-nums}
+    .card s{display:block;margin-top:.15rem;text-decoration:none;font-size:.7rem;color:var(--serie-3)}
+    .card s.down{color:#D03B3B}
+    .panes{display:grid;grid-template-columns:1.55fr 1fr;gap:.7rem;align-items:start}
+    .pane{background:var(--paper);border:1px solid var(--edge);border-radius:11px;padding:.9rem .95rem;
+      box-shadow:0 1px 2px rgba(16,24,40,.04)}
+    .pane>p{font-size:.78rem;font-weight:600;margin-bottom:.5rem}
+    .pane svg{display:block;width:100%;height:auto;overflow:visible}
+    .grid-line{stroke:#EDEFF2;stroke-width:1}
+    .axis-text{fill:#8C919C;font-size:7px;font-family:var(--body)}
+    .bar-value{fill:#5A5E6B;font-size:7px;font-family:var(--body)}
+    /* Barra fina com ponta arredondada, crescendo da linha zero — o mesmo
+       desenho que o renderizador do produto faz. */
+    .bar{fill:var(--serie-1);transform-box:fill-box;transform-origin:bottom;transform:scaleY(.02)}
+    .is-revealed .bar{transition:transform 1.05s var(--ease);transform:scaleY(1)}
+    .bar:nth-of-type(2){transition-delay:.07s}
+    .bar:nth-of-type(3){transition-delay:.14s}
+    .bar:nth-of-type(4){transition-delay:.21s}
+    .bar:nth-of-type(5){transition-delay:.28s}
+    .bar:nth-of-type(6){transition-delay:.35s}
+    .pane svg.ring{max-width:236px;margin:0 auto}
+    .ring circle{fill:none;stroke-width:11;transform:rotate(-90deg);transform-origin:center}
+    .ring .track{stroke:#EEF0F4}
+    .ring .arc{stroke-dasharray:var(--len) 999;stroke-dashoffset:var(--len);stroke-linecap:butt}
+    .is-revealed .ring .arc{transition:stroke-dashoffset 1.2s var(--ease);stroke-dashoffset:0}
+    .ring .arc.b{transition-delay:.18s}
+    .ring-total{text-anchor:middle;fill:var(--ink-1);font-family:var(--display);font-weight:800;font-size:13px;
+      font-variant-numeric:proportional-nums}
+    .ring-label{text-anchor:middle;fill:#8C919C;font-size:7px;letter-spacing:.1em}
+    .legend{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.5rem}
+    .legend span{display:flex;align-items:center;gap:.35rem;font-size:.68rem;color:#5A5E6B}
+    .legend i{width:9px;height:9px;border-radius:2px;display:block}
+    .proof-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+    .proof-notes p{font-size:.88rem;color:var(--muted)}
+    .proof-notes b{display:block;font-family:var(--display);color:var(--ink);font-size:.95rem;margin-bottom:.25rem}
+    .proof-notes b span{color:var(--accent);margin-right:.4rem}
+    @media(max-width:900px){
+      .panes{grid-template-columns:1fr}
+      .proof-notes{grid-template-columns:1fr;gap:1.2rem}
+    }
+    @media(max-width:640px){
+      .kpis{grid-template-columns:1fr}
+      .board{padding:1rem}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .bar{transform:scaleY(1)}
+      .ring .arc{stroke-dashoffset:0}
+    }
+
     /* ------------------------------------------------- primeiro plano */
     /* Bokeh: pontos fora de foco NA FRENTE da cena. Sem eles o campo fica
        preso atrás de um vidro e a página tem duas camadas chapadas; com eles
        o leitor sente que está dentro do volume. Ficam só na metade direita,
        onde não há texto — profundidade não pode custar legibilidade. */
-    .bokeh{position:fixed;inset:0;z-index:3;pointer-events:none;display:none;overflow:hidden}
+    .bokeh{position:fixed;inset:0;z-index:3;pointer-events:none;display:none;overflow:hidden;
+      transition:opacity .5s ease}
     .has-stage .bokeh{display:block}
     .bokeh i{position:absolute;border-radius:50%;display:block;
       background:radial-gradient(circle at 38% 34%,var(--glow) 0%,color-mix(in oklch,var(--glow) 45%,transparent) 42%,transparent 72%);
@@ -331,6 +413,56 @@
       <div class="feat" data-reveal><b><span>◆</span>Zero alucinação</b><p>Todo número vem de uma query executada e auditável. Clique em "como o Atlas calculou?" e veja o caminho completo.</p></div>
       <div class="feat" data-reveal data-delay="1"><b><span>◆</span>AI Analyst</b><p>Chat que responde com evidências: valor, período, fonte, métrica e visualização — nunca opinião solta.</p></div>
       <div class="feat" data-reveal data-delay="2"><b><span>◆</span>Segurança B2B</b><p>Multi-tenant com isolamento por workspace, acesso somente-leitura aos seus bancos e credenciais criptografadas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>O resultado</span>
+    <h2 data-reveal="words">Você descreve o objetivo. Isto chega pronto.</h2>
+
+    <div class="frame" data-reveal>
+      <div class="frame-bar" aria-hidden="true">
+        <u></u><u></u><u></u><span>app.atlas-partner.com/dashboards</span>
+      </div>
+      <div class="board">
+        <div class="board-top">
+          <b>Receita por mês e por linha de produto</b>
+          <i>GERADO PELA IA · 6 VISUAIS · 4 CONSULTAS</i>
+        </div>
+
+        <div class="kpis">
+          <div class="card"><em>Receita no período</em><b>R$ 1.410.200</b><s>▲ 18,2% vs. semestre anterior</s></div>
+          <div class="card"><em>Ticket médio</em><b>R$ 3.847</b><s>▲ 4,1% vs. semestre anterior</s></div>
+          <div class="card"><em>Churn de contratos</em><b>2,4%</b><s class="down">▼ 0,6 p.p. vs. semestre anterior</s></div>
+        </div>
+
+        <div class="panes">
+          <div class="pane">
+            <p>Receita por mês <span style="font-weight:400;color:#8C919C">(em milhares)</span></p>
+            <svg viewBox="0 0 300 120" role="img" aria-label="Receita por mês, de 182 mil em janeiro a 308 mil em junho"><line class="grid-line" x1="26" y1="104.0" x2="294" y2="104.0"/><text class="axis-text" x="21" y="106.5" text-anchor="end">0</text><line class="grid-line" x1="26" y1="81.5" x2="294" y2="81.5"/><text class="axis-text" x="21" y="84.0" text-anchor="end">100</text><line class="grid-line" x1="26" y1="59.0" x2="294" y2="59.0"/><text class="axis-text" x="21" y="61.5" text-anchor="end">200</text><line class="grid-line" x1="26" y1="36.5" x2="294" y2="36.5"/><text class="axis-text" x="21" y="39.0" text-anchor="end">300</text><line class="grid-line" x1="26" y1="14.0" x2="294" y2="14.0"/><text class="axis-text" x="21" y="16.5" text-anchor="end">400</text><rect class="bar" x="39.3" y="63.0" width="18.0" height="41.0" rx="3"/><rect class="bar" x="84.0" y="55.8" width="18.0" height="48.2" rx="3"/><rect class="bar" x="128.7" y="59.5" width="18.0" height="44.5" rx="3"/><rect class="bar" x="173.3" y="48.4" width="18.0" height="55.6" rx="3"/><rect class="bar" x="218.0" y="45.3" width="18.0" height="58.7" rx="3"/><rect class="bar" x="262.7" y="34.7" width="18.0" height="69.3" rx="3"/><text class="bar-value" x="48.3" y="60.0" text-anchor="middle">182</text><text class="axis-text" x="48.3" y="116" text-anchor="middle">Jan</text><text class="bar-value" x="93.0" y="52.8" text-anchor="middle">214</text><text class="axis-text" x="93.0" y="116" text-anchor="middle">Fev</text><text class="bar-value" x="137.7" y="56.5" text-anchor="middle">198</text><text class="axis-text" x="137.7" y="116" text-anchor="middle">Mar</text><text class="bar-value" x="182.3" y="45.4" text-anchor="middle">247</text><text class="axis-text" x="182.3" y="116" text-anchor="middle">Abr</text><text class="bar-value" x="227.0" y="42.3" text-anchor="middle">261</text><text class="axis-text" x="227.0" y="116" text-anchor="middle">Mai</text><text class="bar-value" x="271.7" y="31.7" text-anchor="middle">308</text><text class="axis-text" x="271.7" y="116" text-anchor="middle">Jun</text><line class="grid-line" x1="26" y1="104" x2="294" y2="104" stroke="#D8DBE1"/></svg>
+          </div>
+          <div class="pane">
+            <p>Participação por contrato</p>
+            <svg viewBox="0 0 130 130" class="ring" role="img" aria-label="Participação: Recorrente 62 por cento, Avulso 38 por cento"><circle class="track" cx="65" cy="65" r="46"/><circle class="arc" cx="65" cy="65" r="46" stroke="var(--serie-1)" style="--len:179.2"/><circle class="arc b" cx="65" cy="65" r="46" stroke="var(--serie-2)" style="--len:109.8;stroke-dasharray:109.8 999;transform:rotate(133deg)"/><text class="ring-label" x="65" y="59">TOTAL</text><text class="ring-total" x="65" y="76">R$ 1,4 mi</text></svg>
+            <div class="legend">
+              <span><i style="background:var(--serie-1)"></i>Recorrente 62%</span>
+              <span><i style="background:var(--serie-2)"></i>Avulso 38%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:.9rem;font-size:.78rem;color:var(--dim)">
+      Representação do painel gerado pelo Atlas, com números ilustrativos.
+    </p>
+
+    <div class="proof-notes">
+      <p data-reveal><b><span>◆</span>Eixo que se lê</b>Marcas em números redondos, rótulo direto na barra e valores em real — não a saída crua de uma biblioteca de gráficos.</p>
+      <p data-reveal data-delay="1"><b><span>◆</span>Toda linha tem origem</b>No menu de cada visual: "Como foi calculado?" abre o modelo, a métrica e a consulta que produziu aquele número.</p>
+      <p data-reveal data-delay="2"><b><span>◆</span>Também em tabela</b>Todo gráfico tem a gêmea em tabela, para quem precisa do número exato — ou usa leitor de tela.</p>
     </div>
   </div>
 </section>
