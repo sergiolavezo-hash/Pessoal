@@ -18,6 +18,7 @@ import {
   PanelLeftOpen,
   Settings,
   Sigma,
+  Store,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CreditsMeter } from "@/features/billing/credits-meter";
@@ -104,6 +105,8 @@ interface AppSidebarProps {
   role: OrgRole;
   /** Commit que gerou o build no ar; ausente fora da Vercel. */
   buildRef?: string | null;
+  /** Só quem administra a loja vê o caminho para ela. */
+  isStoreAdmin?: boolean;
   credits?: CreditsSummary;
   collapsed: boolean;
   onToggle: () => void;
@@ -116,11 +119,22 @@ export function AppSidebar({
   workspace,
   role,
   buildRef,
+  isStoreAdmin,
   credits,
   collapsed,
   onToggle,
 }: AppSidebarProps) {
   const pathname = usePathname();
+
+  /*
+    A loja é a Atlas vendendo, não o cliente gerindo a conta dele: o item só
+    existe para quem administra. Esconder o caminho não é a proteção — a
+    própria página e todas as rotas respondem 404 a quem não pode entrar —
+    mas evita que um cliente sequer descubra que a área existe.
+  */
+  const groups = isStoreAdmin
+    ? [...NAV_GROUPS, { label: "Atlas", items: [{ href: "/admin/loja", label: "Loja de modelos", icon: Store }] }]
+    : NAV_GROUPS;
   const initials =
     (profile.full_name || profile.email)
       .split(/[\s@.]+/)
@@ -178,7 +192,7 @@ export function AppSidebar({
       )}
 
       <nav className={cn("flex-1 overflow-y-auto py-2", collapsed ? "px-2" : "px-3")}>
-        {NAV_GROUPS.map((group, index) => (
+        {groups.map((group, index) => (
           <div key={group.label ?? "root"} className={index > 0 ? "mt-4" : undefined}>
             {group.label &&
               (collapsed ? (

@@ -28,6 +28,7 @@ export function AppShell({
   role,
   initialCollapsed,
   buildRef,
+  isStoreAdmin,
   credits,
   banners,
   children,
@@ -38,6 +39,7 @@ export function AppShell({
   workspace: Workspace;
   role: OrgRole;
   buildRef?: string | null;
+  isStoreAdmin?: boolean;
   credits?: CreditsSummary;
   initialCollapsed: boolean;
   banners?: React.ReactNode;
@@ -61,6 +63,7 @@ export function AppShell({
         workspace={workspace}
         role={role}
         buildRef={buildRef}
+        isStoreAdmin={isStoreAdmin}
         credits={credits}
         collapsed={collapsed}
         onToggle={toggle}

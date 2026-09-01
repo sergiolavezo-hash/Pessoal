@@ -7,14 +7,16 @@ import { getCreditStatus, toCredits } from "@/services/ai-credits";
 import { AppShell } from "@/components/layout/app-shell";
 import { SIDEBAR_COLLAPSED, SIDEBAR_COOKIE } from "@/lib/ui-preferences";
 import { buildRef } from "@/lib/build-info";
+import { currentUserIsStoreAdmin } from "@/store/admin";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const ctx = await getAppContext();
   const supabase = await createClient();
-  const [subscription, plans, credits] = await Promise.all([
+  const [subscription, plans, credits, isStoreAdmin] = await Promise.all([
     getSubscription(supabase, ctx.organization.id),
     listPlans(supabase),
     getCreditStatus(ctx.organization.id),
+    currentUserIsStoreAdmin(),
   ]);
   // Lido no servidor para a primeira pintura já sair no estado escolhido.
   const collapsed = (await cookies()).get(SIDEBAR_COOKIE)?.value === SIDEBAR_COLLAPSED;
@@ -45,6 +47,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       role={ctx.role}
       initialCollapsed={collapsed}
       buildRef={buildRef()}
+      isStoreAdmin={isStoreAdmin}
       credits={{
         planName: plans.find((p) => p.id === subscription?.plan_id)?.name ?? "Gratuito",
         allowance: toCredits(credits.daily_allowance_cents),
