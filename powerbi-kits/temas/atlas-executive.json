@@ -1,0 +1,136 @@
+{
+  "name": "Atlas EXECUTIVE",
+  "dataColors": [
+    "#C4A76A",
+    "#D6BE8C",
+    "#34D399",
+    "#FBBF24",
+    "#F87171",
+    "#94A3B8",
+    "#6EE7B7",
+    "#FCA5A5"
+  ],
+  "background": "#141A2C",
+  "foreground": "#F8FAFC",
+  "tableAccent": "#C4A76A",
+  "good": "#34D399",
+  "neutral": "#FBBF24",
+  "bad": "#F87171",
+  "maximum": "#C4A76A",
+  "minimum": "#26314F",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 16,
+      "color": "#F8FAFC"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 13,
+      "color": "#F8FAFC"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 11,
+      "color": "#94A3B8"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 34,
+      "color": "#F8FAFC"
+    },
+    "largeTitle": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 22,
+      "color": "#F8FAFC"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#141A2C"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "color": {
+              "solid": {
+                "color": "#26314F"
+              }
+            },
+            "radius": 8,
+            "show": true
+          }
+        ],
+        "title": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#F8FAFC"
+              }
+            },
+            "fontSize": 13,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ],
+        "grid": [
+          {
+            "show": false
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#141A2C"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "grid": [
+          {
+            "gridVertical": false,
+            "gridHorizontal": true,
+            "gridHorizontalColor": {
+              "solid": {
+                "color": "#26314F"
+              }
+            },
+            "rowPadding": 6
+          }
+        ],
+        "columnHeaders": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#94A3B8"
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": "#141A2C"
+              }
+            },
+            "fontSize": 10
+          }
+        ]
+      }
+    }
+  }
+}

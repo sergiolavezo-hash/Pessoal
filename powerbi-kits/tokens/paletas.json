@@ -1,0 +1,58 @@
+{
+  "_comentario": "As 5 paletas do marketplace. Cada estilo é um conjunto completo de tokens — nenhum herda do outro, porque herança silenciosa é como um estilo acaba com a cor do outro.",
+  "MODERN": {
+    "descricao": "Claro, acento índigo. É a paleta de origem das medidas.",
+    "CorFundo": "255,255,255", "CorBorda": "226,232,240", "CorTrilho": "238,242,247",
+    "CorEscala": "203,213,225", "CorNeutro": "148,163,184",
+    "CorTexto": "15,23,42", "CorTextoSuave": "100,116,139",
+    "CorPos": "16,185,129", "CorPosForte": "5,150,105",
+    "CorAtencao": "245,158,11", "CorNeg": "239,68,68", "CorNegForte": "220,38,38",
+    "CorMarca": "79,70,229", "CorMarca2": "99,102,241",
+    "TintPos": "209,250,229", "TintNeg": "254,226,226", "TintMarca": "239,246,255",
+    "RampaIni": "238,242,247", "RampaFim": "79,70,229"
+  },
+  "BLACK": {
+    "descricao": "Fundo grafite, alto contraste, aparência premium. É a paleta das capas de marketing.",
+    "CorFundo": "17,23,38", "CorBorda": "30,39,64", "CorTrilho": "30,39,64",
+    "CorEscala": "45,57,90", "CorNeutro": "124,135,180",
+    "CorTexto": "242,243,248", "CorTextoSuave": "124,135,180",
+    "CorPos": "16,185,129", "CorPosForte": "52,211,153",
+    "CorAtencao": "245,158,11", "CorNeg": "239,68,68", "CorNegForte": "248,113,113",
+    "CorMarca": "99,102,241", "CorMarca2": "129,140,248",
+    "TintPos": "6,58,45", "TintNeg": "69,26,26", "TintMarca": "30,32,84",
+    "RampaIni": "30,39,64", "RampaFim": "129,140,248"
+  },
+  "CLEAN": {
+    "descricao": "Minimalista, cores dessaturadas, corporativo sóbrio. Sem gradiente.",
+    "CorFundo": "255,255,255", "CorBorda": "237,240,245", "CorTrilho": "243,245,249",
+    "CorEscala": "226,232,240", "CorNeutro": "160,170,185",
+    "CorTexto": "24,32,46", "CorTextoSuave": "139,148,166",
+    "CorPos": "5,150,105", "CorPosForte": "4,120,87",
+    "CorAtencao": "217,119,6", "CorNeg": "220,38,38", "CorNegForte": "185,28,28",
+    "CorMarca": "51,65,85", "CorMarca2": "51,65,85",
+    "TintPos": "236,253,245", "TintNeg": "254,242,242", "TintMarca": "241,245,249",
+    "RampaIni": "243,245,249", "RampaFim": "51,65,85"
+  },
+  "WHITE": {
+    "descricao": "Claro corporativo clássico, azul institucional. Sem gradiente.",
+    "CorFundo": "255,255,255", "CorBorda": "226,232,240", "CorTrilho": "241,245,249",
+    "CorEscala": "203,213,225", "CorNeutro": "148,163,184",
+    "CorTexto": "30,41,59", "CorTextoSuave": "120,133,153",
+    "CorPos": "22,163,74", "CorPosForte": "21,128,61",
+    "CorAtencao": "202,138,4", "CorNeg": "220,38,38", "CorNegForte": "185,28,28",
+    "CorMarca": "37,99,235", "CorMarca2": "37,99,235",
+    "TintPos": "220,252,231", "TintNeg": "254,226,226", "TintMarca": "219,234,254",
+    "RampaIni": "241,245,249", "RampaFim": "30,64,175"
+  },
+  "EXECUTIVE": {
+    "descricao": "Escuro com acento dourado, aparência de board.",
+    "CorFundo": "20,26,44", "CorBorda": "38,49,79", "CorTrilho": "38,49,79",
+    "CorEscala": "52,66,102", "CorNeutro": "148,163,184",
+    "CorTexto": "248,250,252", "CorTextoSuave": "148,163,184",
+    "CorPos": "52,211,153", "CorPosForte": "110,231,183",
+    "CorAtencao": "251,191,36", "CorNeg": "248,113,113", "CorNegForte": "252,165,165",
+    "CorMarca": "196,167,106", "CorMarca2": "214,190,140",
+    "TintPos": "6,58,45", "TintNeg": "69,26,26", "TintMarca": "58,48,28",
+    "RampaIni": "38,49,79", "RampaFim": "196,167,106"
+  }
+}

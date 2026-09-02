@@ -1,0 +1,62 @@
+// =====================================================================
+//  TOKENS DE TEMA — bloco idêntico no topo de TODA medida do kit
+//
+//  Por que existe: a variação de estilo (BLACK, MODERN, CLEAN, WHITE,
+//  EXECUTIVE) é uma TROCA DE PALETA, não um redesenho. Com as cores no
+//  corpo de cada medida, produzir 5 estilos de 10 kits seria editar
+//  centenas de linhas à mão — e uma cor esquecida quebra o estilo em
+//  silêncio, porque SVG não avisa.
+//
+//  Com o bloco extraído, gerar um estilo é substituir este trecho.
+//  ferramentas/gerar-estilos.mjs faz isso e confere o resultado.
+//
+//  IMPORTANTE: cores SEMPRE em rgb(). Dentro de data:image/svg+xml;utf8,
+//  o caractere "#" pode truncar a string (HANDOFF §5.2).
+// =====================================================================
+
+// ---- superfície -----------------------------------------------------
+VAR _CorFundo      = "rgb(255,255,255)"   -- fundo do cartão
+VAR _CorBorda      = "rgb(226,232,240)"   -- borda de cartão e célula
+VAR _CorTrilho     = "rgb(233,236,241)"   -- trilho vazio de barra e arco
+VAR _CorEscala     = "rgb(203,213,225)"   -- réguas, eixos, divisórias
+VAR _CorNeutro     = "rgb(148,163,184)"   -- marcador de meta, traço neutro
+
+// ---- texto ----------------------------------------------------------
+VAR _CorTexto      = "rgb(15,23,42)"      -- número principal, título
+VAR _CorTextoSuave = "rgb(107,114,128)"   -- rótulo, legenda, unidade
+
+// ---- semáforo -------------------------------------------------------
+VAR _CorPos        = "rgb(16,185,129)"    -- bateu a meta, variação boa
+VAR _CorPosForte   = "rgb(5,150,105)"     -- o mesmo verde sobre fundo claro
+VAR _CorAtencao    = "rgb(245,158,11)"    -- perto da meta
+VAR _CorNeg        = "rgb(239,68,68)"     -- longe da meta, variação ruim
+VAR _CorNegForte   = "rgb(220,38,38)"     -- o mesmo vermelho sobre fundo claro
+
+// ---- marca ----------------------------------------------------------
+VAR _CorMarca      = "rgb(79,70,229)"     -- acento principal
+VAR _CorMarca2     = "rgb(99,102,241)"    -- fim do gradiente (só HTML)
+
+// ---- fundos de realce (tint) ----------------------------------------
+// Usados atrás de badge e pílula. Precisam de contraste com o texto
+// escuro nas paletas claras e com o texto claro nas escuras — por isso
+// são tokens, e não uma opacidade calculada.
+VAR _TintPos       = "rgb(209,250,229)"
+VAR _TintNeg       = "rgb(254,226,226)"
+VAR _TintMarca     = "rgb(239,246,255)"
+
+// ---- rampa de heatmap -----------------------------------------------
+// Interpolação linear entre estes dois RGB. Sempre do frio para o
+// quente na direção do "mais": o olho lê intensidade, não matiz.
+VAR _RampaIni      = "rgb(241,245,249)"
+VAR _RampaFim      = "rgb(30,64,175)"
+
+// ---- componentes numéricos da rampa ---------------------------------
+// O heatmap interpola canal a canal, então precisa dos números soltos.
+// Mantidos aqui para o gerador trocar tudo num lugar só.
+VAR _RampaIniR = 241
+VAR _RampaIniG = 245
+VAR _RampaIniB = 249
+VAR _RampaFimR = 30
+VAR _RampaFimG = 64
+VAR _RampaFimB = 175
+// =====================================================================
