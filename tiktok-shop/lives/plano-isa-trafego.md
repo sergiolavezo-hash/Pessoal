@@ -3,6 +3,9 @@
 > Data: 2026-09-10 | Base: prints da live de 10/09, 21h58
 > Contexto: nicho moda feminina. Operação distinta da do Vinícius (moda masculina).
 
+> ⚠️ **ATUALIZAÇÃO 10/09 — este plano virou prioridade 2.**
+> Dado real da última live: **45 adicionaram ao carrinho, 4 finalizaram** (8,9%). O gargalo maior não é tráfego, é a última etapa da compra — ver `isa-gargalo-checkout.md`. Corrigir o carrinho vale ~3× o faturamento com o mesmo tráfego. As alavancas abaixo continuam válidas, mas entram depois.
+
 ## Diagnóstico em uma linha
 
 **A conversão dela já está resolvida. O problema é 100% audiência.**
