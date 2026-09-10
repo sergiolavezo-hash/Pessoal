@@ -116,6 +116,37 @@ O melhor momento de demonstração de cada live vira vídeo no dia seguinte, com
 
 ---
 
+## O elo que falta: vídeo diário ≠ vídeo de aquecimento
+
+**Ela já posta vídeos diariamente.** Então a matéria-prima existe — o que não existe é a **ponte entre o feed e a live**.
+
+Um vídeo que não menciona a live, não provoca curiosidade sobre a live e não é postado perto do horário da live constrói audiência, mas **não enche sala**. São dois trabalhos diferentes, e hoje ela está fazendo só o primeiro.
+
+### Por que o horário do post importa (o mecanismo real)
+
+O TikTok mostra o preview da live prioritariamente para **quem interagiu com os vídeos daquele criador recentemente**. Um vídeo que ganha tração 1–2h antes da live cria exatamente esse bolo de gente quente — e o preview da live cai no feed dessas pessoas.
+
+Sem vídeo recente, o preview da live **não tem para quem ir**. Não é só "as pessoas lembram": é que o algoritmo precisa de um público fresco para testar a live. É por isso que o mesmo vídeo, postado às 15h ou às 19h, tem efeitos completamente diferentes sobre a live das 20h.
+
+### As 5 mudanças no conteúdo que ela JÁ produz (custo zero)
+
+1. **Todo vídeo do dia da live termina com a chamada**: "hoje 20h eu visto essa ao vivo".
+2. **Um vídeo obrigatório 60–90 min antes** da live — esse é inegociável, é o que carrega o preview.
+3. **O vídeo de aquecimento abre lacuna que só a live fecha**: mostra a peça no cabide e o preço, **não mostra vestida**. O caimento, a cor real e o tecido ficam para a live.
+4. **Fixar no perfil** um vídeo com o horário fixo das lives.
+5. **Usar a Oferta Relâmpago como urgência** no vídeo: "hoje 20h tem oferta relâmpago nesse aqui".
+
+Nada disso é conteúdo novo. É o mesmo vídeo que ela já grava, com destino declarado.
+
+### O que decide o próximo passo: quantas views os vídeos dela fazem?
+
+| Cenário | Sinal | Diagnóstico | Ação |
+|---|---|---|---|
+| **A** | Vídeos fazem **2.000+ views** | A audiência existe e não está sendo roteada para a live | Só conectar (as 5 mudanças acima). Ganho rápido, pode multiplicar espectadores em dias |
+| **B** | Vídeos fazem **200–500 views** | O feed também não está distribuindo | Problema é upstream: hook e retenção nos 3 primeiros segundos. Corrigir o vídeo antes de esperar resultado na live |
+
+As 5 mudanças valem nos dois cenários. O que muda é **onde entra o esforço extra**.
+
 ## Ordem de execução (impacto × esforço)
 
 1. **Cortar a live da tarde e virar o tempo em vídeo de aquecimento** — a mudança de maior impacto, custo zero (é realocação, não trabalho novo).
@@ -141,8 +172,9 @@ Se em 14 dias o pico não sair da casa dos 10 mesmo com agendamento e aqueciment
 
 ## Dados que ainda faltam
 
-1. Ela **posta vídeos fora da live**? Quantos por semana? *(o mais importante dos que faltam — define se o feed está alimentando a live)*
-2. **Pico de espectadores numa live boa** dela (para saber se 8 é queda ou é o normal)
-3. Ela **agenda** as lives hoje ou simplesmente abre?
-4. É **afiliada ou vendedora** dos produtos? (muda se dá pra mexer em preço/oferta)
-5. Quantas **vendas/GMV** sai por live hoje?
+1. **Quantas views fazem os vídeos dela?** *(o que decide entre o Cenário A e o B — mais importante que todos os outros juntos)*
+2. Os vídeos dela **chamam para a live** hoje, ou são independentes?
+3. Ela **agenda** as lives ou simplesmente abre?
+4. **Pico de espectadores numa live boa** dela (para saber se 8 é queda ou é o normal)
+5. É **afiliada ou vendedora** dos produtos? (muda se dá pra mexer em preço/oferta)
+6. Quantas **vendas/GMV** sai por live hoje?
