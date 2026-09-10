@@ -9,6 +9,48 @@
 
 O número que prova: **10.3K curtidas acumuladas com 8–10 espectadores simultâneos.** Curtida acumula ao longo da sessão, espectador é instantâneo. Ela teve público, o público foi embora, e a distribuição parou de renovar. Não adianta mexer em oferta, preço ou script — está tudo certo. Falta gente entrando.
 
+## O tamanho real do problema (dados de 10/09)
+
+**Base: 6.000+ seguidores. Espectadores: 8–10.** Isso é **0,15% da própria base.**
+
+Uma live agendada, com aquecimento, deveria puxar de 1% a 3% da base só de seguidor avisado — ou seja, **60 a 180 pessoas**. O gap é de **6 a 20 vezes**.
+
+A conclusão é dura e útil: **ela não está nem alcançando os próprios seguidores.** O problema não é furar para estranhos no "Para Você" — é que 6 mil pessoas que já a seguem não estão sendo avisadas, ou não estão vendo conteúdo dela no feed entre uma live e outra.
+
+### Escada de metas
+
+| Fase | Espectadores | Como |
+|---|---|---|
+| Hoje | 8–10 | — |
+| Semanas 1–2 | **40–80** | Live agendada + aquecimento + sessão única |
+| Semanas 3–4 | **100–200** | Consistência de horário + cortes alimentando o feed |
+
+---
+
+## A decisão principal: CONCENTRAR, não espalhar
+
+Ela faz live **à tarde e à noite**. Com 6 mil seguidores, isso é o erro estrutural da operação:
+
+1. **Divide a mesma base pequena** em duas sessões — nenhuma enche.
+2. **Fadiga de notificação**: avisar a mesma pessoa duas vezes por dia faz ela parar de abrir.
+3. **A tarde é janela fraca no Brasil.** O pico é 19h–23h; ela está gastando energia no horário de menor retorno.
+4. **O pior de todos:** muitas horas ao vivo com 8 pessoas ensina ao algoritmo que a live dela não retém. Sessão fraca repetida vira histórico ruim — e histórico ruim reduz a distribuição das próximas.
+
+### A troca
+
+**Matar a live da tarde por 2 semanas** e transformar aquele tempo em **produção de vídeo de aquecimento**.
+
+É a mesma energia com destino diferente: a tarde deixa de ser live vazia e passa a ser o motor de tráfego da live da noite. Uma live cheia vale mais que duas vazias — para o bolso e para o algoritmo.
+
+### Rotina diária proposta
+
+| Horário | Hoje | Proposto |
+|---|---|---|
+| Tarde | Live com 8–10 pessoas | **Gravar e postar 2 vídeos** das peças da noite |
+| 18h30–19h | — | **Vídeo de chamada**: "hoje 20h, ao vivo" |
+| 20h–21h30 | Live | **Live única, agendada, com título** |
+| Dia seguinte | — | **1 corte** da live no feed |
+
 ## O que NÃO mexer (já está melhor que a média do mercado)
 
 O card de produto fixado dela é uma unidade de conversão completa, com seis gatilhos simultâneos:
@@ -74,29 +116,33 @@ O melhor momento de demonstração de cada live vira vídeo no dia seguinte, com
 
 ---
 
-## Estrutura sugerida
-
-| | Hoje (inferido) | Proposto |
-|---|---|---|
-| Formato | 1 live longa que morre no meio | 2 sessões de 1h30 com vídeo de injeção entre elas |
-| Aquecimento | não observado | 2–3 vídeos no dia, último 1h antes |
-| Agendamento | não observado | Sempre agendada, com título |
-| Cortes | não observado | 3–5 por live, postados no dia seguinte |
-| Horário | 21h58 (dentro do pico BR 19h–23h) | Manter e fixar os mesmos dias |
-
 ## Ordem de execução (impacto × esforço)
 
-1. **Aquecimento pré-live** — maior impacto, custo baixo. Começar na próxima live.
-2. **Agendar + título** — 2 minutos de trabalho, tráfego grátis de seguidor.
-3. **Parar de arrastar live morta** — muda só a decisão, custo zero.
-4. **Fazer os poucos espectadores falarem** — muda só o script.
-5. **Cortes** — o único que exige edição; entra na semana 2.
+1. **Cortar a live da tarde e virar o tempo em vídeo de aquecimento** — a mudança de maior impacto, custo zero (é realocação, não trabalho novo).
+2. **Agendar a live da noite + título** — 2 minutos, tráfego grátis de seguidor.
+3. **Aquecimento pré-live** — 2 vídeos no dia + 1 chamada 1h antes.
+4. **Parar de arrastar live morta** — muda só a decisão, custo zero.
+5. **Fazer os poucos espectadores falarem** — muda só o script.
+6. **Cortes** — único que exige edição; entra na semana 2.
 
-## Dados que faltam para afinar o plano
+## Teste de 14 dias
 
-1. Quantos **seguidores** ela tem?
-2. **Frequência e horário** das lives (quais dias, que horas, quanto tempo)
-3. Ela **posta vídeos** fora da live? Quantos por semana?
-4. **Pico de espectadores** numa live boa dela (para saber se 8 é queda ou é o normal)
-5. Ela é **afiliada ou vendedora** dos produtos? (muda se dá pra mexer em preço/oferta)
-6. Quantas **vendas/GMV** sai por live hoje?
+Rodar a rotina proposta por duas semanas seguidas, sem exceção, e medir por live:
+
+| Métrica | Baseline | Meta 14 dias |
+|---|---|---|
+| Espectadores únicos | ~8–10 | 40–80 |
+| Pico simultâneo | 10 | 50+ |
+| Tempo médio assistido | ? | > 2 min |
+| Comentários totais | quase zero | 30+ |
+| Pedidos / GMV | ? | definir na live 1 |
+
+Se em 14 dias o pico não sair da casa dos 10 mesmo com agendamento e aquecimento rodando, o problema não é distribuição de live — é o feed dela (poucos vídeos ou vídeos que não retêm), e a intervenção muda de alvo.
+
+## Dados que ainda faltam
+
+1. Ela **posta vídeos fora da live**? Quantos por semana? *(o mais importante dos que faltam — define se o feed está alimentando a live)*
+2. **Pico de espectadores numa live boa** dela (para saber se 8 é queda ou é o normal)
+3. Ela **agenda** as lives hoje ou simplesmente abre?
+4. É **afiliada ou vendedora** dos produtos? (muda se dá pra mexer em preço/oferta)
+5. Quantas **vendas/GMV** sai por live hoje?
