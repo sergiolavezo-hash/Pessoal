@@ -1,0 +1,17 @@
+Power BI lento quase nunca é problema de máquina.
+
+É modelo de dados.
+
+A diferença entre um relatório que abre em 40 segundos e um que abre em 2 raramente está no visual — está em como os dados chegaram até ele.
+
+Os três erros do vídeo são os que mais aparecem quando a gente abre um modelo pela primeira vez:
+
+· Importar a tabela inteira e usar 15% dela
+· Achatar tudo numa tabela só, sem modelo estrela
+· Coluna calculada onde cabia medida
+
+Nenhum é difícil de corrigir. Todos são difíceis de enxergar de dentro.
+
+Manda o print do seu modelo na DM que eu comento. Sem custo, sem pegadinha.
+
+#powerbi #businessintelligence #dax #modelagemdedados #bi

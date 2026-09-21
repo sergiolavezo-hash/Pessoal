@@ -1,0 +1,19 @@
+Observabilidade de dados em 3 alertas.
+
+A maioria dos times monitora se o job falhou. Quase ninguém monitora se o job mentiu.
+
+Falha explícita é fácil: o processo para, alguém é avisado, alguém conserta. Ruim, mas visível.
+
+O problema caro é o outro: o job roda, termina com sucesso, e traz metade dos dados porque a origem estava indisponível na hora da extração. O dashboard abre normal. O número está errado. E a decisão é tomada em cima dele.
+
+Os três alertas que pegam os dois casos:
+
+1. Falha de execução — o básico
+2. Duração anômala — falha se anunciando
+3. Volume fora da faixa esperada — o que pega o erro silencioso
+
+O terceiro é o que separa um pipeline de produção de um script agendado.
+
+Salva e manda pro time de dados.
+
+#dataengineering #dataops #airflow #observabilidade #engenhariadedados

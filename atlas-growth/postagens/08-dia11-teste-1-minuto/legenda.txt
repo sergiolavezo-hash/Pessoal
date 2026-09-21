@@ -1,0 +1,17 @@
+O teste de 1 minuto:
+
+1. Qual produto teve a maior margem no mês passado?
+2. Quanto custa trazer um cliente novo hoje?
+3. Você vai bater a meta deste mês?
+
+Não é um teste de memória. É um teste de infraestrutura.
+
+Em empresa com dado organizado, essas três respostas estão a um clique. Em empresa sem, elas viram um pedido, que vira uma fila, que vira três dias — e quando a resposta chega, a decisão já foi tomada de outro jeito.
+
+O sintoma não é falta de dado. Quase toda empresa tem dado demais. É falta de acesso: o dado existe, está espalhado, e depende de uma pessoa específica pra virar resposta.
+
+E aí a velocidade da sua empresa passa a ser a velocidade da agenda dessa pessoa.
+
+Se você não respondeu as três em 1 minuto, vale conversar. 30 minutos, sem custo, sem proposta no final se não fizer sentido. Link na bio.
+
+#gestaoempresarial #dadosparadecisao #bi #gestao #tomadadedecisao

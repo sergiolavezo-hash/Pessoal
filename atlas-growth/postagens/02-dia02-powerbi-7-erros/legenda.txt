@@ -1,0 +1,13 @@
+Power BI lento quase nunca é problema de máquina.
+
+É modelo de dados.
+
+A diferença entre um relatório que abre em 40 segundos e um que abre em 2 raramente está no visual — está em como os dados chegaram até ele.
+
+Os 7 erros do carrossel são os que mais aparecem quando a gente abre um modelo pela primeira vez. Nenhum deles é difícil de corrigir. Todos são difíceis de enxergar de dentro.
+
+Salva pra revisar o seu.
+
+E se a sua empresa já passou do ponto em que dá pra resolver ajustando relatório — é sinal de que o problema subiu um andar, pra camada de dados. A gente faz diagnóstico disso em 30 minutos, sem custo. Link na bio.
+
+#powerbi #businessintelligence #dax #modelagemdedados #bi #dados

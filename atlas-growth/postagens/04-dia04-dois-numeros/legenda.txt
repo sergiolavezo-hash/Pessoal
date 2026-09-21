@@ -1,0 +1,21 @@
+"Mas o meu relatório está dizendo outra coisa."
+
+Se essa frase já foi dita numa reunião da sua empresa, o problema não é o relatório.
+
+É que a sua empresa não tem uma definição única de métrica.
+
+Faturamento é pedido ou é nota emitida?
+Cliente ativo é quem comprou nos últimos 90 dias ou 180?
+A meta é por data de venda ou por data de entrega?
+
+Se a resposta muda dependendo de quem você pergunta, cada área vai produzir um número diferente — e todos vão estar tecnicamente corretos.
+
+Isso se resolve em duas camadas:
+1. Definir a regra uma vez, por escrito
+2. Fazer todos os relatórios beberem da mesma fonte
+
+Enquanto isso não existe, reunião de resultado vira reunião sobre planilha.
+
+Marca o sócio que já viveu essa cena.
+
+#gestaoempresarial #dadosparadecisao #businessintelligence #governancadedados #gestao

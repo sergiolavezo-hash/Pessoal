@@ -1,0 +1,16 @@
+Converse com seus dados em português. Sem SQL.
+
+A parte fácil é fazer uma IA responder sobre dados.
+A parte difícil é fazer ela não inventar.
+
+O Atlas Insight AI resolve isso com uma camada semântica: suas regras de negócio ficam definidas ali, e toda resposta vem amarrada à query que a gerou. Você clica no número e vê exatamente de onde ele saiu.
+
+Sem isso, "IA que conversa com seus dados" é um gerador de números convincentes. Com isso, é uma ferramenta de gestão.
+
+Conecta em BigQuery, PostgreSQL, SQL Server, CSV e XLSX.
+Acesso somente leitura.
+
+14 dias grátis. Sem cartão.
+Link na bio.
+
+#inteligenciaartificial #dados #dashboard #bi #atlasinsightai #ia

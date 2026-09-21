@@ -1,0 +1,11 @@
+Automação de processo não é sobre tecnologia. É sobre onde o seu time gasta a cabeça.
+
+Uma consolidação de planilhas que leva 2 horas por semana custa 104 horas por ano. Mas o custo maior não é o tempo — é que essas 104 horas são de uma pessoa que você contratou pra analisar, e que está copiando e colando.
+
+E tem o erro. Processo manual repetitivo tem taxa de erro. Sempre. A pergunta é só quando ele vai aparecer e quanto vai custar.
+
+A regra é simples: se um processo é repetitivo, tem regra clara e acontece com frequência — ele é candidato a automação. Não precisa ser um projeto grande. Os melhores começam pequenos.
+
+Comenta qual processo da sua empresa você automatizaria primeiro.
+
+#automacaodeprocessos #rpa #produtividade #excel #gestaodeprocessos
