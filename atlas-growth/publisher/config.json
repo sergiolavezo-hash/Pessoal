@@ -1,0 +1,13 @@
+{
+  "_comment": "Ajuste start_date para o dia em que o calendário deve começar. O publicador calcula o dia atual como (hoje - start_date) + 1.",
+
+  "start_date": "2026-10-01",
+
+  "_comment_asset_base_url": "URL pública onde as artes estão hospedadas. A Graph API do Instagram BAIXA a mídia dessa URL — ela precisa ser acessível sem login. Recomendado: uma pasta no próprio atlas-partner.com.",
+
+  "asset_base_url": "https://atlas-partner.com/ig-assets/",
+
+  "_comment_ig_user_id": "ID da conta Instagram Business. Pode ficar aqui ou vir da variável de ambiente IG_USER_ID (que tem precedência). NUNCA coloque o token aqui — ele vai em variável de ambiente.",
+
+  "ig_user_id": ""
+}

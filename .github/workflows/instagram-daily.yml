@@ -1,0 +1,63 @@
+name: Instagram — publicação diária
+
+on:
+  schedule:
+    # 22:17 UTC = 19:17 no horário de Brasília (UTC-3).
+    # Minuto quebrado de propósito: o GitHub atrasa jobs agendados em :00.
+    - cron: "17 22 * * *"
+  workflow_dispatch:
+    inputs:
+      day:
+        description: "Dia do calendário a publicar (vazio = hoje)"
+        required: false
+      dry_run:
+        description: "Só simular, sem publicar"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: pip install -r atlas-growth/publisher/requirements.txt
+
+      - name: Publicar
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_ASSET_BASE_URL: ${{ vars.IG_ASSET_BASE_URL }}
+        run: |
+          cd atlas-growth/publisher
+          python publish.py \
+            ${{ inputs.day && format('--day {0}', inputs.day) || '' }} \
+            ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      - name: Registrar o que foi publicado
+        if: ${{ !inputs.dry_run }}
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          if git diff --quiet -- atlas-growth/publisher/state/; then
+            echo "Nada novo publicado hoje."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add atlas-growth/publisher/state/
+          git commit -m "Registra publicação do Instagram de $(date -u +%Y-%m-%d)"
+          # Outra execução pode ter escrito nesse meio tempo.
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

@@ -1,0 +1,144 @@
+[
+  {
+    "day": 1,
+    "type": "reel",
+    "slug": "custo-fechamento",
+    "title": "O custo do fechamento manual",
+    "asset": "reels/reel-01-custo-fechamento.mp4",
+    "cover": "capas-reels/reel-01-capa.jpg",
+    "caption": "Fechamento manual não aparece no P&L. Mas está lá.\n\nFaz a conta da sua empresa:\npessoas envolvidas × horas por dia × dias de fechamento.\nMultiplica por 12.\n\nO número que aparece é o que você paga todo ano para transformar dado em planilha — e não para transformar dado em decisão.\n\nE tem um custo que a conta nem pega: quando o relatório fica pronto, ele já está velho. Você decide olhando para o mês passado enquanto seus concorrentes olham para hoje.\n\nIsso não se resolve contratando mais gente.\nResolve-se tirando a mão humana do meio.\n\nComenta QUANTO que eu te envio a calculadora de custo de processo manual.\n\n#automacaodeprocessos #controladoria #gestaoempresarial #businessintelligence #gestaodedados"
+  },
+  {
+    "day": 2,
+    "type": "carousel",
+    "slug": "powerbi-7-erros",
+    "title": "7 erros que matam seu Power BI",
+    "assets": [
+      "01-powerbi/slide-01.jpg",
+      "01-powerbi/slide-02.jpg",
+      "01-powerbi/slide-03.jpg",
+      "01-powerbi/slide-04.jpg",
+      "01-powerbi/slide-05.jpg",
+      "01-powerbi/slide-06.jpg",
+      "01-powerbi/slide-07.jpg",
+      "01-powerbi/slide-08.jpg",
+      "01-powerbi/slide-09.jpg"
+    ],
+    "first_comment": "Qual desses você já viu na prática? Eu aposto no nº 2.",
+    "caption": "Power BI lento quase nunca é problema de máquina.\n\nÉ modelo de dados.\n\nA diferença entre um relatório que abre em 40 segundos e um que abre em 2 raramente está no visual — está em como os dados chegaram até ele.\n\nOs 7 erros do carrossel são os que mais aparecem quando a gente abre um modelo pela primeira vez. Nenhum deles é difícil de corrigir. Todos são difíceis de enxergar de dentro.\n\nSalva pra revisar o seu.\n\nE se a sua empresa já passou do ponto em que dá pra resolver ajustando relatório — é sinal de que o problema subiu um andar, pra camada de dados. A gente faz diagnóstico disso em 30 minutos, sem custo. Link na bio.\n\n#powerbi #businessintelligence #dax #modelagemdedados #bi #dados"
+  },
+  {
+    "day": 3,
+    "type": "reel",
+    "slug": "demo-insight-ai",
+    "title": "Demo do Atlas Insight AI",
+    "asset": "reels/reel-03-demo-insight.mp4",
+    "cover": "capas-reels/reel-03-capa.jpg",
+    "caption": "Converse com seus dados em português. Sem SQL.\n\nA parte fácil é fazer uma IA responder sobre dados.\nA parte difícil é fazer ela não inventar.\n\nO Atlas Insight AI resolve isso com uma camada semântica: suas regras de negócio ficam definidas ali, e toda resposta vem amarrada à query que a gerou. Você clica no número e vê exatamente de onde ele saiu.\n\nSem isso, \"IA que conversa com seus dados\" é um gerador de números convincentes. Com isso, é uma ferramenta de gestão.\n\nConecta em BigQuery, PostgreSQL, SQL Server, CSV e XLSX.\nAcesso somente leitura.\n\n14 dias grátis. Sem cartão.\nLink na bio.\n\n#inteligenciaartificial #dados #dashboard #bi #atlasinsightai #ia"
+  },
+  {
+    "day": 4,
+    "type": "reel",
+    "slug": "dois-numeros",
+    "title": "Dois números pra mesma pergunta",
+    "asset": "reels/reel-02-dois-numeros.mp4",
+    "cover": "capas-reels/reel-02-capa.jpg",
+    "caption": "\"Mas o meu relatório está dizendo outra coisa.\"\n\nSe essa frase já foi dita numa reunião da sua empresa, o problema não é o relatório.\n\nÉ que a sua empresa não tem uma definição única de métrica.\n\nFaturamento é pedido ou é nota emitida?\nCliente ativo é quem comprou nos últimos 90 dias ou 180?\nA meta é por data de venda ou por data de entrega?\n\nSe a resposta muda dependendo de quem você pergunta, cada área vai produzir um número diferente — e todos vão estar tecnicamente corretos.\n\nIsso se resolve em duas camadas:\n1. Definir a regra uma vez, por escrito\n2. Fazer todos os relatórios beberem da mesma fonte\n\nEnquanto isso não existe, reunião de resultado vira reunião sobre planilha.\n\nMarca o sócio que já viveu essa cena.\n\n#gestaoempresarial #dadosparadecisao #businessintelligence #governancadedados #gestao"
+  },
+  {
+    "day": 5,
+    "type": "story",
+    "slug": "story-enquete",
+    "title": "Enquete: fecha o mês na mão?",
+    "asset": "stories/story-enquete.jpg"
+  },
+  {
+    "day": 8,
+    "type": "reel",
+    "slug": "pipeline-3h",
+    "title": "Seu pipeline quebrou às 3h",
+    "asset": "reels/reel-04-pipeline.mp4",
+    "cover": "capas-reels/reel-04-capa.jpg",
+    "caption": "Observabilidade de dados em 3 alertas.\n\nA maioria dos times monitora se o job falhou. Quase ninguém monitora se o job mentiu.\n\nFalha explícita é fácil: o processo para, alguém é avisado, alguém conserta. Ruim, mas visível.\n\nO problema caro é o outro: o job roda, termina com sucesso, e traz metade dos dados porque a origem estava indisponível na hora da extração. O dashboard abre normal. O número está errado. E a decisão é tomada em cima dele.\n\nOs três alertas que pegam os dois casos:\n\n1. Falha de execução — o básico\n2. Duração anômala — falha se anunciando\n3. Volume fora da faixa esperada — o que pega o erro silencioso\n\nO terceiro é o que separa um pipeline de produção de um script agendado.\n\nSalva e manda pro time de dados.\n\n#dataengineering #dataops #airflow #observabilidade #engenhariadedados"
+  },
+  {
+    "day": 9,
+    "type": "carousel",
+    "slug": "8-perguntas",
+    "title": "8 perguntas antes de contratar consultoria",
+    "assets": [
+      "02-perguntas/slide-01.jpg",
+      "02-perguntas/slide-02.jpg",
+      "02-perguntas/slide-03.jpg",
+      "02-perguntas/slide-04.jpg",
+      "02-perguntas/slide-05.jpg",
+      "02-perguntas/slide-06.jpg",
+      "02-perguntas/slide-07.jpg",
+      "02-perguntas/slide-08.jpg",
+      "02-perguntas/slide-09.jpg",
+      "02-perguntas/slide-10.jpg"
+    ],
+    "first_comment": "A pergunta 3 é a que mais incomoda fornecedor. Testa.",
+    "caption": "Contratar consultoria de dados é uma das compras mais difíceis que existem: você está comprando algo que não consegue avaliar tecnicamente, de alguém que sabe muito mais do que você sobre o assunto.\n\nEntão a defesa não é entender de tecnologia.\nÉ fazer as perguntas certas.\n\nEssas 8 funcionam porque nenhuma delas exige conhecimento técnico pra avaliar a resposta. Você percebe pela clareza. Quem tem processo responde direto. Quem não tem, desconversa.\n\nA pergunta 3 é a mais desconfortável e a mais importante:\n\"o que acontece se eu quiser trocar de fornecedor?\"\nEla revela na hora se a empresa está construindo algo seu ou criando uma dependência.\n\nSalva pra próxima reunião com fornecedor.\n\nE sim — pode usar com a gente. A gente responde as oito.\n\n#consultoriadedados #gestaodeti #businessintelligence #compras #transformacaodigital"
+  },
+  {
+    "day": 11,
+    "type": "reel",
+    "slug": "teste-1-minuto",
+    "title": "O teste do 1 minuto",
+    "asset": "reels/reel-05-teste-1min.mp4",
+    "cover": "capas-reels/reel-05-capa.jpg",
+    "caption": "O teste de 1 minuto:\n\n1. Qual produto teve a maior margem no mês passado?\n2. Quanto custa trazer um cliente novo hoje?\n3. Você vai bater a meta deste mês?\n\nNão é um teste de memória. É um teste de infraestrutura.\n\nEm empresa com dado organizado, essas três respostas estão a um clique. Em empresa sem, elas viram um pedido, que vira uma fila, que vira três dias — e quando a resposta chega, a decisão já foi tomada de outro jeito.\n\nO sintoma não é falta de dado. Quase toda empresa tem dado demais. É falta de acesso: o dado existe, está espalhado, e depende de uma pessoa específica pra virar resposta.\n\nE aí a velocidade da sua empresa passa a ser a velocidade da agenda dessa pessoa.\n\nSe você não respondeu as três em 1 minuto, vale conversar. 30 minutos, sem custo, sem proposta no final se não fizer sentido. Link na bio.\n\n#gestaoempresarial #dadosparadecisao #bi #gestao #tomadadedecisao"
+  },
+  {
+    "day": 12,
+    "type": "story",
+    "slug": "story-trial",
+    "title": "Oferta: trial Insight AI",
+    "asset": "stories/story-oferta-trial.jpg"
+  },
+  {
+    "day": 15,
+    "type": "reel",
+    "slug": "automacao-2h",
+    "title": "2 horas por semana em 40 segundos",
+    "asset": "reels/reel-06-automacao.mp4",
+    "cover": "capas-reels/reel-06-capa.jpg",
+    "caption": "Automação de processo não é sobre tecnologia. É sobre onde o seu time gasta a cabeça.\n\nUma consolidação de planilhas que leva 2 horas por semana custa 104 horas por ano. Mas o custo maior não é o tempo — é que essas 104 horas são de uma pessoa que você contratou pra analisar, e que está copiando e colando.\n\nE tem o erro. Processo manual repetitivo tem taxa de erro. Sempre. A pergunta é só quando ele vai aparecer e quanto vai custar.\n\nA regra é simples: se um processo é repetitivo, tem regra clara e acontece com frequência — ele é candidato a automação. Não precisa ser um projeto grande. Os melhores começam pequenos.\n\nComenta qual processo da sua empresa você automatizaria primeiro.\n\n#automacaodeprocessos #rpa #produtividade #excel #gestaodeprocessos"
+  },
+  {
+    "day": 16,
+    "type": "carousel",
+    "slug": "glossario",
+    "title": "Glossário Atlas",
+    "assets": [
+      "03-glossario/slide-01.jpg",
+      "03-glossario/slide-02.jpg",
+      "03-glossario/slide-03.jpg",
+      "03-glossario/slide-04.jpg",
+      "03-glossario/slide-05.jpg",
+      "03-glossario/slide-06.jpg",
+      "03-glossario/slide-07.jpg",
+      "03-glossario/slide-08.jpg",
+      "03-glossario/slide-09.jpg"
+    ],
+    "first_comment": "Qual termo você quer no próximo? Comenta que eu incluo.",
+    "caption": "Tem uma cena que se repete em toda empresa: a TI apresenta, o gestor concorda com a cabeça, e ninguém pergunta o que significa aquela palavra.\n\nO custo disso não é o constrangimento. É a decisão aprovada sem ser entendida.\n\nEsse glossário é deliberadamente simples. Não é para você virar técnico — é para você conseguir fazer a pergunta certa e avaliar se a resposta faz sentido.\n\nO termo mais importante da lista é \"camada semântica\". Ele parece o mais abstrato e é o mais prático: é literalmente o lugar onde alguém escreveu o que significa \"faturamento\" na sua empresa. Se esse lugar não existe, cada área escreve o seu — e é assim que nascem dois números para a mesma pergunta.\n\nSalva pra próxima reunião.\nQual termo você quer no próximo? Comenta.\n\n#gestaoempresarial #businessintelligence #dados #gestaodedados #transformacaodigital"
+  },
+  {
+    "day": 18,
+    "type": "reel",
+    "slug": "rosto-powerbi",
+    "title": "TESTE: rosto na câmera",
+    "asset": "reels/reel-07-rosto.mp4",
+    "cover": "capas-reels/reel-07-capa.jpg",
+    "caption": "Power BI lento quase nunca é problema de máquina.\n\nÉ modelo de dados.\n\nA diferença entre um relatório que abre em 40 segundos e um que abre em 2 raramente está no visual — está em como os dados chegaram até ele.\n\nOs três erros do vídeo são os que mais aparecem quando a gente abre um modelo pela primeira vez:\n\n· Importar a tabela inteira e usar 15% dela\n· Achatar tudo numa tabela só, sem modelo estrela\n· Coluna calculada onde cabia medida\n\nNenhum é difícil de corrigir. Todos são difíceis de enxergar de dentro.\n\nManda o print do seu modelo na DM que eu comento. Sem custo, sem pegadinha.\n\n#powerbi #businessintelligence #dax #modelagemdedados #bi"
+  },
+  {
+    "day": 20,
+    "type": "story",
+    "slug": "story-diagnostico",
+    "title": "Oferta: diagnóstico 30min",
+    "asset": "stories/story-oferta-diagnostico.jpg"
+  }
+]
