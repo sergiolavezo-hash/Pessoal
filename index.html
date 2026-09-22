@@ -83,8 +83,14 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+  /* Grade sutil de fundo — a mesma textura usada em todo o conteúdo social
+     da Atlas (carrosséis, reels, stories). Reforça a identidade entre o
+     site e as postagens sem competir com o conteúdo. */
   body {
-    background: var(--bg0);
+    background:
+      linear-gradient(rgba(244, 243, 239, 0.035) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, rgba(244, 243, 239, 0.035) 1px, transparent 1px) 0 0 / 56px 56px,
+      var(--bg0);
     color: var(--ink);
     font-family: var(--body);
     font-size: 1.0625rem;
@@ -188,7 +194,10 @@
 
   /* ---------- Hero ---------- */
   .hero { position: relative; padding: 7rem 0 5rem; overflow: hidden;
-    background: radial-gradient(60rem 34rem at 82% -12%, rgba(46,134,255,0.14), transparent 60%), var(--bg0); }
+    background: radial-gradient(60rem 34rem at 82% -12%, rgba(46,134,255,0.14), transparent 60%),
+      linear-gradient(rgba(244, 243, 239, 0.035) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, rgba(244, 243, 239, 0.035) 1px, transparent 1px) 0 0 / 56px 56px,
+      var(--bg0); }
   .hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3.5rem; align-items: center; }
   .hero h1 { font-size: clamp(2.4rem, 5vw, 3.9rem); font-weight: 800; margin: 1.1rem 0 1.2rem; max-width: 16ch; }
   .hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; }
@@ -205,9 +214,7 @@
   /* Diagrama de arquitetura — SVG estático, sem canvas. As linhas se
      "desenham" via stroke-dashoffset quando a seção entra na tela. */
   .arch { position: relative; }
-  .arch svg { width: 100%; height: auto; overflow: visible; }
-  .arch .arch-line { fill: none; stroke: url(#archGrad); stroke-width: 2; stroke-dasharray: 420; stroke-dashoffset: 420; transition: stroke-dashoffset 1.6s var(--ease) 0.2s; }
-  .reveal.in .arch .arch-line { stroke-dashoffset: 0; }
+  .arch canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .arch-node { display: flex; align-items: center; gap: 0.7rem; padding: 0.85rem 1.1rem; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); position: relative; z-index: 1; opacity: 0; transform: translateX(14px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
   .reveal.in .arch-node { opacity: 1; transform: none; }
   .arch-node:nth-child(1) { transition-delay: 0.05s; } .arch-node:nth-child(2) { transition-delay: 0.18s; }
@@ -313,7 +320,11 @@
   @keyframes dot-in { to { opacity: 1; } }
 
   /* ---------- CTA final ---------- */
-  .cta-final { position: relative; padding: 6.5rem 0; text-align: center; overflow: hidden; background: var(--bg1); }
+  .cta-final { position: relative; padding: 6.5rem 0; text-align: center; overflow: hidden;
+    background:
+      linear-gradient(rgba(244, 243, 239, 0.035) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, rgba(244, 243, 239, 0.035) 1px, transparent 1px) 0 0 / 56px 56px,
+      var(--bg1); }
   .cta-glow { position: absolute; inset: 0; background: radial-gradient(38rem 22rem at 50% 0%, rgba(46,134,255,0.22), transparent 70%); pointer-events: none; }
   .cta-final .wrap { position: relative; }
   .cta-final .eyebrow { justify-content: center; }
@@ -345,7 +356,11 @@
   .form-success p { color: var(--muted); font-size: 0.95rem; max-width: 24rem; }
 
   /* ---------- Footer ---------- */
-  .footer { background: var(--bg0); border-top: 1px solid var(--line-soft); padding: 4rem 0 2rem; }
+  .footer { border-top: 1px solid var(--line-soft); padding: 4rem 0 2rem;
+    background:
+      linear-gradient(rgba(244, 243, 239, 0.035) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, rgba(244, 243, 239, 0.035) 1px, transparent 1px) 0 0 / 56px 56px,
+      var(--bg0); }
   .footer-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); gap: 2.5rem; }
   .footer .brand svg { width: 2.4rem; height: 2.4rem; }
   .footer .brand .wordmark b { font-size: 1.15rem; }
@@ -366,7 +381,6 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .reveal, .m-step, .arch-node, .hero h1 .w > span { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; opacity: 1 !important; transform: none !important; }
-    .arch .arch-line { transition: none; stroke-dashoffset: 0; }
     .marquee-track { animation: none; }
     .live-line { animation: none; stroke-dashoffset: 0; }
     .live-dot { animation: none; opacity: 1; }
@@ -463,14 +477,7 @@
         </div>
       </div>
       <div class="arch reveal in" aria-hidden="true">
-        <svg viewBox="0 0 240 30" width="0" height="0" style="position:absolute">
-          <defs><linearGradient id="archGrad" x1="120" y1="0" x2="120" y2="600" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#6FD4FF"/><stop offset="1" stop-color="#0A2EE0"/>
-          </linearGradient></defs>
-        </svg>
-        <svg viewBox="0 0 240 600" aria-hidden="true" style="position:absolute;inset:0;height:100%">
-          <path class="arch-line" d="M120 20 L120 580" stroke-width="2"/>
-        </svg>
+        <canvas id="hero-3d-canvas"></canvas>
         <div class="arch-nodes">
           <div class="arch-node"><i></i><b>Data sources</b> — ERP, CRM, planilhas, APIs</div>
           <div class="arch-node"><i></i><b>Data platform</b> — ingestão e armazenamento</div>
@@ -1373,5 +1380,6 @@
 
 })();
 </script>
+<script type="module" src="media/js/hero-3d.js"></script>
 </body>
 </html>
