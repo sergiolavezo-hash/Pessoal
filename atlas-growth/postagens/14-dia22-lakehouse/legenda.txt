@@ -1,0 +1,37 @@
+Data Lake, Data Warehouse ou Lakehouse?
+
+Os três guardam dados. Nenhum serve para a mesma coisa — e escolher errado não
+quebra nada no dia seguinte. Aparece daqui a dois anos, em conta de nuvem, em
+projeto travado e em time gastando tempo com manutenção que não precisava existir.
+
+O resumo:
+
+· Data Lake guarda tudo cru, barato, e a estrutura só aparece na leitura. Ótimo
+  para exploração e ciência de dados. Péssimo como fonte direta de BI.
+
+· Data Warehouse exige estrutura na entrada. É o que faz todo mundo ver o mesmo
+  número. Em troca, guardar tudo ali fica caro e mudar o modelo depois dói.
+
+· Lakehouse põe uma camada transacional sobre o lake — versionamento, controle de
+  escrita, governança sobre o dado cru. Resolve um problema específico: quando BI
+  e ciência de dados precisam da mesma fonte.
+
+A parte que ninguém fala: lakehouse virou resposta padrão para qualquer pergunta
+de arquitetura, inclusive para as que ele não responde. Se você tem uma fonte,
+volume baixo e um time de uma pessoa, ele é peso sem retorno.
+
+As 4 perguntas que vêm antes da escolha:
+
+1. Que dado você tem — só tabela de sistema, ou também log, texto e arquivo solto?
+2. Quem vai consumir — analista num dashboard, ou cientista num notebook?
+3. Precisa reprocessar o passado se descobrir um erro de regra em seis meses?
+4. Quem mantém isso depois que o projeto acabar?
+
+Responde essas quatro e a escolha quase se faz sozinha.
+
+Não existe arquitetura melhor. Existe a adequada: a mais simples que resolve o
+seu problema real e que o seu time consegue manter.
+
+Qual é o seu caso? Comenta aí.
+
+#dataengineering #datalake #datawarehouse #lakehouse #arquiteturadedados #businessintelligence #dados

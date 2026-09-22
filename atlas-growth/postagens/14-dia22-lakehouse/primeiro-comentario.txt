@@ -1,0 +1,1 @@
+Chute: 80% das empresas que estao montando lakehouse hoje resolveriam com um warehouse bem feito. Concorda?
