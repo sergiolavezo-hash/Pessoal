@@ -69,7 +69,9 @@
 
     header{position:sticky;top:0;z-index:50;background:rgba(10,10,12,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
     header .wrap{display:flex;align-items:center;justify-content:space-between;height:4.5rem}
-    .brand{font-family:var(--display);font-weight:800;font-size:1.1rem;text-decoration:none}
+    .brand{font-family:var(--display);font-weight:800;font-size:1.1rem;text-decoration:none;
+      display:inline-flex;align-items:center;gap:.55rem}
+    .brand svg{width:1.5rem;height:1.5rem;flex:none}
     .brand i{font-style:normal;color:var(--accent)}
     .brand small{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--dim);margin-left:.5rem}
     .hactions{display:flex;gap:.7rem;align-items:center}
@@ -349,7 +351,7 @@
 
 <header>
   <div class="wrap">
-    <a class="brand" href="insight.html">ATLAS<i>.</i>INSIGHT <i>AI</i><small>by Atlas Tec</small></a>
+    <a class="brand" href="insight.html"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="brandMarkGradient" x1="4" y1="6" x2="96" y2="92" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6FD4FF"/><stop offset="0.5" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/></linearGradient></defs><path d="M50 58 L64 82 L36 82 Z" fill="#2E9BFF"/><path d="M50 6 L94 92 L64.5 92 L50 62 L35.5 92 L6 92 Z" fill="url(#brandMarkGradient)"/></svg><span>ATLAS<i>.</i>INSIGHT <i>AI</i></span><small>by Atlas Tec</small></a>
     <div class="hactions">
       <a class="back" href="/">← atlas-partner.com</a>
       <a class="btn btn-line" href="https://app.atlas-partner.com/login" data-app>Entrar</a>
