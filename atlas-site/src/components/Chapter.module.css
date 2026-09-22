@@ -1,0 +1,86 @@
+.chapter {
+  position: relative;
+  z-index: 10;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 7rem var(--gutter) 5rem;
+}
+
+.inner { width: 100%; max-width: 1220px; margin: 0 auto; }
+.col { max-width: 40rem; }
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.6rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.label::after {
+  content: '';
+  flex: 1;
+  max-width: 5rem;
+  height: 1px;
+  background: var(--line);
+}
+
+.headline {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  text-wrap: balance;
+  font-size: clamp(1.9rem, 4.6vw, 3.3rem);
+}
+
+.lede {
+  margin-top: 1.4rem;
+  max-width: 34rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.6vw, 1.12rem);
+}
+
+/* Metadados: os nomes reais (eventos, fontes, etapas). O canvas mostra
+   onde eles estão; esta lista diz quais são — e é ela que um leitor de
+   tela encontra. */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  margin: 2.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.meta li { display: inline-flex; align-items: center; gap: 0.45rem; }
+.meta li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  opacity: 0.8;
+}
+
+/* Entrada por capítulo: fade e um leve deslocamento. Sem texto voando. */
+.col > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.active .col > * { opacity: 1; transform: none; }
+.active .col > *:nth-child(2) { transition-delay: 0.07s; }
+.active .col > *:nth-child(3) { transition-delay: 0.14s; }
+.active .col > *:nth-child(4) { transition-delay: 0.21s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .col > * { opacity: 1; transform: none; }
+}
