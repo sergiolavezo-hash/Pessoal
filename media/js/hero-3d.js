@@ -49,7 +49,7 @@ import * as THREE from '../vendor/three.module.min.js';
 
     // face da laje: presença sem desenho, para não virar ruído de arame
     const face = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({
-      color: ACCENT, transparent: true, opacity: 0.05 + k * 0.05,
+      color: ACCENT, transparent: true, opacity: 0.035 + k * 0.04,
       blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide,
     }));
     face.rotation.x = -Math.PI / 2;
@@ -79,7 +79,7 @@ import * as THREE from '../vendor/three.module.min.js';
   });
   const railGeo = new THREE.BufferGeometry().setFromPoints(railPts);
   group.add(new THREE.LineSegments(railGeo, new THREE.LineBasicMaterial({
-    color: ACCENT, transparent: true, opacity: 0.22,
+    color: ACCENT, transparent: true, opacity: 0.16,
     blending: THREE.AdditiveBlending, depthWrite: false,
   })));
 
@@ -124,12 +124,14 @@ import * as THREE from '../vendor/three.module.min.js';
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
-    // No desktop a pilha vive à direita, atrás da coluna de estágios.
-    // Em tela estreita ela desce para baixo do texto — nunca cruza o título.
+    // No desktop a pilha vive à direita, ATRÁS da coluna de estágios e
+    // dentro da largura dela: antes o objeto era mais largo que os
+    // cartões e as pontas encostavam no título. Em tela estreita ele
+    // desce para baixo do texto — nunca cruza a manchete.
     const wide = w >= 1080;
-    group.position.x = wide ? 2.45 : 0;
+    group.position.x = wide ? 3.05 : 0;
     group.position.y = wide ? 0 : -3.2;
-    group.scale.setScalar(wide ? 1 : 0.82);
+    group.scale.setScalar(0.82);
     if (redraw) redraw();
   }
   layout();

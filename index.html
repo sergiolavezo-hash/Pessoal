@@ -215,15 +215,28 @@
   /* Diagrama de arquitetura — SVG estático, sem canvas. As linhas se
      "desenham" via stroke-dashoffset quando a seção entra na tela. */
   .arch { position: relative; }
-  .arch-node { display: flex; align-items: center; gap: 0.7rem; padding: 0.85rem 1.1rem; background: rgba(13, 17, 23, 0.82); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); border: 1px solid var(--line); border-radius: 10px; font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); position: relative; z-index: 1; opacity: 0; transform: translateX(14px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+  /* Só o rótulo é caixa-alta. A descrição em caixa mista se lê; em
+     versalete ela virava um grito difícil de decifrar. */
+  .arch-node { display: flex; align-items: center; gap: 0.7rem; padding: 0.9rem 1.15rem; background: rgba(13, 17, 23, 0.86); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); border: 1px solid var(--line); border-radius: 10px; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.02em; color: var(--muted); position: relative; z-index: 1; opacity: 0; transform: translateX(14px); transition: opacity 0.6s var(--ease), transform 0.35s var(--ease), border-color 0.45s var(--ease), background 0.45s var(--ease), color 0.45s var(--ease); }
   .reveal.in .arch-node { opacity: 1; transform: none; }
   .arch-node:nth-child(1) { transition-delay: 0.05s; } .arch-node:nth-child(2) { transition-delay: 0.18s; }
   .arch-node:nth-child(3) { transition-delay: 0.31s; } .arch-node:nth-child(4) { transition-delay: 0.44s; }
   .arch-node:nth-child(5) { transition-delay: 0.57s; } .arch-node:nth-child(6) { transition-delay: 0.70s; }
   .arch-node i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; box-shadow: 0 0 10px 1px rgba(46,134,255,0.6); }
-  .arch-node b { color: var(--ink); font-weight: 600; letter-spacing: 0.06em; }
-  .arch-node.is-business { border-color: rgba(46,134,255,0.4); background: linear-gradient(135deg, rgba(46,134,255,0.14), rgba(10,46,224,0.08)); }
-  .arch-node.is-business b { color: var(--accent-light); }
+  .arch-node b { color: var(--ink); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+
+  /* O brilho desce com a rolagem: cada camada acende quando o dado chega
+     nela, e a que acabou de acender fica mais forte que as anteriores. */
+  .arch-node.is-on { color: var(--ink); border-color: rgba(46, 134, 255, 0.3); background: rgba(13, 17, 23, 0.94); }
+  .arch-node.is-head { border-color: rgba(46, 134, 255, 0.62); }
+  .arch-node i { transition: box-shadow 0.45s var(--ease), transform 0.35s var(--ease); }
+  .arch-node.is-head i { box-shadow: 0 0 16px 3px rgba(46, 134, 255, 0.85); transform: scale(1.22); }
+
+  /* Passar o mouse destaca a camada sob o cursor. */
+  .reveal.in .arch-node:hover { border-color: rgba(46, 134, 255, 0.7); background: rgba(13, 17, 23, 0.97); color: var(--ink); transform: translateX(-5px); }
+  .arch-node:hover i { box-shadow: 0 0 16px 3px rgba(46, 134, 255, 0.9); transform: scale(1.22); }
+  .arch-node.is-business.is-on { border-color: rgba(46,134,255,0.5); background: linear-gradient(135deg, rgba(46,134,255,0.16), rgba(10,46,224,0.09)); }
+  .arch-node.is-business.is-on b { color: var(--accent-light); }
   .arch-nodes { display: grid; gap: 0.65rem; }
 
   /* ---------- Serviços (accordion) ---------- */
@@ -1535,6 +1548,37 @@
     }
   });
 
+})();
+</script>
+<script>
+/* Hero: o brilho percorre a arquitetura conforme a página desce.
+   As camadas acendem em ordem — da fonte do dado até o resultado de
+   negócio — e a última acesa fica em destaque. Sem loop: só recalcula
+   quando a pessoa rola. */
+(function () {
+  const nodes = Array.prototype.slice.call(document.querySelectorAll('.arch-node'));
+  const hero = document.querySelector('.hero');
+  if (!nodes.length || !hero) return;
+
+  let raf = 0;
+  function update() {
+    raf = 0;
+    const r = hero.getBoundingClientRect();
+    // 0 com o hero inteiro na tela, 1 quando ele já saiu por cima
+    const span = Math.max(1, r.height * 0.72);
+    const p = Math.min(1, Math.max(0, -r.top / span));
+    // a primeira camada já nasce acesa: a página nunca parece apagada
+    const lit = 1 + Math.round(p * (nodes.length - 1));
+    for (let i = 0; i < nodes.length; i++) {
+      nodes[i].classList.toggle('is-on', i < lit);
+      nodes[i].classList.toggle('is-head', i === lit - 1);
+    }
+  }
+  function schedule() { if (!raf) raf = requestAnimationFrame(update); }
+
+  update();
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
 })();
 </script>
 <script type="module" src="media/js/hero-3d.js"></script>
