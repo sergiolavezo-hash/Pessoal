@@ -6,11 +6,11 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formsubmit.co https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://fonts.googleapis.com https://fonts.gstatic.com; form-action 'self' https://formsubmit.co; base-uri 'self'; object-src 'none'; frame-src 'none'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="format-detection" content="telephone=no">
-  <meta name="description" content="Data Engineering, Business Intelligence, Data & Cloud, Inteligência Artificial e Automação. Construímos pipelines, dashboards, arquiteturas cloud e soluções de IA que funcionam em produção.">
+  <meta name="description" content="Consultoria de dados, Business Intelligence, Data Engineering, Inteligência Artificial e Cloud. Power BI, Databricks, BigQuery, dbt e Airflow — da arquitetura à decisão, em produção.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://atlas-partner.com/">
-  <meta property="og:title" content="Atlas Tec — Dados, BI, Cloud e IA para empresas que precisam escalar">
-  <meta property="og:description" content="Data Engineering, Business Intelligence, Data & Cloud, IA e Automação — de ponta a ponta, em produção.">
+  <meta property="og:title" content="Atlas Tec — Transformamos dados complexos em decisões extraordinárias">
+  <meta property="og:description" content="Data Analytics, BI, Data Engineering, IA, Cloud, Data Visualization e Automação — estratégia e engenharia que transformam complexidade em vantagem competitiva.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://atlas-partner.com/">
   <meta property="og:image" content="https://atlas-partner.com/media/og-cover.jpg">
@@ -19,8 +19,8 @@
   <meta name="twitter:image" content="https://atlas-partner.com/media/og-cover.jpg">
   <meta property="og:locale" content="pt_BR">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Atlas Tec — Dados, BI, Cloud e IA para empresas que precisam escalar">
-  <meta name="twitter:description" content="Construímos pipelines, dashboards, arquiteturas cloud e soluções de IA que transformam dados em decisão.">
+  <meta name="twitter:title" content="Atlas Tec — Transformamos dados complexos em decisões extraordinárias">
+  <meta name="twitter:description" content="Data Analytics, BI, Data Engineering, IA, Cloud, Data Visualization e Automação — estratégia e engenharia que transformam complexidade em vantagem competitiva.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
@@ -49,7 +49,7 @@
   gtag('js', new Date());
   gtag('config', 'G-B0QFW3ZH7K');
 </script>
-  <title>Atlas Tec — Dados, BI, Cloud e IA para empresas que precisam escalar</title>
+  <title>Atlas Tec — Transformamos dados complexos em decisões extraordinárias</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -589,6 +589,208 @@
     .hero-foot { display: none; }
     .brand .wordmark small { display: none; }
   }
+  /* ============================================================
+     REDESENHO 2026 — arquitetura de informação de consultoria
+     enterprise. Mesmos tokens, mesma marca; o que muda é o ritmo:
+     cada seção responde uma pergunta e entrega o leitor à próxima.
+     ============================================================ */
+
+  .sec-lead { max-width: 46rem; }
+  .sec-lead .sub { margin-top: 1.1rem; }
+  .divider { height: 1px; background: var(--line-soft); margin: 0; }
+
+  /* ---------- O problema ---------- */
+  .prob-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-top: 2.6rem; }
+  .prob {
+    border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.15rem;
+    background: linear-gradient(160deg, rgba(244,243,239,0.025), transparent);
+    display: flex; align-items: center; gap: 0.7rem;
+    font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.02em; color: var(--muted);
+    transition: border-color 0.4s var(--ease), color 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .prob::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--dim); flex: none; transition: background 0.4s var(--ease); }
+  .prob:hover { border-color: rgba(46,134,255,0.45); color: var(--ink); transform: translateY(-2px); }
+  .prob:hover::before { background: var(--accent); }
+
+  /* caos → inteligência → decisão */
+  .arc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.4rem; }
+  .arc-step { border-top: 2px solid var(--line); padding-top: 1.1rem; transition: border-color 0.5s var(--ease); }
+  .arc-step.on { border-top-color: var(--accent); }
+  .arc-k { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); transition: color 0.5s var(--ease); }
+  .arc-step.on .arc-k { color: var(--accent-light); }
+  .arc-t { font-family: var(--display); font-size: clamp(1.15rem, 2vw, 1.5rem); font-weight: 700; margin-top: 0.4rem; }
+  .arc-d { color: var(--muted); font-size: 0.92rem; margin-top: 0.4rem; }
+
+  /* ---------- Soluções (8) ---------- */
+  .sols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; margin-top: 2.6rem; }
+  .sol {
+    position: relative; border: 1px solid var(--line); border-radius: 14px; padding: 1.5rem 1.6rem;
+    background: var(--panel); overflow: hidden;
+    transition: border-color 0.4s var(--ease), background 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .sol::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+    background: radial-gradient(120% 90% at 100% 0%, rgba(46,134,255,0.13), transparent 62%);
+    transition: opacity 0.45s var(--ease);
+  }
+  .sol:hover, .sol:focus-within { border-color: rgba(46,134,255,0.5); transform: translateY(-3px); }
+  .sol:hover::after, .sol:focus-within::after { opacity: 1; }
+  .sol-n { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--accent); }
+  .sol-t { font-family: var(--display); font-size: clamp(1.15rem, 2.1vw, 1.45rem); font-weight: 700; margin: 0.5rem 0 0.5rem; }
+  .sol-d { color: var(--muted); font-size: 0.94rem; }
+  /* O detalhe abre no hover no desktop; no toque fica sempre visível,
+     porque lá não existe hover para revelar nada. */
+  .sol-more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
+  .sol-more > div { overflow: hidden; }
+  .sol:hover .sol-more, .sol:focus-within .sol-more { grid-template-rows: 1fr; }
+  .sol-more-in { padding-top: 1rem; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .chip {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.02em; color: var(--accent-light);
+    background: rgba(46,134,255,0.09); border: 1px solid rgba(46,134,255,0.22);
+    border-radius: 999px; padding: 0.24rem 0.65rem;
+  }
+  .sol-cta {
+    display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.9rem;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-light); text-decoration: none;
+  }
+  .sol-cta:hover { color: var(--ink); }
+
+  /* ---------- Fluxo genérico (dado → … → decisão) ---------- */
+  .flow { display: flex; align-items: stretch; gap: 0.5rem; margin-top: 2.2rem; flex-wrap: wrap; }
+  .flow-node {
+    flex: 1 1 0; min-width: 8.5rem; border: 1px solid var(--line); border-radius: 10px;
+    padding: 0.95rem 1rem; background: rgba(13,17,23,0.7);
+    transition: border-color 0.5s var(--ease), background 0.5s var(--ease);
+  }
+  .flow-node.on { border-color: rgba(46,134,255,0.5); background: rgba(46,134,255,0.06); }
+  .flow-k { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
+  .flow-node.on .flow-k { color: var(--accent-light); }
+  .flow-v { font-size: 0.95rem; font-weight: 600; margin-top: 0.3rem; }
+  .flow-arrow { align-self: center; color: var(--dim); font-family: var(--mono); }
+
+  /* ---------- Tecnologia em órbita ---------- */
+  .orbit-wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 2.5rem; align-items: center; margin-top: 2.6rem; }
+  .orbit { position: relative; aspect-ratio: 1; width: 100%; max-width: 30rem; margin: 0 auto; }
+  .orbit-ring { position: absolute; inset: 0; border: 1px solid var(--line-soft); border-radius: 50%; }
+  .orbit-ring.r2 { inset: 16%; }
+  .orbit-core {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    text-align: center; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent-light);
+  }
+  .tech-dot {
+    position: absolute; transform: translate(-50%, -50%);
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.02em;
+    color: var(--muted); background: var(--panel); border: 1px solid var(--line);
+    border-radius: 999px; padding: 0.3rem 0.7rem; cursor: pointer; white-space: nowrap;
+    transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .tech-dot:hover { border-color: rgba(46,134,255,0.5); color: var(--ink); }
+  .tech-dot[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.12); }
+  .tech-panel { border: 1px solid var(--line); border-radius: 14px; padding: 1.8rem; background: var(--panel); min-height: 15rem; }
+  .tech-panel h3 { font-size: 1.5rem; font-weight: 700; }
+  .tech-row { margin-top: 1.1rem; }
+  .tech-row dt { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
+  .tech-row dd { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.95rem; }
+
+  /* ---------- Data Visualization: antes / depois ---------- */
+  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.4rem; }
+  .ba-card { border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem; background: var(--panel); }
+  .ba-tag { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; }
+  .ba-card.after .ba-tag { color: var(--accent-light); }
+  .mock { display: grid; gap: 0.4rem; }
+  .mock-row { display: grid; gap: 0.4rem; }
+  .mock-box { border: 1px solid var(--line-soft); border-radius: 6px; height: 3rem; background: rgba(244,243,239,0.03); position: relative; overflow: hidden; }
+  .mock-box.tall { height: 6.4rem; }
+  .mock-bars { position: absolute; inset: auto 8% 12% 8%; display: flex; align-items: flex-end; gap: 6%; height: 62%; }
+  .mock-bars i { flex: 1; background: var(--accent); opacity: 0.5; border-radius: 1px; }
+  .ba-card.before .mock-bars i:nth-child(odd) { background: #7B9FDB; }
+  .ba-card.before .mock-bars i:nth-child(3n) { background: var(--accent-light); }
+  .ba-card.after .mock-bars i { opacity: 0.25; }
+  .ba-card.after .mock-bars i:nth-child(4) { opacity: 1; }
+  .mock-kpi { position: absolute; left: 8%; top: 14%; font-family: var(--mono); font-size: 0.66rem; color: var(--muted); }
+  .ba-card.after .mock-kpi { color: var(--ink); font-size: 0.9rem; }
+  .ba-note { margin-top: 1rem; font-size: 0.88rem; color: var(--muted); }
+  .illus-note { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+
+  /* ---------- Metodologia ---------- */
+  .tl { position: relative; margin-top: 2.8rem; padding-left: 2.6rem; }
+  .tl::before { content: ''; position: absolute; left: 0.62rem; top: 0.4rem; bottom: 0.4rem; width: 1px; background: var(--line); }
+  .tl-fill { position: absolute; left: 0.62rem; top: 0.4rem; width: 1px; background: var(--accent); height: 0; transition: height 0.2s linear; }
+  .tl-step { position: relative; padding: 0 0 2.2rem; }
+  .tl-step:last-child { padding-bottom: 0; }
+  .tl-step::before {
+    content: ''; position: absolute; left: -2.28rem; top: 0.5rem; width: 9px; height: 9px;
+    border-radius: 50%; background: var(--bg0); border: 1px solid var(--dim);
+    transition: border-color 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .tl-step.on::before { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 4px rgba(46,134,255,0.16); }
+  .tl-n { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.18em; color: var(--dim); transition: color 0.4s var(--ease); }
+  .tl-step.on .tl-n { color: var(--accent-light); }
+  .tl-t { font-family: var(--display); font-size: clamp(1.2rem, 2.2vw, 1.6rem); font-weight: 700; margin: 0.3rem 0 0.4rem; }
+  .tl-d { color: var(--muted); max-width: 40rem; }
+
+  /* ---------- Diferenciais ---------- */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.6rem; }
+  .pillar { border: 1px solid var(--line); border-radius: 14px; padding: 1.5rem; background: var(--panel); transition: border-color 0.4s var(--ease), transform 0.4s var(--ease); }
+  .pillar:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .pillar-k { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; color: var(--accent); }
+  .pillar h3 { font-size: 1.15rem; font-weight: 700; margin: 0.55rem 0 0.45rem; }
+  .pillar p { color: var(--muted); font-size: 0.93rem; }
+
+  /* ---------- Números reais ---------- */
+  .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.4rem; }
+  .num { border-top: 2px solid var(--line); padding-top: 1.1rem; }
+  .num b { display: block; font-family: var(--display); font-size: clamp(2rem, 4vw, 2.9rem); font-weight: 800; letter-spacing: -0.04em; color: var(--accent-light); }
+  .num span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
+
+  /* ---------- Insight AI (demonstração) ---------- */
+  .demo { border: 1px solid var(--line); border-radius: 16px; background: var(--panel); overflow: hidden; margin-top: 2.4rem; }
+  .demo-bar { display: flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+  .demo-bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
+  .demo-body { padding: 1.4rem; display: grid; gap: 1rem; }
+  .demo-qs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .demo-q {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--muted); cursor: pointer;
+    background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 0.45rem 0.9rem;
+    transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+  }
+  .demo-q:hover { border-color: rgba(46,134,255,0.5); color: var(--ink); }
+  .demo-q[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.1); }
+  .demo-a { border-left: 2px solid var(--accent); padding-left: 1rem; min-height: 6rem; }
+  .demo-a p { color: var(--muted); }
+  .demo-a b { color: var(--ink); }
+  .demo-metrics { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-top: 0.8rem; }
+  .demo-metrics div span { display: block; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+  .demo-metrics div b { font-family: var(--display); font-size: 1.3rem; font-weight: 700; }
+
+  /* ---------- CTA final ---------- */
+  .final { text-align: center; padding: clamp(4rem, 9vw, 7rem) 0; }
+  .final h2 { font-size: clamp(2rem, 5.2vw, 3.6rem); }
+  .final .sub { margin: 1.2rem auto 0; max-width: 40rem; }
+  .final .hero-ctas { justify-content: center; margin-top: 2rem; }
+
+  /* ---------- Responsivo ---------- */
+  @media (max-width: 1080px) {
+    .prob-grid { grid-template-columns: repeat(2, 1fr); }
+    .orbit-wrap { grid-template-columns: 1fr; gap: 1.8rem; }
+    .pillars { grid-template-columns: repeat(2, 1fr); }
+    .nums { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 780px) {
+    .sols { grid-template-columns: 1fr; }
+    .arc { grid-template-columns: 1fr; }
+    .ba { grid-template-columns: 1fr; }
+    .pillars { grid-template-columns: 1fr; }
+    .flow-arrow { display: none; }
+    /* Sem hover no toque: o detalhe da solução fica aberto. */
+    .sol-more { grid-template-rows: 1fr; }
+    .tl { padding-left: 2rem; }
+    .tl-step::before { left: -1.72rem; }
+  }
+
 </style>
 </head>
 <body>
@@ -601,32 +803,32 @@
   <div class="wrap">
     <a class="brand" href="#inicio"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="brandMarkGradient" x1="4" y1="6" x2="96" y2="92" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6FD4FF"/><stop offset="0.5" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/></linearGradient></defs><path d="M50 58 L64 82 L36 82 Z" fill="#2E9BFF"/><path d="M50 6 L94 92 L64.5 92 L50 62 L35.5 92 L6 92 Z" fill="url(#brandMarkGradient)"/></svg><span class="wordmark"><b>ATLAS</b><small>TECNOLOGIA</small></span></a>
     <nav class="nav-links" aria-label="Navegação principal">
-      <a href="#servicos">Serviços</a>
-      <a href="#cases">Cases</a>
-      <a href="#entrega">Como entregamos</a>
+      <a href="#solucoes">Soluções</a>
       <a href="#tecnologia">Tecnologia</a>
-      <a href="#setores">Setores</a>
+      <a href="#cases">Cases</a>
       <a href="#sobre">Sobre</a>
-      <a href="insight.html" style="color:var(--accent-light)">Insight AI ✦</a>
+      <a href="#insight-ai">Insights</a>
+      <a href="insight.html">IA</a>
+      <a href="#contato">Contato</a>
       <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener" aria-label="Instagram da Atlas" data-cursor="Instagram" style="display:inline-flex;align-items:center;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
       </a>
-      <a class="btn btn-accent" href="#contato" data-magnetic>Falar com especialista <span class="arr">→</span></a>
+      <a class="btn btn-accent" href="#contato" data-magnetic>Vamos conversar <span class="arr">→</span></a>
     </nav>
     <button class="nav-burger" id="burger" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
   </div>
 </header>
 
 <nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true">
-  <a href="#servicos">Serviços</a>
-  <a href="#cases">Cases</a>
-  <a href="#entrega">Como entregamos</a>
+  <a href="#solucoes">Soluções</a>
   <a href="#tecnologia">Tecnologia</a>
-  <a href="#setores">Setores</a>
+  <a href="#cases">Cases</a>
+  <a href="#metodologia">Metodologia</a>
   <a href="#sobre">Sobre</a>
+  <a href="#insight-ai">Insights</a>
   <a href="insight.html">Atlas Insight AI <small>PRODUTO ✦</small></a>
   <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram <small>@atlas_tecnologia ✦</small></a>
-  <a class="btn btn-accent" href="#contato">Falar com especialista <span class="arr">→</span></a>
+  <a class="btn btn-accent" href="#contato">Vamos conversar <span class="arr">→</span></a>
 </nav>
 
 <main id="inicio">
@@ -637,15 +839,15 @@
     <div class="wrap">
       <div>
         <span class="eyebrow reveal in">Consultoria de tecnologia e dados</span>
-        <h1 id="hero-title" aria-label="Dados, BI, cloud e IA para empresas que precisam escalar.">Dados, BI, cloud e IA para empresas que precisam escalar.</h1>
+        <h1 id="hero-title" aria-label="Transformamos dados complexos em decisões extraordinárias.">Transformamos dados complexos em decisões extraordinárias.</h1>
         <p class="sub reveal d2 in">
-          Construímos plataformas de dados, pipelines, dashboards, arquiteturas
-          cloud, automações e soluções de IA para transformar dados em operação
-          e decisão.
+          Estratégia, engenharia de dados, Business Intelligence e Inteligência
+          Artificial — a Atlas conecta tecnologia e negócio para transformar
+          complexidade em vantagem competitiva.
         </p>
         <div class="hero-ctas reveal d3 in">
-          <a class="btn btn-accent" href="#contato" data-magnetic>Falar com um especialista <span class="arr">→</span></a>
-          <a class="btn btn-line" href="#servicos" data-magnetic>Ver serviços</a>
+          <a class="btn btn-accent" href="#contato" data-magnetic>Vamos conversar <span class="arr">→</span></a>
+          <a class="btn btn-line" href="#solucoes" data-magnetic>Explorar soluções <span class="arr">→</span></a>
         </div>
       </div>
     </div>
@@ -655,131 +857,202 @@
     </div>
   </section>
 
-  <!-- ================= SERVIÇOS ================= -->
-  <section class="sec" id="servicos">
+  <!-- ================= O PROBLEMA ================= -->
+  <section class="sec" id="problema">
     <div class="wrap">
-      <span class="eyebrow reveal">O que fazemos</span>
-      <h2 class="h-xl reveal d1">Da infraestrutura de dados à decisão.</h2>
-      <p class="sub reveal d2">
-        Cinco frentes que cobrem o ciclo completo — não vendemos ferramenta,
-        resolvemos o problema por trás dela. Data Visualization e Digital
-        Transformation acontecem dentro delas, não como itens à parte.
-      </p>
-      <ul class="sol-list">
-        <li class="sol-item reveal">
-          <button class="sol-head" aria-expanded="false">
-            <span class="sol-idx">/01</span>
-            <span class="sol-name">Data Engineering</span>
-            <span class="sol-plus" aria-hidden="true">+</span>
-          </button>
-          <div class="sol-body"><div><div class="sol-body-inner">
-            <p class="sol-desc">Construímos a infraestrutura que faz seus dados funcionarem.</p>
-            <div class="sol-specs"><div class="sol-group"><p class="sol-label">O que entregamos</p><div class="sol-tags"><span>ETL / ELT</span><span>Data Lake</span><span>Data Warehouse</span><span>Lakehouse</span><span>Pipelines</span><span>Modelagem</span><span>APIs</span><span>Governança</span></div></div></div>
-          </div></div></div>
-        </li>
-        <li class="sol-item reveal">
-          <button class="sol-head" aria-expanded="false">
-            <span class="sol-idx">/02</span>
-            <span class="sol-name">Business Intelligence</span>
-            <span class="sol-plus" aria-hidden="true">+</span>
-          </button>
-          <div class="sol-body"><div><div class="sol-body-inner">
-            <p class="sol-desc">Transformamos dados em indicadores que ajudam o negócio a decidir.</p>
-            <div class="sol-specs"><div class="sol-group"><p class="sol-label">O que entregamos</p><div class="sol-tags"><span>Dashboards executivos</span><span>KPIs</span><span>Self-service BI</span><span>Modelagem semântica</span><span>Governança de BI</span></div></div><div class="sol-group"><p class="sol-label">Ferramentas</p><div class="sol-tags"><span>Power BI</span><span>Tableau</span><span>Looker</span></div></div></div>
-          </div></div></div>
-        </li>
-        <li class="sol-item reveal">
-          <button class="sol-head" aria-expanded="false">
-            <span class="sol-idx">/03</span>
-            <span class="sol-name">Data &amp; Cloud</span>
-            <span class="sol-plus" aria-hidden="true">+</span>
-          </button>
-          <div class="sol-body"><div><div class="sol-body-inner">
-            <p class="sol-desc">Modernizamos arquiteturas de dados e levamos workloads para a nuvem.</p>
-            <div class="sol-specs"><div class="sol-group"><p class="sol-label">O que entregamos</p><div class="sol-tags"><span>Migração de legado</span><span>Modern Data Stack</span></div></div><div class="sol-group"><p class="sol-label">Plataformas</p><div class="sol-tags"><span>GCP</span><span>Azure</span><span>AWS</span><span>BigQuery</span><span>Databricks</span><span>Snowflake</span></div></div></div>
-          </div></div></div>
-        </li>
-        <li class="sol-item reveal">
-          <button class="sol-head" aria-expanded="false">
-            <span class="sol-idx">/04</span>
-            <span class="sol-name">Artificial Intelligence</span>
-            <span class="sol-plus" aria-hidden="true">+</span>
-          </button>
-          <div class="sol-body"><div><div class="sol-body-inner">
-            <p class="sol-desc">Aplicamos IA onde ela realmente gera valor para a operação.</p>
-            <div class="sol-specs"><div class="sol-group"><p class="sol-label">O que entregamos</p><div class="sol-tags"><span>IA generativa</span><span>Agentes</span><span>Copilotos</span><span>Machine Learning</span><span>Modelos preditivos</span><span>RAG</span><span>Document AI</span><span>IA aplicada à operação</span></div></div></div>
-          </div></div></div>
-        </li>
-        <li class="sol-item reveal">
-          <button class="sol-head" aria-expanded="false">
-            <span class="sol-idx">/05</span>
-            <span class="sol-name">Automation</span>
-            <span class="sol-plus" aria-hidden="true">+</span>
-          </button>
-          <div class="sol-body"><div><div class="sol-body-inner">
-            <p class="sol-desc">Automatizamos processos para reduzir trabalho manual e aumentar eficiência.</p>
-            <div class="sol-specs"><div class="sol-group"><p class="sol-label">O que entregamos</p><div class="sol-tags"><span>APIs</span><span>Integrações</span><span>RPA</span><span>Workflows</span><span>Orquestração</span><span>Automação de processos</span></div></div></div>
-          </div></div></div>
-        </li>
-      </ul>
+      <div class="sec-lead">
+        <span class="eyebrow reveal">O problema</span>
+        <h2 class="h-xl reveal d1">Complexidade não deveria impedir crescimento.</h2>
+        <p class="sub reveal d2">
+          Dados espalhados, sistemas desconectados, decisões no escuro. A maioria
+          das empresas não tem falta de dados — tem falta de estrutura para
+          transformá-los em decisão.
+        </p>
+      </div>
+
+      <div class="prob-grid reveal d2">
+        <div class="prob">Dados espalhados</div>
+        <div class="prob">Sistemas desconectados</div>
+        <div class="prob">Dashboards pouco utilizados</div>
+        <div class="prob">Processos manuais</div>
+        <div class="prob">Decisões sem dados</div>
+        <div class="prob">Excesso de informação</div>
+        <div class="prob">Baixa previsibilidade</div>
+        <div class="prob">BI sem governança</div>
+      </div>
+
+      <div class="arc reveal d3" data-arc>
+        <div class="arc-step">
+          <p class="arc-k">Hoje</p>
+          <p class="arc-t">Caos</p>
+          <p class="arc-d">Cada sistema com sua verdade. Nenhuma pergunta do negócio tem uma resposta só.</p>
+        </div>
+        <div class="arc-step">
+          <p class="arc-k">O trabalho</p>
+          <p class="arc-t">Inteligência</p>
+          <p class="arc-d">Arquitetura, engenharia e governança transformam registro disperso em base confiável.</p>
+        </div>
+        <div class="arc-step">
+          <p class="arc-k">O resultado</p>
+          <p class="arc-t">Decisão</p>
+          <p class="arc-d">O indicador chega a quem decide, no tempo em que a decisão ainda importa.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ================= PROBLEMAS QUE RESOLVEMOS ================= -->
-  <section class="sec" id="problemas">
+  <!-- ================= SOLUÇÕES ================= -->
+  <section class="sec" id="solucoes">
     <div class="wrap">
-      <span class="eyebrow reveal">Diagnóstico rápido</span>
-      <h2 class="h-xl reveal d1">Se o seu dado está assim, podemos ajudar.</h2>
-      <div class="problems-grid">
-        <div class="problem-card reveal">
-          <span class="p-txt">Dados espalhados em vários sistemas</span>
-          <span class="p-arrow" aria-hidden="true">→</span>
-          <span class="p-sol">Data &amp; Cloud</span>
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Soluções</span>
+        <h2 class="h-xl reveal d1">Da informação à ação.</h2>
+        <p class="sub reveal d2">
+          Oito frentes para transformar dados, tecnologia e inteligência em
+          resultado. Não vendemos ferramenta — resolvemos o problema por trás dela.
+        </p>
+      </div>
+
+      <div class="sols reveal d2">
+
+        <article class="sol" tabindex="0">
+          <p class="sol-n">01</p>
+          <h3 class="sol-t">Data &amp; Analytics</h3>
+          <p class="sol-d">Transformamos dados dispersos em inteligência acionável — modelagem, indicadores e análise que sustentam decisão.</p>
+          <div class="sol-more"><div><div class="sol-more-in">
+            <div class="chip-row"><span class="chip">Modelagem</span><span class="chip">Indicadores</span><span class="chip">BigQuery</span><span class="chip">SQL</span><span class="chip">Python</span></div>
+            <a class="sol-cta" href="#contato">Falar sobre Data &amp; Analytics →</a>
+          </div></div></div>
+        </article>
+
+        <article class="sol" tabindex="0">
+          <p class="sol-n">02</p>
+          <h3 class="sol-t">Business Intelligence</h3>
+          <p class="sol-d">Transformamos dados em indicadores que ajudam o negócio a decidir, com governança e autonomia para as áreas.</p>
+          <div class="sol-more"><div><div class="sol-more-in">
+            <div class="chip-row"><span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">Looker</span><span class="chip">Self-service BI</span><span class="chip">Modelagem semântica</span></div>
+            <a class="sol-cta" href="#contato">Falar sobre Business Intelligence →</a>
+          </div></div></div>
+        </article>
+
+        <article class="sol" tabindex="0">
+          <p class="sol-n">03</p>
+          <h3 class="sol-t">Data Visualization</h3>
+          <p class="sol-d">Desenhamos o padrão visual antes do desenvolvimento, para que o dashboard seja lido — e não apenas preenchido.</p>
+          <div class="sol-more"><div><div class="sol-more-in">
+            <div class="chip-row"><span class="chip">Figma</span><span class="chip">Design system</span><span class="chip">Padronização</span><span class="chip">Data storytelling</span></div>
+            <a class="sol-cta" href="#contato">Falar sobre Data Visualization →</a>
+          </div></div></div>
+        </article>
+
+        <article class="sol" tabindex="0">
+          <p class="sol-n">04</p>
+          <h3 class="sol-t">Artificial Intelligence</h3>
+          <p class="sol-d">Aplicamos IA onde ela realmente gera valor para a operação — sobre a sua base, não sobre uma promessa.</p>
+          <div class="sol-more"><div><div class="sol-more-in">
+            <div class="chip-row"><span class="chip">IA generativa</span><span class="chip">Agentes</span><span class="chip">Machine Learning</span><span class="chip">Modelos preditivos</span><span class="chip">RAG</span><span class="chip">Document AI</span></div>
+            <a class="sol-cta" href="#contato">Falar sobre Inteligência Artificial →</a>
+          </div></div></div>
+        </article>
+
+        <article class="sol" tabindex="0">
+          <p class="sol-n">05</p>
+          <h3 class="sol-t">Data Engineering</h3>
+          <p class="sol-d">Construímos a infraestrutura que faz seus dados funcionarem: ingestão, transformação, histórico e governança.</p>
+          <div class="sol-more"><div><div class="sol-more-in">
+            <div class="chip-row"><span class="chip">ETL / ELT</span><span class="chip">Data Lake</span><span class="chip">Data Warehouse</span><span class="chip">Lakehouse</span><span class="chip">dbt</span><span class="chip">Airflow</span><span class="chip">APIs</span></div>
+            <a class="sol-cta" href="#contato">Falar sobre Data Engineering →</a>
+          </div></div></div>
+        </article>
+
+        <article class="sol" tabindex="0">
+          <p class="sol-n">06</p>
+          <h3 class="sol-t">Digital Transformation</h3>
+          <p class="sol-d">Atuamos da engenharia à tomada de decisão, conectando arquitetura, tecnologia e negócio em soluções que vão para produção.</p>
+          <div class="sol-more"><div><div class="sol-more-in">
+            <div class="chip-row"><span class="chip">Arquitetura</span><span class="chip">Modernização</span><span class="chip">Governança</span><span class="chip">Operação</span></div>
+            <a class="sol-cta" href="#contato">Falar sobre Digital Transformation →</a>
+          </div></div></div>
+        </article>
+
+        <article class="sol" tabindex="0">
+          <p class="sol-n">07</p>
+          <h3 class="sol-t">Cloud &amp; Modern Data Stack</h3>
+          <p class="sol-d">Modernizamos arquiteturas de dados e levamos workloads para a nuvem — com abordagem agnóstica de fornecedor.</p>
+          <div class="sol-more"><div><div class="sol-more-in">
+            <div class="chip-row"><span class="chip">GCP</span><span class="chip">Azure</span><span class="chip">AWS</span><span class="chip">BigQuery</span><span class="chip">Databricks</span><span class="chip">Snowflake</span><span class="chip">Migração de legado</span></div>
+            <a class="sol-cta" href="#contato">Falar sobre Cloud →</a>
+          </div></div></div>
+        </article>
+
+        <article class="sol" tabindex="0">
+          <p class="sol-n">08</p>
+          <h3 class="sol-t">Automation</h3>
+          <p class="sol-d">Automatizamos processos para reduzir trabalho manual e aumentar eficiência, integrando o que hoje não conversa.</p>
+          <div class="sol-more"><div><div class="sol-more-in">
+            <div class="chip-row"><span class="chip">APIs</span><span class="chip">Integrações</span><span class="chip">RPA</span><span class="chip">Workflows</span><span class="chip">Orquestração</span></div>
+            <a class="sol-cta" href="#contato">Falar sobre Automation →</a>
+          </div></div></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DATA ENGINEERING / ARQUITETURA ================= -->
+  <section class="sec" id="arquitetura">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Engenharia de dados</span>
+        <h2 class="h-xl reveal d1">O caminho que o dado percorre.</h2>
+        <p class="sub reveal d2">
+          Da origem à decisão: fontes, ingestão, armazenamento, transformação,
+          governança e consumo. Cada etapa com responsabilidade definida.
+        </p>
+      </div>
+      <div class="flow reveal d2" data-flow>
+        <div class="flow-node"><p class="flow-k">Origem</p><p class="flow-v">ERP · CRM · APIs · Apps · Sensores</p></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node"><p class="flow-k">Ingestão</p><p class="flow-v">Data Lake</p></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node"><p class="flow-k">Transformação</p><p class="flow-v">dbt · Airflow</p></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node"><p class="flow-k">Governança</p><p class="flow-v">Qualidade · Padrão</p></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node"><p class="flow-k">Consumo</p><p class="flow-v">BI · IA</p></div>
+      </div>
+      <div class="chip-row reveal d3" style="margin-top:1.6rem">
+        <span class="chip">dbt</span><span class="chip">Airflow</span><span class="chip">Databricks</span>
+        <span class="chip">BigQuery</span><span class="chip">Snowflake</span><span class="chip">SQL</span><span class="chip">Python</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= TECNOLOGIA ================= -->
+  <section class="sec" id="tecnologia">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Tecnologia</span>
+        <h2 class="h-xl reveal d1">Tecnologia não é o fim. É o meio.</h2>
+        <p class="sub reveal d2">
+          Somos agnósticos de tecnologia: escolhemos o stack de acordo com o
+          problema, não o contrário. Toque em uma para ver o que ela resolve.
+        </p>
+      </div>
+
+      <div class="orbit-wrap reveal d2">
+        <div class="orbit" id="orbit" role="group" aria-label="Tecnologias da Atlas">
+          <div class="orbit-ring" aria-hidden="true"></div>
+          <div class="orbit-ring r2" aria-hidden="true"></div>
+          <p class="orbit-core">Seu<br>negócio</p>
         </div>
-        <div class="problem-card reveal">
-          <span class="p-txt">Relatórios manuais</span>
-          <span class="p-arrow" aria-hidden="true">→</span>
-          <span class="p-sol">Automation</span>
-        </div>
-        <div class="problem-card reveal">
-          <span class="p-txt">Dashboards que ninguém usa</span>
-          <span class="p-arrow" aria-hidden="true">→</span>
-          <span class="p-sol">Business Intelligence</span>
-        </div>
-        <div class="problem-card reveal">
-          <span class="p-txt">BI sem governança</span>
-          <span class="p-arrow" aria-hidden="true">→</span>
-          <span class="p-sol">Business Intelligence</span>
-        </div>
-        <div class="problem-card reveal">
-          <span class="p-txt">Sistemas legados</span>
-          <span class="p-arrow" aria-hidden="true">→</span>
-          <span class="p-sol">Data &amp; Cloud</span>
-        </div>
-        <div class="problem-card reveal">
-          <span class="p-txt">Dados inconsistentes</span>
-          <span class="p-arrow" aria-hidden="true">→</span>
-          <span class="p-sol">Data Engineering</span>
-        </div>
-        <div class="problem-card reveal">
-          <span class="p-txt">Processos repetitivos</span>
-          <span class="p-arrow" aria-hidden="true">→</span>
-          <span class="p-sol">Automation</span>
-        </div>
-        <div class="problem-card reveal">
-          <span class="p-txt">Cloud mal estruturada</span>
-          <span class="p-arrow" aria-hidden="true">→</span>
-          <span class="p-sol">Data &amp; Cloud</span>
-        </div>
-        <div class="problem-card reveal">
-          <span class="p-txt">Falta de visão única do negócio</span>
-          <span class="p-arrow" aria-hidden="true">→</span>
-          <span class="p-sol">Data Engineering</span>
-        </div>
-        <div class="problem-card reveal">
-          <span class="p-txt">IA sem dados preparados</span>
-          <span class="p-arrow" aria-hidden="true">→</span>
-          <span class="p-sol">Data Engineering + AI</span>
+        <div class="tech-panel" id="tech-panel" aria-live="polite">
+          <h3 id="tech-name">Power BI</h3>
+          <dl class="tech-row"><dt>Aplicação</dt><dd id="tech-app">Dashboards executivos e self-service BI para as áreas de negócio.</dd></dl>
+          <dl class="tech-row"><dt>Benefício</dt><dd id="tech-ben">A área deixa de pedir relatório e passa a responder a própria pergunta.</dd></dl>
+          <dl class="tech-row"><dt>Onde a Atlas usou</dt><dd id="tech-case">Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.</dd></dl>
         </div>
       </div>
     </div>
@@ -788,243 +1061,298 @@
   <!-- ================= CASES ================= -->
   <section class="sec" id="cases">
     <div class="wrap">
-      <span class="eyebrow reveal">Cases</span>
-      <h2 class="h-xl reveal d1">Resultados que falam por si.</h2>
-      <p class="sub reveal d2">
-        Projetos reais entregues por nossos especialistas — da origem do dado
-        até a tomada de decisão.
-      </p>
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Cases</span>
+        <h2 class="h-xl reveal d1">Resultados que falam por si.</h2>
+        <p class="sub reveal d2">
+          Projetos reais entregues por especialistas da Atlas — da origem do dado
+          até a tomada de decisão. Nomes de clientes preservados por confidencialidade.
+        </p>
+      </div>
 
-      <article class="case-card reveal">
+      <article class="case-card reveal d2">
         <div>
-          <span class="case-conf">Cliente sob confidencialidade</span>
-          <div class="case-meta"><span>Data &amp; Analytics · Cloud Azure</span></div>
+          <span class="case-conf">Cliente confidencial</span>
+          <div class="case-meta"><span>Varejo Multimarca</span><span>Data &amp; Analytics</span><span>Cloud Azure</span></div>
           <h3>Plataforma omnichannel de dados</h3>
           <dl class="case-fields">
-            <div><dt>Setor</dt><dd>Varejo Multimarca</dd></div>
             <div><dt>Problema</dt><dd>Dados de lojas físicas e canais digitais espalhados em sistemas diferentes, sem visão única de performance.</dd></div>
-            <div><dt>Solução</dt><dd>Plataforma de dados em Azure integrando todos os canais, com dashboards Power BI de vendas, operação e performance por canal.</dd></div>
+            <div><dt>Arquitetura</dt><dd>Plataforma de dados em Azure integrando todos os canais de venda.</dd></div>
+            <div><dt>Solução</dt><dd>Pipelines em Synapse, Data Factory e Databricks, com dashboards Power BI de vendas, operação e performance por canal.</dd></div>
             <div><dt>Tecnologias</dt><dd>Azure Synapse, Data Factory, Databricks, Power BI</dd></div>
           </dl>
         </div>
         <div class="case-metrics">
-<div class="metric"><div class="num-sm">Físico + digital</div><div class="lbl">todos os canais de venda integrados em uma única plataforma</div></div><div class="metric"><div class="num-sm">Pipelines em Azure</div><div class="lbl">Synapse, Data Factory e Databricks em produção</div></div><div class="metric"><div class="num-sm">Visão por canal</div><div class="lbl">indicadores comerciais e operacionais lado a lado</div></div>
+          <p><b>Físico + digital</b><span>todos os canais de venda integrados em uma única plataforma</span></p>
+          <p><b>Pipelines em Azure</b><span>Synapse, Data Factory e Databricks em produção</span></p>
+          <p><b>Visão por canal</b><span>indicadores comerciais e operacionais lado a lado</span></p>
         </div>
       </article>
-      <article class="case-card reveal">
+
+      <article class="case-card reveal d2">
         <div>
-          <span class="case-conf">Cliente sob confidencialidade</span>
-          <div class="case-meta"><span>Data Engineering · Cloud GCP</span></div>
+          <span class="case-conf">Cliente confidencial</span>
+          <div class="case-meta"><span>Serviços Financeiros</span><span>Data Engineering</span><span>Cloud GCP</span></div>
           <h3>Modernização de legado para a nuvem</h3>
           <dl class="case-fields">
-            <div><dt>Setor</dt><dd>Serviços Financeiros</dd></div>
             <div><dt>Problema</dt><dd>Dados presos em um legado Oracle — caro de manter e distante das necessidades analíticas do negócio.</dd></div>
-            <div><dt>Solução</dt><dd>Data Lake em Google Cloud com transformações em dbt, processamento em BigQuery, orquestração em Airflow e BI unificado em Looker.</dd></div>
+            <div><dt>Arquitetura</dt><dd>Data Lake em Google Cloud, com processamento em BigQuery.</dd></div>
+            <div><dt>Solução</dt><dd>Transformações em dbt, orquestração em Airflow e BI unificado em Looker.</dd></div>
             <div><dt>Tecnologias</dt><dd>GCP, BigQuery, dbt, Airflow, Looker</dd></div>
           </dl>
         </div>
         <div class="case-metrics">
-<div class="metric"><div class="num-sm">Oracle → GCP</div><div class="lbl">legado aposentado sem interromper a operação</div></div><div class="metric"><div class="num-sm">dbt + Airflow</div><div class="lbl">transformações testadas e pipelines orquestrados</div></div><div class="metric"><div class="num-sm">Looker</div><div class="lbl">camada única de visualização para o negócio</div></div>
+          <p><b>Oracle → GCP</b><span>legado aposentado sem interromper a operação</span></p>
+          <p><b>dbt + Airflow</b><span>transformações testadas e pipelines orquestrados</span></p>
+          <p><b>Looker</b><span>camada única de visualização para o negócio</span></p>
         </div>
       </article>
-      <article class="case-card reveal">
+
+      <article class="case-card reveal d2">
         <div>
-          <span class="case-conf">Cliente sob confidencialidade</span>
-          <div class="case-meta"><span>Migração · Self-Service BI</span></div>
+          <span class="case-conf">Cliente confidencial</span>
+          <div class="case-meta"><span>BI Governance</span><span>Migração</span><span>Self-Service BI</span></div>
           <h3>Migração e governança de BI em escala</h3>
           <dl class="case-fields">
-            <div><dt>Setor</dt><dd>BI Governance</dd></div>
             <div><dt>Problema</dt><dd>Mais de 200 dashboards Power BI crescendo sem padrão, sem governança e sem fonte única da verdade.</dd></div>
-            <div><dt>Solução</dt><dd>Ambiente migrado para Looker com dados centralizados, padronização e um modelo de self-service BI para as áreas de negócio.</dd></div>
+            <div><dt>Arquitetura</dt><dd>Ambiente centralizado em Looker, com dados e definições unificados.</dd></div>
+            <div><dt>Solução</dt><dd>Migração, padronização e um modelo de self-service BI para as áreas de negócio.</dd></div>
             <div><dt>Tecnologias</dt><dd>Power BI, Looker, Governança de dados</dd></div>
           </dl>
         </div>
         <div class="case-metrics">
-<div class="metric"><div class="num-sm">+200 dashboards</div><div class="lbl">migrados para Looker em um único projeto</div></div><div class="metric"><div class="num-sm">Governança</div><div class="lbl">centralização, padronização e organização do ambiente analítico</div></div><div class="metric"><div class="num-sm">Self-service</div><div class="lbl">áreas de negócio autônomas para explorar dados</div></div>
+          <p><b>+200 dashboards</b><span>migrados para Looker em um único projeto</span></p>
+          <p><b>Governança</b><span>centralização, padronização e organização do ambiente analítico</span></p>
+          <p><b>Self-service</b><span>áreas de negócio autônomas para explorar dados</span></p>
         </div>
       </article>
 
       <h3 class="cases-more-head reveal">Mais projetos entregues</h3>
-      <div class="case-mini-grid">
-        <div class="case-mini reveal">
-          <span class="sector">Software &amp; Tecnologia</span>
-          <h4>Gestão de incidentes e SLA</h4>
-          <p>BI que transformou os chamados do sistema de incidentes em indicadores de SLA, prazo e desempenho operacional.</p>
-          <div class="stack"><span>Pentaho</span><span>SQL Server</span><span>Data Warehouse</span></div>
-        </div>
-        <div class="case-mini reveal">
-          <span class="sector">Turismo &amp; Viagens</span>
-          <h4>BI de ponta a ponta</h4>
-          <p>Arquitetura completa ETL → DW → BI consolidando viagens, hospedagens e locações em uma visão única do negócio.</p>
-          <div class="stack"><span>Pentaho</span><span>SQL Server</span><span>MicroStrategy</span></div>
-        </div>
-        <div class="case-mini reveal">
-          <span class="sector">Serviços Financeiros</span>
-          <h4>Camada de dados comercial</h4>
-          <p>Estrutura de dados e indicadores consolidando as informações do departamento comercial para análise e decisão.</p>
-          <div class="stack"><span>SSIS</span><span>Data Warehouse</span><span>MicroStrategy</span></div>
-        </div>
-        <div class="case-mini reveal">
-          <span class="sector">Bancário</span>
-          <h4>NPS &amp; Customer Experience</h4>
-          <p>Acompanhamento de NPS transformando a voz dos clientes em indicadores de experiência e oportunidades de melhoria.</p>
-          <div class="stack"><span>NPS</span><span>Analytics</span><span>CX</span></div>
-        </div>
-        <div class="case-mini reveal">
-          <span class="sector">Varejo de Moda</span>
-          <h4>BI corporativo multiárea</h4>
-          <p>Dashboards de vendas, logística e operações dando acesso a indicadores para todas as áreas da organização.</p>
-          <div class="stack"><span>Pentaho</span><span>MicroStrategy</span><span>DW</span></div>
-        </div>
-        <div class="case-mini reveal">
-          <span class="sector">Saúde &amp; Diagnóstico</span>
-          <h4>Engenharia de dados em GCP</h4>
-          <p>Pipelines em BigQuery e Airflow para uma rede de diagnóstico, com migração da visualização de Tableau para Power BI.</p>
-          <div class="stack"><span>GCP</span><span>BigQuery</span><span>Airflow</span><span>Power BI</span></div>
-        </div>
-        <div class="case-mini reveal">
-          <span class="sector">Educação</span>
-          <h4>Predição de evasão de alunos</h4>
-          <p>Centenas de dashboards educacionais e modelos preditivos que anteciparam a evasão para apoiar ações preventivas.</p>
-          <div class="stack"><span>Analytics</span><span>Machine Learning</span><span>BI</span></div>
-        </div>
-        <div class="case-mini reveal">
-          <span class="sector">Saúde Hospitalar</span>
-          <h4>Design de dados com Figma</h4>
-          <p>Protótipos em Figma definindo o padrão visual antes do desenvolvimento — centenas de dashboards Power BI padronizados.</p>
-          <div class="stack"><span>Figma</span><span>Power BI</span><span>Data Design</span></div>
-        </div>
-        <div class="case-mini reveal">
-          <span class="sector">Food Service</span>
-          <h4>Performance diária da rede</h4>
-          <p>Painéis de acompanhamento diário das unidades de um grande grupo de restaurantes — desvios visíveis em tempo hábil.</p>
-          <div class="stack"><span>Dashboards</span><span>Operações</span></div>
-        </div>
-        <div class="case-mini reveal">
-          <span class="sector">Infraestrutura &amp; Mobilidade</span>
-          <h4>Rodovias, pedágios e aeroportos</h4>
-          <p>Painéis integrando gestão de acidentes, arrecadação de pedágios e operação aeroportuária em uma visão única.</p>
-          <div class="stack"><span>Data &amp; BI</span><span>Operações</span></div>
-        </div>
+      <div class="case-mini-grid reveal d1">
+        <article class="case-mini"><p class="sector">Software &amp; Tecnologia</p><h4>Gestão de incidentes e SLA</h4><p>BI que transformou os chamados do sistema de incidentes em indicadores de SLA, prazo e desempenho operacional.</p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>Data Warehouse</span></div></article>
+        <article class="case-mini"><p class="sector">Turismo &amp; Viagens</p><h4>BI de ponta a ponta</h4><p>Arquitetura completa ETL → DW → BI consolidando viagens, hospedagens e locações em uma visão única do negócio.</p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>MicroStrategy</span></div></article>
+        <article class="case-mini"><p class="sector">Serviços Financeiros</p><h4>Camada de dados comercial</h4><p>Estrutura de dados e indicadores consolidando as informações do departamento comercial para análise e decisão.</p><div class="stack"><span>SSIS</span><span>Data Warehouse</span><span>MicroStrategy</span></div></article>
+        <article class="case-mini"><p class="sector">Bancário</p><h4>NPS &amp; Customer Experience</h4><p>Acompanhamento de NPS transformando a voz dos clientes em indicadores de experiência e oportunidades de melhoria.</p><div class="stack"><span>NPS</span><span>Analytics</span><span>CX</span></div></article>
+        <article class="case-mini"><p class="sector">Varejo de Moda</p><h4>BI corporativo multiárea</h4><p>Dashboards de vendas, logística e operações dando acesso a indicadores para todas as áreas da organização.</p><div class="stack"><span>Pentaho</span><span>MicroStrategy</span><span>DW</span></div></article>
+        <article class="case-mini"><p class="sector">Saúde &amp; Diagnóstico</p><h4>Engenharia de dados em GCP</h4><p>Pipelines em BigQuery e Airflow para uma rede de diagnóstico, com migração da visualização de Tableau para Power BI.</p><div class="stack"><span>GCP</span><span>BigQuery</span><span>Airflow</span><span>Power BI</span></div></article>
+        <article class="case-mini"><p class="sector">Educação</p><h4>Predição de evasão de alunos</h4><p>Centenas de dashboards educacionais e modelos preditivos que anteciparam a evasão para apoiar ações preventivas.</p><div class="stack"><span>Analytics</span><span>Machine Learning</span><span>BI</span></div></article>
+        <article class="case-mini"><p class="sector">Saúde Hospitalar</p><h4>Design de dados com Figma</h4><p>Protótipos em Figma definindo o padrão visual antes do desenvolvimento — centenas de dashboards Power BI padronizados.</p><div class="stack"><span>Figma</span><span>Power BI</span><span>Data Design</span></div></article>
+        <article class="case-mini"><p class="sector">Food Service</p><h4>Performance diária da rede</h4><p>Painéis de acompanhamento diário das unidades de um grande grupo de restaurantes — desvios visíveis em tempo hábil.</p><div class="stack"><span>Dashboards</span><span>Operações</span></div></article>
+        <article class="case-mini"><p class="sector">Infraestrutura &amp; Mobilidade</p><h4>Rodovias, pedágios e aeroportos</h4><p>Painéis integrando gestão de acidentes, arrecadação de pedágios e operação aeroportuária em uma visão única.</p><div class="stack"><span>Data &amp; BI</span><span>Operações</span></div></article>
       </div>
-
       <p class="cases-note">Projetos reais entregues por especialistas Atlas Tec. Nomes de clientes preservados por confidencialidade.</p>
     </div>
   </section>
 
-  <!-- ================= COMO ENTREGAMOS ================= -->
-  <section class="sec method" id="entrega">
-    <div class="wrap">
-      <span class="eyebrow on-paper reveal">Como entregamos</span>
-      <h2 class="h-xl reveal d1">Do problema à produção, em cinco etapas.</h2>
-      <div class="method-track">
-        <div class="m-step reveal"><span class="n">01</span><h3>Discovery</h3><p>Entendemos o problema. Imersão real no negócio e nos dados antes de tocar em tecnologia.</p></div>
-        <div class="m-step reveal"><span class="n">02</span><h3>Architecture</h3><p>Desenhamos a solução. Arquitetura de dados escalável e sem complexidade gratuita.</p></div>
-        <div class="m-step reveal"><span class="n">03</span><h3>Build</h3><p>Construímos. Ciclos curtos, com entregas funcionais desde as primeiras semanas.</p></div>
-        <div class="m-step reveal"><span class="n">04</span><h3>Deploy</h3><p>Colocamos em produção. Adoção assistida, com treinamento e documentação.</p></div>
-        <div class="m-step reveal"><span class="n">05</span><h3>Optimize</h3><p>Evoluímos. Medição contínua de uso e resultado, junto com o negócio.</p></div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ================= TECNOLOGIA ================= -->
-  <section class="sec" id="tecnologia">
-    <div class="wrap">
-      <span class="eyebrow reveal">Tecnologia</span>
-      <h2 class="h-xl reveal d1">Tecnologia não é o fim. É o meio.</h2>
-      <p class="sub tech-msg reveal d2">
-        Somos agnósticos de tecnologia. Escolhemos o stack de acordo com o
-        problema, não o contrário.
-      </p>
-      <div class="tech-wall reveal d2"><span>GCP</span><span>Azure</span><span>AWS</span><span>BigQuery</span><span>Databricks</span><span>Snowflake</span><span>dbt</span><span>Airflow</span><span>Power BI</span><span>Tableau</span><span>Looker</span><span>Python</span><span>SQL</span><span>Figma</span></div>
-    </div>
-  </section>
-
-  <!-- ================= SETORES ================= -->
   <section class="clients" id="setores" aria-label="Setores atendidos">
-    <p>Setores onde já transformamos dados em decisão</p>
+    <div class="wrap">
+      <p>Setores onde já transformamos dados em decisão</p>
+    </div>
     <div class="marquee">
       <div class="marquee-track" id="marquee-track"><span>Software &amp; Tecnologia</span><span>Serviços Financeiros</span><span>Bancário</span><span>Varejo &amp; Moda</span><span>Varejo Omnichannel</span><span>Saúde &amp; Diagnóstico</span><span>Educação</span><span>Turismo</span><span>Food Service</span><span>Infraestrutura &amp; Mobilidade</span></div>
     </div>
   </section>
 
+  <div class="divider"></div>
+
+  <!-- ================= DATA VISUALIZATION ================= -->
+  <section class="sec" id="visualizacao">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Data Visualization</span>
+        <h2 class="h-xl reveal d1">Dados também precisam ser compreendidos.</h2>
+        <p class="sub reveal d2">
+          Dashboard não é decoração. Criamos experiências de dados que ajudam
+          pessoas a entender e decidir — hierarquia antes de enfeite.
+        </p>
+      </div>
+
+      <div class="ba reveal d2">
+        <div class="ba-card before">
+          <p class="ba-tag">Antes</p>
+          <div class="mock" aria-hidden="true">
+            <div class="mock-row" style="grid-template-columns:1fr 1fr 1fr">
+              <div class="mock-box"><span class="mock-kpi">R$ 1.204.881</span></div>
+              <div class="mock-box"><span class="mock-kpi">12,4%</span></div>
+              <div class="mock-box"><span class="mock-kpi">8.221</span></div>
+            </div>
+            <div class="mock-row" style="grid-template-columns:1fr 1fr">
+              <div class="mock-box tall"><div class="mock-bars"><i style="height:40%"></i><i style="height:72%"></i><i style="height:55%"></i><i style="height:88%"></i><i style="height:33%"></i><i style="height:64%"></i><i style="height:49%"></i><i style="height:77%"></i></div></div>
+              <div class="mock-box tall"><div class="mock-bars"><i style="height:62%"></i><i style="height:35%"></i><i style="height:81%"></i><i style="height:47%"></i><i style="height:69%"></i><i style="height:52%"></i></div></div>
+            </div>
+            <div class="mock-row" style="grid-template-columns:1fr 1fr 1fr 1fr">
+              <div class="mock-box"></div><div class="mock-box"></div><div class="mock-box"></div><div class="mock-box"></div>
+            </div>
+          </div>
+          <p class="ba-note">Muitos gráficos, cores aleatórias, nenhuma hierarquia. Tudo tem o mesmo peso — então nada tem peso.</p>
+        </div>
+
+        <div class="ba-card after">
+          <p class="ba-tag">Depois</p>
+          <div class="mock" aria-hidden="true">
+            <div class="mock-row">
+              <div class="mock-box"><span class="mock-kpi">Receita · abaixo da meta em 3 regiões</span></div>
+            </div>
+            <div class="mock-row">
+              <div class="mock-box tall"><div class="mock-bars"><i style="height:40%"></i><i style="height:52%"></i><i style="height:46%"></i><i style="height:88%"></i><i style="height:44%"></i><i style="height:50%"></i><i style="height:43%"></i><i style="height:47%"></i></div></div>
+            </div>
+            <div class="mock-row" style="grid-template-columns:1fr 1fr">
+              <div class="mock-box"></div><div class="mock-box"></div>
+            </div>
+          </div>
+          <p class="ba-note">Uma pergunta por tela, um destaque por pergunta. O desvio salta antes de alguém procurar por ele.</p>
+        </div>
+      </div>
+      <p class="illus-note">Ilustração do método — não representa dados ou resultado de cliente.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= INTELIGÊNCIA ARTIFICIAL ================= -->
+  <section class="sec" id="ia">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Inteligência Artificial</span>
+        <h2 class="h-xl reveal d1">A próxima vantagem competitiva já está nos seus dados.</h2>
+        <p class="sub reveal d2">
+          IA aplicada sobre a sua própria base — uma camada que lê o que já existe,
+          aponta o que foge do padrão e antecipa o que vem.
+        </p>
+      </div>
+
+      <div class="flow reveal d2" data-flow>
+        <div class="flow-node"><p class="flow-k">Entrada</p><p class="flow-v">Sua base de dados</p></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node"><p class="flow-k">Processamento</p><p class="flow-v">Modelagem e contexto</p></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node"><p class="flow-k">Inteligência</p><p class="flow-v">Padrão · Anomalia · Previsão</p></div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node"><p class="flow-k">Ação</p><p class="flow-v">Decisão e automação</p></div>
+      </div>
+
+      <div class="chip-row reveal d3" style="margin-top:1.8rem">
+        <span class="chip">Machine Learning</span><span class="chip">GenAI</span><span class="chip">AI Agents</span>
+        <span class="chip">Modelos preditivos</span><span class="chip">RAG</span><span class="chip">Document AI</span>
+        <span class="chip">Automação inteligente</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INSIGHT AI ================= -->
+  <section class="sec" id="insight-ai">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Insight AI ✦</span>
+        <h2 class="h-xl reveal d1">Pergunte ao dado em português.</h2>
+        <p class="sub reveal d2">
+          O Insight AI é o produto da Atlas para conversar com os próprios dados:
+          você faz a pergunta de negócio, ele responde com o número e o caminho
+          até ele. Experimente abaixo.
+        </p>
+      </div>
+
+      <div class="demo reveal d2">
+        <div class="demo-bar"><i></i> Demonstração interativa · respostas de exemplo, não conectadas a dados reais</div>
+        <div class="demo-body">
+          <div class="demo-qs" id="demo-qs" role="group" aria-label="Perguntas de exemplo"></div>
+          <div class="demo-a" id="demo-a" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="hero-ctas reveal d3" style="margin-top:1.6rem">
+        <a class="btn btn-line" href="insight.html" data-magnetic>Conhecer o Insight AI <span class="arr">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= METODOLOGIA ================= -->
+  <section class="sec" id="metodologia">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Metodologia</span>
+        <h2 class="h-xl reveal d1">Como transformamos problemas complexos em soluções simples.</h2>
+      </div>
+
+      <div class="tl" id="tl">
+        <div class="tl-fill" id="tl-fill" aria-hidden="true"></div>
+        <div class="tl-step"><p class="tl-n">01</p><h3 class="tl-t">Discovery</h3><p class="tl-d">Entender o problema de negócio antes de olhar para a tecnologia. O que precisa ser decidido, por quem, com que frequência.</p></div>
+        <div class="tl-step"><p class="tl-n">02</p><h3 class="tl-t">Strategy</h3><p class="tl-d">Definir o caminho: o que resolve agora, o que fica para depois e o que não deve ser construído.</p></div>
+        <div class="tl-step"><p class="tl-n">03</p><h3 class="tl-t">Architecture</h3><p class="tl-d">Desenhar a arquitetura de dados — fontes, armazenamento, transformação e governança — sobre a nuvem que serve ao problema.</p></div>
+        <div class="tl-step"><p class="tl-n">04</p><h3 class="tl-t">Build</h3><p class="tl-d">Construir pipelines, modelos e visualizações com padrão definido antes da primeira linha de código.</p></div>
+        <div class="tl-step"><p class="tl-n">05</p><h3 class="tl-t">Deploy</h3><p class="tl-d">Colocar em produção com governança, documentação e as áreas de negócio autônomas para usar.</p></div>
+        <div class="tl-step"><p class="tl-n">06</p><h3 class="tl-t">Optimize</h3><p class="tl-d">Acompanhar, ajustar e evoluir. Projeto entregue não é projeto encerrado.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DIFERENCIAIS ================= -->
+  <section class="sec" id="diferenciais">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Diferenciais</span>
+        <h2 class="h-xl reveal d1">Não entregamos tecnologia. Entregamos impacto.</h2>
+      </div>
+      <div class="pillars reveal d2">
+        <div class="pillar"><p class="pillar-k">A</p><h3>Visão estratégica</h3><p>Começamos pela decisão que precisa ser tomada, não pela ferramenta que queremos vender.</p></div>
+        <div class="pillar"><p class="pillar-k">B</p><h3>Profundidade técnica</h3><p>Da engenharia à modelagem: do Oracle ao BigQuery, em stacks modernas ou legadas.</p></div>
+        <div class="pillar"><p class="pillar-k">C</p><h3>Design centrado no usuário</h3><p>O padrão visual é definido antes do desenvolvimento, para o dashboard ser lido e usado.</p></div>
+        <div class="pillar"><p class="pillar-k">D</p><h3>Velocidade de execução</h3><p>Soluções que chegam à produção — não provas de conceito que morrem na apresentação.</p></div>
+        <div class="pillar"><p class="pillar-k">E</p><h3>Foco em resultado</h3><p>Resultado acima de entregável. O projeto termina quando o negócio decide melhor.</p></div>
+        <div class="pillar"><p class="pillar-k">F</p><h3>Governança e segurança</h3><p>Padronização, fonte única da verdade e controle de acesso desde o primeiro pipeline.</p></div>
+      </div>
+
+      <div class="nums reveal d3">
+        <div class="num"><b>13+</b><span>projetos de dados documentados em cases reais</span></div>
+        <div class="num"><b>10+</b><span>setores atendidos — do bancário ao food service</span></div>
+        <div class="num"><b>200+</b><span>dashboards migrados em um único projeto de governança</span></div>
+        <div class="num"><b>3</b><span>nuvens — GCP, Azure e AWS — com abordagem agnóstica</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- ================= SOBRE ================= -->
   <section class="sec" id="sobre">
-    <div class="wrap about-grid">
-      <div class="reveal">
-        <span class="eyebrow">Sobre a Atlas Tec</span>
-        <p class="about-lede">A Atlas é uma empresa de tecnologia especializada em dados, BI, cloud, IA e automação.</p>
-        <p>
-          Atuamos da engenharia à tomada de decisão, conectando arquitetura,
-          tecnologia e negócio para construir soluções que funcionam em
-          produção.
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Sobre a Atlas</span>
+        <h2 class="h-xl reveal d1">Tecnologia com profundidade. Negócio com clareza.</h2>
+        <p class="sub reveal d2">
+          A Atlas é uma empresa de tecnologia especializada em dados, BI, cloud, IA
+          e automação. Atuamos da engenharia à tomada de decisão, conectando
+          arquitetura, tecnologia e negócio para construir soluções que funcionam
+          em produção.
         </p>
-        <p>
-          De ponta a ponta — da origem do dado até a tomada de decisão: fontes
-          → engenharia → data lake → cloud → governança → BI → modelos
-          preditivos. Nos ecossistemas Google Cloud, Microsoft Azure e AWS, e
-          em stacks modernas ou legadas: do Oracle ao BigQuery. Nossa
-          abordagem é agnóstica de tecnologia — escolhemos a ferramenta que
-          serve ao seu problema, nunca o contrário.
+        <p class="sub reveal d2" style="margin-top:1rem">
+          Parte estratégia. Parte laboratório. Parte engenharia. Nossa abordagem é
+          agnóstica de tecnologia — escolhemos a ferramenta que serve ao seu
+          problema, nunca o contrário.
         </p>
-        <div class="about-stats">
-          <div><div class="num">13+</div><div class="lbl">projetos de dados documentados em cases reais</div></div>
-          <div><div class="num">10+</div><div class="lbl">setores atendidos — do bancário ao food service</div></div>
-          <div><div class="num">200+</div><div class="lbl">dashboards migrados em um único projeto de governança</div></div>
-          <div><div class="num">3</div><div class="lbl">nuvens — GCP, Azure e AWS — com abordagem agnóstica</div></div>
-        </div>
-        <ul class="values">
-          <li><span><b>Clareza</b> acima de complexidade</span></li>
-          <li><span><b>Resultado</b> acima de entregável</span></li>
-          <li><span><b>Profundidade</b> acima de buzzword</span></li>
-          <li><span><b>Parceria</b> acima de projeto</span></li>
-        </ul>
       </div>
-      <div class="about-visual reveal d1" aria-hidden="true">
-        <svg viewBox="0 0 400 435" preserveAspectRatio="xMidYMid slice">
-          <rect width="400" height="435" fill="#0D1117"/>
-          <g fill="none" stroke="#1B2330" stroke-width="1">
-            <path d="M-20 60 C 80 30, 160 90, 240 60 S 380 20, 440 60"/>
-            <path d="M-20 110 C 80 80, 160 140, 240 110 S 380 70, 440 110"/>
-            <path d="M-20 160 C 80 130, 160 190, 240 160 S 380 120, 440 160"/>
-            <path d="M-20 210 C 80 180, 160 240, 240 210 S 380 170, 440 210"/>
-            <path d="M-20 260 C 80 230, 160 290, 240 260 S 380 220, 440 260"/>
-            <path d="M-20 310 C 80 280, 160 340, 240 310 S 380 270, 440 310"/>
-            <path d="M-20 360 C 80 330, 160 390, 240 360 S 380 320, 440 360"/>
-            <path d="M-20 410 C 80 380, 160 440, 240 410 S 380 370, 440 410"/>
-          </g>
-          <g fill="none" stroke="#2E86FF" stroke-width="1.4">
-            <path class="live-line" d="M-20 235 C 80 205, 160 265, 240 235 S 380 195, 440 235"/>
-          </g>
-          <g fill="#6FD4FF">
-            <circle class="live-dot" cx="96" cy="222" r="4"/>
-            <circle class="live-dot d2" cx="240" cy="235" r="4"/>
-            <circle class="live-dot d3" cx="330" cy="212" r="4"/>
-          </g>
-          <g font-family="IBM Plex Mono, monospace" font-size="9" fill="#5B6270" letter-spacing="2">
-            <text x="24" y="404">ATLAS TECNOLOGIA</text>
-          </g>
-        </svg>
-        <video id="brand-video" muted playsinline preload="none">
-          <source src="media/atlas-brand.mp4" type="video/mp4">
-          <source src="media/atlas-brand.webm" type="video/webm">
-        </video>
+      <div class="pillars reveal d3" style="margin-top:2.2rem">
+        <div class="pillar"><h3>Clareza</h3><p>acima de complexidade</p></div>
+        <div class="pillar"><h3>Resultado</h3><p>acima de entregável</p></div>
+        <div class="pillar"><h3>Profundidade</h3><p>acima de buzzword</p></div>
+        <div class="pillar"><h3>Parceria</h3><p>acima de projeto</p></div>
       </div>
     </div>
   </section>
 
   <!-- ================= CTA FINAL ================= -->
-  <section class="cta-final">
-    <div class="cta-glow" aria-hidden="true"></div>
+  <section class="sec final">
     <div class="wrap">
-      <span class="eyebrow reveal">Próximo passo</span>
-      <h2 class="reveal d1">Tem um problema de dados, BI, cloud ou IA?</h2>
-      <p class="sub reveal d2">Converse com um especialista da Atlas e descubra o caminho mais adequado para o seu cenário.</p>
-      <a class="btn btn-accent reveal d3" href="#contato" data-magnetic style="font-size:1.05rem; padding:1.05rem 2.1rem;">Falar com um especialista <span class="arr">→</span></a>
+      <h2 class="reveal">Existe um problema complexo no seu negócio?</h2>
+      <p class="sub reveal d1">Vamos transformar tecnologia, dados e inteligência em resultado.</p>
+      <div class="hero-ctas reveal d2">
+        <a class="btn btn-accent" href="#contato" data-magnetic>Vamos conversar <span class="arr">→</span></a>
+      </div>
     </div>
   </section>
 
-  <!-- ================= CONTATO ================= -->
   <section class="sec contact" id="contato">
     <div class="wrap contact-grid">
       <div class="reveal">
@@ -1069,22 +1397,23 @@
       </form>
     </div>
   </section>
+
 </main>
 <footer class="footer">
   <div class="wrap footer-grid">
     <div>
       <a class="brand" href="#inicio"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="footerMarkGradient" x1="4" y1="6" x2="96" y2="92" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6FD4FF"/><stop offset="0.5" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/></linearGradient></defs><path d="M50 58 L64 82 L36 82 Z" fill="#2E9BFF"/><path d="M50 6 L94 92 L64.5 92 L50 62 L35.5 92 L6 92 Z" fill="url(#footerMarkGradient)"/></svg><span class="wordmark"><b>ATLAS</b><small>TECNOLOGIA</small></span></a>
-      <div class="footer-sig">Dados, BI, cloud e IA para empresas que precisam escalar.</div>
+      <div class="footer-sig">Data · AI · Cloud</div>
     </div>
     <nav aria-label="Mapa do site">
       <h4>Navegação</h4>
       <ul>
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#cases">Cases</a></li>
-        <li><a href="#entrega">Como entregamos</a></li>
+        <li><a href="#solucoes">Soluções</a></li>
         <li><a href="#tecnologia">Tecnologia</a></li>
-        <li><a href="#setores">Setores</a></li>
+        <li><a href="#cases">Cases</a></li>
+        <li><a href="#metodologia">Metodologia</a></li>
         <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#insight-ai">Insights</a></li>
         <li><a href="insight.html">Atlas Insight AI</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
@@ -1329,8 +1658,10 @@
   })();
 
   /* ---------- Marquee: duplicar para loop ---------- */
+  // Guarda: se a faixa de setores não estiver na página, o resto deste
+  // bloco (incluindo o chat) não pode morrer junto.
   const track = document.getElementById('marquee-track');
-  track.innerHTML += track.innerHTML;
+  if (track) track.innerHTML += track.innerHTML;
 
   /* ---------- Chat Átis: mascote + captura de lead ---------- */
   (function () {
@@ -1574,6 +1905,168 @@
   window.addEventListener('resize', schedule, { passive: true });
   // As sanfonas mudam a altura dos itens: recalcula quando abrem.
   document.addEventListener('click', schedule, true);
+})();
+</script>
+<script>
+/* ============================================================
+   Interações do redesenho. Tudo dirigido por scroll ou toque —
+   nenhum autoplay. Cada bloco só recalcula quando há o que mudar.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ---------- Órbita de tecnologias ---------- */
+  // O que cada uma resolve PARA O NEGÓCIO. Um logo wall não responde isso.
+  var TECH = [
+    ['Power BI',   'Dashboards executivos e self-service BI para as áreas.', 'A área deixa de pedir relatório e passa a responder a própria pergunta.', 'Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.'],
+    ['Tableau',    'Exploração visual de grandes volumes de dados.', 'Analistas encontram o padrão antes de alguém pedir o relatório.', 'Rede de diagnóstico, na migração da visualização para Power BI.'],
+    ['Looker',     'Camada semântica única sobre o dado.', 'Uma métrica, uma definição — fim da divergência entre áreas.', 'Mais de 200 dashboards migrados num projeto de governança de BI.'],
+    ['MicroStrategy','BI corporativo para operações multiárea.', 'Vendas, logística e operação lendo os mesmos números.', 'BI corporativo em varejo de moda e arquitetura ETL → DW → BI em turismo.'],
+    ['Databricks', 'Processamento de dados em escala e lakehouse.', 'Volume deixa de ser o limite da análise.', 'Pipelines da plataforma omnichannel em Azure.'],
+    ['BigQuery',   'Data warehouse analítico gerenciado.', 'Consulta pesada sem infraestrutura para administrar.', 'Data Lake em GCP para serviços financeiros e pipelines em saúde.'],
+    ['Snowflake',  'Data warehouse em nuvem com escala elástica.', 'Custo acompanha o uso, não o pico.', 'Faz parte do stack moderno que a Atlas implanta.'],
+    ['dbt',        'Transformação versionada e testada.', 'A regra de negócio deixa de morar na cabeça de uma pessoa.', 'Transformações do Data Lake em GCP.'],
+    ['Airflow',    'Orquestração de pipelines.', 'O dado chega na hora certa, e a falha aparece antes do usuário.', 'Pipelines em GCP para serviços financeiros e saúde.'],
+    ['Python',     'Engenharia de dados e modelos preditivos.', 'O que é repetitivo vira código; o que é previsível vira modelo.', 'Modelos de predição de evasão em educação.'],
+    ['SQL',        'A língua franca do dado.', 'Independe de fornecedor — a lógica sobrevive à troca de ferramenta.', 'Presente em toda a engenharia da Atlas.'],
+    ['Azure',      'Nuvem Microsoft para dados e analytics.', 'Integra com o que a empresa já usa no dia a dia.', 'Synapse e Data Factory na plataforma omnichannel.'],
+    ['AWS',        'Nuvem com o portfólio mais amplo de serviços.', 'Escala sem reescrever a arquitetura.', 'Uma das três nuvens da abordagem agnóstica da Atlas.'],
+    ['GCP',        'Nuvem Google, forte em analytics e IA.', 'BigQuery e IA no mesmo lugar em que o dado já está.', 'Data Lake em GCP e migração de legado Oracle.'],
+    ['GenAI',      'IA generativa aplicada sobre a base da empresa.', 'Pergunta em português, resposta com o número e a origem dele.', 'Base do Atlas Insight AI.']
+  ];
+
+  var orbit = document.getElementById('orbit');
+  if (orbit) {
+    var nameEl = document.getElementById('tech-name');
+    var appEl  = document.getElementById('tech-app');
+    var benEl  = document.getElementById('tech-ben');
+    var caseEl = document.getElementById('tech-case');
+    var dots = [];
+
+    TECH.forEach(function (t, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'tech-dot';
+      b.textContent = t[0];
+      b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+      b.addEventListener('click', function () { select(i); });
+      orbit.appendChild(b);
+      dots.push(b);
+    });
+
+    // O raio é responsivo: num círculo pequeno um rótulo largo como
+    // "MicroStrategy" atravessa a borda e empurra a página de lado.
+    // Recolhe os anéis até o rótulo mais largo caber.
+    function place() {
+      var w = orbit.clientWidth;
+      if (!w) return;
+      var widest = 0;
+      dots.forEach(function (d) { widest = Math.max(widest, d.offsetWidth); });
+      // metade do rótulo mais largo, em fração do raio, mais uma folga
+      var room = 0.5 - (widest / 2 + 6) / w;
+      var outer = Math.max(0.18, Math.min(0.44, room));
+      var inner = outer * 0.62;
+      dots.forEach(function (d, i) {
+        var ring = i % 2 === 0 ? outer : inner;
+        var a = (i / TECH.length) * Math.PI * 2 - Math.PI / 2;
+        d.style.left = (50 + Math.cos(a) * ring * 100) + '%';
+        d.style.top  = (50 + Math.sin(a) * ring * 100) + '%';
+      });
+    }
+    place();
+    window.addEventListener('resize', place, { passive: true });
+
+    function select(i) {
+      var t = TECH[i];
+      nameEl.textContent = t[0];
+      appEl.textContent = t[1];
+      benEl.textContent = t[2];
+      caseEl.textContent = t[3];
+      dots.forEach(function (d, k) { d.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+    }
+    select(0);
+  }
+
+  /* ---------- Insight AI: demonstração ---------- */
+  // Respostas de exemplo, escritas à mão. Nenhuma conexão com dados reais —
+  // e a interface diz isso na própria barra, para ninguém se enganar.
+  var DEMO = [
+    ['Por que minhas vendas caíram?',
+     '<p>A queda de <b>8,2%</b> no mês está concentrada em <b>três lojas da região Sul</b>. Nas demais regiões a receita cresceu 1,4%.</p><p>O recuo acompanha a ruptura de estoque na categoria de maior giro dessas unidades.</p>',
+     [['Impacto', '−8,2%'], ['Origem', '3 lojas · Sul'], ['Causa provável', 'Ruptura de estoque']]],
+    ['Qual canal traz mais margem?',
+     '<p>O <b>canal próprio</b> entrega margem <b>6,1 pontos</b> acima do marketplace, apesar de responder por menos volume.</p><p>Marketplace cresce em receita, mas o custo de comissão consome o ganho.</p>',
+     [['Melhor margem', 'Canal próprio'], ['Diferença', '+6,1 p.p.'], ['Atenção', 'Comissão marketplace']]],
+    ['Onde estou perdendo eficiência?',
+     '<p>O tempo entre o pedido e a separação subiu <b>14%</b> em dois centros de distribuição, enquanto os demais ficaram estáveis.</p><p>O atraso se concentra no turno da noite.</p>',
+     [['Piora', '+14%'], ['Onde', '2 CDs'], ['Quando', 'Turno noite']]],
+    ['O que devo esperar no próximo trimestre?',
+     '<p>Mantido o comportamento atual, a projeção indica receita <b>entre 3% e 5% acima</b> do trimestre anterior, puxada pelo canal digital.</p><p>O cenário é sensível à reposição de estoque nas lojas do Sul.</p>',
+     [['Projeção', '+3% a +5%'], ['Motor', 'Canal digital'], ['Risco', 'Estoque Sul']]]
+  ];
+
+  var qsEl = document.getElementById('demo-qs');
+  if (qsEl) {
+    var aEl = document.getElementById('demo-a');
+    var btns = [];
+    DEMO.forEach(function (d, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'demo-q';
+      b.textContent = d[0];
+      b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+      b.addEventListener('click', function () { answer(i); });
+      qsEl.appendChild(b);
+      btns.push(b);
+    });
+    function answer(i) {
+      var d = DEMO[i];
+      var metrics = d[2].map(function (m) {
+        return '<div><span>' + m[0] + '</span><b>' + m[1] + '</b></div>';
+      }).join('');
+      aEl.innerHTML = d[1] + '<div class="demo-metrics">' + metrics + '</div>';
+      btns.forEach(function (b, k) { b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+    }
+    answer(0);
+  }
+
+  /* ---------- Acende ao entrar na tela: arcos, fluxos e timeline ---------- */
+  var arcs = [].slice.call(document.querySelectorAll('[data-arc] .arc-step'));
+  var flows = [].slice.call(document.querySelectorAll('[data-flow] .flow-node'));
+  var tl = document.getElementById('tl');
+  var tlFill = document.getElementById('tl-fill');
+  var tlSteps = tl ? [].slice.call(tl.querySelectorAll('.tl-step')) : [];
+
+  function seq(nodes) {
+    // Acende em ordem conforme o bloco sobe pela tela: o olho segue a
+    // sequência em vez de receber tudo de uma vez.
+    nodes.forEach(function (n) {
+      var r = n.getBoundingClientRect();
+      n.classList.toggle('on', r.top < window.innerHeight * 0.82 && r.bottom > 0);
+    });
+  }
+
+  function timeline() {
+    if (!tl) return;
+    var r = tl.getBoundingClientRect();
+    var line = window.innerHeight * 0.5;
+    var done = 0;
+    tlSteps.forEach(function (st) {
+      var sr = st.getBoundingClientRect();
+      var on = sr.top < line;
+      st.classList.toggle('on', on);
+      if (on) done = sr.top - r.top + sr.height * 0.5;
+    });
+    tlFill.style.height = Math.max(0, Math.min(r.height, done)) + 'px';
+  }
+
+  var raf = 0;
+  function update() { raf = 0; seq(arcs); seq(flows); timeline(); }
+  function schedule() { if (!raf) raf = requestAnimationFrame(update); }
+
+  update();
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
 })();
 </script>
 <script type="module" src="media/js/hero-3d.js"></script>
