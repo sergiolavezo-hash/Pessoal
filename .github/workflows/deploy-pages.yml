@@ -21,6 +21,7 @@ on:
       - CNAME
       - .publish-cname
       - media/**
+      - atlas-site/**
       - .github/workflows/deploy-pages.yml
   workflow_dispatch:
 
@@ -38,11 +39,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # O protótipo do ciclo do dado é um app Next.js com export estático.
+      # É a CI que o compila: assim a fonte continua sendo a única verdade
+      # e nenhum artefato de build precisa viver no repositório.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: atlas-site/package-lock.json
+
+      - name: Build /v2
+        working-directory: atlas-site
+        run: |
+          npm ci
+          npm run build
+
       - name: Assemble site
         run: |
           mkdir -p /tmp/site/media
           cp index.html insight.html atlas.html robots.txt sitemap.xml llms.txt favicon.svg favicon.ico favicon-32.png apple-touch-icon.png /tmp/site/
           cp -r media/. /tmp/site/media/
+          # O protótipo vive em /v2, ao lado do site atual, que não muda.
+          mkdir -p /tmp/site/v2
+          cp -r atlas-site/out/. /tmp/site/v2/
           # O arquivo CNAME é adicionado ao gh-pages apenas quando o DNS do
           # domínio estiver apontado (ele define o custom domain no Pages).
           if [ -f .publish-cname ]; then cp CNAME /tmp/site/CNAME; fi
