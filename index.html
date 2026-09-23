@@ -695,24 +695,6 @@
   .tech-row dt { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
   .tech-row dd { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.95rem; }
 
-  /* ---------- Data Visualization: antes / depois ---------- */
-  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.4rem; }
-  .ba-card { border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem; background: var(--panel); }
-  .ba-tag { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; }
-  .ba-card.after .ba-tag { color: var(--accent-light); }
-  .mock { display: grid; gap: 0.4rem; }
-  .mock-row { display: grid; gap: 0.4rem; }
-  .mock-box { border: 1px solid var(--line-soft); border-radius: 6px; height: 3rem; background: rgba(244,243,239,0.03); position: relative; overflow: hidden; }
-  .mock-box.tall { height: 6.4rem; }
-  .mock-bars { position: absolute; inset: auto 8% 12% 8%; display: flex; align-items: flex-end; gap: 6%; height: 62%; }
-  .mock-bars i { flex: 1; background: var(--accent); opacity: 0.5; border-radius: 1px; }
-  .ba-card.before .mock-bars i:nth-child(odd) { background: #7B9FDB; }
-  .ba-card.before .mock-bars i:nth-child(3n) { background: var(--accent-light); }
-  .ba-card.after .mock-bars i { opacity: 0.25; }
-  .ba-card.after .mock-bars i:nth-child(4) { opacity: 1; }
-  .mock-kpi { position: absolute; left: 8%; top: 14%; font-family: var(--mono); font-size: 0.66rem; color: var(--muted); }
-  .ba-card.after .mock-kpi { color: var(--ink); font-size: 0.9rem; }
-  .ba-note { margin-top: 1rem; font-size: 0.88rem; color: var(--muted); }
   .illus-note { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
 
   /* ---------- Metodologia ---------- */
@@ -783,7 +765,6 @@
   @media (max-width: 780px) {
     .sols { grid-template-columns: 1fr; }
     .arc { grid-template-columns: 1fr; }
-    .ba { grid-template-columns: 1fr; }
     .pillars, .pillars.four { grid-template-columns: 1fr; }
     .flow-arrow { display: none; }
     /* Sem hover no toque: o detalhe da solução fica aberto. */
@@ -846,6 +827,60 @@
     .fam-grid, .fam-grid.two { grid-template-columns: 1fr; }
     .fam-head { grid-template-columns: 1fr; gap: 0.35rem; }
     .fam-d { grid-column: 1; }
+  }
+
+  /* ---------- Painel executivo de exemplo ---------- */
+  /* Um painel só, bem resolvido, em vez de um comparativo. A hierarquia
+     é o assunto: um número principal, um gráfico com um único destaque e
+     o apoio embaixo — nada disputando atenção. */
+  .dash {
+    border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+    background: linear-gradient(180deg, rgba(18,26,36,0.9), rgba(13,17,23,0.9));
+    margin-top: 2.4rem;
+  }
+  .dash-bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1rem 1.4rem; border-bottom: 1px solid var(--line);
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .dash-bar b { color: var(--ink); font-weight: 500; }
+  .dash-bar span { color: var(--dim); }
+  .dash-body { display: grid; grid-template-columns: 17.5rem 1fr; }
+  .dash-side { padding: 1.6rem 1.4rem; border-right: 1px solid var(--line); display: grid; gap: 1.5rem; align-content: start; }
+  .dash-main { padding: 1.6rem 1.6rem 1.3rem; }
+
+  .kpi-k { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+  .kpi-v { font-family: var(--display); font-weight: 800; letter-spacing: -0.035em; line-height: 1; font-size: clamp(1.7rem, 2.9vw, 2.2rem); margin-top: 0.4rem; white-space: nowrap; }
+  .kpi-delta { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.5rem; font-family: var(--mono); font-size: 0.72rem; color: var(--accent-light); }
+  .kpi-sub { font-family: var(--mono); font-size: 0.68rem; color: var(--dim); margin-top: 0.15rem; }
+  .kpi-mini { display: grid; gap: 0.25rem; }
+  .kpi-mini b { font-family: var(--display); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+
+  .dash-title { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+  .chart { display: flex; align-items: flex-end; gap: 0.55rem; height: 9.5rem; margin: 1.1rem 0 0.5rem; }
+  .chart div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
+  .chart i {
+    display: block; width: 100%; border-radius: 2px 2px 0 0;
+    background: rgba(46,134,255,0.22); transition: background 0.4s var(--ease);
+  }
+  .chart div.hi i { background: var(--accent); box-shadow: 0 0 22px rgba(46,134,255,0.45); }
+  .chart-x { display: flex; gap: 0.55rem; font-family: var(--mono); font-size: 0.6rem; color: var(--dim); }
+  .chart-x span { flex: 1; text-align: center; }
+  .chart-x span.hi { color: var(--accent-light); }
+
+  .dash-note {
+    display: flex; align-items: center; gap: 0.5rem; margin-top: 1.1rem; padding-top: 1rem;
+    border-top: 1px solid var(--line-soft); font-size: 0.88rem; color: var(--muted);
+  }
+  .dash-note b { color: var(--ink); font-weight: 600; }
+  .dash-note::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; }
+
+  @media (max-width: 780px) {
+    .dash-body { grid-template-columns: 1fr; }
+    .dash-side { border-right: none; border-bottom: 1px solid var(--line); grid-template-columns: repeat(2, 1fr); }
+    .dash-side > :first-child { grid-column: 1 / -1; }
+    .chart { height: 7rem; }
+    .chart-x { font-size: 0.52rem; }
   }
 
 </style>
@@ -914,45 +949,44 @@
     </div>
   </section>
 
-  <!-- ================= O PROBLEMA ================= -->
+  <!-- ================= COMO AJUDAMOS ================= -->
   <section class="sec" id="problema">
     <div class="wrap">
       <div class="sec-lead">
-        <span class="eyebrow reveal">O problema</span>
-        <h2 class="h-xl reveal d1">Complexidade não deveria impedir crescimento.</h2>
+        <span class="eyebrow reveal">Como ajudamos</span>
+        <h2 class="h-xl reveal d1">Estrutura para decidir com o dado que você já tem.</h2>
         <p class="sub reveal d2">
-          Dados espalhados, sistemas desconectados, decisões no escuro. A maioria
-          das empresas não tem falta de dados — tem falta de estrutura para
-          transformá-los em decisão.
+          A Atlas conecta as fontes, constrói a base confiável e entrega o
+          indicador a quem decide. Da arquitetura à decisão, em produção.
         </p>
       </div>
 
       <div class="prob-grid reveal d2">
-        <div class="prob">Dados espalhados</div>
-        <div class="prob">Sistemas desconectados</div>
-        <div class="prob">Dashboards pouco utilizados</div>
-        <div class="prob">Processos manuais</div>
-        <div class="prob">Decisões sem dados</div>
-        <div class="prob">Excesso de informação</div>
-        <div class="prob">Baixa previsibilidade</div>
-        <div class="prob">BI sem governança</div>
+        <div class="prob">Integração de fontes</div>
+        <div class="prob">Base única e confiável</div>
+        <div class="prob">Indicadores executivos</div>
+        <div class="prob">Governança de dados</div>
+        <div class="prob">Autonomia para as áreas</div>
+        <div class="prob">Arquitetura em nuvem</div>
+        <div class="prob">Modelos preditivos</div>
+        <div class="prob">Processos automatizados</div>
       </div>
 
       <div class="arc reveal d3" data-arc>
         <div class="arc-step">
-          <p class="arc-k">Hoje</p>
-          <p class="arc-t">Caos</p>
-          <p class="arc-d">Cada sistema com sua verdade. Nenhuma pergunta do negócio tem uma resposta só.</p>
+          <p class="arc-k">01 · Conectamos</p>
+          <p class="arc-t">As fontes</p>
+          <p class="arc-d">Trazemos para um só lugar o que hoje vive em sistemas diferentes — ERP, CRM, APIs, aplicações e arquivos.</p>
         </div>
         <div class="arc-step">
-          <p class="arc-k">O trabalho</p>
-          <p class="arc-t">Inteligência</p>
-          <p class="arc-d">Arquitetura, engenharia e governança transformam registro disperso em base confiável.</p>
+          <p class="arc-k">02 · Organizamos</p>
+          <p class="arc-t">A base</p>
+          <p class="arc-d">Padrão, histórico e governança: cada número passa a ter uma definição só e um endereço conhecido.</p>
         </div>
         <div class="arc-step">
-          <p class="arc-k">O resultado</p>
-          <p class="arc-t">Decisão</p>
-          <p class="arc-d">O indicador chega a quem decide, no tempo em que a decisão ainda importa.</p>
+          <p class="arc-k">03 · Entregamos</p>
+          <p class="arc-t">A decisão</p>
+          <p class="arc-d">O indicador chega a quem decide, no tempo em que a decisão ainda importa — e a ação vira dado novo.</p>
         </div>
       </div>
     </div>
@@ -1298,44 +1332,69 @@
         <h2 class="h-xl reveal d1">Dados também precisam ser compreendidos.</h2>
         <p class="sub reveal d2">
           Dashboard não é decoração. Criamos experiências de dados que ajudam
-          pessoas a entender e decidir — hierarquia antes de enfeite.
+          pessoas a entender e decidir: um número principal, um destaque por
+          pergunta e o apoio embaixo — hierarquia antes de enfeite.
         </p>
       </div>
 
-      <div class="ba reveal d2">
-        <div class="ba-card before">
-          <p class="ba-tag">Antes</p>
-          <div class="mock" aria-hidden="true">
-            <div class="mock-row" style="grid-template-columns:1fr 1fr 1fr">
-              <div class="mock-box"><span class="mock-kpi">R$ 1.204.881</span></div>
-              <div class="mock-box"><span class="mock-kpi">12,4%</span></div>
-              <div class="mock-box"><span class="mock-kpi">8.221</span></div>
-            </div>
-            <div class="mock-row" style="grid-template-columns:1fr 1fr">
-              <div class="mock-box tall"><div class="mock-bars"><i style="height:40%"></i><i style="height:72%"></i><i style="height:55%"></i><i style="height:88%"></i><i style="height:33%"></i><i style="height:64%"></i><i style="height:49%"></i><i style="height:77%"></i></div></div>
-              <div class="mock-box tall"><div class="mock-bars"><i style="height:62%"></i><i style="height:35%"></i><i style="height:81%"></i><i style="height:47%"></i><i style="height:69%"></i><i style="height:52%"></i></div></div>
-            </div>
-            <div class="mock-row" style="grid-template-columns:1fr 1fr 1fr 1fr">
-              <div class="mock-box"></div><div class="mock-box"></div><div class="mock-box"></div><div class="mock-box"></div>
-            </div>
-          </div>
-          <p class="ba-note">Muitos gráficos, cores aleatórias, nenhuma hierarquia. Tudo tem o mesmo peso — então nada tem peso.</p>
+      <div class="dash reveal d2">
+        <div class="dash-bar">
+          <b>Receita · visão executiva</b>
+          <span>Últimos 12 meses</span>
         </div>
-
-        <div class="ba-card after">
-          <p class="ba-tag">Depois</p>
-          <div class="mock" aria-hidden="true">
-            <div class="mock-row">
-              <div class="mock-box"><span class="mock-kpi">Receita · abaixo da meta em 3 regiões</span></div>
+        <div class="dash-body">
+          <div class="dash-side">
+            <div>
+              <p class="kpi-k">Receita no período</p>
+              <p class="kpi-v">R$ 4,82 Mi</p>
+              <p class="kpi-delta">↑ 6,4% vs. período anterior</p>
+              <p class="kpi-sub">Meta do período: R$ 4,60 Mi</p>
             </div>
-            <div class="mock-row">
-              <div class="mock-box tall"><div class="mock-bars"><i style="height:40%"></i><i style="height:52%"></i><i style="height:46%"></i><i style="height:88%"></i><i style="height:44%"></i><i style="height:50%"></i><i style="height:43%"></i><i style="height:47%"></i></div></div>
+            <div class="kpi-mini">
+              <p class="kpi-k">Margem</p>
+              <b>31,2%</b>
             </div>
-            <div class="mock-row" style="grid-template-columns:1fr 1fr">
-              <div class="mock-box"></div><div class="mock-box"></div>
+            <div class="kpi-mini">
+              <p class="kpi-k">Ticket médio</p>
+              <b>R$ 318</b>
+            </div>
+            <div class="kpi-mini">
+              <p class="kpi-k">Canal digital</p>
+              <b>42%</b>
             </div>
           </div>
-          <p class="ba-note">Uma pergunta por tela, um destaque por pergunta. O desvio salta antes de alguém procurar por ele.</p>
+          <div class="dash-main">
+            <p class="dash-title">Receita por mês</p>
+            <div class="chart" aria-hidden="true">
+            <div><i style="height:52%"></i></div>
+            <div><i style="height:58%"></i></div>
+            <div><i style="height:49%"></i></div>
+            <div><i style="height:63%"></i></div>
+            <div><i style="height:57%"></i></div>
+            <div><i style="height:68%"></i></div>
+            <div><i style="height:61%"></i></div>
+            <div><i style="height:72%"></i></div>
+            <div><i style="height:66%"></i></div>
+            <div><i style="height:78%"></i></div>
+            <div><i style="height:71%"></i></div>
+            <div class="hi"><i style="height:92%"></i></div>
+            </div>
+            <div class="chart-x" aria-hidden="true">
+            <span>Jan</span>
+            <span>Fev</span>
+            <span>Mar</span>
+            <span>Abr</span>
+            <span>Mai</span>
+            <span>Jun</span>
+            <span>Jul</span>
+            <span>Ago</span>
+            <span>Set</span>
+            <span>Out</span>
+            <span>Nov</span>
+            <span class="hi">Dez</span>
+            </div>
+            <p class="dash-note"><b>Dezembro</b> é o maior mês do período e puxa o resultado acima da meta.</p>
+          </div>
         </div>
       </div>
       <p class="illus-note">Ilustração do método — não representa dados ou resultado de cliente.</p>
