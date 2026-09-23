@@ -570,9 +570,24 @@
     .problems-grid { grid-template-columns: 1fr; }
     .case-mini-grid { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 780px) {
+  /* Entre a marca, sete links, o Instagram e o CTA, o nav completo só
+     cabe em tela larga. Abaixo disso ele virava uma colisão: a marca e o
+     primeiro link ocupavam a mesma coordenada. O menu assume a partir
+     daqui — inclui tablet e notebook pequeno, onde não cabia mesmo. */
+  @media (max-width: 1180px) {
     .nav-links { display: none; }
     .nav-burger { display: inline-flex; }
+  }
+
+  /* Na faixa logo acima do menu o nav cabe, mas justo: menos respiro
+     entre os links e um CTA um pouco menor evitam o aperto. */
+  @media (min-width: 1181px) and (max-width: 1400px) {
+    .nav-links { gap: 1.15rem; }
+    .nav-links a:not(.btn) { font-size: 0.86rem; }
+    .nav-links .btn { padding: 0.6rem 1rem; font-size: 0.84rem; }
+  }
+
+  @media (max-width: 780px) {
     .sec { padding: 4rem 0; }
     .sol-head { grid-template-columns: 2.6rem 1fr auto; gap: 0.8rem; }
     .sol-body-inner { grid-template-columns: 1fr; padding-left: 0; gap: 1rem; }
