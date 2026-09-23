@@ -734,6 +734,7 @@
 
   /* ---------- Diferenciais ---------- */
   .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.6rem; }
+  .pillars.four { grid-template-columns: repeat(4, 1fr); }
   .pillar { border: 1px solid var(--line); border-radius: 14px; padding: 1.5rem; background: var(--panel); transition: border-color 0.4s var(--ease), transform 0.4s var(--ease); }
   .pillar:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
   .pillar-k { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; color: var(--accent); }
@@ -776,14 +777,14 @@
   @media (max-width: 1080px) {
     .prob-grid { grid-template-columns: repeat(2, 1fr); }
     .orbit-wrap { grid-template-columns: 1fr; gap: 1.8rem; }
-    .pillars { grid-template-columns: repeat(2, 1fr); }
+    .pillars, .pillars.four { grid-template-columns: repeat(2, 1fr); }
     .nums { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 780px) {
     .sols { grid-template-columns: 1fr; }
     .arc { grid-template-columns: 1fr; }
     .ba { grid-template-columns: 1fr; }
-    .pillars { grid-template-columns: 1fr; }
+    .pillars, .pillars.four { grid-template-columns: 1fr; }
     .flow-arrow { display: none; }
     /* Sem hover no toque: o detalhe da solução fica aberto. */
     .sol-more { grid-template-rows: 1fr; }
@@ -1466,7 +1467,7 @@
           problema, nunca o contrário.
         </p>
       </div>
-      <div class="pillars reveal d3" style="margin-top:2.2rem">
+      <div class="pillars four reveal d3" style="margin-top:2.2rem">
         <div class="pillar"><h3>Clareza</h3><p>acima de complexidade</p></div>
         <div class="pillar"><h3>Resultado</h3><p>acima de entregável</p></div>
         <div class="pillar"><h3>Profundidade</h3><p>acima de buzzword</p></div>
@@ -2173,11 +2174,13 @@
   var tlSteps = tl ? [].slice.call(tl.querySelectorAll('.tl-step')) : [];
 
   function seq(nodes) {
-    // Acende em ordem conforme o bloco sobe pela tela: o olho segue a
-    // sequência em vez de receber tudo de uma vez.
-    nodes.forEach(function (n) {
+    // Acende em ordem conforme o bloco sobe pela tela. Como os passos
+    // ficam lado a lado, o limiar é escalonado por posição — sem isso
+    // todos cruzariam a mesma linha no mesmo quadro e acenderiam juntos.
+    nodes.forEach(function (n, i) {
       var r = n.getBoundingClientRect();
-      n.classList.toggle('on', r.top < window.innerHeight * 0.82 && r.bottom > 0);
+      var line = window.innerHeight * (0.86 - i * 0.045);
+      n.classList.toggle('on', r.top < line && r.bottom > 0);
     });
   }
 
