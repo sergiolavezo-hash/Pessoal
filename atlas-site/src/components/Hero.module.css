@@ -1,99 +1,17 @@
-.hero {
-  position: relative;
-  z-index: 10;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  padding: 7rem var(--gutter) 5rem;
-}
-
-.inner { width: 100%; max-width: 1220px; margin: 0 auto; }
-.col { max-width: 40rem; }
-
-/* O sinal. É o primeiro elemento da narrativa: um dado existindo. */
-.signal {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin-bottom: 2rem;
-  font-family: var(--font-mono), monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.signal i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 14px 2px rgba(46, 134, 255, 0.75);
-  animation: pulse 2.4s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 0.45; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.45); }
-}
+.col { max-width: 46rem; }
 
 .headline {
   font-family: var(--font-display), sans-serif;
   font-weight: 800;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.04em;
   line-height: 1.02;
   text-wrap: balance;
-  font-size: clamp(2.6rem, 7.2vw, 5.4rem);
+  font-size: clamp(2.3rem, 6vw, 4.4rem);
 }
-.headline em { font-style: normal; color: var(--accent); }
 
 .sub {
-  margin-top: 1.5rem;
-  font-family: var(--font-mono), monospace;
-  font-size: clamp(0.72rem, 1.5vw, 0.86rem);
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
+  margin-top: 1.6rem;
+  max-width: 36rem;
   color: var(--muted);
+  font-size: clamp(1.02rem, 1.7vw, 1.2rem);
 }
-
-.lede {
-  margin-top: 1.4rem;
-  max-width: 34rem;
-  color: var(--muted);
-  font-size: clamp(1rem, 1.6vw, 1.12rem);
-}
-
-.ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2.6rem; }
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.95rem 1.5rem;
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  color: var(--ink);
-  text-decoration: none;
-  font-family: var(--font-mono), monospace;
-  font-size: 0.74rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  transition: border-color 0.25s, color 0.25s, background 0.25s;
-}
-.btn:hover { border-color: var(--accent); color: var(--accent-light); }
-
-.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.primary:hover { background: var(--accent-light); border-color: var(--accent-light); color: #04101f; }
-
-.cue {
-  position: absolute;
-  bottom: 2rem;
-  left: var(--gutter);
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-mono), monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--dim);
-}
-.cue i { width: 1px; height: 26px; background: linear-gradient(var(--accent), transparent); }

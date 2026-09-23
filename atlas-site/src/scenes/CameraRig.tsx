@@ -3,13 +3,14 @@
 /**
  * Coreografia de câmera.
  *
- * Um plano por capítulo. A câmera nunca corta — ela interpola entre os
- * planos conforme a fase, então o usuário percebe que atravessou um
- * mesmo espaço em vez de trocar de tela.
+ * Um plano por seção. A câmera nunca corta — ela interpola entre os
+ * planos conforme a fase, então o visitante percebe que atravessou um
+ * mesmo território em vez de trocar de tela.
  *
- * No protótipo a câmera só mudava de distância. Aqui ela recua para
- * revelar o território (origem), contorna o anel de fontes (captura) e
- * finalmente ENTRA no corredor (pipeline) — o movimento conta a história.
+ * Cada plano muda posição E ângulo de forma perceptível: na Fase 01 o
+ * desktop guardava quase todo o movimento para o fim, e a página parecia
+ * parada enquanto o usuário rolava. Aqui o deslocamento está distribuído
+ * — cada tela devolve movimento ao scroll.
  */
 import { useEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -24,33 +25,44 @@ interface Shot {
   lookAt: [number, number, number];
 }
 
-/** Índice = fase. Um plano por capítulo da Fase 01. */
+/** Índice = fase. Um plano por seção da página. */
 const SHOTS: Shot[] = [
-  { position: [0, 0, 6.2], lookAt: [0, 0, 0] },      // 00 sinal — perto, silêncio
-  { position: [0, 0.6, 13.5], lookAt: [0, 0, 0] },   // 01 origem — recua, revela
-  { position: [3.4, 1.2, 11.2], lookAt: [0, 0, 0] }, // 02 captura — contorna o anel inteiro
-  { position: [-9.5, 2.6, 8.2], lookAt: [0, 0, 0] }, // 03 pipeline — 3/4, os três portais em fila
+  { position: [0, 2.6, 12.5], lookAt: [0, -0.4, 0] },   // 00 hero — o território inteiro, de cima
+  { position: [-6.2, 1.4, 9.0], lookAt: [0, -0.2, 0] }, // 01 serviços — desliza para o lado
+  { position: [0.6, 0.9, 9.4], lookAt: [0, 0, 0] },     // 02 capture — de frente, o anel de fontes
+  { position: [6.4, 2.2, 7.6], lookAt: [0, 0, 0] },     // 03 organize — de lado: as camadas se separam
+  { position: [0, 0.6, 9.2], lookAt: [0, 0.2, 0] },     // 04 understand — de frente, o perfil se lê
+  { position: [-3.8, 1.2, 8.4], lookAt: [0.8, 0.4, 0] },// 05 intelligence — ângulo: a projeção ganha profundidade
+  { position: [0, 0, 7.2], lookAt: [0, 0, 0] },         // 06 decide — fecha no ponto
+  { position: [0, 3.4, 14.0], lookAt: [0, -0.6, 0] },   // 07 o ciclo — recua e mostra o mapa todo
+  { position: [-5.0, 2.0, 13.0], lookAt: [0, -0.4, 0] },// 08 cases
+  { position: [4.4, 1.6, 12.4], lookAt: [0, -0.3, 0] }, // 09 tecnologia
+  { position: [0, 1.0, 11.0], lookAt: [0, -0.2, 0] },   // 10 contato
 ];
 
 /**
- * Retrato tem outra caixa: mais alto do que largo, e o texto ocupa a
- * largura inteira. Os três primeiros planos são os mesmos, recuados para
- * caberem. O quarto é outro: no retrato o corredor está em pé, e a câmera
- * o observa de cima, como quem olha um poço — a progressão vira
- * profundidade em vez de largura.
+ * Retrato: o texto ocupa a largura inteira e a caixa é alta. Os planos
+ * recuam e sobem, e a câmera olha um pouco acima do centro para que o
+ * território fique na faixa livre abaixo do texto.
  */
 const PORTRAIT_SHOTS: Shot[] = [
-  { position: [0, 0, 9.6], lookAt: [0, 0, 0] },       // 00 sinal
-  { position: [0, 0.9, 20.9], lookAt: [0, 0, 0] },    // 01 origem
-  { position: [5.3, 1.9, 17.4], lookAt: [0, 0, 0] },  // 02 captura
-  { position: [2.2, 10.5, 12.0], lookAt: [0, 4.6, 0] }, // 03 pipeline — o poço, visto de cima
+  { position: [0, 3.0, 13.5], lookAt: [0, 1.6, 0] },
+  { position: [-2.6, 2.2, 11.5], lookAt: [0, 1.8, 0] },
+  { position: [0.4, 1.6, 11.2], lookAt: [0, 1.9, 0] },
+  { position: [3.6, 2.6, 9.6], lookAt: [0, 1.7, 0] },
+  { position: [0, 1.2, 11.0], lookAt: [0, 2.0, 0] },
+  { position: [-2.2, 1.8, 10.4], lookAt: [0.4, 2.0, 0] },
+  { position: [0, 0.8, 9.0], lookAt: [0, 1.8, 0] },
+  { position: [0, 3.6, 15.0], lookAt: [0, 1.4, 0] },
+  { position: [-2.8, 2.4, 14.0], lookAt: [0, 1.5, 0] },
+  { position: [2.4, 2.0, 13.4], lookAt: [0, 1.5, 0] },
+  { position: [0, 1.4, 12.0], lookAt: [0, 1.6, 0] },
 ];
 
 /**
- * No desktop a coluna editorial ocupa a esquerda da tela. Deslocar a
- * janela de projeção empurra o mundo 3D para a direita, então nada
- * atravessa o texto — sem mexer na posição da câmera, que é da narrativa.
- * No mobile o texto cobre a largura toda e o deslocamento é zerado.
+ * No desktop a coluna editorial ocupa a esquerda. Deslocar a janela de
+ * projeção empurra o território para a direita, então nada atravessa o
+ * texto — sem mexer na posição da câmera, que é da narrativa.
  */
 const FRAME_SHIFT = 0.13;
 
@@ -105,7 +117,7 @@ export default function CameraRig() {
     sampleShot(state.current.phase, portrait ? PORTRAIT_SHOTS : SHOTS, scratch.current);
 
     // Paralaxe de ponteiro só onde faz sentido (não em toque, não em
-    // reduced-motion) e sempre discreta: informa profundidade, não chama atenção.
+    // reduced-motion) e sempre discreta: informa profundidade.
     const allowParallax = quality === 'high' || quality === 'medium';
     if (allowParallax && !portrait) {
       pointer.current.x += (p.x - pointer.current.x) * 0.05;
@@ -113,8 +125,8 @@ export default function CameraRig() {
     }
 
     camera.position.set(
-      scratch.current.pos.x + pointer.current.x * 0.55,
-      scratch.current.pos.y - pointer.current.y * 0.35,
+      scratch.current.pos.x + pointer.current.x * 0.5,
+      scratch.current.pos.y - pointer.current.y * 0.32,
       scratch.current.pos.z
     );
     camera.lookAt(scratch.current.look);

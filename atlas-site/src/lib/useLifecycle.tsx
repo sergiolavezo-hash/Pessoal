@@ -12,13 +12,13 @@ import {
   createContext, useContext, useEffect, useMemo, useRef, useState,
   type ReactNode, type RefObject,
 } from 'react';
-import { CHAPTERS, createLifecycle, type LifecycleState } from './lifecycle';
+import { SECTIONS, createLifecycle, type LifecycleState } from './lifecycle';
 import { detectCapability, type Capability } from './quality';
 import type { QualityLevel } from './tokens';
 
 interface LifecycleContextValue {
   state: RefObject<LifecycleState>;
-  /** Índice do capítulo ativo — muda raramente, seguro para render. */
+  /** Índice da seção ativa — muda raramente, seguro para render. */
   activeIndex: number;
   capability: Capability | null;
   quality: QualityLevel;
@@ -47,12 +47,12 @@ export function LifecycleProvider({ children }: { children: ReactNode }) {
     let raf = 0;
 
     const measure = () => {
-      const marks = Array.from(document.querySelectorAll<HTMLElement>('[data-chapter-index]'));
+      const marks = Array.from(document.querySelectorAll<HTMLElement>('[data-section-index]'));
       if (!marks.length) return;
 
-      // A âncora de cada capítulo é o CENTRO da seção, não o topo: assim a
-      // fase vale exatamente N quando o capítulo N está enquadrado — e vale
-      // 0 no carregamento, com o hero mostrando um sinal só.
+      // A âncora de cada seção é o seu CENTRO, não o topo: assim a fase
+      // vale exatamente N quando a seção N está enquadrada — e vale 0 no
+      // carregamento, com o hero inteiro na tela.
       const centers = marks.map((m) => m.offsetTop + m.offsetHeight / 2);
       const y = window.scrollY + window.innerHeight / 2;
 
@@ -116,7 +116,7 @@ export function useLifecycle(): LifecycleContextValue {
   return ctx;
 }
 
-export function useActiveChapter() {
+export function useActiveSection() {
   const { activeIndex } = useLifecycle();
-  return CHAPTERS[activeIndex] ?? CHAPTERS[0];
+  return SECTIONS[activeIndex] ?? SECTIONS[0];
 }

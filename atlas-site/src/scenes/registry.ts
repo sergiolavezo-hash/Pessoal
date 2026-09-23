@@ -1,53 +1,61 @@
 /**
- * ATLAS — DATA, MAPPED · Registro de cenas (Fase 00, tipado)
+ * ATLAS — registro de cenas
  *
- * Uma cena não é uma tela: é uma região do espaço que a câmera atravessa.
- * Por isso nenhuma cena cria renderer, câmera ou loop — ela recebe o palco
- * (o <Canvas>) e contribui objetos.
+ * Uma cena não é uma tela: é uma região do território que a câmera
+ * atravessa. Por isso nenhuma cena cria renderer, câmera ou loop — ela
+ * recebe o palco (o <Canvas>) e contribui objetos.
  *
- * O carregamento é dinâmico: o capítulo só baixa quando a câmera se
- * aproxima dele. É isto que impede o custo de crescer com os dez capítulos.
+ * O carregamento é dinâmico: a seção só baixa quando a câmera se
+ * aproxima dela. É isto que impede o custo de crescer com a página.
  */
 import { lazy, type LazyExoticComponent, type ComponentType } from 'react';
-import type { ChapterId } from '../lib/lifecycle';
+import { SECTIONS, type SectionId } from '../lib/lifecycle';
 
 export interface SceneEntry {
-  /** Capítulo ao qual a cena pertence. */
-  chapter: ChapterId;
+  /** Identidade da cena — duas cenas podem ancorar na mesma seção. */
+  id: string;
+  /** Seção à qual a cena pertence. */
+  chapter: SectionId;
   Component: LazyExoticComponent<ComponentType>;
-  /** A quantos capítulos de distância a cena já deve estar carregada. */
+  /** A quantas seções de distância a cena já deve estar carregada. */
   preloadRadius: number;
 }
 
-/**
- * FASE 01 — apenas os capítulos autorizados.
- * Os demais entram nas fases seguintes, sem alterar este contrato.
- */
 export const SCENES: SceneEntry[] = [
   {
-    chapter: 'origin',
-    // Dono do campo de partículas: precisa existir desde o sinal inicial,
-    // porque é ele que mostra a primeira partícula do hero.
-    preloadRadius: 2,
+    id: 'field',
+    chapter: 'hero',
+    // O campo de partículas não é a cena de uma seção: é o protagonista
+    // da página inteira, e a MESMA partícula atravessa todos os
+    // territórios. Se desmontasse, as seções seguintes ficariam vazias.
+    preloadRadius: SECTIONS.length,
     Component: lazy(() => import('./DataField')),
   },
   {
-    chapter: 'capture',
-    preloadRadius: 1,
-    Component: lazy(() => import('./DataSources')),
+    id: 'territory',
+    chapter: 'hero',
+    // A carta também acompanha a página toda — é o chão do território.
+    preloadRadius: SECTIONS.length,
+    Component: lazy(() => import('./Territory')),
   },
   {
-    chapter: 'pipeline',
+    id: 'sources',
+    chapter: 'capture',
     preloadRadius: 1,
-    Component: lazy(() => import('./DataPipeline')),
+    Component: lazy(() => import('./Sources')),
+  },
+  {
+    id: 'decision',
+    chapter: 'decide',
+    preloadRadius: 1,
+    Component: lazy(() => import('./Decision')),
   },
 ];
 
-export const PHASE_INDEX: Record<ChapterId, number> = {
-  signal: 0, origin: 1, capture: 2, pipeline: 3,
-  memory: 4, transformation: 5, context: 6,
-  information: 7, intelligence: 8, decision: 9, action: 10,
-};
+export const PHASE_INDEX: Record<SectionId, number> = SECTIONS.reduce(
+  (acc, s, i) => { acc[s.id] = i; return acc; },
+  {} as Record<SectionId, number>
+);
 
 /** Uma cena está em alcance quando a fase atual está dentro do seu raio. */
 export function isInRange(entry: SceneEntry, phase: number): boolean {

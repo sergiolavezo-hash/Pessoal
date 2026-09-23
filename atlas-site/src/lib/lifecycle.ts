@@ -1,59 +1,65 @@
 /**
- * ATLAS — DATA, MAPPED · Modelo de estado do ciclo (Fase 00, tipado)
+ * ATLAS — DATA, MAPPED · Modelo de estado do ciclo
  *
- * Um único eixo numérico descreve onde o dado está na narrativa. Câmera,
- * partículas e conteúdo são função desse número.
+ * Um único eixo numérico descreve onde o visitante está na página.
+ * Câmera, partículas e conteúdo são função desse número.
  *
  * Contínuo, não discreto: o scroll para no meio do caminho, e estados
- * discretos não interpolam.
+ * discretos não interpolam. O modelo (phase, stepPhase, weightOf) é o
+ * mesmo desde a Fase 00 — o que mudou na 01.5 foi a LISTA de seções,
+ * porque a página deixou de ser uma narrativa de dez capítulos e passou
+ * a ser um argumento comercial com cinco territórios dentro dele.
  */
 
-export interface Chapter {
-  id: ChapterId;
-  /** Número exibido no ciclo. O sinal inicial não tem número. */
-  n: number | null;
+export type SectionId =
+  | 'hero' | 'services'
+  | 'capture' | 'organize' | 'understand' | 'intelligence' | 'decide'
+  | 'cycle' | 'cases' | 'technology' | 'contact';
+
+export interface Section {
+  id: SectionId;
   label: string;
-  headline: string;
+  /** Territórios do ciclo têm cena 3D própria; o resto é fundo calmo. */
+  territory: boolean;
 }
 
-export type ChapterId =
-  | 'signal' | 'origin' | 'capture' | 'pipeline'
-  | 'memory' | 'transformation' | 'context'
-  | 'information' | 'intelligence' | 'decision' | 'action';
-
-/** Os dez capítulos do ciclo. A ordem é o contrato.
- *  FASE 01 implementa apenas os quatro primeiros. */
-export const CHAPTERS: Chapter[] = [
-  { id: 'signal', n: null, label: 'Sinal', headline: 'Dados, mapeados.' },
-  { id: 'origin', n: 1, label: 'Origem', headline: 'Tudo começa com um sinal.' },
-  { id: 'capture', n: 2, label: 'Captura', headline: 'O dado está em todo lugar.' },
-  { id: 'pipeline', n: 3, label: 'Pipeline', headline: 'O dado precisa de um caminho.' },
-  { id: 'memory', n: 4, label: 'Memória', headline: 'O dado precisa de memória.' },
-  { id: 'transformation', n: 5, label: 'Transformação', headline: 'Dado bruto não é valor.' },
-  { id: 'context', n: 6, label: 'Contexto', headline: 'O dado precisa de significado.' },
-  { id: 'information', n: 7, label: 'Informação', headline: 'O dado vira informação.' },
-  { id: 'intelligence', n: 8, label: 'Inteligência', headline: 'Padrões viram inteligência.' },
-  { id: 'decision', n: 9, label: 'Decisão', headline: 'O dado vira decisão.' },
-  { id: 'action', n: 10, label: 'Ação', headline: 'Decisões criam novos dados.' },
+/**
+ * A ordem é o contrato: ela é a ordem no DOM e o eixo do scroll.
+ * O visitante encontra o que a Atlas vende (serviços) na segunda tela,
+ * e cada território depois disso entra pela porta do problema dele.
+ */
+export const SECTIONS: Section[] = [
+  { id: 'hero', label: 'Início', territory: false },
+  { id: 'services', label: 'Serviços', territory: false },
+  { id: 'capture', label: 'Capture', territory: true },
+  { id: 'organize', label: 'Organize', territory: true },
+  { id: 'understand', label: 'Understand', territory: true },
+  { id: 'intelligence', label: 'Intelligence', territory: true },
+  { id: 'decide', label: 'Decide', territory: true },
+  { id: 'cycle', label: 'O ciclo', territory: false },
+  { id: 'cases', label: 'Cases', territory: false },
+  { id: 'technology', label: 'Tecnologia', territory: false },
+  { id: 'contact', label: 'Contato', territory: false },
 ];
 
-/** Capítulos com cena construída nesta fase. */
-export const PHASE_01_CHAPTERS: ChapterId[] = ['signal', 'origin', 'capture', 'pipeline'];
-
-export const PHASE: Record<string, number> = CHAPTERS.reduce(
-  (acc, c, i) => { acc[c.id] = i; return acc; },
+export const PHASE: Record<string, number> = SECTIONS.reduce(
+  (acc, s, i) => { acc[s.id] = i; return acc; },
   {} as Record<string, number>
 );
+
+/** Índice da primeira e da última tela do ciclo — a câmera viaja aqui. */
+export const FIRST_TERRITORY = PHASE.capture;
+export const LAST_TERRITORY = PHASE.decide;
 
 /**
  * Estado por referência mutável, não por state do React.
  *
  * Motivo: a fase muda a cada quadro. Guardá-la em useState re-renderizaria
- * a árvore 60×/s. O que precisa re-renderizar (o rótulo do capítulo) é
- * derivado e publicado só quando o capítulo inteiro muda.
+ * a árvore 60×/s. O que precisa re-renderizar (a seção ativa) é derivado
+ * e publicado só quando a seção inteira muda.
  */
 export interface LifecycleState {
-  /** Posição contínua no ciclo (0 … CHAPTERS.length-1). */
+  /** Posição contínua na página (0 … SECTIONS.length-1). */
   phase: number;
   /** Para onde o scroll aponta; `phase` persegue este valor. */
   target: number;
@@ -71,11 +77,11 @@ export function stepPhase(state: LifecycleState, damping: number): void {
 }
 
 /**
- * Peso de um capítulo na fase atual: 1 no centro, 0 a um capítulo de
+ * Peso de uma seção na fase atual: 1 no centro, 0 a uma seção de
  * distância. É assim que cada cena decide quanto de si mostrar, sem
  * precisar conhecer as outras.
  */
-export function weightOf(phase: number, id: ChapterId): number {
+export function weightOf(phase: number, id: SectionId): number {
   const i = PHASE[id];
   return i == null ? 0 : Math.max(0, 1 - Math.abs(phase - i));
 }

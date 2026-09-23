@@ -1,11 +1,11 @@
 'use client';
 
 /**
- * 01 / ORIGIN — o dado nasce.
+ * O campo de dados da Atlas.
  *
- * Campo de eventos dispersos pelo território. Esta cena é dona do campo de
- * partículas inteiro: as etapas seguintes não criam partículas novas, elas
- * movem estas mesmas. É o que faz a narrativa parecer contínua.
+ * Esta cena é dona do campo de partículas inteiro: os territórios
+ * seguintes não criam partículas novas, eles movem estas mesmas. É o que
+ * faz a página parecer um só lugar em vez de uma sequência de telas.
  */
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -15,7 +15,7 @@ import { useLifecycle } from '../lib/useLifecycle';
 import { budgetFor } from '../lib/quality';
 
 export default function DataField() {
-  const { state, quality } = useLifecycle();
+  const { state, quality, capability } = useLifecycle();
   const { size } = useThree();
   const points = useRef<THREE.Points>(null);
 
@@ -33,8 +33,12 @@ export default function DataField() {
   useFrame((_, delta) => {
     const u = field.material.uniforms;
     u.uPhase.value = state.current.phase;
-    // Em reduced-motion o tempo fica congelado: o campo existe, mas não pulsa.
-    if (quality !== 'low' && quality !== 'static') u.uTime.value += delta;
+    // Congelar o tempo é uma decisão sobre PREFERÊNCIA, não sobre GPU:
+    // quem pediu menos movimento não vê o campo respirar. Uma máquina
+    // lenta continua vendo — a respiração custa quase nada, e amarrá-la ao
+    // nível de qualidade fazia um rebaixamento momentâneo matar o
+    // movimento da página inteira, para sempre.
+    if (!capability?.reducedMotion && quality !== 'static') u.uTime.value += delta;
   });
 
   return <points ref={points} geometry={field.geometry} material={field.material} frustumCulled={false} />;

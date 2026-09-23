@@ -20,15 +20,15 @@ function SceneRouter() {
   const [live, setLive] = useState<string[]>([]);
 
   useFrame(() => {
-    const next = SCENES.filter((s) => isInRange(s, state.current.phase)).map((s) => s.chapter);
+    const next = SCENES.filter((s) => isInRange(s, state.current.phase)).map((s) => s.id);
     // Só publica quando o conjunto muda — isto roda a 60 fps.
     if (next.length !== live.length || next.some((c, i) => c !== live[i])) setLive(next);
   });
 
   return (
     <>
-      {SCENES.filter((s) => live.includes(s.chapter)).map(({ chapter, Component }) => (
-        <Suspense key={chapter} fallback={null}>
+      {SCENES.filter((s) => live.includes(s.id)).map(({ id, Component }) => (
+        <Suspense key={id} fallback={null}>
           <Component />
         </Suspense>
       ))}
