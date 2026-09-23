@@ -10,7 +10,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import type * as THREE from 'three';
-import { createParticleField } from './particles';
+import { createParticleField, PORTRAIT_BREAKPOINT } from './particles';
 import { useLifecycle } from '../lib/useLifecycle';
 import { budgetFor } from '../lib/quality';
 
@@ -27,6 +27,7 @@ export default function DataField() {
 
   useEffect(() => {
     field.material.uniforms.uScale.value = size.width < 720 ? 0.78 : 1;
+    field.material.uniforms.uPortrait.value = size.width < PORTRAIT_BREAKPOINT ? 1 : 0;
   }, [field, size.width]);
 
   useFrame((_, delta) => {

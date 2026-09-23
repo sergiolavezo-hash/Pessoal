@@ -14,11 +14,12 @@
  * muito menos tinta.
  */
 import { useEffect, useMemo, useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useLifecycle } from '../lib/useLifecycle';
 import { weightOf } from '../lib/lifecycle';
 import { color3d } from '../lib/tokens';
+import { PORTRAIT_BREAKPOINT, PORTRAIT_RING, PORTRAIT_SPAN } from './particles';
 
 /** Mesma curva de estreitamento usada no shader das partículas. */
 function squeezeAt(x: number): number {
@@ -29,7 +30,16 @@ const GATES = [-4.2, 0, 4.2];
 
 export default function DataPipeline() {
   const { state } = useLifecycle();
+  const { size } = useThree();
   const group = useRef<THREE.Group>(null);
+
+  // Girar o grupo inteiro põe os portais em pé no retrato sem mexer na
+  // ordem deles: a ingestão continua sendo a primeira que o dado encontra,
+  // agora no topo. O mesmo giro que o shader aplica ao corredor.
+  const portrait = size.width < PORTRAIT_BREAKPOINT;
+  const tilt = portrait ? -Math.PI / 2 : 0;
+  const span = portrait ? PORTRAIT_SPAN : 1;
+  const ring = portrait ? PORTRAIT_RING : 1;
 
   const { geometry, material } = useMemo(() => {
     // Anel achatado: lê como um portal visto de dentro do corredor.
@@ -50,7 +60,7 @@ export default function DataPipeline() {
   });
 
   return (
-    <group ref={group}>
+    <group ref={group} rotation={[0, 0, tilt]}>
       {GATES.map((x) => {
         const s = squeezeAt(x);
         return (
@@ -58,9 +68,9 @@ export default function DataPipeline() {
             key={x}
             geometry={geometry}
             material={material}
-            position={[x, 0, 0]}
+            position={[x * span, 0, 0]}
             rotation={[0, Math.PI / 2, 0]}
-            scale={[s * 1.35, s * 1.35, 1]}
+            scale={[s * 1.35 * ring, s * 1.35 * ring, 1]}
             frustumCulled={false}
           />
         );

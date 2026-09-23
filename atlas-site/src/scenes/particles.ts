@@ -26,6 +26,27 @@ export interface ParticleField {
 
 const SOURCE_COUNT = 8;
 
+/**
+ * Abaixo desta largura a tela é mais alta do que larga, e o corredor do
+ * pipeline passa a correr no eixo vertical — o único que sobra no retrato.
+ * Câmera, portais e partículas leem daqui para concordarem entre si.
+ */
+export const PORTRAIT_BREAKPOINT = 900;
+
+/**
+ * No retrato o corredor é mais curto: os três portais precisam caber
+ * juntos na faixa livre abaixo do texto, senão o do meio — justamente o
+ * que mostra o estreitamento — fica escondido atrás da manchete.
+ */
+export const PORTRAIT_SPAN = 0.45;
+
+/**
+ * E são mais estreitos: empilhados na vertical, portais do tamanho do
+ * desktop se sobreporiam — que foi exatamente o defeito que o plano em
+ * 3/4 corrigiu na tela larga.
+ */
+export const PORTRAIT_RING = 0.6;
+
 /** Anel de fontes: ERP · CRM · Database · API · App · Sensor · Arquivo · Stream */
 export function sourcePositions(): THREE.Vector3[] {
   return Array.from({ length: SOURCE_COUNT }, (_, s) => {
@@ -81,6 +102,7 @@ export function createParticleField(count: number): ParticleField {
       uPhase: { value: 0 },
       uTime: { value: 0 },
       uScale: { value: 1 },
+      uPortrait: { value: 0 },
       uAccent: { value: new THREE.Color(color3d.atlasBlue) },
       uLight: { value: new THREE.Color(color3d.atlasBlueLight) },
     },
@@ -92,6 +114,7 @@ export function createParticleField(count: number): ParticleField {
       uniform float uPhase;
       uniform float uTime;
       uniform float uScale;
+      uniform float uPortrait;
       varying float vAlpha;
       varying float vFlow;
 
@@ -107,11 +130,14 @@ export function createParticleField(count: number): ParticleField {
 
         // no pipeline o dado deixa de ter lugar fixo: ele corre
         float flow = fract(aSeed * 7.31 + uTime * 0.07);
-        vec3 corridor = vec3(mix(-8.0, 8.0, flow), aPipe.y, aPipe.z);
+        // Na paisagem o dado corre da esquerda para a direita. No retrato
+        // corre de cima para baixo — mesma viagem, no eixo que a tela tem.
+        float span = mix(1.0, ${PORTRAIT_SPAN.toFixed(2)}, uPortrait);
+        float along = mix(mix(-8.0, 8.0, flow), mix(8.0, -8.0, flow), uPortrait) * span;
         // o corredor estreita no processamento — é ali que o dado é tratado
-        float squeeze = 1.0 - 0.58 * exp(-pow(corridor.x * 0.5, 2.0));
-        corridor.y *= squeeze;
-        corridor.z *= squeeze;
+        float squeeze = 1.0 - 0.58 * exp(-pow(along / span * 0.5, 2.0));
+        vec2 sect = vec2(aPipe.y, aPipe.z) * squeeze * mix(1.0, ${PORTRAIT_RING.toFixed(2)}, uPortrait);
+        vec3 corridor = mix(vec3(along, sect.x, sect.y), vec3(sect.x, along, sect.y), uPortrait);
         p = mix(p, corridor, t3);
 
         // respiração: o dado nunca está totalmente parado

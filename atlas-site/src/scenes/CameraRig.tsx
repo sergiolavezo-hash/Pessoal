@@ -17,6 +17,7 @@ import * as THREE from 'three';
 import { useLifecycle } from '../lib/useLifecycle';
 import { stepPhase } from '../lib/lifecycle';
 import { motion } from '../lib/tokens';
+import { PORTRAIT_BREAKPOINT } from './particles';
 
 interface Shot {
   position: [number, number, number];
@@ -32,6 +33,20 @@ const SHOTS: Shot[] = [
 ];
 
 /**
+ * Retrato tem outra caixa: mais alto do que largo, e o texto ocupa a
+ * largura inteira. Os três primeiros planos são os mesmos, recuados para
+ * caberem. O quarto é outro: no retrato o corredor está em pé, e a câmera
+ * o observa de cima, como quem olha um poço — a progressão vira
+ * profundidade em vez de largura.
+ */
+const PORTRAIT_SHOTS: Shot[] = [
+  { position: [0, 0, 9.6], lookAt: [0, 0, 0] },       // 00 sinal
+  { position: [0, 0.9, 20.9], lookAt: [0, 0, 0] },    // 01 origem
+  { position: [5.3, 1.9, 17.4], lookAt: [0, 0, 0] },  // 02 captura
+  { position: [2.2, 10.5, 12.0], lookAt: [0, 4.6, 0] }, // 03 pipeline — o poço, visto de cima
+];
+
+/**
  * No desktop a coluna editorial ocupa a esquerda da tela. Deslocar a
  * janela de projeção empurra o mundo 3D para a direita, então nada
  * atravessa o texto — sem mexer na posição da câmera, que é da narrativa.
@@ -39,12 +54,16 @@ const SHOTS: Shot[] = [
  */
 const FRAME_SHIFT = 0.13;
 
-function sampleShot(phase: number, out: { pos: THREE.Vector3; look: THREE.Vector3 }) {
-  const i = Math.max(0, Math.min(SHOTS.length - 1, Math.floor(phase)));
-  const j = Math.min(SHOTS.length - 1, i + 1);
+function sampleShot(
+  phase: number,
+  shots: Shot[],
+  out: { pos: THREE.Vector3; look: THREE.Vector3 }
+) {
+  const i = Math.max(0, Math.min(shots.length - 1, Math.floor(phase)));
+  const j = Math.min(shots.length - 1, i + 1);
   const f = phase - i;
-  const a = SHOTS[i];
-  const b = SHOTS[j];
+  const a = shots[i];
+  const b = shots[j];
   out.pos.set(
     a.position[0] + (b.position[0] - a.position[0]) * f,
     a.position[1] + (b.position[1] - a.position[1]) * f,
@@ -68,7 +87,7 @@ export default function CameraRig() {
   // a matriz de projeção e não precisa rodar a cada quadro.
   useEffect(() => {
     const cam = camera as THREE.PerspectiveCamera;
-    const shift = size.width >= 900 ? Math.round(size.width * FRAME_SHIFT) : 0;
+    const shift = size.width >= PORTRAIT_BREAKPOINT ? Math.round(size.width * FRAME_SHIFT) : 0;
     const key = `${size.width}x${size.height}:${shift}`;
     if (offset.current === key) return;
     offset.current = key;
@@ -82,18 +101,13 @@ export default function CameraRig() {
     const damping = quality === 'low' || quality === 'static' ? 1 : motion.cameraDamping;
     stepPhase(state.current, damping);
 
-    sampleShot(state.current.phase, scratch.current);
-
-    // Tela estreita enquadra muito menos mundo: a câmera recua na própria
-    // direção de visada para que a cena inteira continue cabendo.
-    if (size.width < 900) {
-      scratch.current.pos.sub(scratch.current.look).multiplyScalar(1.55).add(scratch.current.look);
-    }
+    const portrait = size.width < PORTRAIT_BREAKPOINT;
+    sampleShot(state.current.phase, portrait ? PORTRAIT_SHOTS : SHOTS, scratch.current);
 
     // Paralaxe de ponteiro só onde faz sentido (não em toque, não em
     // reduced-motion) e sempre discreta: informa profundidade, não chama atenção.
     const allowParallax = quality === 'high' || quality === 'medium';
-    if (allowParallax && size.width >= 900) {
+    if (allowParallax && !portrait) {
       pointer.current.x += (p.x - pointer.current.x) * 0.05;
       pointer.current.y += (p.y - pointer.current.y) * 0.05;
     }
