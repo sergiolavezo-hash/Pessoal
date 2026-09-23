@@ -791,6 +791,62 @@
     .tl-step::before { left: -1.72rem; }
   }
 
+  /* ---------- Soluções agrupadas em famílias ---------- */
+  /* O padrão: a oferta não é uma grade plana, é uma taxonomia. Cada
+     família abre um bloco, e cada serviço dentro dela diz o contexto de
+     negócio e quatro entregas concretas — não adjetivos. */
+  .fam { margin-top: 3.4rem; }
+  .fam-head {
+    display: grid; grid-template-columns: auto 1fr; gap: 1.1rem; align-items: baseline;
+    padding-bottom: 1rem; border-bottom: 1px solid var(--line);
+  }
+  .fam-k { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  .fam-t { font-family: var(--display); font-size: clamp(1.35rem, 2.6vw, 1.9rem); font-weight: 800; }
+  .fam-d { grid-column: 2; color: var(--muted); font-size: 0.96rem; margin-top: 0.3rem; }
+  .fam-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; margin-top: 1.4rem; }
+  .fam-grid.two { grid-template-columns: repeat(2, 1fr); }
+
+  .svc {
+    display: flex; flex-direction: column; gap: 0.7rem;
+    border: 1px solid var(--line); border-radius: 14px; padding: 1.6rem;
+    background: var(--panel); position: relative; overflow: hidden;
+    transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .svc::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+    background: radial-gradient(110% 80% at 100% 0%, rgba(46,134,255,0.12), transparent 60%);
+    transition: opacity 0.45s var(--ease);
+  }
+  .svc:hover, .svc:focus-within { border-color: rgba(46,134,255,0.5); transform: translateY(-3px); }
+  .svc:hover::after, .svc:focus-within::after { opacity: 1; }
+  .svc-n { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; color: var(--accent); }
+  .svc-t { font-family: var(--display); font-size: 1.22rem; font-weight: 700; letter-spacing: -0.02em; }
+  .svc-d { color: var(--muted); font-size: 0.94rem; }
+  .svc-list { list-style: none; margin: 0.2rem 0 0; padding: 0; display: grid; gap: 0.42rem; }
+  .svc-list li {
+    position: relative; padding-left: 1rem; font-size: 0.9rem; color: var(--ink);
+  }
+  .svc-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.62em; width: 5px; height: 1px; background: var(--accent);
+  }
+  .svc-foot { margin-top: auto; padding-top: 1rem; display: grid; gap: 0.8rem; }
+  .svc-cta {
+    display: inline-flex; align-items: center; gap: 0.4rem; justify-self: start;
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-light); text-decoration: none;
+  }
+  .svc-cta:hover { color: var(--ink); }
+
+
+  @media (max-width: 1080px) {
+    .fam-grid, .fam-grid.two { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 780px) {
+    .fam-grid, .fam-grid.two { grid-template-columns: 1fr; }
+    .fam-head { grid-template-columns: 1fr; gap: 0.35rem; }
+    .fam-d { grid-column: 1; }
+  }
+
 </style>
 </head>
 <body>
@@ -913,88 +969,165 @@
         </p>
       </div>
 
-      <div class="sols reveal d2">
+      <div class="fam reveal d2" id="fam-analytics">
+        <div class="fam-head">
+          <p class="fam-k">A</p>
+          <h3 class="fam-t">Data &amp; Analytics</h3>
+          <p class="fam-d">Transformar o dado organizado em leitura do negócio — e a leitura em decisão.</p>
+        </div>
+        <div class="fam-grid">
 
-        <article class="sol" tabindex="0">
-          <p class="sol-n">01</p>
-          <h3 class="sol-t">Data &amp; Analytics</h3>
-          <p class="sol-d">Transformamos dados dispersos em inteligência acionável — modelagem, indicadores e análise que sustentam decisão.</p>
-          <div class="sol-more"><div><div class="sol-more-in">
-            <div class="chip-row"><span class="chip">Modelagem</span><span class="chip">Indicadores</span><span class="chip">BigQuery</span><span class="chip">SQL</span><span class="chip">Python</span></div>
-            <a class="sol-cta" href="#contato">Falar sobre Data &amp; Analytics →</a>
-          </div></div></div>
-        </article>
+          <article class="svc" id="s-analytics">
+            <p class="svc-n">01</p>
+            <h4 class="svc-t">Data &amp; Analytics</h4>
+            <p class="svc-d">Transformamos dados dispersos em inteligência acionável, com indicadores que o negócio reconhece.</p>
+            <ul class="svc-list">
+              <li>Modelagem de dados</li>
+              <li>Indicadores e KPIs de negócio</li>
+              <li>Análise exploratória</li>
+              <li>Camada semântica única</li>
+            </ul>
+            <div class="svc-foot">
+              <div class="chip-row"><span class="chip">BigQuery</span><span class="chip">SQL</span><span class="chip">Python</span></div>
+              <a class="svc-cta" href="#contato">Falar sobre Data &amp; Analytics →</a>
+            </div>
+          </article>
 
-        <article class="sol" tabindex="0">
-          <p class="sol-n">02</p>
-          <h3 class="sol-t">Business Intelligence</h3>
-          <p class="sol-d">Transformamos dados em indicadores que ajudam o negócio a decidir, com governança e autonomia para as áreas.</p>
-          <div class="sol-more"><div><div class="sol-more-in">
-            <div class="chip-row"><span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">Looker</span><span class="chip">Self-service BI</span><span class="chip">Modelagem semântica</span></div>
-            <a class="sol-cta" href="#contato">Falar sobre Business Intelligence →</a>
-          </div></div></div>
-        </article>
+          <article class="svc" id="s-bi">
+            <p class="svc-n">02</p>
+            <h4 class="svc-t">Business Intelligence</h4>
+            <p class="svc-d">Transformamos dados em indicadores que ajudam o negócio a decidir, com governança e autonomia para as áreas.</p>
+            <ul class="svc-list">
+              <li>Dashboards executivos</li>
+              <li>KPIs e modelagem semântica</li>
+              <li>Self-service BI</li>
+              <li>Governança de BI</li>
+            </ul>
+            <div class="svc-foot">
+              <div class="chip-row"><span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">Looker</span><span class="chip">MicroStrategy</span></div>
+              <a class="svc-cta" href="#contato">Falar sobre Business Intelligence →</a>
+            </div>
+          </article>
 
-        <article class="sol" tabindex="0">
-          <p class="sol-n">03</p>
-          <h3 class="sol-t">Data Visualization</h3>
-          <p class="sol-d">Desenhamos o padrão visual antes do desenvolvimento, para que o dashboard seja lido — e não apenas preenchido.</p>
-          <div class="sol-more"><div><div class="sol-more-in">
-            <div class="chip-row"><span class="chip">Figma</span><span class="chip">Design system</span><span class="chip">Padronização</span><span class="chip">Data storytelling</span></div>
-            <a class="sol-cta" href="#contato">Falar sobre Data Visualization →</a>
-          </div></div></div>
-        </article>
+          <article class="svc" id="s-dataviz">
+            <p class="svc-n">03</p>
+            <h4 class="svc-t">Data Visualization</h4>
+            <p class="svc-d">Desenhamos o padrão visual antes do desenvolvimento, para o dashboard ser lido — e não apenas preenchido.</p>
+            <ul class="svc-list">
+              <li>Protótipo em Figma antes do build</li>
+              <li>Padrão visual e design system</li>
+              <li>Padronização em escala</li>
+              <li>Data storytelling</li>
+            </ul>
+            <div class="svc-foot">
+              <div class="chip-row"><span class="chip">Figma</span><span class="chip">Power BI</span><span class="chip">Data Design</span></div>
+              <a class="svc-cta" href="#contato">Falar sobre Data Visualization →</a>
+            </div>
+          </article>
 
-        <article class="sol" tabindex="0">
-          <p class="sol-n">04</p>
-          <h3 class="sol-t">Artificial Intelligence</h3>
-          <p class="sol-d">Aplicamos IA onde ela realmente gera valor para a operação — sobre a sua base, não sobre uma promessa.</p>
-          <div class="sol-more"><div><div class="sol-more-in">
-            <div class="chip-row"><span class="chip">IA generativa</span><span class="chip">Agentes</span><span class="chip">Machine Learning</span><span class="chip">Modelos preditivos</span><span class="chip">RAG</span><span class="chip">Document AI</span></div>
-            <a class="sol-cta" href="#contato">Falar sobre Inteligência Artificial →</a>
-          </div></div></div>
-        </article>
+        </div>
+      </div>
 
-        <article class="sol" tabindex="0">
-          <p class="sol-n">05</p>
-          <h3 class="sol-t">Data Engineering</h3>
-          <p class="sol-d">Construímos a infraestrutura que faz seus dados funcionarem: ingestão, transformação, histórico e governança.</p>
-          <div class="sol-more"><div><div class="sol-more-in">
-            <div class="chip-row"><span class="chip">ETL / ELT</span><span class="chip">Data Lake</span><span class="chip">Data Warehouse</span><span class="chip">Lakehouse</span><span class="chip">dbt</span><span class="chip">Airflow</span><span class="chip">APIs</span></div>
-            <a class="sol-cta" href="#contato">Falar sobre Data Engineering →</a>
-          </div></div></div>
-        </article>
+      <div class="fam reveal d2" id="fam-engenharia">
+        <div class="fam-head">
+          <p class="fam-k">B</p>
+          <h3 class="fam-t">Engenharia de Dados &amp; Cloud</h3>
+          <p class="fam-d">A infraestrutura por onde o dado anda: ingestão, armazenamento, transformação e governança.</p>
+        </div>
+        <div class="fam-grid">
 
-        <article class="sol" tabindex="0">
-          <p class="sol-n">06</p>
-          <h3 class="sol-t">Digital Transformation</h3>
-          <p class="sol-d">Atuamos da engenharia à tomada de decisão, conectando arquitetura, tecnologia e negócio em soluções que vão para produção.</p>
-          <div class="sol-more"><div><div class="sol-more-in">
-            <div class="chip-row"><span class="chip">Arquitetura</span><span class="chip">Modernização</span><span class="chip">Governança</span><span class="chip">Operação</span></div>
-            <a class="sol-cta" href="#contato">Falar sobre Digital Transformation →</a>
-          </div></div></div>
-        </article>
+          <article class="svc" id="s-engineering">
+            <p class="svc-n">04</p>
+            <h4 class="svc-t">Data Engineering</h4>
+            <p class="svc-d">Construímos a infraestrutura que faz seus dados funcionarem, do primeiro pipeline à fonte única da verdade.</p>
+            <ul class="svc-list">
+              <li>ETL / ELT e pipelines</li>
+              <li>Data Lake, Data Warehouse e Lakehouse</li>
+              <li>Modelagem e APIs</li>
+              <li>Governança de dados</li>
+            </ul>
+            <div class="svc-foot">
+              <div class="chip-row"><span class="chip">dbt</span><span class="chip">Airflow</span><span class="chip">Databricks</span><span class="chip">SQL</span></div>
+              <a class="svc-cta" href="#contato">Falar sobre Data Engineering →</a>
+            </div>
+          </article>
 
-        <article class="sol" tabindex="0">
-          <p class="sol-n">07</p>
-          <h3 class="sol-t">Cloud &amp; Modern Data Stack</h3>
-          <p class="sol-d">Modernizamos arquiteturas de dados e levamos workloads para a nuvem — com abordagem agnóstica de fornecedor.</p>
-          <div class="sol-more"><div><div class="sol-more-in">
-            <div class="chip-row"><span class="chip">GCP</span><span class="chip">Azure</span><span class="chip">AWS</span><span class="chip">BigQuery</span><span class="chip">Databricks</span><span class="chip">Snowflake</span><span class="chip">Migração de legado</span></div>
-            <a class="sol-cta" href="#contato">Falar sobre Cloud →</a>
-          </div></div></div>
-        </article>
+          <article class="svc" id="s-cloud">
+            <p class="svc-n">05</p>
+            <h4 class="svc-t">Cloud &amp; Modern Data Stack</h4>
+            <p class="svc-d">Modernizamos arquiteturas de dados e levamos workloads para a nuvem, com abordagem agnóstica de fornecedor.</p>
+            <ul class="svc-list">
+              <li>Migração de legado</li>
+              <li>Arquitetura em GCP, Azure ou AWS</li>
+              <li>BigQuery, Databricks e Snowflake</li>
+              <li>Modern Data Stack</li>
+            </ul>
+            <div class="svc-foot">
+              <div class="chip-row"><span class="chip">GCP</span><span class="chip">Azure</span><span class="chip">AWS</span><span class="chip">Snowflake</span></div>
+              <a class="svc-cta" href="#contato">Falar sobre Cloud →</a>
+            </div>
+          </article>
 
-        <article class="sol" tabindex="0">
-          <p class="sol-n">08</p>
-          <h3 class="sol-t">Automation</h3>
-          <p class="sol-d">Automatizamos processos para reduzir trabalho manual e aumentar eficiência, integrando o que hoje não conversa.</p>
-          <div class="sol-more"><div><div class="sol-more-in">
-            <div class="chip-row"><span class="chip">APIs</span><span class="chip">Integrações</span><span class="chip">RPA</span><span class="chip">Workflows</span><span class="chip">Orquestração</span></div>
-            <a class="sol-cta" href="#contato">Falar sobre Automation →</a>
-          </div></div></div>
-        </article>
+          <article class="svc" id="s-automation">
+            <p class="svc-n">06</p>
+            <h4 class="svc-t">Automation</h4>
+            <p class="svc-d">Automatizamos processos para reduzir trabalho manual e aumentar eficiência, integrando o que hoje não conversa.</p>
+            <ul class="svc-list">
+              <li>APIs e integrações</li>
+              <li>RPA</li>
+              <li>Workflows e orquestração</li>
+              <li>Automação de processos</li>
+            </ul>
+            <div class="svc-foot">
+              <div class="chip-row"><span class="chip">APIs</span><span class="chip">RPA</span><span class="chip">Orquestração</span></div>
+              <a class="svc-cta" href="#contato">Falar sobre Automation →</a>
+            </div>
+          </article>
 
+        </div>
+      </div>
+
+      <div class="fam reveal d2" id="fam-ia">
+        <div class="fam-head">
+          <p class="fam-k">C</p>
+          <h3 class="fam-t">Inteligência &amp; Transformação</h3>
+          <p class="fam-d">A camada que lê o que já existe, antecipa o que vem e muda como a empresa opera.</p>
+        </div>
+        <div class="fam-grid two">
+
+          <article class="svc" id="s-ai">
+            <p class="svc-n">07</p>
+            <h4 class="svc-t">Artificial Intelligence</h4>
+            <p class="svc-d">Aplicamos IA onde ela realmente gera valor para a operação — sobre a sua base, não sobre uma promessa.</p>
+            <ul class="svc-list">
+              <li>IA generativa e RAG</li>
+              <li>Agentes e copilotos</li>
+              <li>Machine Learning e modelos preditivos</li>
+              <li>Document AI</li>
+            </ul>
+            <div class="svc-foot">
+              <div class="chip-row"><span class="chip">GenAI</span><span class="chip">RAG</span><span class="chip">Machine Learning</span><span class="chip">Python</span></div>
+              <a class="svc-cta" href="#contato">Falar sobre Inteligência Artificial →</a>
+            </div>
+          </article>
+
+          <article class="svc" id="s-transformation">
+            <p class="svc-n">08</p>
+            <h4 class="svc-t">Digital Transformation</h4>
+            <p class="svc-d">Atuamos da engenharia à tomada de decisão, conectando arquitetura, tecnologia e negócio em soluções que vão para produção.</p>
+            <ul class="svc-list">
+              <li>Arquitetura de ponta a ponta</li>
+              <li>Modernização de stack legada</li>
+              <li>Governança e operação</li>
+              <li>Da engenharia à decisão</li>
+            </ul>
+            <div class="svc-foot">
+              <div class="chip-row"><span class="chip">Arquitetura</span><span class="chip">Modernização</span><span class="chip">Governança</span></div>
+              <a class="svc-cta" href="#contato">Falar sobre Digital Transformation →</a>
+            </div>
+          </article>
+
+        </div>
       </div>
     </div>
   </section>
@@ -1914,6 +2047,8 @@
    ============================================================ */
 (function () {
   'use strict';
+
+
 
   /* ---------- Órbita de tecnologias ---------- */
   // O que cada uma resolve PARA O NEGÓCIO. Um logo wall não responde isso.
