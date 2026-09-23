@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formsubmit.co https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://fonts.googleapis.com https://fonts.gstatic.com; form-action 'self' https://formsubmit.co; base-uri 'self'; object-src 'none'; frame-src 'none'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="format-detection" content="telephone=no">
-  <meta name="description" content="Consultoria de dados, Business Intelligence, Data Engineering, Inteligência Artificial e Cloud. Power BI, Databricks, BigQuery, dbt e Airflow — da arquitetura à decisão, em produção.">
+  <meta name="description" content="Consultoria de tecnologia em dados e alocação de especialistas. Business Intelligence, Data Engineering, Inteligência Artificial e Cloud — da arquitetura à decisão, em produção.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://atlas-partner.com/">
   <meta property="og:title" content="Atlas Tec — Transformamos dados complexos em decisões extraordinárias">
@@ -34,7 +34,7 @@
   "url": "https://atlas-partner.com",
   "logo": "https://atlas-partner.com/media/logo/mark.svg",
   "image": "https://atlas-partner.com/media/og-cover.jpg",
-  "description": "Empresa de tecnologia especializada em Data Engineering, Business Intelligence, Data & Cloud, Inteligencia Artificial e Automacao.",
+  "description": "Consultoria de tecnologia especializada em dados e alocacao de especialistas: Data Engineering, Business Intelligence, Data & Cloud, Inteligencia Artificial e Automacao.",
   "slogan": "Dados, BI, cloud e IA para empresas que precisam escalar.",
   "areaServed": "BR",
   "knowsAbout": ["Data Engineering", "Business Intelligence", "Power BI", "Data Analytics", "Cloud", "Google Cloud Platform", "Microsoft Azure", "AWS", "Data Lake", "Data Warehouse", "Lakehouse", "Data Governance", "Artificial Intelligence", "IA Generativa", "Automacao", "Data Visualization"],
@@ -638,10 +638,53 @@
 
 
   /* ---------- Tecnologia em órbita ---------- */
-  .orbit-wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 2.5rem; align-items: center; margin-top: 2.6rem; }
+  /* O ecossistema de dados é grande demais para uma lista. A órbita mostra
+     uma categoria por vez: legível em qualquer tela, e o filtro vira a
+     própria navegação. Abaixo de 640px a geometria vira nuvem de chips —
+     rótulo ilegível não é enfeite, é defeito. */
+  .tech-cats { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2.2rem; }
+  .tech-cat {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em;
+    color: var(--muted); background: transparent; border: 1px solid var(--line);
+    border-radius: 999px; padding: 0.45rem 0.85rem; cursor: pointer;
+    transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .tech-cat:hover { border-color: rgba(46,134,255,0.45); color: var(--ink); }
+  .tech-cat[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.12); }
+  .tech-cat small { color: var(--dim); margin-left: 0.4rem; }
+  .tech-cat[aria-pressed="true"] small { color: var(--accent-light); }
+
+  .orbit-wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 2.5rem; align-items: center; margin-top: 2rem; }
   .orbit { position: relative; aspect-ratio: 1; width: 100%; max-width: 30rem; margin: 0 auto; }
   .orbit-ring { position: absolute; inset: 0; border: 1px solid var(--line-soft); border-radius: 50%; }
-  .orbit-ring.r2 { inset: 16%; }
+  /* Girar um elemento quadrado aumenta o bounding box em ate raiz de 2 e
+     empurra a pagina de lado, mesmo quando o desenho e circular. Os dois
+     elementos que giram vivem dentro deste recorte, que nao gira. */
+  .orbit-fx { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; pointer-events: none; }
+  .orbit-ring.r2 { inset: 16%; border-style: dashed; animation: orbit-spin 110s linear infinite reverse; }
+  .orbit-sweep {
+    position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+    background: conic-gradient(from 0deg, rgba(46,134,255,0) 0deg, rgba(46,134,255,0) 296deg,
+      rgba(46,134,255,0.06) 344deg, rgba(46,134,255,0.20) 360deg);
+    animation: orbit-spin 18s linear infinite;
+  }
+  .orbit-pulse {
+    position: absolute; left: 50%; top: 50%; width: 7rem; height: 7rem; margin: -3.5rem 0 0 -3.5rem;
+    border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(46,134,255,0.18), rgba(46,134,255,0) 70%);
+    animation: orbit-pulse 5s ease-in-out infinite;
+  }
+  .orbit-link {
+    position: absolute; left: 50%; top: 50%; height: 1px; width: 0; opacity: 0;
+    transform-origin: 0 50%; pointer-events: none;
+    background: linear-gradient(90deg, rgba(46,134,255,0.7), rgba(46,134,255,0));
+    transition: opacity 0.35s var(--ease);
+  }
+  @keyframes orbit-spin { to { transform: rotate(360deg); } }
+  @keyframes orbit-pulse {
+    0%, 100% { transform: scale(0.85); opacity: 0.55; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
   .orbit-core {
     position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
     text-align: center; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em;
@@ -652,15 +695,50 @@
     font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.02em;
     color: var(--muted); background: var(--panel); border: 1px solid var(--line);
     border-radius: 999px; padding: 0.3rem 0.7rem; cursor: pointer; white-space: nowrap;
-    transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background 0.3s var(--ease);
+    transition: border-color 0.3s var(--ease), color 0.3s var(--ease),
+                background 0.3s var(--ease), box-shadow 0.3s var(--ease);
   }
+  /* Só opacidade na entrada: animar transform brigaria com o translate
+     que centraliza o rótulo no ponto da órbita. */
+  .tech-dot.pop { animation: dot-in 0.45s var(--ease) both; }
+  @keyframes dot-in { from { opacity: 0; } to { opacity: 1; } }
+  .tech-dot i { font-style: normal; color: var(--accent-light); margin-left: 0.25rem; font-size: 0.58rem; }
   .tech-dot:hover { border-color: rgba(46,134,255,0.5); color: var(--ink); }
-  .tech-dot[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.12); }
-  .tech-panel { border: 1px solid var(--line); border-radius: 14px; padding: 1.8rem; background: var(--panel); min-height: 15rem; }
+  .tech-dot[aria-pressed="true"] {
+    border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.14);
+    box-shadow: 0 0 20px rgba(46,134,255,0.35);
+  }
+  .tech-panel { border: 1px solid var(--line); border-radius: 14px; padding: 1.8rem; background: var(--panel); min-height: 17rem; }
   .tech-panel h3 { font-size: 1.5rem; font-weight: 700; }
+  /* Sem isto o display da classe vence o atributo hidden e o selo aparece
+     em ferramenta sem projeto — exatamente a alegação que não pode existir. */
+  .tech-badge[hidden] { display: none; }
+  .tech-badge {
+    display: inline-block; margin-top: 0.6rem; font-family: var(--mono); font-size: 0.6rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-light);
+    border: 1px solid rgba(46,134,255,0.35); border-radius: 999px; padding: 0.25rem 0.6rem;
+  }
   .tech-row { margin-top: 1.1rem; }
   .tech-row dt { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
   .tech-row dd { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.95rem; }
+
+  /* Precisa vir depois das definições acima: mesma especificidade decide
+     por ordem, e o bloco geral de reduced-motion fica antes delas. */
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-sweep, .orbit-ring.r2, .orbit-pulse, .tech-dot.pop { animation: none; }
+  }
+
+  @media (max-width: 640px) {
+    /* Oito categorias empilhadas comem a tela inteira antes de o visitante
+       chegar às ferramentas. Vira faixa rolável, como no resto do mobile. */
+    .tech-cats { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.3rem; }
+    .tech-cats::-webkit-scrollbar { display: none; }
+    .tech-cat { flex: none; }
+    .orbit { aspect-ratio: auto; max-width: none; display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+    .orbit-ring, .orbit-sweep, .orbit-link, .orbit-core, .orbit-pulse { display: none; }
+    .tech-dot { position: static; transform: none; font-size: 0.62rem; padding: 0.3rem 0.6rem; }
+    .tech-panel { min-height: 0; }
+  }
 
   .illus-note { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
 
@@ -807,8 +885,20 @@
     padding: 1rem 1.4rem; border-bottom: 1px solid var(--line);
     font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
   }
+  .dash-bar { flex-wrap: wrap; }
   .dash-bar b { color: var(--ink); font-weight: 500; }
   .dash-bar span { color: var(--dim); }
+
+  .dash-tabs { display: flex; gap: 0.3rem; }
+  .dash-tab {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--dim); background: transparent; border: 1px solid transparent; border-radius: 999px;
+    padding: 0.35rem 0.7rem; cursor: pointer;
+    transition: color 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .dash-tab:hover { color: var(--ink); }
+  .dash-tab[aria-selected="true"] { color: var(--ink); border-color: rgba(46,134,255,0.45); background: rgba(46,134,255,0.12); }
+  .dash-page[hidden] { display: none; }
   .dash-body { display: grid; grid-template-columns: 17.5rem 1fr; }
   .dash-side { padding: 1.6rem 1.4rem; border-right: 1px solid var(--line); display: grid; gap: 1.5rem; align-content: start; }
   .dash-main { padding: 1.6rem 1.6rem 1.3rem; }
@@ -832,6 +922,26 @@
   .chart-x span { flex: 1; text-align: center; }
   .chart-x span.hi { color: var(--accent-light); }
 
+  .dash-title.mt { margin-top: 1.6rem; }
+
+  /* Barra horizontal: a comparação entre poucas categorias com nome longo
+     lê melhor deitada do que em colunas verticais espremidas. */
+  .hbars { display: grid; gap: 0.8rem; margin-top: 1.1rem; }
+  .hbar { display: grid; grid-template-columns: 9.5rem 1fr auto; gap: 0.9rem; align-items: center; font-size: 0.88rem; }
+  .hbar > span { color: var(--muted); }
+  .hbar-track { height: 0.5rem; border-radius: 999px; background: rgba(255,255,255,0.05); overflow: hidden; }
+  .hbar-fill { height: 100%; border-radius: 999px; background: rgba(46,134,255,0.3); }
+  .hbar.hi .hbar-fill { background: var(--accent); box-shadow: 0 0 18px rgba(46,134,255,0.45); }
+  .hbar-track { position: relative; }
+  .hbar-goal { position: absolute; top: -2px; bottom: -2px; width: 1px; background: var(--ink); opacity: 0.55; }
+  .dash-scale { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; color: var(--dim); text-transform: none; margin-left: 0.5rem; }
+  .hbar > b { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--ink); }
+
+  .spark { display: block; width: 100%; height: 8.5rem; margin: 1.1rem 0 0.5rem; }
+
+  .dash-sub { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 0.9rem; }
+  .dash-sub b { font-family: var(--display); font-size: 1.2rem; font-weight: 700; letter-spacing: -0.02em; display: block; margin-top: 0.2rem; }
+
   .dash-note {
     display: flex; align-items: center; gap: 0.5rem; margin-top: 1.1rem; padding-top: 1rem;
     border-top: 1px solid var(--line-soft); font-size: 0.88rem; color: var(--muted);
@@ -845,6 +955,10 @@
     .dash-side > :first-child { grid-column: 1 / -1; }
     .chart { height: 7rem; }
     .chart-x { font-size: 0.52rem; }
+    .dash-bar { gap: 0.7rem; }
+    .hbar { grid-template-columns: 7rem 1fr auto; gap: 0.6rem; font-size: 0.8rem; }
+    .dash-sub { gap: 0.6rem; }
+    .dash-sub b { font-size: 1rem; }
   }
 
 </style>
@@ -924,8 +1038,9 @@
         <span class="eyebrow reveal">Soluções</span>
         <h2 class="h-xl reveal d1">Da informação à ação.</h2>
         <p class="sub reveal d2">
-          Oito frentes para transformar dados, tecnologia e inteligência em
-          resultado. Não vendemos ferramenta — resolvemos o problema por trás dela.
+          Dez frentes para transformar dados, tecnologia e inteligência em
+          resultado — e, quando o que falta é time, os especialistas para tocá-las.
+          Não vendemos ferramenta: resolvemos o problema por trás dela.
         </p>
       </div>
 
@@ -1089,6 +1204,49 @@
 
         </div>
       </div>
+
+      <div class="fam reveal d2" id="fam-pessoas">
+        <div class="fam-head">
+          <p class="fam-k">D</p>
+          <h3 class="fam-t">Pessoas &amp; Alocação</h3>
+          <p class="fam-d">Nem todo projeto precisa de um projeto. Às vezes o que falta é gente de dados dentro do time.</p>
+        </div>
+        <div class="fam-grid two">
+
+          <article class="svc" id="s-alocacao">
+            <p class="svc-n">09</p>
+            <h4 class="svc-t">Alocação de especialistas</h4>
+            <p class="svc-d">Profissionais de dados alocados no seu time, sob a sua gestão, com o respaldo técnico da Atlas por trás.</p>
+            <ul class="svc-list">
+              <li>Engenheiro de dados</li>
+              <li>Analista e desenvolvedor de BI</li>
+              <li>Cientista de dados</li>
+              <li>Arquiteto de dados</li>
+            </ul>
+            <div class="svc-foot">
+              <div class="chip-row"><span class="chip">Data Engineer</span><span class="chip">BI</span><span class="chip">Data Science</span><span class="chip">Arquitetura</span></div>
+              <a class="svc-cta" href="#contato">Falar sobre alocação →</a>
+            </div>
+          </article>
+
+          <article class="svc" id="s-squad">
+            <p class="svc-n">10</p>
+            <h4 class="svc-t">Squads de dados</h4>
+            <p class="svc-d">Um time completo montado para o seu projeto, com liderança técnica da Atlas e conhecimento que fica na sua casa.</p>
+            <ul class="svc-list">
+              <li>Time montado por perfil e senioridade</li>
+              <li>Liderança técnica da Atlas</li>
+              <li>Ritmo de entrega acordado</li>
+              <li>Transferência de conhecimento</li>
+            </ul>
+            <div class="svc-foot">
+              <div class="chip-row"><span class="chip">Squad</span><span class="chip">Liderança técnica</span><span class="chip">Sob demanda</span></div>
+              <a class="svc-cta" href="#contato">Falar sobre squads →</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1102,23 +1260,33 @@
         <h2 class="h-xl reveal d1">Tecnologia não é o fim. É o meio.</h2>
         <p class="sub reveal d2">
           Somos agnósticos de tecnologia: escolhemos o stack de acordo com o
-          problema, não o contrário. Toque em uma para ver o que ela resolve.
+          problema, não o contrário. Escolha uma categoria e toque em uma
+          ferramenta para ver o que ela resolve.
         </p>
       </div>
 
+      <div class="tech-cats reveal d2" id="tech-cats" role="group" aria-label="Categorias de tecnologia"></div>
+
       <div class="orbit-wrap reveal d2">
-        <div class="orbit" id="orbit" role="group" aria-label="Tecnologias da Atlas">
+        <div class="orbit" id="orbit" role="group" aria-label="Tecnologias de dados">
+          <div class="orbit-fx" aria-hidden="true">
+            <div class="orbit-sweep"></div>
+            <div class="orbit-ring r2"></div>
+          </div>
+          <div class="orbit-pulse" aria-hidden="true"></div>
           <div class="orbit-ring" aria-hidden="true"></div>
-          <div class="orbit-ring r2" aria-hidden="true"></div>
+          <div class="orbit-link" id="orbit-link" aria-hidden="true"></div>
           <p class="orbit-core">Seu<br>negócio</p>
         </div>
         <div class="tech-panel" id="tech-panel" aria-live="polite">
           <h3 id="tech-name">Power BI</h3>
-          <dl class="tech-row"><dt>Aplicação</dt><dd id="tech-app">Dashboards executivos e self-service BI para as áreas de negócio.</dd></dl>
-          <dl class="tech-row"><dt>Benefício</dt><dd id="tech-ben">A área deixa de pedir relatório e passa a responder a própria pergunta.</dd></dl>
-          <dl class="tech-row"><dt>Onde a Atlas usou</dt><dd id="tech-case">Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.</dd></dl>
+          <p class="tech-badge" id="tech-badge" hidden>✦ Projeto entregue pela Atlas</p>
+          <dl class="tech-row"><dt>O que é</dt><dd id="tech-app"></dd></dl>
+          <dl class="tech-row"><dt>Para o negócio</dt><dd id="tech-ben"></dd></dl>
+          <dl class="tech-row" id="tech-case-row"><dt>Onde a Atlas usou</dt><dd id="tech-case"></dd></dl>
         </div>
       </div>
+      <p class="illus-note"><span id="tech-count">74</span> ferramentas mapeadas · ✦ marca as que a Atlas já entregou em projeto</p>
     </div>
   </section>
 
@@ -1235,61 +1403,160 @@
 
       <div class="dash reveal d2">
         <div class="dash-bar">
-          <b>Receita · visão executiva</b>
-          <span>Últimos 12 meses</span>
+          <b>Painel executivo · exemplo</b>
+          <div class="dash-tabs" role="tablist" aria-label="Páginas do painel">
+            <button type="button" class="dash-tab" role="tab" id="dt-0" aria-controls="dp-0" aria-selected="true">Visão geral</button>
+            <button type="button" class="dash-tab" role="tab" id="dt-1" aria-controls="dp-1" aria-selected="false" tabindex="-1">Canais</button>
+            <button type="button" class="dash-tab" role="tab" id="dt-2" aria-controls="dp-2" aria-selected="false" tabindex="-1">Operação</button>
+          </div>
         </div>
-        <div class="dash-body">
-          <div class="dash-side">
-            <div>
-              <p class="kpi-k">Receita no período</p>
-              <p class="kpi-v">R$ 4,82 Mi</p>
-              <p class="kpi-delta">↑ 6,4% vs. período anterior</p>
-              <p class="kpi-sub">Meta do período: R$ 4,60 Mi</p>
+
+        <div class="dash-page" id="dp-0" role="tabpanel" aria-labelledby="dt-0">
+          <div class="dash-body">
+            <div class="dash-side">
+              <div>
+                <p class="kpi-k">Receita no período</p>
+                <p class="kpi-v">R$ 4,82 Mi</p>
+                <p class="kpi-delta">↑ 6,4% vs. período anterior</p>
+                <p class="kpi-sub">Meta do período: R$ 4,60 Mi</p>
+              </div>
+              <div class="kpi-mini"><p class="kpi-k">Margem</p><b>31,2%</b></div>
+              <div class="kpi-mini"><p class="kpi-k">Ticket médio</p><b>R$ 318</b></div>
+              <div class="kpi-mini"><p class="kpi-k">Pedidos</p><b>15,1 mil</b></div>
             </div>
-            <div class="kpi-mini">
-              <p class="kpi-k">Margem</p>
-              <b>31,2%</b>
-            </div>
-            <div class="kpi-mini">
-              <p class="kpi-k">Ticket médio</p>
-              <b>R$ 318</b>
-            </div>
-            <div class="kpi-mini">
-              <p class="kpi-k">Canal digital</p>
-              <b>42%</b>
+            <div class="dash-main">
+              <p class="dash-title">Receita por mês · últimos 12 meses</p>
+              <div class="chart" aria-hidden="true">
+              <div><i style="height:52%"></i></div>
+              <div><i style="height:58%"></i></div>
+              <div><i style="height:49%"></i></div>
+              <div><i style="height:63%"></i></div>
+              <div><i style="height:57%"></i></div>
+              <div><i style="height:68%"></i></div>
+              <div><i style="height:61%"></i></div>
+              <div><i style="height:72%"></i></div>
+              <div><i style="height:66%"></i></div>
+              <div><i style="height:78%"></i></div>
+              <div><i style="height:71%"></i></div>
+              <div class="hi"><i style="height:92%"></i></div>
+              </div>
+              <div class="chart-x" aria-hidden="true">
+              <span>Jan</span>
+              <span>Fev</span>
+              <span>Mar</span>
+              <span>Abr</span>
+              <span>Mai</span>
+              <span>Jun</span>
+              <span>Jul</span>
+              <span>Ago</span>
+              <span>Set</span>
+              <span>Out</span>
+              <span>Nov</span>
+              <span class="hi">Dez</span>
+              </div>
+              <p class="dash-note"><b>Dezembro</b> é o maior mês do período e puxa o resultado acima da meta.</p>
             </div>
           </div>
-          <div class="dash-main">
-            <p class="dash-title">Receita por mês</p>
-            <div class="chart" aria-hidden="true">
-            <div><i style="height:52%"></i></div>
-            <div><i style="height:58%"></i></div>
-            <div><i style="height:49%"></i></div>
-            <div><i style="height:63%"></i></div>
-            <div><i style="height:57%"></i></div>
-            <div><i style="height:68%"></i></div>
-            <div><i style="height:61%"></i></div>
-            <div><i style="height:72%"></i></div>
-            <div><i style="height:66%"></i></div>
-            <div><i style="height:78%"></i></div>
-            <div><i style="height:71%"></i></div>
-            <div class="hi"><i style="height:92%"></i></div>
+        </div>
+
+        <div class="dash-page" id="dp-1" role="tabpanel" aria-labelledby="dt-1" hidden>
+          <div class="dash-body">
+            <div class="dash-side">
+              <div>
+                <p class="kpi-k">Canal digital</p>
+                <p class="kpi-v">42%</p>
+                <p class="kpi-delta">↑ 9,1 p.p. vs. período anterior</p>
+                <p class="kpi-sub">Meta do período: 38%</p>
+              </div>
+              <div class="kpi-mini"><p class="kpi-k">Loja física</p><b>38%</b></div>
+              <div class="kpi-mini"><p class="kpi-k">Marketplace</p><b>20%</b></div>
+              <div class="kpi-mini"><p class="kpi-k">Margem digital</p><b>34,6%</b></div>
             </div>
-            <div class="chart-x" aria-hidden="true">
-            <span>Jan</span>
-            <span>Fev</span>
-            <span>Mar</span>
-            <span>Abr</span>
-            <span>Mai</span>
-            <span>Jun</span>
-            <span>Jul</span>
-            <span>Ago</span>
-            <span>Set</span>
-            <span>Out</span>
-            <span>Nov</span>
-            <span class="hi">Dez</span>
+            <div class="dash-main">
+              <p class="dash-title">Receita por canal · últimos 12 meses</p>
+              <div class="hbars">
+              <div class="hbar hi">
+                <span>E-commerce próprio</span>
+                <div class="hbar-track" aria-hidden="true"><div class="hbar-fill" style="width:100.0%"></div></div>
+                <b>R$ 2,02 Mi</b>
+              </div>
+              <div class="hbar">
+                <span>Loja física</span>
+                <div class="hbar-track" aria-hidden="true"><div class="hbar-fill" style="width:90.6%"></div></div>
+                <b>R$ 1,83 Mi</b>
+              </div>
+              <div class="hbar">
+                <span>Marketplace</span>
+                <div class="hbar-track" aria-hidden="true"><div class="hbar-fill" style="width:48.0%"></div></div>
+                <b>R$ 0,97 Mi</b>
+              </div>
+              </div>
+              <p class="dash-title mt">Margem por canal</p>
+              <div class="dash-sub">
+                <div><p class="kpi-k">E-commerce próprio</p><b>34,6%</b></div>
+                <div><p class="kpi-k">Loja física</p><b>30,1%</b></div>
+                <div><p class="kpi-k">Marketplace</p><b>24,8%</b></div>
+              </div>
+              <p class="dash-note">O <b>digital</b> passa a loja física em receita — e é o canal de maior margem.</p>
             </div>
-            <p class="dash-note"><b>Dezembro</b> é o maior mês do período e puxa o resultado acima da meta.</p>
+          </div>
+        </div>
+
+        <div class="dash-page" id="dp-2" role="tabpanel" aria-labelledby="dt-2" hidden>
+          <div class="dash-body">
+            <div class="dash-side">
+              <div>
+                <p class="kpi-k">Pedidos no prazo</p>
+                <p class="kpi-v">94,3%</p>
+                <p class="kpi-delta">↑ 2,1 p.p. vs. período anterior</p>
+                <p class="kpi-sub">Meta do período: 95,0%</p>
+              </div>
+              <div class="kpi-mini"><p class="kpi-k">Separação</p><b>2,4 h</b></div>
+              <div class="kpi-mini"><p class="kpi-k">Ruptura</p><b>3,1%</b></div>
+              <div class="kpi-mini"><p class="kpi-k">Devolução</p><b>1,8%</b></div>
+            </div>
+            <div class="dash-main">
+              <p class="dash-title">Pedidos no prazo · últimos 12 meses <span class="dash-scale">escala 86&ndash;95%</span></p>
+              <svg class="spark" viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true">
+                <polygon points="0,40 0.0,30.4 10.9,25.9 21.8,32.7 32.7,22.5 43.6,18.0 54.5,21.4 65.5,15.3 76.4,12.3 87.3,15.0 98.2,9.3 109.1,11.6 120.0,6.6 120,40" fill="rgba(46,134,255,0.12)"></polygon>
+                <polyline points="0.0,30.4 10.9,25.9 21.8,32.7 32.7,22.5 43.6,18.0 54.5,21.4 65.5,15.3 76.4,12.3 87.3,15.0 98.2,9.3 109.1,11.6 120.0,6.6" fill="none" stroke="#2E86FF" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polyline>
+                <circle cx="120.0" cy="6.6" r="1.8" fill="#6FD4FF"></circle>
+              </svg>
+              <div class="chart-x" aria-hidden="true">
+              <span>Jan</span>
+              <span>Fev</span>
+              <span>Mar</span>
+              <span>Abr</span>
+              <span>Mai</span>
+              <span>Jun</span>
+              <span>Jul</span>
+              <span>Ago</span>
+              <span>Set</span>
+              <span>Out</span>
+              <span>Nov</span>
+              <span>Dez</span>
+              </div>
+              <p class="dash-title mt">No prazo por região <span class="dash-scale">escala 85&ndash;100%, traço = meta</span></p>
+              <div class="hbars">
+<div class="hbar">
+                <span>Sudeste</span>
+                <div class="hbar-track" aria-hidden="true"><div class="hbar-fill" style="width:74.0%"></div><div class="hbar-goal" style="left:66.7%"></div></div>
+                <b>96,1%</b>
+              </div>
+              <div class="hbar">
+                <span>Sul</span>
+                <div class="hbar-track" aria-hidden="true"><div class="hbar-fill" style="width:56.0%"></div><div class="hbar-goal" style="left:66.7%"></div></div>
+                <b>93,4%</b>
+              </div>
+              <div class="hbar hi">
+                <span>Nordeste</span>
+                <div class="hbar-track" aria-hidden="true"><div class="hbar-fill" style="width:41.3%"></div><div class="hbar-goal" style="left:66.7%"></div></div>
+                <b>91,2%</b>
+              </div>
+              </div>
+              <p class="dash-note"><b>Nordeste</b> concentra o atraso: 91,2% no prazo, contra 96,1% no Sudeste.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1351,7 +1618,7 @@
     <div class="wrap">
       <div class="sec-lead">
         <span class="eyebrow reveal">Insight AI ✦</span>
-        <h2 class="h-xl reveal d1">Pergunte ao dado em português.</h2>
+        <h2 class="h-xl reveal d1">Pergunte ao dado.</h2>
         <p class="sub reveal d2">
           O Insight AI é o produto da Atlas para conversar com os próprios dados:
           você faz a pergunta de negócio, ele responde com o número e o caminho
@@ -2026,75 +2293,255 @@
 
 
   /* ---------- Órbita de tecnologias ---------- */
-  // O que cada uma resolve PARA O NEGÓCIO. Um logo wall não responde isso.
+  // O que cada ferramenta resolve PARA O NEGÓCIO. Um logo wall não responde
+  // isso. O quinto campo só existe quando há projeto real da Atlas — sem ele
+  // a linha "Onde a Atlas usou" não aparece, para não sugerir experiência
+  // que não houve.
+  var CATS = [
+    ['bi', 'BI & Visualização'],
+    ['nuvem', 'Nuvem & Plataformas'],
+    ['lake', 'Armazenamento & Lakehouse'],
+    ['eng', 'Ingestão & Orquestração'],
+    ['lang', 'Linguagens & Modelagem'],
+    ['ia', 'IA & Machine Learning'],
+    ['gov', 'Governança & Qualidade'],
+    ['fontes', 'Fontes & Sistemas']
+  ];
   var TECH = [
-    ['Power BI',   'Dashboards executivos e self-service BI para as áreas.', 'A área deixa de pedir relatório e passa a responder a própria pergunta.', 'Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.'],
-    ['Tableau',    'Exploração visual de grandes volumes de dados.', 'Analistas encontram o padrão antes de alguém pedir o relatório.', 'Rede de diagnóstico, na migração da visualização para Power BI.'],
-    ['Looker',     'Camada semântica única sobre o dado.', 'Uma métrica, uma definição — fim da divergência entre áreas.', 'Mais de 200 dashboards migrados num projeto de governança de BI.'],
-    ['MicroStrategy','BI corporativo para operações multiárea.', 'Vendas, logística e operação lendo os mesmos números.', 'BI corporativo em varejo de moda e arquitetura ETL → DW → BI em turismo.'],
-    ['Databricks', 'Processamento de dados em escala e lakehouse.', 'Volume deixa de ser o limite da análise.', 'Pipelines da plataforma omnichannel em Azure.'],
-    ['BigQuery',   'Data warehouse analítico gerenciado.', 'Consulta pesada sem infraestrutura para administrar.', 'Data Lake em GCP para serviços financeiros e pipelines em saúde.'],
-    ['Snowflake',  'Data warehouse em nuvem com escala elástica.', 'Custo acompanha o uso, não o pico.', 'Faz parte do stack moderno que a Atlas implanta.'],
-    ['dbt',        'Transformação versionada e testada.', 'A regra de negócio deixa de morar na cabeça de uma pessoa.', 'Transformações do Data Lake em GCP.'],
-    ['Airflow',    'Orquestração de pipelines.', 'O dado chega na hora certa, e a falha aparece antes do usuário.', 'Pipelines em GCP para serviços financeiros e saúde.'],
-    ['Python',     'Engenharia de dados e modelos preditivos.', 'O que é repetitivo vira código; o que é previsível vira modelo.', 'Modelos de predição de evasão em educação.'],
-    ['SQL',        'A língua franca do dado.', 'Independe de fornecedor — a lógica sobrevive à troca de ferramenta.', 'Presente em toda a engenharia da Atlas.'],
-    ['Azure',      'Nuvem Microsoft para dados e analytics.', 'Integra com o que a empresa já usa no dia a dia.', 'Synapse e Data Factory na plataforma omnichannel.'],
-    ['AWS',        'Nuvem com o portfólio mais amplo de serviços.', 'Escala sem reescrever a arquitetura.', 'Uma das três nuvens da abordagem agnóstica da Atlas.'],
-    ['GCP',        'Nuvem Google, forte em analytics e IA.', 'BigQuery e IA no mesmo lugar em que o dado já está.', 'Data Lake em GCP e migração de legado Oracle.'],
-    ['GenAI',      'IA generativa aplicada sobre a base da empresa.', 'Pergunta em português, resposta com o número e a origem dele.', 'Base do Atlas Insight AI.']
+    ['Power BI','bi','Dashboards executivos e self-service BI para as áreas.','A área deixa de pedir relatório e passa a responder a própria pergunta.','Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.'],
+    ['Tableau','bi','Exploração visual de grandes volumes de dados.','O analista encontra o padrão antes de alguém pedir o relatório.','Rede de diagnóstico, na migração da visualização para Power BI.'],
+    ['Looker','bi','Camada semântica única sobre o dado.','Uma métrica, uma definição — fim da divergência entre áreas.','Mais de 200 dashboards migrados num projeto de governança de BI.'],
+    ['Looker Studio','bi','Relatórios leves conectados ao ecossistema Google.','Distribuição rápida sem licença por usuário.',''],
+    ['Qlik Sense','bi','BI associativo, com exploração livre entre dimensões.','A pergunta seguinte não depende de um novo relatório.',''],
+    ['MicroStrategy','bi','BI corporativo para operações multiárea.','Vendas, logística e operação lendo os mesmos números.','BI corporativo em varejo de moda e arquitetura ETL → DW → BI em turismo.'],
+    ['Metabase','bi','BI open source de implantação rápida.','Os primeiros indicadores no ar sem um projeto longo.',''],
+    ['Superset','bi','Visualização open source sobre SQL.','Painéis corporativos sem custo de licença por assento.',''],
+    ['ThoughtSpot','bi','Busca em linguagem natural sobre o dado.','Quem não domina BI ainda assim encontra o número.',''],
+    ['Grafana','bi','Monitoramento e séries temporais em tempo real.','A operação enxerga o desvio no minuto em que ele acontece.',''],
+    ['QuickSight','bi','BI gerenciado dentro da AWS.','Painel junto do dado, sem mover nada de lugar.',''],
+    ['Domo','bi','Plataforma de BI em nuvem ponta a ponta.','Integração e visualização no mesmo ambiente.',''],
+    ['Azure','nuvem','Nuvem Microsoft para dados e analytics.','Integra com o que a empresa já usa no dia a dia.','Synapse e Data Factory na plataforma omnichannel.'],
+    ['AWS','nuvem','Nuvem com o portfólio mais amplo de serviços.','Escala sem reescrever a arquitetura.',''],
+    ['Google Cloud','nuvem','Nuvem Google, forte em analytics e IA.','BigQuery e IA no mesmo lugar em que o dado já está.','Data Lake em GCP e migração de legado Oracle.'],
+    ['Databricks','nuvem','Lakehouse e processamento de dados em escala.','Volume deixa de ser o limite da análise.','Pipelines da plataforma omnichannel em Azure.'],
+    ['Snowflake','nuvem','Data warehouse em nuvem com escala elástica.','O custo acompanha o uso, não o pico.',''],
+    ['Fabric','nuvem','Plataforma unificada de dados e BI da Microsoft.','Um ambiente só, do pipeline ao relatório.',''],
+    ['Synapse','nuvem','Analytics integrado da Azure.','Consulta e integração sob o mesmo contrato.','Synapse na plataforma omnichannel de varejo.'],
+    ['Cloudera','nuvem','Plataforma de dados híbrida.','Nuvem e data center sob a mesma governança.',''],
+    ['BigQuery','lake','Data warehouse analítico gerenciado.','Consulta pesada sem infraestrutura para administrar.','Data Lake em GCP para serviços financeiros e pipelines em saúde.'],
+    ['Redshift','lake','Data warehouse da AWS.','Escala analítica dentro do ecossistema Amazon.',''],
+    ['Delta Lake','lake','Camada transacional sobre o data lake.','Leitura confiável enquanto a escrita acontece.',''],
+    ['Iceberg','lake','Formato aberto de tabela para lakehouse.','O dado não fica preso a um fornecedor.',''],
+    ['Hudi','lake','Atualização incremental no data lake.','Corrigir o passado sem reprocessar tudo.',''],
+    ['ClickHouse','lake','Banco colunar de resposta em milissegundos.','Painel que responde na velocidade da pergunta.',''],
+    ['Athena','lake','Consulta SQL direto sobre o armazenamento.','Análise sem carregar o dado para outro lugar.',''],
+    ['Data Lake','lake','Armazenamento bruto em escala.','Guardar tudo hoje sem precisar decidir o uso agora.',''],
+    ['dbt','eng','Transformação versionada e testada.','A regra de negócio deixa de morar na cabeça de uma pessoa.','Transformações do Data Lake em GCP.'],
+    ['Airflow','eng','Orquestração de pipelines.','O dado chega na hora certa, e a falha aparece antes do usuário.','Pipelines em GCP para serviços financeiros e saúde.'],
+    ['Spark','eng','Processamento distribuído.','Terabytes processados dentro da janela da madrugada.',''],
+    ['Kafka','eng','Streaming de eventos.','O dado deixa de esperar o lote da noite.',''],
+    ['Flink','eng','Processamento em tempo real.','A decisão acontece durante o evento, não depois dele.',''],
+    ['Dagster','eng','Orquestração orientada a ativos de dados.','Fica claro qual tabela quebrou e o que ela afeta.',''],
+    ['Prefect','eng','Orquestração leve em Python.','Um time pequeno mantém pipeline sério no ar.',''],
+    ['Data Factory','eng','Integração de dados gerenciada na Azure.','Centenas de fontes conectadas sem código próprio.','Data Factory na plataforma omnichannel de varejo.'],
+    ['AWS Glue','eng','ETL serverless da AWS.','Pipeline sem servidor para manter.',''],
+    ['Fivetran','eng','Conectores gerenciados de ingestão.','A fonte muda e o conector acompanha.',''],
+    ['Airbyte','eng','Ingestão open source com conectores abertos.','Fonte de nicho sem esperar o fornecedor.',''],
+    ['NiFi','eng','Fluxo de dados com rastreabilidade.','Todo caminho percorrido fica auditável.',''],
+    ['SQL','lang','A língua franca do dado.','A lógica sobrevive à troca de ferramenta.','Presente em toda a engenharia da Atlas.'],
+    ['Python','lang','Engenharia de dados e modelos preditivos.','O que é repetitivo vira código; o que é previsível vira modelo.','Modelos de predição de evasão em educação.'],
+    ['PySpark','lang','Python sobre processamento distribuído.','O mesmo time atende do protótipo à escala.',''],
+    ['Scala','lang','Linguagem nativa do Spark.','Desempenho onde o volume não perdoa.',''],
+    ['R','lang','Estatística e análise exploratória.','O rigor estatístico entra na decisão.',''],
+    ['DAX','lang','Linguagem de cálculo do Power BI.','O indicador certo, e não a soma aproximada.',''],
+    ['Power Query','lang','Preparação de dados no Power BI.','Tratamento reaproveitado em vez de refeito.',''],
+    ['Git','lang','Versionamento de código e de pipeline.','Dá para voltar atrás e saber quem mudou o quê.',''],
+    ['GenAI','ia','IA generativa aplicada sobre a base da empresa.','Pergunta em linguagem natural, resposta com o número e a origem dele.','Base do Atlas Insight AI.'],
+    ['RAG','ia','Resposta ancorada na base própria da empresa.','A resposta vem com a fonte junto.',''],
+    ['LangChain','ia','Orquestração de aplicações com LLM.','A IA responde com o dado da empresa, não com achismo.',''],
+    ['MLflow','ia','Ciclo de vida de modelos.','Modelo em produção com histórico e reversão.',''],
+    ['scikit-learn','ia','Modelos clássicos de machine learning.','Previsão confiável sem complexidade desnecessária.',''],
+    ['TensorFlow','ia','Deep learning em escala.','Padrão que o modelo simples não enxerga.',''],
+    ['PyTorch','ia','Pesquisa e produção em deep learning.','Do experimento ao serviço sem reescrever.',''],
+    ['Vertex AI','ia','Plataforma de IA do Google Cloud.','Modelo ao lado do dado que ele consome.',''],
+    ['Azure ML','ia','Plataforma de IA da Microsoft.','Governança de modelo junto da governança de dado.',''],
+    ['SageMaker','ia','Treino e deploy gerenciados na AWS.','Menos infraestrutura, mais modelo no ar.',''],
+    ['Hugging Face','ia','Modelos abertos prontos para uso.','Começar de um modelo treinado, não do zero.',''],
+    ['Unity Catalog','gov','Catálogo e permissão no Databricks.','Quem vê o quê deixa de ser combinado por e-mail.',''],
+    ['Purview','gov','Governança e linhagem de dados na Azure.','Dá para provar de onde veio cada número.',''],
+    ['Great Expectations','gov','Testes automáticos de qualidade.','O dado errado para antes do relatório.',''],
+    ['dbt tests','gov','Validação dentro da própria transformação.','A quebra aparece no pipeline, não na reunião.',''],
+    ['DataHub','gov','Catálogo de dados open source.','Achar a tabela certa deixa de depender de quem lembra.',''],
+    ['Soda','gov','Monitoramento contínuo de qualidade.','O desvio de qualidade vira alerta.',''],
+    ['Monte Carlo','gov','Observabilidade de dados.','A falha silenciosa fica visível.',''],
+    ['SQL Server','fontes','Banco relacional corporativo.','O sistema que roda a empresa vira fonte analítica.',''],
+    ['PostgreSQL','fontes','Banco relacional open source.','Base robusta sem custo de licença.',''],
+    ['Oracle','fontes','Banco de missão crítica.','O legado segue de pé enquanto a análise avança.','Migração de legado Oracle em projeto de nuvem.'],
+    ['MySQL','fontes','Banco relacional de aplicações.','O dado do produto entra na análise.',''],
+    ['MongoDB','fontes','Banco de documentos.','Dado semiestruturado sem forçar tabela.',''],
+    ['SAP','fontes','ERP de processos corporativos.','Financeiro e suprimentos na mesma leitura.',''],
+    ['Salesforce','fontes','CRM de vendas e relacionamento.','Funil comercial junto do resultado financeiro.',''],
+    ['APIs REST','fontes','Integração com sistemas externos.','O que não tem banco ainda assim entra no pipeline.','']
   ];
 
   var orbit = document.getElementById('orbit');
   if (orbit) {
-    var nameEl = document.getElementById('tech-name');
-    var appEl  = document.getElementById('tech-app');
-    var benEl  = document.getElementById('tech-ben');
-    var caseEl = document.getElementById('tech-case');
-    var dots = [];
+    var catsEl  = document.getElementById('tech-cats');
+    var linkEl  = document.getElementById('orbit-link');
+    var nameEl  = document.getElementById('tech-name');
+    var appEl   = document.getElementById('tech-app');
+    var benEl   = document.getElementById('tech-ben');
+    var caseEl  = document.getElementById('tech-case');
+    var caseRow = document.getElementById('tech-case-row');
+    var badgeEl = document.getElementById('tech-badge');
+    var countEl = document.getElementById('tech-count');
+    if (countEl) countEl.textContent = TECH.length;
 
-    TECH.forEach(function (t, i) {
+    var list = [], dots = [], pos = [], cur = -1;
+
+    CATS.forEach(function (c, ci) {
+      var n = TECH.filter(function (t) { return t[1] === c[0]; }).length;
       var b = document.createElement('button');
       b.type = 'button';
-      b.className = 'tech-dot';
-      b.textContent = t[0];
-      b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
-      b.addEventListener('click', function () { select(i); });
-      orbit.appendChild(b);
-      dots.push(b);
+      b.className = 'tech-cat';
+      b.innerHTML = c[1].replace(/&/g, '&amp;') + ' <small>' + n + '</small>';
+      b.setAttribute('aria-pressed', ci === 0 ? 'true' : 'false');
+      b.addEventListener('click', function () {
+        [].forEach.call(catsEl.children, function (o, k) {
+          o.setAttribute('aria-pressed', k === ci ? 'true' : 'false');
+        });
+        build(c[0]);
+      });
+      catsEl.appendChild(b);
     });
 
+    function build(cat) {
+      dots.forEach(function (d) { orbit.removeChild(d); });
+      dots = []; pos = []; cur = -1;
+      if (linkEl) linkEl.style.opacity = '0';
+      list = TECH.filter(function (t) { return t[1] === cat; });
+      list.forEach(function (t, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'tech-dot pop';
+        b.innerHTML = t[0] + (t[4] ? ' <i aria-hidden="true">✦</i>' : '');
+        b.style.animationDelay = (i * 40) + 'ms';
+        b.setAttribute('aria-pressed', 'false');
+        b.addEventListener('click', function () { select(i); });
+        b.addEventListener('animationend', function () { b.classList.remove('pop'); });
+        orbit.appendChild(b);
+        dots.push(b);
+      });
+      place();
+      select(0);
+    }
+
     // O raio é responsivo: num círculo pequeno um rótulo largo como
-    // "MicroStrategy" atravessa a borda e empurra a página de lado.
+    // "Great Expectations" atravessa a borda e empurra a página de lado.
     // Recolhe os anéis até o rótulo mais largo caber.
     function place() {
       var w = orbit.clientWidth;
-      if (!w) return;
+      if (!w || !dots.length) return;
       var widest = 0;
       dots.forEach(function (d) { widest = Math.max(widest, d.offsetWidth); });
-      // metade do rótulo mais largo, em fração do raio, mais uma folga
       var room = 0.5 - (widest / 2 + 6) / w;
       var outer = Math.max(0.18, Math.min(0.44, room));
-      var inner = outer * 0.62;
+      // Três anéis a partir de nove rótulos: com dois, vizinhos separados por
+      // 30° ainda se tocam na base do círculo, onde a diferença é quase só
+      // horizontal e os rótulos são largos.
+      var rings = dots.length > 8 ? [1, 0.74, 0.52] : (dots.length > 5 ? [1, 0.64] : [1]);
       dots.forEach(function (d, i) {
-        var ring = i % 2 === 0 ? outer : inner;
-        var a = (i / TECH.length) * Math.PI * 2 - Math.PI / 2;
-        d.style.left = (50 + Math.cos(a) * ring * 100) + '%';
-        d.style.top  = (50 + Math.sin(a) * ring * 100) + '%';
+        var ring = outer * rings[i % rings.length];
+        var a = (i / dots.length) * Math.PI * 2 - Math.PI / 2;
+        pos[i] = { a: a, r: ring };
       });
+      relax(w);
+      dots.forEach(function (d, i) {
+        d.style.left = (50 + Math.cos(pos[i].a) * pos[i].r * 100) + '%';
+        d.style.top  = (50 + Math.sin(pos[i].a) * pos[i].r * 100) + '%';
+      });
+      drawLink();
     }
-    place();
+
+    // Distribuir por ângulo não basta: os rótulos têm larguras muito
+    // diferentes, e dois vizinhos largos se tocam na base do círculo. Aqui
+    // os pares que colidem se afastam pelo ângulo até caberem. A conta é
+    // toda numérica — medir o DOM dentro do laço forçaria refluxo a cada par.
+    function relax(w) {
+      var dim = dots.map(function (d) { return [d.offsetWidth, d.offsetHeight]; });
+      var x = [], y = [];
+      function at(i) {
+        x[i] = Math.cos(pos[i].a) * pos[i].r * w;
+        y[i] = Math.sin(pos[i].a) * pos[i].r * w;
+      }
+      for (var k = 0; k < dots.length; k++) at(k);
+      for (var pass = 0; pass < 60; pass++) {
+        var moved = false;
+        for (var i = 0; i < dots.length; i++) {
+          for (var j = i + 1; j < dots.length; j++) {
+            var needX = (dim[i][0] + dim[j][0]) / 2 + 9;
+            var needY = (dim[i][1] + dim[j][1]) / 2 + 7;
+            if (Math.abs(x[i] - x[j]) < needX && Math.abs(y[i] - y[j]) < needY) {
+              var s = pos[i].a <= pos[j].a ? 0.022 : -0.022;
+              pos[i].a -= s; pos[j].a += s;
+              at(i); at(j);
+              moved = true;
+            }
+          }
+        }
+        if (!moved) break;
+      }
+    }
     window.addEventListener('resize', place, { passive: true });
 
-    function select(i) {
-      var t = TECH[i];
-      nameEl.textContent = t[0];
-      appEl.textContent = t[1];
-      benEl.textContent = t[2];
-      caseEl.textContent = t[3];
-      dots.forEach(function (d, k) { d.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+    // A linha liga a ferramenta escolhida ao centro: mostra que a leitura
+    // é sempre da tecnologia para o negócio, não o contrário.
+    function drawLink() {
+      if (!linkEl || cur < 0 || !pos[cur]) return;
+      linkEl.style.width = (pos[cur].r * orbit.clientWidth) + 'px';
+      linkEl.style.transform = 'rotate(' + pos[cur].a + 'rad)';
+      linkEl.style.opacity = '1';
     }
-    select(0);
+
+    function select(i) {
+      var t = list[i];
+      if (!t) return;
+      cur = i;
+      nameEl.textContent = t[0];
+      appEl.textContent  = t[2];
+      benEl.textContent  = t[3];
+      if (t[4]) { caseEl.textContent = t[4]; caseRow.hidden = false; badgeEl.hidden = false; }
+      else { caseRow.hidden = true; badgeEl.hidden = true; }
+      dots.forEach(function (d, k) { d.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      drawLink();
+    }
+
+    build(CATS[0][0]);
+  }
+
+  /* ---------- Painel de exemplo: troca de página ---------- */
+  var dTabs = [].slice.call(document.querySelectorAll('.dash-tab'));
+  if (dTabs.length) {
+    var dPages = dTabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+    function showPage(i, focus) {
+      dTabs.forEach(function (t, k) {
+        var on = k === i;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        if (dPages[k]) dPages[k].hidden = !on;
+      });
+      if (focus) dTabs[i].focus();
+    }
+    dTabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { showPage(i, false); });
+      // Setas percorrem as abas: é o que um leitor de tela espera de um tablist.
+      t.addEventListener('keydown', function (e) {
+        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        showPage((i + d + dTabs.length) % dTabs.length, true);
+      });
+    });
   }
 
   /* ---------- Insight AI: demonstração ---------- */
