@@ -116,6 +116,8 @@ import * as THREE from '../vendor/three.module.min.js';
   placePulses(false);
 
   /* ---------- Enquadramento ---------- */
+  let redraw = null;
+
   function layout() {
     const w = hero.clientWidth, h = hero.clientHeight;
     if (!w || !h) return;
@@ -128,24 +130,51 @@ import * as THREE from '../vendor/three.module.min.js';
     group.position.x = wide ? 2.45 : 0;
     group.position.y = wide ? 0 : -3.2;
     group.scale.setScalar(wide ? 1 : 0.82);
+    if (redraw) redraw();
   }
   layout();
   window.addEventListener('resize', layout, { passive: true });
   if ('ResizeObserver' in window) new ResizeObserver(layout).observe(hero);
 
   let mx = 0, my = 0;
-  if (!reduced) {
-    window.addEventListener('pointermove', (e) => {
-      const r = hero.getBoundingClientRect();
-      mx = ((e.clientX - r.left) / r.width - 0.5) * 2;
-      my = ((e.clientY - r.top) / r.height - 0.5) * 2;
-    }, { passive: true });
-  }
+  window.addEventListener('pointermove', (e) => {
+    const r = hero.getBoundingClientRect();
+    mx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+    my = ((e.clientY - r.top) / r.height - 0.5) * 2;
+  }, { passive: true });
 
   const TILT = 0.5;
+
+  /**
+   * Menos movimento não é movimento nenhum.
+   *
+   * Quem pede reduced-motion está pedindo para nada se mexer sozinho: a
+   * pilha não gira e os pulsos não sobem. Mas a peça continua respondendo
+   * ao ponteiro, porque aí o movimento é pedido pela pessoa, e o quadro
+   * só é redesenhado enquanto a rotação ainda persegue o cursor — sem
+   * loop contínuo gastando bateria.
+   *
+   * Antes este caminho desenhava um quadro e saía, e o hero ficava morto
+   * em toda máquina com "efeitos de animação" desligados no sistema.
+   */
   if (reduced) {
-    group.rotation.set(TILT, 0.62, 0);
+    let rx = TILT, ry = 0.62, queued = false;
+    const settle = () => {
+      const tx = TILT - my * 0.07;
+      const ty = 0.62 + mx * 0.18;
+      rx += (tx - rx) * 0.12;
+      ry += (ty - ry) * 0.12;
+      group.rotation.set(rx, ry, 0);
+      renderer.render(scene, camera);
+      if (Math.abs(tx - rx) > 0.0004 || Math.abs(ty - ry) > 0.0004) requestAnimationFrame(settle);
+      else queued = false;
+    };
+    group.rotation.set(rx, ry, 0);
     renderer.render(scene, camera);
+    redraw = () => renderer.render(scene, camera);
+    window.addEventListener('pointermove', () => {
+      if (!queued) { queued = true; requestAnimationFrame(settle); }
+    }, { passive: true });
     return;
   }
 
