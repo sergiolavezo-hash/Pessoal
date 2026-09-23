@@ -38,7 +38,7 @@
   "slogan": "Dados, BI, cloud e IA para empresas que precisam escalar.",
   "areaServed": "BR",
   "knowsAbout": ["Data Engineering", "Business Intelligence", "Power BI", "Data Analytics", "Cloud", "Google Cloud Platform", "Microsoft Azure", "AWS", "Data Lake", "Data Warehouse", "Lakehouse", "Data Governance", "Artificial Intelligence", "IA Generativa", "Automacao", "Data Visualization"],
-  "sameAs": ["https://www.instagram.com/atlas_tecnologia"]
+  "sameAs": ["https://www.instagram.com/atlas_tecnologia", "https://www.linkedin.com/company/108583529/"]
 }
 </script>
   <!-- Google Analytics (GA4) -->
@@ -599,27 +599,6 @@
   .sec-lead .sub { margin-top: 1.1rem; }
   .divider { height: 1px; background: var(--line-soft); margin: 0; }
 
-  /* ---------- O problema ---------- */
-  .prob-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-top: 2.6rem; }
-  .prob {
-    border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.15rem;
-    background: linear-gradient(160deg, rgba(244,243,239,0.025), transparent);
-    display: flex; align-items: center; gap: 0.7rem;
-    font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.02em; color: var(--muted);
-    transition: border-color 0.4s var(--ease), color 0.4s var(--ease), transform 0.4s var(--ease);
-  }
-  .prob::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--dim); flex: none; transition: background 0.4s var(--ease); }
-  .prob:hover { border-color: rgba(46,134,255,0.45); color: var(--ink); transform: translateY(-2px); }
-  .prob:hover::before { background: var(--accent); }
-
-  /* caos → inteligência → decisão */
-  .arc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.4rem; }
-  .arc-step { border-top: 2px solid var(--line); padding-top: 1.1rem; transition: border-color 0.5s var(--ease); }
-  .arc-step.on { border-top-color: var(--accent); }
-  .arc-k { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); transition: color 0.5s var(--ease); }
-  .arc-step.on .arc-k { color: var(--accent-light); }
-  .arc-t { font-family: var(--display); font-size: clamp(1.15rem, 2vw, 1.5rem); font-weight: 700; margin-top: 0.4rem; }
-  .arc-d { color: var(--muted); font-size: 0.92rem; margin-top: 0.4rem; }
 
   /* ---------- Soluções (8) ---------- */
   .sols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; margin-top: 2.6rem; }
@@ -657,18 +636,6 @@
   }
   .sol-cta:hover { color: var(--ink); }
 
-  /* ---------- Fluxo genérico (dado → … → decisão) ---------- */
-  .flow { display: flex; align-items: stretch; gap: 0.5rem; margin-top: 2.2rem; flex-wrap: wrap; }
-  .flow-node {
-    flex: 1 1 0; min-width: 8.5rem; border: 1px solid var(--line); border-radius: 10px;
-    padding: 0.95rem 1rem; background: rgba(13,17,23,0.7);
-    transition: border-color 0.5s var(--ease), background 0.5s var(--ease);
-  }
-  .flow-node.on { border-color: rgba(46,134,255,0.5); background: rgba(46,134,255,0.06); }
-  .flow-k { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
-  .flow-node.on .flow-k { color: var(--accent-light); }
-  .flow-v { font-size: 0.95rem; font-weight: 600; margin-top: 0.3rem; }
-  .flow-arrow { align-self: center; color: var(--dim); font-family: var(--mono); }
 
   /* ---------- Tecnologia em órbita ---------- */
   .orbit-wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 2.5rem; align-items: center; margin-top: 2.6rem; }
@@ -757,16 +724,13 @@
 
   /* ---------- Responsivo ---------- */
   @media (max-width: 1080px) {
-    .prob-grid { grid-template-columns: repeat(2, 1fr); }
     .orbit-wrap { grid-template-columns: 1fr; gap: 1.8rem; }
     .pillars, .pillars.four { grid-template-columns: repeat(2, 1fr); }
     .nums { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 780px) {
     .sols { grid-template-columns: 1fr; }
-    .arc { grid-template-columns: 1fr; }
     .pillars, .pillars.four { grid-template-columns: 1fr; }
-    .flow-arrow { display: none; }
     /* Sem hover no toque: o detalhe da solução fica aberto. */
     .sol-more { grid-template-rows: 1fr; }
     .tl { padding-left: 2rem; }
@@ -905,6 +869,9 @@
       <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener" aria-label="Instagram da Atlas" data-cursor="Instagram" style="display:inline-flex;align-items:center;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
       </a>
+      <a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener" aria-label="LinkedIn da Atlas" data-cursor="LinkedIn" style="display:inline-flex;align-items:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7.5 10.5v6"/><circle cx="7.5" cy="7.4" r="0.9" fill="currentColor" stroke="none"/><path d="M11.4 16.5v-6m0 1.6a2.6 2.6 0 0 1 5.1.9v3.5"/></svg>
+      </a>
       <a class="btn btn-accent" href="#contato" data-magnetic>Vamos conversar <span class="arr">→</span></a>
     </nav>
     <button class="nav-burger" id="burger" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
@@ -920,6 +887,7 @@
   <a href="#insight-ai">Insights</a>
   <a href="insight.html">Atlas Insight AI <small>PRODUTO ✦</small></a>
   <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram <small>@atlas_tecnologia ✦</small></a>
+  <a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn <small>Atlas Tecnologia ✦</small></a>
   <a class="btn btn-accent" href="#contato">Vamos conversar <span class="arr">→</span></a>
 </nav>
 
@@ -946,49 +914,6 @@
     <div class="hero-foot">
       <span class="scroll-cue"><i></i> Scroll</span>
       <span>Data · Intelligence · Transformation</span>
-    </div>
-  </section>
-
-  <!-- ================= COMO AJUDAMOS ================= -->
-  <section class="sec" id="problema">
-    <div class="wrap">
-      <div class="sec-lead">
-        <span class="eyebrow reveal">Como ajudamos</span>
-        <h2 class="h-xl reveal d1">Estrutura para decidir com o dado que você já tem.</h2>
-        <p class="sub reveal d2">
-          A Atlas conecta as fontes, constrói a base confiável e entrega o
-          indicador a quem decide. Da arquitetura à decisão, em produção.
-        </p>
-      </div>
-
-      <div class="prob-grid reveal d2">
-        <div class="prob">Integração de fontes</div>
-        <div class="prob">Base única e confiável</div>
-        <div class="prob">Indicadores executivos</div>
-        <div class="prob">Governança de dados</div>
-        <div class="prob">Autonomia para as áreas</div>
-        <div class="prob">Arquitetura em nuvem</div>
-        <div class="prob">Modelos preditivos</div>
-        <div class="prob">Processos automatizados</div>
-      </div>
-
-      <div class="arc reveal d3" data-arc>
-        <div class="arc-step">
-          <p class="arc-k">01 · Conectamos</p>
-          <p class="arc-t">As fontes</p>
-          <p class="arc-d">Trazemos para um só lugar o que hoje vive em sistemas diferentes — ERP, CRM, APIs, aplicações e arquivos.</p>
-        </div>
-        <div class="arc-step">
-          <p class="arc-k">02 · Organizamos</p>
-          <p class="arc-t">A base</p>
-          <p class="arc-d">Padrão, histórico e governança: cada número passa a ter uma definição só e um endereço conhecido.</p>
-        </div>
-        <div class="arc-step">
-          <p class="arc-k">03 · Entregamos</p>
-          <p class="arc-t">A decisão</p>
-          <p class="arc-d">O indicador chega a quem decide, no tempo em que a decisão ainda importa — e a ação vira dado novo.</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -1163,35 +1088,6 @@
           </article>
 
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= DATA ENGINEERING / ARQUITETURA ================= -->
-  <section class="sec" id="arquitetura">
-    <div class="wrap">
-      <div class="sec-lead">
-        <span class="eyebrow reveal">Engenharia de dados</span>
-        <h2 class="h-xl reveal d1">O caminho que o dado percorre.</h2>
-        <p class="sub reveal d2">
-          Da origem à decisão: fontes, ingestão, armazenamento, transformação,
-          governança e consumo. Cada etapa com responsabilidade definida.
-        </p>
-      </div>
-      <div class="flow reveal d2" data-flow>
-        <div class="flow-node"><p class="flow-k">Origem</p><p class="flow-v">ERP · CRM · APIs · Apps · Sensores</p></div>
-        <span class="flow-arrow">→</span>
-        <div class="flow-node"><p class="flow-k">Ingestão</p><p class="flow-v">Data Lake</p></div>
-        <span class="flow-arrow">→</span>
-        <div class="flow-node"><p class="flow-k">Transformação</p><p class="flow-v">dbt · Airflow</p></div>
-        <span class="flow-arrow">→</span>
-        <div class="flow-node"><p class="flow-k">Governança</p><p class="flow-v">Qualidade · Padrão</p></div>
-        <span class="flow-arrow">→</span>
-        <div class="flow-node"><p class="flow-k">Consumo</p><p class="flow-v">BI · IA</p></div>
-      </div>
-      <div class="chip-row reveal d3" style="margin-top:1.6rem">
-        <span class="chip">dbt</span><span class="chip">Airflow</span><span class="chip">Databricks</span>
-        <span class="chip">BigQuery</span><span class="chip">Snowflake</span><span class="chip">SQL</span><span class="chip">Python</span>
       </div>
     </div>
   </section>
@@ -1415,14 +1311,31 @@
         </p>
       </div>
 
-      <div class="flow reveal d2" data-flow>
-        <div class="flow-node"><p class="flow-k">Entrada</p><p class="flow-v">Sua base de dados</p></div>
-        <span class="flow-arrow">→</span>
-        <div class="flow-node"><p class="flow-k">Processamento</p><p class="flow-v">Modelagem e contexto</p></div>
-        <span class="flow-arrow">→</span>
-        <div class="flow-node"><p class="flow-k">Inteligência</p><p class="flow-v">Padrão · Anomalia · Previsão</p></div>
-        <span class="flow-arrow">→</span>
-        <div class="flow-node"><p class="flow-k">Ação</p><p class="flow-v">Decisão e automação</p></div>
+      <div class="pillars four reveal d2">
+        <div class="pillar">
+          <p class="pillar-k">01</p>
+          <h3>Modelos preditivos</h3>
+          <p>Aprendem com o histórico da operação para estimar o que tende a acontecer —
+            demanda, ruptura, risco, churn — enquanto ainda dá tempo de agir.</p>
+        </div>
+        <div class="pillar">
+          <p class="pillar-k">02</p>
+          <h3>Detecção de anomalias</h3>
+          <p>Apontam o que foge do padrão no momento em que acontece, em vez de o desvio
+            aparecer só no fechamento do mês.</p>
+        </div>
+        <div class="pillar">
+          <p class="pillar-k">03</p>
+          <h3>GenAI e agentes</h3>
+          <p>Uma camada de conversa sobre a sua própria base: a pergunta em linguagem natural
+            volta como número, com o contexto de onde ele veio.</p>
+        </div>
+        <div class="pillar">
+          <p class="pillar-k">04</p>
+          <h3>Document AI</h3>
+          <p>Leitura automática de contratos, notas e relatórios — o que estava preso
+            em PDF passa a ser dado consultável.</p>
+        </div>
       </div>
 
       <div class="chip-row reveal d3" style="margin-top:1.8rem">
@@ -1558,6 +1471,7 @@
         <div class="contact-info">
           <span>Conecte-se:</span>
           <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram — @atlas_tecnologia ↗</a>
+          <a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn — Atlas Tecnologia ↗</a>
         </div>
       </div>
       <!-- Formulário enviado via FormSubmit (https://formsubmit.co) para
@@ -1615,6 +1529,7 @@
       <h4>Social</h4>
       <ul>
         <li><a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram — @atlas_tecnologia</a></li>
+        <li><a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn — Atlas Tecnologia</a></li>
       </ul>
     </div>
   </div>
@@ -2225,23 +2140,11 @@
     answer(0);
   }
 
-  /* ---------- Acende ao entrar na tela: arcos, fluxos e timeline ---------- */
-  var arcs = [].slice.call(document.querySelectorAll('[data-arc] .arc-step'));
-  var flows = [].slice.call(document.querySelectorAll('[data-flow] .flow-node'));
+  /* ---------- Acende ao entrar na tela: timeline ---------- */
   var tl = document.getElementById('tl');
   var tlFill = document.getElementById('tl-fill');
   var tlSteps = tl ? [].slice.call(tl.querySelectorAll('.tl-step')) : [];
 
-  function seq(nodes) {
-    // Acende em ordem conforme o bloco sobe pela tela. Como os passos
-    // ficam lado a lado, o limiar é escalonado por posição — sem isso
-    // todos cruzariam a mesma linha no mesmo quadro e acenderiam juntos.
-    nodes.forEach(function (n, i) {
-      var r = n.getBoundingClientRect();
-      var line = window.innerHeight * (0.86 - i * 0.045);
-      n.classList.toggle('on', r.top < line && r.bottom > 0);
-    });
-  }
 
   function timeline() {
     if (!tl) return;
@@ -2258,7 +2161,7 @@
   }
 
   var raf = 0;
-  function update() { raf = 0; seq(arcs); seq(flows); timeline(); }
+  function update() { raf = 0; timeline(); }
   function schedule() { if (!raf) raf = requestAnimationFrame(update); }
 
   update();
