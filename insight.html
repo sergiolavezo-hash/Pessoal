@@ -75,6 +75,7 @@
     .brand i{font-style:normal;color:var(--accent)}
     .brand small{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--dim);margin-left:.5rem}
     .hactions{display:flex;gap:.7rem;align-items:center}
+    .h-arr{font-style:normal}
     .hactions .back{font-size:.85rem;color:var(--muted);text-decoration:none;margin-right:.5rem}
     .hactions .back:hover{color:var(--ink)}
 
@@ -318,6 +319,32 @@
       .hactions{gap:.45rem}
       .hactions .btn{padding:.55rem .8rem;font-size:.78rem}
     }
+    /* Abaixo de 430px a soma não fecha: marca 160 + ações 224 + 40 de padding
+       passa de 390. Em vez de esconder o "Entrar" — que custa caro para quem
+       volta — tudo encolhe junto e a seta do botão sai. */
+    @media(max-width:430px){
+      header .wrap{gap:.4rem;padding-left:.9rem;padding-right:.9rem}
+      .brand{font-size:.78rem}
+      .brand svg{width:1.2rem;height:1.2rem}
+      .hactions{gap:.3rem}
+      .hactions .btn{padding:.45rem .6rem;font-size:.7rem}
+      .h-arr{display:none}
+    }
+    /* Entre 330 e 389px a conta não fecha com o nome por extenso e os dois
+       botões. Fica só a marca gráfica: o H1 logo abaixo já diz que produto é
+       este, e perder o caminho de login custaria mais que perder a palavra. */
+    @media(max-width:389px){
+      header .wrap{padding-left:.8rem;padding-right:.8rem;gap:.3rem}
+      .brand span{display:none}
+      .brand svg{width:1.35rem;height:1.35rem}
+      .hactions .btn{padding:.45rem .62rem;font-size:.72rem}
+    }
+    /* Abaixo de 330px não há soma que feche com os dois botões. Some o
+       "Entrar": quem volta ainda chega pela conta, e o botão que traz
+       receita é o de criar. */
+    @media(max-width:330px){
+      .hactions .btn-line{display:none}
+    }
     @media(max-width:720px){
       header .wrap{height:3.9rem;gap:.5rem}
       .brand{font-size:.95rem;white-space:nowrap}
@@ -355,7 +382,7 @@
     <div class="hactions">
       <a class="back" href="/">← atlas-partner.com</a>
       <a class="btn btn-line" href="https://app.atlas-partner.com/login" data-app>Entrar</a>
-      <a class="btn btn-accent" href="https://app.atlas-partner.com/signup" data-app>Criar conta →</a>
+      <a class="btn btn-accent" href="https://app.atlas-partner.com/signup" data-app>Criar conta <i class="h-arr">→</i></a>
     </div>
   </div>
 </header>
@@ -513,6 +540,21 @@
       </div>
     </div>
     <p class="pnote">Valores de lançamento — assinatura mensal ou anual, cancele quando quiser. Pagamento processado com segurança via Stripe.</p>
+  </div>
+</section>
+
+<section class="feats" data-stage="4">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>Segurança</span>
+    <h2 data-reveal="words">Seu dado não sai do lugar em que já está.</h2>
+    <div class="fgrid fgrid-3">
+      <div class="feat" data-reveal><b><span>◆</span>Somente leitura</b><p>O Atlas lê as suas fontes em modo somente-leitura. INSERT, UPDATE, DELETE e DROP são bloqueados por construção — não por configuração.</p></div>
+      <div class="feat" data-reveal data-delay="1"><b><span>◆</span>Workspace isolado</b><p>Cada cliente tem o próprio ambiente. Nenhum outro workspace enxerga a sua base, o seu modelo ou as suas perguntas.</p></div>
+      <div class="feat" data-reveal data-delay="2"><b><span>◆</span>Credenciais criptografadas</b><p>As credenciais de conexão ficam criptografadas em repouso, e são usadas apenas para as consultas que você dispara.</p></div>
+      <div class="feat" data-reveal data-delay="3"><b><span>◆</span>Resposta auditável</b><p>Todo número abre o modelo, a métrica e a query que o geraram. Sem caixa preta: dá para conferir a conta.</p></div>
+      <div class="feat" data-reveal data-delay="4"><b><span>◆</span>Você escolhe as fontes</b><p>A conexão é feita fonte a fonte, por você. Nada é varrido automaticamente do seu ambiente.</p></div>
+      <div class="feat" data-reveal data-delay="5"><b><span>◆</span>Transparência do acesso</b><p>O que o Atlas consultou fica registrado — a mesma query que respondeu à pergunta pode ser revista depois.</p></div>
+    </div>
   </div>
 </section>
 
