@@ -638,10 +638,10 @@
 
 
   /* ---------- Tecnologia em órbita ---------- */
-  /* O ecossistema de dados é grande demais para uma lista. A órbita mostra
-     uma categoria por vez: legível em qualquer tela, e o filtro vira a
-     própria navegação. Abaixo de 640px a geometria vira nuvem de chips —
-     rótulo ilegível não é enfeite, é defeito. */
+  /* Sem luz girando: a órbita é estática e só reage ao ponteiro. Cada
+     ferramenta é um ícone; o nome aparece embaixo no hover e o painel ao
+     lado diz o que ela resolve. Abaixo de 640px vira grade, com o nome
+     sempre visível — no toque não existe hover para revelá-lo. */
   .tech-cats { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2.2rem; }
   .tech-cat {
     font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em;
@@ -657,61 +657,61 @@
   .orbit-wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 2.5rem; align-items: center; margin-top: 2rem; }
   .orbit { position: relative; aspect-ratio: 1; width: 100%; max-width: 30rem; margin: 0 auto; }
   .orbit-ring { position: absolute; inset: 0; border: 1px solid var(--line-soft); border-radius: 50%; }
-  /* Girar um elemento quadrado aumenta o bounding box em ate raiz de 2 e
-     empurra a pagina de lado, mesmo quando o desenho e circular. Os dois
-     elementos que giram vivem dentro deste recorte, que nao gira. */
-  .orbit-fx { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; pointer-events: none; }
-  .orbit-ring.r2 { inset: 16%; border-style: dashed; animation: orbit-spin 110s linear infinite reverse; }
-  .orbit-sweep {
-    position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
-    background: conic-gradient(from 0deg, rgba(46,134,255,0) 0deg, rgba(46,134,255,0) 296deg,
-      rgba(46,134,255,0.06) 344deg, rgba(46,134,255,0.20) 360deg);
-    animation: orbit-spin 18s linear infinite;
-  }
-  .orbit-pulse {
-    position: absolute; left: 50%; top: 50%; width: 7rem; height: 7rem; margin: -3.5rem 0 0 -3.5rem;
-    border-radius: 50%; pointer-events: none;
-    background: radial-gradient(circle, rgba(46,134,255,0.18), rgba(46,134,255,0) 70%);
-    animation: orbit-pulse 5s ease-in-out infinite;
-  }
+  .orbit-ring.r2 { inset: 22%; }
   .orbit-link {
     position: absolute; left: 50%; top: 50%; height: 1px; width: 0; opacity: 0;
     transform-origin: 0 50%; pointer-events: none;
     background: linear-gradient(90deg, rgba(46,134,255,0.7), rgba(46,134,255,0));
     transition: opacity 0.35s var(--ease);
   }
-  @keyframes orbit-spin { to { transform: rotate(360deg); } }
-  @keyframes orbit-pulse {
-    0%, 100% { transform: scale(0.85); opacity: 0.55; }
-    50% { transform: scale(1.15); opacity: 1; }
-  }
   .orbit-core {
     position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
     text-align: center; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em;
     text-transform: uppercase; color: var(--accent-light);
   }
+
+  /* O botão é só a âncora de posição; o círculo é o .tech-ring interno.
+     Assim o nome pode ser absoluto no desktop (sem alterar a caixa usada
+     para posicionar na órbita) e entrar no fluxo no mobile, onde um nome
+     longo precisa quebrar em vez de invadir o vizinho. */
   .tech-dot {
     position: absolute; transform: translate(-50%, -50%);
-    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.02em;
-    color: var(--muted); background: var(--panel); border: 1px solid var(--line);
-    border-radius: 999px; padding: 0.3rem 0.7rem; cursor: pointer; white-space: nowrap;
-    transition: border-color 0.3s var(--ease), color 0.3s var(--ease),
-                background 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    padding: 0; border: 0; background: none; cursor: pointer;
+    display: grid; place-items: center; color: var(--muted);
+    transition: color 0.3s var(--ease);
   }
-  /* Só opacidade na entrada: animar transform brigaria com o translate
-     que centraliza o rótulo no ponto da órbita. */
-  .tech-dot.pop { animation: dot-in 0.45s var(--ease) both; }
-  @keyframes dot-in { from { opacity: 0; } to { opacity: 1; } }
-  .tech-dot i { font-style: normal; color: var(--accent-light); margin-left: 0.25rem; font-size: 0.58rem; }
-  .tech-dot:hover { border-color: rgba(46,134,255,0.5); color: var(--ink); }
-  .tech-dot[aria-pressed="true"] {
-    border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.14);
-    box-shadow: 0 0 20px rgba(46,134,255,0.35);
+  .tech-ring {
+    position: relative; width: 3.1rem; height: 3.1rem; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--panel); border: 1px solid var(--line);
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease), box-shadow 0.3s var(--ease);
   }
+  /* O SVG entra como máscara, não como imagem: assim o logo assume a cor do
+     estado (apagado, hover, selecionado) em vez de brigar com o fundo escuro. */
+  .tech-ico {
+    width: 1.5rem; height: 1.5rem; background: currentColor;
+    -webkit-mask: var(--i) center / contain no-repeat;
+            mask: var(--i) center / contain no-repeat;
+  }
+  .tech-mono { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.03em; }
+  .tech-name {
+    position: absolute; top: calc(100% + 0.35rem); left: 50%; transform: translateX(-50%);
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.05em; white-space: nowrap;
+    color: var(--dim); pointer-events: none; transition: color 0.25s var(--ease);
+  }
+  .tech-star { position: absolute; top: 0.1rem; right: 0.15rem; font-size: 0.5rem; color: var(--accent-light); opacity: 0.85; }
+  .tech-dot:hover, .tech-dot:focus-visible { color: var(--ink); }
+  .tech-dot:hover .tech-ring, .tech-dot:focus-visible .tech-ring { border-color: rgba(46,134,255,0.5); }
+  .tech-dot:hover .tech-name, .tech-dot:focus-visible .tech-name { color: var(--ink); }
+  .tech-dot[aria-pressed="true"] { color: var(--accent-light); }
+  .tech-dot[aria-pressed="true"] .tech-ring {
+    border-color: var(--accent); background: rgba(46,134,255,0.14);
+    box-shadow: 0 0 22px rgba(46,134,255,0.35);
+  }
+  .tech-dot[aria-pressed="true"] .tech-name { color: var(--accent-light); }
+
   .tech-panel { border: 1px solid var(--line); border-radius: 14px; padding: 1.8rem; background: var(--panel); min-height: 17rem; }
   .tech-panel h3 { font-size: 1.5rem; font-weight: 700; }
-  /* Sem isto o display da classe vence o atributo hidden e o selo aparece
-     em ferramenta sem projeto — exatamente a alegação que não pode existir. */
   .tech-badge[hidden] { display: none; }
   .tech-badge {
     display: inline-block; margin-top: 0.6rem; font-family: var(--mono); font-size: 0.6rem;
@@ -722,21 +722,17 @@
   .tech-row dt { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
   .tech-row dd { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.95rem; }
 
-  /* Precisa vir depois das definições acima: mesma especificidade decide
-     por ordem, e o bloco geral de reduced-motion fica antes delas. */
-  @media (prefers-reduced-motion: reduce) {
-    .orbit-sweep, .orbit-ring.r2, .orbit-pulse, .tech-dot.pop { animation: none; }
-  }
-
   @media (max-width: 640px) {
-    /* Oito categorias empilhadas comem a tela inteira antes de o visitante
+    /* Oito grupos empilhados comem a tela inteira antes de o visitante
        chegar às ferramentas. Vira faixa rolável, como no resto do mobile. */
     .tech-cats { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.3rem; }
     .tech-cats::-webkit-scrollbar { display: none; }
     .tech-cat { flex: none; }
-    .orbit { aspect-ratio: auto; max-width: none; display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
-    .orbit-ring, .orbit-sweep, .orbit-link, .orbit-core, .orbit-pulse { display: none; }
-    .tech-dot { position: static; transform: none; font-size: 0.62rem; padding: 0.3rem 0.6rem; }
+    .orbit { aspect-ratio: auto; max-width: none; display: flex; flex-wrap: wrap; gap: 1.4rem 0.6rem; justify-content: center; }
+    .orbit-ring, .orbit-link, .orbit-core { display: none; }
+    .tech-dot { position: relative; transform: none; width: 5.2rem; display: flex; flex-direction: column; align-items: center; gap: 0.45rem; }
+    .tech-ring { width: 2.9rem; height: 2.9rem; }
+    .tech-name { position: static; transform: none; white-space: normal; text-align: center; line-height: 1.2; }
     .tech-panel { min-height: 0; }
   }
 
@@ -1260,21 +1256,17 @@
         <h2 class="h-xl reveal d1">Tecnologia não é o fim. É o meio.</h2>
         <p class="sub reveal d2">
           Somos agnósticos de tecnologia: escolhemos o stack de acordo com o
-          problema, não o contrário. Escolha uma categoria e toque em uma
-          ferramenta para ver o que ela resolve.
+          problema, não o contrário. Escolha um grupo e passe o mouse — ou
+          toque — em uma ferramenta para ver o que ela resolve.
         </p>
       </div>
 
-      <div class="tech-cats reveal d2" id="tech-cats" role="group" aria-label="Categorias de tecnologia"></div>
+      <div class="tech-cats reveal d2" id="tech-cats" role="group" aria-label="Grupos de tecnologia"></div>
 
       <div class="orbit-wrap reveal d2">
-        <div class="orbit" id="orbit" role="group" aria-label="Tecnologias de dados">
-          <div class="orbit-fx" aria-hidden="true">
-            <div class="orbit-sweep"></div>
-            <div class="orbit-ring r2"></div>
-          </div>
-          <div class="orbit-pulse" aria-hidden="true"></div>
+        <div class="orbit" id="orbit" role="group" aria-label="Ferramentas de dados">
           <div class="orbit-ring" aria-hidden="true"></div>
+          <div class="orbit-ring r2" aria-hidden="true"></div>
           <div class="orbit-link" id="orbit-link" aria-hidden="true"></div>
           <p class="orbit-core">Seu<br>negócio</p>
         </div>
@@ -2298,90 +2290,66 @@
   // a linha "Onde a Atlas usou" não aparece, para não sugerir experiência
   // que não houve.
   var CATS = [
-    ['bi', 'BI & Visualização'],
-    ['nuvem', 'Nuvem & Plataformas'],
-    ['lake', 'Armazenamento & Lakehouse'],
-    ['eng', 'Ingestão & Orquestração'],
-    ['lang', 'Linguagens & Modelagem'],
-    ['ia', 'IA & Machine Learning'],
-    ['gov', 'Governança & Qualidade'],
-    ['fontes', 'Fontes & Sistemas']
+    ['bi', 'BI & Data Visualization'],
+    ['plat', 'Data Platform'],
+    ['eng', 'Data Engineering'],
+    ['cloud', 'Cloud'],
+    ['ia', 'Inteligência Artificial'],
+    ['db', 'Bancos de dados'],
+    ['gov', 'Governança'],
+    ['ds', 'Analytics & Data Science']
   ];
+  // nome, grupo, o que é, para o negócio, caso real da Atlas, ícone.
+  // O quinto campo só existe quando há projeto entregue — sem ele a linha
+  // "Onde a Atlas usou" não aparece, para não sugerir experiência que não
+  // houve. O sexto começa com # quando não há logo disponível: aí o ícone
+  // vira monograma, em vez de desenhar uma marca que não é a da empresa.
   var TECH = [
-    ['Power BI','bi','Dashboards executivos e self-service BI para as áreas.','A área deixa de pedir relatório e passa a responder a própria pergunta.','Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.'],
-    ['Tableau','bi','Exploração visual de grandes volumes de dados.','O analista encontra o padrão antes de alguém pedir o relatório.','Rede de diagnóstico, na migração da visualização para Power BI.'],
-    ['Looker','bi','Camada semântica única sobre o dado.','Uma métrica, uma definição — fim da divergência entre áreas.','Mais de 200 dashboards migrados num projeto de governança de BI.'],
-    ['Looker Studio','bi','Relatórios leves conectados ao ecossistema Google.','Distribuição rápida sem licença por usuário.',''],
-    ['Qlik Sense','bi','BI associativo, com exploração livre entre dimensões.','A pergunta seguinte não depende de um novo relatório.',''],
-    ['MicroStrategy','bi','BI corporativo para operações multiárea.','Vendas, logística e operação lendo os mesmos números.','BI corporativo em varejo de moda e arquitetura ETL → DW → BI em turismo.'],
-    ['Metabase','bi','BI open source de implantação rápida.','Os primeiros indicadores no ar sem um projeto longo.',''],
-    ['Superset','bi','Visualização open source sobre SQL.','Painéis corporativos sem custo de licença por assento.',''],
-    ['ThoughtSpot','bi','Busca em linguagem natural sobre o dado.','Quem não domina BI ainda assim encontra o número.',''],
-    ['Grafana','bi','Monitoramento e séries temporais em tempo real.','A operação enxerga o desvio no minuto em que ele acontece.',''],
-    ['QuickSight','bi','BI gerenciado dentro da AWS.','Painel junto do dado, sem mover nada de lugar.',''],
-    ['Domo','bi','Plataforma de BI em nuvem ponta a ponta.','Integração e visualização no mesmo ambiente.',''],
-    ['Azure','nuvem','Nuvem Microsoft para dados e analytics.','Integra com o que a empresa já usa no dia a dia.','Synapse e Data Factory na plataforma omnichannel.'],
-    ['AWS','nuvem','Nuvem com o portfólio mais amplo de serviços.','Escala sem reescrever a arquitetura.',''],
-    ['Google Cloud','nuvem','Nuvem Google, forte em analytics e IA.','BigQuery e IA no mesmo lugar em que o dado já está.','Data Lake em GCP e migração de legado Oracle.'],
-    ['Databricks','nuvem','Lakehouse e processamento de dados em escala.','Volume deixa de ser o limite da análise.','Pipelines da plataforma omnichannel em Azure.'],
-    ['Snowflake','nuvem','Data warehouse em nuvem com escala elástica.','O custo acompanha o uso, não o pico.',''],
-    ['Fabric','nuvem','Plataforma unificada de dados e BI da Microsoft.','Um ambiente só, do pipeline ao relatório.',''],
-    ['Synapse','nuvem','Analytics integrado da Azure.','Consulta e integração sob o mesmo contrato.','Synapse na plataforma omnichannel de varejo.'],
-    ['Cloudera','nuvem','Plataforma de dados híbrida.','Nuvem e data center sob a mesma governança.',''],
-    ['BigQuery','lake','Data warehouse analítico gerenciado.','Consulta pesada sem infraestrutura para administrar.','Data Lake em GCP para serviços financeiros e pipelines em saúde.'],
-    ['Redshift','lake','Data warehouse da AWS.','Escala analítica dentro do ecossistema Amazon.',''],
-    ['Delta Lake','lake','Camada transacional sobre o data lake.','Leitura confiável enquanto a escrita acontece.',''],
-    ['Iceberg','lake','Formato aberto de tabela para lakehouse.','O dado não fica preso a um fornecedor.',''],
-    ['Hudi','lake','Atualização incremental no data lake.','Corrigir o passado sem reprocessar tudo.',''],
-    ['ClickHouse','lake','Banco colunar de resposta em milissegundos.','Painel que responde na velocidade da pergunta.',''],
-    ['Athena','lake','Consulta SQL direto sobre o armazenamento.','Análise sem carregar o dado para outro lugar.',''],
-    ['Data Lake','lake','Armazenamento bruto em escala.','Guardar tudo hoje sem precisar decidir o uso agora.',''],
-    ['dbt','eng','Transformação versionada e testada.','A regra de negócio deixa de morar na cabeça de uma pessoa.','Transformações do Data Lake em GCP.'],
-    ['Airflow','eng','Orquestração de pipelines.','O dado chega na hora certa, e a falha aparece antes do usuário.','Pipelines em GCP para serviços financeiros e saúde.'],
-    ['Spark','eng','Processamento distribuído.','Terabytes processados dentro da janela da madrugada.',''],
-    ['Kafka','eng','Streaming de eventos.','O dado deixa de esperar o lote da noite.',''],
-    ['Flink','eng','Processamento em tempo real.','A decisão acontece durante o evento, não depois dele.',''],
-    ['Dagster','eng','Orquestração orientada a ativos de dados.','Fica claro qual tabela quebrou e o que ela afeta.',''],
-    ['Prefect','eng','Orquestração leve em Python.','Um time pequeno mantém pipeline sério no ar.',''],
-    ['Data Factory','eng','Integração de dados gerenciada na Azure.','Centenas de fontes conectadas sem código próprio.','Data Factory na plataforma omnichannel de varejo.'],
-    ['AWS Glue','eng','ETL serverless da AWS.','Pipeline sem servidor para manter.',''],
-    ['Fivetran','eng','Conectores gerenciados de ingestão.','A fonte muda e o conector acompanha.',''],
-    ['Airbyte','eng','Ingestão open source com conectores abertos.','Fonte de nicho sem esperar o fornecedor.',''],
-    ['NiFi','eng','Fluxo de dados com rastreabilidade.','Todo caminho percorrido fica auditável.',''],
-    ['SQL','lang','A língua franca do dado.','A lógica sobrevive à troca de ferramenta.','Presente em toda a engenharia da Atlas.'],
-    ['Python','lang','Engenharia de dados e modelos preditivos.','O que é repetitivo vira código; o que é previsível vira modelo.','Modelos de predição de evasão em educação.'],
-    ['PySpark','lang','Python sobre processamento distribuído.','O mesmo time atende do protótipo à escala.',''],
-    ['Scala','lang','Linguagem nativa do Spark.','Desempenho onde o volume não perdoa.',''],
-    ['R','lang','Estatística e análise exploratória.','O rigor estatístico entra na decisão.',''],
-    ['DAX','lang','Linguagem de cálculo do Power BI.','O indicador certo, e não a soma aproximada.',''],
-    ['Power Query','lang','Preparação de dados no Power BI.','Tratamento reaproveitado em vez de refeito.',''],
-    ['Git','lang','Versionamento de código e de pipeline.','Dá para voltar atrás e saber quem mudou o quê.',''],
-    ['GenAI','ia','IA generativa aplicada sobre a base da empresa.','Pergunta em linguagem natural, resposta com o número e a origem dele.','Base do Atlas Insight AI.'],
-    ['RAG','ia','Resposta ancorada na base própria da empresa.','A resposta vem com a fonte junto.',''],
-    ['LangChain','ia','Orquestração de aplicações com LLM.','A IA responde com o dado da empresa, não com achismo.',''],
-    ['MLflow','ia','Ciclo de vida de modelos.','Modelo em produção com histórico e reversão.',''],
-    ['scikit-learn','ia','Modelos clássicos de machine learning.','Previsão confiável sem complexidade desnecessária.',''],
-    ['TensorFlow','ia','Deep learning em escala.','Padrão que o modelo simples não enxerga.',''],
-    ['PyTorch','ia','Pesquisa e produção em deep learning.','Do experimento ao serviço sem reescrever.',''],
-    ['Vertex AI','ia','Plataforma de IA do Google Cloud.','Modelo ao lado do dado que ele consome.',''],
-    ['Azure ML','ia','Plataforma de IA da Microsoft.','Governança de modelo junto da governança de dado.',''],
-    ['SageMaker','ia','Treino e deploy gerenciados na AWS.','Menos infraestrutura, mais modelo no ar.',''],
-    ['Hugging Face','ia','Modelos abertos prontos para uso.','Começar de um modelo treinado, não do zero.',''],
-    ['Unity Catalog','gov','Catálogo e permissão no Databricks.','Quem vê o quê deixa de ser combinado por e-mail.',''],
-    ['Purview','gov','Governança e linhagem de dados na Azure.','Dá para provar de onde veio cada número.',''],
-    ['Great Expectations','gov','Testes automáticos de qualidade.','O dado errado para antes do relatório.',''],
-    ['dbt tests','gov','Validação dentro da própria transformação.','A quebra aparece no pipeline, não na reunião.',''],
-    ['DataHub','gov','Catálogo de dados open source.','Achar a tabela certa deixa de depender de quem lembra.',''],
-    ['Soda','gov','Monitoramento contínuo de qualidade.','O desvio de qualidade vira alerta.',''],
-    ['Monte Carlo','gov','Observabilidade de dados.','A falha silenciosa fica visível.',''],
-    ['SQL Server','fontes','Banco relacional corporativo.','O sistema que roda a empresa vira fonte analítica.',''],
-    ['PostgreSQL','fontes','Banco relacional open source.','Base robusta sem custo de licença.',''],
-    ['Oracle','fontes','Banco de missão crítica.','O legado segue de pé enquanto a análise avança.','Migração de legado Oracle em projeto de nuvem.'],
-    ['MySQL','fontes','Banco relacional de aplicações.','O dado do produto entra na análise.',''],
-    ['MongoDB','fontes','Banco de documentos.','Dado semiestruturado sem forçar tabela.',''],
-    ['SAP','fontes','ERP de processos corporativos.','Financeiro e suprimentos na mesma leitura.',''],
-    ['Salesforce','fontes','CRM de vendas e relacionamento.','Funil comercial junto do resultado financeiro.',''],
-    ['APIs REST','fontes','Integração com sistemas externos.','O que não tem banco ainda assim entra no pipeline.','']
+    ['Power BI','bi','Dashboards executivos e self-service BI para as áreas.','A área deixa de pedir relatório e passa a responder a própria pergunta.','Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.','#PBI'],
+    ['Tableau','bi','Exploração visual de grandes volumes de dados.','O analista encontra o padrão antes de alguém pedir o relatório.','Rede de diagnóstico, na migração da visualização para Power BI.','tableau'],
+    ['Looker','bi','Camada semântica única sobre o dado.','Uma métrica, uma definição — fim da divergência entre áreas.','Mais de 200 dashboards migrados num projeto de governança de BI.','looker'],
+    ['Qlik','bi','BI associativo, com exploração livre entre dimensões.','A pergunta seguinte não depende de um novo relatório.','','qlik'],
+    ['MicroStrategy','bi','BI corporativo para operações multiárea.','Vendas, logística e operação lendo os mesmos números.','BI corporativo em varejo de moda e arquitetura ETL → DW → BI em turismo.','microstrategy'],
+    ['Metabase','bi','BI open source de implantação rápida.','Os primeiros indicadores no ar sem um projeto longo.','','metabase'],
+    ['Superset','bi','Visualização open source sobre SQL.','Painéis corporativos sem custo de licença por assento.','','superset'],
+    ['Databricks','plat','Lakehouse e processamento de dados em escala.','Volume deixa de ser o limite da análise.','Pipelines da plataforma omnichannel em Azure.','databricks'],
+    ['Snowflake','plat','Data warehouse em nuvem com escala elástica.','O custo acompanha o uso, não o pico.','','snowflake'],
+    ['BigQuery','plat','Data warehouse analítico gerenciado do Google.','Consulta pesada sem infraestrutura para administrar.','Data Lake em GCP para serviços financeiros e pipelines em saúde.','bigquery'],
+    ['Microsoft Fabric','plat','Plataforma unificada de dados e BI da Microsoft.','Um ambiente só, do pipeline ao relatório.','','#FAB'],
+    ['Redshift','plat','Data warehouse da AWS.','Escala analítica dentro do ecossistema Amazon.','','redshift'],
+    ['dbt','eng','Transformação versionada e testada.','A regra de negócio deixa de morar na cabeça de uma pessoa.','Transformações do Data Lake em GCP.','dbt'],
+    ['Airflow','eng','Orquestração de pipelines.','O dado chega na hora certa, e a falha aparece antes do usuário.','Pipelines em GCP para serviços financeiros e saúde.','airflow'],
+    ['Spark','eng','Processamento distribuído.','Terabytes processados dentro da janela da madrugada.','','spark'],
+    ['Fivetran','eng','Conectores gerenciados de ingestão.','A fonte muda e o conector acompanha.','','#FVT'],
+    ['Airbyte','eng','Ingestão open source com conectores abertos.','Fonte de nicho sem esperar o fornecedor.','','airbyte'],
+    ['Kafka','eng','Streaming de eventos.','O dado deixa de esperar o lote da noite.','','kafka'],
+    ['Azure','cloud','Nuvem Microsoft para dados e analytics.','Integra com o que a empresa já usa no dia a dia.','Synapse e Data Factory na plataforma omnichannel.','#AZ'],
+    ['AWS','cloud','Nuvem com o portfólio mais amplo de serviços.','Escala sem reescrever a arquitetura.','','aws'],
+    ['Google Cloud','cloud','Nuvem Google, forte em analytics e IA.','BigQuery e IA no mesmo lugar em que o dado já está.','Data Lake em GCP e migração de legado Oracle.','googlecloud'],
+    ['OpenAI','ia','Modelos de linguagem de uso geral via API.','Capacidade de IA sem treinar modelo do zero.','','openai'],
+    ['Anthropic','ia','Modelos Claude, com foco em uso corporativo.','IA sobre documento e análise, com controle do contexto.','','anthropic'],
+    ['Gemini','ia','Modelos multimodais do Google, integrados ao Cloud.','IA ao lado do dado que já está no BigQuery.','','gemini'],
+    ['Hugging Face','ia','Modelos abertos prontos para uso.','Começar de um modelo treinado, não do zero.','','huggingface'],
+    ['MLflow','ia','Ciclo de vida de modelos.','Modelo em produção com histórico e reversão.','','mlflow'],
+    ['PostgreSQL','db','Banco relacional open source.','Base robusta sem custo de licença.','','postgresql'],
+    ['SQL Server','db','Banco relacional corporativo da Microsoft.','O sistema que roda a empresa vira fonte analítica.','','#SQLS'],
+    ['Oracle','db','Banco de missão crítica.','O legado segue de pé enquanto a análise avança.','Migração de legado Oracle em projeto de nuvem.','oracle'],
+    ['MongoDB','db','Banco de documentos.','Dado semiestruturado sem forçar tabela.','','mongodb'],
+    ['Redis','db','Banco em memória, de resposta imediata.','O painel não espera pela consulta pesada.','','redis'],
+    ['Elasticsearch','db','Busca e análise sobre texto e log.','Achar o registro certo num volume que a tabela não resolve.','','elasticsearch'],
+    ['Purview','gov','Governança e linhagem de dados na Azure.','Dá para provar de onde veio cada número.','','#PVW'],
+    ['Collibra','gov','Catálogo e governança corporativa.','A regra de dado deixa de ser política no papel.','','#CLB'],
+    ['Alation','gov','Catálogo com contexto de uso.','Quem usa cada tabela vira informação, não folclore.','','#ALA'],
+    ['Atlan','gov','Catálogo colaborativo de dados.','Negócio e engenharia falando da mesma tabela.','','#ATL'],
+    ['Unity Catalog','gov','Catálogo e permissão no Databricks.','Quem vê o quê deixa de ser combinado por e-mail.','','#UC'],
+    ['Python','ds','Engenharia de dados e modelos preditivos.','O que é repetitivo vira código; o que é previsível vira modelo.','Modelos de predição de evasão em educação.','python'],
+    ['SQL','ds','A língua franca do dado.','A lógica sobrevive à troca de ferramenta.','Presente em toda a engenharia da Atlas.','#SQL'],
+    ['R','ds','Estatística e análise exploratória.','O rigor estatístico entra na decisão.','','r'],
+    ['Jupyter','ds','Ambiente de análise e prototipagem.','A hipótese é testada antes de virar projeto.','','jupyter'],
+    ['pandas','ds','Manipulação de dados em Python.','O tratamento vira código revisável, não planilha solta.','','pandas'],
+    ['Polars','ds','Processamento tabular de alta performance.','Volume médio sem precisar subir um cluster.','','polars'],
+    ['Dataiku','ds','Plataforma de analytics e IA em baixo código.','O time de negócio participa da construção do modelo.','','dataiku'],
+    ['Alteryx','ds','Preparação e automação analítica visual.','O analista automatiza o próprio fluxo sem virar dev.','','alteryx']
   ];
 
   var orbit = document.getElementById('orbit');
@@ -2397,7 +2365,7 @@
     var countEl = document.getElementById('tech-count');
     if (countEl) countEl.textContent = TECH.length;
 
-    var list = [], dots = [], pos = [], cur = -1;
+    var list = [], dots = [], pos = [], cur = -1, pinned = 0;
 
     CATS.forEach(function (c, ci) {
       var n = TECH.filter(function (t) { return t[1] === c[0]; }).length;
@@ -2415,41 +2383,77 @@
       catsEl.appendChild(b);
     });
 
+    orbit.addEventListener('mouseleave', function () {
+      if (cur !== pinned) select(pinned, false);
+    });
+
     function build(cat) {
       dots.forEach(function (d) { orbit.removeChild(d); });
-      dots = []; pos = []; cur = -1;
+      dots = []; pos = []; cur = -1; pinned = 0;
       if (linkEl) linkEl.style.opacity = '0';
       list = TECH.filter(function (t) { return t[1] === cat; });
       list.forEach(function (t, i) {
         var b = document.createElement('button');
         b.type = 'button';
-        b.className = 'tech-dot pop';
-        b.innerHTML = t[0] + (t[4] ? ' <i aria-hidden="true">✦</i>' : '');
-        b.style.animationDelay = (i * 40) + 'ms';
+        b.className = 'tech-dot';
         b.setAttribute('aria-pressed', 'false');
-        b.addEventListener('click', function () { select(i); });
-        b.addEventListener('animationend', function () { b.classList.remove('pop'); });
+        b.setAttribute('aria-label', t[0]);
+        var ring = document.createElement('span');
+        ring.className = 'tech-ring';
+        ring.setAttribute('aria-hidden', 'true');
+        var ico = document.createElement('span');
+        if (t[5].charAt(0) === '#') {
+          ico.className = 'tech-mono';
+          ico.textContent = t[5].slice(1);
+        } else {
+          ico.className = 'tech-ico';
+          ico.style.setProperty('--i', 'url(media/logos/' + t[5] + '.svg)');
+        }
+        ring.appendChild(ico);
+        if (t[4]) {
+          var st = document.createElement('span');
+          st.className = 'tech-star';
+          st.textContent = '✦';
+          ring.appendChild(st);
+        }
+        b.appendChild(ring);
+        var nm = document.createElement('span');
+        nm.className = 'tech-name';
+        nm.setAttribute('aria-hidden', 'true');
+        nm.textContent = t[0];
+        b.appendChild(nm);
+        // Passar o mouse já mostra o que a ferramenta resolve; o clique fixa,
+        // para a leitura não sumir quando o ponteiro sai.
+        b.addEventListener('mouseenter', function () { select(i, false); });
+        b.addEventListener('focus', function () { select(i, false); });
+        b.addEventListener('click', function () { select(i, true); });
         orbit.appendChild(b);
         dots.push(b);
       });
       place();
-      select(0);
+      select(0, true);
     }
 
-    // O raio é responsivo: num círculo pequeno um rótulo largo como
-    // "Great Expectations" atravessa a borda e empurra a página de lado.
-    // Recolhe os anéis até o rótulo mais largo caber.
     function place() {
       var w = orbit.clientWidth;
       if (!w || !dots.length) return;
+      // Abaixo de 640px a CSS tira os ícones do posicionamento absoluto e eles
+      // viram grade: ali as coordenadas de órbita atrapalhariam em vez de ajudar.
+      if (getComputedStyle(dots[0]).position !== 'absolute') {
+        dots.forEach(function (d) { d.style.left = ''; d.style.top = ''; });
+        if (linkEl) linkEl.style.opacity = '0';
+        return;
+      }
+      // O nome fica fora da caixa do botão (posição absoluta), então precisa
+      // entrar na conta do raio — senão "Microsoft Fabric" atravessa a borda.
       var widest = 0;
-      dots.forEach(function (d) { widest = Math.max(widest, d.offsetWidth); });
-      var room = 0.5 - (widest / 2 + 6) / w;
-      var outer = Math.max(0.18, Math.min(0.44, room));
-      // Três anéis a partir de nove rótulos: com dois, vizinhos separados por
-      // 30° ainda se tocam na base do círculo, onde a diferença é quase só
-      // horizontal e os rótulos são largos.
-      var rings = dots.length > 8 ? [1, 0.74, 0.52] : (dots.length > 5 ? [1, 0.64] : [1]);
+      dots.forEach(function (d) {
+        var nm = d.querySelector('.tech-name');
+        widest = Math.max(widest, d.offsetWidth, nm ? nm.offsetWidth : 0);
+      });
+      var room = 0.5 - (widest / 2 + 10) / w;
+      var outer = Math.max(0.18, Math.min(0.42, room));
+      var rings = dots.length > 8 ? [1, 0.6] : [1];
       dots.forEach(function (d, i) {
         var ring = outer * rings[i % rings.length];
         var a = (i / dots.length) * Math.PI * 2 - Math.PI / 2;
@@ -2462,13 +2466,18 @@
       });
       drawLink();
     }
+    window.addEventListener('resize', place, { passive: true });
 
-    // Distribuir por ângulo não basta: os rótulos têm larguras muito
-    // diferentes, e dois vizinhos largos se tocam na base do círculo. Aqui
-    // os pares que colidem se afastam pelo ângulo até caberem. A conta é
-    // toda numérica — medir o DOM dentro do laço forçaria refluxo a cada par.
+    // Os ícones têm todos o mesmo tamanho, então raramente colidem — mas o
+    // afastamento por ângulo fica aqui porque o número por grupo muda.
     function relax(w) {
-      var dim = dots.map(function (d) { return [d.offsetWidth, d.offsetHeight]; });
+      var dim = dots.map(function (d) {
+        var nm = d.querySelector('.tech-name');
+        // Largura: a maior entre ícone e nome. Altura: o ícone mais o nome
+        // pendurado embaixo dele.
+        return [Math.max(d.offsetWidth, nm ? nm.offsetWidth : 0),
+                d.offsetHeight + (nm ? nm.offsetHeight + 6 : 0)];
+      });
       var x = [], y = [];
       function at(i) {
         x[i] = Math.cos(pos[i].a) * pos[i].r * w;
@@ -2479,11 +2488,11 @@
         var moved = false;
         for (var i = 0; i < dots.length; i++) {
           for (var j = i + 1; j < dots.length; j++) {
-            var needX = (dim[i][0] + dim[j][0]) / 2 + 9;
-            var needY = (dim[i][1] + dim[j][1]) / 2 + 7;
+            var needX = (dim[i][0] + dim[j][0]) / 2 + 10;
+            var needY = (dim[i][1] + dim[j][1]) / 2 + 10;
             if (Math.abs(x[i] - x[j]) < needX && Math.abs(y[i] - y[j]) < needY) {
-              var s = pos[i].a <= pos[j].a ? 0.022 : -0.022;
-              pos[i].a -= s; pos[j].a += s;
+              var sg = pos[i].a <= pos[j].a ? 0.022 : -0.022;
+              pos[i].a -= sg; pos[j].a += sg;
               at(i); at(j);
               moved = true;
             }
@@ -2492,10 +2501,9 @@
         if (!moved) break;
       }
     }
-    window.addEventListener('resize', place, { passive: true });
 
-    // A linha liga a ferramenta escolhida ao centro: mostra que a leitura
-    // é sempre da tecnologia para o negócio, não o contrário.
+    // A linha liga a ferramenta escolhida ao centro: a leitura é sempre da
+    // tecnologia para o negócio, não o contrário.
     function drawLink() {
       if (!linkEl || cur < 0 || !pos[cur]) return;
       linkEl.style.width = (pos[cur].r * orbit.clientWidth) + 'px';
@@ -2503,10 +2511,11 @@
       linkEl.style.opacity = '1';
     }
 
-    function select(i) {
+    function select(i, pin) {
       var t = list[i];
       if (!t) return;
       cur = i;
+      if (pin) pinned = i;
       nameEl.textContent = t[0];
       appEl.textContent  = t[2];
       benEl.textContent  = t[3];
