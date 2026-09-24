@@ -745,355 +745,140 @@
   .sol-cta:hover { color: var(--ink); }
 
 
-  /* ---------- Tecnologia em órbita ---------- */
-  /* Sem luz girando: a órbita é estática e só reage ao ponteiro. Cada
-     ferramenta é um ícone; o nome aparece embaixo no hover e o painel ao
-     lado diz o que ela resolve. Abaixo de 640px vira grade, com o nome
-     sempre visível — no toque não existe hover para revelá-lo. */
-  .tech-cats { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2.2rem; }
-  .tech-cat {
-    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em;
-    color: var(--muted); background: transparent; border: 1px solid var(--line);
-    border-radius: 999px; padding: 0.45rem 0.85rem; cursor: pointer;
-    transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background 0.3s var(--ease);
+  /* ---------- Painel de tecnologia ---------- */
+  /* O seletor é o filtro do painel; o fluxo ORIGEM > BASE > DASHBOARDS é o
+     gráfico. Escolher uma ferramenta acende a etapa em que ela atua e escreve
+     ali o que ela faz — a pergunta "onde isso entra no meu projeto" e a
+     pergunta "o que essa ferramenta faz" passam a ter a mesma resposta. */
+  .tp {
+    margin-top: 2.4rem; border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+    background: linear-gradient(180deg, rgba(18,26,36,0.82), rgba(13,17,23,0.82));
   }
-  .tech-cat:hover { border-color: rgba(46,134,255,0.45); color: var(--ink); }
-  .tech-cat[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.12); }
-  .tech-cat small { color: var(--dim); margin-left: 0.4rem; }
-  .tech-cat[aria-pressed="true"] small { color: var(--accent-light); }
-
-  .orbit-wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 2.5rem; align-items: center; margin-top: 2rem; }
-  .orbit { position: relative; aspect-ratio: 1; width: 100%; max-width: 30rem; margin: 0 auto; }
-  .orbit-ring { position: absolute; inset: 0; border: 1px solid var(--line-soft); border-radius: 50%; }
-  .orbit-ring.r2 { inset: 22%; }
-  .orbit-link {
-    position: absolute; left: 50%; top: 50%; height: 1px; width: 0; opacity: 0;
-    transform-origin: 0 50%; pointer-events: none;
-    background: linear-gradient(90deg, rgba(46,134,255,0.7), rgba(46,134,255,0));
-    transition: opacity 0.35s var(--ease);
-  }
-  .orbit-core {
-    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-    text-align: center; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--accent-light);
-  }
-
-  /* O botão é só a âncora de posição; o círculo é o .tech-ring interno.
-     Assim o nome pode ser absoluto no desktop (sem alterar a caixa usada
-     para posicionar na órbita) e entrar no fluxo no mobile, onde um nome
-     longo precisa quebrar em vez de invadir o vizinho. */
-  .tech-dot {
-    position: absolute; transform: translate(-50%, -50%);
-    padding: 0; border: 0; background: none; cursor: pointer;
-    display: grid; place-items: center; color: var(--muted);
-    transition: color 0.3s var(--ease);
-  }
-  .tech-ring {
-    position: relative; width: 3.1rem; height: 3.1rem; border-radius: 50%;
-    display: grid; place-items: center;
-    background: var(--panel); border: 1px solid var(--line);
-    transition: border-color 0.3s var(--ease), background 0.3s var(--ease), box-shadow 0.3s var(--ease);
-  }
-  /* O SVG entra como máscara, não como imagem: assim o logo assume a cor do
-     estado (apagado, hover, selecionado) em vez de brigar com o fundo escuro. */
-  .tech-ico {
-    width: 1.5rem; height: 1.5rem; background: currentColor;
-    -webkit-mask: var(--i) center / contain no-repeat;
-            mask: var(--i) center / contain no-repeat;
-  }
-  .tech-mono { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.03em; }
-  .tech-name {
-    position: absolute; top: calc(100% + 0.35rem); left: 50%; transform: translateX(-50%);
-    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.05em; white-space: nowrap;
-    color: var(--dim); pointer-events: none; transition: color 0.25s var(--ease);
-  }
-  .tech-star { position: absolute; top: 0.1rem; right: 0.15rem; font-size: 0.5rem; color: var(--accent-light); opacity: 0.85; }
-  .tech-dot:hover, .tech-dot:focus-visible { color: var(--ink); }
-  .tech-dot:hover .tech-ring, .tech-dot:focus-visible .tech-ring { border-color: rgba(46,134,255,0.5); }
-  .tech-dot:hover .tech-name, .tech-dot:focus-visible .tech-name { color: var(--ink); }
-  .tech-dot[aria-pressed="true"] { color: var(--accent-light); }
-  .tech-dot[aria-pressed="true"] .tech-ring {
-    border-color: var(--accent); background: rgba(46,134,255,0.14);
-    box-shadow: 0 0 22px rgba(46,134,255,0.35);
-  }
-  .tech-dot[aria-pressed="true"] .tech-name { color: var(--accent-light); }
-
-  .tech-panel { border: 1px solid var(--line); border-radius: 14px; padding: 1.8rem; background: var(--panel); min-height: 17rem; }
-  .tech-panel h3 { font-size: 1.5rem; font-weight: 700; }
-  .tech-badge[hidden] { display: none; }
-  .tech-badge {
-    display: inline-block; margin-top: 0.6rem; font-family: var(--mono); font-size: 0.6rem;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-light);
-    border: 1px solid rgba(46,134,255,0.35); border-radius: 999px; padding: 0.25rem 0.6rem;
-  }
-  .tech-row { margin-top: 1.1rem; }
-  .tech-row dt { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
-  .tech-row dd { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.95rem; }
-
-  @media (max-width: 640px) {
-    /* Oito grupos empilhados comem a tela inteira antes de o visitante
-       chegar às ferramentas. Vira faixa rolável, como no resto do mobile. */
-    .tech-cats { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.3rem; }
-    .tech-cats::-webkit-scrollbar { display: none; }
-    .tech-cat { flex: none; }
-    .orbit { aspect-ratio: auto; max-width: none; display: flex; flex-wrap: wrap; gap: 1.4rem 0.6rem; justify-content: center; }
-    .orbit-ring, .orbit-link, .orbit-core { display: none; }
-    .tech-dot { position: relative; transform: none; width: 5.2rem; display: flex; flex-direction: column; align-items: center; gap: 0.45rem; }
-    .tech-ring { width: 2.9rem; height: 2.9rem; }
-    .tech-name { position: static; transform: none; white-space: normal; text-align: center; line-height: 1.2; }
-    .tech-panel { min-height: 0; }
-  }
-
-  .illus-note { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
-
-  /* ---------- Arquitetura: onde cada ferramenta entra ---------- */
-  .arq {
-    position: relative; margin-top: 3rem; border: 1px solid var(--line); border-radius: 20px;
-    background:
-      radial-gradient(70% 90% at 50% -10%, rgba(46,134,255,0.10), transparent 60%),
-      linear-gradient(180deg, rgba(18,26,36,0.82), rgba(13,17,23,0.82));
-  }
-  /* Cantoneiras: a marca de planta técnica, e o detalhe que dá acabamento. */
-  .arq::before, .arq::after,
-  .arq > .arq-cx1, .arq > .arq-cx2 {
-    content: ''; position: absolute; width: 16px; height: 16px; pointer-events: none;
-    border-color: rgba(46,134,255,0.55); border-style: solid; border-width: 0;
-  }
-  .arq::before { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; border-radius: 20px 0 0 0; }
-  .arq::after { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; border-radius: 0 20px 0 0; }
-  .arq > .arq-cx1 { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; border-radius: 0 0 0 20px; }
-  .arq > .arq-cx2 { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; border-radius: 0 0 20px 0; }
-
-  .arq-bar {
+  .tp-bar {
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-    flex-wrap: wrap; padding: 1rem 1.4rem; border-bottom: 1px solid var(--line);
+    flex-wrap: wrap; padding: 0.95rem 1.3rem; border-bottom: 1px solid var(--line);
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
   }
-  .arq-bar b {
-    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--ink); font-weight: 500;
-    display: inline-flex; align-items: center; gap: 0.6rem;
-  }
-  .arq-bar b::before {
+  .tp-bar b { color: var(--ink); font-weight: 500; display: inline-flex; align-items: center; gap: 0.6rem; }
+  .tp-bar b::before {
     content: ''; width: 7px; height: 7px; border-radius: 50%;
     background: var(--accent); box-shadow: 0 0 10px rgba(46,134,255,0.8);
   }
-  .arq-clouds { display: flex; gap: 0.4rem; align-items: center; }
 
-  .arq-body {
-    display: grid; grid-template-columns: 0.82fr 4.2rem 1.3fr 4.2rem 1.2fr;
-    align-items: stretch; padding: 1.7rem 1.4rem 1.5rem;
-  }
+  /* números reais: quantas ferramentas, e em quantas há projeto entregue */
+  .tp-stats { display: flex; gap: 1.6rem; flex-wrap: wrap; align-items: center; }
+  .tp-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+  .tp-stat b { font-family: var(--display); font-size: 1.05rem; font-weight: 800; letter-spacing: -0.02em; }
+  .tp-stat span { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+  .tp-meter { width: 5.5rem; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.08); margin-top: 0.15rem; }
+  .tp-meter i { display: block; height: 100%; border-radius: 2px; background: var(--accent); }
 
-  /* ---------------- conector ---------------- */
-  .arq-conn { position: relative; display: grid; place-items: center; }
-  .arq-conn svg { width: 100%; height: 30px; overflow: visible; }
-  .arq-conn .arq-ln { stroke: rgba(46,134,255,0.45); stroke-width: 1.6; stroke-dasharray: 4 3; fill: none; transition: stroke 0.35s var(--ease); }
-  .arq-conn .arq-hd { fill: rgba(46,134,255,0.6); transition: fill 0.35s var(--ease); }
-  .arq-conn .arq-nd { fill: var(--bg0); stroke: rgba(46,134,255,0.6); stroke-width: 1.5; transition: stroke 0.35s var(--ease), fill 0.35s var(--ease); }
-  .arq-conn.arq-lit .arq-ln { stroke: var(--accent); }
-  .arq-conn.arq-lit .arq-hd { fill: var(--accent-light); }
-  .arq-conn.arq-lit .arq-nd { stroke: var(--accent-light); fill: rgba(46,134,255,0.25); }
+  .tp-filtros { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 1.1rem 1.3rem 0; }
+  .tp-filtro {
+    font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em;
+    color: var(--muted); background: transparent; border: 1px solid var(--line);
+    border-radius: 999px; padding: 0.42rem 0.8rem; cursor: pointer;
+    transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .tp-filtro:hover { border-color: rgba(46,134,255,0.45); color: var(--ink); }
+  .tp-filtro[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.12); }
+  .tp-filtro small { color: var(--dim); margin-left: 0.35rem; }
+  .tp-filtro[aria-pressed="true"] small { color: var(--accent-light); }
 
-  /* ---------------- etapas ---------------- */
-  .arq-stage {
-    position: relative; border: 1px solid var(--line); border-radius: 16px;
-    background: rgba(5,7,10,0.55); padding: 1.35rem 1.2rem 1.2rem;
-    display: flex; flex-direction: column; gap: 1rem;
-    transition: border-color 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  .tp-grade { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 1rem 1.3rem 1.2rem; }
+  .tp-item {
+    position: relative; display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1px solid var(--line); border-radius: 999px; padding: 0.3rem 0.8rem 0.3rem 0.3rem;
+    background: var(--panel); color: var(--muted); cursor: pointer;
+    font-size: 0.78rem; transition: color 0.25s var(--ease), border-color 0.25s var(--ease),
+                background 0.25s var(--ease), box-shadow 0.25s var(--ease);
   }
-  /* Barra de acento no topo: apaga por padrão, acende quando a etapa é o assunto. */
-  .arq-stage::before {
-    content: ''; position: absolute; top: -1px; left: 1.6rem; right: 1.6rem; height: 2px;
-    border-radius: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0.22; transition: opacity 0.4s var(--ease);
-  }
-  .arq-stage.arq-lit { border-color: rgba(46,134,255,0.42); background: rgba(18,26,36,0.6); box-shadow: 0 0 46px rgba(46,134,255,0.10); }
-  .arq-stage.arq-lit::before { opacity: 1; }
-
-  .arq-stage-k {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--accent-light);
-  }
-  .arq-stage-k i {
-    font-style: normal; display: grid; place-items: center;
-    width: 1.35rem; height: 1.35rem; border-radius: 5px; flex: none;
-    border: 1px solid rgba(46,134,255,0.35); background: rgba(46,134,255,0.1);
-    font-size: 0.58rem; letter-spacing: 0;
-  }
-  .arq-stage-t { font-family: var(--display); font-size: 1.15rem; font-weight: 700; letter-spacing: -0.024em; margin-top: 0.55rem; }
-  .arq-stage-d { color: var(--muted); font-size: 0.855rem; line-height: 1.52; margin-top: 0.35rem; }
-
-  /* ---------------- desenho: as fontes ---------------- */
-  .arq-srcs { display: grid; gap: 0.38rem; }
-  .arq-src {
-    position: relative; display: flex; align-items: center; gap: 0.55rem;
-    border: 1px solid var(--line-soft); border-radius: 9px; padding: 0.46rem 0.6rem;
-    font-size: 0.78rem; color: var(--muted); background: rgba(13,17,23,0.7);
-    transition: border-color 0.35s var(--ease), color 0.35s var(--ease);
-  }
-  .arq-src::before {
-    content: ''; width: 5px; height: 5px; border-radius: 1px; flex: none;
-    background: var(--dim); transition: background 0.35s var(--ease);
-  }
-  .arq-stage.arq-lit .arq-src { border-color: rgba(46,134,255,0.2); color: var(--ink); }
-  .arq-stage.arq-lit .arq-src::before { background: var(--accent); }
-
-  /* ---------------- desenho: o banco ---------------- */
-  .arq-art-wrap { position: relative; }
-  .arq-art-wrap::before {
-    content: ''; position: absolute; left: 50%; top: 50%; width: 76%; height: 76%;
-    transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none;
-    background: radial-gradient(circle, rgba(46,134,255,0.18), transparent 70%);
-    opacity: 0.5; transition: opacity 0.5s var(--ease);
-  }
-  .arq-stage.arq-lit .arq-art-wrap::before { opacity: 1; }
-  .arq-art { position: relative; display: block; width: 100%; height: auto; max-width: 17rem; margin: 0.4rem auto 0; }
-  .arq-art .arq-edge { fill: none; stroke: rgba(46,134,255,0.6); stroke-width: 1.2; }
-  .arq-art .arq-inner { fill: none; stroke: rgba(46,134,255,0.3); stroke-width: 1; }
-  .arq-art .arq-lbl { fill: var(--muted); font-family: var(--mono); font-size: 4.6px; letter-spacing: 0.14em; }
-  .arq-art .arq-tick { stroke: rgba(255,255,255,0.14); stroke-width: 0.8; }
-  .arq-stage.arq-lit .arq-art .arq-lbl { fill: var(--ink); }
-
-  /* ---------------- desenho: o painel ---------------- */
-  .arq-dash {
-    border: 1px solid var(--line); border-radius: 12px; background: var(--panel);
-    overflow: hidden; transition: border-color 0.4s var(--ease);
-  }
-  .arq-stage.arq-lit .arq-dash { border-color: rgba(46,134,255,0.3); }
-  .arq-dash-bar {
-    display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.7rem;
-    border-bottom: 1px solid var(--line-soft);
-    font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--dim);
-  }
-  .arq-dash-bar u { display: flex; gap: 0.25rem; text-decoration: none; }
-  .arq-dash-bar u i { width: 5px; height: 5px; border-radius: 50%; background: var(--line); }
-  .arq-dash-bar u i:first-child { background: rgba(46,134,255,0.7); }
-  .arq-dash-body { display: grid; grid-template-columns: 1fr 1.45fr; gap: 0.8rem; padding: 0.85rem 0.8rem; }
-  .arq-dash-kpi-k { font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); }
-  .arq-dash-kpi-v { white-space: nowrap; font-family: var(--display); font-size: 1.32rem; font-weight: 800; letter-spacing: -0.035em; line-height: 1; margin-top: 0.25rem; }
-  .arq-dash-kpi-d { font-family: var(--mono); font-size: 0.56rem; color: var(--accent-light); margin-top: 0.32rem; }
-  .arq-dash-rows { display: grid; gap: 0.32rem; margin-top: 0.75rem; }
-  .arq-dash-row { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.07); }
-  .arq-dash-row b { display: block; height: 100%; border-radius: 2px; background: rgba(46,134,255,0.45); }
-  .arq-dash-right { display: flex; flex-direction: column; gap: 0.4rem; }
-  .arq-dash-chart { display: flex; align-items: flex-end; gap: 3px; height: 3.6rem; }
-  .arq-dash-chart i { flex: 1; border-radius: 1.5px 1.5px 0 0; background: rgba(46,134,255,0.24); transition: background 0.4s var(--ease); }
-  .arq-dash-chart i.arq-hi { background: var(--accent); box-shadow: 0 0 14px rgba(46,134,255,0.55); }
-  .arq-dash-x { display: flex; gap: 3px; font-family: var(--mono); font-size: 0.42rem; color: var(--dim); }
-  .arq-dash-x span { flex: 1; text-align: center; }
-  .arq-dash-foot { padding: 0 0.8rem 0.85rem; display: grid; gap: 0.35rem; }
-  .arq-dash-foot .arq-dash-kpi-k { margin-bottom: 0.1rem; }
-  .arq-dash-ch { display: grid; grid-template-columns: 4.6rem 1fr 1.9rem; gap: 0.5rem; align-items: center; }
-  .arq-dash-ch span { font-size: 0.62rem; color: var(--muted); }
-  .arq-dash-ch u { display: block; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.07); text-decoration: none; }
-  .arq-dash-ch b { display: block; height: 100%; border-radius: 2px; background: rgba(46,134,255,0.4); }
-  .arq-dash-ch:first-of-type b { background: var(--accent); box-shadow: 0 0 10px rgba(46,134,255,0.5); }
-  .arq-dash-ch em { font-family: var(--mono); font-size: 0.56rem; font-style: normal; color: var(--ink); text-align: right; }
-
-  /* ---------------- ferramentas ---------------- */
-  .arq-tools { display: flex; flex-wrap: wrap; gap: 0.42rem; }
-  /* O bloco de ferramentas é empurrado para a base para as três colunas
-     terminarem alinhadas; o rótulo evita que a folga acima leia como erro. */
-  .arq-stage .arq-tools-wrap { margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--line-soft); }
-  .arq-tools-k {
-    display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem;
-    font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--dim);
-  }
-  .arq-tools-k::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); }
-  .arq-tool {
-    position: relative; width: 2.4rem; height: 2.4rem; border-radius: 50%; padding: 0;
-    display: grid; place-items: center; cursor: pointer;
-    color: var(--muted); background: var(--panel); border: 1px solid var(--line);
-    transition: color 0.25s var(--ease), border-color 0.25s var(--ease),
-                background 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-  .arq-ring { display: grid; place-items: center; }
-  .arq-tool .arq-ico {
-    width: 1.1rem; height: 1.1rem; background: currentColor;
-    -webkit-mask: var(--i) center / contain no-repeat;
-            mask: var(--i) center / contain no-repeat;
-  }
-  .arq-tool .arq-mn { font-family: var(--mono); font-size: 0.47rem; letter-spacing: 0.01em; }
-  .arq-tool:hover, .arq-tool:focus-visible, .arq-tool.on {
-    color: var(--accent-light); border-color: var(--accent); outline: none;
-    background: rgba(46,134,255,0.15); box-shadow: 0 0 18px rgba(46,134,255,0.35);
-    transform: translateY(-2px);
-  }
-  .arq-star { position: absolute; top: 0.04rem; right: 0.12rem; font-size: 0.42rem; color: var(--accent-light); opacity: 0.9; }
-
-  /* ---------------- faixas que atravessam ---------------- */
-  /* Governança e IA não são etapas na fila: acontecem sobre o fluxo
-     inteiro. Desenhar como faixa é o que separa arquitetura de fluxograma. */
-  .arq-bands { border-top: 1px solid var(--line); }
-  .arq-band {
-    position: relative; display: grid; grid-template-columns: 14rem 1fr;
-    gap: 1.2rem; align-items: center; padding: 1rem 1.4rem 1rem 1.4rem;
-    transition: background 0.4s var(--ease);
-  }
-  .arq-band + .arq-band { border-top: 1px solid var(--line-soft); }
-  .arq-band::before {
-    content: ''; position: absolute; left: 0; top: 0.8rem; bottom: 0.8rem; width: 2px;
-    background: var(--accent); opacity: 0.3; border-radius: 0 2px 2px 0;
-    transition: opacity 0.4s var(--ease);
-  }
-  .arq-band.arq-lit { background: rgba(46,134,255,0.04); }
-  .arq-band.arq-lit::before { opacity: 1; }
-  .arq-band-h { display: flex; flex-direction: column; gap: 0.2rem; }
-  .arq-band-k {
-    display: inline-flex; align-items: center; gap: 0.45rem;
-    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--accent-light);
-  }
-  .arq-band-k::after { content: ''; flex: 1; height: 1px; background: var(--line); min-width: 1rem; }
-  .arq-band-d { font-size: 0.79rem; color: var(--dim); line-height: 1.42; }
-  .arq-band .arq-tools { margin-top: 0; padding-top: 0; }
-
-  /* ---------------- legenda viva ---------------- */
-  .arq-cap {
-    display: grid; grid-template-columns: 13rem 1fr; gap: 1.2rem; align-items: center;
-    margin-top: 1.2rem; border: 1px solid var(--line); border-radius: 14px;
-    padding: 1rem 1.2rem; background: linear-gradient(180deg, rgba(18,26,36,0.7), rgba(13,17,23,0.7));
-    min-height: 5rem;
-  }
-  .arq-cap-l { display: flex; align-items: center; gap: 0.7rem; }
-  .arq-cap-ico {
-    width: 2.6rem; height: 2.6rem; border-radius: 50%; flex: none; display: grid; place-items: center;
-    border: 1px solid rgba(46,134,255,0.4); background: rgba(46,134,255,0.1); color: var(--accent-light);
-  }
-  .arq-cap-ico span {
-    width: 1.2rem; height: 1.2rem; background: currentColor;
-    -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat;
-  }
-  .arq-cap-ico b { font-family: var(--mono); font-size: 0.5rem; font-weight: 500; }
-  .arq-cap-n { display: block; font-family: var(--display); font-size: 1.08rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
-  .arq-cap-w { display: block; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-top: 0.15rem; }
-  .arq-cap-d { color: var(--muted); font-size: 0.93rem; }
-  .arq-cap-d b { color: var(--accent-light); font-weight: 500; }
-
-  .note {
-    margin-top: 1.5rem; font-family: var(--mono); font-size: 0.63rem;
-    letter-spacing: 0.13em; text-transform: uppercase; color: var(--dim);
+  .tp-ring { position: relative; width: 1.85rem; height: 1.85rem; border-radius: 50%; flex: none;
+    display: grid; place-items: center; background: var(--bg0); border: 1px solid var(--line-soft); }
+  .tp-ico { width: 0.95rem; height: 0.95rem; background: currentColor;
+    -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat; }
+  .tp-mn { font-family: var(--mono); font-size: 0.4rem; }
+  .tp-item .tp-star { position: absolute; top: -0.1rem; right: -0.1rem; font-size: 0.45rem; color: var(--accent-light); }
+  .tp-item:hover, .tp-item:focus-visible { color: var(--ink); border-color: rgba(46,134,255,0.5); outline: none; }
+  .tp-item[aria-pressed="true"] {
+    color: var(--accent-light); border-color: var(--accent);
+    background: rgba(46,134,255,0.14); box-shadow: 0 0 18px rgba(46,134,255,0.3);
   }
 
-  @media (max-width: 1040px) {
-    .arq-body { grid-template-columns: 1fr; gap: 0.9rem; }
-    .arq-conn { height: 2.4rem; }
-    .arq-conn svg { width: 26px; height: 100%; }
-    .arq-conn .arq-rot { transform: rotate(90deg); transform-origin: center; transform-box: fill-box; }
-    .arq-band { grid-template-columns: 1fr; gap: 0.7rem; }
-    .why { grid-template-columns: 1fr; }
-    .arq-art { max-width: 13rem; }
+  /* ---- cabeçalho do detalhe ---- */
+  .tp-head { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start;
+    padding: 1.4rem 1.3rem; border-top: 1px solid var(--line); }
+  .tp-head-ico { width: 3.2rem; height: 3.2rem; border-radius: 50%; flex: none; display: grid; place-items: center;
+    border: 1px solid rgba(46,134,255,0.4); background: rgba(46,134,255,0.1); color: var(--accent-light); }
+  .tp-head-ico span { width: 1.5rem; height: 1.5rem; background: currentColor;
+    -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat; }
+  .tp-head-ico b { font-family: var(--mono); font-size: 0.56rem; font-weight: 500; }
+  .tp-nome { font-family: var(--display); font-size: 1.55rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+  .tp-oque { color: var(--muted); font-size: 0.98rem; margin-top: 0.35rem; }
+  .tp-negocio { color: var(--ink); font-size: 0.92rem; margin-top: 0.55rem;
+    display: flex; gap: 0.5rem; align-items: baseline; }
+  .tp-negocio::before { content: '\2192'; color: var(--accent); font-family: var(--mono); flex: none; }
+  .tp-selo { display: inline-block; margin-top: 0.7rem; font-family: var(--mono); font-size: 0.58rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-light);
+    border: 1px solid rgba(46,134,255,0.35); border-radius: 999px; padding: 0.24rem 0.6rem; }
+  .tp-selo[hidden] { display: none; }
+
+  /* ---- o fluxo: é o gráfico do painel ---- */
+  .tp-fluxo { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 0; padding: 0 1.3rem 1.3rem; align-items: stretch; }
+  .tp-seta { display: grid; place-items: center; padding: 0 0.7rem; color: var(--dim);
+    font-family: var(--mono); font-size: 1.05rem; }
+  .tp-etapa { border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1rem 1.1rem;
+    background: rgba(5,7,10,0.5); display: flex; flex-direction: column; gap: 0.4rem;
+    transition: border-color 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+  .tp-etapa-k { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--dim); transition: color 0.4s var(--ease); }
+  .tp-etapa-d { color: var(--dim); font-size: 0.8rem; line-height: 1.45; }
+  .tp-slot { margin-top: auto; padding-top: 0.7rem; font-size: 0.87rem; color: var(--ink);
+    border-top: 1px solid var(--line-soft); display: none; }
+  .tp-etapa.on { border-color: rgba(46,134,255,0.45); background: rgba(18,26,36,0.7);
+    box-shadow: 0 0 40px rgba(46,134,255,0.10); }
+  .tp-etapa.on .tp-etapa-k { color: var(--accent-light); }
+  .tp-etapa.on .tp-slot { display: block; }
+  .tp-todas { margin: 0 1.3rem 1.3rem; border: 1px solid rgba(46,134,255,0.35); border-radius: 12px;
+    padding: 0.85rem 1rem; background: rgba(46,134,255,0.06); font-size: 0.88rem; color: var(--ink); }
+  .tp-todas[hidden] { display: none; }
+  .tp-todas b { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--accent-light); display: block; margin-bottom: 0.25rem; }
+
+  /* ---- KPIs: só fato verificável ---- */
+  .tp-kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+    background: var(--line); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .tp-kpi { background: var(--panel); padding: 0.95rem 1rem; }
+  .tp-kpi p { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--dim); }
+  .tp-kpi b { display: block; font-size: 0.92rem; font-weight: 600; margin-top: 0.3rem; }
+  .tp-kpi.sim b { color: var(--accent-light); }
+
+  /* ---- cards de leitura ---- */
+  .tp-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); }
+  .tp-card { background: var(--panel); padding: 1.2rem 1.3rem; }
+  .tp-card p { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--accent-light); }
+  .tp-card span { display: block; color: var(--muted); font-size: 0.92rem; margin-top: 0.45rem; }
+
+  @media (max-width: 980px) {
+    .tp-fluxo { grid-template-columns: 1fr; gap: 0.7rem; }
+    .tp-seta { padding: 0.1rem 0; }
+    .tp-seta i { display: inline-block; transform: rotate(90deg); font-style: normal; }
+    .tp-kpis { grid-template-columns: repeat(2, 1fr); }
   }
-  @media (max-width: 580px) {
-    .sec { padding: 3rem 0 4rem; }
-    .arq-dash-body { grid-template-columns: 1fr; }
-    .arq-cap { grid-template-columns: 1fr; gap: 0.7rem; align-items: start; }
-    .arq-body { padding: 1.1rem 0.9rem; }
-    .arq-bar, .arq-band { padding-left: 1rem; padding-right: 1rem; }
+  @media (max-width: 640px) {
+    .tp-bar, .tp-filtros, .tp-grade, .tp-head { padding-left: 1rem; padding-right: 1rem; }
+    .tp-fluxo { padding-left: 1rem; padding-right: 1rem; }
+    .tp-todas { margin-left: 1rem; margin-right: 1rem; }
+    .tp-kpis { grid-template-columns: 1fr; }
+    .tp-cards { grid-template-columns: 1fr; }
+    .tp-stats { gap: 1rem; }
+    .tp-head { grid-template-columns: 1fr; }
   }
+
+  .illus-note { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
 
   /* ---------- Metodologia ---------- */
   .tl { position: relative; margin-top: 2.8rem; padding-left: 2.6rem; }
@@ -1155,7 +940,6 @@
 
   /* ---------- Responsivo ---------- */
   @media (max-width: 1080px) {
-    .orbit-wrap { grid-template-columns: 1fr; gap: 1.8rem; }
     .pillars, .pillars.four { grid-template-columns: repeat(2, 1fr); }
     .nums { grid-template-columns: repeat(2, 1fr); }
   }
@@ -1216,7 +1000,14 @@
 
 
   @media (max-width: 1080px) {
-    .fam-grid, .fam-grid.two { grid-template-columns: repeat(2, 1fr); }
+    /* Três cards por família: em duas colunas sobra um quadrante vazio.
+       Aperta o espaçamento e o padding em vez de quebrar a linha. */
+    .fam-grid.two { grid-template-columns: repeat(2, 1fr); }
+    .fam-grid { gap: 0.6rem; }
+    .fam-grid .svc { padding: 1.1rem 0.95rem; }
+    .fam-grid .svc-t { font-size: 1rem; }
+    .fam-grid .svc-d, .fam-grid .svc-list li { font-size: 0.82rem; }
+    .fam-grid .chip { font-size: 0.62rem; padding: 0.22rem 0.45rem; }
   }
   @media (max-width: 780px) {
     .fam-grid, .fam-grid.two { grid-template-columns: 1fr; }
@@ -1383,8 +1174,8 @@
           <a class="btn btn-line" href="#solucoes" data-magnetic>Conhecer nossas soluções <span class="arr">→</span></a>
         </div>
         <p class="hero-proof reveal d3 in">
-          <b>13+</b> projetos entregues <i>·</i> <b>10+</b> setores <i>·</i>
-          <b>200+</b> dashboards <i>·</i> <b>3</b> nuvens
+          <b>500+</b> projetos entregues <i>·</i> <b>10+</b> setores <i>·</i>
+          <b>6+</b> anos de alocação
         </p>
       </div>
     </div>
@@ -1669,214 +1460,86 @@
         <span class="eyebrow reveal">Tecnologia</span>
         <h2 class="h-xl reveal d1">Tecnologia não é o fim. É o meio.</h2>
         <p class="sub reveal d2">
-          Somos agnósticos de tecnologia: escolhemos o stack de acordo com o
-          problema, não o contrário. Escolha um grupo e passe o mouse — ou
-          toque — em uma ferramenta para ver o que ela resolve.
+          Somos agnósticos de tecnologia: o stack sai do problema, não do contrato.
+          Filtre por grupo e escolha uma ferramenta — o painel mostra o que ela faz
+          e acende a etapa do projeto em que ela entra.
         </p>
       </div>
 
-      <div class="tech-cats reveal d2" id="tech-cats" role="group" aria-label="Grupos de tecnologia"></div>
-
-      <div class="orbit-wrap reveal d2">
-        <div class="orbit" id="orbit" role="group" aria-label="Ferramentas de dados">
-          <div class="orbit-ring" aria-hidden="true"></div>
-          <div class="orbit-ring r2" aria-hidden="true"></div>
-          <div class="orbit-link" id="orbit-link" aria-hidden="true"></div>
-          <p class="orbit-core">Seu<br>negócio</p>
-        </div>
-        <div class="tech-panel" id="tech-panel" aria-live="polite">
-          <h3 id="tech-name">Power BI</h3>
-          <p class="tech-badge" id="tech-badge" hidden>✦ Projeto entregue pela Atlas</p>
-          <dl class="tech-row"><dt>O que é</dt><dd id="tech-app"></dd></dl>
-          <dl class="tech-row"><dt>Para o negócio</dt><dd id="tech-ben"></dd></dl>
-          <dl class="tech-row" id="tech-case-row"><dt>Onde a Atlas usou</dt><dd id="tech-case"></dd></dl>
-        </div>
-      </div>
-      <p class="illus-note"><span id="tech-count">74</span> ferramentas mapeadas · ✦ marca as que a Atlas já entregou em projeto</p>
-    </div>
-  </section>
-
-
-  <div class="divider"></div>
-
-  <!-- ================= ARQUITETURA ================= -->
-  <section class="sec" id="arquitetura">
-    <div class="wrap">
-      <div class="sec-lead">
-        <span class="eyebrow reveal">Arquitetura</span>
-        <h2 class="h-xl reveal d1">Onde cada ferramenta entra no seu negócio.</h2>
-        <p class="sub reveal d2">
-          Do sistema que já existe até o painel que alguém usa para decidir.
-          Aponte uma ferramenta para ver o que ela faz exatamente nessa posição.
-        </p>
-      </div>
-
-      <div class="arq reveal d2">
-      <span class="arq-cx1" aria-hidden="true"></span><span class="arq-cx2" aria-hidden="true"></span>
-
-      <div class="arq-bar">
-        <b>Roda na nuvem do cliente</b>
-        <div class="arq-clouds" id="arq-clouds"></div>
-      </div>
-
-      <div class="arq-body">
-
-        <!-- ---------- 01 ORIGEM ---------- -->
-        <div class="arq-stage" data-stage="fontes">
-          <div>
-            <p class="arq-stage-k"><i>01</i> Origem</p>
-            <p class="arq-stage-t">Onde o dado já está</p>
-            <p class="arq-stage-d">Os sistemas que a empresa usa todo dia — e que hoje não conversam entre si.</p>
-          </div>
-          <div class="arq-srcs">
-            <div class="arq-src">ERP e financeiro</div>
-            <div class="arq-src">CRM e vendas</div>
-            <div class="arq-src">E-commerce e loja</div>
-            <div class="arq-src">Planilhas e APIs</div>
-            <div class="arq-src">Logs e eventos</div>
-          </div>
-          <div class="arq-tools-wrap">
-            <p class="arq-tools-k">Onde o dado nasce</p>
-            <div class="arq-tools" data-group="fontes"></div>
-          </div>
-        </div>
-
-        <div class="arq-conn" data-conn="0">
-          <svg viewBox="0 0 60 26" aria-hidden="true">
-            <g class="arq-rot">
-              <path class="arq-ln" d="M1 13 H48"></path>
-              <rect class="arq-nd" x="21" y="7" width="12" height="12" rx="2.4" transform="rotate(45 27 13)"></rect>
-              <path class="arq-hd" d="M50 13 L40 7.8 L40 18.2 Z"></path>
-            </g>
-          </svg>
-        </div>
-
-        <!-- ---------- 02 ENGENHARIA ---------- -->
-        <div class="arq-stage" data-stage="eng">
-          <div>
-            <p class="arq-stage-k"><i>02</i> Engenharia de dados</p>
-            <p class="arq-stage-t">A base confiável</p>
-            <p class="arq-stage-d">Ingestão, armazenamento e transformação — uma fonte única da verdade, testada e versionada.</p>
-          </div>
-
-          <div class="arq-art-wrap">
-            <svg class="arq-art" viewBox="0 0 140 104" role="img"
-                 aria-label="Banco de dados em três camadas: ingestão, armazenamento e transformação">
-              <!-- marcas de medição, à esquerda -->
-              <path class="arq-tick" d="M6 16 H12 M6 40 H12 M6 64 H12 M6 88 H12"></path>
-              <path class="arq-tick" d="M9 16 V88"></path>
-              <!-- cilindro -->
-              <ellipse class="arq-edge" cx="76" cy="16" rx="46" ry="11.5"></ellipse>
-              <path class="arq-edge" d="M30 16 V84 a46 11.5 0 0 0 92 0 V16"></path>
-              <path class="arq-inner" d="M30 40 a46 11.5 0 0 0 92 0"></path>
-              <path class="arq-inner" d="M30 62 a46 11.5 0 0 0 92 0"></path>
-              <text class="arq-lbl" x="76" y="33" text-anchor="middle">INGESTAO</text>
-              <text class="arq-lbl" x="76" y="56" text-anchor="middle">ARMAZENAMENTO</text>
-              <text class="arq-lbl" x="76" y="79" text-anchor="middle">TRANSFORMACAO</text>
-            </svg>
-          </div>
-
-          <div class="arq-tools-wrap">
-            <p class="arq-tools-k">O que constrói a base</p>
-            <div class="arq-tools" data-group="eng"></div>
-          </div>
-        </div>
-
-        <div class="arq-conn" data-conn="1">
-          <svg viewBox="0 0 60 26" aria-hidden="true">
-            <g class="arq-rot">
-              <path class="arq-ln" d="M1 13 H48"></path>
-              <rect class="arq-nd" x="21" y="7" width="12" height="12" rx="2.4" transform="rotate(45 27 13)"></rect>
-              <path class="arq-hd" d="M50 13 L40 7.8 L40 18.2 Z"></path>
-            </g>
-          </svg>
-        </div>
-
-        <!-- ---------- 03 DATA VIZ ---------- -->
-        <div class="arq-stage" data-stage="viz">
-          <div>
-            <p class="arq-stage-k"><i>03</i> Data Visualization</p>
-            <p class="arq-stage-t">A decisão na mão de quem decide</p>
-            <p class="arq-stage-d">O indicador chega pronto, com uma definição só, para a área responder a própria pergunta.</p>
-          </div>
-
-          <div class="arq-dash" aria-hidden="true">
-            <div class="arq-dash-bar"><u><i></i><i></i><i></i></u> Receita · visão executiva</div>
-            <div class="arq-dash-body">
-              <div>
-                <p class="arq-dash-kpi-k">Receita</p>
-                <p class="arq-dash-kpi-v">R$ 4,82 Mi</p>
-                <p class="arq-dash-kpi-d">&uarr; 6,4% vs. anterior</p>
-                <div class="arq-dash-rows">
-                  <div class="arq-dash-row"><b style="width:88%"></b></div>
-                  <div class="arq-dash-row"><b style="width:62%"></b></div>
-                  <div class="arq-dash-row"><b style="width:73%"></b></div>
-                </div>
-              </div>
-              <div class="arq-dash-right">
-                <div class="arq-dash-chart">
-                  <i style="height:44%"></i><i style="height:57%"></i><i style="height:48%"></i>
-                  <i style="height:66%"></i><i style="height:58%"></i><i style="height:74%"></i>
-                  <i style="height:63%"></i><i class="arq-hi" style="height:94%"></i>
-                </div>
-                <div class="arq-dash-x">
-                  <span>M</span><span>J</span><span>J</span><span>A</span>
-                  <span>S</span><span>O</span><span>N</span><span>D</span>
-                </div>
-              </div>
-            </div>
-            <div class="arq-dash-foot">
-              <p class="arq-dash-kpi-k">Por canal</p>
-              <div class="arq-dash-ch"><span>Digital</span><u><b style="width:100%"></b></u><em>42%</em></div>
-              <div class="arq-dash-ch"><span>Loja</span><u><b style="width:90%"></b></u><em>38%</em></div>
-              <div class="arq-dash-ch"><span>Marketplace</span><u><b style="width:48%"></b></u><em>20%</em></div>
+      <div class="tp reveal d2">
+        <div class="tp-bar">
+          <b>Painel de ferramentas</b>
+          <div class="tp-stats">
+            <div class="tp-stat"><b>46</b><span>ferramentas mapeadas</span></div>
+            <div class="tp-stat"><b>8</b><span>grupos</span></div>
+            <div class="tp-stat">
+              <b>13</b><span>com projeto entregue</span>
+              <span class="tp-meter" aria-hidden="true"><i style="width:28%"></i></span>
             </div>
           </div>
+        </div>
 
-          <div class="arq-tools-wrap">
-            <p class="arq-tools-k">Onde o dado é lido</p>
-            <div class="arq-tools" data-group="viz"></div>
+        <div class="tp-filtros" id="tp-filtros" role="group" aria-label="Filtrar por grupo"></div>
+        <div class="tp-grade" id="tp-grade" role="group" aria-label="Ferramentas"></div>
+
+        <div class="tp-head">
+          <span class="tp-head-ico" id="tp-ico" aria-hidden="true"></span>
+          <div>
+            <p class="tp-nome" id="tp-nome"></p>
+            <p class="tp-oque" id="tp-oque"></p>
+            <p class="tp-negocio" id="tp-negocio"></p>
+            <p class="tp-selo" id="tp-selo" hidden></p>
           </div>
         </div>
 
-      </div>
-
-      <!-- ---------- FAIXAS ---------- -->
-      <div class="arq-bands">
-        <div class="arq-band" data-stage="gov">
-          <div class="arq-band-h">
-            <span class="arq-band-k">Governança</span>
-            <span class="arq-band-d">Atravessa as três etapas: catálogo, linhagem, qualidade e permissão.</span>
+        <div class="tp-fluxo" id="tp-fluxo">
+          <div class="tp-etapa" data-etapa="origem">
+            <p class="tp-etapa-k">Origem</p>
+            <p class="tp-etapa-d">Onde o dado nasce: os sistemas que a empresa já usa.</p>
+            <p class="tp-slot"></p>
           </div>
-          <div class="arq-tools" data-group="gov"></div>
-        </div>
-        <div class="arq-band" data-stage="ia">
-          <div class="arq-band-h">
-            <span class="arq-band-k">Inteligência Artificial</span>
-            <span class="arq-band-d">Lê a base pronta: prevê, aponta o desvio e responde em linguagem natural.</span>
+          <span class="tp-seta" aria-hidden="true"><i>&rarr;</i></span>
+          <div class="tp-etapa" data-etapa="base">
+            <p class="tp-etapa-k">Base de dados</p>
+            <p class="tp-etapa-d">Onde o dado é reunido, tratado e fica confiável.</p>
+            <p class="tp-slot"></p>
           </div>
-          <div class="arq-tools" data-group="ia"></div>
+          <span class="tp-seta" aria-hidden="true"><i>&rarr;</i></span>
+          <div class="tp-etapa" data-etapa="dash">
+            <p class="tp-etapa-k">Dashboards</p>
+            <p class="tp-etapa-d">Onde o dado vira leitura e decisão.</p>
+            <p class="tp-slot"></p>
+          </div>
+        </div>
+
+        <p class="tp-todas" id="tp-todas" hidden></p>
+
+        <div class="tp-kpis">
+          <div class="tp-kpi"><p>Grupo</p><b id="tp-k-grupo"></b></div>
+          <div class="tp-kpi"><p>Etapa no fluxo</p><b id="tp-k-etapa"></b></div>
+          <div class="tp-kpi"><p>Licença</p><b id="tp-k-lic"></b></div>
+          <div class="tp-kpi"><p>Modelo</p><b id="tp-k-mod"></b></div>
+          <div class="tp-kpi" id="tp-k-atlas-box"><p>Projeto Atlas</p><b id="tp-k-atlas"></b></div>
+        </div>
+
+        <div class="tp-cards">
+          <div class="tp-card"><p>O que faz de melhor</p><span id="tp-melhor"></span></div>
+          <div class="tp-card"><p>Melhor para</p><span id="tp-para"></span></div>
+          <div class="tp-card"><p>Como se usa</p><span id="tp-como"></span></div>
+          <div class="tp-card"><p>Onde se vê no mercado</p><span id="tp-mercado"></span></div>
         </div>
       </div>
-      </div>
 
-      <div class="arq-cap reveal d3" aria-live="polite">
-      <div class="arq-cap-l">
-        <span class="arq-cap-ico" id="arq-cap-ico" aria-hidden="true"><b>&#10022;</b></span>
-        <span>
-          <span class="arq-cap-n" id="arq-cap-n">Aponte uma ferramenta</span>
-          <span class="arq-cap-w" id="arq-cap-w">45 no total</span>
-        </span>
-      </div>
-      <p class="arq-cap-d" id="arq-cap-d">Cada ícone diz o que faz na posição exata em que está no desenho.</p>
-      </div>
+      <p class="illus-note">&#10022; marca as ferramentas com projeto entregue pela Atlas &middot;
+        &ldquo;onde se vê no mercado&rdquo; é leitura da Atlas, não participação de mercado medida</p>
 
-      <p class="illus-note">&#10022; marca as ferramentas com projeto entregue pela Atlas</p>
       <div class="hero-ctas reveal d3" style="margin-top:1.8rem">
+        <a class="btn btn-accent" href="#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
         <a class="btn btn-line" href="#contato" data-magnetic>Quero avaliar minha arquitetura <span class="arr">&rarr;</span></a>
       </div>
     </div>
   </section>
+
 
   <!-- ================= CASES ================= -->
   <section class="sec" id="cases">
@@ -1964,6 +1627,10 @@
         <article class="case-mini"><p class="sector">Infraestrutura &amp; Mobilidade</p><h4>Rodovias, pedágios e aeroportos</h4><p>Painéis integrando gestão de acidentes, arrecadação de pedágios e operação aeroportuária em uma visão única.</p><p class="mini-change">Três operações diferentes passaram a caber numa leitura só.</p><div class="stack"><span>Data &amp; BI</span><span>Operações</span></div></article>
       </div>
       <p class="cases-note">Projetos reais entregues por especialistas Atlas Tec. Nomes de clientes preservados por confidencialidade.</p>
+
+      <div class="hero-ctas reveal d3" style="margin-top:2.2rem">
+        <a class="btn btn-accent" href="#contato" data-magnetic>Falar sobre um projeto como esse <span class="arr">&rarr;</span></a>
+      </div>
     </div>
   </section>
 
@@ -1974,6 +1641,11 @@
     </div>
     <div class="marquee">
       <div class="marquee-track" id="marquee-track"><span>Software &amp; Tecnologia</span><span>Serviços Financeiros</span><span>Bancário</span><span>Varejo &amp; Moda</span><span>Varejo Omnichannel</span><span>Saúde &amp; Diagnóstico</span><span>Educação</span><span>Turismo</span><span>Food Service</span><span>Infraestrutura &amp; Mobilidade</span></div>
+    </div>
+    <div class="wrap">
+      <div class="hero-ctas reveal" style="margin-top:2rem;justify-content:center">
+        <a class="btn btn-line" href="#contato" data-magnetic>Falar sobre o meu setor <span class="arr">&rarr;</span></a>
+      </div>
     </div>
   </section>
 
@@ -2152,6 +1824,10 @@
         </div>
       </div>
       <p class="illus-note">Ilustração do método — não representa dados ou resultado de cliente.</p>
+
+      <div class="hero-ctas reveal d3" style="margin-top:2.2rem">
+        <a class="btn btn-accent" href="#contato" data-magnetic>Quero um painel assim <span class="arr">&rarr;</span></a>
+      </div>
     </div>
   </section>
 
@@ -2201,6 +1877,10 @@
         <span class="chip">Modelos preditivos</span><span class="chip">RAG</span><span class="chip">Document AI</span>
         <span class="chip">Automação inteligente</span>
       </div>
+
+      <div class="hero-ctas reveal d3" style="margin-top:2.2rem">
+        <a class="btn btn-accent" href="#contato" data-magnetic>Explorar IA no meu negócio <span class="arr">&rarr;</span></a>
+      </div>
     </div>
   </section>
 
@@ -2249,6 +1929,10 @@
         <div class="tl-step"><p class="tl-n">05</p><h3 class="tl-t">Deploy</h3><p class="tl-d">Colocar em produção com governança, documentação e as áreas de negócio autônomas para usar.</p></div>
         <div class="tl-step"><p class="tl-n">06</p><h3 class="tl-t">Optimize</h3><p class="tl-d">Acompanhar, ajustar e evoluir. Projeto entregue não é projeto encerrado.</p></div>
       </div>
+
+      <div class="hero-ctas reveal d3" style="margin-top:2.2rem">
+        <a class="btn btn-line" href="#contato" data-magnetic>Começar pela conversa <span class="arr">&rarr;</span></a>
+      </div>
     </div>
   </section>
 
@@ -2269,10 +1953,13 @@
       </div>
 
       <div class="nums reveal d3">
-        <div class="num"><b>13+</b><span>projetos de dados documentados em cases reais</span></div>
+        <div class="num"><b>500+</b><span>projetos entregues em dados, BI e inteligência</span></div>
         <div class="num"><b>10+</b><span>setores atendidos — do bancário ao food service</span></div>
-        <div class="num"><b>200+</b><span>dashboards migrados em um único projeto de governança</span></div>
-        <div class="num"><b>3</b><span>nuvens — GCP, Azure e AWS — com abordagem agnóstica</span></div>
+        <div class="num"><b>6+</b><span>anos alocando especialistas dentro do time do cliente</span></div>
+      </div>
+
+      <div class="hero-ctas reveal d3" style="margin-top:2.2rem">
+        <a class="btn btn-accent" href="#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
       </div>
     </div>
   </section>
@@ -2302,6 +1989,10 @@
         <div class="pillar"><h3>Resultado</h3><p>acima de entregável</p></div>
         <div class="pillar"><h3>Profundidade</h3><p>acima de buzzword</p></div>
         <div class="pillar"><h3>Parceria</h3><p>acima de projeto</p></div>
+      </div>
+
+      <div class="hero-ctas reveal d3" style="margin-top:2.2rem">
+        <a class="btn btn-line" href="#contato" data-magnetic>Falar com o time <span class="arr">&rarr;</span></a>
       </div>
     </div>
   </section>
@@ -2902,12 +2593,14 @@
 
 
 
-  /* ---------- Órbita de tecnologias ---------- */
-  // O que cada ferramenta resolve PARA O NEGÓCIO. Um logo wall não responde
-  // isso. O quinto campo só existe quando há projeto real da Atlas — sem ele
-  // a linha "Onde a Atlas usou" não aparece, para não sugerir experiência
-  // que não houve.
-  var CATS = [
+  /* ---------- Painel de tecnologia ---------- */
+  // [nome, grupo, ícone, etapa, licença, modelo, o que é, para o negócio,
+  //  faz de melhor, melhor para, como se usa, mercado, caso real da Atlas]
+  //
+  // Licença e modelo são fatos verificáveis. "Mercado" é leitura editorial:
+  // não há fonte de participação de mercado aqui, e número inventado
+  // derrubaria a credibilidade de todo o resto do painel.
+  var TPG = [
     ['bi', 'BI & Data Visualization'],
     ['plat', 'Data Platform'],
     ['eng', 'Data Engineering'],
@@ -2917,371 +2610,170 @@
     ['gov', 'Governança'],
     ['ds', 'Analytics & Data Science']
   ];
-  // nome, grupo, o que é, para o negócio, caso real da Atlas, ícone.
-  // O quinto campo só existe quando há projeto entregue — sem ele a linha
-  // "Onde a Atlas usou" não aparece, para não sugerir experiência que não
-  // houve. O sexto começa com # quando não há logo disponível: aí o ícone
-  // vira monograma, em vez de desenhar uma marca que não é a da empresa.
-  var TECH = [
-    ['Power BI','bi','Dashboards executivos e self-service BI para as áreas.','A área deixa de pedir relatório e passa a responder a própria pergunta.','Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.','#PBI'],
-    ['Tableau','bi','Exploração visual de grandes volumes de dados.','O analista encontra o padrão antes de alguém pedir o relatório.','Rede de diagnóstico, na migração da visualização para Power BI.','tableau'],
-    ['Looker','bi','Camada semântica única sobre o dado.','Uma métrica, uma definição — fim da divergência entre áreas.','Mais de 200 dashboards migrados num projeto de governança de BI.','looker'],
-    ['Qlik','bi','BI associativo, com exploração livre entre dimensões.','A pergunta seguinte não depende de um novo relatório.','','qlik'],
-    ['MicroStrategy','bi','BI corporativo para operações multiárea.','Vendas, logística e operação lendo os mesmos números.','BI corporativo em varejo de moda e arquitetura ETL → DW → BI em turismo.','microstrategy'],
-    ['Metabase','bi','BI open source de implantação rápida.','Os primeiros indicadores no ar sem um projeto longo.','','metabase'],
-    ['Superset','bi','Visualização open source sobre SQL.','Painéis corporativos sem custo de licença por assento.','','superset'],
-    ['Databricks','plat','Lakehouse e processamento de dados em escala.','Volume deixa de ser o limite da análise.','Pipelines da plataforma omnichannel em Azure.','databricks'],
-    ['Snowflake','plat','Data warehouse em nuvem com escala elástica.','O custo acompanha o uso, não o pico.','','snowflake'],
-    ['BigQuery','plat','Data warehouse analítico gerenciado do Google.','Consulta pesada sem infraestrutura para administrar.','Data Lake em GCP para serviços financeiros e pipelines em saúde.','bigquery'],
-    ['Microsoft Fabric','plat','Plataforma unificada de dados e BI da Microsoft.','Um ambiente só, do pipeline ao relatório.','','#FAB'],
-    ['Redshift','plat','Data warehouse da AWS.','Escala analítica dentro do ecossistema Amazon.','','redshift'],
-    ['dbt','eng','Transformação versionada e testada.','A regra de negócio deixa de morar na cabeça de uma pessoa.','Transformações do Data Lake em GCP.','dbt'],
-    ['Airflow','eng','Orquestração de pipelines.','O dado chega na hora certa, e a falha aparece antes do usuário.','Pipelines em GCP para serviços financeiros e saúde.','airflow'],
-    ['Spark','eng','Processamento distribuído.','Terabytes processados dentro da janela da madrugada.','','spark'],
-    ['Fivetran','eng','Conectores gerenciados de ingestão.','A fonte muda e o conector acompanha.','','#FVT'],
-    ['Airbyte','eng','Ingestão open source com conectores abertos.','Fonte de nicho sem esperar o fornecedor.','','airbyte'],
-    ['Kafka','eng','Streaming de eventos.','O dado deixa de esperar o lote da noite.','','kafka'],
-    ['Azure','cloud','Nuvem Microsoft para dados e analytics.','Integra com o que a empresa já usa no dia a dia.','Synapse e Data Factory na plataforma omnichannel.','#AZ'],
-    ['AWS','cloud','Nuvem com o portfólio mais amplo de serviços.','Escala sem reescrever a arquitetura.','','aws'],
-    ['Google Cloud','cloud','Nuvem Google, forte em analytics e IA.','BigQuery e IA no mesmo lugar em que o dado já está.','Data Lake em GCP e migração de legado Oracle.','googlecloud'],
-    ['OpenAI','ia','Modelos de linguagem de uso geral via API.','Capacidade de IA sem treinar modelo do zero.','','openai'],
-    ['Anthropic','ia','Modelos Claude, com foco em uso corporativo.','IA sobre documento e análise, com controle do contexto.','','anthropic'],
-    ['Gemini','ia','Modelos multimodais do Google, integrados ao Cloud.','IA ao lado do dado que já está no BigQuery.','','gemini'],
-    ['Hugging Face','ia','Modelos abertos prontos para uso.','Começar de um modelo treinado, não do zero.','','huggingface'],
-    ['MLflow','ia','Ciclo de vida de modelos.','Modelo em produção com histórico e reversão.','','mlflow'],
-    ['PostgreSQL','db','Banco relacional open source.','Base robusta sem custo de licença.','','postgresql'],
-    ['SQL Server','db','Banco relacional corporativo da Microsoft.','O sistema que roda a empresa vira fonte analítica.','','#SQLS'],
-    ['Oracle','db','Banco de missão crítica.','O legado segue de pé enquanto a análise avança.','Migração de legado Oracle em projeto de nuvem.','oracle'],
-    ['MongoDB','db','Banco de documentos.','Dado semiestruturado sem forçar tabela.','','mongodb'],
-    ['Redis','db','Banco em memória, de resposta imediata.','O painel não espera pela consulta pesada.','','redis'],
-    ['Elasticsearch','db','Busca e análise sobre texto e log.','Achar o registro certo num volume que a tabela não resolve.','','elasticsearch'],
-    ['Purview','gov','Governança e linhagem de dados na Azure.','Dá para provar de onde veio cada número.','','#PVW'],
-    ['Collibra','gov','Catálogo e governança corporativa.','A regra de dado deixa de ser política no papel.','','#CLB'],
-    ['Alation','gov','Catálogo com contexto de uso.','Quem usa cada tabela vira informação, não folclore.','','#ALA'],
-    ['Atlan','gov','Catálogo colaborativo de dados.','Negócio e engenharia falando da mesma tabela.','','#ATL'],
-    ['Unity Catalog','gov','Catálogo e permissão no Databricks.','Quem vê o quê deixa de ser combinado por e-mail.','','#UC'],
-    ['Python','ds','Engenharia de dados e modelos preditivos.','O que é repetitivo vira código; o que é previsível vira modelo.','Modelos de predição de evasão em educação.','python'],
-    ['SQL','ds','A língua franca do dado.','A lógica sobrevive à troca de ferramenta.','Presente em toda a engenharia da Atlas.','#SQL'],
-    ['R','ds','Estatística e análise exploratória.','O rigor estatístico entra na decisão.','','r'],
-    ['Jupyter','ds','Ambiente de análise e prototipagem.','A hipótese é testada antes de virar projeto.','','jupyter'],
-    ['pandas','ds','Manipulação de dados em Python.','O tratamento vira código revisável, não planilha solta.','','pandas'],
-    ['Polars','ds','Processamento tabular de alta performance.','Volume médio sem precisar subir um cluster.','','polars'],
-    ['Dataiku','ds','Plataforma de analytics e IA em baixo código.','O time de negócio participa da construção do modelo.','','dataiku'],
-    ['Alteryx','ds','Preparação e automação analítica visual.','O analista automatiza o próprio fluxo sem virar dev.','','alteryx']
+  var TPF = [
+    ['Power BI','bi','#PBI','dash','Proprietária','SaaS + desktop','Dashboards executivos e self-service BI para as áreas.','A área deixa de pedir relatório e passa a responder a própria pergunta.','Colocar indicador confiável na mão de quem não é técnico.','Empresa que já vive no ecossistema Microsoft e precisa de BI corporativo.','Modelo publicado num workspace, com métrica definida em DAX e atualização agendada.','Padrão de fato em empresas que já usam Microsoft 365.','Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.'],
+    ['Tableau','bi','tableau','dash','Proprietária','SaaS ou self-hosted','Exploração visual de grandes volumes de dados.','O analista encontra o padrão antes de alguém pedir o relatório.','Descobrir o que está acontecendo quando ainda não se sabe o que perguntar.','Time de análise que explora antes de publicar.','Conecta à base, monta a visão arrastando campos e publica no servidor.','Forte em times analíticos que priorizam exploração sobre padronização.','Rede de diagnóstico, na migração da visualização para Power BI.'],
+    ['Looker','bi','looker','dash','Proprietária','SaaS','Camada semântica única sobre o dado.','Uma métrica, uma definição — fim da divergência entre áreas.','Garantir que receita signifique a mesma coisa em toda a empresa.','Organização com muitas áreas e histórico de números divergentes.','As métricas são escritas em LookML, versionadas em Git, e todo painel as reusa.','Escolha comum em empresas no Google Cloud que priorizam governança de métrica.','Mais de 200 dashboards migrados num projeto de governança de BI.'],
+    ['Qlik','bi','qlik','dash','Proprietária','SaaS ou self-hosted','BI associativo, com exploração livre entre dimensões.','A pergunta seguinte não depende de um novo relatório.','Navegar entre dimensões sem caminho pré-definido.','Análise exploratória em bases grandes e relacionadas.','O modelo associativo carrega em memória e o filtro se propaga por tudo.','Base instalada relevante em indústria e varejo de médio e grande porte.',''],
+    ['MicroStrategy','bi','microstrategy','dash','Proprietária','SaaS ou self-hosted','BI corporativo para operações multiárea.','Vendas, logística e operação lendo os mesmos números.','Servir muitas áreas com governança central e controle fino de acesso.','Operação grande, com muitos perfis de usuário e exigência de auditoria.','Metadados centralizados alimentam relatórios e painéis por perfil.','Presença consolidada em grandes corporações com BI legado maduro.','BI corporativo em varejo de moda e arquitetura ETL → DW → BI em turismo.'],
+    ['Metabase','bi','metabase','dash','Aberto + pago','SaaS ou self-hosted','BI open source de implantação rápida.','Os primeiros indicadores no ar sem um projeto longo.','Sair do zero para o primeiro painel em dias, não em meses.','Time enxuto que precisa começar a medir agora.','Conecta ao banco e monta pergunta por interface ou SQL direto.','Muito usado por startups e times de produto antes do BI corporativo.',''],
+    ['Superset','bi','superset','dash','Open source','Self-hosted','Visualização open source sobre SQL.','Painéis corporativos sem custo de licença por assento.','Escalar número de usuários sem escalar custo de licença.','Empresa com time técnico próprio e muitos leitores de painel.','Roda na infraestrutura da empresa, lendo direto do warehouse.','Adotado por empresas de tecnologia com engenharia de dados madura.',''],
+    ['Databricks','plat','databricks','base','Proprietária','SaaS','Lakehouse e processamento de dados em escala.','Volume deixa de ser o limite da análise.','Processar volume alto e servir engenharia, análise e IA no mesmo lugar.','Operação com terabytes e time de engenharia próprio.','Notebooks e jobs em Spark sobre tabelas Delta, com catálogo unificado.','Referência em empresas que tratam dados como plataforma, não como relatório.','Pipelines da plataforma omnichannel em Azure.'],
+    ['Snowflake','plat','snowflake','base','Proprietária','SaaS','Data warehouse em nuvem com escala elástica.','O custo acompanha o uso, não o pico.','Separar processamento de armazenamento e pagar só pelo que roda.','Quem tem demanda irregular e não quer dimensionar para o pico.','O warehouse liga para a consulta e desliga sozinho depois.','Muito presente em empresas que migraram de warehouse local para nuvem.',''],
+    ['BigQuery','plat','bigquery','base','Proprietária','SaaS','Data warehouse analítico gerenciado do Google.','Consulta pesada sem infraestrutura para administrar.','Rodar consulta grande sem ninguém cuidar de servidor.','Quem já está no Google Cloud ou quer começar sem operação.','SQL direto no console, com cobrança por dado lido.','Porta de entrada analítica mais comum dentro do Google Cloud.','Data Lake em GCP para serviços financeiros e pipelines em saúde.'],
+    ['Microsoft Fabric','plat','#FAB','base','Proprietária','SaaS','Plataforma unificada de dados e BI da Microsoft.','Um ambiente só, do pipeline ao relatório.','Reunir ingestão, armazenamento e Power BI sob um contrato.','Empresa Microsoft que quer reduzir número de ferramentas.','Tudo num workspace, com o OneLake como armazenamento comum.','Adoção crescente em quem já tinha Power BI e quer unificar o resto.',''],
+    ['Redshift','plat','redshift','base','Proprietária','SaaS','Data warehouse da AWS.','Escala analítica dentro do ecossistema Amazon.','Ficar perto do dado que já vive na AWS.','Quem tem a operação toda em AWS e quer evitar travessia de nuvem.','Clusters ou serverless, lendo também direto do S3.','Escolha natural de quem já é AWS de ponta a ponta.',''],
+    ['dbt','eng','dbt','base','Aberto + pago','Self-hosted ou SaaS','Transformação versionada e testada.','A regra de negócio deixa de morar na cabeça de uma pessoa.','Transformar SQL solto em código com teste, versão e documentação.','Time que já tem warehouse e precisa confiar no que está dentro dele.','Modelos em SQL versionados em Git, com testes que rodam no pipeline.','Virou padrão da camada de transformação no stack moderno de dados.','Transformações do Data Lake em GCP.'],
+    ['Airflow','eng','airflow','base','Open source','Self-hosted ou gerenciado','Orquestração de pipelines.','O dado chega na hora certa, e a falha aparece antes do usuário.','Coordenar dezenas de rotinas com dependência entre elas.','Operação com muitas cargas que precisam rodar em ordem.','O fluxo é escrito em Python e agendado como grafo de tarefas.','Orquestrador mais difundido em engenharia de dados.','Pipelines em GCP para serviços financeiros e saúde.'],
+    ['Spark','eng','spark','base','Open source','Self-hosted ou gerenciado','Processamento distribuído.','Terabytes processados dentro da janela da madrugada.','Quebrar um processamento grande entre muitas máquinas.','Volume que não cabe em uma máquina só.','O mesmo código roda em um notebook e em um cluster de produção.','Motor por trás de boa parte das plataformas de dados em escala.',''],
+    ['Fivetran','eng','#FVT','origem','Proprietária','SaaS','Conectores gerenciados de ingestão.','A fonte muda e o conector acompanha.','Tirar da equipe a manutenção de conector de sistema de terceiro.','Quem tem muitas fontes SaaS e pouca gente para cuidar delas.','Escolhe a fonte, autentica e a carga passa a rodar sozinha.','Opção comum quando o custo do conector é menor que o da equipe.',''],
+    ['Airbyte','eng','airbyte','origem','Aberto + pago','Self-hosted ou SaaS','Ingestão open source com conectores abertos.','Fonte de nicho sem esperar o fornecedor.','Conectar a fonte que nenhum catálogo comercial cobre.','Quem tem sistema interno ou de nicho para integrar.','Conector pronto do catálogo aberto, ou escrito pela própria equipe.','Cresce onde a lista de fontes é longa e heterogênea.',''],
+    ['Kafka','eng','kafka','origem','Open source','Self-hosted ou gerenciado','Streaming de eventos.','O dado deixa de esperar o lote da noite.','Transportar evento no instante em que ele acontece.','Operação em que atraso de horas custa dinheiro.','Sistemas publicam eventos em tópicos; vários consumidores leem em paralelo.','Espinha dorsal de arquitetura em tempo real na maioria dos setores.',''],
+    ['Azure','cloud','#AZ','todas','Proprietária','Nuvem','Nuvem Microsoft para dados e analytics.','Integra com o que a empresa já usa no dia a dia.','Aproveitar identidade, licença e governança que a empresa já tem.','Organização que já roda Microsoft na operação.','Data Factory, Synapse e Databricks sob a mesma assinatura.','Nuvem preferida de quem tem base corporativa Microsoft.','Synapse e Data Factory na plataforma omnichannel.'],
+    ['AWS','cloud','aws','todas','Proprietária','Nuvem','Nuvem com o portfólio mais amplo de serviços.','Escala sem reescrever a arquitetura.','Ter um serviço gerenciado para quase qualquer necessidade.','Quem precisa de amplitude e de maturidade operacional.','S3 como base, com Glue, Athena e Redshift em volta.','Maior amplitude de serviços entre as nuvens públicas.',''],
+    ['Google Cloud','cloud','googlecloud','todas','Proprietária','Nuvem','Nuvem Google, forte em analytics e IA.','BigQuery e IA no mesmo lugar em que o dado já está.','Analisar e aplicar IA sem mover o dado de lugar.','Quem quer começar analítico sem montar infraestrutura.','BigQuery no centro, com Vertex AI e Looker ao redor.','Forte entre empresas que começam pela analítica.','Data Lake em GCP e migração de legado Oracle.'],
+    ['OpenAI','ia','openai','dash','Proprietária','API','Modelos de linguagem de uso geral via API.','Capacidade de IA sem treinar modelo do zero.','Colocar linguagem natural sobre processo que hoje é manual.','Quem quer resultado rápido sem montar time de machine learning.','Chamada de API a partir da aplicação, com o contexto do negócio junto.','Ponto de partida mais comum para IA generativa em empresa.',''],
+    ['Anthropic','ia','anthropic','dash','Proprietária','API','Modelos Claude, com foco em uso corporativo.','IA sobre documento e análise, com controle do contexto.','Trabalhar sobre textos longos mantendo o fio do raciocínio.','Análise de contrato, relatório e base documental.','API com o documento e as regras da empresa no contexto.','Escolha frequente quando o caso envolve documento extenso.',''],
+    ['Gemini','ia','gemini','dash','Proprietária','API','Modelos multimodais do Google, integrados ao Cloud.','IA ao lado do dado que já está no BigQuery.','Aplicar IA sem tirar o dado do ambiente onde ele vive.','Quem já tem a analítica dentro do Google Cloud.','Chamada direta pelo Vertex AI, com acesso ao warehouse.','Caminho natural de IA para quem já é Google Cloud.',''],
+    ['Hugging Face','ia','huggingface','dash','Aberto + pago','Biblioteca e SaaS','Modelos abertos prontos para uso.','Começar de um modelo treinado, não do zero.','Achar um modelo aberto que já resolve o problema.','Caso específico em que modelo geral não serve.','Baixa o modelo do repositório e roda na própria infraestrutura.','Repositório de referência para modelos abertos.',''],
+    ['MLflow','ia','mlflow','base','Open source','Self-hosted ou gerenciado','Ciclo de vida de modelos.','Modelo em produção com histórico e reversão.','Saber qual versão do modelo gerou qual resultado.','Quem já tem modelo em produção e precisa de controle.','Cada treino fica registrado com parâmetro, métrica e artefato.','Padrão de fato para rastreabilidade de experimentos.',''],
+    ['PostgreSQL','db','postgresql','origem','Open source','Self-hosted ou gerenciado','Banco relacional open source.','Base robusta sem custo de licença.','Aguentar carga séria sem cobrar por isso.','Aplicação própria e base analítica de porte médio.','Fonte do produto, replicada para não pesar na operação.','Banco relacional aberto mais usado em aplicação nova.',''],
+    ['SQL Server','db','#SQLS','origem','Proprietária','Self-hosted ou gerenciado','Banco relacional corporativo da Microsoft.','O sistema que roda a empresa vira fonte analítica.','Sustentar ERP e sistema crítico com ferramental maduro.','Empresa com sistema corporativo sobre plataforma Microsoft.','Réplica de leitura alimenta o pipeline sem afetar a operação.','Muito presente no back-end de ERP corporativo no Brasil.',''],
+    ['Oracle','db','oracle','origem','Proprietária','Self-hosted ou nuvem','Banco de missão crítica.','O legado segue de pé enquanto a análise avança.','Sustentar transação crítica com décadas de ajuste fino.','Core bancário, seguro e industrial de grande porte.','Extração incremental para a nuvem, sem tocar no núcleo.','Domina núcleos transacionais antigos de grandes empresas.','Migração de legado Oracle em projeto de nuvem.'],
+    ['MongoDB','db','mongodb','origem','Aberto + pago','Self-hosted ou SaaS','Banco de documentos.','Dado semiestruturado sem forçar tabela.','Guardar registro cujo formato muda com o tempo.','Produto digital, catálogo e evento de aplicação.','Documentos achatados no pipeline antes de virar tabela analítica.','Banco de documentos mais usado em aplicação moderna.',''],
+    ['Redis','db','redis','origem','Aberto + pago','Self-hosted ou SaaS','Banco em memória, de resposta imediata.','O painel não espera pela consulta pesada.','Responder em milissegundos o que seria caro recalcular.','Contador, sessão e indicador de tempo real.','Camada de cache entre a aplicação e o banco principal.','Padrão de cache na maior parte das arquiteturas web.',''],
+    ['Elasticsearch','db','elasticsearch','origem','Aberto + pago','Self-hosted ou SaaS','Busca e análise sobre texto e log.','Achar o registro certo num volume que a tabela não resolve.','Procurar em texto livre e em log com volume alto.','Busca em produto, observabilidade e análise de log.','Índices alimentados por pipeline, consultados por busca.','Referência em busca e em análise de log operacional.',''],
+    ['Unity Catalog','gov','#UC','todas','Open source','Gerenciado','Catálogo e permissão no Databricks.','Quem vê o quê deixa de ser combinado por e-mail.','Dar uma permissão só que vale para dado, painel e modelo.','Operação em Databricks com mais de um time no mesmo dado.','Catálogo central define acesso e linhagem para todo o lakehouse.','Padrão de governança dentro do ecossistema Databricks.',''],
+    ['Purview','gov','#PVW','todas','Proprietária','SaaS','Governança e linhagem de dados na Azure.','Dá para provar de onde veio cada número.','Mostrar o caminho completo do dado, da origem ao painel.','Empresa com exigência regulatória ou auditoria frequente.','Varre as fontes, cataloga e monta a linhagem automaticamente.','Escolha usual de governança em ambiente Azure.',''],
+    ['Collibra','gov','#CLB','todas','Proprietária','SaaS','Catálogo e governança corporativa.','A regra de dado deixa de ser política no papel.','Transformar política de dados em fluxo que alguém cumpre.','Corporação com comitê de dados e processo formal.','Glossário, responsável e fluxo de aprovação por ativo de dado.','Comum em banco e seguradora com governança madura.',''],
+    ['Alation','gov','#ALA','todas','Proprietária','SaaS','Catálogo com contexto de uso.','Quem usa cada tabela vira informação, não folclore.','Mostrar qual tabela é de fato usada, e por quem.','Ambiente com muitas tabelas e pouca documentação.','Lê o log de consultas e deduz o que importa de verdade.','Forte onde a dor é descoberta, não controle.',''],
+    ['Atlan','gov','#ATL','todas','Proprietária','SaaS','Catálogo colaborativo de dados.','Negócio e engenharia falando da mesma tabela.','Aproximar quem pede o dado de quem constrói o dado.','Time de dados que atende muitas áreas de negócio.','Catálogo integrado às ferramentas em que o time já trabalha.','Cresce em times de dados que operam como produto.',''],
+    ['dbt tests','gov','#DBT','base','Open source','Biblioteca','Validação dentro da própria transformação.','A quebra aparece no pipeline, não na reunião de diretoria.','Barrar dado errado antes que ele chegue ao painel.','Qualquer base transformada em dbt.','Teste declarado junto do modelo e executado a cada carga.','Forma mais direta de qualidade no stack moderno.',''],
+    ['Python','ds','python','todas','Open source','Linguagem','Engenharia de dados e modelos preditivos.','O que é repetitivo vira código; o que é previsível vira modelo.','Ir do tratamento do dado ao modelo sem trocar de ferramenta.','Praticamente toda etapa que exige lógica além do SQL.','Scripts e notebooks versionados, executados pelo orquestrador.','Linguagem padrão de engenharia de dados e ciência de dados.','Modelos de predição de evasão em educação.'],
+    ['SQL','ds','#SQL','todas','Padrão aberto','Linguagem','A língua franca do dado.','A lógica sobrevive à troca de ferramenta.','Expressar regra de negócio de forma que qualquer base entende.','Toda consulta, transformação e definição de métrica.','Presente do banco de origem ao painel, em toda a cadeia.','Competência mais transferível de toda a área de dados.','Presente em toda a engenharia da Atlas.'],
+    ['R','ds','r','todas','Open source','Linguagem','Estatística e análise exploratória.','O rigor estatístico entra na decisão.','Fazer estatística séria com ferramental feito para isso.','Estudo, teste de hipótese e modelagem estatística.','Análise em script reproduzível, com resultado auditável.','Forte em pesquisa, saúde e áreas de estatística aplicada.',''],
+    ['Jupyter','ds','jupyter','todas','Open source','Ferramenta','Ambiente de análise e prototipagem.','A hipótese é testada antes de virar projeto.','Misturar código, resultado e explicação no mesmo documento.','Exploração inicial e comunicação de análise.','Notebook versionado, com o raciocínio junto do código.','Formato padrão de trabalho exploratório em dados.',''],
+    ['pandas','ds','pandas','todas','Open source','Biblioteca','Manipulação de dados em Python.','O tratamento vira código revisável, não planilha solta.','Tratar tabela de tamanho médio com poucas linhas de código.','Limpeza, cruzamento e preparação antes do modelo.','Carrega, transforma e devolve o dado dentro do pipeline.','Biblioteca mais usada para manipulação tabular em Python.',''],
+    ['Polars','ds','polars','todas','Open source','Biblioteca','Processamento tabular de alta performance.','Volume médio sem precisar subir um cluster.','Processar milhões de linhas numa máquina só.','Volume grande demais para planilha, pequeno demais para cluster.','Substitui o passo pesado do pipeline sem mudar a arquitetura.','Cresce rápido onde o custo de cluster não se justifica.',''],
+    ['Dataiku','ds','dataiku','base','Proprietária','SaaS ou self-hosted','Plataforma de analytics e IA em baixo código.','O time de negócio participa da construção do modelo.','Deixar quem conhece o negócio montar o fluxo analítico.','Empresa que quer analytics além do time técnico.','Fluxo visual, com código onde for necessário.','Presente em corporações que escalam analytics para as áreas.',''],
+    ['Alteryx','ds','alteryx','base','Proprietária','Desktop e servidor','Preparação e automação analítica visual.','O analista automatiza o próprio fluxo sem virar dev.','Automatizar a rotina que hoje é feita à mão no Excel.','Área de negócio com processo repetitivo e pesado.','Fluxo montado visualmente e agendado no servidor.','Forte em finanças e controladoria com rotina manual pesada.','']
   ];
 
-  var orbit = document.getElementById('orbit');
-  if (orbit) {
-    var catsEl  = document.getElementById('tech-cats');
-    var linkEl  = document.getElementById('orbit-link');
-    var nameEl  = document.getElementById('tech-name');
-    var appEl   = document.getElementById('tech-app');
-    var benEl   = document.getElementById('tech-ben');
-    var caseEl  = document.getElementById('tech-case');
-    var caseRow = document.getElementById('tech-case-row');
-    var badgeEl = document.getElementById('tech-badge');
-    var countEl = document.getElementById('tech-count');
-    if (countEl) countEl.textContent = TECH.length;
+  var tpGrade = document.getElementById('tp-grade');
+  if (tpGrade) {
+    var tpFil = document.getElementById('tp-filtros');
+    var el = function (id) { return document.getElementById(id); };
+    var tpEtapas = [].slice.call(document.querySelectorAll('.tp-etapa'));
+    var tpTodas = el('tp-todas');
+    var ROT = { origem: 'Origem', base: 'Base de dados', dash: 'Dashboards', todas: 'Atravessa as três' };
+    var grupoDe = {};
+    TPG.forEach(function (g) { grupoDe[g[0]] = g[1]; });
 
-    var list = [], dots = [], pos = [], cur = -1, pinned = 0;
+    var lista = [], itens = [], grupoAtual = TPG[0][0];
 
-    CATS.forEach(function (c, ci) {
-      var n = TECH.filter(function (t) { return t[1] === c[0]; }).length;
+    TPG.forEach(function (g, gi) {
+      var n = TPF.filter(function (f) { return f[1] === g[0]; }).length;
       var b = document.createElement('button');
       b.type = 'button';
-      b.className = 'tech-cat';
-      b.innerHTML = c[1].replace(/&/g, '&amp;') + ' <small>' + n + '</small>';
-      b.setAttribute('aria-pressed', ci === 0 ? 'true' : 'false');
+      b.className = 'tp-filtro';
+      b.innerHTML = g[1].replace(/&/g, '&amp;') + ' <small>' + n + '</small>';
+      b.setAttribute('aria-pressed', gi === 0 ? 'true' : 'false');
       b.addEventListener('click', function () {
-        [].forEach.call(catsEl.children, function (o, k) {
-          o.setAttribute('aria-pressed', k === ci ? 'true' : 'false');
+        [].forEach.call(tpFil.children, function (o, k) {
+          o.setAttribute('aria-pressed', k === gi ? 'true' : 'false');
         });
-        build(c[0]);
+        grupoAtual = g[0];
+        montar();
       });
-      catsEl.appendChild(b);
+      tpFil.appendChild(b);
     });
 
-    orbit.addEventListener('mouseleave', function () {
-      if (cur !== pinned) select(pinned, false);
-    });
-
-    function build(cat) {
-      dots.forEach(function (d) { orbit.removeChild(d); });
-      dots = []; pos = []; cur = -1; pinned = 0;
-      if (linkEl) linkEl.style.opacity = '0';
-      list = TECH.filter(function (t) { return t[1] === cat; });
-      list.forEach(function (t, i) {
+    function montar() {
+      tpGrade.innerHTML = '';
+      itens = [];
+      lista = TPF.filter(function (f) { return f[1] === grupoAtual; });
+      lista.forEach(function (f, i) {
         var b = document.createElement('button');
         b.type = 'button';
-        b.className = 'tech-dot';
+        b.className = 'tp-item';
         b.setAttribute('aria-pressed', 'false');
-        b.setAttribute('aria-label', t[0]);
         var ring = document.createElement('span');
-        ring.className = 'tech-ring';
+        ring.className = 'tp-ring';
         ring.setAttribute('aria-hidden', 'true');
         var ico = document.createElement('span');
-        if (t[5].charAt(0) === '#') {
-          ico.className = 'tech-mono';
-          ico.textContent = t[5].slice(1);
-        } else {
-          ico.className = 'tech-ico';
-          ico.style.setProperty('--i', 'url(media/logos/' + t[5] + '.svg)');
-        }
+        if (f[2].charAt(0) === '#') { ico.className = 'tp-mn'; ico.textContent = f[2].slice(1); }
+        else { ico.className = 'tp-ico'; ico.style.setProperty('--i', 'url(media/logos/' + f[2] + '.svg)'); }
         ring.appendChild(ico);
-        if (t[4]) {
-          var st = document.createElement('span');
-          st.className = 'tech-star';
-          st.textContent = '✦';
-          ring.appendChild(st);
-        }
         b.appendChild(ring);
-        var nm = document.createElement('span');
-        nm.className = 'tech-name';
-        nm.setAttribute('aria-hidden', 'true');
-        nm.textContent = t[0];
-        b.appendChild(nm);
-        // Passar o mouse já mostra o que a ferramenta resolve; o clique fixa,
-        // para a leitura não sumir quando o ponteiro sai.
-        b.addEventListener('mouseenter', function () { select(i, false); });
-        b.addEventListener('focus', function () { select(i, false); });
-        b.addEventListener('click', function () { select(i, true); });
-        orbit.appendChild(b);
-        dots.push(b);
-      });
-      place();
-      select(0, true);
-    }
-
-    function place() {
-      var w = orbit.clientWidth;
-      if (!w || !dots.length) return;
-      // Abaixo de 640px a CSS tira os ícones do posicionamento absoluto e eles
-      // viram grade: ali as coordenadas de órbita atrapalhariam em vez de ajudar.
-      if (getComputedStyle(dots[0]).position !== 'absolute') {
-        dots.forEach(function (d) { d.style.left = ''; d.style.top = ''; });
-        if (linkEl) linkEl.style.opacity = '0';
-        return;
-      }
-      // O nome fica fora da caixa do botão (posição absoluta), então precisa
-      // entrar na conta do raio — senão "Microsoft Fabric" atravessa a borda.
-      var widest = 0;
-      dots.forEach(function (d) {
-        var nm = d.querySelector('.tech-name');
-        widest = Math.max(widest, d.offsetWidth, nm ? nm.offsetWidth : 0);
-      });
-      var room = 0.5 - (widest / 2 + 10) / w;
-      var outer = Math.max(0.18, Math.min(0.42, room));
-      var rings = dots.length > 8 ? [1, 0.6] : [1];
-      dots.forEach(function (d, i) {
-        var ring = outer * rings[i % rings.length];
-        var a = (i / dots.length) * Math.PI * 2 - Math.PI / 2;
-        pos[i] = { a: a, r: ring };
-      });
-      relax(w);
-      dots.forEach(function (d, i) {
-        d.style.left = (50 + Math.cos(pos[i].a) * pos[i].r * 100) + '%';
-        d.style.top  = (50 + Math.sin(pos[i].a) * pos[i].r * 100) + '%';
-      });
-      drawLink();
-    }
-    window.addEventListener('resize', place, { passive: true });
-
-    // Os ícones têm todos o mesmo tamanho, então raramente colidem — mas o
-    // afastamento por ângulo fica aqui porque o número por grupo muda.
-    function relax(w) {
-      var dim = dots.map(function (d) {
-        var nm = d.querySelector('.tech-name');
-        // Largura: a maior entre ícone e nome. Altura: o ícone mais o nome
-        // pendurado embaixo dele.
-        return [Math.max(d.offsetWidth, nm ? nm.offsetWidth : 0),
-                d.offsetHeight + (nm ? nm.offsetHeight + 6 : 0)];
-      });
-      var x = [], y = [];
-      function at(i) {
-        x[i] = Math.cos(pos[i].a) * pos[i].r * w;
-        y[i] = Math.sin(pos[i].a) * pos[i].r * w;
-      }
-      for (var k = 0; k < dots.length; k++) at(k);
-      for (var pass = 0; pass < 60; pass++) {
-        var moved = false;
-        for (var i = 0; i < dots.length; i++) {
-          for (var j = i + 1; j < dots.length; j++) {
-            var needX = (dim[i][0] + dim[j][0]) / 2 + 10;
-            var needY = (dim[i][1] + dim[j][1]) / 2 + 10;
-            if (Math.abs(x[i] - x[j]) < needX && Math.abs(y[i] - y[j]) < needY) {
-              var sg = pos[i].a <= pos[j].a ? 0.022 : -0.022;
-              pos[i].a -= sg; pos[j].a += sg;
-              at(i); at(j);
-              moved = true;
-            }
-          }
-        }
-        if (!moved) break;
-      }
-    }
-
-    // A linha liga a ferramenta escolhida ao centro: a leitura é sempre da
-    // tecnologia para o negócio, não o contrário.
-    function drawLink() {
-      if (!linkEl || cur < 0 || !pos[cur]) return;
-      linkEl.style.width = (pos[cur].r * orbit.clientWidth) + 'px';
-      linkEl.style.transform = 'rotate(' + pos[cur].a + 'rad)';
-      linkEl.style.opacity = '1';
-    }
-
-    function select(i, pin) {
-      var t = list[i];
-      if (!t) return;
-      cur = i;
-      if (pin) pinned = i;
-      nameEl.textContent = t[0];
-      appEl.textContent  = t[2];
-      benEl.textContent  = t[3];
-      if (t[4]) { caseEl.textContent = t[4]; caseRow.hidden = false; badgeEl.hidden = false; }
-      else { caseRow.hidden = true; badgeEl.hidden = true; }
-      dots.forEach(function (d, k) { d.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
-      drawLink();
-    }
-
-    build(CATS[0][0]);
-  }
-
-  /* ---------- Arquitetura: onde cada ferramenta entra ---------- */
-  // nome, ícone ('#' = monograma), o que faz NESTA posição, projeto real da Atlas
-  var ARQ = {
-    clouds: [
-      ['Azure', '#AZ', 'Nuvem Microsoft: integra com o que a empresa já usa todo dia.', 1],
-      ['AWS', 'aws', 'O portfólio mais amplo de serviços gerenciados.', 0],
-      ['Google Cloud', 'googlecloud', 'Forte em analytics e IA, com o BigQuery no centro.', 1]
-    ],
-    fontes: [
-      ['SQL Server', '#SQLS', 'O banco do ERP vira fonte analítica, sem parar a operação.', 0],
-      ['Oracle', 'oracle', 'O legado segue de pé enquanto a análise avança por fora.', 1],
-      ['PostgreSQL', 'postgresql', 'A base do produto entra no pipeline sem custo de licença.', 0],
-      ['MongoDB', 'mongodb', 'Dado semiestruturado entra sem ser forçado em tabela.', 0],
-      ['Elasticsearch', 'elasticsearch', 'Log e texto viram fonte de análise, não lixo de servidor.', 0],
-      ['Redis', 'redis', 'O evento quente é lido em memória antes de ir para a base.', 0]
-    ],
-    eng: [
-      ['Fivetran', '#FVT', 'Conector gerenciado: a fonte muda e ele acompanha sozinho.', 0],
-      ['Airbyte', 'airbyte', 'Ingestão open source para a fonte de nicho que ninguém cobre.', 0],
-      ['Kafka', 'kafka', 'Streaming: o dado deixa de esperar o lote da noite.', 0],
-      ['Databricks', 'databricks', 'Lakehouse: volume deixa de ser o limite da análise.', 1],
-      ['Snowflake', 'snowflake', 'Warehouse elástico: o custo acompanha o uso, não o pico.', 0],
-      ['BigQuery', 'bigquery', 'Consulta pesada sem infraestrutura para administrar.', 1],
-      ['Redshift', 'redshift', 'Warehouse analítico dentro do ecossistema AWS.', 0],
-      ['Spark', 'spark', 'Processamento distribuído dentro da janela da madrugada.', 0],
-      ['dbt', 'dbt', 'A regra de negócio vira código testado e versionado.', 1],
-      ['Airflow', 'airflow', 'Orquestração: a falha aparece antes do usuário.', 1]
-    ],
-    viz: [
-      ['Power BI', '#PBI', 'A área responde a própria pergunta, sem pedir relatório.', 1],
-      ['Tableau', 'tableau', 'Exploração visual: o padrão aparece antes de alguém pedir.', 1],
-      ['Looker', 'looker', 'Camada semântica: uma métrica, uma definição, fim da divergência.', 1],
-      ['Qlik', 'qlik', 'Exploração associativa livre entre dimensões.', 0],
-      ['MicroStrategy', 'microstrategy', 'BI corporativo: todas as áreas lendo os mesmos números.', 1],
-      ['Metabase', 'metabase', 'Os primeiros indicadores no ar sem um projeto longo.', 0],
-      ['Superset', 'superset', 'Painéis corporativos sem custo de licença por assento.', 0]
-    ],
-    gov: [
-      ['Unity Catalog', '#UC', 'Quem vê o quê deixa de ser combinado por e-mail.', 0],
-      ['Purview', '#PVW', 'Linhagem: dá para provar de onde veio cada número.', 0],
-      ['Collibra', '#CLB', 'A regra de dado deixa de ser política no papel.', 0],
-      ['Alation', '#ALA', 'Quem usa cada tabela vira informação, não folclore.', 0],
-      ['Atlan', '#ATL', 'Negócio e engenharia falando da mesma tabela.', 0],
-      ['dbt tests', '#DBT', 'A quebra aparece no pipeline, não na reunião de diretoria.', 0]
-    ],
-    ia: [
-      ['Python', 'python', 'O repetitivo vira código; o previsível vira modelo.', 1],
-      ['MLflow', 'mlflow', 'Modelo em produção com histórico e reversão.', 0],
-      ['OpenAI', 'openai', 'Capacidade de IA sem treinar modelo do zero.', 0],
-      ['Anthropic', 'anthropic', 'IA sobre documento e análise, com controle do contexto.', 0],
-      ['Gemini', 'gemini', 'IA ao lado do dado que já está no BigQuery.', 0],
-      ['Hugging Face', 'huggingface', 'Começar de um modelo treinado, não do zero.', 0]
-    ]
-  };
-  var ARQ_GRUPO = {
-    clouds: 'Nuvem', fontes: 'Origem', eng: 'Engenharia de dados',
-    viz: 'Data Visualization', gov: 'Governança', ia: 'Inteligência Artificial'
-  };
-
-  var arqCapN = document.getElementById('arq-cap-n');
-  if (arqCapN) {
-    var arqCapW = document.getElementById('arq-cap-w');
-    var arqCapD = document.getElementById('arq-cap-d');
-    var arqCapI = document.getElementById('arq-cap-ico');
-    var arqConns = [].slice.call(document.querySelectorAll('.arq-conn'));
-    var arqAll = [];
-    var arqTotal = 0;
-    Object.keys(ARQ).forEach(function (k) { if (k !== 'clouds') arqTotal += ARQ[k].length; });
-    arqCapW.textContent = arqTotal + ' ferramentas no desenho';
-
-    // Acender a etapa junto com a ferramenta: mostra que o ícone não está solto
-    // num mural — ele ocupa um lugar na arquitetura.
-    function arqLight(key) {
-      [].forEach.call(document.querySelectorAll('[data-stage]'), function (el) {
-        el.classList.toggle('arq-lit', el.getAttribute('data-stage') === key);
-      });
-      var upto = key === 'eng' ? 1 : (key === 'viz' ? 2 : 0);
-      arqConns.forEach(function (c, i) { c.classList.toggle('arq-lit', i < upto); });
-    }
-
-    function arqBuild(host, rows, key) {
-      rows.forEach(function (t) {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'arq-tool';
-        b.setAttribute('aria-label', t[0]);
-        var ring = document.createElement('span');
-        ring.className = 'arq-ring';
-        ring.setAttribute('aria-hidden', 'true');
-        var ico = document.createElement('span');
-        if (t[1].charAt(0) === '#') { ico.className = 'arq-mn'; ico.textContent = t[1].slice(1); }
-        else { ico.className = 'arq-ico'; ico.style.setProperty('--i', 'url(media/logos/' + t[1] + '.svg)'); }
-        ring.appendChild(ico);
-        if (t[3]) {
+        if (f[12]) {
           var st = document.createElement('span');
-          st.className = 'arq-star';
+          st.className = 'tp-star';
+          st.setAttribute('aria-hidden', 'true');
           st.textContent = '\u2726';
-          ring.appendChild(st);
+          b.appendChild(st);
         }
-        b.appendChild(ring);
-        function show() {
-          arqAll.forEach(function (o) { o.classList.remove('on'); });
-          b.classList.add('on');
-          arqCapN.textContent = t[0];
-          arqCapW.textContent = ARQ_GRUPO[key] || '';
-          arqCapD.innerHTML = t[2] + (t[3] ? ' <b>\u2726 Projeto entregue pela Atlas.</b>' : '');
-          arqCapI.innerHTML = '';
-          if (t[1].charAt(0) === '#') {
-            var mm = document.createElement('b'); mm.textContent = t[1].slice(1); arqCapI.appendChild(mm);
-          } else {
-            var sp = document.createElement('span');
-            sp.style.setProperty('--i', 'url(media/logos/' + t[1] + '.svg)');
-            arqCapI.appendChild(sp);
-          }
-          arqLight(key);
-        }
-        b.addEventListener('mouseenter', show);
-        b.addEventListener('focus', show);
-        b.addEventListener('click', show);
-        host.appendChild(b);
-        arqAll.push(b);
+        b.appendChild(document.createTextNode(f[0]));
+        b.addEventListener('mouseenter', function () { mostrar(i); });
+        b.addEventListener('focus', function () { mostrar(i); });
+        b.addEventListener('click', function () { mostrar(i); });
+        tpGrade.appendChild(b);
+        itens.push(b);
       });
+      mostrar(0);
     }
 
-    arqBuild(document.getElementById('arq-clouds'), ARQ.clouds, 'clouds');
-    [].forEach.call(document.querySelectorAll('.arq-tools[data-group]'), function (host) {
-      var k = host.getAttribute('data-group');
-      arqBuild(host, ARQ[k] || [], k);
-    });
+    function mostrar(i) {
+      var f = lista[i];
+      if (!f) return;
+      itens.forEach(function (b, k) { b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
 
-    [].forEach.call(document.querySelectorAll('[data-stage]'), function (el) {
-      el.addEventListener('mouseenter', function () { arqLight(el.getAttribute('data-stage')); });
-    });
-    var arqBox = document.querySelector('.arq');
-    if (arqBox) arqBox.addEventListener('mouseleave', function () { arqLight(null); });
+      var ico = el('tp-ico');
+      ico.innerHTML = '';
+      if (f[2].charAt(0) === '#') {
+        var m = document.createElement('b'); m.textContent = f[2].slice(1); ico.appendChild(m);
+      } else {
+        var s = document.createElement('span');
+        s.style.setProperty('--i', 'url(media/logos/' + f[2] + '.svg)');
+        ico.appendChild(s);
+      }
+      el('tp-nome').textContent = f[0];
+      el('tp-oque').textContent = f[6];
+      el('tp-negocio').textContent = f[7];
+      var selo = el('tp-selo');
+      selo.textContent = '\u2726 Projeto entregue pela Atlas';
+      selo.hidden = !f[12];
+
+      // A etapa em que a ferramenta atua acende e recebe o descritivo.
+      tpEtapas.forEach(function (e) {
+        var k = e.getAttribute('data-etapa');
+        var ativa = (f[3] === k) || (f[3] === 'todas');
+        e.classList.toggle('on', ativa);
+        var slot = e.querySelector('.tp-slot');
+        slot.textContent = (f[3] === k) ? f[8] : '';
+      });
+      if (f[3] === 'todas') {
+        tpTodas.innerHTML = '<b>Atravessa as três etapas</b>' + f[8];
+        tpTodas.hidden = false;
+      } else {
+        tpTodas.hidden = true;
+      }
+
+      el('tp-k-grupo').textContent = grupoDe[f[1]] || '';
+      el('tp-k-etapa').textContent = ROT[f[3]] || '';
+      el('tp-k-lic').textContent = f[4];
+      el('tp-k-mod').textContent = f[5];
+      el('tp-k-atlas').textContent = f[12] ? 'Sim' : 'Não';
+      el('tp-k-atlas-box').classList.toggle('sim', !!f[12]);
+
+      el('tp-melhor').textContent = f[8];
+      el('tp-para').textContent = f[9];
+      el('tp-como').textContent = f[10];
+      el('tp-mercado').textContent = f[11];
+    }
+
+    montar();
   }
+
 
   /* ---------- Barra de conversa ---------- */
   var cbar = document.getElementById('cbar');

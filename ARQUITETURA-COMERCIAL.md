@@ -168,6 +168,7 @@ prototipada em `modelo-arquitetura.html`), 07 (produto com peso próprio) e 11
 /contato                  formulário dedicado
 ```
 
+**Status:** as três primeiras já estão no ar.
 **Recomendação de ordem:** comece por **três** páginas de serviço — BI &
 Analytics, Data Engineering e Alocação. As duas primeiras são as que têm case
 real; a terceira é o que diferencia a Atlas da referência. As demais entram
@@ -414,14 +415,17 @@ em GCP, governança de BI com 200+ dashboards migrados. Os demais em grade menor
 
 | Elemento | Situação | Ação |
 |---|---|---|
-| Projetos entregues | 13+ | Usar |
+| Projetos entregues | 500+ | Usar |
 | Setores atendidos | 10+ | Usar |
-| Dashboards entregues | 200+ | Usar |
-| Nuvens | 3 | Usar |
-| Ferramentas com projeto real | 16 marcadas com ✦ | **Destacar mais** |
+| Anos de alocação | 6+ | Usar |
+| Ferramentas com projeto real | 13 marcadas com ✦ | **Destacar mais** |
 | Logos de clientes | Confidenciais | "Cliente confidencial" |
 | Depoimentos | Nenhum | Bloqueado — pedir |
-| Certificações / parcerias | Desconhecido | **Verificar — alta prioridade** |
+| Certificações / parcerias | **Ainda não existem** (confirmado) | Reavaliar quando houver |
+
+> Atualizado em 24/09/2026: os números vieram da Atlas. "200+ dashboards" e
+> "3 nuvens" saíram da faixa de destaque — o dashboard segue no case de
+> governança, onde é evidência, e não indicador solto.
 
 Formato recomendado para os números: **linha discreta**, não muro. Quatro
 números pequenos em uma faixa, sem animação de contador. Números modestos ficam
