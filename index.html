@@ -64,7 +64,7 @@
     --line-soft: rgba(244, 243, 239, 0.055);
     --ink: #F4F3EF;
     --muted: #9BA3AE;
-    --dim: #5B6270;
+    --dim: #767E8E;   /* 4,94:1 sobre o fundo, 4,64:1 sobre o painel */
     --accent: #2E86FF;
     --accent-light: #6FD4FF;
     --accent-deep: #0A2EE0;
@@ -218,6 +218,41 @@
   /* Diagrama de arquitetura — SVG estático, sem canvas. As linhas se
      "desenham" via stroke-dashoffset quando a seção entra na tela. */
 
+  .hero-proof {
+    margin-top: 1.6rem; font-family: var(--mono); font-size: 0.72rem;
+    letter-spacing: 0.08em; color: var(--muted);
+  }
+  .hero-proof b { color: var(--ink); font-weight: 500; }
+  .hero-proof i { font-style: normal; color: var(--dim); margin: 0 0.15rem; }
+
+  /* ---------- Barra de conversa ---------- */
+  /* O canto inferior direito ja e do Atis. Empilhar dois elementos fixos no
+     mesmo canto e ruido, e no mobile cobre conteudo — entao a barra desce
+     do topo, e so depois que o hero sai da tela. */
+  .cbar {
+    /* Abaixo do cabeçalho, nunca por cima. A altura da nav muda com o scroll
+       e arredonda diferente por zoom, então ela é medida em tempo de execução
+       e publicada em --navh — número fixo aqui sempre erra por 1px. */
+    position: fixed; top: var(--navh, 4.25rem); left: 0; right: 0; z-index: 45;
+    display: flex; align-items: center; justify-content: center; gap: 1.2rem;
+    padding: 0.6rem 3rem 0.6rem 1.2rem;
+    background: rgba(5,7,10,0.92); border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    transform: translateY(-100%); transition: transform 0.45s var(--ease);
+  }
+  .cbar.on { transform: none; }
+  .cbar p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+  .cbar .btn { padding: 0.5rem 1rem; font-size: 0.82rem; }
+  .cbar-x {
+    position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%);
+    width: 1.8rem; height: 1.8rem; border-radius: 50%; border: 1px solid var(--line);
+    background: transparent; color: var(--dim); cursor: pointer; line-height: 1;
+    transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .cbar-x:hover { color: var(--ink); border-color: var(--line); }
+  @media (max-width: 860px) { .cbar { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .cbar { transition: none; } }
+
   /* ---------- Serviços (accordion) ---------- */
   .sol-list { list-style: none; border-top: 1px solid var(--line); margin-top: 1rem; }
   .sol-item { border-bottom: 1px solid var(--line); border-left: 2px solid transparent; padding-left: 0; transition: border-color 0.45s var(--ease), background 0.45s var(--ease), padding-left 0.35s var(--ease); }
@@ -250,6 +285,69 @@
   .problem-card .p-arrow { color: var(--dim); flex: none; }
   .problem-card .p-sol { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; color: var(--accent-light); white-space: nowrap; flex: none; }
 
+  /* ---------- Rota por objetivo ---------- */
+  /* Triagem rápida para quem já sabe o que quer. O card é curto de propósito:
+     a descrição profunda é da seção de soluções, logo abaixo. */
+  .rotas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; margin-top: 2.6rem; }
+  .rota {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem;
+    background: var(--panel); text-decoration: none; color: inherit;
+    transition: border-color 0.4s var(--ease), transform 0.4s var(--ease), background 0.4s var(--ease);
+  }
+  .rota:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); background: var(--panel-2, #121A24); }
+  .rota h3 { font-family: var(--display); font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; }
+  .rota p { color: var(--muted); font-size: 0.88rem; }
+  .rota-go {
+    margin-top: auto; padding-top: 0.6rem; font-family: var(--mono); font-size: 0.64rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-light);
+    display: inline-flex; align-items: center; gap: 0.4rem;
+  }
+  .rota-go i { font-style: normal; transition: transform 0.3s var(--ease); }
+  .rota:hover .rota-go i { transform: translateX(3px); }
+
+  /* ---------- O que acontece depois ---------- */
+  .depois { list-style: none; margin: 1.8rem 0 0; padding: 0; display: grid; gap: 1rem; counter-reset: d; }
+  .depois li {
+    position: relative; padding-left: 2.4rem; counter-increment: d;
+    display: flex; flex-direction: column; gap: 0.15rem;
+  }
+  .depois li::before {
+    content: '0' counter(d); position: absolute; left: 0; top: 0.05rem;
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em;
+    color: var(--accent-light); border: 1px solid rgba(46,134,255,0.35);
+    border-radius: 5px; padding: 0.15rem 0.3rem; background: rgba(46,134,255,0.08);
+  }
+  .depois b { font-size: 0.95rem; font-weight: 600; }
+  .depois span { color: var(--muted); font-size: 0.87rem; }
+
+  /* ---------- Chips de assunto ---------- */
+  .chips-field { border: 0; padding: 0; margin: 0; }
+  .chips-field legend {
+    padding: 0; margin-bottom: 0.6rem; font-family: var(--mono); font-size: 0.66rem;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chips label { cursor: pointer; }
+  /* O input fica acessível ao teclado, mas invisível: o chip é o alvo. */
+  .chips input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .chips span {
+    display: inline-block; border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.5rem 0.85rem; font-size: 0.8rem; color: var(--muted);
+    transition: border-color 0.25s var(--ease), color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+  .chips label:hover span { border-color: rgba(46,134,255,0.45); color: var(--ink); }
+  .chips input:focus-visible + span { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+  .chips input:checked + span { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.16); }
+  .field label em { font-style: normal; color: var(--dim); font-weight: 400; }
+
+  @media (max-width: 1080px) { .rotas { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 680px) {
+    .rotas { grid-template-columns: 1fr; }
+    /* Alvo de toque: o chip precisa caber o dedo. */
+    .chips span { padding: 0.62rem 0.9rem; font-size: 0.82rem; }
+  }
+
   /* ---------- Cases ---------- */
   .case-card { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2.5rem; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 2.2rem; margin-top: 1.6rem; }
   .case-conf { display: inline-block; font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.7rem; margin-bottom: 0.9rem; }
@@ -274,6 +372,16 @@
   .case-mini .stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
   .case-mini .stack span { font-size: 0.68rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.55rem; }
   .cases-note { margin-top: 1.8rem; font-size: 0.85rem; color: var(--dim); }
+
+  .cm-k {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent-light); margin-bottom: 0.2rem;
+  }
+  .mini-change {
+    margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px solid var(--line-soft);
+    font-size: 0.85rem; color: var(--ink); display: flex; gap: 0.5rem; align-items: baseline;
+  }
+  .mini-change::before { content: '\2192'; color: var(--accent); flex: none; font-family: var(--mono); }
 
   /* ---------- Como entregamos (paper) ---------- */
   .method { background: var(--paper); color: var(--paper-ink); }
@@ -738,6 +846,255 @@
 
   .illus-note { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
 
+  /* ---------- Arquitetura: onde cada ferramenta entra ---------- */
+  .arq {
+    position: relative; margin-top: 3rem; border: 1px solid var(--line); border-radius: 20px;
+    background:
+      radial-gradient(70% 90% at 50% -10%, rgba(46,134,255,0.10), transparent 60%),
+      linear-gradient(180deg, rgba(18,26,36,0.82), rgba(13,17,23,0.82));
+  }
+  /* Cantoneiras: a marca de planta técnica, e o detalhe que dá acabamento. */
+  .arq::before, .arq::after,
+  .arq > .arq-cx1, .arq > .arq-cx2 {
+    content: ''; position: absolute; width: 16px; height: 16px; pointer-events: none;
+    border-color: rgba(46,134,255,0.55); border-style: solid; border-width: 0;
+  }
+  .arq::before { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; border-radius: 20px 0 0 0; }
+  .arq::after { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; border-radius: 0 20px 0 0; }
+  .arq > .arq-cx1 { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; border-radius: 0 0 0 20px; }
+  .arq > .arq-cx2 { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; border-radius: 0 0 20px 0; }
+
+  .arq-bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    flex-wrap: wrap; padding: 1rem 1.4rem; border-bottom: 1px solid var(--line);
+  }
+  .arq-bar b {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--ink); font-weight: 500;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .arq-bar b::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 10px rgba(46,134,255,0.8);
+  }
+  .arq-clouds { display: flex; gap: 0.4rem; align-items: center; }
+
+  .arq-body {
+    display: grid; grid-template-columns: 0.82fr 4.2rem 1.3fr 4.2rem 1.2fr;
+    align-items: stretch; padding: 1.7rem 1.4rem 1.5rem;
+  }
+
+  /* ---------------- conector ---------------- */
+  .arq-conn { position: relative; display: grid; place-items: center; }
+  .arq-conn svg { width: 100%; height: 30px; overflow: visible; }
+  .arq-conn .arq-ln { stroke: rgba(46,134,255,0.45); stroke-width: 1.6; stroke-dasharray: 4 3; fill: none; transition: stroke 0.35s var(--ease); }
+  .arq-conn .arq-hd { fill: rgba(46,134,255,0.6); transition: fill 0.35s var(--ease); }
+  .arq-conn .arq-nd { fill: var(--bg0); stroke: rgba(46,134,255,0.6); stroke-width: 1.5; transition: stroke 0.35s var(--ease), fill 0.35s var(--ease); }
+  .arq-conn.arq-lit .arq-ln { stroke: var(--accent); }
+  .arq-conn.arq-lit .arq-hd { fill: var(--accent-light); }
+  .arq-conn.arq-lit .arq-nd { stroke: var(--accent-light); fill: rgba(46,134,255,0.25); }
+
+  /* ---------------- etapas ---------------- */
+  .arq-stage {
+    position: relative; border: 1px solid var(--line); border-radius: 16px;
+    background: rgba(5,7,10,0.55); padding: 1.35rem 1.2rem 1.2rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    transition: border-color 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  /* Barra de acento no topo: apaga por padrão, acende quando a etapa é o assunto. */
+  .arq-stage::before {
+    content: ''; position: absolute; top: -1px; left: 1.6rem; right: 1.6rem; height: 2px;
+    border-radius: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.22; transition: opacity 0.4s var(--ease);
+  }
+  .arq-stage.arq-lit { border-color: rgba(46,134,255,0.42); background: rgba(18,26,36,0.6); box-shadow: 0 0 46px rgba(46,134,255,0.10); }
+  .arq-stage.arq-lit::before { opacity: 1; }
+
+  .arq-stage-k {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent-light);
+  }
+  .arq-stage-k i {
+    font-style: normal; display: grid; place-items: center;
+    width: 1.35rem; height: 1.35rem; border-radius: 5px; flex: none;
+    border: 1px solid rgba(46,134,255,0.35); background: rgba(46,134,255,0.1);
+    font-size: 0.58rem; letter-spacing: 0;
+  }
+  .arq-stage-t { font-family: var(--display); font-size: 1.15rem; font-weight: 700; letter-spacing: -0.024em; margin-top: 0.55rem; }
+  .arq-stage-d { color: var(--muted); font-size: 0.855rem; line-height: 1.52; margin-top: 0.35rem; }
+
+  /* ---------------- desenho: as fontes ---------------- */
+  .arq-srcs { display: grid; gap: 0.38rem; }
+  .arq-src {
+    position: relative; display: flex; align-items: center; gap: 0.55rem;
+    border: 1px solid var(--line-soft); border-radius: 9px; padding: 0.46rem 0.6rem;
+    font-size: 0.78rem; color: var(--muted); background: rgba(13,17,23,0.7);
+    transition: border-color 0.35s var(--ease), color 0.35s var(--ease);
+  }
+  .arq-src::before {
+    content: ''; width: 5px; height: 5px; border-radius: 1px; flex: none;
+    background: var(--dim); transition: background 0.35s var(--ease);
+  }
+  .arq-stage.arq-lit .arq-src { border-color: rgba(46,134,255,0.2); color: var(--ink); }
+  .arq-stage.arq-lit .arq-src::before { background: var(--accent); }
+
+  /* ---------------- desenho: o banco ---------------- */
+  .arq-art-wrap { position: relative; }
+  .arq-art-wrap::before {
+    content: ''; position: absolute; left: 50%; top: 50%; width: 76%; height: 76%;
+    transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(46,134,255,0.18), transparent 70%);
+    opacity: 0.5; transition: opacity 0.5s var(--ease);
+  }
+  .arq-stage.arq-lit .arq-art-wrap::before { opacity: 1; }
+  .arq-art { position: relative; display: block; width: 100%; height: auto; max-width: 17rem; margin: 0.4rem auto 0; }
+  .arq-art .arq-edge { fill: none; stroke: rgba(46,134,255,0.6); stroke-width: 1.2; }
+  .arq-art .arq-inner { fill: none; stroke: rgba(46,134,255,0.3); stroke-width: 1; }
+  .arq-art .arq-lbl { fill: var(--muted); font-family: var(--mono); font-size: 4.6px; letter-spacing: 0.14em; }
+  .arq-art .arq-tick { stroke: rgba(255,255,255,0.14); stroke-width: 0.8; }
+  .arq-stage.arq-lit .arq-art .arq-lbl { fill: var(--ink); }
+
+  /* ---------------- desenho: o painel ---------------- */
+  .arq-dash {
+    border: 1px solid var(--line); border-radius: 12px; background: var(--panel);
+    overflow: hidden; transition: border-color 0.4s var(--ease);
+  }
+  .arq-stage.arq-lit .arq-dash { border-color: rgba(46,134,255,0.3); }
+  .arq-dash-bar {
+    display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.7rem;
+    border-bottom: 1px solid var(--line-soft);
+    font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--dim);
+  }
+  .arq-dash-bar u { display: flex; gap: 0.25rem; text-decoration: none; }
+  .arq-dash-bar u i { width: 5px; height: 5px; border-radius: 50%; background: var(--line); }
+  .arq-dash-bar u i:first-child { background: rgba(46,134,255,0.7); }
+  .arq-dash-body { display: grid; grid-template-columns: 1fr 1.45fr; gap: 0.8rem; padding: 0.85rem 0.8rem; }
+  .arq-dash-kpi-k { font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); }
+  .arq-dash-kpi-v { white-space: nowrap; font-family: var(--display); font-size: 1.32rem; font-weight: 800; letter-spacing: -0.035em; line-height: 1; margin-top: 0.25rem; }
+  .arq-dash-kpi-d { font-family: var(--mono); font-size: 0.56rem; color: var(--accent-light); margin-top: 0.32rem; }
+  .arq-dash-rows { display: grid; gap: 0.32rem; margin-top: 0.75rem; }
+  .arq-dash-row { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.07); }
+  .arq-dash-row b { display: block; height: 100%; border-radius: 2px; background: rgba(46,134,255,0.45); }
+  .arq-dash-right { display: flex; flex-direction: column; gap: 0.4rem; }
+  .arq-dash-chart { display: flex; align-items: flex-end; gap: 3px; height: 3.6rem; }
+  .arq-dash-chart i { flex: 1; border-radius: 1.5px 1.5px 0 0; background: rgba(46,134,255,0.24); transition: background 0.4s var(--ease); }
+  .arq-dash-chart i.arq-hi { background: var(--accent); box-shadow: 0 0 14px rgba(46,134,255,0.55); }
+  .arq-dash-x { display: flex; gap: 3px; font-family: var(--mono); font-size: 0.42rem; color: var(--dim); }
+  .arq-dash-x span { flex: 1; text-align: center; }
+  .arq-dash-foot { padding: 0 0.8rem 0.85rem; display: grid; gap: 0.35rem; }
+  .arq-dash-foot .arq-dash-kpi-k { margin-bottom: 0.1rem; }
+  .arq-dash-ch { display: grid; grid-template-columns: 4.6rem 1fr 1.9rem; gap: 0.5rem; align-items: center; }
+  .arq-dash-ch span { font-size: 0.62rem; color: var(--muted); }
+  .arq-dash-ch u { display: block; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.07); text-decoration: none; }
+  .arq-dash-ch b { display: block; height: 100%; border-radius: 2px; background: rgba(46,134,255,0.4); }
+  .arq-dash-ch:first-of-type b { background: var(--accent); box-shadow: 0 0 10px rgba(46,134,255,0.5); }
+  .arq-dash-ch em { font-family: var(--mono); font-size: 0.56rem; font-style: normal; color: var(--ink); text-align: right; }
+
+  /* ---------------- ferramentas ---------------- */
+  .arq-tools { display: flex; flex-wrap: wrap; gap: 0.42rem; }
+  /* O bloco de ferramentas é empurrado para a base para as três colunas
+     terminarem alinhadas; o rótulo evita que a folga acima leia como erro. */
+  .arq-stage .arq-tools-wrap { margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--line-soft); }
+  .arq-tools-k {
+    display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem;
+    font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--dim);
+  }
+  .arq-tools-k::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); }
+  .arq-tool {
+    position: relative; width: 2.4rem; height: 2.4rem; border-radius: 50%; padding: 0;
+    display: grid; place-items: center; cursor: pointer;
+    color: var(--muted); background: var(--panel); border: 1px solid var(--line);
+    transition: color 0.25s var(--ease), border-color 0.25s var(--ease),
+                background 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .arq-ring { display: grid; place-items: center; }
+  .arq-tool .arq-ico {
+    width: 1.1rem; height: 1.1rem; background: currentColor;
+    -webkit-mask: var(--i) center / contain no-repeat;
+            mask: var(--i) center / contain no-repeat;
+  }
+  .arq-tool .arq-mn { font-family: var(--mono); font-size: 0.47rem; letter-spacing: 0.01em; }
+  .arq-tool:hover, .arq-tool:focus-visible, .arq-tool.on {
+    color: var(--accent-light); border-color: var(--accent); outline: none;
+    background: rgba(46,134,255,0.15); box-shadow: 0 0 18px rgba(46,134,255,0.35);
+    transform: translateY(-2px);
+  }
+  .arq-star { position: absolute; top: 0.04rem; right: 0.12rem; font-size: 0.42rem; color: var(--accent-light); opacity: 0.9; }
+
+  /* ---------------- faixas que atravessam ---------------- */
+  /* Governança e IA não são etapas na fila: acontecem sobre o fluxo
+     inteiro. Desenhar como faixa é o que separa arquitetura de fluxograma. */
+  .arq-bands { border-top: 1px solid var(--line); }
+  .arq-band {
+    position: relative; display: grid; grid-template-columns: 14rem 1fr;
+    gap: 1.2rem; align-items: center; padding: 1rem 1.4rem 1rem 1.4rem;
+    transition: background 0.4s var(--ease);
+  }
+  .arq-band + .arq-band { border-top: 1px solid var(--line-soft); }
+  .arq-band::before {
+    content: ''; position: absolute; left: 0; top: 0.8rem; bottom: 0.8rem; width: 2px;
+    background: var(--accent); opacity: 0.3; border-radius: 0 2px 2px 0;
+    transition: opacity 0.4s var(--ease);
+  }
+  .arq-band.arq-lit { background: rgba(46,134,255,0.04); }
+  .arq-band.arq-lit::before { opacity: 1; }
+  .arq-band-h { display: flex; flex-direction: column; gap: 0.2rem; }
+  .arq-band-k {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent-light);
+  }
+  .arq-band-k::after { content: ''; flex: 1; height: 1px; background: var(--line); min-width: 1rem; }
+  .arq-band-d { font-size: 0.79rem; color: var(--dim); line-height: 1.42; }
+  .arq-band .arq-tools { margin-top: 0; padding-top: 0; }
+
+  /* ---------------- legenda viva ---------------- */
+  .arq-cap {
+    display: grid; grid-template-columns: 13rem 1fr; gap: 1.2rem; align-items: center;
+    margin-top: 1.2rem; border: 1px solid var(--line); border-radius: 14px;
+    padding: 1rem 1.2rem; background: linear-gradient(180deg, rgba(18,26,36,0.7), rgba(13,17,23,0.7));
+    min-height: 5rem;
+  }
+  .arq-cap-l { display: flex; align-items: center; gap: 0.7rem; }
+  .arq-cap-ico {
+    width: 2.6rem; height: 2.6rem; border-radius: 50%; flex: none; display: grid; place-items: center;
+    border: 1px solid rgba(46,134,255,0.4); background: rgba(46,134,255,0.1); color: var(--accent-light);
+  }
+  .arq-cap-ico span {
+    width: 1.2rem; height: 1.2rem; background: currentColor;
+    -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat;
+  }
+  .arq-cap-ico b { font-family: var(--mono); font-size: 0.5rem; font-weight: 500; }
+  .arq-cap-n { display: block; font-family: var(--display); font-size: 1.08rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+  .arq-cap-w { display: block; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-top: 0.15rem; }
+  .arq-cap-d { color: var(--muted); font-size: 0.93rem; }
+  .arq-cap-d b { color: var(--accent-light); font-weight: 500; }
+
+  .note {
+    margin-top: 1.5rem; font-family: var(--mono); font-size: 0.63rem;
+    letter-spacing: 0.13em; text-transform: uppercase; color: var(--dim);
+  }
+
+  @media (max-width: 1040px) {
+    .arq-body { grid-template-columns: 1fr; gap: 0.9rem; }
+    .arq-conn { height: 2.4rem; }
+    .arq-conn svg { width: 26px; height: 100%; }
+    .arq-conn .arq-rot { transform: rotate(90deg); transform-origin: center; transform-box: fill-box; }
+    .arq-band { grid-template-columns: 1fr; gap: 0.7rem; }
+    .why { grid-template-columns: 1fr; }
+    .arq-art { max-width: 13rem; }
+  }
+  @media (max-width: 580px) {
+    .sec { padding: 3rem 0 4rem; }
+    .arq-dash-body { grid-template-columns: 1fr; }
+    .arq-cap { grid-template-columns: 1fr; gap: 0.7rem; align-items: start; }
+    .arq-body { padding: 1.1rem 0.9rem; }
+    .arq-bar, .arq-band { padding-left: 1rem; padding-right: 1rem; }
+  }
+
   /* ---------- Metodologia ---------- */
   .tl { position: relative; margin-top: 2.8rem; padding-left: 2.6rem; }
   .tl::before { content: ''; position: absolute; left: 0.62rem; top: 0.4rem; bottom: 0.4rem; width: 1px; background: var(--line); }
@@ -982,11 +1339,17 @@
       <a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener" aria-label="LinkedIn da Atlas" data-cursor="LinkedIn" style="display:inline-flex;align-items:center;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7.5 10.5v6"/><circle cx="7.5" cy="7.4" r="0.9" fill="currentColor" stroke="none"/><path d="M11.4 16.5v-6m0 1.6a2.6 2.6 0 0 1 5.1.9v3.5"/></svg>
       </a>
-      <a class="btn btn-accent" href="#contato" data-magnetic>Vamos conversar <span class="arr">→</span></a>
+      <a class="btn btn-accent" href="#contato" data-magnetic>Falar com um especialista <span class="arr">→</span></a>
     </nav>
     <button class="nav-burger" id="burger" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
   </div>
 </header>
+
+<div class="cbar" id="cbar" hidden>
+  <p>Tem um desafio de dados?</p>
+  <a class="btn btn-accent" href="#contato">Falar com um especialista <span class="arr">→</span></a>
+  <button class="cbar-x" id="cbar-x" type="button" aria-label="Dispensar">&times;</button>
+</div>
 
 <nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true">
   <a href="#solucoes">Soluções</a>
@@ -998,7 +1361,7 @@
   <a href="insight.html">Atlas Insight AI <small>PRODUTO ✦</small></a>
   <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram <small>@atlas_tecnologia ✦</small></a>
   <a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn <small>Atlas Tecnologia ✦</small></a>
-  <a class="btn btn-accent" href="#contato">Vamos conversar <span class="arr">→</span></a>
+  <a class="btn btn-accent" href="#contato">Falar com um especialista <span class="arr">→</span></a>
 </nav>
 
 <main id="inicio">
@@ -1016,9 +1379,13 @@
           complexidade em vantagem competitiva.
         </p>
         <div class="hero-ctas reveal d3 in">
-          <a class="btn btn-accent" href="#contato" data-magnetic>Vamos conversar <span class="arr">→</span></a>
-          <a class="btn btn-line" href="#solucoes" data-magnetic>Explorar soluções <span class="arr">→</span></a>
+          <a class="btn btn-accent" href="#contato" data-magnetic>Falar com um especialista <span class="arr">→</span></a>
+          <a class="btn btn-line" href="#solucoes" data-magnetic>Conhecer nossas soluções <span class="arr">→</span></a>
         </div>
+        <p class="hero-proof reveal d3 in">
+          <b>13+</b> projetos entregues <i>·</i> <b>10+</b> setores <i>·</i>
+          <b>200+</b> dashboards <i>·</i> <b>3</b> nuvens
+        </p>
       </div>
     </div>
     <div class="hero-foot">
@@ -1026,6 +1393,53 @@
       <span>Data · Intelligence · Transformation</span>
     </div>
   </section>
+
+  <!-- ================= ROTA POR OBJETIVO ================= -->
+  <section class="sec" id="rota">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Por onde começar</span>
+        <h2 class="h-xl reveal d1">O que você quer resolver?</h2>
+        <p class="sub reveal d2">
+          Cada caminho leva ao mesmo lugar: uma conversa com quem vai executar.
+        </p>
+      </div>
+      <div class="rotas reveal d2">
+        <a class="rota" href="#s-engineering">
+          <h3>Quero uma base única de dados</h3>
+          <p>Conectamos as fontes e construímos a arquitetura que sustenta Analytics e IA.</p>
+          <span class="rota-go">Data Engineering <i>&rarr;</i></span>
+        </a>
+        <a class="rota" href="#s-bi">
+          <h3>Quero decidir com número confiável</h3>
+          <p>Uma métrica, uma definição, e o indicador na mão de quem decide.</p>
+          <span class="rota-go">BI &amp; Analytics <i>&rarr;</i></span>
+        </a>
+        <a class="rota" href="#s-ai">
+          <h3>Quero aplicar IA no meu negócio</h3>
+          <p>IA sobre a sua própria base — previsão, anomalia e resposta em linguagem natural.</p>
+          <span class="rota-go">Inteligência Artificial <i>&rarr;</i></span>
+        </a>
+        <a class="rota" href="#s-cloud">
+          <h3>Quero modernizar minha infraestrutura</h3>
+          <p>Arquitetura e migração em Azure, AWS ou Google Cloud, sem parar a operação.</p>
+          <span class="rota-go">Cloud &amp; Data Platform <i>&rarr;</i></span>
+        </a>
+        <a class="rota" href="#s-automation">
+          <h3>Quero automatizar processos</h3>
+          <p>O repetitivo vira pipeline; o manual vira fluxo com rastreabilidade.</p>
+          <span class="rota-go">Automação <i>&rarr;</i></span>
+        </a>
+        <a class="rota" href="#s-alocacao">
+          <h3>Quero reforçar meu time</h3>
+          <p>Especialistas de dados alocados no seu time, sob a sua gestão.</p>
+          <span class="rota-go">Alocação <i>&rarr;</i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
 
   <!-- ================= SOLUÇÕES ================= -->
   <section class="sec" id="solucoes">
@@ -1282,6 +1696,188 @@
     </div>
   </section>
 
+
+  <div class="divider"></div>
+
+  <!-- ================= ARQUITETURA ================= -->
+  <section class="sec" id="arquitetura">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Arquitetura</span>
+        <h2 class="h-xl reveal d1">Onde cada ferramenta entra no seu negócio.</h2>
+        <p class="sub reveal d2">
+          Do sistema que já existe até o painel que alguém usa para decidir.
+          Aponte uma ferramenta para ver o que ela faz exatamente nessa posição.
+        </p>
+      </div>
+
+      <div class="arq reveal d2">
+      <span class="arq-cx1" aria-hidden="true"></span><span class="arq-cx2" aria-hidden="true"></span>
+
+      <div class="arq-bar">
+        <b>Roda na nuvem do cliente</b>
+        <div class="arq-clouds" id="arq-clouds"></div>
+      </div>
+
+      <div class="arq-body">
+
+        <!-- ---------- 01 ORIGEM ---------- -->
+        <div class="arq-stage" data-stage="fontes">
+          <div>
+            <p class="arq-stage-k"><i>01</i> Origem</p>
+            <p class="arq-stage-t">Onde o dado já está</p>
+            <p class="arq-stage-d">Os sistemas que a empresa usa todo dia — e que hoje não conversam entre si.</p>
+          </div>
+          <div class="arq-srcs">
+            <div class="arq-src">ERP e financeiro</div>
+            <div class="arq-src">CRM e vendas</div>
+            <div class="arq-src">E-commerce e loja</div>
+            <div class="arq-src">Planilhas e APIs</div>
+            <div class="arq-src">Logs e eventos</div>
+          </div>
+          <div class="arq-tools-wrap">
+            <p class="arq-tools-k">Onde o dado nasce</p>
+            <div class="arq-tools" data-group="fontes"></div>
+          </div>
+        </div>
+
+        <div class="arq-conn" data-conn="0">
+          <svg viewBox="0 0 60 26" aria-hidden="true">
+            <g class="arq-rot">
+              <path class="arq-ln" d="M1 13 H48"></path>
+              <rect class="arq-nd" x="21" y="7" width="12" height="12" rx="2.4" transform="rotate(45 27 13)"></rect>
+              <path class="arq-hd" d="M50 13 L40 7.8 L40 18.2 Z"></path>
+            </g>
+          </svg>
+        </div>
+
+        <!-- ---------- 02 ENGENHARIA ---------- -->
+        <div class="arq-stage" data-stage="eng">
+          <div>
+            <p class="arq-stage-k"><i>02</i> Engenharia de dados</p>
+            <p class="arq-stage-t">A base confiável</p>
+            <p class="arq-stage-d">Ingestão, armazenamento e transformação — uma fonte única da verdade, testada e versionada.</p>
+          </div>
+
+          <div class="arq-art-wrap">
+            <svg class="arq-art" viewBox="0 0 140 104" role="img"
+                 aria-label="Banco de dados em três camadas: ingestão, armazenamento e transformação">
+              <!-- marcas de medição, à esquerda -->
+              <path class="arq-tick" d="M6 16 H12 M6 40 H12 M6 64 H12 M6 88 H12"></path>
+              <path class="arq-tick" d="M9 16 V88"></path>
+              <!-- cilindro -->
+              <ellipse class="arq-edge" cx="76" cy="16" rx="46" ry="11.5"></ellipse>
+              <path class="arq-edge" d="M30 16 V84 a46 11.5 0 0 0 92 0 V16"></path>
+              <path class="arq-inner" d="M30 40 a46 11.5 0 0 0 92 0"></path>
+              <path class="arq-inner" d="M30 62 a46 11.5 0 0 0 92 0"></path>
+              <text class="arq-lbl" x="76" y="33" text-anchor="middle">INGESTAO</text>
+              <text class="arq-lbl" x="76" y="56" text-anchor="middle">ARMAZENAMENTO</text>
+              <text class="arq-lbl" x="76" y="79" text-anchor="middle">TRANSFORMACAO</text>
+            </svg>
+          </div>
+
+          <div class="arq-tools-wrap">
+            <p class="arq-tools-k">O que constrói a base</p>
+            <div class="arq-tools" data-group="eng"></div>
+          </div>
+        </div>
+
+        <div class="arq-conn" data-conn="1">
+          <svg viewBox="0 0 60 26" aria-hidden="true">
+            <g class="arq-rot">
+              <path class="arq-ln" d="M1 13 H48"></path>
+              <rect class="arq-nd" x="21" y="7" width="12" height="12" rx="2.4" transform="rotate(45 27 13)"></rect>
+              <path class="arq-hd" d="M50 13 L40 7.8 L40 18.2 Z"></path>
+            </g>
+          </svg>
+        </div>
+
+        <!-- ---------- 03 DATA VIZ ---------- -->
+        <div class="arq-stage" data-stage="viz">
+          <div>
+            <p class="arq-stage-k"><i>03</i> Data Visualization</p>
+            <p class="arq-stage-t">A decisão na mão de quem decide</p>
+            <p class="arq-stage-d">O indicador chega pronto, com uma definição só, para a área responder a própria pergunta.</p>
+          </div>
+
+          <div class="arq-dash" aria-hidden="true">
+            <div class="arq-dash-bar"><u><i></i><i></i><i></i></u> Receita · visão executiva</div>
+            <div class="arq-dash-body">
+              <div>
+                <p class="arq-dash-kpi-k">Receita</p>
+                <p class="arq-dash-kpi-v">R$ 4,82 Mi</p>
+                <p class="arq-dash-kpi-d">&uarr; 6,4% vs. anterior</p>
+                <div class="arq-dash-rows">
+                  <div class="arq-dash-row"><b style="width:88%"></b></div>
+                  <div class="arq-dash-row"><b style="width:62%"></b></div>
+                  <div class="arq-dash-row"><b style="width:73%"></b></div>
+                </div>
+              </div>
+              <div class="arq-dash-right">
+                <div class="arq-dash-chart">
+                  <i style="height:44%"></i><i style="height:57%"></i><i style="height:48%"></i>
+                  <i style="height:66%"></i><i style="height:58%"></i><i style="height:74%"></i>
+                  <i style="height:63%"></i><i class="arq-hi" style="height:94%"></i>
+                </div>
+                <div class="arq-dash-x">
+                  <span>M</span><span>J</span><span>J</span><span>A</span>
+                  <span>S</span><span>O</span><span>N</span><span>D</span>
+                </div>
+              </div>
+            </div>
+            <div class="arq-dash-foot">
+              <p class="arq-dash-kpi-k">Por canal</p>
+              <div class="arq-dash-ch"><span>Digital</span><u><b style="width:100%"></b></u><em>42%</em></div>
+              <div class="arq-dash-ch"><span>Loja</span><u><b style="width:90%"></b></u><em>38%</em></div>
+              <div class="arq-dash-ch"><span>Marketplace</span><u><b style="width:48%"></b></u><em>20%</em></div>
+            </div>
+          </div>
+
+          <div class="arq-tools-wrap">
+            <p class="arq-tools-k">Onde o dado é lido</p>
+            <div class="arq-tools" data-group="viz"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ---------- FAIXAS ---------- -->
+      <div class="arq-bands">
+        <div class="arq-band" data-stage="gov">
+          <div class="arq-band-h">
+            <span class="arq-band-k">Governança</span>
+            <span class="arq-band-d">Atravessa as três etapas: catálogo, linhagem, qualidade e permissão.</span>
+          </div>
+          <div class="arq-tools" data-group="gov"></div>
+        </div>
+        <div class="arq-band" data-stage="ia">
+          <div class="arq-band-h">
+            <span class="arq-band-k">Inteligência Artificial</span>
+            <span class="arq-band-d">Lê a base pronta: prevê, aponta o desvio e responde em linguagem natural.</span>
+          </div>
+          <div class="arq-tools" data-group="ia"></div>
+        </div>
+      </div>
+      </div>
+
+      <div class="arq-cap reveal d3" aria-live="polite">
+      <div class="arq-cap-l">
+        <span class="arq-cap-ico" id="arq-cap-ico" aria-hidden="true"><b>&#10022;</b></span>
+        <span>
+          <span class="arq-cap-n" id="arq-cap-n">Aponte uma ferramenta</span>
+          <span class="arq-cap-w" id="arq-cap-w">45 no total</span>
+        </span>
+      </div>
+      <p class="arq-cap-d" id="arq-cap-d">Cada ícone diz o que faz na posição exata em que está no desenho.</p>
+      </div>
+
+      <p class="illus-note">&#10022; marca as ferramentas com projeto entregue pela Atlas</p>
+      <div class="hero-ctas reveal d3" style="margin-top:1.8rem">
+        <a class="btn btn-line" href="#contato" data-magnetic>Quero avaliar minha arquitetura <span class="arr">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= CASES ================= -->
   <section class="sec" id="cases">
     <div class="wrap">
@@ -1300,16 +1896,17 @@
           <div class="case-meta"><span>Varejo Multimarca</span><span>Data &amp; Analytics</span><span>Cloud Azure</span></div>
           <h3>Plataforma omnichannel de dados</h3>
           <dl class="case-fields">
-            <div><dt>Problema</dt><dd>Dados de lojas físicas e canais digitais espalhados em sistemas diferentes, sem visão única de performance.</dd></div>
+            <div><dt>Cenário</dt><dd>Dados de lojas físicas e canais digitais espalhados em sistemas diferentes, sem visão única de performance.</dd></div>
             <div><dt>Arquitetura</dt><dd>Plataforma de dados em Azure integrando todos os canais de venda.</dd></div>
             <div><dt>Solução</dt><dd>Pipelines em Synapse, Data Factory e Databricks, com dashboards Power BI de vendas, operação e performance por canal.</dd></div>
             <div><dt>Tecnologias</dt><dd>Azure Synapse, Data Factory, Databricks, Power BI</dd></div>
           </dl>
         </div>
         <div class="case-metrics">
-          <p><b>Físico + digital</b><span>todos os canais de venda integrados em uma única plataforma</span></p>
-          <p><b>Pipelines em Azure</b><span>Synapse, Data Factory e Databricks em produção</span></p>
-          <p><b>Visão por canal</b><span>indicadores comerciais e operacionais lado a lado</span></p>
+          <p class="cm-k">O que mudou</p>
+          <p><b>Canais comparáveis</b><span>loja física e digital deixaram de ser medidos em sistemas separados</span></p>
+          <p><b>Fim da consolidação manual</b><span>venda e operação passaram a ser lidas no mesmo painel</span></p>
+          <p><b>Base reaproveitável</b><span>nova análise parte da plataforma existente, não de uma nova extração</span></p>
         </div>
       </article>
 
@@ -1319,16 +1916,17 @@
           <div class="case-meta"><span>Serviços Financeiros</span><span>Data Engineering</span><span>Cloud GCP</span></div>
           <h3>Modernização de legado para a nuvem</h3>
           <dl class="case-fields">
-            <div><dt>Problema</dt><dd>Dados presos em um legado Oracle — caro de manter e distante das necessidades analíticas do negócio.</dd></div>
+            <div><dt>Cenário</dt><dd>Dados presos em um legado Oracle — caro de manter e distante das necessidades analíticas do negócio.</dd></div>
             <div><dt>Arquitetura</dt><dd>Data Lake em Google Cloud, com processamento em BigQuery.</dd></div>
             <div><dt>Solução</dt><dd>Transformações em dbt, orquestração em Airflow e BI unificado em Looker.</dd></div>
             <div><dt>Tecnologias</dt><dd>GCP, BigQuery, dbt, Airflow, Looker</dd></div>
           </dl>
         </div>
         <div class="case-metrics">
-          <p><b>Oracle → GCP</b><span>legado aposentado sem interromper a operação</span></p>
-          <p><b>dbt + Airflow</b><span>transformações testadas e pipelines orquestrados</span></p>
-          <p><b>Looker</b><span>camada única de visualização para o negócio</span></p>
+          <p class="cm-k">O que mudou</p>
+          <p><b>Legado fora da conta</b><span>o custo de manter o ambiente Oracle deixou de existir</span></p>
+          <p><b>Regra em código</b><span>as transformações saíram de scripts avulsos para dbt, testado e versionado</span></p>
+          <p><b>Uma camada só</b><span>Looker passou a ser o único caminho entre o dado e o negócio</span></p>
         </div>
       </article>
 
@@ -1338,31 +1936,32 @@
           <div class="case-meta"><span>BI Governance</span><span>Migração</span><span>Self-Service BI</span></div>
           <h3>Migração e governança de BI em escala</h3>
           <dl class="case-fields">
-            <div><dt>Problema</dt><dd>Mais de 200 dashboards Power BI crescendo sem padrão, sem governança e sem fonte única da verdade.</dd></div>
+            <div><dt>Cenário</dt><dd>Mais de 200 dashboards Power BI crescendo sem padrão, sem governança e sem fonte única da verdade.</dd></div>
             <div><dt>Arquitetura</dt><dd>Ambiente centralizado em Looker, com dados e definições unificados.</dd></div>
             <div><dt>Solução</dt><dd>Migração, padronização e um modelo de self-service BI para as áreas de negócio.</dd></div>
             <div><dt>Tecnologias</dt><dd>Power BI, Looker, Governança de dados</dd></div>
           </dl>
         </div>
         <div class="case-metrics">
-          <p><b>+200 dashboards</b><span>migrados para Looker em um único projeto</span></p>
-          <p><b>Governança</b><span>centralização, padronização e organização do ambiente analítico</span></p>
-          <p><b>Self-service</b><span>áreas de negócio autônomas para explorar dados</span></p>
+          <p class="cm-k">O que mudou</p>
+          <p><b>Uma definição por métrica</b><span>a mesma conta deixou de ter versões diferentes em mais de 200 painéis</span></p>
+          <p><b>Pergunta sem fila</b><span>o self-service tirou o intervalo entre a dúvida da área e a resposta</span></p>
+          <p><b>Crescimento com padrão</b><span>painel novo passa a nascer dentro de um modelo, não ao lado dele</span></p>
         </div>
       </article>
 
       <h3 class="cases-more-head reveal">Mais projetos entregues</h3>
       <div class="case-mini-grid reveal d1">
-        <article class="case-mini"><p class="sector">Software &amp; Tecnologia</p><h4>Gestão de incidentes e SLA</h4><p>BI que transformou os chamados do sistema de incidentes em indicadores de SLA, prazo e desempenho operacional.</p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>Data Warehouse</span></div></article>
-        <article class="case-mini"><p class="sector">Turismo &amp; Viagens</p><h4>BI de ponta a ponta</h4><p>Arquitetura completa ETL → DW → BI consolidando viagens, hospedagens e locações em uma visão única do negócio.</p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>MicroStrategy</span></div></article>
-        <article class="case-mini"><p class="sector">Serviços Financeiros</p><h4>Camada de dados comercial</h4><p>Estrutura de dados e indicadores consolidando as informações do departamento comercial para análise e decisão.</p><div class="stack"><span>SSIS</span><span>Data Warehouse</span><span>MicroStrategy</span></div></article>
-        <article class="case-mini"><p class="sector">Bancário</p><h4>NPS &amp; Customer Experience</h4><p>Acompanhamento de NPS transformando a voz dos clientes em indicadores de experiência e oportunidades de melhoria.</p><div class="stack"><span>NPS</span><span>Analytics</span><span>CX</span></div></article>
-        <article class="case-mini"><p class="sector">Varejo de Moda</p><h4>BI corporativo multiárea</h4><p>Dashboards de vendas, logística e operações dando acesso a indicadores para todas as áreas da organização.</p><div class="stack"><span>Pentaho</span><span>MicroStrategy</span><span>DW</span></div></article>
-        <article class="case-mini"><p class="sector">Saúde &amp; Diagnóstico</p><h4>Engenharia de dados em GCP</h4><p>Pipelines em BigQuery e Airflow para uma rede de diagnóstico, com migração da visualização de Tableau para Power BI.</p><div class="stack"><span>GCP</span><span>BigQuery</span><span>Airflow</span><span>Power BI</span></div></article>
-        <article class="case-mini"><p class="sector">Educação</p><h4>Predição de evasão de alunos</h4><p>Centenas de dashboards educacionais e modelos preditivos que anteciparam a evasão para apoiar ações preventivas.</p><div class="stack"><span>Analytics</span><span>Machine Learning</span><span>BI</span></div></article>
-        <article class="case-mini"><p class="sector">Saúde Hospitalar</p><h4>Design de dados com Figma</h4><p>Protótipos em Figma definindo o padrão visual antes do desenvolvimento — centenas de dashboards Power BI padronizados.</p><div class="stack"><span>Figma</span><span>Power BI</span><span>Data Design</span></div></article>
-        <article class="case-mini"><p class="sector">Food Service</p><h4>Performance diária da rede</h4><p>Painéis de acompanhamento diário das unidades de um grande grupo de restaurantes — desvios visíveis em tempo hábil.</p><div class="stack"><span>Dashboards</span><span>Operações</span></div></article>
-        <article class="case-mini"><p class="sector">Infraestrutura &amp; Mobilidade</p><h4>Rodovias, pedágios e aeroportos</h4><p>Painéis integrando gestão de acidentes, arrecadação de pedágios e operação aeroportuária em uma visão única.</p><div class="stack"><span>Data &amp; BI</span><span>Operações</span></div></article>
+        <article class="case-mini"><p class="sector">Software &amp; Tecnologia</p><h4>Gestão de incidentes e SLA</h4><p>BI que transformou os chamados do sistema de incidentes em indicadores de SLA, prazo e desempenho operacional.</p><p class="mini-change">O prazo deixou de ser apurado a partir de chamados soltos.</p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>Data Warehouse</span></div></article>
+        <article class="case-mini"><p class="sector">Turismo &amp; Viagens</p><h4>BI de ponta a ponta</h4><p>Arquitetura completa ETL → DW → BI consolidando viagens, hospedagens e locações em uma visão única do negócio.</p><p class="mini-change">Viagens, hospedagens e locações passaram a ser lidas no mesmo indicador.</p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>MicroStrategy</span></div></article>
+        <article class="case-mini"><p class="sector">Serviços Financeiros</p><h4>Camada de dados comercial</h4><p>Estrutura de dados e indicadores consolidando as informações do departamento comercial para análise e decisão.</p><p class="mini-change">O comercial passou a ter número próprio, sem depender de extração pontual.</p><div class="stack"><span>SSIS</span><span>Data Warehouse</span><span>MicroStrategy</span></div></article>
+        <article class="case-mini"><p class="sector">Bancário</p><h4>NPS &amp; Customer Experience</h4><p>Acompanhamento de NPS transformando a voz dos clientes em indicadores de experiência e oportunidades de melhoria.</p><p class="mini-change">A resposta do cliente virou indicador acompanhado, não relatório avulso.</p><div class="stack"><span>NPS</span><span>Analytics</span><span>CX</span></div></article>
+        <article class="case-mini"><p class="sector">Varejo de Moda</p><h4>BI corporativo multiárea</h4><p>Dashboards de vendas, logística e operações dando acesso a indicadores para todas as áreas da organização.</p><p class="mini-change">Vendas, logística e operação passaram a ler os mesmos números.</p><div class="stack"><span>Pentaho</span><span>MicroStrategy</span><span>DW</span></div></article>
+        <article class="case-mini"><p class="sector">Saúde &amp; Diagnóstico</p><h4>Engenharia de dados em GCP</h4><p>Pipelines em BigQuery e Airflow para uma rede de diagnóstico, com migração da visualização de Tableau para Power BI.</p><p class="mini-change">Uma ferramenta de visualização só, com pipeline orquestrado por trás.</p><div class="stack"><span>GCP</span><span>BigQuery</span><span>Airflow</span><span>Power BI</span></div></article>
+        <article class="case-mini"><p class="sector">Educação</p><h4>Predição de evasão de alunos</h4><p>Centenas de dashboards educacionais e modelos preditivos que anteciparam a evasão para apoiar ações preventivas.</p><p class="mini-change">A evasão passou a ser antecipada, em vez de constatada no fim do período.</p><div class="stack"><span>Analytics</span><span>Machine Learning</span><span>BI</span></div></article>
+        <article class="case-mini"><p class="sector">Saúde Hospitalar</p><h4>Design de dados com Figma</h4><p>Protótipos em Figma definindo o padrão visual antes do desenvolvimento — centenas de dashboards Power BI padronizados.</p><p class="mini-change">O padrão visual foi decidido antes de construir, não depois de refazer.</p><div class="stack"><span>Figma</span><span>Power BI</span><span>Data Design</span></div></article>
+        <article class="case-mini"><p class="sector">Food Service</p><h4>Performance diária da rede</h4><p>Painéis de acompanhamento diário das unidades de um grande grupo de restaurantes — desvios visíveis em tempo hábil.</p><p class="mini-change">O desvio da unidade aparece no mesmo dia, não no fechamento do mês.</p><div class="stack"><span>Dashboards</span><span>Operações</span></div></article>
+        <article class="case-mini"><p class="sector">Infraestrutura &amp; Mobilidade</p><h4>Rodovias, pedágios e aeroportos</h4><p>Painéis integrando gestão de acidentes, arrecadação de pedágios e operação aeroportuária em uma visão única.</p><p class="mini-change">Três operações diferentes passaram a caber numa leitura só.</p><div class="stack"><span>Data &amp; BI</span><span>Operações</span></div></article>
       </div>
       <p class="cases-note">Projetos reais entregues por especialistas Atlas Tec. Nomes de clientes preservados por confidencialidade.</p>
     </div>
@@ -1713,7 +2312,7 @@
       <h2 class="reveal">Existe um problema complexo no seu negócio?</h2>
       <p class="sub reveal d1">Vamos transformar tecnologia, dados e inteligência em resultado.</p>
       <div class="hero-ctas reveal d2">
-        <a class="btn btn-accent" href="#contato" data-magnetic>Vamos conversar <span class="arr">→</span></a>
+        <a class="btn btn-accent" href="#contato" data-magnetic>Falar com um especialista <span class="arr">→</span></a>
       </div>
     </div>
   </section>
@@ -1727,6 +2326,11 @@
           Em uma conversa de 30 minutos, mapeamos seu desafio e indicamos o
           caminho — mesmo que ele não passe pela gente.
         </p>
+        <ol class="depois">
+          <li><b>Você conta o desafio</b><span>Uma conversa de 30 minutos. Sem apresentação institucional.</span></li>
+          <li><b>Entendemos o cenário</b><span>Que dado existe, onde ele está e quem precisa dele para decidir.</span></li>
+          <li><b>Indicamos o caminho</b><span>O que dá resultado rápido e o que exige arquitetura, em ordem de prioridade.</span></li>
+        </ol>
         <div class="contact-info">
           <span>Conecte-se:</span>
           <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram — @atlas_tecnologia ↗</a>
@@ -1742,13 +2346,27 @@
           <div class="field"><label for="c-empresa">Empresa</label><input id="c-empresa" name="empresa" type="text" autocomplete="organization" required></div>
         </div>
         <div class="form-row">
-          <div class="field"><label for="c-cargo">Cargo</label><input id="c-cargo" name="cargo" type="text" autocomplete="organization-title"></div>
+          <div class="field"><label for="c-cargo">Cargo <em>(opcional)</em></label><input id="c-cargo" name="cargo" type="text" autocomplete="organization-title"></div>
           <div class="field"><label for="c-email">E-mail corporativo</label><input id="c-email" name="email" type="email" autocomplete="email" required></div>
         </div>
-        <div class="field"><label for="c-tel">Telefone</label><input id="c-tel" name="telefone" type="tel" autocomplete="tel"></div>
-        <div class="field"><label for="c-desafio">Qual problema você precisa resolver?</label><textarea id="c-desafio" name="desafio" required placeholder="Ex.: nossos dados estão espalhados em cinco sistemas e a diretoria decide sem indicadores confiáveis…"></textarea></div>
-        <button class="btn btn-accent" type="submit" data-magnetic style="justify-content:center;">Enviar → </button>
-        <p class="form-note">Seus dados são usados apenas para responder ao seu contato.</p>
+        <div class="field"><label for="c-tel">Telefone / WhatsApp <em>(opcional)</em></label><input id="c-tel" name="telefone" type="tel" autocomplete="tel"></div>
+        <fieldset class="chips-field">
+          <legend>Sobre o que você quer falar?</legend>
+          <div class="chips">
+            <label><input type="checkbox" name="assunto" value="Dados &amp; BI"><span>Dados &amp; BI</span></label>
+            <label><input type="checkbox" name="assunto" value="Data Engineering"><span>Data Engineering</span></label>
+            <label><input type="checkbox" name="assunto" value="Inteligência Artificial"><span>IA</span></label>
+            <label><input type="checkbox" name="assunto" value="Cloud"><span>Cloud</span></label>
+            <label><input type="checkbox" name="assunto" value="Automação"><span>Automação</span></label>
+            <label><input type="checkbox" name="assunto" value="Desenvolvimento"><span>Desenvolvimento</span></label>
+            <label><input type="checkbox" name="assunto" value="Arquitetura"><span>Arquitetura</span></label>
+            <label><input type="checkbox" name="assunto" value="Alocação"><span>Alocação</span></label>
+            <label><input type="checkbox" name="assunto" value="Outro"><span>Outro</span></label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="c-desafio">Conte brevemente o que gostaria de resolver</label><textarea id="c-desafio" name="desafio" required placeholder="Em duas linhas: o que você precisa que passe a funcionar."></textarea></div>
+        <button class="btn btn-accent" type="submit" data-magnetic style="justify-content:center;">Quero conversar com a Atlas → </button>
+        <p class="form-note">Respondemos em até 1 dia útil. Sem cadastro em lista e sem disparo automático.</p>
         <p class="form-error" id="form-error" role="alert">
           Não foi possível enviar agora. Tente novamente em instantes ou fale
           com a gente pelo LinkedIn ou Instagram.
@@ -1757,7 +2375,7 @@
           <div>
             <div class="ok"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="m6 13.5 5 5L20 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <h3>Mensagem recebida.</h3>
-            <p>Nossa equipe vai analisar seu desafio e retornar em até um dia útil. Enquanto isso, conecte-se com a gente no LinkedIn.</p>
+            <p>Nosso time vai ler seu cenário antes de responder — e entra em contato em até 1 dia útil para entender o desafio.</p>
           </div>
         </div>
       </form>
@@ -2526,6 +3144,182 @@
     }
 
     build(CATS[0][0]);
+  }
+
+  /* ---------- Arquitetura: onde cada ferramenta entra ---------- */
+  // nome, ícone ('#' = monograma), o que faz NESTA posição, projeto real da Atlas
+  var ARQ = {
+    clouds: [
+      ['Azure', '#AZ', 'Nuvem Microsoft: integra com o que a empresa já usa todo dia.', 1],
+      ['AWS', 'aws', 'O portfólio mais amplo de serviços gerenciados.', 0],
+      ['Google Cloud', 'googlecloud', 'Forte em analytics e IA, com o BigQuery no centro.', 1]
+    ],
+    fontes: [
+      ['SQL Server', '#SQLS', 'O banco do ERP vira fonte analítica, sem parar a operação.', 0],
+      ['Oracle', 'oracle', 'O legado segue de pé enquanto a análise avança por fora.', 1],
+      ['PostgreSQL', 'postgresql', 'A base do produto entra no pipeline sem custo de licença.', 0],
+      ['MongoDB', 'mongodb', 'Dado semiestruturado entra sem ser forçado em tabela.', 0],
+      ['Elasticsearch', 'elasticsearch', 'Log e texto viram fonte de análise, não lixo de servidor.', 0],
+      ['Redis', 'redis', 'O evento quente é lido em memória antes de ir para a base.', 0]
+    ],
+    eng: [
+      ['Fivetran', '#FVT', 'Conector gerenciado: a fonte muda e ele acompanha sozinho.', 0],
+      ['Airbyte', 'airbyte', 'Ingestão open source para a fonte de nicho que ninguém cobre.', 0],
+      ['Kafka', 'kafka', 'Streaming: o dado deixa de esperar o lote da noite.', 0],
+      ['Databricks', 'databricks', 'Lakehouse: volume deixa de ser o limite da análise.', 1],
+      ['Snowflake', 'snowflake', 'Warehouse elástico: o custo acompanha o uso, não o pico.', 0],
+      ['BigQuery', 'bigquery', 'Consulta pesada sem infraestrutura para administrar.', 1],
+      ['Redshift', 'redshift', 'Warehouse analítico dentro do ecossistema AWS.', 0],
+      ['Spark', 'spark', 'Processamento distribuído dentro da janela da madrugada.', 0],
+      ['dbt', 'dbt', 'A regra de negócio vira código testado e versionado.', 1],
+      ['Airflow', 'airflow', 'Orquestração: a falha aparece antes do usuário.', 1]
+    ],
+    viz: [
+      ['Power BI', '#PBI', 'A área responde a própria pergunta, sem pedir relatório.', 1],
+      ['Tableau', 'tableau', 'Exploração visual: o padrão aparece antes de alguém pedir.', 1],
+      ['Looker', 'looker', 'Camada semântica: uma métrica, uma definição, fim da divergência.', 1],
+      ['Qlik', 'qlik', 'Exploração associativa livre entre dimensões.', 0],
+      ['MicroStrategy', 'microstrategy', 'BI corporativo: todas as áreas lendo os mesmos números.', 1],
+      ['Metabase', 'metabase', 'Os primeiros indicadores no ar sem um projeto longo.', 0],
+      ['Superset', 'superset', 'Painéis corporativos sem custo de licença por assento.', 0]
+    ],
+    gov: [
+      ['Unity Catalog', '#UC', 'Quem vê o quê deixa de ser combinado por e-mail.', 0],
+      ['Purview', '#PVW', 'Linhagem: dá para provar de onde veio cada número.', 0],
+      ['Collibra', '#CLB', 'A regra de dado deixa de ser política no papel.', 0],
+      ['Alation', '#ALA', 'Quem usa cada tabela vira informação, não folclore.', 0],
+      ['Atlan', '#ATL', 'Negócio e engenharia falando da mesma tabela.', 0],
+      ['dbt tests', '#DBT', 'A quebra aparece no pipeline, não na reunião de diretoria.', 0]
+    ],
+    ia: [
+      ['Python', 'python', 'O repetitivo vira código; o previsível vira modelo.', 1],
+      ['MLflow', 'mlflow', 'Modelo em produção com histórico e reversão.', 0],
+      ['OpenAI', 'openai', 'Capacidade de IA sem treinar modelo do zero.', 0],
+      ['Anthropic', 'anthropic', 'IA sobre documento e análise, com controle do contexto.', 0],
+      ['Gemini', 'gemini', 'IA ao lado do dado que já está no BigQuery.', 0],
+      ['Hugging Face', 'huggingface', 'Começar de um modelo treinado, não do zero.', 0]
+    ]
+  };
+  var ARQ_GRUPO = {
+    clouds: 'Nuvem', fontes: 'Origem', eng: 'Engenharia de dados',
+    viz: 'Data Visualization', gov: 'Governança', ia: 'Inteligência Artificial'
+  };
+
+  var arqCapN = document.getElementById('arq-cap-n');
+  if (arqCapN) {
+    var arqCapW = document.getElementById('arq-cap-w');
+    var arqCapD = document.getElementById('arq-cap-d');
+    var arqCapI = document.getElementById('arq-cap-ico');
+    var arqConns = [].slice.call(document.querySelectorAll('.arq-conn'));
+    var arqAll = [];
+    var arqTotal = 0;
+    Object.keys(ARQ).forEach(function (k) { if (k !== 'clouds') arqTotal += ARQ[k].length; });
+    arqCapW.textContent = arqTotal + ' ferramentas no desenho';
+
+    // Acender a etapa junto com a ferramenta: mostra que o ícone não está solto
+    // num mural — ele ocupa um lugar na arquitetura.
+    function arqLight(key) {
+      [].forEach.call(document.querySelectorAll('[data-stage]'), function (el) {
+        el.classList.toggle('arq-lit', el.getAttribute('data-stage') === key);
+      });
+      var upto = key === 'eng' ? 1 : (key === 'viz' ? 2 : 0);
+      arqConns.forEach(function (c, i) { c.classList.toggle('arq-lit', i < upto); });
+    }
+
+    function arqBuild(host, rows, key) {
+      rows.forEach(function (t) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'arq-tool';
+        b.setAttribute('aria-label', t[0]);
+        var ring = document.createElement('span');
+        ring.className = 'arq-ring';
+        ring.setAttribute('aria-hidden', 'true');
+        var ico = document.createElement('span');
+        if (t[1].charAt(0) === '#') { ico.className = 'arq-mn'; ico.textContent = t[1].slice(1); }
+        else { ico.className = 'arq-ico'; ico.style.setProperty('--i', 'url(media/logos/' + t[1] + '.svg)'); }
+        ring.appendChild(ico);
+        if (t[3]) {
+          var st = document.createElement('span');
+          st.className = 'arq-star';
+          st.textContent = '\u2726';
+          ring.appendChild(st);
+        }
+        b.appendChild(ring);
+        function show() {
+          arqAll.forEach(function (o) { o.classList.remove('on'); });
+          b.classList.add('on');
+          arqCapN.textContent = t[0];
+          arqCapW.textContent = ARQ_GRUPO[key] || '';
+          arqCapD.innerHTML = t[2] + (t[3] ? ' <b>\u2726 Projeto entregue pela Atlas.</b>' : '');
+          arqCapI.innerHTML = '';
+          if (t[1].charAt(0) === '#') {
+            var mm = document.createElement('b'); mm.textContent = t[1].slice(1); arqCapI.appendChild(mm);
+          } else {
+            var sp = document.createElement('span');
+            sp.style.setProperty('--i', 'url(media/logos/' + t[1] + '.svg)');
+            arqCapI.appendChild(sp);
+          }
+          arqLight(key);
+        }
+        b.addEventListener('mouseenter', show);
+        b.addEventListener('focus', show);
+        b.addEventListener('click', show);
+        host.appendChild(b);
+        arqAll.push(b);
+      });
+    }
+
+    arqBuild(document.getElementById('arq-clouds'), ARQ.clouds, 'clouds');
+    [].forEach.call(document.querySelectorAll('.arq-tools[data-group]'), function (host) {
+      var k = host.getAttribute('data-group');
+      arqBuild(host, ARQ[k] || [], k);
+    });
+
+    [].forEach.call(document.querySelectorAll('[data-stage]'), function (el) {
+      el.addEventListener('mouseenter', function () { arqLight(el.getAttribute('data-stage')); });
+    });
+    var arqBox = document.querySelector('.arq');
+    if (arqBox) arqBox.addEventListener('mouseleave', function () { arqLight(null); });
+  }
+
+  /* ---------- Barra de conversa ---------- */
+  var cbar = document.getElementById('cbar');
+  if (cbar) {
+    var hero = document.querySelector('.hero');
+    var contato = document.getElementById('contato');
+    var dispensada = false;
+    try { dispensada = sessionStorage.getItem('cbar-off') === '1'; } catch (e) {}
+    var bx = document.getElementById('cbar-x');
+    if (bx) bx.addEventListener('click', function () {
+      dispensada = true;
+      cbar.classList.remove('on');
+      try { sessionStorage.setItem('cbar-off', '1'); } catch (e) {}
+    });
+    var navEl = document.querySelector('.nav');
+    function medirNav() {
+      if (navEl) document.documentElement.style.setProperty('--navh', navEl.getBoundingClientRect().height + 'px');
+    }
+    window.addEventListener('resize', medirNav, { passive: true });
+    // A nav encolhe com transição de 0,3s; medir só no scroll capturaria a
+    // altura no meio do caminho e a barra ficaria 1px por cima.
+    if (navEl) navEl.addEventListener('transitionend', medirNav);
+    var braf = 0;
+    function cbarCheck() {
+      braf = 0;
+      medirNav();
+      if (dispensada) { cbar.classList.remove('on'); return; }
+      var passouHero = hero ? hero.getBoundingClientRect().bottom < 0 : window.scrollY > 600;
+      // Some quando o contato entra na tela: ali o pedido já está na página.
+      var noContato = contato ? contato.getBoundingClientRect().top < window.innerHeight : false;
+      var mostrar = passouHero && !noContato;
+      if (mostrar && cbar.hidden) cbar.hidden = false;
+      cbar.classList.toggle('on', mostrar);
+    }
+    window.addEventListener('scroll', function () {
+      if (!braf) braf = requestAnimationFrame(cbarCheck);
+    }, { passive: true });
+    cbarCheck();
   }
 
   /* ---------- Painel de exemplo: troca de página ---------- */
