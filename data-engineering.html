@@ -258,27 +258,6 @@
   .problem-card .p-arrow { color: var(--dim); flex: none; }
   .problem-card .p-sol { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; color: var(--accent-light); white-space: nowrap; flex: none; }
 
-  /* ---------- Rota por objetivo ---------- */
-  /* Triagem rápida para quem já sabe o que quer. O card é curto de propósito:
-     a descrição profunda é da seção de soluções, logo abaixo. */
-  .rotas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; margin-top: 2.6rem; }
-  .rota {
-    display: flex; flex-direction: column; gap: 0.5rem;
-    border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem;
-    background: var(--panel); text-decoration: none; color: inherit;
-    transition: border-color 0.4s var(--ease), transform 0.4s var(--ease), background 0.4s var(--ease);
-  }
-  .rota:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); background: var(--panel-2, #121A24); }
-  .rota h3 { font-family: var(--display); font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; }
-  .rota p { color: var(--muted); font-size: 0.88rem; }
-  .rota-go {
-    margin-top: auto; padding-top: 0.6rem; font-family: var(--mono); font-size: 0.64rem;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-light);
-    display: inline-flex; align-items: center; gap: 0.4rem;
-  }
-  .rota-go i { font-style: normal; transition: transform 0.3s var(--ease); }
-  .rota:hover .rota-go i { transform: translateX(3px); }
-
   /* ---------- O que acontece depois ---------- */
   .depois { list-style: none; margin: 1.8rem 0 0; padding: 0; display: grid; gap: 1rem; counter-reset: d; }
   .depois li {
@@ -718,355 +697,7 @@
   .sol-cta:hover { color: var(--ink); }
 
 
-  /* ---------- Tecnologia em órbita ---------- */
-  /* Sem luz girando: a órbita é estática e só reage ao ponteiro. Cada
-     ferramenta é um ícone; o nome aparece embaixo no hover e o painel ao
-     lado diz o que ela resolve. Abaixo de 640px vira grade, com o nome
-     sempre visível — no toque não existe hover para revelá-lo. */
-  .tech-cats { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2.2rem; }
-  .tech-cat {
-    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em;
-    color: var(--muted); background: transparent; border: 1px solid var(--line);
-    border-radius: 999px; padding: 0.45rem 0.85rem; cursor: pointer;
-    transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background 0.3s var(--ease);
-  }
-  .tech-cat:hover { border-color: rgba(46,134,255,0.45); color: var(--ink); }
-  .tech-cat[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.12); }
-  .tech-cat small { color: var(--dim); margin-left: 0.4rem; }
-  .tech-cat[aria-pressed="true"] small { color: var(--accent-light); }
-
-  .orbit-wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 2.5rem; align-items: center; margin-top: 2rem; }
-  .orbit { position: relative; aspect-ratio: 1; width: 100%; max-width: 30rem; margin: 0 auto; }
-  .orbit-ring { position: absolute; inset: 0; border: 1px solid var(--line-soft); border-radius: 50%; }
-  .orbit-ring.r2 { inset: 22%; }
-  .orbit-link {
-    position: absolute; left: 50%; top: 50%; height: 1px; width: 0; opacity: 0;
-    transform-origin: 0 50%; pointer-events: none;
-    background: linear-gradient(90deg, rgba(46,134,255,0.7), rgba(46,134,255,0));
-    transition: opacity 0.35s var(--ease);
-  }
-  .orbit-core {
-    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-    text-align: center; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--accent-light);
-  }
-
-  /* O botão é só a âncora de posição; o círculo é o .tech-ring interno.
-     Assim o nome pode ser absoluto no desktop (sem alterar a caixa usada
-     para posicionar na órbita) e entrar no fluxo no mobile, onde um nome
-     longo precisa quebrar em vez de invadir o vizinho. */
-  .tech-dot {
-    position: absolute; transform: translate(-50%, -50%);
-    padding: 0; border: 0; background: none; cursor: pointer;
-    display: grid; place-items: center; color: var(--muted);
-    transition: color 0.3s var(--ease);
-  }
-  .tech-ring {
-    position: relative; width: 3.1rem; height: 3.1rem; border-radius: 50%;
-    display: grid; place-items: center;
-    background: var(--panel); border: 1px solid var(--line);
-    transition: border-color 0.3s var(--ease), background 0.3s var(--ease), box-shadow 0.3s var(--ease);
-  }
-  /* O SVG entra como máscara, não como imagem: assim o logo assume a cor do
-     estado (apagado, hover, selecionado) em vez de brigar com o fundo escuro. */
-  .tech-ico {
-    width: 1.5rem; height: 1.5rem; background: currentColor;
-    -webkit-mask: var(--i) center / contain no-repeat;
-            mask: var(--i) center / contain no-repeat;
-  }
-  .tech-mono { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.03em; }
-  .tech-name {
-    position: absolute; top: calc(100% + 0.35rem); left: 50%; transform: translateX(-50%);
-    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.05em; white-space: nowrap;
-    color: var(--dim); pointer-events: none; transition: color 0.25s var(--ease);
-  }
-  .tech-star { position: absolute; top: 0.1rem; right: 0.15rem; font-size: 0.5rem; color: var(--accent-light); opacity: 0.85; }
-  .tech-dot:hover, .tech-dot:focus-visible { color: var(--ink); }
-  .tech-dot:hover .tech-ring, .tech-dot:focus-visible .tech-ring { border-color: rgba(46,134,255,0.5); }
-  .tech-dot:hover .tech-name, .tech-dot:focus-visible .tech-name { color: var(--ink); }
-  .tech-dot[aria-pressed="true"] { color: var(--accent-light); }
-  .tech-dot[aria-pressed="true"] .tech-ring {
-    border-color: var(--accent); background: rgba(46,134,255,0.14);
-    box-shadow: 0 0 22px rgba(46,134,255,0.35);
-  }
-  .tech-dot[aria-pressed="true"] .tech-name { color: var(--accent-light); }
-
-  .tech-panel { border: 1px solid var(--line); border-radius: 14px; padding: 1.8rem; background: var(--panel); min-height: 17rem; }
-  .tech-panel h3 { font-size: 1.5rem; font-weight: 700; }
-  .tech-badge[hidden] { display: none; }
-  .tech-badge {
-    display: inline-block; margin-top: 0.6rem; font-family: var(--mono); font-size: 0.6rem;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-light);
-    border: 1px solid rgba(46,134,255,0.35); border-radius: 999px; padding: 0.25rem 0.6rem;
-  }
-  .tech-row { margin-top: 1.1rem; }
-  .tech-row dt { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
-  .tech-row dd { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.95rem; }
-
-  @media (max-width: 640px) {
-    /* Oito grupos empilhados comem a tela inteira antes de o visitante
-       chegar às ferramentas. Vira faixa rolável, como no resto do mobile. */
-    .tech-cats { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.3rem; }
-    .tech-cats::-webkit-scrollbar { display: none; }
-    .tech-cat { flex: none; }
-    .orbit { aspect-ratio: auto; max-width: none; display: flex; flex-wrap: wrap; gap: 1.4rem 0.6rem; justify-content: center; }
-    .orbit-ring, .orbit-link, .orbit-core { display: none; }
-    .tech-dot { position: relative; transform: none; width: 5.2rem; display: flex; flex-direction: column; align-items: center; gap: 0.45rem; }
-    .tech-ring { width: 2.9rem; height: 2.9rem; }
-    .tech-name { position: static; transform: none; white-space: normal; text-align: center; line-height: 1.2; }
-    .tech-panel { min-height: 0; }
-  }
-
   .illus-note { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
-
-  /* ---------- Arquitetura: onde cada ferramenta entra ---------- */
-  .arq {
-    position: relative; margin-top: 3rem; border: 1px solid var(--line); border-radius: 20px;
-    background:
-      radial-gradient(70% 90% at 50% -10%, rgba(46,134,255,0.10), transparent 60%),
-      linear-gradient(180deg, rgba(18,26,36,0.82), rgba(13,17,23,0.82));
-  }
-  /* Cantoneiras: a marca de planta técnica, e o detalhe que dá acabamento. */
-  .arq::before, .arq::after,
-  .arq > .arq-cx1, .arq > .arq-cx2 {
-    content: ''; position: absolute; width: 16px; height: 16px; pointer-events: none;
-    border-color: rgba(46,134,255,0.55); border-style: solid; border-width: 0;
-  }
-  .arq::before { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; border-radius: 20px 0 0 0; }
-  .arq::after { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; border-radius: 0 20px 0 0; }
-  .arq > .arq-cx1 { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; border-radius: 0 0 0 20px; }
-  .arq > .arq-cx2 { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; border-radius: 0 0 20px 0; }
-
-  .arq-bar {
-    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-    flex-wrap: wrap; padding: 1rem 1.4rem; border-bottom: 1px solid var(--line);
-  }
-  .arq-bar b {
-    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--ink); font-weight: 500;
-    display: inline-flex; align-items: center; gap: 0.6rem;
-  }
-  .arq-bar b::before {
-    content: ''; width: 7px; height: 7px; border-radius: 50%;
-    background: var(--accent); box-shadow: 0 0 10px rgba(46,134,255,0.8);
-  }
-  .arq-clouds { display: flex; gap: 0.4rem; align-items: center; }
-
-  .arq-body {
-    display: grid; grid-template-columns: 0.82fr 4.2rem 1.3fr 4.2rem 1.2fr;
-    align-items: stretch; padding: 1.7rem 1.4rem 1.5rem;
-  }
-
-  /* ---------------- conector ---------------- */
-  .arq-conn { position: relative; display: grid; place-items: center; }
-  .arq-conn svg { width: 100%; height: 30px; overflow: visible; }
-  .arq-conn .arq-ln { stroke: rgba(46,134,255,0.45); stroke-width: 1.6; stroke-dasharray: 4 3; fill: none; transition: stroke 0.35s var(--ease); }
-  .arq-conn .arq-hd { fill: rgba(46,134,255,0.6); transition: fill 0.35s var(--ease); }
-  .arq-conn .arq-nd { fill: var(--bg0); stroke: rgba(46,134,255,0.6); stroke-width: 1.5; transition: stroke 0.35s var(--ease), fill 0.35s var(--ease); }
-  .arq-conn.arq-lit .arq-ln { stroke: var(--accent); }
-  .arq-conn.arq-lit .arq-hd { fill: var(--accent-light); }
-  .arq-conn.arq-lit .arq-nd { stroke: var(--accent-light); fill: rgba(46,134,255,0.25); }
-
-  /* ---------------- etapas ---------------- */
-  .arq-stage {
-    position: relative; border: 1px solid var(--line); border-radius: 16px;
-    background: rgba(5,7,10,0.55); padding: 1.35rem 1.2rem 1.2rem;
-    display: flex; flex-direction: column; gap: 1rem;
-    transition: border-color 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
-  }
-  /* Barra de acento no topo: apaga por padrão, acende quando a etapa é o assunto. */
-  .arq-stage::before {
-    content: ''; position: absolute; top: -1px; left: 1.6rem; right: 1.6rem; height: 2px;
-    border-radius: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0.22; transition: opacity 0.4s var(--ease);
-  }
-  .arq-stage.arq-lit { border-color: rgba(46,134,255,0.42); background: rgba(18,26,36,0.6); box-shadow: 0 0 46px rgba(46,134,255,0.10); }
-  .arq-stage.arq-lit::before { opacity: 1; }
-
-  .arq-stage-k {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--accent-light);
-  }
-  .arq-stage-k i {
-    font-style: normal; display: grid; place-items: center;
-    width: 1.35rem; height: 1.35rem; border-radius: 5px; flex: none;
-    border: 1px solid rgba(46,134,255,0.35); background: rgba(46,134,255,0.1);
-    font-size: 0.58rem; letter-spacing: 0;
-  }
-  .arq-stage-t { font-family: var(--display); font-size: 1.15rem; font-weight: 700; letter-spacing: -0.024em; margin-top: 0.55rem; }
-  .arq-stage-d { color: var(--muted); font-size: 0.855rem; line-height: 1.52; margin-top: 0.35rem; }
-
-  /* ---------------- desenho: as fontes ---------------- */
-  .arq-srcs { display: grid; gap: 0.38rem; }
-  .arq-src {
-    position: relative; display: flex; align-items: center; gap: 0.55rem;
-    border: 1px solid var(--line-soft); border-radius: 9px; padding: 0.46rem 0.6rem;
-    font-size: 0.78rem; color: var(--muted); background: rgba(13,17,23,0.7);
-    transition: border-color 0.35s var(--ease), color 0.35s var(--ease);
-  }
-  .arq-src::before {
-    content: ''; width: 5px; height: 5px; border-radius: 1px; flex: none;
-    background: var(--dim); transition: background 0.35s var(--ease);
-  }
-  .arq-stage.arq-lit .arq-src { border-color: rgba(46,134,255,0.2); color: var(--ink); }
-  .arq-stage.arq-lit .arq-src::before { background: var(--accent); }
-
-  /* ---------------- desenho: o banco ---------------- */
-  .arq-art-wrap { position: relative; }
-  .arq-art-wrap::before {
-    content: ''; position: absolute; left: 50%; top: 50%; width: 76%; height: 76%;
-    transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none;
-    background: radial-gradient(circle, rgba(46,134,255,0.18), transparent 70%);
-    opacity: 0.5; transition: opacity 0.5s var(--ease);
-  }
-  .arq-stage.arq-lit .arq-art-wrap::before { opacity: 1; }
-  .arq-art { position: relative; display: block; width: 100%; height: auto; max-width: 17rem; margin: 0.4rem auto 0; }
-  .arq-art .arq-edge { fill: none; stroke: rgba(46,134,255,0.6); stroke-width: 1.2; }
-  .arq-art .arq-inner { fill: none; stroke: rgba(46,134,255,0.3); stroke-width: 1; }
-  .arq-art .arq-lbl { fill: var(--muted); font-family: var(--mono); font-size: 4.6px; letter-spacing: 0.14em; }
-  .arq-art .arq-tick { stroke: rgba(255,255,255,0.14); stroke-width: 0.8; }
-  .arq-stage.arq-lit .arq-art .arq-lbl { fill: var(--ink); }
-
-  /* ---------------- desenho: o painel ---------------- */
-  .arq-dash {
-    border: 1px solid var(--line); border-radius: 12px; background: var(--panel);
-    overflow: hidden; transition: border-color 0.4s var(--ease);
-  }
-  .arq-stage.arq-lit .arq-dash { border-color: rgba(46,134,255,0.3); }
-  .arq-dash-bar {
-    display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.7rem;
-    border-bottom: 1px solid var(--line-soft);
-    font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--dim);
-  }
-  .arq-dash-bar u { display: flex; gap: 0.25rem; text-decoration: none; }
-  .arq-dash-bar u i { width: 5px; height: 5px; border-radius: 50%; background: var(--line); }
-  .arq-dash-bar u i:first-child { background: rgba(46,134,255,0.7); }
-  .arq-dash-body { display: grid; grid-template-columns: 1fr 1.45fr; gap: 0.8rem; padding: 0.85rem 0.8rem; }
-  .arq-dash-kpi-k { font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); }
-  .arq-dash-kpi-v { white-space: nowrap; font-family: var(--display); font-size: 1.32rem; font-weight: 800; letter-spacing: -0.035em; line-height: 1; margin-top: 0.25rem; }
-  .arq-dash-kpi-d { font-family: var(--mono); font-size: 0.56rem; color: var(--accent-light); margin-top: 0.32rem; }
-  .arq-dash-rows { display: grid; gap: 0.32rem; margin-top: 0.75rem; }
-  .arq-dash-row { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.07); }
-  .arq-dash-row b { display: block; height: 100%; border-radius: 2px; background: rgba(46,134,255,0.45); }
-  .arq-dash-right { display: flex; flex-direction: column; gap: 0.4rem; }
-  .arq-dash-chart { display: flex; align-items: flex-end; gap: 3px; height: 3.6rem; }
-  .arq-dash-chart i { flex: 1; border-radius: 1.5px 1.5px 0 0; background: rgba(46,134,255,0.24); transition: background 0.4s var(--ease); }
-  .arq-dash-chart i.arq-hi { background: var(--accent); box-shadow: 0 0 14px rgba(46,134,255,0.55); }
-  .arq-dash-x { display: flex; gap: 3px; font-family: var(--mono); font-size: 0.42rem; color: var(--dim); }
-  .arq-dash-x span { flex: 1; text-align: center; }
-  .arq-dash-foot { padding: 0 0.8rem 0.85rem; display: grid; gap: 0.35rem; }
-  .arq-dash-foot .arq-dash-kpi-k { margin-bottom: 0.1rem; }
-  .arq-dash-ch { display: grid; grid-template-columns: 4.6rem 1fr 1.9rem; gap: 0.5rem; align-items: center; }
-  .arq-dash-ch span { font-size: 0.62rem; color: var(--muted); }
-  .arq-dash-ch u { display: block; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.07); text-decoration: none; }
-  .arq-dash-ch b { display: block; height: 100%; border-radius: 2px; background: rgba(46,134,255,0.4); }
-  .arq-dash-ch:first-of-type b { background: var(--accent); box-shadow: 0 0 10px rgba(46,134,255,0.5); }
-  .arq-dash-ch em { font-family: var(--mono); font-size: 0.56rem; font-style: normal; color: var(--ink); text-align: right; }
-
-  /* ---------------- ferramentas ---------------- */
-  .arq-tools { display: flex; flex-wrap: wrap; gap: 0.42rem; }
-  /* O bloco de ferramentas é empurrado para a base para as três colunas
-     terminarem alinhadas; o rótulo evita que a folga acima leia como erro. */
-  .arq-stage .arq-tools-wrap { margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--line-soft); }
-  .arq-tools-k {
-    display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem;
-    font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--dim);
-  }
-  .arq-tools-k::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); }
-  .arq-tool {
-    position: relative; width: 2.4rem; height: 2.4rem; border-radius: 50%; padding: 0;
-    display: grid; place-items: center; cursor: pointer;
-    color: var(--muted); background: var(--panel); border: 1px solid var(--line);
-    transition: color 0.25s var(--ease), border-color 0.25s var(--ease),
-                background 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-  .arq-ring { display: grid; place-items: center; }
-  .arq-tool .arq-ico {
-    width: 1.1rem; height: 1.1rem; background: currentColor;
-    -webkit-mask: var(--i) center / contain no-repeat;
-            mask: var(--i) center / contain no-repeat;
-  }
-  .arq-tool .arq-mn { font-family: var(--mono); font-size: 0.47rem; letter-spacing: 0.01em; }
-  .arq-tool:hover, .arq-tool:focus-visible, .arq-tool.on {
-    color: var(--accent-light); border-color: var(--accent); outline: none;
-    background: rgba(46,134,255,0.15); box-shadow: 0 0 18px rgba(46,134,255,0.35);
-    transform: translateY(-2px);
-  }
-  .arq-star { position: absolute; top: 0.04rem; right: 0.12rem; font-size: 0.42rem; color: var(--accent-light); opacity: 0.9; }
-
-  /* ---------------- faixas que atravessam ---------------- */
-  /* Governança e IA não são etapas na fila: acontecem sobre o fluxo
-     inteiro. Desenhar como faixa é o que separa arquitetura de fluxograma. */
-  .arq-bands { border-top: 1px solid var(--line); }
-  .arq-band {
-    position: relative; display: grid; grid-template-columns: 14rem 1fr;
-    gap: 1.2rem; align-items: center; padding: 1rem 1.4rem 1rem 1.4rem;
-    transition: background 0.4s var(--ease);
-  }
-  .arq-band + .arq-band { border-top: 1px solid var(--line-soft); }
-  .arq-band::before {
-    content: ''; position: absolute; left: 0; top: 0.8rem; bottom: 0.8rem; width: 2px;
-    background: var(--accent); opacity: 0.3; border-radius: 0 2px 2px 0;
-    transition: opacity 0.4s var(--ease);
-  }
-  .arq-band.arq-lit { background: rgba(46,134,255,0.04); }
-  .arq-band.arq-lit::before { opacity: 1; }
-  .arq-band-h { display: flex; flex-direction: column; gap: 0.2rem; }
-  .arq-band-k {
-    display: inline-flex; align-items: center; gap: 0.45rem;
-    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--accent-light);
-  }
-  .arq-band-k::after { content: ''; flex: 1; height: 1px; background: var(--line); min-width: 1rem; }
-  .arq-band-d { font-size: 0.79rem; color: var(--dim); line-height: 1.42; }
-  .arq-band .arq-tools { margin-top: 0; padding-top: 0; }
-
-  /* ---------------- legenda viva ---------------- */
-  .arq-cap {
-    display: grid; grid-template-columns: 13rem 1fr; gap: 1.2rem; align-items: center;
-    margin-top: 1.2rem; border: 1px solid var(--line); border-radius: 14px;
-    padding: 1rem 1.2rem; background: linear-gradient(180deg, rgba(18,26,36,0.7), rgba(13,17,23,0.7));
-    min-height: 5rem;
-  }
-  .arq-cap-l { display: flex; align-items: center; gap: 0.7rem; }
-  .arq-cap-ico {
-    width: 2.6rem; height: 2.6rem; border-radius: 50%; flex: none; display: grid; place-items: center;
-    border: 1px solid rgba(46,134,255,0.4); background: rgba(46,134,255,0.1); color: var(--accent-light);
-  }
-  .arq-cap-ico span {
-    width: 1.2rem; height: 1.2rem; background: currentColor;
-    -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat;
-  }
-  .arq-cap-ico b { font-family: var(--mono); font-size: 0.5rem; font-weight: 500; }
-  .arq-cap-n { display: block; font-family: var(--display); font-size: 1.08rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
-  .arq-cap-w { display: block; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-top: 0.15rem; }
-  .arq-cap-d { color: var(--muted); font-size: 0.93rem; }
-  .arq-cap-d b { color: var(--accent-light); font-weight: 500; }
-
-  .note {
-    margin-top: 1.5rem; font-family: var(--mono); font-size: 0.63rem;
-    letter-spacing: 0.13em; text-transform: uppercase; color: var(--dim);
-  }
-
-  @media (max-width: 1040px) {
-    .arq-body { grid-template-columns: 1fr; gap: 0.9rem; }
-    .arq-conn { height: 2.4rem; }
-    .arq-conn svg { width: 26px; height: 100%; }
-    .arq-conn .arq-rot { transform: rotate(90deg); transform-origin: center; transform-box: fill-box; }
-    .arq-band { grid-template-columns: 1fr; gap: 0.7rem; }
-    .why { grid-template-columns: 1fr; }
-    .arq-art { max-width: 13rem; }
-  }
-  @media (max-width: 580px) {
-    .sec { padding: 3rem 0 4rem; }
-    .arq-dash-body { grid-template-columns: 1fr; }
-    .arq-cap { grid-template-columns: 1fr; gap: 0.7rem; align-items: start; }
-    .arq-body { padding: 1.1rem 0.9rem; }
-    .arq-bar, .arq-band { padding-left: 1rem; padding-right: 1rem; }
-  }
 
   /* ---------- Metodologia ---------- */
   .tl { position: relative; margin-top: 2.8rem; padding-left: 2.6rem; }
@@ -1128,7 +759,6 @@
 
   /* ---------- Responsivo ---------- */
   @media (max-width: 1080px) {
-    .orbit-wrap { grid-template-columns: 1fr; gap: 1.8rem; }
     .pillars, .pillars.four { grid-template-columns: repeat(2, 1fr); }
     .nums { grid-template-columns: repeat(2, 1fr); }
   }
@@ -1141,61 +771,39 @@
     .tl-step::before { left: -1.72rem; }
   }
 
-  /* ---------- Soluções agrupadas em famílias ---------- */
-  /* O padrão: a oferta não é uma grade plana, é uma taxonomia. Cada
-     família abre um bloco, e cada serviço dentro dela diz o contexto de
-     negócio e quatro entregas concretas — não adjetivos. */
-  .fam { margin-top: 3.4rem; }
-  .fam-head {
-    display: grid; grid-template-columns: auto 1fr; gap: 1.1rem; align-items: baseline;
-    padding-bottom: 1rem; border-bottom: 1px solid var(--line);
-  }
-  .fam-k { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
-  .fam-t { font-family: var(--display); font-size: clamp(1.35rem, 2.6vw, 1.9rem); font-weight: 800; }
-  .fam-d { grid-column: 2; color: var(--muted); font-size: 0.96rem; margin-top: 0.3rem; }
-  .fam-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; margin-top: 1.4rem; }
-  .fam-grid.two { grid-template-columns: repeat(2, 1fr); }
-
-  .svc {
-    display: flex; flex-direction: column; gap: 0.7rem;
-    border: 1px solid var(--line); border-radius: 14px; padding: 1.6rem;
-    background: var(--panel); position: relative; overflow: hidden;
+  /* ---------- Soluções: quatro pilares ---------- */
+  /* Dez cards de serviço na home viravam um catálogo. A referência mostra
+     poucos blocos e joga o detalhe para a página de cada frente. */
+  .pilares { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; margin-top: 2.6rem; }
+  .pilar {
+    display: flex; flex-direction: column; gap: 0.55rem;
+    border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem 1.3rem;
+    background: var(--panel);
     transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
   }
-  .svc::after {
-    content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0;
-    background: radial-gradient(110% 80% at 100% 0%, rgba(46,134,255,0.12), transparent 60%);
-    transition: opacity 0.45s var(--ease);
+  .pilar:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .pilar-k {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.2em; color: var(--accent);
+    width: 1.7rem; height: 1.7rem; display: grid; place-items: center; border-radius: 6px;
+    border: 1px solid rgba(46,134,255,0.35); background: rgba(46,134,255,0.08);
   }
-  .svc:hover, .svc:focus-within { border-color: rgba(46,134,255,0.5); transform: translateY(-3px); }
-  .svc:hover::after, .svc:focus-within::after { opacity: 1; }
-  .svc-n { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; color: var(--accent); }
-  .svc-t { font-family: var(--display); font-size: 1.22rem; font-weight: 700; letter-spacing: -0.02em; }
-  .svc-d { color: var(--muted); font-size: 0.94rem; }
-  .svc-list { list-style: none; margin: 0.2rem 0 0; padding: 0; display: grid; gap: 0.42rem; }
-  .svc-list li {
-    position: relative; padding-left: 1rem; font-size: 0.9rem; color: var(--ink);
+  .pilar-t { font-family: var(--display); font-size: 1.12rem; font-weight: 700; letter-spacing: -0.024em; margin-top: 0.35rem; }
+  .pilar-d { color: var(--muted); font-size: 0.88rem; }
+  .pilar-list { list-style: none; padding: 0; margin: 0.4rem 0 0; display: grid; gap: 0.4rem; }
+  .pilar-list li {
+    display: flex; gap: 0.5rem; align-items: baseline;
+    font-size: 0.86rem; color: var(--ink);
   }
-  .svc-list li::before {
-    content: ''; position: absolute; left: 0; top: 0.62em; width: 5px; height: 1px; background: var(--accent);
+  .pilar-list li::before { content: ''; width: 4px; height: 4px; border-radius: 1px; background: var(--accent); flex: none; position: relative; top: -0.2em; }
+  .pilar-cta {
+    margin-top: auto; padding-top: 1rem; font-family: var(--mono); font-size: 0.64rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-light);
+    text-decoration: none; white-space: nowrap;
   }
-  .svc-foot { margin-top: auto; padding-top: 1rem; display: grid; gap: 0.8rem; }
-  .svc-cta {
-    display: inline-flex; align-items: center; gap: 0.4rem; justify-self: start;
-    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--accent-light); text-decoration: none;
-  }
-  .svc-cta:hover { color: var(--ink); }
+  .pilar:hover .pilar-cta { color: var(--ink); }
 
-
-  @media (max-width: 1080px) {
-    .fam-grid, .fam-grid.two { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 780px) {
-    .fam-grid, .fam-grid.two { grid-template-columns: 1fr; }
-    .fam-head { grid-template-columns: 1fr; gap: 0.35rem; }
-    .fam-d { grid-column: 1; }
-  }
+  @media (max-width: 1080px) { .pilares { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .pilares { grid-template-columns: 1fr; } }
 
   /* ---------- Painel executivo de exemplo ---------- */
   /* Um painel só, bem resolvido, em vez de um comparativo. A hierarquia
@@ -1308,17 +916,16 @@
 </style>
 </head>
 <body>
-<a class="skip-link" href="#inicio">Pular para o conte&uacute;do</a>
+<a class="skip-link" href="#inicio">Pular para o conteúdo</a>
 <div class="cursor-dot" aria-hidden="true"></div>
 <div class="cursor-ring" aria-hidden="true"><span></span></div>
-<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="scroll-progress" aria-hidden="true"><i id="progress-bar"></i></div>
 
 <header class="nav" id="nav">
   <div class="wrap">
     <a class="brand" href="index.html#inicio"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="brandMarkGradient" x1="4" y1="6" x2="96" y2="92" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6FD4FF"/><stop offset="0.5" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/></linearGradient></defs><path d="M50 58 L64 82 L36 82 Z" fill="#2E9BFF"/><path d="M50 6 L94 92 L64.5 92 L50 62 L35.5 92 L6 92 Z" fill="url(#brandMarkGradient)"/></svg><span class="wordmark"><b>ATLAS</b><small>TECNOLOGIA</small></span></a>
     <nav class="nav-links" aria-label="Navegação principal">
       <a href="index.html#solucoes">Soluções</a>
-      <a href="index.html#tecnologia">Tecnologia</a>
       <a href="index.html#cases">Cases</a>
       <a href="index.html#sobre">Sobre</a>
       <a href="index.html#insight-ai">Insights</a>
@@ -1338,9 +945,7 @@
 
 <nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true">
   <a href="index.html#solucoes">Soluções</a>
-  <a href="index.html#tecnologia">Tecnologia</a>
   <a href="index.html#cases">Cases</a>
-  <a href="index.html#metodologia">Metodologia</a>
   <a href="index.html#sobre">Sobre</a>
   <a href="index.html#insight-ai">Insights</a>
   <a href="insight.html">Atlas Insight AI <small>PRODUTO ✦</small></a>
@@ -1501,9 +1106,7 @@
       <h4>Navegação</h4>
       <ul>
         <li><a href="index.html#solucoes">Soluções</a></li>
-        <li><a href="index.html#tecnologia">Tecnologia</a></li>
         <li><a href="index.html#cases">Cases</a></li>
-        <li><a href="index.html#metodologia">Metodologia</a></li>
         <li><a href="index.html#sobre">Sobre</a></li>
         <li><a href="index.html#insight-ai">Insights</a></li>
         <li><a href="insight.html">Atlas Insight AI</a></li>
@@ -1585,530 +1188,386 @@
   </div>
 </div>
 <script>
-/* ============================================================
-   Interações do redesenho. Tudo dirigido por scroll ou toque —
-   nenhum autoplay. Cada bloco só recalcula quando há o que mudar.
-   ============================================================ */
 (function () {
   'use strict';
+  // O site antigo forçava reduced=false porque as animações de CANVAS
+  // (partículas, universo de tecnologias) deixavam a página parecendo
+  // travada quando o sistema pedia menos movimento. Sem canvas nesta versão,
+  // a preferência do usuário pode — e deve — ser respeitada de verdade.
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  /* ---------- Cursor customizado ---------- */
+  if (finePointer && !reduced) {
+    document.body.classList.add('has-cursor');
+    const dot = document.querySelector('.cursor-dot');
+    const ring = document.querySelector('.cursor-ring');
+    const label = ring.querySelector('span');
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+    (function loop() {
+      rx = lerp(rx, mx, 0.18); ry = lerp(ry, my, 0.18);
+      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+      requestAnimationFrame(loop);
+    })();
+    document.addEventListener('mouseover', (e) => {
+      const labelled = e.target.closest('[data-cursor]');
+      const link = e.target.closest('a, button');
+      if (labelled) {
+        ring.classList.add('is-label'); ring.classList.remove('is-link');
+        label.textContent = labelled.getAttribute('data-cursor');
+      } else if (link) {
+        ring.classList.add('is-link'); ring.classList.remove('is-label');
+      } else {
+        ring.classList.remove('is-link', 'is-label');
+      }
+    });
+  }
+
+  /* ---------- Botões magnéticos ---------- */
+  if (finePointer && !reduced) {
+    document.querySelectorAll('[data-magnetic]').forEach((el) => {
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+        const y = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+        el.style.transform = 'translate(' + x * 5 + 'px,' + y * 5 + 'px)';
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+    });
+  }
+
+  /* ---------- Nav ---------- */
+  const nav = document.getElementById('nav');
+  const onScrollNav = () => nav.classList.toggle('is-scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScrollNav, { passive: true });
+  onScrollNav();
+
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    mobileMenu.setAttribute('aria-hidden', String(!open));
+    burger.textContent = open ? 'Fechar' : 'Menu';
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileMenu.addEventListener('click', (e) => {
+    if (e.target.closest('a')) {
+      mobileMenu.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.textContent = 'Menu';
+      document.body.style.overflow = '';
+    }
+  });
+
+  /* ---------- Barra de progresso ---------- */
+  // Sem a guarda, uma página sem a barra derruba este handler e todos os
+  // que forem registrados depois dele.
+  const bar = document.getElementById('progress-bar');
+  if (bar) window.addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+  }, { passive: true });
+
+  /* ---------- Reveals ---------- */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: 0.14 });
+  document.querySelectorAll('.reveal, .m-step').forEach((el) => io.observe(el));
+
+  /* ---------- Split do título do hero ---------- */
+  const h1 = document.getElementById('hero-title');
+  if (!reduced && h1) {
+    const split = (node) => {
+      [...node.childNodes].forEach((child) => {
+        if (child.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const w = document.createElement('span'); w.className = 'w'; w.setAttribute('aria-hidden', 'true');
+            const inner = document.createElement('span'); inner.textContent = part;
+            w.appendChild(inner); frag.appendChild(w);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) split(child);
+      });
+    };
+    split(h1);
+    h1.querySelectorAll('.w > span').forEach((s, i) => { s.style.animationDelay = (0.08 + i * 0.055) + 's'; });
+  }
+
+  /* ---------- Contadores ---------- */
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      cio.unobserve(en.target);
+      const el = en.target;
+      const to = parseFloat(el.dataset.to);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      if (reduced) { el.innerHTML = prefix + to + suffix; return; }
+      const t0 = performance.now();
+      const dur = 1400;
+      (function tick(t) {
+        const p = clamp((t - t0) / dur, 0, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.innerHTML = prefix + Math.round(to * eased) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.count').forEach((el) => cio.observe(el));
 
 
+  /* ---------- Accordion de serviços ---------- */
+  document.querySelectorAll('.sol-head').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.sol-item');
+      const wasOpen = item.classList.contains('open');
+      item.parentElement.querySelectorAll('.sol-item.open').forEach((other) => {
+        if (other !== item) {
+          other.classList.remove('open');
+          other.querySelector('.sol-head').setAttribute('aria-expanded', 'false');
+        }
+      });
+      item.classList.toggle('open', !wasOpen);
+      btn.setAttribute('aria-expanded', String(!wasOpen));
+    });
+  });
 
-  /* ---------- Órbita de tecnologias ---------- */
-  // O que cada ferramenta resolve PARA O NEGÓCIO. Um logo wall não responde
-  // isso. O quinto campo só existe quando há projeto real da Atlas — sem ele
-  // a linha "Onde a Atlas usou" não aparece, para não sugerir experiência
-  // que não houve.
-  var CATS = [
-    ['bi', 'BI & Data Visualization'],
-    ['plat', 'Data Platform'],
-    ['eng', 'Data Engineering'],
-    ['cloud', 'Cloud'],
-    ['ia', 'Inteligência Artificial'],
-    ['db', 'Bancos de dados'],
-    ['gov', 'Governança'],
-    ['ds', 'Analytics & Data Science']
-  ];
-  // nome, grupo, o que é, para o negócio, caso real da Atlas, ícone.
-  // O quinto campo só existe quando há projeto entregue — sem ele a linha
-  // "Onde a Atlas usou" não aparece, para não sugerir experiência que não
-  // houve. O sexto começa com # quando não há logo disponível: aí o ícone
-  // vira monograma, em vez de desenhar uma marca que não é a da empresa.
-  var TECH = [
-    ['Power BI','bi','Dashboards executivos e self-service BI para as áreas.','A área deixa de pedir relatório e passa a responder a própria pergunta.','Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.','#PBI'],
-    ['Tableau','bi','Exploração visual de grandes volumes de dados.','O analista encontra o padrão antes de alguém pedir o relatório.','Rede de diagnóstico, na migração da visualização para Power BI.','tableau'],
-    ['Looker','bi','Camada semântica única sobre o dado.','Uma métrica, uma definição — fim da divergência entre áreas.','Mais de 200 dashboards migrados num projeto de governança de BI.','looker'],
-    ['Qlik','bi','BI associativo, com exploração livre entre dimensões.','A pergunta seguinte não depende de um novo relatório.','','qlik'],
-    ['MicroStrategy','bi','BI corporativo para operações multiárea.','Vendas, logística e operação lendo os mesmos números.','BI corporativo em varejo de moda e arquitetura ETL → DW → BI em turismo.','microstrategy'],
-    ['Metabase','bi','BI open source de implantação rápida.','Os primeiros indicadores no ar sem um projeto longo.','','metabase'],
-    ['Superset','bi','Visualização open source sobre SQL.','Painéis corporativos sem custo de licença por assento.','','superset'],
-    ['Databricks','plat','Lakehouse e processamento de dados em escala.','Volume deixa de ser o limite da análise.','Pipelines da plataforma omnichannel em Azure.','databricks'],
-    ['Snowflake','plat','Data warehouse em nuvem com escala elástica.','O custo acompanha o uso, não o pico.','','snowflake'],
-    ['BigQuery','plat','Data warehouse analítico gerenciado do Google.','Consulta pesada sem infraestrutura para administrar.','Data Lake em GCP para serviços financeiros e pipelines em saúde.','bigquery'],
-    ['Microsoft Fabric','plat','Plataforma unificada de dados e BI da Microsoft.','Um ambiente só, do pipeline ao relatório.','','#FAB'],
-    ['Redshift','plat','Data warehouse da AWS.','Escala analítica dentro do ecossistema Amazon.','','redshift'],
-    ['dbt','eng','Transformação versionada e testada.','A regra de negócio deixa de morar na cabeça de uma pessoa.','Transformações do Data Lake em GCP.','dbt'],
-    ['Airflow','eng','Orquestração de pipelines.','O dado chega na hora certa, e a falha aparece antes do usuário.','Pipelines em GCP para serviços financeiros e saúde.','airflow'],
-    ['Spark','eng','Processamento distribuído.','Terabytes processados dentro da janela da madrugada.','','spark'],
-    ['Fivetran','eng','Conectores gerenciados de ingestão.','A fonte muda e o conector acompanha.','','#FVT'],
-    ['Airbyte','eng','Ingestão open source com conectores abertos.','Fonte de nicho sem esperar o fornecedor.','','airbyte'],
-    ['Kafka','eng','Streaming de eventos.','O dado deixa de esperar o lote da noite.','','kafka'],
-    ['Azure','cloud','Nuvem Microsoft para dados e analytics.','Integra com o que a empresa já usa no dia a dia.','Synapse e Data Factory na plataforma omnichannel.','#AZ'],
-    ['AWS','cloud','Nuvem com o portfólio mais amplo de serviços.','Escala sem reescrever a arquitetura.','','aws'],
-    ['Google Cloud','cloud','Nuvem Google, forte em analytics e IA.','BigQuery e IA no mesmo lugar em que o dado já está.','Data Lake em GCP e migração de legado Oracle.','googlecloud'],
-    ['OpenAI','ia','Modelos de linguagem de uso geral via API.','Capacidade de IA sem treinar modelo do zero.','','openai'],
-    ['Anthropic','ia','Modelos Claude, com foco em uso corporativo.','IA sobre documento e análise, com controle do contexto.','','anthropic'],
-    ['Gemini','ia','Modelos multimodais do Google, integrados ao Cloud.','IA ao lado do dado que já está no BigQuery.','','gemini'],
-    ['Hugging Face','ia','Modelos abertos prontos para uso.','Começar de um modelo treinado, não do zero.','','huggingface'],
-    ['MLflow','ia','Ciclo de vida de modelos.','Modelo em produção com histórico e reversão.','','mlflow'],
-    ['PostgreSQL','db','Banco relacional open source.','Base robusta sem custo de licença.','','postgresql'],
-    ['SQL Server','db','Banco relacional corporativo da Microsoft.','O sistema que roda a empresa vira fonte analítica.','','#SQLS'],
-    ['Oracle','db','Banco de missão crítica.','O legado segue de pé enquanto a análise avança.','Migração de legado Oracle em projeto de nuvem.','oracle'],
-    ['MongoDB','db','Banco de documentos.','Dado semiestruturado sem forçar tabela.','','mongodb'],
-    ['Redis','db','Banco em memória, de resposta imediata.','O painel não espera pela consulta pesada.','','redis'],
-    ['Elasticsearch','db','Busca e análise sobre texto e log.','Achar o registro certo num volume que a tabela não resolve.','','elasticsearch'],
-    ['Purview','gov','Governança e linhagem de dados na Azure.','Dá para provar de onde veio cada número.','','#PVW'],
-    ['Collibra','gov','Catálogo e governança corporativa.','A regra de dado deixa de ser política no papel.','','#CLB'],
-    ['Alation','gov','Catálogo com contexto de uso.','Quem usa cada tabela vira informação, não folclore.','','#ALA'],
-    ['Atlan','gov','Catálogo colaborativo de dados.','Negócio e engenharia falando da mesma tabela.','','#ATL'],
-    ['Unity Catalog','gov','Catálogo e permissão no Databricks.','Quem vê o quê deixa de ser combinado por e-mail.','','#UC'],
-    ['Python','ds','Engenharia de dados e modelos preditivos.','O que é repetitivo vira código; o que é previsível vira modelo.','Modelos de predição de evasão em educação.','python'],
-    ['SQL','ds','A língua franca do dado.','A lógica sobrevive à troca de ferramenta.','Presente em toda a engenharia da Atlas.','#SQL'],
-    ['R','ds','Estatística e análise exploratória.','O rigor estatístico entra na decisão.','','r'],
-    ['Jupyter','ds','Ambiente de análise e prototipagem.','A hipótese é testada antes de virar projeto.','','jupyter'],
-    ['pandas','ds','Manipulação de dados em Python.','O tratamento vira código revisável, não planilha solta.','','pandas'],
-    ['Polars','ds','Processamento tabular de alta performance.','Volume médio sem precisar subir um cluster.','','polars'],
-    ['Dataiku','ds','Plataforma de analytics e IA em baixo código.','O time de negócio participa da construção do modelo.','','dataiku'],
-    ['Alteryx','ds','Preparação e automação analítica visual.','O analista automatiza o próprio fluxo sem virar dev.','','alteryx']
-  ];
+  /* ---------- Vídeo da marca: toca quando visível ---------- */
+  (function () {
+    const video = document.getElementById('brand-video');
+    if (!video || reduced) return;
+    const vio = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          video.play().catch(() => {});
+          vio.unobserve(video);
+        }
+      });
+    }, { threshold: 0.4 });
+    vio.observe(video);
+  })();
 
-  var orbit = document.getElementById('orbit');
-  if (orbit) {
-    var catsEl  = document.getElementById('tech-cats');
-    var linkEl  = document.getElementById('orbit-link');
-    var nameEl  = document.getElementById('tech-name');
-    var appEl   = document.getElementById('tech-app');
-    var benEl   = document.getElementById('tech-ben');
-    var caseEl  = document.getElementById('tech-case');
-    var caseRow = document.getElementById('tech-case-row');
-    var badgeEl = document.getElementById('tech-badge');
-    var countEl = document.getElementById('tech-count');
-    if (countEl) countEl.textContent = TECH.length;
+  /* ---------- Marquee: duplicar para loop ---------- */
+  // Guarda: se a faixa de setores não estiver na página, o resto deste
+  // bloco (incluindo o chat) não pode morrer junto.
+  const track = document.getElementById('marquee-track');
+  if (track) track.innerHTML += track.innerHTML;
 
-    var list = [], dots = [], pos = [], cur = -1, pinned = 0;
+  /* ---------- Chat Átis: mascote + captura de lead ---------- */
+  (function () {
+    const fab = document.getElementById('chat-fab');
+    const panel = document.getElementById('chat-panel');
+    const teaser = document.getElementById('chat-teaser');
+    const teaserX = document.getElementById('chat-teaser-x');
+    const closeBtn = document.getElementById('chat-close');
+    const msgs = document.getElementById('chat-msgs');
+    const chips = document.getElementById('chat-chips');
+    const input = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('chat-send');
+    if (!fab || !panel) return;
+    const ENDPOINT = 'https://formsubmit.co/ajax/sergio.lavezo@atlas-partner.com';
+    let stage = 0; // 0 = aguardando mensagem, 1 = aguardando contato, 2 = enviado
+    let pendingMsg = '';
 
-    CATS.forEach(function (c, ci) {
-      var n = TECH.filter(function (t) { return t[1] === c[0]; }).length;
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'tech-cat';
-      b.innerHTML = c[1].replace(/&/g, '&amp;') + ' <small>' + n + '</small>';
-      b.setAttribute('aria-pressed', ci === 0 ? 'true' : 'false');
-      b.addEventListener('click', function () {
-        [].forEach.call(catsEl.children, function (o, k) {
-          o.setAttribute('aria-pressed', k === ci ? 'true' : 'false');
+    // ---- Som de notificação Atlas (sintetizado, sem arquivo) ----
+    // Duas notas em quinta perfeita (A5 → E6), ataque suave, decaimento
+    // rápido — minimalista como WhatsApp, timbre limpo como a marca.
+    let audioCtx = null, dingPlayed = false;
+    function unlockAudio() {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        if (!audioCtx) audioCtx = new AC();
+        if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+      } catch (e) {}
+    }
+    ['pointerdown', 'touchstart', 'keydown'].forEach((ev) =>
+      window.addEventListener(ev, unlockAudio, { once: true, passive: true }));
+    // Sintetizador: notas = [freq, atraso, duração, volume, freqFinal?]
+    function tone(notes) {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return false;
+        if (!audioCtx) audioCtx = new AC();
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().catch(() => {});
+          if (audioCtx.state === 'suspended') return false; // sem gesto do usuário ainda
+        }
+        const t0 = audioCtx.currentTime + 0.02;
+        notes.forEach(([freq, dt, dur, vol, freqEnd]) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, t0 + dt);
+          if (freqEnd) osc.frequency.exponentialRampToValueAtTime(freqEnd, t0 + dt + dur);
+          gain.gain.setValueAtTime(0, t0 + dt);
+          gain.gain.linearRampToValueAtTime(vol, t0 + dt + 0.012);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dt + dur);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(t0 + dt);
+          osc.stop(t0 + dt + dur + 0.05);
         });
-        build(c[0]);
-      });
-      catsEl.appendChild(b);
+        return true;
+      } catch (e) { return false; }
+    }
+    // Convite do Átis: duas notas em quinta (A5 → E6)
+    function playDing() { if (tone([[880, 0, 0.22, 0.13], [1318.5, 0.095, 0.3, 0.13]])) dingPlayed = true; }
+    // Visitante envia: "pop" grave descendente, curtinho
+    function playSend() { tone([[520, 0, 0.1, 0.1, 330]]); }
+    // Átis responde: "ding" agudo suave, nota única
+    function playRecv() { tone([[1318.5, 0, 0.16, 0.09]]); }
+
+    function addMsg(text, who) {
+      const d = document.createElement('div');
+      d.className = 'chat-msg ' + who;
+      d.textContent = text;
+      msgs.appendChild(d);
+      msgs.scrollTop = msgs.scrollHeight;
+      if (who === 'user') playSend(); else playRecv();
+    }
+    function botSay(text, delay) {
+      setTimeout(() => { addMsg(text, 'bot'); }, delay || 650);
+    }
+    // Mensagem do bot com link de ação (usado no fallback de erro)
+    function botSayAction(text, linkText, href, delay) {
+      setTimeout(() => {
+        const d = document.createElement('div');
+        d.className = 'chat-msg bot';
+        d.appendChild(document.createTextNode(text + ' '));
+        const a = document.createElement('a');
+        a.href = href;
+        a.textContent = linkText;
+        a.addEventListener('click', closePanel);
+        d.appendChild(a);
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+        playRecv();
+      }, delay || 650);
+    }
+    function hideTeaser() { teaser.classList.remove('show'); }
+    function openPanel() {
+      hideTeaser();
+      panel.classList.add('open');
+      if (!dingPlayed) playDing();
+      try { sessionStorage.setItem('atlas-chat-seen', '1'); } catch (e) {}
+      setTimeout(() => input.focus(), 350);
+    }
+    function closePanel() { panel.classList.remove('open'); }
+
+    fab.addEventListener('click', () => panel.classList.contains('open') ? closePanel() : openPanel());
+    closeBtn.addEventListener('click', closePanel);
+    teaser.addEventListener('click', openPanel);
+    teaserX.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hideTeaser();
+      try { sessionStorage.setItem('atlas-chat-seen', '1'); } catch (e2) {}
     });
 
-    orbit.addEventListener('mouseleave', function () {
-      if (cur !== pinned) select(pinned, false);
+    // Convite discreto 5s após entrar no site (uma vez por sessão)
+    let seen = false;
+    try { seen = !!sessionStorage.getItem('atlas-chat-seen'); } catch (e) {}
+    if (!seen) {
+      setTimeout(() => {
+        if (!panel.classList.contains('open')) {
+          teaser.classList.add('show');
+          playDing();
+        }
+      }, 5000);
+    }
+
+    chips.addEventListener('click', (e) => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      input.value = b.dataset.msg || b.textContent;
+      submit();
     });
 
-    function build(cat) {
-      dots.forEach(function (d) { orbit.removeChild(d); });
-      dots = []; pos = []; cur = -1; pinned = 0;
-      if (linkEl) linkEl.style.opacity = '0';
-      list = TECH.filter(function (t) { return t[1] === cat; });
-      list.forEach(function (t, i) {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'tech-dot';
-        b.setAttribute('aria-pressed', 'false');
-        b.setAttribute('aria-label', t[0]);
-        var ring = document.createElement('span');
-        ring.className = 'tech-ring';
-        ring.setAttribute('aria-hidden', 'true');
-        var ico = document.createElement('span');
-        if (t[5].charAt(0) === '#') {
-          ico.className = 'tech-mono';
-          ico.textContent = t[5].slice(1);
-        } else {
-          ico.className = 'tech-ico';
-          ico.style.setProperty('--i', 'url(media/logos/' + t[5] + '.svg)');
+    async function submit() {
+      const t = input.value.trim();
+      if (!t || stage === 2) return;
+      addMsg(t, 'user');
+      input.value = '';
+      if (stage === 0) {
+        pendingMsg = t;
+        stage = 1;
+        chips.style.display = 'none';
+        botSay('Perfeito! 🙌 Para o nosso time te responder, me deixa um e-mail ou WhatsApp?');
+        input.placeholder = 'Seu e-mail ou WhatsApp…';
+      } else if (stage === 1) {
+        const contato = t;
+        stage = 2;
+        input.disabled = true;
+        sendBtn.disabled = true;
+        try {
+          const r = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              _subject: 'Novo contato pelo CHAT do site (Átis)',
+              _template: 'table',
+              origem: 'Chat do site — mascote Átis',
+              mensagem: pendingMsg,
+              contato: contato,
+              pagina: location.href,
+            }),
+          });
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          botSay('Prontinho! ✅ Sua mensagem chegou para o nosso time. Vamos te responder em breve no contato que você deixou. Obrigado!', 800);
+        } catch (err) {
+          stage = 1;
+          input.disabled = false;
+          sendBtn.disabled = false;
+          botSayAction(
+            'Ops, tive uma instabilidade aqui e sua mensagem não saiu. 😕 Tente de novo em instantes — ou envie agora mesmo pelo nosso formulário:',
+            'ir para Fale conosco →', '#contato', 800);
         }
-        ring.appendChild(ico);
-        if (t[4]) {
-          var st = document.createElement('span');
-          st.className = 'tech-star';
-          st.textContent = '✦';
-          ring.appendChild(st);
-        }
-        b.appendChild(ring);
-        var nm = document.createElement('span');
-        nm.className = 'tech-name';
-        nm.setAttribute('aria-hidden', 'true');
-        nm.textContent = t[0];
-        b.appendChild(nm);
-        // Passar o mouse já mostra o que a ferramenta resolve; o clique fixa,
-        // para a leitura não sumir quando o ponteiro sai.
-        b.addEventListener('mouseenter', function () { select(i, false); });
-        b.addEventListener('focus', function () { select(i, false); });
-        b.addEventListener('click', function () { select(i, true); });
-        orbit.appendChild(b);
-        dots.push(b);
-      });
-      place();
-      select(0, true);
-    }
-
-    function place() {
-      var w = orbit.clientWidth;
-      if (!w || !dots.length) return;
-      // Abaixo de 640px a CSS tira os ícones do posicionamento absoluto e eles
-      // viram grade: ali as coordenadas de órbita atrapalhariam em vez de ajudar.
-      if (getComputedStyle(dots[0]).position !== 'absolute') {
-        dots.forEach(function (d) { d.style.left = ''; d.style.top = ''; });
-        if (linkEl) linkEl.style.opacity = '0';
-        return;
-      }
-      // O nome fica fora da caixa do botão (posição absoluta), então precisa
-      // entrar na conta do raio — senão "Microsoft Fabric" atravessa a borda.
-      var widest = 0;
-      dots.forEach(function (d) {
-        var nm = d.querySelector('.tech-name');
-        widest = Math.max(widest, d.offsetWidth, nm ? nm.offsetWidth : 0);
-      });
-      var room = 0.5 - (widest / 2 + 10) / w;
-      var outer = Math.max(0.18, Math.min(0.42, room));
-      var rings = dots.length > 8 ? [1, 0.6] : [1];
-      dots.forEach(function (d, i) {
-        var ring = outer * rings[i % rings.length];
-        var a = (i / dots.length) * Math.PI * 2 - Math.PI / 2;
-        pos[i] = { a: a, r: ring };
-      });
-      relax(w);
-      dots.forEach(function (d, i) {
-        d.style.left = (50 + Math.cos(pos[i].a) * pos[i].r * 100) + '%';
-        d.style.top  = (50 + Math.sin(pos[i].a) * pos[i].r * 100) + '%';
-      });
-      drawLink();
-    }
-    window.addEventListener('resize', place, { passive: true });
-
-    // Os ícones têm todos o mesmo tamanho, então raramente colidem — mas o
-    // afastamento por ângulo fica aqui porque o número por grupo muda.
-    function relax(w) {
-      var dim = dots.map(function (d) {
-        var nm = d.querySelector('.tech-name');
-        // Largura: a maior entre ícone e nome. Altura: o ícone mais o nome
-        // pendurado embaixo dele.
-        return [Math.max(d.offsetWidth, nm ? nm.offsetWidth : 0),
-                d.offsetHeight + (nm ? nm.offsetHeight + 6 : 0)];
-      });
-      var x = [], y = [];
-      function at(i) {
-        x[i] = Math.cos(pos[i].a) * pos[i].r * w;
-        y[i] = Math.sin(pos[i].a) * pos[i].r * w;
-      }
-      for (var k = 0; k < dots.length; k++) at(k);
-      for (var pass = 0; pass < 60; pass++) {
-        var moved = false;
-        for (var i = 0; i < dots.length; i++) {
-          for (var j = i + 1; j < dots.length; j++) {
-            var needX = (dim[i][0] + dim[j][0]) / 2 + 10;
-            var needY = (dim[i][1] + dim[j][1]) / 2 + 10;
-            if (Math.abs(x[i] - x[j]) < needX && Math.abs(y[i] - y[j]) < needY) {
-              var sg = pos[i].a <= pos[j].a ? 0.022 : -0.022;
-              pos[i].a -= sg; pos[j].a += sg;
-              at(i); at(j);
-              moved = true;
-            }
-          }
-        }
-        if (!moved) break;
       }
     }
+    sendBtn.addEventListener('click', submit);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); submit(); }
+    });
+  })();
 
-    // A linha liga a ferramenta escolhida ao centro: a leitura é sempre da
-    // tecnologia para o negócio, não o contrário.
-    function drawLink() {
-      if (!linkEl || cur < 0 || !pos[cur]) return;
-      linkEl.style.width = (pos[cur].r * orbit.clientWidth) + 'px';
-      linkEl.style.transform = 'rotate(' + pos[cur].a + 'rad)';
-      linkEl.style.opacity = '1';
-    }
-
-    function select(i, pin) {
-      var t = list[i];
-      if (!t) return;
-      cur = i;
-      if (pin) pinned = i;
-      nameEl.textContent = t[0];
-      appEl.textContent  = t[2];
-      benEl.textContent  = t[3];
-      if (t[4]) { caseEl.textContent = t[4]; caseRow.hidden = false; badgeEl.hidden = false; }
-      else { caseRow.hidden = true; badgeEl.hidden = true; }
-      dots.forEach(function (d, k) { d.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
-      drawLink();
-    }
-
-    build(CATS[0][0]);
-  }
-
-  /* ---------- Arquitetura: onde cada ferramenta entra ---------- */
-  // nome, ícone ('#' = monograma), o que faz NESTA posição, projeto real da Atlas
-  var ARQ = {
-    clouds: [
-      ['Azure', '#AZ', 'Nuvem Microsoft: integra com o que a empresa já usa todo dia.', 1],
-      ['AWS', 'aws', 'O portfólio mais amplo de serviços gerenciados.', 0],
-      ['Google Cloud', 'googlecloud', 'Forte em analytics e IA, com o BigQuery no centro.', 1]
-    ],
-    fontes: [
-      ['SQL Server', '#SQLS', 'O banco do ERP vira fonte analítica, sem parar a operação.', 0],
-      ['Oracle', 'oracle', 'O legado segue de pé enquanto a análise avança por fora.', 1],
-      ['PostgreSQL', 'postgresql', 'A base do produto entra no pipeline sem custo de licença.', 0],
-      ['MongoDB', 'mongodb', 'Dado semiestruturado entra sem ser forçado em tabela.', 0],
-      ['Elasticsearch', 'elasticsearch', 'Log e texto viram fonte de análise, não lixo de servidor.', 0],
-      ['Redis', 'redis', 'O evento quente é lido em memória antes de ir para a base.', 0]
-    ],
-    eng: [
-      ['Fivetran', '#FVT', 'Conector gerenciado: a fonte muda e ele acompanha sozinho.', 0],
-      ['Airbyte', 'airbyte', 'Ingestão open source para a fonte de nicho que ninguém cobre.', 0],
-      ['Kafka', 'kafka', 'Streaming: o dado deixa de esperar o lote da noite.', 0],
-      ['Databricks', 'databricks', 'Lakehouse: volume deixa de ser o limite da análise.', 1],
-      ['Snowflake', 'snowflake', 'Warehouse elástico: o custo acompanha o uso, não o pico.', 0],
-      ['BigQuery', 'bigquery', 'Consulta pesada sem infraestrutura para administrar.', 1],
-      ['Redshift', 'redshift', 'Warehouse analítico dentro do ecossistema AWS.', 0],
-      ['Spark', 'spark', 'Processamento distribuído dentro da janela da madrugada.', 0],
-      ['dbt', 'dbt', 'A regra de negócio vira código testado e versionado.', 1],
-      ['Airflow', 'airflow', 'Orquestração: a falha aparece antes do usuário.', 1]
-    ],
-    viz: [
-      ['Power BI', '#PBI', 'A área responde a própria pergunta, sem pedir relatório.', 1],
-      ['Tableau', 'tableau', 'Exploração visual: o padrão aparece antes de alguém pedir.', 1],
-      ['Looker', 'looker', 'Camada semântica: uma métrica, uma definição, fim da divergência.', 1],
-      ['Qlik', 'qlik', 'Exploração associativa livre entre dimensões.', 0],
-      ['MicroStrategy', 'microstrategy', 'BI corporativo: todas as áreas lendo os mesmos números.', 1],
-      ['Metabase', 'metabase', 'Os primeiros indicadores no ar sem um projeto longo.', 0],
-      ['Superset', 'superset', 'Painéis corporativos sem custo de licença por assento.', 0]
-    ],
-    gov: [
-      ['Unity Catalog', '#UC', 'Quem vê o quê deixa de ser combinado por e-mail.', 0],
-      ['Purview', '#PVW', 'Linhagem: dá para provar de onde veio cada número.', 0],
-      ['Collibra', '#CLB', 'A regra de dado deixa de ser política no papel.', 0],
-      ['Alation', '#ALA', 'Quem usa cada tabela vira informação, não folclore.', 0],
-      ['Atlan', '#ATL', 'Negócio e engenharia falando da mesma tabela.', 0],
-      ['dbt tests', '#DBT', 'A quebra aparece no pipeline, não na reunião de diretoria.', 0]
-    ],
-    ia: [
-      ['Python', 'python', 'O repetitivo vira código; o previsível vira modelo.', 1],
-      ['MLflow', 'mlflow', 'Modelo em produção com histórico e reversão.', 0],
-      ['OpenAI', 'openai', 'Capacidade de IA sem treinar modelo do zero.', 0],
-      ['Anthropic', 'anthropic', 'IA sobre documento e análise, com controle do contexto.', 0],
-      ['Gemini', 'gemini', 'IA ao lado do dado que já está no BigQuery.', 0],
-      ['Hugging Face', 'huggingface', 'Começar de um modelo treinado, não do zero.', 0]
-    ]
-  };
-  var ARQ_GRUPO = {
-    clouds: 'Nuvem', fontes: 'Origem', eng: 'Engenharia de dados',
-    viz: 'Data Visualization', gov: 'Governança', ia: 'Inteligência Artificial'
-  };
-
-  var arqCapN = document.getElementById('arq-cap-n');
-  if (arqCapN) {
-    var arqCapW = document.getElementById('arq-cap-w');
-    var arqCapD = document.getElementById('arq-cap-d');
-    var arqCapI = document.getElementById('arq-cap-ico');
-    var arqConns = [].slice.call(document.querySelectorAll('.arq-conn'));
-    var arqAll = [];
-    var arqTotal = 0;
-    Object.keys(ARQ).forEach(function (k) { if (k !== 'clouds') arqTotal += ARQ[k].length; });
-    arqCapW.textContent = arqTotal + ' ferramentas no desenho';
-
-    // Acender a etapa junto com a ferramenta: mostra que o ícone não está solto
-    // num mural — ele ocupa um lugar na arquitetura.
-    function arqLight(key) {
-      [].forEach.call(document.querySelectorAll('[data-stage]'), function (el) {
-        el.classList.toggle('arq-lit', el.getAttribute('data-stage') === key);
+  /* ---------- Formulário → sergio.lavezo@atlas-partner.com (FormSubmit) ---------- */
+  const form = document.getElementById('form');
+  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/sergio.lavezo@atlas-partner.com';
+  if (form) form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const btn = form.querySelector('button[type="submit"]');
+    const errEl = document.getElementById('form-error');
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    const data = Object.fromEntries(new FormData(form).entries());
+    data._subject = 'Novo contato pelo site — ' + (data.empresa || data.nome);
+    data._template = 'table';
+    try {
+      const r = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
       });
-      var upto = key === 'eng' ? 1 : (key === 'viz' ? 2 : 0);
-      arqConns.forEach(function (c, i) { c.classList.toggle('arq-lit', i < upto); });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      form.classList.add('sent');
+    } catch (err) {
+      errEl.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Enviar → ';
     }
+  });
 
-    function arqBuild(host, rows, key) {
-      rows.forEach(function (t) {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'arq-tool';
-        b.setAttribute('aria-label', t[0]);
-        var ring = document.createElement('span');
-        ring.className = 'arq-ring';
-        ring.setAttribute('aria-hidden', 'true');
-        var ico = document.createElement('span');
-        if (t[1].charAt(0) === '#') { ico.className = 'arq-mn'; ico.textContent = t[1].slice(1); }
-        else { ico.className = 'arq-ico'; ico.style.setProperty('--i', 'url(media/logos/' + t[1] + '.svg)'); }
-        ring.appendChild(ico);
-        if (t[3]) {
-          var st = document.createElement('span');
-          st.className = 'arq-star';
-          st.textContent = '\u2726';
-          ring.appendChild(st);
-        }
-        b.appendChild(ring);
-        function show() {
-          arqAll.forEach(function (o) { o.classList.remove('on'); });
-          b.classList.add('on');
-          arqCapN.textContent = t[0];
-          arqCapW.textContent = ARQ_GRUPO[key] || '';
-          arqCapD.innerHTML = t[2] + (t[3] ? ' <b>\u2726 Projeto entregue pela Atlas.</b>' : '');
-          arqCapI.innerHTML = '';
-          if (t[1].charAt(0) === '#') {
-            var mm = document.createElement('b'); mm.textContent = t[1].slice(1); arqCapI.appendChild(mm);
-          } else {
-            var sp = document.createElement('span');
-            sp.style.setProperty('--i', 'url(media/logos/' + t[1] + '.svg)');
-            arqCapI.appendChild(sp);
-          }
-          arqLight(key);
-        }
-        b.addEventListener('mouseenter', show);
-        b.addEventListener('focus', show);
-        b.addEventListener('click', show);
-        host.appendChild(b);
-        arqAll.push(b);
-      });
-    }
-
-    arqBuild(document.getElementById('arq-clouds'), ARQ.clouds, 'clouds');
-    [].forEach.call(document.querySelectorAll('.arq-tools[data-group]'), function (host) {
-      var k = host.getAttribute('data-group');
-      arqBuild(host, ARQ[k] || [], k);
-    });
-
-    [].forEach.call(document.querySelectorAll('[data-stage]'), function (el) {
-      el.addEventListener('mouseenter', function () { arqLight(el.getAttribute('data-stage')); });
-    });
-    var arqBox = document.querySelector('.arq');
-    if (arqBox) arqBox.addEventListener('mouseleave', function () { arqLight(null); });
-  }
-
-  /* ---------- Barra de conversa ---------- */
-  var cbar = document.getElementById('cbar');
-  if (cbar) {
-    var hero = document.querySelector('.hero');
-    var contato = document.getElementById('contato');
-    var dispensada = false;
-    try { dispensada = sessionStorage.getItem('cbar-off') === '1'; } catch (e) {}
-    var bx = document.getElementById('cbar-x');
-    if (bx) bx.addEventListener('click', function () {
-      dispensada = true;
-      cbar.classList.remove('on');
-      try { sessionStorage.setItem('cbar-off', '1'); } catch (e) {}
-    });
-    var navEl = document.querySelector('.nav');
-    function medirNav() {
-      if (navEl) document.documentElement.style.setProperty('--navh', navEl.getBoundingClientRect().height + 'px');
-    }
-    window.addEventListener('resize', medirNav, { passive: true });
-    // A nav encolhe com transição de 0,3s; medir só no scroll capturaria a
-    // altura no meio do caminho e a barra ficaria 1px por cima.
-    if (navEl) navEl.addEventListener('transitionend', medirNav);
-    var braf = 0;
-    function cbarCheck() {
-      braf = 0;
-      medirNav();
-      if (dispensada) { cbar.classList.remove('on'); return; }
-      var passouHero = hero ? hero.getBoundingClientRect().bottom < 0 : window.scrollY > 600;
-      // Some quando o contato entra na tela: ali o pedido já está na página.
-      var noContato = contato ? contato.getBoundingClientRect().top < window.innerHeight : false;
-      var mostrar = passouHero && !noContato;
-      if (mostrar && cbar.hidden) cbar.hidden = false;
-      cbar.classList.toggle('on', mostrar);
-    }
-    window.addEventListener('scroll', function () {
-      if (!braf) braf = requestAnimationFrame(cbarCheck);
-    }, { passive: true });
-    cbarCheck();
-  }
-
-  /* ---------- Painel de exemplo: troca de página ---------- */
-  var dTabs = [].slice.call(document.querySelectorAll('.dash-tab'));
-  if (dTabs.length) {
-    var dPages = dTabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
-    function showPage(i, focus) {
-      dTabs.forEach(function (t, k) {
-        var on = k === i;
-        t.setAttribute('aria-selected', on ? 'true' : 'false');
-        t.tabIndex = on ? 0 : -1;
-        if (dPages[k]) dPages[k].hidden = !on;
-      });
-      if (focus) dTabs[i].focus();
-    }
-    dTabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { showPage(i, false); });
-      // Setas percorrem as abas: é o que um leitor de tela espera de um tablist.
-      t.addEventListener('keydown', function (e) {
-        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-        if (!d) return;
-        e.preventDefault();
-        showPage((i + d + dTabs.length) % dTabs.length, true);
-      });
-    });
-  }
-
-  /* ---------- Insight AI: demonstração ---------- */
-  // Respostas de exemplo, escritas à mão. Nenhuma conexão com dados reais —
-  // e a interface diz isso na própria barra, para ninguém se enganar.
-  var DEMO = [
-    ['Por que minhas vendas caíram?',
-     '<p>A queda de <b>8,2%</b> no mês está concentrada em <b>três lojas da região Sul</b>. Nas demais regiões a receita cresceu 1,4%.</p><p>O recuo acompanha a ruptura de estoque na categoria de maior giro dessas unidades.</p>',
-     [['Impacto', '−8,2%'], ['Origem', '3 lojas · Sul'], ['Causa provável', 'Ruptura de estoque']]],
-    ['Qual canal traz mais margem?',
-     '<p>O <b>canal próprio</b> entrega margem <b>6,1 pontos</b> acima do marketplace, apesar de responder por menos volume.</p><p>Marketplace cresce em receita, mas o custo de comissão consome o ganho.</p>',
-     [['Melhor margem', 'Canal próprio'], ['Diferença', '+6,1 p.p.'], ['Atenção', 'Comissão marketplace']]],
-    ['Onde estou perdendo eficiência?',
-     '<p>O tempo entre o pedido e a separação subiu <b>14%</b> em dois centros de distribuição, enquanto os demais ficaram estáveis.</p><p>O atraso se concentra no turno da noite.</p>',
-     [['Piora', '+14%'], ['Onde', '2 CDs'], ['Quando', 'Turno noite']]],
-    ['O que devo esperar no próximo trimestre?',
-     '<p>Mantido o comportamento atual, a projeção indica receita <b>entre 3% e 5% acima</b> do trimestre anterior, puxada pelo canal digital.</p><p>O cenário é sensível à reposição de estoque nas lojas do Sul.</p>',
-     [['Projeção', '+3% a +5%'], ['Motor', 'Canal digital'], ['Risco', 'Estoque Sul']]]
-  ];
-
-  var qsEl = document.getElementById('demo-qs');
-  if (qsEl) {
-    var aEl = document.getElementById('demo-a');
-    var btns = [];
-    DEMO.forEach(function (d, i) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'demo-q';
-      b.textContent = d[0];
-      b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
-      b.addEventListener('click', function () { answer(i); });
-      qsEl.appendChild(b);
-      btns.push(b);
-    });
-    function answer(i) {
-      var d = DEMO[i];
-      var metrics = d[2].map(function (m) {
-        return '<div><span>' + m[0] + '</span><b>' + m[1] + '</b></div>';
-      }).join('');
-      aEl.innerHTML = d[1] + '<div class="demo-metrics">' + metrics + '</div>';
-      btns.forEach(function (b, k) { b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
-    }
-    answer(0);
-  }
-
-  /* ---------- Acende ao entrar na tela: timeline ---------- */
-  var tl = document.getElementById('tl');
-  var tlFill = document.getElementById('tl-fill');
-  var tlSteps = tl ? [].slice.call(tl.querySelectorAll('.tl-step')) : [];
-
-
-  function timeline() {
-    if (!tl) return;
-    var r = tl.getBoundingClientRect();
-    var line = window.innerHeight * 0.5;
-    var done = 0;
-    tlSteps.forEach(function (st) {
-      var sr = st.getBoundingClientRect();
-      var on = sr.top < line;
-      st.classList.toggle('on', on);
-      if (on) done = sr.top - r.top + sr.height * 0.5;
-    });
-    tlFill.style.height = Math.max(0, Math.min(r.height, done)) + 'px';
-  }
-
-  var raf = 0;
-  function update() { raf = 0; timeline(); }
-  function schedule() { if (!raf) raf = requestAnimationFrame(update); }
-
-  update();
-  window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', schedule, { passive: true });
 })();
 </script>
 </body>

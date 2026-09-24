@@ -34,11 +34,20 @@ def extrair(html):
     header = um(r'<header class="nav" id="nav">.*?</header>', '<header>')
     menu = um(r'<nav class="mobile-menu" id="mobile-menu".*?</nav>', 'menu mobile')
     rodape = um(r'<footer class="footer">.*?</footer>', '<footer>')
+    # Os elementos entre <body> e o cabeçalho (cursor, barra de progresso)
+    # também saem do index: escritos à mão aqui, um id errado passa
+    # despercebido e derruba o script da página inteira.
+    topo = um(r'<a class="skip-link".*?(?=\n\n<header)', 'elementos de topo')
     # widget de chat: do botão flutuante até o fim do painel
     chat = um(r'<button class="chat-fab".*?<!-- /chat -->|<button class="chat-fab".*?(?=<script>)', 'chat')
-    script = um(r'<script>(?:(?!</script>).)*var ARQ = \{.*?</script>', '<script> principal')
+    # O script principal é o último bloco inline sem type — ancorar num nome de
+    # variável quebra sempre que uma seção sai do ar.
+    blocos = re.findall(r'<script>(?:(?!</script>).)*</script>', html, re.S)
+    if not blocos:
+        sys.exit('não encontrei o <script> principal no index.html')
+    script = max(blocos, key=len)
     return dict(estilo=estilo, header=header, menu=menu, rodape=rodape,
-                chat=chat.rstrip(), script=script)
+                topo=topo, chat=chat.rstrip(), script=script)
 
 
 # ---------------------------------------------------------------- conteúdo
@@ -361,10 +370,7 @@ def montar(pag, comum):
 %(extra)s
 </head>
 <body>
-<a class="skip-link" href="#inicio">Pular para o conte&uacute;do</a>
-<div class="cursor-dot" aria-hidden="true"></div>
-<div class="cursor-ring" aria-hidden="true"><span></span></div>
-<div class="progress" id="progress" aria-hidden="true"></div>
+%(topo)s
 
 %(header)s
 
@@ -379,6 +385,7 @@ def montar(pag, comum):
 </html>
 ''' % dict(titulo=pag['titulo'], meta=pag['meta'], url=url, site=SITE,
            estilo=comum['estilo'], extra=extra, header=comum['header'],
+           topo=comum['topo'],
            menu=comum['menu'], corpo=corpo, rodape=comum['rodape'],
            chat=comum['chat'], script=comum['script'])
 
