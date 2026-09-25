@@ -117,13 +117,25 @@ function mostrarQuota() {
 function validarPlanilha() {
   var aba = planilha_();
   var dados = aba.getDataRange().getValues();
-  var ok = 0, pulados = 0;
+  var ok = 0, pulados = 0, duplicados = 0;
+
+  // O controle de envio é por LINHA. Sem isto, o mesmo endereço repetido
+  // em duas linhas receberia o e-mail duas vezes.
+  var jaVisto = {};
 
   for (var i = 1; i < dados.length; i++) {
     var linha = i + 1;
     var email = String(dados[i][COL.EMAIL - 1] || '').trim();
     var nome = String(dados[i][COL.NOME - 1] || '').trim();
     var motivo = motivoParaPular_(email, nome);
+
+    var chave = email.toLowerCase();
+    if (!motivo && jaVisto[chave]) {
+      motivo = 'duplicado — já aparece na linha ' + jaVisto[chave];
+      duplicados++;
+    } else if (!motivo) {
+      jaVisto[chave] = linha;
+    }
 
     if (motivo) {
       aba.getRange(linha, COL.STATUS).setValue('PULADO');
@@ -137,7 +149,8 @@ function validarPlanilha() {
 
   avisar_(
     'Validação concluída\n\n' + ok + ' prontos para envio\n' +
-    pulados + ' pulados (veja a coluna observacao)'
+    pulados + ' pulados (veja a coluna observacao)' +
+    (duplicados ? '\n' + duplicados + ' deles são endereços repetidos' : '')
   );
 }
 
@@ -201,6 +214,16 @@ function enviarLote(limitePersonalizado) {
   var enviados = 0, pulados = 0, erros = 0;
   var quota = MailApp.getRemainingDailyQuota();
 
+  // Endereços que já receberam em alguma linha. Protege contra duplicata
+  // que tenha entrado na planilha depois da validação.
+  var jaEnviado = {};
+  for (var k = 1; k < dados.length; k++) {
+    var s = String(dados[k][COL.STATUS - 1] || '').trim();
+    if (s === 'ENVIADO' || s === 'RESPONDEU' || s === 'REMOVER') {
+      jaEnviado[String(dados[k][COL.EMAIL - 1] || '').trim().toLowerCase()] = true;
+    }
+  }
+
   for (var i = 1; i < dados.length && enviados < teto; i++) {
     var linha = i + 1;
     var email = String(dados[i][COL.EMAIL - 1] || '').trim();
@@ -218,6 +241,12 @@ function enviarLote(limitePersonalizado) {
     var motivo = motivoParaPular_(email, nome);
     if (motivo) {
       registrar_(aba, linha, 'PULADO', motivo);
+      pulados++;
+      continue;
+    }
+
+    if (jaEnviado[email.toLowerCase()]) {
+      registrar_(aba, linha, 'PULADO', 'endereço já recebeu em outra linha');
       pulados++;
       continue;
     }
@@ -241,6 +270,7 @@ function enviarLote(limitePersonalizado) {
       aba.getRange(linha, COL.THREAD).setValue(threadId || '');
       aba.getRange(linha, COL.ETAPA).setValue(1);
       aba.getRange(linha, COL.OBS).setValue('');
+      jaEnviado[email.toLowerCase()] = true;
       SpreadsheetApp.flush();
 
       enviados++;
