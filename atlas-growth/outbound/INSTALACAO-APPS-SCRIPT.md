@@ -41,24 +41,37 @@ Só confira que ele está lá e **deixe parado** na caixa de rascunhos. Não env
 O script recusa rodar se o rascunho não tiver `{{nome}}` — proteção contra
 disparar a versão com o nome fixo de novo.
 
-### Sobre os links: o Gmail reescreve, o script desfaz
+### Sobre os links e o aviso de redirecionamento
 
 O Gmail reembrulha **todo** link de mensagem armazenada em
 `https://www.google.com/url?q=...`. Não adianta limpar no rascunho: ele reescreve
 de novo na próxima vez que salvar.
 
-Num disparo em massa isso importa — redirecionador de terceiro é padrão de
-phishing para os filtros e derruba entregabilidade.
-
-Por isso a limpeza acontece **no envio**, pela função `limparUrls_()`. O link sai
-assim para o destinatário:
+Isso importa num disparo em massa — redirecionador de terceiro é padrão de
+phishing para os filtros. Por isso a limpeza acontece **no envio**, pela função
+`limparUrls_()`, e o link sai assim:
 
 ```
 https://atlas-partner.com/?utm_source=email&utm_medium=outbound&utm_campaign=prospeccao#contato
 ```
 
-Você não precisa fazer nada. Só não se assuste ao ver `google.com/url` dentro do
-rascunho — é esperado.
+**O que a limpeza resolve e o que não resolve.** Ela garante que o HTML enviado
+carrega o endereço direto. O que ela não controla é a camada de exibição do
+próprio Gmail: ao **abrir** a mensagem dentro do Gmail — inclusive a sua cópia
+em Enviados — o Google reescreve os links na hora de mostrar a página e exibe o
+aviso de "você está saindo". É comportamento antiphishing do cliente, não tem
+chave para desligar do lado de quem envia.
+
+Ou seja: **teste no Outlook/Hotmail ou no celular, nunca na cópia do Gmail.** Se
+lá o link abrir direto, está correto — é só o Gmail enfeitando o que ele mesmo
+exibe.
+
+Se o aviso aparecer também fora do Gmail, aí o embrulho veio junto na mensagem e
+a limpeza falhou: rode **2. Conferir links do template** e me avise.
+
+**Texto puro.** A versão sem HTML agora imprime a URL completa com `https://`.
+Antes, a âncora "atlas-partner.com" virava texto solto e o leitor auto-linkava
+como `http://` — sem o s, o que dispara aviso de site não seguro.
 
 ### Quando hospedar a apresentação
 
@@ -111,13 +124,41 @@ os links não estão embrulhados no `google.com/url`.
 
 ## 7. Ligar o automático
 
-**Atlas Outbound → Criar gatilhos diários**
+**Atlas Outbound → ▶ Ligar automação**
 
-- Lote principal: todo dia às **9h20**
-- Follow-ups: todo dia às **14h40**
+A partir daí você não precisa abrir a planilha. O script passa a:
 
-Horário de Brasília, minutos quebrados de propósito para não cair no mesmo
-instante que todo mundo.
+- rodar **de hora em hora, das 9h às 17h**, só em **dias úteis** (Brasília);
+- dividir a cota do dia pelas horas que ainda restam, em vez de despejar tudo
+  de uma vez — 8 segundos entre cada envio;
+- **subir o volume sozinho**, uma semana por degrau: 20 → 40 → 60 → 100/dia;
+- disparar os **follow-ups** D+3 e D+7 todo dia às 14h40;
+- te mandar um **resumo por e-mail às 17h50** com enviados no dia, respostas,
+  opt-outs, erros e quanto falta na lista.
+
+Para parar: **⏸ Pausar automação**. Remove os gatilhos e não apaga nada da
+planilha — religar continua de onde parou.
+
+**Atlas Outbound → Ver status da campanha** mostra a qualquer momento em que
+semana da rampa você está, o teto do dia, quantos já saíram e quanto falta.
+
+### Mudar o ritmo
+
+No bloco `CFG`, no topo do arquivo:
+
+```js
+SOMENTE_DIAS_UTEIS: true,
+HORA_INICIO: 9,
+HORA_FIM: 17,
+RAMPA_DIARIA: [20, 40, 60, 100],
+ENVIAR_RELATORIO: true,
+```
+
+`RAMPA_DIARIA` é um degrau por semana; depois do último, fica no teto para
+sempre. Se quiser começar mais devagar, troque para `[10, 20, 40, 60, 100]`.
+
+Depois de mexer em `HORA_INICIO`, `HORA_FIM` ou `ENVIAR_RELATORIO`, rode
+**▶ Ligar automação** de novo — os gatilhos são recriados com os novos horários.
 
 ---
 
@@ -146,6 +187,12 @@ contato.
 **Protege a quota.** Para o lote quando faltam 5 envios para o limite diário do
 Gmail, em vez de estourar no meio.
 
+**Sobe o volume sozinho.** Conta os dias desde que você ligou a automação e
+aplica o degrau da semana. Não precisa lembrar de editar nada na segunda-feira.
+
+**Não trabalha de madrugada nem no fim de semana.** E-mail frio chegando
+sábado às 3h é sinal de robô.
+
 **Espaça os envios.** 8 segundos entre um e outro. Rajada de 20 e-mails no mesmo
 segundo é padrão de robô.
 
@@ -154,14 +201,18 @@ segundo é padrão de robô.
 ## Escalonar o volume
 
 Domínio novo em disparo frio queima rápido, e recuperar reputação leva meses.
-Suba `MAX_POR_EXECUCAO` só se o bounce ficar abaixo de 3%:
+A rampa já está no código (`RAMPA_DIARIA`) e sobe sozinha:
 
-| Semana | MAX_POR_EXECUCAO |
+| Semana | E-mails/dia |
 |---|---|
 | 1 | 20 |
 | 2 | 40 |
 | 3 | 60 |
 | 4+ | 100 |
+
+**Confira o bounce no fim de cada semana.** Se passar de 3%, edite
+`RAMPA_DIARIA` para segurar no degrau atual e limpe a lista antes de subir.
+A rampa é automática; a decisão de continuar não é.
 
 ## Antes do primeiro disparo real
 
@@ -180,7 +231,9 @@ Suba `MAX_POR_EXECUCAO` só se o bounce ficar abaixo de 3%:
 | "Não contém {{nome}}" | Falta a variável no corpo — é a proteção funcionando |
 | `thread_id` vazio | A busca não achou a thread; o follow-up daquela linha não sai. Preencha à mão ou reenvie |
 | Status `ERRO` | O motivo está na coluna `observacao` |
-| Nada dispara no horário | Gatilhos não criados, ou a autorização expirou. Rode o menu uma vez à mão |
+| Nada dispara no horário | Gatilhos não criados, ou a autorização expirou. Rode "▶ Ligar automação" de novo |
+| Enviou menos do que o esperado | Normal: a cota do dia é dividida pelas horas restantes. Veja "Ver status da campanha" |
+| Não chegou o resumo das 17h50 | `ENVIAR_RELATORIO` está `false`, ou é fim de semana |
 
 ## Limites do Gmail
 

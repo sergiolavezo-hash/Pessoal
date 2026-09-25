@@ -29,11 +29,28 @@ const CFG = {
   // Assunto real que vai para o destinatário.
   ASSUNTO_ENVIO: 'O dado existe. A decisão é que demora.',
 
-  // Teto por execução. Comece em 20 e suba semana a semana.
+  // Teto por execução manual pelo menu. O automático usa a rampa abaixo.
   MAX_POR_EXECUCAO: 20,
 
   // Intervalo entre envios, em segundos. Evita rajada.
   PAUSA_SEGUNDOS: 8,
+
+  // --- agendamento automático ---
+  // Só dispara de segunda a sexta. Fim de semana não gera resposta B2B
+  // e concentra reclamação de spam.
+  SOMENTE_DIAS_UTEIS: true,
+
+  // Janela de envio, hora cheia. 9 às 17 = nove execuções por dia.
+  HORA_INICIO: 9,
+  HORA_FIM: 17,
+
+  // Rampa de aquecimento: teto POR DIA em cada semana de campanha.
+  // Domínio novo em disparo frio queima rápido; subir devagar é o que
+  // protege a reputação. Depois da última faixa, mantém o último valor.
+  RAMPA_DIARIA: [20, 40, 60, 100],
+
+  // Relatório diário no fim da janela.
+  ENVIAR_RELATORIO: true,
 
   DIAS_FOLLOWUP_1: 3,
   DIAS_FOLLOWUP_2: 7,
@@ -61,11 +78,14 @@ function onOpen() {
     .createMenu('Atlas Outbound')
     .addItem('1. Validar planilha (não envia)', 'validarPlanilha')
     .addItem('2. Conferir links do template', 'conferirLinks')
-    .addItem('3. Enviar lote', 'enviarLote')
-    .addItem('4. Enviar follow-ups', 'enviarFollowUps')
+    .addItem('3. Enviar lote agora', 'enviarLote')
+    .addItem('4. Enviar follow-ups agora', 'enviarFollowUps')
     .addSeparator()
+    .addItem('▶  Ligar automação', 'criarGatilhos')
+    .addItem('⏸  Pausar automação', 'pausarAutomacao')
+    .addSeparator()
+    .addItem('Ver status da campanha', 'verStatus')
     .addItem('Ver quota restante hoje', 'mostrarQuota')
-    .addItem('Criar gatilhos diários', 'criarGatilhos')
     .addToUi();
 }
 
@@ -138,16 +158,35 @@ function primeiroNome_(nome) {
 
 // ============================== ENVIO ======================================
 
-function enviarLote() {
+/**
+ * Execução automática, de hora em hora dentro da janela.
+ * Calcula quanto ainda cabe hoje pela rampa e envia só a fatia daquela hora.
+ * Rodar fora da janela ou no fim de semana não faz nada.
+ */
+function enviarLoteAutomatico() {
+  if (!dentroDaJanela_()) {
+    Logger.log('Fora da janela de envio. Nada a fazer.');
+    return;
+  }
+  const limite = vagasDestaHora_();
+  if (limite <= 0) {
+    Logger.log('Cota do dia já cumprida.');
+    return;
+  }
+  enviarLote(limite);
+}
+
+function enviarLote(limitePersonalizado) {
   const aba = planilha_();
   const template = pegarTemplate_();
   const anexos = pegarAnexos_();
   const dados = aba.getDataRange().getValues();
 
+  const teto = limitePersonalizado || CFG.MAX_POR_EXECUCAO;
   let enviados = 0, pulados = 0, erros = 0;
   const quota = MailApp.getRemainingDailyQuota();
 
-  for (let i = 1; i < dados.length && enviados < CFG.MAX_POR_EXECUCAO; i++) {
+  for (let i = 1; i < dados.length && enviados < teto; i++) {
     const linha = i + 1;
     const email = String(dados[i][COL.EMAIL - 1] || '').trim();
     const nome = String(dados[i][COL.NOME - 1] || '').trim();
@@ -396,10 +435,29 @@ function registrar_(aba, linha, status, obs) {
   SpreadsheetApp.flush();
 }
 
+/**
+ * Converte o HTML em texto puro.
+ *
+ * Os links viram URL completa e explícita. Sem isso, a âncora
+ * "atlas-partner.com" virava texto solto e o cliente de e-mail
+ * auto-linkava como http:// (sem o s) — o que dispara aviso de
+ * site não seguro em parte dos leitores.
+ */
 function htmlParaTexto_(html) {
   return html
     .replace(/<style[\s\S]*?<\/style>/gi, '')
     .replace(/<head[\s\S]*?<\/head>/gi, '')
+    .replace(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi,
+      function (tudo, href, texto) {
+        const rotulo = texto.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+        if (/^(mailto:|tel:)/i.test(href)) return rotulo || href.replace(/^\w+:/, '');
+        if (!rotulo) return href;
+        // rótulo que já é o próprio endereço: mostra só a URL completa
+        const nu = rotulo.toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '');
+        const hu = href.toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '');
+        if (hu.indexOf(nu) === 0) return href;
+        return rotulo + ': ' + href;
+      })
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<\/(p|div|tr|h1|h2|h3|li)>/gi, '\n')
     .replace(/<[^>]+>/g, '')
@@ -428,27 +486,181 @@ function notificar_(titulo, msg) {
   }
 }
 
+// ========================== RITMO DA CAMPANHA ==============================
+
+const TZ = 'America/Sao_Paulo';
+
+/** Hoje é dia útil e estamos dentro da janela de envio? */
+function dentroDaJanela_() {
+  const agora = new Date();
+  const dia = Number(Utilities.formatDate(agora, TZ, 'u'));   // 1=seg ... 7=dom
+  const hora = Number(Utilities.formatDate(agora, TZ, 'H'));
+
+  if (CFG.SOMENTE_DIAS_UTEIS && dia > 5) return false;
+  return hora >= CFG.HORA_INICIO && hora < CFG.HORA_FIM;
+}
+
+/**
+ * Data em que a campanha começou. Guardada na primeira execução e usada
+ * para saber em que semana da rampa estamos.
+ */
+function inicioDaCampanha_() {
+  const props = PropertiesService.getScriptProperties();
+  let iso = props.getProperty('INICIO_CAMPANHA');
+  if (!iso) {
+    iso = Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd');
+    props.setProperty('INICIO_CAMPANHA', iso);
+  }
+  const p = iso.split('-');
+  return new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+}
+
+/** Teto de envios para hoje, conforme a semana da rampa. */
+function limiteDiarioHoje_() {
+  const dias = Math.floor((new Date() - inicioDaCampanha_()) / 86400000);
+  const semana = Math.floor(dias / 7);
+  const r = CFG.RAMPA_DIARIA;
+  return semana < r.length ? r[semana] : r[r.length - 1];
+}
+
+/** Quantos já saíram hoje, lendo a coluna enviado_em. */
+function enviadosHoje_() {
+  const hoje = Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd');
+  const dados = planilha_().getDataRange().getValues();
+  let n = 0;
+  for (let i = 1; i < dados.length; i++) {
+    const d = dados[i][COL.ENVIADO - 1];
+    if (d instanceof Date && Utilities.formatDate(d, TZ, 'yyyy-MM-dd') === hoje) n++;
+  }
+  return n;
+}
+
+/**
+ * Quantos cabem nesta execução. Divide o que falta do dia pelas horas que
+ * ainda restam na janela, para os envios saírem espalhados em vez de em
+ * rajada — rajada é o padrão que os filtros reconhecem como robô.
+ */
+function vagasDestaHora_() {
+  const falta = limiteDiarioHoje_() - enviadosHoje_();
+  if (falta <= 0) return 0;
+  const hora = Number(Utilities.formatDate(new Date(), TZ, 'H'));
+  const janelasRestantes = Math.max(1, CFG.HORA_FIM - hora);
+  return Math.max(1, Math.ceil(falta / janelasRestantes));
+}
+
+/** Situação da campanha, sem enviar nada. */
+function verStatus() {
+  const dados = planilha_().getDataRange().getValues();
+  const conta = {};
+  for (let i = 1; i < dados.length; i++) {
+    const s = String(dados[i][COL.STATUS - 1] || 'PENDENTE').trim() || 'PENDENTE';
+    conta[s] = (conta[s] || 0) + 1;
+  }
+  const linhas = Object.keys(conta).sort().map(function (k) {
+    return '  ' + k + ': ' + conta[k];
+  }).join('\n');
+
+  SpreadsheetApp.getUi().alert(
+    'Campanha\n\n' +
+    'Início: ' + Utilities.formatDate(inicioDaCampanha_(), TZ, 'dd/MM/yyyy') + '\n' +
+    'Teto de hoje: ' + limiteDiarioHoje_() + ' e-mails\n' +
+    'Enviados hoje: ' + enviadosHoje_() + '\n' +
+    'Quota do Gmail: ' + MailApp.getRemainingDailyQuota() + '\n\n' +
+    'Planilha:\n' + linhas
+  );
+}
+
+/** Resumo do dia por e-mail. Roda uma vez, no fim da janela. */
+function relatorioDiario() {
+  if (!CFG.ENVIAR_RELATORIO) return;
+  const dia = Number(Utilities.formatDate(new Date(), TZ, 'u'));
+  if (CFG.SOMENTE_DIAS_UTEIS && dia > 5) return;
+
+  const dados = planilha_().getDataRange().getValues();
+  const conta = {};
+  let pendentes = 0;
+  for (let i = 1; i < dados.length; i++) {
+    const s = String(dados[i][COL.STATUS - 1] || '').trim();
+    if (!s) { pendentes++; continue; }
+    conta[s] = (conta[s] || 0) + 1;
+  }
+
+  const corpo =
+    'Enviados hoje: ' + enviadosHoje_() + ' de ' + limiteDiarioHoje_() + '\n' +
+    'Ainda na fila: ' + pendentes + '\n\n' +
+    Object.keys(conta).sort().map(function (k) {
+      return k + ': ' + conta[k];
+    }).join('\n') + '\n\n' +
+    'Quota restante do Gmail: ' + MailApp.getRemainingDailyQuota() + '\n\n' +
+    'Planilha: ' + SpreadsheetApp.getActiveSpreadsheet().getUrl();
+
+  GmailApp.sendEmail(
+    Session.getActiveUser().getEmail(),
+    'Outbound Atlas · resumo de ' + Utilities.formatDate(new Date(), TZ, 'dd/MM'),
+    corpo
+  );
+}
+
 // ============================== GATILHOS ===================================
 
 /** Cria os gatilhos diários. Rode uma vez. */
 function criarGatilhos() {
-  ScriptApp.getProjectTriggers().forEach(function (t) {
-    const f = t.getHandlerFunction();
-    if (f === 'enviarLote' || f === 'enviarFollowUps') ScriptApp.deleteTrigger(t);
-  });
+  removerGatilhos_();
 
-  ScriptApp.newTrigger('enviarLote').timeBased()
-    .atHour(9).nearMinute(20).everyDays(1)
-    .inTimezone('America/Sao_Paulo').create();
+  // Envio: de hora em hora. A própria função ignora fim de semana e
+  // horário fora da janela, então não precisa de gatilho por hora cheia.
+  ScriptApp.newTrigger('enviarLoteAutomatico').timeBased()
+    .everyHours(1).create();
 
+  // Follow-ups: uma vez por dia, no meio da tarde.
   ScriptApp.newTrigger('enviarFollowUps').timeBased()
     .atHour(14).nearMinute(40).everyDays(1)
-    .inTimezone('America/Sao_Paulo').create();
+    .inTimezone(TZ).create();
+
+  // Resumo no fim da janela.
+  if (CFG.ENVIAR_RELATORIO) {
+    ScriptApp.newTrigger('relatorioDiario').timeBased()
+      .atHour(CFG.HORA_FIM).nearMinute(50).everyDays(1)
+      .inTimezone(TZ).create();
+  }
+
+  inicioDaCampanha_();   // fixa a data de início da rampa
 
   SpreadsheetApp.getUi().alert(
-    'Gatilhos criados\n\n' +
-    'Lote principal: todo dia às 9h20\n' +
-    'Follow-ups: todo dia às 14h40\n\n' +
-    'Horário de Brasília. Para parar, remova em Gatilhos no editor.'
+    'Automação ligada\n\n' +
+    'Envio: de hora em hora, das ' + CFG.HORA_INICIO + 'h às ' + CFG.HORA_FIM + 'h' +
+    (CFG.SOMENTE_DIAS_UTEIS ? ', só em dias úteis' : '') + '\n' +
+    'Follow-ups: todo dia às 14h40\n' +
+    (CFG.ENVIAR_RELATORIO ? 'Resumo: todo dia às ' + CFG.HORA_FIM + 'h50\n' : '') +
+    '\nRampa de aquecimento por semana:\n  ' +
+    CFG.RAMPA_DIARIA.map(function (v, i) {
+      return 'semana ' + (i + 1) + ': ' + v + '/dia';
+    }).join('\n  ') + '\n  depois: ' +
+    CFG.RAMPA_DIARIA[CFG.RAMPA_DIARIA.length - 1] + '/dia\n\n' +
+    'Teto de hoje: ' + limiteDiarioHoje_() + ' e-mails.\n' +
+    'Horário de Brasília. Para parar, use Pausar automação.'
   );
+}
+
+/** Desliga tudo. A planilha e o histórico ficam intactos. */
+function pausarAutomacao() {
+  const n = removerGatilhos_();
+  SpreadsheetApp.getUi().alert(
+    'Automação pausada\n\n' + n + ' gatilho(s) removido(s).\n\n' +
+    'Nenhum envio automático vai acontecer. O menu continua funcionando ' +
+    'para envio manual, e a rampa retoma de onde parou quando você religar.'
+  );
+}
+
+function removerGatilhos_() {
+  const meus = ['enviarLote', 'enviarLoteAutomatico', 'enviarFollowUps',
+                'relatorioDiario'];
+  let n = 0;
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (meus.indexOf(t.getHandlerFunction()) !== -1) {
+      ScriptApp.deleteTrigger(t);
+      n++;
+    }
+  });
+  return n;
 }
