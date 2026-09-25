@@ -38,6 +38,11 @@ const CFG = {
   // --- agendamento automático ---
   // Só dispara de segunda a sexta. Fim de semana não gera resposta B2B
   // e concentra reclamação de spam.
+  // Deixe vazio se o script foi criado por Extensões → Apps Script de dentro
+  // da planilha. Preencha com o ID da URL (entre /d/ e /edit) se o projeto
+  // for avulso — sem isso, getActiveSpreadsheet() devolve null.
+  PLANILHA_ID: '',
+
   SOMENTE_DIAS_UTEIS: true,
 
   // Janela de envio, hora cheia. 9 às 17 = nove execuções por dia.
@@ -95,7 +100,7 @@ function onOpen() {
 }
 
 function mostrarQuota() {
-  SpreadsheetApp.getUi().alert(
+  avisar_(
     'Quota do Gmail\n\n' + MailApp.getRemainingDailyQuota() +
     ' e-mails restantes hoje nesta conta.'
   );
@@ -125,7 +130,7 @@ function validarPlanilha() {
     }
   }
 
-  SpreadsheetApp.getUi().alert(
+  avisar_(
     'Validação concluída\n\n' + ok + ' prontos para envio\n' +
     pulados + ' pulados (veja a coluna observacao)'
   );
@@ -355,9 +360,29 @@ function encerramento_(nome) {
 
 // ============================= AUXILIARES ==================================
 
+/**
+ * Devolve a aba de contatos.
+ *
+ * getActiveSpreadsheet() devolve null quando o projeto não está vinculado a
+ * uma planilha (criado avulso em script.google.com em vez de Extensões →
+ * Apps Script). Por isso preferimos openById quando CFG.PLANILHA_ID estiver
+ * preenchido — openById funciona em qualquer contexto, inclusive gatilho.
+ */
 function planilha_() {
-  const aba = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CFG.ABA);
-  if (!aba) throw new Error('Aba "' + CFG.ABA + '" não encontrada.');
+  let ss = null;
+  if (CFG.PLANILHA_ID) {
+    ss = SpreadsheetApp.openById(CFG.PLANILHA_ID);
+  } else {
+    ss = SpreadsheetApp.getActiveSpreadsheet();
+    if (!ss) {
+      throw new Error(
+        'Nenhuma planilha ativa. Este projeto não está vinculado a uma ' +
+        'planilha. Preencha CFG.PLANILHA_ID com o ID que aparece na URL ' +
+        'da planilha, entre /d/ e /edit.');
+    }
+  }
+  const aba = ss.getSheetByName(CFG.ABA);
+  if (!aba) throw new Error('Aba "' + CFG.ABA + '" não encontrada em ' + ss.getName() + '.');
   return aba;
 }
 
@@ -404,7 +429,7 @@ function conferirLinks() {
   const encontrados = html.match(/href="([^"]+)"/g) || [];
   const sobrouWrapper = html.indexOf('google.com/url') !== -1;
 
-  SpreadsheetApp.getUi().alert(
+  avisar_(
     'Links do template\n\n' +
     encontrados.map(function (h) {
       return h.replace('href="', '').replace('"', '');
@@ -496,6 +521,18 @@ function textoParaHtml_(texto) {
          'line-height:22px;color:#222">' + esc.replace(/\n/g, '<br>') + '</div>';
 }
 
+/**
+ * Alerta em caixa de diálogo. Cai no log quando não há interface — é o que
+ * acontece em toda execução por gatilho.
+ */
+function avisar_(texto) {
+  try {
+    SpreadsheetApp.getUi().alert(texto);
+  } catch (e) {
+    Logger.log(texto);
+  }
+}
+
 function notificar_(titulo, msg) {
   try {
     SpreadsheetApp.getActiveSpreadsheet().toast(msg, titulo, 8);
@@ -578,7 +615,7 @@ function verStatus() {
     return '  ' + k + ': ' + conta[k];
   }).join('\n');
 
-  SpreadsheetApp.getUi().alert(
+  avisar_(
     'Campanha\n\n' +
     'Início: ' + Utilities.formatDate(inicioDaCampanha_(), TZ, 'dd/MM/yyyy') + '\n' +
     'Teto de hoje: ' + limiteDiarioHoje_() + ' e-mails\n' +
@@ -610,7 +647,7 @@ function relatorioDiario() {
       return k + ': ' + conta[k];
     }).join('\n') + '\n\n' +
     'Quota restante do Gmail: ' + MailApp.getRemainingDailyQuota() + '\n\n' +
-    'Planilha: ' + SpreadsheetApp.getActiveSpreadsheet().getUrl();
+    'Planilha: ' + planilha_().getParent().getUrl();
 
   GmailApp.sendEmail(
     Session.getActiveUser().getEmail(),
@@ -644,11 +681,11 @@ function criarGatilhos() {
 
   inicioDaCampanha_();   // fixa a data de início da rampa
 
-  SpreadsheetApp.getUi().alert(
+  avisar_(
     'Automação ligada\n\n' +
     'Envio: de hora em hora, das ' + CFG.HORA_INICIO + 'h às ' + CFG.HORA_FIM + 'h' +
     (CFG.SOMENTE_DIAS_UTEIS ? ', só em dias úteis' : '') + '\n' +
-    'Follow-ups: todo dia às 14h40\n' +
+    'Follow-ups: dias úteis às 14h40\n' +
     (CFG.ENVIAR_RELATORIO ? 'Resumo: todo dia às ' + CFG.HORA_FIM + 'h50\n' : '') +
     '\nRampa de aquecimento por semana:\n  ' +
     CFG.RAMPA_DIARIA.map(function (v, i) {
@@ -663,7 +700,7 @@ function criarGatilhos() {
 /** Desliga tudo. A planilha e o histórico ficam intactos. */
 function pausarAutomacao() {
   const n = removerGatilhos_();
-  SpreadsheetApp.getUi().alert(
+  avisar_(
     'Automação pausada\n\n' + n + ' gatilho(s) removido(s).\n\n' +
     'Nenhum envio automático vai acontecer. O menu continua funcionando ' +
     'para envio manual, e a rampa retoma de onde parou quando você religar.'
