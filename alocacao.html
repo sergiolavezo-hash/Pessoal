@@ -311,6 +311,10 @@
   .case-fields dt { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); padding-top: 0.15rem; }
   .case-fields dd { color: var(--muted); }
   .case-metrics { display: grid; gap: 1rem; align-content: start; }
+  /* Sem isto o rótulo e a descrição colam: "Canais comparáveisloja física". */
+  .case-metrics p b { display: block; font-weight: 700; color: var(--ink); }
+  .case-metrics p span { display: block; color: var(--muted); font-size: 0.88rem; margin-top: 0.2rem; }
+  .case-metrics > p:not(.cm-k) { border-left: 2px solid var(--accent); padding-left: 0.9rem; }
   .metric { border-left: 2px solid var(--accent); padding-left: 1rem; }
   .metric .num { font-family: var(--display); font-size: 2.1rem; font-weight: 800; color: var(--ink); line-height: 1; }
   .metric .num-sm { font-family: var(--display); font-size: 1.15rem; font-weight: 800; color: var(--ink); }
@@ -324,6 +328,28 @@
   .case-mini .stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
   .case-mini .stack span { font-size: 0.68rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.55rem; }
   .cases-note { margin-top: 1.8rem; font-size: 0.85rem; color: var(--dim); }
+
+  /* ---------- Antes e depois ---------- */
+  /* O eixo do case. Onde há número dos dois lados — 200+ painéis para 1
+     ambiente — ele é o argumento; onde não há, o contraste é o estado,
+     e não um número inventado para preencher a forma. */
+  .ad {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.9rem; align-items: stretch;
+    margin: 1.2rem 0 0.4rem; padding: 1rem; border-radius: 12px;
+    border: 1px solid var(--line); background: rgba(5,7,10,0.45);
+  }
+  .ad-lado { display: flex; flex-direction: column; gap: 0.15rem; }
+  .ad-k { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
+  .ad-n { font-family: var(--display); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-top: 0.15rem; }
+  .ad-d { font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-top: 0.15rem; }
+  .ad-pos .ad-k { color: var(--accent-light); }
+  .ad-pos .ad-n { color: var(--accent-light); }
+  .ad-seta { align-self: center; font-family: var(--mono); color: var(--accent); font-size: 1.1rem; }
+  @media (max-width: 560px) {
+    .ad { grid-template-columns: 1fr; gap: 0.6rem; }
+    .ad-seta { justify-self: start; transform: rotate(90deg); }
+    .ad-n { font-size: 1.3rem; }
+  }
 
   .cm-k {
     font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
