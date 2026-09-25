@@ -177,8 +177,9 @@ PAGINAS = [
         capacidades=[
             ('Perfis que alocamos', ['Engenheiro de dados', 'Analista e desenvolvedor de BI',
                                      'Cientista de dados', 'Arquiteto de dados']),
-            ('Como funciona', ['Alocação sob a gestão do cliente', 'Respaldo técnico da Atlas por trás',
-                               'Substituição sem quebra de ritmo', 'Acompanhamento periódico']),
+            ('Como funciona', ['Contratos de no mínimo 6 meses', 'Alocações por tempo indeterminado',
+                               'Sob a gestão do cliente, com respaldo técnico da Atlas',
+                               'Substituição sem quebra de ritmo']),
             ('Squads completos', ['Time montado por perfil e senioridade', 'Liderança técnica da Atlas',
                                   'Ritmo de entrega acordado', 'Transferência de conhecimento']),
         ],
@@ -190,9 +191,10 @@ PAGINAS = [
                      ('dbt', 'dbt', 1), ('Airflow', 'airflow', 1), ('Databricks', 'databricks', 1),
                      ('BigQuery', 'bigquery', 1), ('Spark', 'spark', 0)],
         case=None,
-        prova=('Os mesmos especialistas que entregam os projetos da Atlas são os que '
-               'atuam alocados. O histórico técnico está nos cases — mais de 13 projetos '
-               'documentados, em mais de 10 setores.'),
+        prova=('Mais de 150 profissionais já alocados, em contratos de no mínimo seis '
+               'meses e boa parte por tempo indeterminado — o cliente renova porque quer '
+               'manter a pessoa. São mais de 150 mil horas entregues dentro do time de '
+               'quem contrata, nos mesmos setores dos cases.'),
         cta='Falar sobre alocação',
         cta2='Ver os projetos entregues',
     ),
