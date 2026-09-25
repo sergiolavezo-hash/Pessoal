@@ -55,6 +55,11 @@ const CFG = {
   DIAS_FOLLOWUP_1: 3,
   DIAS_FOLLOWUP_2: 7,
 
+  // Intervalo mínimo entre DOIS e-mails para o mesmo contato.
+  // Impede que follow-up 1 e 2 saiam colados quando a campanha
+  // ficou parada e a régua de D+3 / D+7 já venceu.
+  INTERVALO_MINIMO_DIAS: 3,
+
   // Anexo. Prefira deixar false e usar link no corpo.
   ANEXAR_PDF: false,
   ID_PDF_DRIVE: '',           // id do arquivo no Drive, se ANEXAR_PDF = true
@@ -245,6 +250,10 @@ function enviarLote(limitePersonalizado) {
 // ============================= FOLLOW-UPS ==================================
 
 function enviarFollowUps() {
+  if (CFG.SOMENTE_DIAS_UTEIS) {
+    const diaSemana = Number(Utilities.formatDate(new Date(), TZ, 'u'));
+    if (diaSemana > 5) { Logger.log('Fim de semana. Follow-ups não saem.'); return; }
+  }
   const aba = planilha_();
   const dados = aba.getDataRange().getValues();
   const hoje = new Date();
@@ -282,6 +291,15 @@ function enviarFollowUps() {
       registrar_(aba, linha, 'RESPONDEU', 'respondeu — sequência interrompida');
       continue;
     }
+
+    // Quanto tempo desde o ÚLTIMO e-mail desta thread — não desde o primeiro.
+    // Como já confirmamos acima que ninguém respondeu, a última mensagem da
+    // thread é necessariamente nossa. Sem esta guarda, um contato que ficou
+    // parado em etapa 1 por duas semanas receberia o follow-up 1 hoje e o
+    // encerramento amanhã, porque os dois prazos já teriam vencido.
+    const diasDesdeUltimo = Math.floor(
+      (hoje - thread.getLastMessageDate()) / 86400000);
+    if (diasDesdeUltimo < CFG.INTERVALO_MINIMO_DIAS) continue;
 
     let corpo = null;
     if (etapa === 1 && dias >= CFG.DIAS_FOLLOWUP_1) {

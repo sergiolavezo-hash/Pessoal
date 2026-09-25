@@ -176,6 +176,13 @@ malformado, nome que é número.
 **Follow-up na mesma thread.** D+3 e D+7 saem como resposta ao primeiro e-mail,
 não como mensagem nova. Muda bastante a taxa de resposta.
 
+**Nunca dois e-mails colados.** Além do D+3 e do D+7 contados a partir do
+primeiro e-mail, o script exige **no mínimo 3 dias desde a última mensagem
+daquela thread**. Sem isso, um contato que ficou parado enquanto a campanha
+estava pausada receberia o follow-up 1 num dia e o encerramento no dia seguinte,
+porque os dois prazos já teriam vencido. Follow-ups também não saem no fim de
+semana.
+
 **Para quando a pessoa responde.** Antes de cada follow-up, lê a thread. Se
 apareceu mensagem de alguém que não é você, marca `RESPONDEU` e encerra a
 sequência — ninguém recebe follow-up depois de ter respondido.
