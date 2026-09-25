@@ -26,6 +26,11 @@ const CFG = {
   // Assunto exato do rascunho no Gmail que serve de template.
   ASSUNTO_RASCUNHO: 'TEMPLATE Atlas Outbound',
 
+  // Rascunhos dos follow-ups. Deixe vazio para usar o texto puro embutido
+  // no código (followUp1_ / encerramento_) em vez do HTML do Gmail.
+  ASSUNTO_RASCUNHO_2: 'TEMPLATE Atlas Outbound 2',
+  ASSUNTO_RASCUNHO_3: 'TEMPLATE Atlas Outbound 3',
+
   // Assunto real que vai para o destinatário.
   ASSUNTO_ENVIO: 'O dado existe. A decisão é que demora.',
 
@@ -87,7 +92,7 @@ function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu('Atlas Outbound')
     .addItem('1. Validar planilha (não envia)', 'validarPlanilha')
-    .addItem('2. Conferir links do template', 'conferirLinks')
+    .addItem('2. Conferir os 3 templates', 'conferirLinks')
     .addItem('3. Enviar lote agora', 'enviarLote')
     .addItem('4. Enviar follow-ups agora', 'enviarFollowUps')
     .addSeparator()
@@ -308,14 +313,14 @@ function enviarFollowUps() {
 
     let corpo = null;
     if (etapa === 1 && dias >= CFG.DIAS_FOLLOWUP_1) {
-      corpo = followUp1_(primeiroNome_(nome));
+      corpo = montarFollowUp_(2, primeiroNome_(nome));
     } else if (etapa === 2 && dias >= CFG.DIAS_FOLLOWUP_2) {
-      corpo = encerramento_(primeiroNome_(nome));
+      corpo = montarFollowUp_(3, primeiroNome_(nome));
     }
     if (!corpo) continue;
 
     try {
-      thread.reply(corpo, { htmlBody: textoParaHtml_(corpo), name: CFG.NOME_REMETENTE });
+      thread.reply(corpo.texto, { htmlBody: corpo.html, name: CFG.NOME_REMETENTE });
       aba.getRange(linha, COL.ETAPA).setValue(etapa + 1);
       aba.getRange(linha, COL.OBS).setValue('follow-up ' + (etapa + 1) + ' em ' +
         Utilities.formatDate(hoje, 'America/Sao_Paulo', 'dd/MM'));
@@ -328,6 +333,26 @@ function enviarFollowUps() {
   }
 
   notificar_('Follow-ups', enviados + ' enviados');
+}
+
+/**
+ * Monta o corpo do follow-up da etapa pedida (2 ou 3).
+ *
+ * Preferência: o rascunho HTML no Gmail. Sem rascunho configurado ou
+ * encontrado, cai no texto puro embutido — assim a sequência nunca para
+ * por falta de template.
+ */
+function montarFollowUp_(numero, nome) {
+  const assunto = numero === 2 ? CFG.ASSUNTO_RASCUNHO_2 : CFG.ASSUNTO_RASCUNHO_3;
+  const tpl = pegarTemplate_(assunto, false);
+
+  if (tpl) {
+    const html = tpl.html.replace(/\{\{nome\}\}/g, nome);
+    return { html: html, texto: htmlParaTexto_(html) };
+  }
+
+  const texto = numero === 2 ? followUp1_(nome) : encerramento_(nome);
+  return { html: textoParaHtml_(texto), texto: texto };
 }
 
 function followUp1_(nome) {
@@ -387,19 +412,30 @@ function planilha_() {
 }
 
 /** Lê o rascunho do Gmail que serve de template. */
-function pegarTemplate_() {
+/**
+ * Lê um rascunho do Gmail pelo assunto e devolve { html }.
+ *
+ * obrigatorio = false devolve null em vez de estourar, para o caso dos
+ * follow-ups: sem rascunho, o script cai no texto puro embutido.
+ */
+function pegarTemplate_(assunto, obrigatorio) {
+  const alvo = (assunto || CFG.ASSUNTO_RASCUNHO).trim();
+  if (obrigatorio === undefined) obrigatorio = true;
+  if (!alvo) return null;
+
   const rascunhos = GmailApp.getDrafts();
   for (let i = 0; i < rascunhos.length; i++) {
     const msg = rascunhos[i].getMessage();
-    if (msg.getSubject().trim() === CFG.ASSUNTO_RASCUNHO) {
+    if (msg.getSubject().trim() === alvo) {
       const html = limparUrls_(msg.getBody());
       if (html.indexOf('{{nome}}') === -1) {
-        throw new Error('O rascunho não contém {{nome}}. Adicione a variável antes de enviar.');
+        throw new Error('O rascunho "' + alvo + '" não contém {{nome}}.');
       }
       return { html: html };
     }
   }
-  throw new Error('Rascunho "' + CFG.ASSUNTO_RASCUNHO + '" não encontrado no Gmail.');
+  if (!obrigatorio) return null;
+  throw new Error('Rascunho "' + alvo + '" não encontrado no Gmail.');
 }
 
 /**
@@ -425,20 +461,23 @@ function limparUrls_(html) {
 
 /** Mostra como os links vão sair depois da limpeza. Não envia nada. */
 function conferirLinks() {
-  const html = pegarTemplate_().html;
-  const encontrados = html.match(/href="([^"]+)"/g) || [];
-  const sobrouWrapper = html.indexOf('google.com/url') !== -1;
+  const partes = [
+    { rotulo: 'E-mail 1', assunto: CFG.ASSUNTO_RASCUNHO, obrigatorio: true },
+    { rotulo: 'E-mail 2', assunto: CFG.ASSUNTO_RASCUNHO_2, obrigatorio: false },
+    { rotulo: 'E-mail 3', assunto: CFG.ASSUNTO_RASCUNHO_3, obrigatorio: false }
+  ];
+  const relatorio = partes.map(function (parte) {
+    const tpl = pegarTemplate_(parte.assunto, parte.obrigatorio);
+    if (!tpl) return parte.rotulo + ': sem rascunho — usa o texto puro do código';
+    const links = (tpl.html.match(/href="([^"]+)"/g) || []).map(function (h) {
+      return '   ' + h.replace('href="', '').replace('"', '');
+    });
+    const sujo = tpl.html.indexOf('google.com/url') !== -1;
+    return parte.rotulo + (sujo ? '  ⚠ AINDA HÁ google.com/url' : '  ✓') +
+           '\n' + (links.length ? links.join('\n') : '   (nenhum link)');
+  }).join('\n\n');
 
-  avisar_(
-    'Links do template\n\n' +
-    encontrados.map(function (h) {
-      return h.replace('href="', '').replace('"', '');
-    }).join('\n\n') +
-    '\n\n' +
-    (sobrouWrapper
-      ? '⚠ AINDA HÁ google.com/url — avise antes de disparar.'
-      : '✓ Nenhum redirecionador do Google. Pode disparar.')
-  );
+  avisar_('Links dos templates\n\n' + relatorio);
 }
 
 function pegarAnexos_() {
