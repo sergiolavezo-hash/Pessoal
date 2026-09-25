@@ -60,8 +60,9 @@ function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu('Atlas Outbound')
     .addItem('1. Validar planilha (não envia)', 'validarPlanilha')
-    .addItem('2. Enviar lote', 'enviarLote')
-    .addItem('3. Enviar follow-ups', 'enviarFollowUps')
+    .addItem('2. Conferir links do template', 'conferirLinks')
+    .addItem('3. Enviar lote', 'enviarLote')
+    .addItem('4. Enviar follow-ups', 'enviarFollowUps')
     .addSeparator()
     .addItem('Ver quota restante hoje', 'mostrarQuota')
     .addItem('Criar gatilhos diários', 'criarGatilhos')
@@ -309,7 +310,7 @@ function pegarTemplate_() {
   for (let i = 0; i < rascunhos.length; i++) {
     const msg = rascunhos[i].getMessage();
     if (msg.getSubject().trim() === CFG.ASSUNTO_RASCUNHO) {
-      const html = msg.getBody();
+      const html = limparUrls_(msg.getBody());
       if (html.indexOf('{{nome}}') === -1) {
         throw new Error('O rascunho não contém {{nome}}. Adicione a variável antes de enviar.');
       }
@@ -317,6 +318,45 @@ function pegarTemplate_() {
     }
   }
   throw new Error('Rascunho "' + CFG.ASSUNTO_RASCUNHO + '" não encontrado no Gmail.');
+}
+
+/**
+ * O Gmail reescreve todo link de mensagem armazenada para
+ * https://www.google.com/url?q=<destino>&source=gmail&...
+ *
+ * Num disparo em massa isso derruba entregabilidade: redirecionador de
+ * terceiro é padrão de phishing para os filtros. Não adianta limpar no
+ * rascunho — o Gmail reembrulha. Então desfazemos aqui, no envio.
+ */
+function limparUrls_(html) {
+  return html.replace(
+    /https:\/\/www\.google\.com\/url\?q=([^&"'<>\s]+)((?:&amp;|&)[^"'<>\s]*)?/g,
+    function (original, destino) {
+      try {
+        return decodeURIComponent(destino).replace(/&/g, '&amp;');
+      } catch (e) {
+        return original;   // URL malformada: preserva em vez de quebrar
+      }
+    }
+  );
+}
+
+/** Mostra como os links vão sair depois da limpeza. Não envia nada. */
+function conferirLinks() {
+  const html = pegarTemplate_().html;
+  const encontrados = html.match(/href="([^"]+)"/g) || [];
+  const sobrouWrapper = html.indexOf('google.com/url') !== -1;
+
+  SpreadsheetApp.getUi().alert(
+    'Links do template\n\n' +
+    encontrados.map(function (h) {
+      return h.replace('href="', '').replace('"', '');
+    }).join('\n\n') +
+    '\n\n' +
+    (sobrouWrapper
+      ? '⚠ AINDA HÁ google.com/url — avise antes de disparar.'
+      : '✓ Nenhum redirecionador do Google. Pode disparar.')
+  );
 }
 
 function pegarAnexos_() {

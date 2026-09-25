@@ -22,22 +22,56 @@ cole o arquivo `Codigo.gs` inteiro e salve.
 
 Recarregue a planilha. Vai aparecer um menu novo: **Atlas Outbound**.
 
-## 3. Criar o rascunho que serve de template
+## 3. O rascunho template — já está pronto
 
 O HTML **não fica no código** — fica num rascunho do Gmail. Assim você edita o
 design no próprio Gmail, sem tocar em programação.
 
-1. No Gmail, abra o e-mail que você já montou (o "Dados que chegam tarde demais")
-2. Encaminhe para você mesmo e **salve como rascunho**, sem enviar
-3. Mude o assunto do rascunho para exatamente: **`TEMPLATE Atlas Outbound`**
-4. No corpo, aplique as três alterações do `sequencia-outbound.md`:
-   - o parágrafo de abertura com **`{{nome}}`**
-   - as URLs limpas com UTM
-   - o link da apresentação
-5. Salve e **deixe o rascunho parado** na caixa de rascunhos
+**O rascunho já foi criado na sua conta**, com assunto exatamente
+`TEMPLATE Atlas Outbound`. Ele preserva o design do e-mail original e traz o
+parágrafo de abertura já corrigido:
+
+> {{nome}}, na maioria das operações o dado existe — ele só não chega a tempo,
+> não chega inteiro, ou chega com três versões do mesmo número.
+>
+> Se isso aparece de perto no seu dia, o resto deste e-mail vale dois minutos.
+
+Só confira que ele está lá e **deixe parado** na caixa de rascunhos. Não envie.
 
 O script recusa rodar se o rascunho não tiver `{{nome}}` — proteção contra
 disparar a versão com o nome fixo de novo.
+
+### Sobre os links: o Gmail reescreve, o script desfaz
+
+O Gmail reembrulha **todo** link de mensagem armazenada em
+`https://www.google.com/url?q=...`. Não adianta limpar no rascunho: ele reescreve
+de novo na próxima vez que salvar.
+
+Num disparo em massa isso importa — redirecionador de terceiro é padrão de
+phishing para os filtros e derruba entregabilidade.
+
+Por isso a limpeza acontece **no envio**, pela função `limparUrls_()`. O link sai
+assim para o destinatário:
+
+```
+https://atlas-partner.com/?utm_source=email&utm_medium=outbound&utm_campaign=prospeccao#contato
+```
+
+Você não precisa fazer nada. Só não se assuste ao ver `google.com/url` dentro do
+rascunho — é esperado.
+
+### Quando hospedar a apresentação
+
+O link "Conhecer a Atlas" hoje aponta para a seção de cases do site. Quando você
+subir o `Atlas-Tec-Apresentacao.pdf`, edite o rascunho e troque o texto e o
+destino para:
+
+```
+Apresentação institucional (PDF, 25 páginas)
+https://atlas-partner.com/apresentacao
+```
+
+A UTM o script acrescenta sozinho.
 
 ## 4. Ajustar a configuração
 
@@ -62,10 +96,14 @@ seguir.**
 
 Corrija a planilha e rode de novo até ficar limpo.
 
+Depois rode **2. Conferir links do template**. Ele mostra como cada link vai
+sair depois da limpeza e avisa se sobrou algum `google.com/url`. Se aparecer o
+aviso, não dispare — me avise.
+
 ## 6. Teste em você mesmo
 
 Coloque 2 ou 3 linhas com os seus próprios e-mails no topo da planilha e rode
-**2. Enviar lote**. Na primeira execução o Google pede autorização: vai aparecer
+**3. Enviar lote**. Na primeira execução o Google pede autorização: vai aparecer
 "app não verificado" — é o seu próprio script, clique em Avançado → Acessar.
 
 Abra no Gmail, no Outlook e no celular. Confirme que o nome apareceu certo e que
@@ -138,6 +176,7 @@ Suba `MAX_POR_EXECUCAO` só se o bounce ficar abaixo de 3%:
 | Sintoma | Causa |
 |---|---|
 | "Rascunho não encontrado" | O assunto do rascunho não é exatamente `TEMPLATE Atlas Outbound` |
+| Link sai com `google.com/url` | A limpeza falhou. Rode "Conferir links" e me avise |
 | "Não contém {{nome}}" | Falta a variável no corpo — é a proteção funcionando |
 | `thread_id` vazio | A busca não achou a thread; o follow-up daquela linha não sai. Preencha à mão ou reenvie |
 | Status `ERRO` | O motivo está na coluna `observacao` |
