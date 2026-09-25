@@ -73,18 +73,23 @@ a limpeza falhou: rode **2. Conferir links do template** e me avise.
 Antes, a âncora "atlas-partner.com" virava texto solto e o leitor auto-linkava
 como `http://` — sem o s, o que dispara aviso de site não seguro.
 
-### Quando hospedar a apresentação
+### A apresentação
 
-O link "Conhecer a Atlas" hoje aponta para a seção de cases do site. Quando você
-subir o `Atlas-Tec-Apresentacao.pdf`, edite o rascunho e troque o texto e o
-destino para:
+O template traz um bloco de download logo acima do CTA, apontando para o PDF
+no Drive:
 
 ```
-Apresentação institucional (PDF, 25 páginas)
-https://atlas-partner.com/apresentacao
+https://drive.google.com/uc?export=download&id=1QmNmXgf1InDOFDNFnHoZ7E69X7nYjE2a
 ```
 
-A UTM o script acrescenta sozinho.
+**Não é anexo.** O e-mail continua leve e o arquivo só é baixado por quem
+clicar — o que também vira sinal de interesse, bem mais forte do que abertura.
+
+O link é público (testado sem autenticação). Se um dia você trocar a permissão
+do arquivo para restrita, o destinatário cai numa tela de login e o download
+morre silenciosamente. Se precisar substituir o PDF, use **Gerenciar versões**
+no Drive em vez de subir um arquivo novo: o ID continua o mesmo e o template
+não precisa ser tocado.
 
 ## 4. Ajustar a configuração
 

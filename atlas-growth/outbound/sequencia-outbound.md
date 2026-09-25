@@ -44,24 +44,25 @@ padrão de phishing para os filtros.
 |---|---|
 | Botão "Falar com um especialista" | `https://atlas-partner.com/?utm_source=email&utm_medium=outbound&utm_campaign=prospeccao#contato` |
 | Link "Conhecer a Atlas" | `https://atlas-partner.com/?utm_source=email&utm_medium=outbound&utm_campaign=prospeccao#cases` |
+| Botão "Baixar PDF" | `https://drive.google.com/uc?export=download&id=1QmNmXgf1InDOFDNFnHoZ7E69X7nYjE2a` |
 | Site na assinatura | `https://atlas-partner.com/?utm_source=email&utm_medium=assinatura` |
 | Instagram | `https://instagram.com/atlas_tecnologia` |
 | LinkedIn | `https://www.linkedin.com/company/108583529/` |
 
-## Alteração 3 — a apresentação 🟡
+## Alteração 3 — a apresentação 🟡 (feito)
 
-**Não anexe.** Substitua o link "Conhecer a Atlas" por:
+**Não anexada.** O template tem um bloco de download apontando para o PDF no
+Drive, logo acima do CTA:
 
 ```
-Apresentação institucional (PDF, 25 páginas) →
-https://atlas-partner.com/apresentacao?utm_source=email&utm_medium=outbound
+https://drive.google.com/uc?export=download&id=1QmNmXgf1InDOFDNFnHoZ7E69X7nYjE2a
 ```
 
-Hospede o `Atlas-Tec-Apresentacao.pdf` (1,7 MB, já comprimido) nesse endereço.
-Você ganha entregabilidade e passa a saber **quem abriu** — sinal de interesse
-muito mais forte do que abertura de e-mail.
+Ganha entregabilidade — anexo em e-mail frio derruba as duas coisas — e você
+passa a ter um sinal de interesse muito mais forte do que abertura de e-mail.
 
-Se insistir em anexar, use a versão comprimida. Nunca a de 15 MB.
+Para trocar o PDF mantendo o link: **Gerenciar versões** no Drive, nunca subir
+arquivo novo.
 
 ## Assuntos para testar
 
