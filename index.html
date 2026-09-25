@@ -356,6 +356,16 @@
   .case-mini .stack span { font-size: 0.68rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.55rem; }
   .cases-note { margin-top: 1.8rem; font-size: 0.85rem; color: var(--dim); }
 
+  /* Versão compacta do eixo, para o card de setor. */
+  .adm {
+    display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+    margin: 0.2rem 0 0.7rem; font-family: var(--mono); font-size: 0.7rem;
+  }
+  .adm span { border: 1px solid var(--line); border-radius: 999px; padding: 0.22rem 0.55rem; }
+  .adm-a { color: var(--dim); }
+  .adm-d { color: var(--accent-light); border-color: rgba(46,134,255,0.45) !important; background: rgba(46,134,255,0.1); }
+  .adm i { font-style: normal; color: var(--accent); }
+
   /* ---------- Antes e depois ---------- */
   /* O eixo do case. Onde há número dos dois lados — 200+ painéis para 1
      ambiente — ele é o argumento; onde não há, o contraste é o estado,
@@ -1014,8 +1024,8 @@
           <a class="btn btn-line" href="#solucoes" data-magnetic>Conhecer nossas soluções <span class="arr">→</span></a>
         </div>
         <p class="hero-proof reveal d3 in">
-          <b>500+</b> projetos entregues <i>·</i> <b>10+</b> setores <i>·</i>
-          <b>12.000+</b> horas de alocação
+          <b>500+</b> projetos entregues <i>·</i> <b>150+</b> profissionais alocados
+          <i>·</i> <b>10+</b> setores
         </p>
       </div>
     </div>
@@ -1198,16 +1208,16 @@
 
       <h3 class="cases-more-head reveal">Mais projetos entregues</h3>
       <div class="case-mini-grid reveal d1">
-        <article class="case-mini"><p class="sector">Software &amp; Tecnologia</p><h4>Gestão de incidentes e SLA</h4><p>BI que transformou os chamados do sistema de incidentes em indicadores de SLA, prazo e desempenho operacional.</p><p class="mini-change">O prazo deixou de ser apurado a partir de chamados soltos.</p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>Data Warehouse</span></div></article>
-        <article class="case-mini"><p class="sector">Turismo &amp; Viagens</p><h4>BI de ponta a ponta</h4><p>Arquitetura completa ETL → DW → BI consolidando viagens, hospedagens e locações em uma visão única do negócio.</p><p class="mini-change">Viagens, hospedagens e locações passaram a ser lidas no mesmo indicador.</p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>MicroStrategy</span></div></article>
-        <article class="case-mini"><p class="sector">Serviços Financeiros</p><h4>Camada de dados comercial</h4><p>Estrutura de dados e indicadores consolidando as informações do departamento comercial para análise e decisão.</p><p class="mini-change">O comercial passou a ter número próprio, sem depender de extração pontual.</p><div class="stack"><span>SSIS</span><span>Data Warehouse</span><span>MicroStrategy</span></div></article>
-        <article class="case-mini"><p class="sector">Bancário</p><h4>NPS &amp; Customer Experience</h4><p>Acompanhamento de NPS transformando a voz dos clientes em indicadores de experiência e oportunidades de melhoria.</p><p class="mini-change">A resposta do cliente virou indicador acompanhado, não relatório avulso.</p><div class="stack"><span>NPS</span><span>Analytics</span><span>CX</span></div></article>
-        <article class="case-mini"><p class="sector">Varejo de Moda</p><h4>BI corporativo multiárea</h4><p>Dashboards de vendas, logística e operações dando acesso a indicadores para todas as áreas da organização.</p><p class="mini-change">Vendas, logística e operação passaram a ler os mesmos números.</p><div class="stack"><span>Pentaho</span><span>MicroStrategy</span><span>DW</span></div></article>
-        <article class="case-mini"><p class="sector">Saúde &amp; Diagnóstico</p><h4>Engenharia de dados em GCP</h4><p>Pipelines em BigQuery e Airflow para uma rede de diagnóstico, com migração da visualização de Tableau para Power BI.</p><p class="mini-change">Uma ferramenta de visualização só, com pipeline orquestrado por trás.</p><div class="stack"><span>GCP</span><span>BigQuery</span><span>Airflow</span><span>Power BI</span></div></article>
-        <article class="case-mini"><p class="sector">Educação</p><h4>Predição de evasão de alunos</h4><p>Centenas de dashboards educacionais e modelos preditivos que anteciparam a evasão para apoiar ações preventivas.</p><p class="mini-change">A evasão passou a ser antecipada, em vez de constatada no fim do período.</p><div class="stack"><span>Analytics</span><span>Machine Learning</span><span>BI</span></div></article>
-        <article class="case-mini"><p class="sector">Saúde Hospitalar</p><h4>Design de dados com Figma</h4><p>Protótipos em Figma definindo o padrão visual antes do desenvolvimento — centenas de dashboards Power BI padronizados.</p><p class="mini-change">O padrão visual foi decidido antes de construir, não depois de refazer.</p><div class="stack"><span>Figma</span><span>Power BI</span><span>Data Design</span></div></article>
-        <article class="case-mini"><p class="sector">Food Service</p><h4>Performance diária da rede</h4><p>Painéis de acompanhamento diário das unidades de um grande grupo de restaurantes — desvios visíveis em tempo hábil.</p><p class="mini-change">O desvio da unidade aparece no mesmo dia, não no fechamento do mês.</p><div class="stack"><span>Dashboards</span><span>Operações</span></div></article>
-        <article class="case-mini"><p class="sector">Infraestrutura &amp; Mobilidade</p><h4>Rodovias, pedágios e aeroportos</h4><p>Painéis integrando gestão de acidentes, arrecadação de pedágios e operação aeroportuária em uma visão única.</p><p class="mini-change">Três operações diferentes passaram a caber numa leitura só.</p><div class="stack"><span>Data &amp; BI</span><span>Operações</span></div></article>
+        <article class="case-mini"><p class="sector">Software &amp; Tecnologia</p><h4>Gestão de incidentes e SLA</h4><p>BI que transformou os chamados do sistema de incidentes em indicadores de SLA, prazo e desempenho operacional.</p><p class="adm"><span class="adm-a">Chamados</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Indicadores de SLA</span></p><p class="mini-change">O prazo deixou de ser apurado a partir de chamados soltos.</p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>Data Warehouse</span></div></article>
+        <article class="case-mini"><p class="sector">Turismo &amp; Viagens</p><h4>BI de ponta a ponta</h4><p>Arquitetura completa ETL → DW → BI consolidando viagens, hospedagens e locações em uma visão única do negócio.</p><p class="adm"><span class="adm-a">3 linhas</span><i aria-hidden="true">&rarr;</i><span class="adm-d">1 visão</span></p><p class="mini-change">Viagens, hospedagens e locações passaram a ser lidas no mesmo indicador.</p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>MicroStrategy</span></div></article>
+        <article class="case-mini"><p class="sector">Serviços Financeiros</p><h4>Camada de dados comercial</h4><p>Estrutura de dados e indicadores consolidando as informações do departamento comercial para análise e decisão.</p><p class="adm"><span class="adm-a">Extração pontual</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Camada própria</span></p><p class="mini-change">O comercial passou a ter número próprio, sem depender de extração pontual.</p><div class="stack"><span>SSIS</span><span>Data Warehouse</span><span>MicroStrategy</span></div></article>
+        <article class="case-mini"><p class="sector">Bancário</p><h4>NPS &amp; Customer Experience</h4><p>Acompanhamento de NPS transformando a voz dos clientes em indicadores de experiência e oportunidades de melhoria.</p><p class="adm"><span class="adm-a">Relatório avulso</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Indicador vivo</span></p><p class="mini-change">A resposta do cliente virou indicador acompanhado, não relatório avulso.</p><div class="stack"><span>NPS</span><span>Analytics</span><span>CX</span></div></article>
+        <article class="case-mini"><p class="sector">Varejo de Moda</p><h4>BI corporativo multiárea</h4><p>Dashboards de vendas, logística e operações dando acesso a indicadores para todas as áreas da organização.</p><p class="adm"><span class="adm-a">Por área</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Toda a empresa</span></p><p class="mini-change">Vendas, logística e operação passaram a ler os mesmos números.</p><div class="stack"><span>Pentaho</span><span>MicroStrategy</span><span>DW</span></div></article>
+        <article class="case-mini"><p class="sector">Saúde &amp; Diagnóstico</p><h4>Engenharia de dados em GCP</h4><p>Pipelines em BigQuery e Airflow para uma rede de diagnóstico, com migração da visualização de Tableau para Power BI.</p><p class="adm"><span class="adm-a">2 ferramentas</span><i aria-hidden="true">&rarr;</i><span class="adm-d">1 ferramenta</span></p><p class="mini-change">Uma ferramenta de visualização só, com pipeline orquestrado por trás.</p><div class="stack"><span>GCP</span><span>BigQuery</span><span>Airflow</span><span>Power BI</span></div></article>
+        <article class="case-mini"><p class="sector">Educação</p><h4>Predição de evasão de alunos</h4><p>Centenas de dashboards educacionais e modelos preditivos que anteciparam a evasão para apoiar ações preventivas.</p><p class="adm"><span class="adm-a">Constatada</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Antecipada</span></p><p class="mini-change">A evasão passou a ser antecipada, em vez de constatada no fim do período.</p><div class="stack"><span>Analytics</span><span>Machine Learning</span><span>BI</span></div></article>
+        <article class="case-mini"><p class="sector">Saúde Hospitalar</p><h4>Design de dados com Figma</h4><p>Protótipos em Figma definindo o padrão visual antes do desenvolvimento — centenas de dashboards Power BI padronizados.</p><p class="adm"><span class="adm-a">Padrão depois</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Padrão antes</span></p><p class="mini-change">O padrão visual foi decidido antes de construir, não depois de refazer.</p><div class="stack"><span>Figma</span><span>Power BI</span><span>Data Design</span></div></article>
+        <article class="case-mini"><p class="sector">Food Service</p><h4>Performance diária da rede</h4><p>Painéis de acompanhamento diário das unidades de um grande grupo de restaurantes — desvios visíveis em tempo hábil.</p><p class="adm"><span class="adm-a">Mês</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Dia</span></p><p class="mini-change">O desvio da unidade aparece no mesmo dia, não no fechamento do mês.</p><div class="stack"><span>Dashboards</span><span>Operações</span></div></article>
+        <article class="case-mini"><p class="sector">Infraestrutura &amp; Mobilidade</p><h4>Rodovias, pedágios e aeroportos</h4><p>Painéis integrando gestão de acidentes, arrecadação de pedágios e operação aeroportuária em uma visão única.</p><p class="adm"><span class="adm-a">3 operações</span><i aria-hidden="true">&rarr;</i><span class="adm-d">1 leitura</span></p><p class="mini-change">Três operações diferentes passaram a caber numa leitura só.</p><div class="stack"><span>Data &amp; BI</span><span>Operações</span></div></article>
       </div>
       <p class="cases-note">Projetos reais entregues por especialistas Atlas Tec. Nomes de clientes preservados por confidencialidade.</p>
 
@@ -1489,7 +1499,8 @@
       <div class="nums reveal d3">
         <div class="num"><b>500+</b><span>projetos entregues em dados, BI e inteligência</span></div>
         <div class="num"><b>10+</b><span>setores atendidos — do bancário ao food service</span></div>
-        <div class="num"><b>12.000+</b><span>horas de especialistas alocados dentro do time do cliente</span></div>
+        <div class="num"><b>150+</b><span>profissionais alocados dentro do time do cliente</span></div>
+        <div class="num"><b>200.000+</b><span>horas de especialistas entregues em alocação</span></div>
       </div>
 
       <div class="hero-ctas reveal d3" style="margin-top:2.2rem">

@@ -329,6 +329,16 @@
   .case-mini .stack span { font-size: 0.68rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.55rem; }
   .cases-note { margin-top: 1.8rem; font-size: 0.85rem; color: var(--dim); }
 
+  /* Versão compacta do eixo, para o card de setor. */
+  .adm {
+    display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+    margin: 0.2rem 0 0.7rem; font-family: var(--mono); font-size: 0.7rem;
+  }
+  .adm span { border: 1px solid var(--line); border-radius: 999px; padding: 0.22rem 0.55rem; }
+  .adm-a { color: var(--dim); }
+  .adm-d { color: var(--accent-light); border-color: rgba(46,134,255,0.45) !important; background: rgba(46,134,255,0.1); }
+  .adm i { font-style: normal; color: var(--accent); }
+
   /* ---------- Antes e depois ---------- */
   /* O eixo do case. Onde há número dos dois lados — 200+ painéis para 1
      ambiente — ele é o argumento; onde não há, o contraste é o estado,
