@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formsubmit.co https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://fonts.googleapis.com https://fonts.gstatic.com; form-action 'self' https://formsubmit.co; base-uri 'self'; object-src 'none'; frame-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex, nofollow">
+<title>Atlas — Data, Mapped | Protótipo do ciclo de vida do dado</title>
+<meta name="description" content="Da origem à decisão: a infraestrutura que transforma dados em informação, inteligência e resultado.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#05070A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05070A;
+    --bg-2: #080B12;
+    --panel: #0D1118;
+    --ink: #F2F5F9;
+    --muted: #8A94A6;
+    --dim: #565F70;
+    --line: rgba(242, 245, 249, 0.09);
+    --accent: #2E86FF;
+    --accent-light: #9FD4FF;
+    --display: 'Manrope', system-ui, sans-serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: var(--body); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+  /* A malha cartográfica: territorio medido, não decoração */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      linear-gradient(rgba(242,245,249,0.028) 1px, transparent 1px) 0 0 / 72px 72px,
+      linear-gradient(90deg, rgba(242,245,249,0.028) 1px, transparent 1px) 0 0 / 72px 72px;
+    mask-image: radial-gradient(90% 80% at 50% 40%, #000 30%, transparent 100%);
+  }
+
+  #atlas-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+
+  /* Scrim: garante contraste do texto sobre a cena, sem escondê-la */
+  .scrim {
+    position: fixed; inset: 0; z-index: 5; pointer-events: none;
+    background: linear-gradient(90deg,
+      rgba(5,7,10,0.94) 0%, rgba(5,7,10,0.86) 24%,
+      rgba(5,7,10,0.45) 46%, rgba(5,7,10,0) 66%);
+  }
+  @media (max-width: 900px) {
+    .scrim { background: linear-gradient(180deg,
+      rgba(5,7,10,0.92) 0%, rgba(5,7,10,0.80) 45%, rgba(5,7,10,0.35) 100%); }
+  }
+
+  /* ---------- Cabeçalho / navegação ---------- */
+  .top {
+    position: fixed; z-index: 20; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem clamp(1.1rem, 4vw, 2.6rem);
+    font-family: var(--mono); font-size: 0.68rem;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim);
+  }
+  .top .brand { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--ink); }
+  .top .brand svg { width: 1.45rem; height: 1.45rem; }
+  .top .brand b { font-family: var(--display); font-weight: 800; font-size: 0.86rem; letter-spacing: 0.16em; }
+  .top .coords { display: none; }
+  @media (min-width: 900px) { .top .coords { display: block; } }
+  .top .progress { color: var(--muted); }
+  .top .progress b { color: var(--accent); font-weight: 500; }
+
+  .chapters {
+    position: fixed; z-index: 20; right: clamp(1.1rem, 4vw, 2.6rem); top: 50%;
+    transform: translateY(-50%);
+    display: none; flex-direction: column; gap: 0.62rem;
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  @media (min-width: 1100px) { .chapters { display: flex; } }
+  .chapters a {
+    display: flex; align-items: center; gap: 0.6rem;
+    color: var(--dim); text-decoration: none; transition: color 0.3s var(--ease);
+  }
+  .chapters a::before {
+    content: ''; width: 14px; height: 1px; background: currentColor;
+    transition: width 0.3s var(--ease);
+  }
+  .chapters a:hover { color: var(--muted); }
+  .chapters a.on { color: var(--accent); }
+  .chapters a.on::before { width: 28px; }
+
+  /* ---------- Capítulos ---------- */
+  main { position: relative; z-index: 10; }
+  .chapter {
+    min-height: 100svh;
+    display: flex; align-items: center;
+    padding: 7rem clamp(1.1rem, 4vw, 2.6rem) 5rem;
+  }
+  .inner { width: 100%; max-width: 1220px; margin: 0 auto; }
+  .col { max-width: 40rem; }
+
+  .label {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.24em;
+    text-transform: uppercase; color: var(--accent);
+    display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.6rem;
+  }
+  .label::after { content: ''; flex: 1; max-width: 5rem; height: 1px; background: var(--line); }
+
+  h1, h2 { font-family: var(--display); font-weight: 800; letter-spacing: -0.035em; line-height: 1.04; text-wrap: balance; }
+  h1 { font-size: clamp(2.6rem, 7.2vw, 5.4rem); }
+  h2 { font-size: clamp(1.9rem, 4.6vw, 3.3rem); }
+  .lede { color: var(--muted); font-size: clamp(1rem, 1.6vw, 1.12rem); max-width: 34rem; margin-top: 1.4rem; }
+
+  .meta {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--dim); margin-top: 2.4rem;
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem;
+  }
+  .meta span { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .meta span::before { content: ''; width: 4px; height: 4px; background: var(--accent); opacity: 0.8; }
+
+  /* entrada por capítulo — fade, sem voo de texto */
+  .chapter .col > * { opacity: 0; transform: translateY(14px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+  .chapter.is-active .col > * { opacity: 1; transform: none; }
+  .chapter.is-active .col > *:nth-child(2) { transition-delay: 0.07s; }
+  .chapter.is-active .col > *:nth-child(3) { transition-delay: 0.14s; }
+  .chapter.is-active .col > *:nth-child(4) { transition-delay: 0.21s; }
+
+  /* ---------- Hero ---------- */
+  .hero .signal {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 2rem;
+    display: inline-flex; align-items: center; gap: 0.7rem;
+  }
+  .hero .signal i {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 14px 2px rgba(46,134,255,0.75);
+    animation: sig 2.4s ease-in-out infinite;
+  }
+  @keyframes sig { 0%,100% { opacity: 0.45; transform: scale(1); } 50% { opacity: 1; transform: scale(1.45); } }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero .sub {
+    font-family: var(--mono); font-size: clamp(0.72rem, 1.5vw, 0.86rem);
+    letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); margin-top: 1.5rem;
+  }
+  .ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2.6rem; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 0.95rem 1.5rem; border-radius: 2px; text-decoration: none;
+    border: 1px solid var(--line); color: var(--ink);
+    transition: border-color 0.25s, color 0.25s, background 0.25s;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent-light); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: var(--accent-light); border-color: var(--accent-light); color: #04101f; }
+
+  .scroll-cue {
+    position: absolute; bottom: 2rem; left: clamp(1.1rem, 4vw, 2.6rem);
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--dim);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .scroll-cue i { width: 1px; height: 26px; background: linear-gradient(var(--accent), transparent); }
+
+  /* ---------- Fim do slice ---------- */
+  .next { text-align: left; }
+  .next .rest {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--dim);
+    display: grid; gap: 0.4rem; margin-top: 2rem;
+  }
+  .next .rest span { opacity: 0.55; }
+
+  /* ---------- Fallback sem WebGL: a narrativa vira diagrama ---------- */
+  .fallback { display: none; }
+  body.no-webgl .fallback { display: block; margin-top: 2.5rem; }
+  .fallback ol { list-style: none; display: grid; gap: 0.5rem; }
+  .fallback li {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); border-left: 2px solid var(--accent); padding: 0.5rem 0 0.5rem 0.9rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .chapter .col > * { opacity: 1; transform: none; transition: none; }
+    .hero .signal i { animation: none; opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="atlas-canvas" aria-hidden="true"></canvas>
+<div class="scrim" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="brand" href="index.html">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="g" x1="4" y1="6" x2="96" y2="92" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6FD4FF"/><stop offset=".5" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/></linearGradient></defs><path d="M50 58 L64 82 L36 82 Z" fill="#2E9BFF"/><path d="M50 6 L94 92 L64.5 92 L50 62 L35.5 92 L6 92 Z" fill="url(#g)"/></svg>
+    <b>ATLAS</b>
+  </a>
+  <span class="coords">23°33′S · 46°38′W</span>
+  <span class="progress"><b id="chapter-index">—</b> / 10</span>
+</header>
+
+<nav class="chapters" aria-label="Capítulos">
+  <a href="#ch-signal" data-ch="0">Sinal</a>
+  <a href="#ch-origin" data-ch="1">01 Origem</a>
+  <a href="#ch-capture" data-ch="2">02 Captura</a>
+  <a href="#ch-pipeline" data-ch="3">03 Pipeline</a>
+</nav>
+
+<main>
+
+  <!-- ============ 00 — SINAL / HERO ============ -->
+  <section class="chapter hero is-active" id="ch-signal" data-phase="0">
+    <div class="inner">
+      <div class="col">
+        <span class="signal"><i></i> Dado / 000001</span>
+        <h1>Dados, <em>mapeados</em>.</h1>
+        <p class="sub">Da origem à decisão</p>
+        <p class="lede">
+          Tudo começa com um sinal. Construímos a infraestrutura que leva
+          esse sinal até virar informação, inteligência e decisão de negócio.
+        </p>
+        <div class="ctas">
+          <a class="btn primary" href="#ch-origin">Percorrer o ciclo do dado →</a>
+          <a class="btn" href="index.html#contato">Falar com a Atlas →</a>
+        </div>
+        <div class="fallback">
+          <ol>
+            <li>Sinal → Captura</li>
+            <li>Captura → Pipeline</li>
+            <li>Pipeline → Armazenamento</li>
+            <li>Transformação → Contexto</li>
+            <li>Informação → Inteligência</li>
+            <li>Decisão → Ação → Novo dado</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <span class="scroll-cue"><i></i> Role para começar</span>
+  </section>
+
+  <!-- ============ 01 — ORIGIN ============ -->
+  <section class="chapter" id="ch-origin" data-phase="1">
+    <div class="inner">
+      <div class="col">
+        <span class="label">01 / Origem</span>
+        <h2>Tudo começa com um sinal.</h2>
+        <p class="lede">
+          Dados nascem a cada segundo, em sistemas, pessoas, dispositivos e
+          operações. Cada ponto aqui é um evento que acabou de acontecer.
+        </p>
+        <div class="meta">
+          <span>Compra</span><span>Login</span><span>Pedido</span><span>Sensor</span>
+          <span>Transação</span><span>Documento</span><span>API</span><span>Atendimento</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 — CAPTURE ============ -->
+  <section class="chapter" id="ch-capture" data-phase="2">
+    <div class="inner">
+      <div class="col">
+        <span class="label">02 / Captura</span>
+        <h2>O dado está em todo lugar.</h2>
+        <p class="lede">
+          Fontes diferentes, formatos diferentes, um único desafio: conectar
+          tudo. Os eventos se agrupam nos sistemas que os registram.
+        </p>
+        <div class="meta">
+          <span>ERP</span><span>CRM</span><span>Banco de dados</span><span>API</span>
+          <span>Aplicação</span><span>Sensor</span><span>Arquivo</span><span>Streaming</span>
+        </div>
+        <p class="meta" style="margin-top:1.2rem"><span>Atlas · Data Engineering</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 — PIPELINE ============ -->
+  <section class="chapter" id="ch-pipeline" data-phase="3">
+    <div class="inner">
+      <div class="col">
+        <span class="label">03 / Pipeline</span>
+        <h2>O dado precisa de um caminho.</h2>
+        <p class="lede">
+          Ingestão, processamento e transformação. O corredor estreita onde o
+          dado é tratado — é ali que ele passa a ser confiável.
+        </p>
+        <div class="meta">
+          <span>Ingestão</span><span>Processamento</span><span>Transformação</span>
+          <span>ETL / ELT</span><span>Streaming</span><span>Orquestração</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Fim do slice ============ -->
+  <section class="chapter next" id="ch-next">
+    <div class="inner">
+      <div class="col">
+        <span class="label">Protótipo · Fase 1</span>
+        <h2>O ciclo continua.</h2>
+        <p class="lede">
+          Este é o primeiro trecho da narrativa, construído para validar a
+          linguagem visual antes de seguir. Os próximos capítulos entram
+          depois da sua aprovação.
+        </p>
+        <div class="rest">
+          <span>04 / Memória — Data Lake · Warehouse · Lakehouse</span>
+          <span>05 / Transformação — qualidade, modelagem, governança</span>
+          <span>06 / Contexto — o número vira significado</span>
+          <span>07 / Informação — indicadores e dashboards</span>
+          <span>08 / Inteligência — padrões, anomalias, previsão</span>
+          <span>09 / Decisão — a complexidade vira uma escolha</span>
+          <span>10 / Ação — a decisão gera um novo dado</span>
+        </div>
+        <div class="ctas">
+          <a class="btn primary" href="index.html">Voltar ao site atual →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script type="module" src="media/js/atlas-lifecycle.js"></script>
+<script>
+  // Marca o capítulo corrente na navegação lateral.
+  (function () {
+    var links = [].slice.call(document.querySelectorAll('.chapters a'));
+    var secs = [].slice.call(document.querySelectorAll('[data-phase]'));
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var i = secs.indexOf(e.target);
+        links.forEach(function (a, k) { a.classList.toggle('on', k === i); });
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    secs.forEach(function (s) { io.observe(s); });
+  })();
+</script>
+</body>
+</html>

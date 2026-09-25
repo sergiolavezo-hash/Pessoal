@@ -1,0 +1,1591 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alocação de especialistas &mdash; Atlas Tec</title>
+<meta name="description" content="Alocação de especialistas de dados e squads: engenheiros de dados, analistas de BI, cientistas de dados e arquitetos alocados no time do cliente, com respaldo técnico da Atlas.">
+<link rel="canonical" href="https://atlas-partner.com/alocacao.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Alocação de especialistas &mdash; Atlas Tec">
+<meta property="og:description" content="Alocação de especialistas de dados e squads: engenheiros de dados, analistas de BI, cientistas de dados e arquitetos alocados no time do cliente, com respaldo técnico da Atlas.">
+<meta property="og:url" content="https://atlas-partner.com/alocacao.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Alocação de especialistas",
+  "serviceType": "Alocação de especialistas",
+  "url": "https://atlas-partner.com/alocacao.html",
+  "provider": { "@type": "Organization", "name": "Atlas Tec", "url": "https://atlas-partner.com" },
+  "areaServed": "BR",
+  "description": "Alocação de especialistas de dados e squads: engenheiros de dados, analistas de BI, cientistas de dados e arquitetos alocados no time do cliente, com respaldo técnico da Atlas."
+}
+</script>
+<style>
+
+  :root {
+    --bg0: #05070A;
+    --bg1: #080C12;
+    --panel: #0D1117;
+    --panel-2: #121A24;
+    --line: rgba(244, 243, 239, 0.09);
+    --line-soft: rgba(244, 243, 239, 0.055);
+    --ink: #F4F3EF;
+    --muted: #9BA3AE;
+    --dim: #767E8E;   /* 4,94:1 sobre o fundo, 4,64:1 sobre o painel */
+    --accent: #2E86FF;
+    --accent-light: #6FD4FF;
+    --accent-deep: #0A2EE0;
+    --accent-ink: #041233;
+    --chart-a: #2E86FF;
+    --chart-b: #7B9FDB;
+    --paper: #F2F1ED;
+    --paper-ink: #131316;
+    --paper-muted: #56565E;
+    --paper-line: #DCDAD2;
+    --display: 'Manrope', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+    --body: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  /* Grade sutil de fundo — a mesma textura usada em todo o conteúdo social
+     da Atlas (carrosséis, reels, stories). Reforça a identidade entre o
+     site e as postagens sem competir com o conteúdo. */
+  body {
+    background:
+      linear-gradient(rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      var(--bg0);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+
+  h1, h2, h3 { font-family: var(--display); letter-spacing: -0.03em; line-height: 1.06; text-wrap: balance; }
+  a { color: inherit; }
+  button { font-family: inherit; }
+  img, canvas, svg { max-width: 100%; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+  section[id] { scroll-margin-top: 5rem; }
+  .skip-link {
+    position: absolute; left: -999px; top: 0; z-index: 100;
+    background: var(--accent); color: #fff; padding: 0.7rem 1.2rem; border-radius: 0 0 8px 0;
+    font-weight: 700; text-decoration: none;
+  }
+  .skip-link:focus { left: 0; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent);
+    display: inline-flex; align-items: center; gap: 0.7rem;
+  }
+  .eyebrow::before { content: ''; width: 2rem; height: 1px; background: var(--accent); opacity: 0.7; }
+  .eyebrow.on-paper { color: var(--accent-deep); }
+  .eyebrow.on-paper::before { background: var(--accent-deep); }
+
+  .h-xl { font-size: clamp(2.2rem, 4.6vw, 3.4rem); font-weight: 800; color: var(--ink); margin: 1.1rem 0 1.1rem; max-width: 22ch; }
+  .sub { color: var(--muted); font-size: 1.06rem; max-width: 42rem; margin-bottom: 0.5rem; }
+  .sec { padding: 6rem 0; }
+  .sec + .sec { border-top: 1px solid var(--line-soft); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: var(--display); font-weight: 700; font-size: 0.95rem;
+    padding: 0.9rem 1.7rem; border-radius: 999px; text-decoration: none;
+    border: 1px solid transparent; cursor: pointer; transition: all 0.25s var(--ease);
+  }
+  .btn-accent { background: var(--accent); color: #fff; }
+  .btn-accent:hover { background: var(--accent-light); color: var(--accent-ink); transform: translateY(-1px); box-shadow: 0 10px 30px -8px rgba(46,134,255,0.5); }
+  .btn-line { background: none; color: var(--ink); border-color: rgba(244,243,239,0.25); }
+  .btn-line:hover { border-color: var(--accent); color: var(--accent-light); }
+  .btn .arr { transition: transform 0.25s var(--ease); }
+  .btn:hover .arr { transform: translateX(3px); }
+
+  /* ---------- Cursor / scroll progress (herdados, mantidos) ---------- */
+  .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 90; }
+  .cursor-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+  .cursor-ring { width: 34px; height: 34px; border: 1.5px solid rgba(46,134,255,0.5); border-radius: 50%; transition: width 0.2s, height 0.2s, border-color 0.2s; display: grid; place-items: center; }
+  .cursor-ring span { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-light); opacity: 0; }
+  .cursor-ring.is-link { width: 56px; height: 56px; border-color: var(--accent); }
+  .cursor-ring.is-label { width: 84px; height: 84px; background: var(--bg0); border-color: var(--accent); }
+  .cursor-ring.is-label span { opacity: 1; }
+  body:not(.has-cursor) .cursor-dot, body:not(.has-cursor) .cursor-ring { display: none; }
+  @media (pointer: coarse) { .cursor-dot, .cursor-ring { display: none !important; } }
+
+  .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 95; background: var(--line-soft); }
+  .scroll-progress i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); transform-origin: left; transform: scaleX(0); }
+
+  /* ---------- Header ---------- */
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(5,7,10,0.72); backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  .nav.is-scrolled { background: rgba(5,7,10,0.92); border-bottom-color: var(--line-soft); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 5rem; transition: height 0.3s var(--ease); }
+  .nav.is-scrolled .wrap { height: 4.25rem; }
+
+  .brand { display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+  .brand svg { width: 2.1rem; height: 2.1rem; flex: none; }
+  .brand .wordmark { display: flex; flex-direction: column; line-height: 1; }
+  .brand .wordmark b { font-family: var(--display); font-weight: 800; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--ink); }
+  .brand .wordmark small { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.24em; color: var(--dim); margin-top: 0.15rem; }
+
+  .nav-links { display: flex; align-items: center; gap: 1.9rem; }
+  .nav-links a:not(.btn) { text-decoration: none; font-size: 0.92rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+  .nav-links a:not(.btn):hover { color: var(--ink); }
+  .nav-burger { display: none; background: none; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.5rem 0.9rem; cursor: pointer; }
+
+  .mobile-menu {
+    position: fixed; inset: 4.25rem 0 0; z-index: 45; background: var(--bg0);
+    display: flex; flex-direction: column; padding: 2rem clamp(1.25rem,4vw,3rem);
+    opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease);
+  }
+  .mobile-menu.open { opacity: 1; pointer-events: auto; }
+  .mobile-menu a { text-decoration: none; font-family: var(--display); font-size: 1.5rem; font-weight: 700; color: var(--ink); padding: 0.7rem 0; border-bottom: 1px solid var(--line-soft); opacity: 0; transform: translateY(18px); transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); }
+  .mobile-menu.open a { opacity: 1; transform: none; }
+  .mobile-menu.open a:nth-child(1) { transition-delay: 0.05s; }
+  .mobile-menu.open a:nth-child(2) { transition-delay: 0.1s; }
+  .mobile-menu.open a:nth-child(3) { transition-delay: 0.15s; }
+  .mobile-menu.open a:nth-child(4) { transition-delay: 0.2s; }
+  .mobile-menu.open a:nth-child(5) { transition-delay: 0.25s; }
+  .mobile-menu.open a:nth-child(6) { transition-delay: 0.3s; }
+  .mobile-menu.open a:nth-child(7) { transition-delay: 0.35s; }
+  .mobile-menu.open a:nth-child(8) { transition-delay: 0.4s; }
+  .mobile-menu a.btn { margin-top: 1.2rem; align-self: flex-start; border-bottom: none; font-size: 1rem; }
+  .mobile-menu a small { font-family: var(--mono); font-size: 0.6rem; color: var(--accent); letter-spacing: 0.15em; display: block; margin-top: 0.2rem; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; padding: 7rem 0 5rem; overflow: hidden;
+    background: radial-gradient(60rem 34rem at 82% -12%, rgba(46,134,255,0.14), transparent 60%),
+      linear-gradient(rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      var(--bg0); }
+  .hero > canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+  /* Uma coluna só: a lista de camadas que ocupava a direita repetia os
+     serviços logo abaixo. O território 3D fica com aquele espaço. */
+  .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; align-items: center; }
+  .hero .wrap > div { max-width: 44rem; }
+  .hero h1 { font-size: clamp(2.4rem, 5vw, 3.9rem); font-weight: 800; margin: 1.1rem 0 1.2rem; max-width: 16ch; }
+  .hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; }
+  .hero h1 .w > span { display: inline-block; opacity: 0; transform: translateY(0.65em); animation: word-in 0.7s var(--ease) forwards; }
+  @keyframes word-in { to { opacity: 1; transform: none; } }
+  .hero p.sub { font-size: 1.14rem; max-width: 34rem; margin-bottom: 2.1rem; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; }
+  .hero-foot { position: absolute; z-index: 1; left: 0; right: 0; bottom: 1.4rem; display: flex; justify-content: space-between; padding: 0 clamp(1.25rem,4vw,3rem); font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+  .scroll-cue { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .scroll-cue i { width: 1px; height: 14px; background: var(--dim); position: relative; overflow: hidden; }
+  .scroll-cue i::after { content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%; background: var(--accent); animation: cue 1.8s ease-in-out infinite; }
+  @keyframes cue { 50% { top: 100%; } 100% { top: 100%; } }
+
+  /* Diagrama de arquitetura — SVG estático, sem canvas. As linhas se
+     "desenham" via stroke-dashoffset quando a seção entra na tela. */
+
+  .hero-proof {
+    margin-top: 1.6rem; font-family: var(--mono); font-size: 0.72rem;
+    letter-spacing: 0.08em; color: var(--muted);
+  }
+  .hero-proof b { color: var(--ink); font-weight: 500; }
+  .hero-proof i { font-style: normal; color: var(--dim); margin: 0 0.15rem; }
+
+  /* ---------- Barra de conversa ---------- */
+  /* O canto inferior direito ja e do Atis. Empilhar dois elementos fixos no
+     mesmo canto e ruido, e no mobile cobre conteudo — entao a barra desce
+     do topo, e so depois que o hero sai da tela. */
+  .cbar {
+    /* Abaixo do cabeçalho, nunca por cima. A altura da nav muda com o scroll
+       e arredonda diferente por zoom, então ela é medida em tempo de execução
+       e publicada em --navh — número fixo aqui sempre erra por 1px. */
+    position: fixed; top: var(--navh, 4.25rem); left: 0; right: 0; z-index: 45;
+    display: flex; align-items: center; justify-content: center; gap: 1.2rem;
+    padding: 0.6rem 3rem 0.6rem 1.2rem;
+    background: rgba(5,7,10,0.92); border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    transform: translateY(-100%); transition: transform 0.45s var(--ease);
+  }
+  .cbar.on { transform: none; }
+  .cbar p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+  .cbar .btn { padding: 0.5rem 1rem; font-size: 0.82rem; }
+  .cbar-x {
+    position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%);
+    width: 1.8rem; height: 1.8rem; border-radius: 50%; border: 1px solid var(--line);
+    background: transparent; color: var(--dim); cursor: pointer; line-height: 1;
+    transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .cbar-x:hover { color: var(--ink); border-color: var(--line); }
+  @media (max-width: 860px) { .cbar { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .cbar { transition: none; } }
+
+  /* ---------- Serviços (accordion) ---------- */
+  .sol-list { list-style: none; border-top: 1px solid var(--line); margin-top: 1rem; }
+  .sol-item { border-bottom: 1px solid var(--line); border-left: 2px solid transparent; padding-left: 0; transition: border-color 0.45s var(--ease), background 0.45s var(--ease), padding-left 0.35s var(--ease); }
+  /* O brilho desce com a rolagem: a frente marca onde o leitor está, e o
+     que ficou para trás permanece aceso. Mesma linguagem do hero. */
+  .sol-item.is-on { border-left-color: rgba(46, 134, 255, 0.35); background: rgba(46, 134, 255, 0.03); padding-left: 1rem; }
+  .sol-item.is-head { border-left-color: var(--accent); background: rgba(46, 134, 255, 0.06); }
+  .sol-item.is-head .sol-idx { color: var(--accent-light); }
+  .sol-item:hover { border-left-color: rgba(46, 134, 255, 0.7); background: rgba(46, 134, 255, 0.07); padding-left: 1rem; }
+  .sol-head:focus-visible { outline-offset: -4px; }
+  .sol-head { width: 100%; display: grid; grid-template-columns: 3.2rem 1fr auto; align-items: center; gap: 1.2rem; background: none; border: none; color: var(--ink); cursor: pointer; padding: 1.5rem 0; text-align: left; }
+  .sol-idx { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); }
+  .sol-name { font-family: var(--display); font-size: clamp(1.25rem, 2.4vw, 1.7rem); font-weight: 700; }
+  .sol-plus { font-size: 1.6rem; font-weight: 300; color: var(--dim); transition: transform 0.3s var(--ease), color 0.3s; }
+  .sol-item.open .sol-plus { transform: rotate(45deg); color: var(--accent); }
+  .sol-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s var(--ease); }
+  .sol-body > div { overflow: hidden; }
+  .sol-item.open .sol-body { grid-template-rows: 1fr; }
+  .sol-body-inner { padding: 0 0 1.8rem 4.4rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2rem; align-items: start; }
+  .sol-specs { display: grid; gap: 1.1rem; align-content: start; }
+  .sol-label { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); margin-bottom: 0.6rem; }
+  .sol-desc { color: var(--muted); font-size: 1rem; max-width: 34rem; }
+  .sol-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.9rem; }
+  .sol-tags span { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; color: var(--accent-light); background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.25); border-radius: 999px; padding: 0.3rem 0.8rem; }
+
+  /* ---------- Problemas que resolvemos ---------- */
+  .problems-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; margin-top: 2rem; }
+  .problem-card { display: flex; align-items: center; gap: 1rem; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.3rem; }
+  .problem-card .p-txt { color: var(--muted); font-size: 0.95rem; flex: 1; }
+  .problem-card .p-arrow { color: var(--dim); flex: none; }
+  .problem-card .p-sol { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; color: var(--accent-light); white-space: nowrap; flex: none; }
+
+  /* ---------- O que acontece depois ---------- */
+  .depois { list-style: none; margin: 1.8rem 0 0; padding: 0; display: grid; gap: 1rem; counter-reset: d; }
+  .depois li {
+    position: relative; padding-left: 2.4rem; counter-increment: d;
+    display: flex; flex-direction: column; gap: 0.15rem;
+  }
+  .depois li::before {
+    content: '0' counter(d); position: absolute; left: 0; top: 0.05rem;
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em;
+    color: var(--accent-light); border: 1px solid rgba(46,134,255,0.35);
+    border-radius: 5px; padding: 0.15rem 0.3rem; background: rgba(46,134,255,0.08);
+  }
+  .depois b { font-size: 0.95rem; font-weight: 600; }
+  .depois span { color: var(--muted); font-size: 0.87rem; }
+
+  /* ---------- Chips de assunto ---------- */
+  .chips-field { border: 0; padding: 0; margin: 0; }
+  .chips-field legend {
+    padding: 0; margin-bottom: 0.6rem; font-family: var(--mono); font-size: 0.66rem;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chips label { cursor: pointer; }
+  /* O input fica acessível ao teclado, mas invisível: o chip é o alvo. */
+  .chips input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .chips span {
+    display: inline-block; border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.5rem 0.85rem; font-size: 0.8rem; color: var(--muted);
+    transition: border-color 0.25s var(--ease), color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+  .chips label:hover span { border-color: rgba(46,134,255,0.45); color: var(--ink); }
+  .chips input:focus-visible + span { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+  .chips input:checked + span { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.16); }
+  .field label em { font-style: normal; color: var(--dim); font-weight: 400; }
+
+  @media (max-width: 1080px) { .rotas { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 680px) {
+    .rotas { grid-template-columns: 1fr; }
+    /* Alvo de toque: o chip precisa caber o dedo. */
+    .chips span { padding: 0.62rem 0.9rem; font-size: 0.82rem; }
+  }
+
+  /* ---------- Cases ---------- */
+  .case-card { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2.5rem; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 2.2rem; margin-top: 1.6rem; }
+  .case-sub {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em;
+    color: var(--dim); margin-top: 0.4rem;
+  }
+
+  .case-conf { display: inline-block; font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.7rem; margin-bottom: 0.9rem; }
+  .case-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.9rem; }
+  .case-meta span { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; color: var(--muted); background: var(--panel-2); border-radius: 999px; padding: 0.28rem 0.75rem; }
+  .case-card h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1.1rem; }
+  .case-fields { display: grid; gap: 0.8rem; margin-bottom: 1.1rem; }
+  .case-fields div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.8rem; font-size: 0.92rem; }
+  .case-fields dt { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); padding-top: 0.15rem; }
+  .case-fields dd { color: var(--muted); }
+  .case-metrics { display: grid; gap: 1rem; align-content: start; }
+  /* Sem isto o rótulo e a descrição colam: "Canais comparáveisloja física". */
+  .case-metrics p b { display: block; font-weight: 700; color: var(--ink); }
+  .case-metrics p span { display: block; color: var(--muted); font-size: 0.88rem; margin-top: 0.2rem; }
+  .case-metrics > p:not(.cm-k) { border-left: 2px solid var(--accent); padding-left: 0.9rem; }
+  .metric { border-left: 2px solid var(--accent); padding-left: 1rem; }
+  .metric .num { font-family: var(--display); font-size: 2.1rem; font-weight: 800; color: var(--ink); line-height: 1; }
+  .metric .num-sm { font-family: var(--display); font-size: 1.15rem; font-weight: 800; color: var(--ink); }
+  .metric .lbl { font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; }
+  .cases-more-head { font-size: 1.2rem; font-weight: 700; margin: 3rem 0 1.2rem; }
+  .case-mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .case-mini { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1.3rem; }
+  .case-mini .sector { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-light); }
+  .case-mini h4 { font-size: 1.02rem; font-weight: 700; margin: 0.5rem 0 0.5rem; }
+  .case-mini p { color: var(--muted); font-size: 0.87rem; margin-bottom: 0.8rem; }
+  .case-mini .stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .case-mini .stack span { font-size: 0.68rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.55rem; }
+  .cases-note { margin-top: 1.8rem; font-size: 0.85rem; color: var(--dim); }
+
+  /* Versão compacta do eixo, para o card de setor. */
+  .adm {
+    display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+    margin: 0.2rem 0 0.7rem; font-family: var(--mono); font-size: 0.7rem;
+  }
+  .adm span { border: 1px solid var(--line); border-radius: 999px; padding: 0.22rem 0.55rem; }
+  .adm-a { color: var(--dim); }
+  .adm-d { color: var(--accent-light); border-color: rgba(46,134,255,0.45) !important; background: rgba(46,134,255,0.1); }
+  .adm i { font-style: normal; color: var(--accent); }
+
+  /* ---------- Antes e depois ---------- */
+  /* O eixo do case. Onde há número dos dois lados — 200+ painéis para 1
+     ambiente — ele é o argumento; onde não há, o contraste é o estado,
+     e não um número inventado para preencher a forma. */
+  .ad {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.9rem; align-items: stretch;
+    margin: 1.2rem 0 0.4rem; padding: 1rem; border-radius: 12px;
+    border: 1px solid var(--line); background: rgba(5,7,10,0.45);
+  }
+  .ad-lado { display: flex; flex-direction: column; gap: 0.15rem; }
+  .ad-k { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
+  .ad-n { font-family: var(--display); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-top: 0.15rem; }
+  .ad-d { font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-top: 0.15rem; }
+  .ad-pos .ad-k { color: var(--accent-light); }
+  .ad-pos .ad-n { color: var(--accent-light); }
+  .ad-seta { align-self: center; font-family: var(--mono); color: var(--accent); font-size: 1.1rem; }
+  @media (max-width: 560px) {
+    .ad { grid-template-columns: 1fr; gap: 0.6rem; }
+    .ad-seta { justify-self: start; transform: rotate(90deg); }
+    .ad-n { font-size: 1.3rem; }
+  }
+
+  .cm-k {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent-light); margin-bottom: 0.2rem;
+  }
+
+  /* ---------- Como entregamos (paper) ---------- */
+  .method { background: var(--paper); color: var(--paper-ink); }
+  .method h2 { color: var(--paper-ink); }
+  .method .sub { color: var(--paper-muted); }
+  .method-track { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--paper-line); margin-top: 2rem; }
+  .m-step { padding: 1.6rem 1.2rem 0.4rem 1.2rem; border-right: 1px solid var(--paper-line); position: relative; }
+  .m-step:last-child { border-right: none; }
+  .m-step .n { font-family: var(--mono); font-size: 0.78rem; color: var(--accent-deep); }
+  .m-step h3 { font-size: 1.05rem; font-weight: 800; margin: 0.6rem 0 0.4rem; color: var(--paper-ink); }
+  .m-step p { color: var(--paper-muted); font-size: 0.88rem; }
+
+  /* ---------- Tecnologias ---------- */
+  .tech-msg { max-width: 40rem; }
+  .tech-wall { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 2.2rem; }
+  .tech-wall span { font-family: var(--mono); font-size: 0.86rem; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 0.6rem 1.1rem; transition: border-color 0.2s, transform 0.2s; }
+  .tech-wall span:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+  /* ---------- Setores ---------- */
+  .clients { padding: 4rem 0; border-top: 1px solid var(--line-soft); }
+  .clients p { text-align: center; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.6rem; }
+  .marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .marquee-track { display: flex; gap: 3.2rem; width: max-content; animation: marquee 32s linear infinite; }
+  .marquee-track span { font-family: var(--display); font-weight: 700; font-size: 1.15rem; color: var(--dim); white-space: nowrap; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  /* ---------- Sobre ---------- */
+  .about-grid { display: grid; grid-template-columns: 1fr 0.85fr; gap: 3.5rem; align-items: center; }
+  .about-lede { font-family: var(--display); font-size: 1.5rem; font-weight: 700; line-height: 1.35; margin-bottom: 1.2rem; max-width: 30ch; }
+  .about-grid > div > p:not(.about-lede) { color: var(--muted); margin-bottom: 1rem; }
+  .about-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin: 1.6rem 0; }
+  .about-stats .num { font-family: var(--display); font-size: 1.9rem; font-weight: 800; color: var(--ink); }
+  .about-stats .lbl { font-size: 0.78rem; color: var(--dim); margin-top: 0.15rem; }
+  .values { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-top: 1.4rem; }
+  .values li span { font-size: 0.9rem; color: var(--muted); }
+  .values li b { color: var(--ink); }
+  .about-visual { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 400/435; background: var(--panel); }
+  .about-visual svg, .about-visual video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .about-visual video { opacity: 0; transition: opacity 1.2s var(--ease); }
+  .about-visual video.is-playing { opacity: 1; }
+  .live-line { stroke-dasharray: 900; stroke-dashoffset: 900; animation: draw 3.4s var(--ease) forwards 0.4s; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .live-dot { opacity: 0; animation: dot-in 0.5s ease forwards; }
+  .live-dot.d2 { animation-delay: 1.6s; } .live-dot.d3 { animation-delay: 2.3s; }
+  @keyframes dot-in { to { opacity: 1; } }
+
+  /* ---------- CTA final ---------- */
+  .cta-final { position: relative; padding: 6.5rem 0; text-align: center; overflow: hidden;
+    background:
+      linear-gradient(rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      var(--bg1); }
+  .cta-glow { position: absolute; inset: 0; background: radial-gradient(38rem 22rem at 50% 0%, rgba(46,134,255,0.22), transparent 70%); pointer-events: none; }
+  .cta-final .wrap { position: relative; }
+  .cta-final .eyebrow { justify-content: center; }
+  .cta-final .eyebrow::before { display: none; }
+  .cta-final h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.9rem, 4vw, 2.8rem); margin: 1rem auto 0.8rem; max-width: 24ch; }
+  .cta-final .sub { margin: 0 auto 2rem; text-align: center; }
+
+  /* ---------- Contato ---------- */
+  .contact-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 3.5rem; }
+  .contact-info { margin-top: 1.6rem; display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; font-size: 0.9rem; color: var(--muted); }
+  .contact-info a { color: var(--accent-light); text-decoration: none; }
+  .contact-info a:hover { text-decoration: underline; }
+  .form { display: grid; gap: 1rem; position: relative; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.4rem; }
+  .field input, .field select, .field textarea {
+    width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    color: var(--ink); font-family: var(--body); font-size: 0.95rem; padding: 0.75rem 0.9rem;
+  }
+  .field textarea { min-height: 7rem; resize: vertical; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+  .form-note { font-size: 0.78rem; color: var(--dim); }
+  .form-error { display: none; font-size: 0.85rem; color: #FF6B6B; background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.3); border-radius: 8px; padding: 0.8rem 1rem; }
+  .form-success { display: none; place-items: center; text-align: center; position: absolute; inset: 0; background: var(--bg0); border-radius: 12px; padding: 2rem; }
+  .form.sent .form-success { display: grid; }
+  .form.sent > *:not(.form-success) { visibility: hidden; }
+  .form-success .ok { width: 52px; height: 52px; border-radius: 50%; background: rgba(46,134,255,0.15); color: var(--accent-light); display: grid; place-items: center; margin: 0 auto 1rem; }
+  .form-success h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .form-success p { color: var(--muted); font-size: 0.95rem; max-width: 24rem; }
+
+  /* ---------- Footer ---------- */
+  .footer { border-top: 1px solid var(--line-soft); padding: 4rem 0 2rem;
+    background:
+      linear-gradient(rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      var(--bg0); }
+  .footer-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); gap: 2.5rem; }
+  .footer .brand svg { width: 2.4rem; height: 2.4rem; }
+  .footer .brand .wordmark b { font-size: 1.15rem; }
+  .footer-sig { margin-top: 1rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--dim); text-transform: uppercase; }
+  .footer h4 { font-family: var(--mono); font-weight: 500; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; }
+  .footer ul { list-style: none; display: grid; gap: 0.55rem; }
+  .footer ul a { color: var(--muted); text-decoration: none; font-size: 0.92rem; transition: color 0.2s; }
+  .footer ul a:hover { color: var(--accent-light); }
+  .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.8rem; margin-top: 3rem; padding-top: 1.6rem; border-top: 1px solid var(--line-soft); font-size: 0.8rem; color: var(--dim); }
+
+  @keyframes soft-pulse {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.25); }
+  }
+  /* ---------- Chat Átis (mascote) ---------- */
+  @keyframes blink {
+    0%, 91%, 100% { transform: scaleY(1); }
+    94% { transform: scaleY(0.12); }
+  }
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  .mascot-eye { animation: blink 4.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .mascot-dot { animation: soft-pulse 2.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .mascot-float { animation: floaty 3.6s ease-in-out infinite; }
+
+  .chat-fab {
+    position: fixed; right: 1.3rem; bottom: 1.3rem; z-index: 150;
+    width: 62px; height: 62px; border-radius: 50%;
+    background: var(--panel);
+    border: 1px solid rgba(46, 134, 255, 0.4);
+    display: grid; place-items: center;
+    cursor: pointer;
+    box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.65);
+    transition: transform 0.25s var(--ease), border-color 0.25s;
+  }
+  .chat-fab:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .chat-fab svg { width: 38px; height: 38px; }
+
+  .chat-teaser {
+    position: fixed; right: 1.3rem; bottom: 6rem; z-index: 150;
+    display: flex; align-items: center; gap: 0.75rem;
+    max-width: 280px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px 16px 4px 16px;
+    padding: 0.85rem 2.1rem 0.85rem 0.95rem;
+    box-shadow: 0 20px 44px -18px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    opacity: 0; transform: translateY(12px); pointer-events: none;
+    transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+  }
+  .chat-teaser.show { opacity: 1; transform: none; pointer-events: auto; }
+  .chat-teaser svg { width: 40px; height: 40px; flex: none; }
+  .chat-teaser p { font-size: 0.92rem; color: var(--ink); line-height: 1.35; }
+  .chat-teaser p b { color: var(--accent); }
+  .chat-teaser .x {
+    position: absolute; top: 0.35rem; right: 0.5rem;
+    background: none; border: none; color: var(--dim);
+    font-size: 1rem; cursor: pointer; line-height: 1;
+  }
+  .chat-teaser .x:hover { color: var(--ink); }
+
+  .chat-panel {
+    position: fixed; right: 1.3rem; bottom: 6rem; z-index: 160;
+    width: min(370px, calc(100vw - 1.6rem));
+    max-height: min(560px, 78vh);
+    display: flex; flex-direction: column;
+    background: var(--bg0);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 34px 80px -30px rgba(0, 0, 0, 0.8);
+    opacity: 0; transform: translateY(16px) scale(0.98); pointer-events: none;
+    transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+  }
+  .chat-panel.open { opacity: 1; transform: none; pointer-events: auto; }
+  .chat-head {
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 0.85rem 1rem;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  .chat-head svg { width: 38px; height: 38px; flex: none; }
+  .chat-head .who b { display: block; font-family: var(--display); font-size: 0.98rem; color: var(--ink); letter-spacing: -0.01em; }
+  .chat-head .who span { font-size: 0.72rem; color: var(--accent); display: inline-flex; align-items: center; gap: 0.35rem; }
+  .chat-head .who span::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .chat-close {
+    margin-left: auto;
+    background: none; border: none; color: var(--muted);
+    font-size: 1.25rem; cursor: pointer; line-height: 1; padding: 0.2rem;
+  }
+  .chat-close:hover { color: var(--ink); }
+  .chat-msgs {
+    flex: 1; min-height: 190px;
+    padding: 1rem;
+    display: flex; flex-direction: column; gap: 0.55rem;
+    overflow-y: auto;
+  }
+  .chat-msg {
+    max-width: 86%;
+    padding: 0.62rem 0.85rem;
+    border-radius: 13px;
+    font-size: 0.91rem; line-height: 1.45;
+  }
+  .chat-msg.bot {
+    align-self: flex-start;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    border-bottom-left-radius: 4px;
+  }
+  .chat-msg.user {
+    align-self: flex-end;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-bottom-right-radius: 4px;
+  }
+  .chat-msg.bot a { color: var(--accent); font-weight: 600; text-decoration: underline; }
+  .chat-msg.bot a:hover { color: #6FD4FF; }
+  .chat-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0 1rem 0.7rem; }
+  .chat-chips button {
+    background: none;
+    border: 1px solid rgba(46, 134, 255, 0.35);
+    color: var(--accent);
+    font-family: var(--body); font-size: 0.8rem;
+    padding: 0.35rem 0.8rem; border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .chat-chips button:hover { background: var(--accent); color: var(--accent-ink); }
+  .chat-input {
+    display: flex; gap: 0.5rem;
+    padding: 0.7rem;
+    background: var(--panel);
+    border-top: 1px solid var(--line);
+  }
+  .chat-input input {
+    flex: 1;
+    background: var(--bg0);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink);
+    font-family: var(--body); font-size: 0.9rem;
+    padding: 0.6rem 0.95rem;
+  }
+  .chat-input input:focus { outline: none; border-color: var(--accent); }
+  .chat-input button {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--accent); color: var(--accent-ink);
+    border: none; cursor: pointer;
+    display: grid; place-items: center;
+    transition: background 0.2s;
+    flex: none;
+  }
+  .chat-input button:hover { background: #6FD4FF; }
+  .chat-input button:disabled { opacity: 0.5; cursor: default; }
+  @media (max-width: 640px) {
+    .chat-panel { right: 0.8rem; left: 0.8rem; width: auto; bottom: 5.6rem; }
+    .chat-teaser { right: 0.8rem; max-width: calc(100vw - 5.5rem); }
+  }
+
+  /* ---------- Reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal.d1 { transition-delay: 0.08s; }
+  .reveal.d2 { transition-delay: 0.16s; }
+  .reveal.d3 { transition-delay: 0.24s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal, .m-step, .sol-item, .hero h1 .w > span { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; opacity: 1 !important; transform: none !important; }
+    .marquee-track { animation: none; }
+    .live-line { animation: none; stroke-dashoffset: 0; }
+    .live-dot { animation: none; opacity: 1; }
+    .mascot-eye, .mascot-dot, .mascot-float { animation: none; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1080px) {
+    /* Sem a coluna lateral, a rede 3D perde o espaço só dela: recua para
+       textura de fundo em vez de disputar atenção com o texto. */
+    .hero > canvas { opacity: 0.4; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .about-visual { order: -1; max-width: 26rem; margin: 0 auto; }
+    .case-card { grid-template-columns: 1fr; }
+    .case-metrics { grid-template-columns: repeat(3, 1fr); }
+    .method-track { grid-template-columns: repeat(3, 1fr); }
+    .m-step:nth-child(3) { border-right: none; }
+    .m-step:nth-child(n+4) { border-top: 1px solid var(--paper-line); }
+    .problems-grid { grid-template-columns: 1fr; }
+    .case-mini-grid { grid-template-columns: 1fr 1fr; }
+  }
+  /* Entre a marca, sete links, o Instagram e o CTA, o nav completo só
+     cabe em tela larga. Abaixo disso ele virava uma colisão: a marca e o
+     primeiro link ocupavam a mesma coordenada. O menu assume a partir
+     daqui — inclui tablet e notebook pequeno, onde não cabia mesmo. */
+  @media (max-width: 1180px) {
+    .nav-links { display: none; }
+    .nav-burger { display: inline-flex; }
+  }
+
+  /* Na faixa logo acima do menu o nav cabe, mas justo: menos respiro
+     entre os links e um CTA um pouco menor evitam o aperto. */
+  @media (min-width: 1181px) and (max-width: 1400px) {
+    .nav-links { gap: 1.15rem; }
+    .nav-links a:not(.btn) { font-size: 0.86rem; }
+    .nav-links .btn { padding: 0.6rem 1rem; font-size: 0.84rem; }
+  }
+
+  @media (max-width: 780px) {
+    .sec { padding: 4rem 0; }
+    .sol-head { grid-template-columns: 2.6rem 1fr auto; gap: 0.8rem; }
+    .sol-body-inner { grid-template-columns: 1fr; padding-left: 0; gap: 1rem; }
+    .case-metrics { grid-template-columns: 1fr; }
+    .case-mini-grid { grid-template-columns: 1fr; }
+    .method-track { grid-template-columns: 1fr; }
+    .m-step { border-right: none; border-top: 1px solid var(--paper-line); }
+    .m-step:first-child { border-top: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .values { grid-template-columns: 1fr; }
+    .hero-foot { display: none; }
+    .brand .wordmark small { display: none; }
+  }
+  /* ============================================================
+     REDESENHO 2026 — arquitetura de informação de consultoria
+     enterprise. Mesmos tokens, mesma marca; o que muda é o ritmo:
+     cada seção responde uma pergunta e entrega o leitor à próxima.
+     ============================================================ */
+
+  .sec-lead { max-width: 46rem; }
+  .sec-lead .sub { margin-top: 1.1rem; }
+  .divider { height: 1px; background: var(--line-soft); margin: 0; }
+
+
+  /* ---------- Soluções (8) ---------- */
+  .sols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; margin-top: 2.6rem; }
+  .sol {
+    position: relative; border: 1px solid var(--line); border-radius: 14px; padding: 1.5rem 1.6rem;
+    background: var(--panel); overflow: hidden;
+    transition: border-color 0.4s var(--ease), background 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .sol::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+    background: radial-gradient(120% 90% at 100% 0%, rgba(46,134,255,0.13), transparent 62%);
+    transition: opacity 0.45s var(--ease);
+  }
+  .sol:hover, .sol:focus-within { border-color: rgba(46,134,255,0.5); transform: translateY(-3px); }
+  .sol:hover::after, .sol:focus-within::after { opacity: 1; }
+  .sol-n { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--accent); }
+  .sol-t { font-family: var(--display); font-size: clamp(1.15rem, 2.1vw, 1.45rem); font-weight: 700; margin: 0.5rem 0 0.5rem; }
+  .sol-d { color: var(--muted); font-size: 0.94rem; }
+  /* O detalhe abre no hover no desktop; no toque fica sempre visível,
+     porque lá não existe hover para revelar nada. */
+  .sol-more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
+  .sol-more > div { overflow: hidden; }
+  .sol:hover .sol-more, .sol:focus-within .sol-more { grid-template-rows: 1fr; }
+  .sol-more-in { padding-top: 1rem; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .chip {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.02em; color: var(--accent-light);
+    background: rgba(46,134,255,0.09); border: 1px solid rgba(46,134,255,0.22);
+    border-radius: 999px; padding: 0.24rem 0.65rem;
+  }
+  .sol-cta {
+    display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.9rem;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-light); text-decoration: none;
+  }
+  .sol-cta:hover { color: var(--ink); }
+
+
+  .illus-note { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+
+  /* ---------- Metodologia ---------- */
+  .tl { position: relative; margin-top: 2.8rem; padding-left: 2.6rem; }
+  .tl::before { content: ''; position: absolute; left: 0.62rem; top: 0.4rem; bottom: 0.4rem; width: 1px; background: var(--line); }
+  .tl-fill { position: absolute; left: 0.62rem; top: 0.4rem; width: 1px; background: var(--accent); height: 0; transition: height 0.2s linear; }
+  .tl-step { position: relative; padding: 0 0 2.2rem; }
+  .tl-step:last-child { padding-bottom: 0; }
+  .tl-step::before {
+    content: ''; position: absolute; left: -2.28rem; top: 0.5rem; width: 9px; height: 9px;
+    border-radius: 50%; background: var(--bg0); border: 1px solid var(--dim);
+    transition: border-color 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .tl-step.on::before { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 4px rgba(46,134,255,0.16); }
+  .tl-n { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.18em; color: var(--dim); transition: color 0.4s var(--ease); }
+  .tl-step.on .tl-n { color: var(--accent-light); }
+  .tl-t { font-family: var(--display); font-size: clamp(1.2rem, 2.2vw, 1.6rem); font-weight: 700; margin: 0.3rem 0 0.4rem; }
+  .tl-d { color: var(--muted); max-width: 40rem; }
+
+  /* ---------- Diferenciais ---------- */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.6rem; }
+  .pillars.four { grid-template-columns: repeat(4, 1fr); }
+  .pillar { border: 1px solid var(--line); border-radius: 14px; padding: 1.5rem; background: var(--panel); transition: border-color 0.4s var(--ease), transform 0.4s var(--ease); }
+  .pillar:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .pillar-k { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; color: var(--accent); }
+  .pillar h3 { font-size: 1.15rem; font-weight: 700; margin: 0.55rem 0 0.45rem; }
+  .pillar p { color: var(--muted); font-size: 0.93rem; }
+
+  /* ---------- Números reais ---------- */
+  .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.4rem; }
+  .num { border-top: 2px solid var(--line); padding-top: 1.1rem; }
+  .num b { display: block; font-family: var(--display); font-size: clamp(2rem, 4vw, 2.9rem); font-weight: 800; letter-spacing: -0.04em; color: var(--accent-light); }
+  .num span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
+
+  /* ---------- Insight AI (demonstração) ---------- */
+  .demo { border: 1px solid var(--line); border-radius: 16px; background: var(--panel); overflow: hidden; margin-top: 2.4rem; }
+  .demo-bar { display: flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+  .demo-bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
+  .demo-body { padding: 1.4rem; display: grid; gap: 1rem; }
+  .demo-qs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .demo-q {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--muted); cursor: pointer;
+    background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 0.45rem 0.9rem;
+    transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+  }
+  .demo-q:hover { border-color: rgba(46,134,255,0.5); color: var(--ink); }
+  .demo-q[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.1); }
+  .demo-a { border-left: 2px solid var(--accent); padding-left: 1rem; min-height: 6rem; }
+  .demo-a p { color: var(--muted); }
+  .demo-a b { color: var(--ink); }
+  .demo-metrics { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-top: 0.8rem; }
+  .demo-metrics div span { display: block; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+  .demo-metrics div b { font-family: var(--display); font-size: 1.3rem; font-weight: 700; }
+
+  /* ---------- CTA final ---------- */
+  .final { text-align: center; padding: clamp(4rem, 9vw, 7rem) 0; }
+  .final h2 { font-size: clamp(2rem, 5.2vw, 3.6rem); }
+  .final .sub { margin: 1.2rem auto 0; max-width: 40rem; }
+  .final .hero-ctas { justify-content: center; margin-top: 2rem; }
+
+  /* ---------- Responsivo ---------- */
+  @media (max-width: 1080px) {
+    .pillars, .pillars.four { grid-template-columns: repeat(2, 1fr); }
+    .nums { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 780px) {
+    .sols { grid-template-columns: 1fr; }
+    .pillars, .pillars.four { grid-template-columns: 1fr; }
+    /* Sem hover no toque: o detalhe da solução fica aberto. */
+    .sol-more { grid-template-rows: 1fr; }
+    .tl { padding-left: 2rem; }
+    .tl-step::before { left: -1.72rem; }
+  }
+
+  /* ---------- Soluções: quatro pilares ---------- */
+  /* Dez cards de serviço na home viravam um catálogo. A referência mostra
+     poucos blocos e joga o detalhe para a página de cada frente. */
+  .pilares { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; margin-top: 2.6rem; }
+  .pilar {
+    display: flex; flex-direction: column; gap: 0.55rem;
+    border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem 1.3rem;
+    background: var(--panel);
+    transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .pilar:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .pilar-k {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.2em; color: var(--accent);
+    width: 1.7rem; height: 1.7rem; display: grid; place-items: center; border-radius: 6px;
+    border: 1px solid rgba(46,134,255,0.35); background: rgba(46,134,255,0.08);
+  }
+  .pilar-t { font-family: var(--display); font-size: 1.12rem; font-weight: 700; letter-spacing: -0.024em; margin-top: 0.35rem; }
+  .pilar-d { color: var(--muted); font-size: 0.88rem; }
+  .pilar-list { list-style: none; padding: 0; margin: 0.4rem 0 0; display: grid; gap: 0.4rem; }
+  .pilar-list li {
+    display: flex; gap: 0.5rem; align-items: baseline;
+    font-size: 0.86rem; color: var(--ink);
+  }
+  .pilar-list li::before { content: ''; width: 4px; height: 4px; border-radius: 1px; background: var(--accent); flex: none; position: relative; top: -0.2em; }
+  .pilar-cta {
+    margin-top: auto; padding-top: 1rem; font-family: var(--mono); font-size: 0.64rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-light);
+    text-decoration: none; white-space: nowrap;
+  }
+  .pilar:hover .pilar-cta { color: var(--ink); }
+
+  @media (max-width: 1080px) { .pilares { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .pilares { grid-template-columns: 1fr; } }
+
+  /* ---------- Painel executivo de exemplo ---------- */
+  /* Um painel só, bem resolvido, em vez de um comparativo. A hierarquia
+     é o assunto: um número principal, um gráfico com um único destaque e
+     o apoio embaixo — nada disputando atenção. */
+  .dash {
+    border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+    background: linear-gradient(180deg, rgba(18,26,36,0.9), rgba(13,17,23,0.9));
+    margin-top: 2.4rem;
+  }
+  .dash-bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1rem 1.4rem; border-bottom: 1px solid var(--line);
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .dash-bar { flex-wrap: wrap; }
+  .dash-bar b { color: var(--ink); font-weight: 500; }
+  .dash-bar span { color: var(--dim); }
+
+  .dash-tabs { display: flex; gap: 0.3rem; }
+  .dash-tab {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--dim); background: transparent; border: 1px solid transparent; border-radius: 999px;
+    padding: 0.35rem 0.7rem; cursor: pointer;
+    transition: color 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .dash-tab:hover { color: var(--ink); }
+  .dash-tab[aria-selected="true"] { color: var(--ink); border-color: rgba(46,134,255,0.45); background: rgba(46,134,255,0.12); }
+  .dash-page[hidden] { display: none; }
+  .dash-body { display: grid; grid-template-columns: 17.5rem 1fr; }
+  .dash-side { padding: 1.6rem 1.4rem; border-right: 1px solid var(--line); display: grid; gap: 1.5rem; align-content: start; }
+  .dash-main { padding: 1.6rem 1.6rem 1.3rem; }
+
+  .kpi-k { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+  .kpi-v { font-family: var(--display); font-weight: 800; letter-spacing: -0.035em; line-height: 1; font-size: clamp(1.7rem, 2.9vw, 2.2rem); margin-top: 0.4rem; white-space: nowrap; }
+  .kpi-delta { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.5rem; font-family: var(--mono); font-size: 0.72rem; color: var(--accent-light); }
+  .kpi-sub { font-family: var(--mono); font-size: 0.68rem; color: var(--dim); margin-top: 0.15rem; }
+  .kpi-mini { display: grid; gap: 0.25rem; }
+  .kpi-mini b { font-family: var(--display); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+
+  .dash-title { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+  .chart { display: flex; align-items: flex-end; gap: 0.55rem; height: 9.5rem; margin: 1.1rem 0 0.5rem; }
+  .chart div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
+  .chart i {
+    display: block; width: 100%; border-radius: 2px 2px 0 0;
+    background: rgba(46,134,255,0.22); transition: background 0.4s var(--ease);
+  }
+  .chart div.hi i { background: var(--accent); box-shadow: 0 0 22px rgba(46,134,255,0.45); }
+  .chart-x { display: flex; gap: 0.55rem; font-family: var(--mono); font-size: 0.6rem; color: var(--dim); }
+  .chart-x span { flex: 1; text-align: center; }
+  .chart-x span.hi { color: var(--accent-light); }
+
+  .dash-title.mt { margin-top: 1.6rem; }
+
+  /* Barra horizontal: a comparação entre poucas categorias com nome longo
+     lê melhor deitada do que em colunas verticais espremidas. */
+  .hbars { display: grid; gap: 0.8rem; margin-top: 1.1rem; }
+  .hbar { display: grid; grid-template-columns: 9.5rem 1fr auto; gap: 0.9rem; align-items: center; font-size: 0.88rem; }
+  .hbar > span { color: var(--muted); }
+  .hbar-track { height: 0.5rem; border-radius: 999px; background: rgba(255,255,255,0.05); overflow: hidden; }
+  .hbar-fill { height: 100%; border-radius: 999px; background: rgba(46,134,255,0.3); }
+  .hbar.hi .hbar-fill { background: var(--accent); box-shadow: 0 0 18px rgba(46,134,255,0.45); }
+  .hbar-track { position: relative; }
+  .hbar-goal { position: absolute; top: -2px; bottom: -2px; width: 1px; background: var(--ink); opacity: 0.55; }
+  .dash-scale { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; color: var(--dim); text-transform: none; margin-left: 0.5rem; }
+  .hbar > b { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--ink); }
+
+  .spark { display: block; width: 100%; height: 8.5rem; margin: 1.1rem 0 0.5rem; }
+
+  .dash-sub { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 0.9rem; }
+  .dash-sub b { font-family: var(--display); font-size: 1.2rem; font-weight: 700; letter-spacing: -0.02em; display: block; margin-top: 0.2rem; }
+
+  .dash-note {
+    display: flex; align-items: center; gap: 0.5rem; margin-top: 1.1rem; padding-top: 1rem;
+    border-top: 1px solid var(--line-soft); font-size: 0.88rem; color: var(--muted);
+  }
+  .dash-note b { color: var(--ink); font-weight: 600; }
+  .dash-note::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; }
+
+  @media (max-width: 780px) {
+    .dash-body { grid-template-columns: 1fr; }
+    .dash-side { border-right: none; border-bottom: 1px solid var(--line); grid-template-columns: repeat(2, 1fr); }
+    .dash-side > :first-child { grid-column: 1 / -1; }
+    .chart { height: 7rem; }
+    .chart-x { font-size: 0.52rem; }
+    .dash-bar { gap: 0.7rem; }
+    .hbar { grid-template-columns: 7rem 1fr auto; gap: 0.6rem; font-size: 0.8rem; }
+    .dash-sub { gap: 0.6rem; }
+    .dash-sub b { font-size: 1rem; }
+  }
+
+</style>
+<style>
+  /* Ajustes próprios das páginas de serviço. O resto vem do index.html. */
+  .pag-hero { padding-top: 3.5rem; }
+  .pag-hero h1 { font-family: var(--display); font-weight: 800; letter-spacing: -0.042em;
+    font-size: clamp(2rem, 4.6vw, 3.1rem); line-height: 1.04; margin-top: 1.1rem; }
+  .pag-tecs { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2.4rem; }
+  .pag-tec { display: inline-flex; align-items: center; gap: 0.6rem;
+    border: 1px solid var(--line); border-radius: 999px; padding: 0.4rem 0.9rem 0.4rem 0.4rem;
+    font-size: 0.86rem; color: var(--muted); background: var(--panel);
+    transition: border-color 0.3s var(--ease), color 0.3s var(--ease); }
+  .pag-tec:hover { border-color: rgba(46,134,255,0.45); color: var(--ink); }
+  .pag-tec .arq-ring { width: 2rem; height: 2rem; border-radius: 50%%; flex: none;
+    border: 1px solid var(--line-soft); background: var(--bg0); position: relative; }
+  .pag-tec .arq-ico { width: 1rem; height: 1rem; }
+  .pag-tec .arq-mn { font-size: 0.42rem; }
+  .fam-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.6rem; }
+  @media (max-width: 1000px) { .fam-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#inicio">Pular para o conteúdo</a>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"><span></span></div>
+<div class="scroll-progress" aria-hidden="true"><i id="progress-bar"></i></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html#inicio"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="brandMarkGradient" x1="4" y1="6" x2="96" y2="92" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6FD4FF"/><stop offset="0.5" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/></linearGradient></defs><path d="M50 58 L64 82 L36 82 Z" fill="#2E9BFF"/><path d="M50 6 L94 92 L64.5 92 L50 62 L35.5 92 L6 92 Z" fill="url(#brandMarkGradient)"/></svg><span class="wordmark"><b>ATLAS</b><small>TECNOLOGIA</small></span></a>
+    <nav class="nav-links" aria-label="Navegação principal">
+      <a href="index.html#solucoes">Soluções</a>
+      <a href="index.html#cases">Cases</a>
+      <a href="index.html#sobre">Sobre</a>
+      <a href="index.html#insight-ai">Insights</a>
+      <a href="insight.html">IA</a>
+      <a href="index.html#contato">Contato</a>
+      <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener" aria-label="Instagram da Atlas" data-cursor="Instagram" style="display:inline-flex;align-items:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener" aria-label="LinkedIn da Atlas" data-cursor="LinkedIn" style="display:inline-flex;align-items:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7.5 10.5v6"/><circle cx="7.5" cy="7.4" r="0.9" fill="currentColor" stroke="none"/><path d="M11.4 16.5v-6m0 1.6a2.6 2.6 0 0 1 5.1.9v3.5"/></svg>
+      </a>
+      <a class="btn btn-accent" href="index.html#contato" data-magnetic>Falar com um especialista <span class="arr">→</span></a>
+    </nav>
+    <button class="nav-burger" id="burger" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true">
+  <a href="index.html#solucoes">Soluções</a>
+  <a href="index.html#cases">Cases</a>
+  <a href="index.html#sobre">Sobre</a>
+  <a href="index.html#insight-ai">Insights</a>
+  <a href="insight.html">Atlas Insight AI <small>PRODUTO ✦</small></a>
+  <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram <small>@atlas_tecnologia ✦</small></a>
+  <a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn <small>Atlas Tecnologia ✦</small></a>
+  <a class="btn btn-accent" href="index.html#contato">Falar com um especialista <span class="arr">→</span></a>
+</nav>
+
+<main id="inicio">
+
+  <section class="sec pag-hero">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal in">Pessoas &amp; Alocação</span>
+        <h1 class="h-xl reveal d1 in">Quando o que falta não é projeto, é time.</h1>
+        <p class="sub reveal d2 in">O roadmap está definido e o orçamento aprovado, mas a vaga de engenheiro de dados segue aberta — e o projeto não anda enquanto a contratação não fecha.</p>
+        <div class="hero-ctas reveal d3 in">
+          <a class="btn btn-accent" href="index.html#contato" data-magnetic>Falar sobre alocação <span class="arr">&rarr;</span></a>
+          <a class="btn btn-line" href="index.html#solucoes" data-magnetic>Ver todas as soluções <span class="arr">&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">O que fazemos</span>
+        <h2 class="h-xl reveal d1">As frentes que entregamos.</h2>
+      </div>
+      <div class="fam-grid reveal d2">
+          <article class="svc">
+            <h3 class="svc-t">Perfis que alocamos</h3>
+            <ul class="svc-list">
+              <li>Engenheiro de dados</li>
+              <li>Analista e desenvolvedor de BI</li>
+              <li>Cientista de dados</li>
+              <li>Arquiteto de dados</li>
+            </ul>
+          </article>
+
+          <article class="svc">
+            <h3 class="svc-t">Como funciona</h3>
+            <ul class="svc-list">
+              <li>Contratos de no mínimo 6 meses</li>
+              <li>Alocações por tempo indeterminado</li>
+              <li>Sob a gestão do cliente, com respaldo técnico da Atlas</li>
+              <li>Substituição sem quebra de ritmo</li>
+            </ul>
+          </article>
+
+          <article class="svc">
+            <h3 class="svc-t">Squads completos</h3>
+            <ul class="svc-list">
+              <li>Time montado por perfil e senioridade</li>
+              <li>Liderança técnica da Atlas</li>
+              <li>Ritmo de entrega acordado</li>
+              <li>Transferência de conhecimento</li>
+            </ul>
+          </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Como entregamos</span>
+        <h2 class="h-xl reveal d1">Do entendimento à produção.</h2>
+      </div>
+      <div class="tl reveal d2">
+        <div class="tl-step on"><p class="tl-n">01</p><h3 class="tl-t">Entendimento</h3><p class="tl-d">Que perfil, que senioridade e para qual etapa do roadmap.</p></div>
+        <div class="tl-step on"><p class="tl-n">02</p><h3 class="tl-t">Seleção</h3><p class="tl-d">Indicação de profissionais com o histórico técnico compatível.</p></div>
+        <div class="tl-step on"><p class="tl-n">03</p><h3 class="tl-t">Entrada</h3><p class="tl-d">O especialista entra no seu time e na sua gestão.</p></div>
+        <div class="tl-step on"><p class="tl-n">04</p><h3 class="tl-t">Acompanhamento</h3><p class="tl-d">A Atlas segue por trás, como respaldo técnico.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">Tecnologias</span>
+        <h2 class="h-xl reveal d1">O stack sai do problema, não do contrato.</h2>
+      </div>
+      <div class="pag-tecs reveal d2">
+          <span class="pag-tec" title="Python"><span class="arq-ring"><span class="arq-ico" style="--i:url(media/logos/python.svg)"></span><span class="arq-star">&#10022;</span></span>Python</span>
+          <span class="pag-tec" title="SQL"><span class="arq-ring"><span class="arq-mn">SQL</span><span class="arq-star">&#10022;</span></span>SQL</span>
+          <span class="pag-tec" title="Power BI"><span class="arq-ring"><span class="arq-mn">PBI</span><span class="arq-star">&#10022;</span></span>Power BI</span>
+          <span class="pag-tec" title="dbt"><span class="arq-ring"><span class="arq-ico" style="--i:url(media/logos/dbt.svg)"></span><span class="arq-star">&#10022;</span></span>dbt</span>
+          <span class="pag-tec" title="Airflow"><span class="arq-ring"><span class="arq-ico" style="--i:url(media/logos/airflow.svg)"></span><span class="arq-star">&#10022;</span></span>Airflow</span>
+          <span class="pag-tec" title="Databricks"><span class="arq-ring"><span class="arq-ico" style="--i:url(media/logos/databricks.svg)"></span><span class="arq-star">&#10022;</span></span>Databricks</span>
+          <span class="pag-tec" title="BigQuery"><span class="arq-ring"><span class="arq-ico" style="--i:url(media/logos/bigquery.svg)"></span><span class="arq-star">&#10022;</span></span>BigQuery</span>
+          <span class="pag-tec" title="Spark"><span class="arq-ring"><span class="arq-ico" style="--i:url(media/logos/spark.svg)"></span></span>Spark</span>
+      </div>
+      <p class="illus-note">&#10022; marca as tecnologias com projeto entregue pela Atlas</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-lead">
+        <span class="eyebrow reveal">A prova está nos projetos</span>
+        <h2 class="h-xl reveal d1">Resultados que falam por si.</h2>
+      </div>
+      <p class="sub reveal d2">Mais de 150 profissionais já alocados, em contratos de no mínimo seis meses e boa parte por tempo indeterminado — o cliente renova porque quer manter a pessoa. São mais de 150 mil horas entregues dentro do time de quem contrata, nos mesmos setores dos cases.</p>
+    </div>
+  </section>
+
+  <section class="sec final">
+    <div class="wrap">
+      <h2 class="h-xl reveal">Vamos transformar seu próximo desafio em resultado?</h2>
+      <p class="sub reveal d1">Converse com quem vai executar. Em 30 minutos mapeamos seu
+        cenário e indicamos o caminho &mdash; mesmo que ele n&atilde;o passe pela gente.</p>
+      <div class="hero-ctas reveal d2">
+        <a class="btn btn-accent" href="index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
+        <a class="btn btn-line" href="index.html#cases" data-magnetic>Ver os projetos entregues <span class="arr">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a class="brand" href="index.html#inicio"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="footerMarkGradient" x1="4" y1="6" x2="96" y2="92" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6FD4FF"/><stop offset="0.5" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/></linearGradient></defs><path d="M50 58 L64 82 L36 82 Z" fill="#2E9BFF"/><path d="M50 6 L94 92 L64.5 92 L50 62 L35.5 92 L6 92 Z" fill="url(#footerMarkGradient)"/></svg><span class="wordmark"><b>ATLAS</b><small>TECNOLOGIA</small></span></a>
+      <div class="footer-sig">Data · AI · Cloud</div>
+    </div>
+    <nav aria-label="Mapa do site">
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="index.html#solucoes">Soluções</a></li>
+        <li><a href="index.html#cases">Cases</a></li>
+        <li><a href="index.html#sobre">Sobre</a></li>
+        <li><a href="index.html#insight-ai">Insights</a></li>
+        <li><a href="insight.html">Atlas Insight AI</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h4>Social</h4>
+      <ul>
+        <li><a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram — @atlas_tecnologia</a></li>
+        <li><a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn — Atlas Tecnologia</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Atlas Tec. Todos os direitos reservados.</span>
+    <span>atlas-partner.com</span>
+  </div>
+</footer>
+<button class="chat-fab" id="chat-fab" aria-label="Abrir chat com o assistente da Atlas">
+  <svg viewBox="0 0 64 64" fill="none" class="mascot-float" aria-hidden="true">
+      <line x1="32" y1="8" x2="32" y2="15" stroke="#6E6E78" stroke-width="2"/>
+      <circle class="mascot-dot" cx="32" cy="7" r="3.4" fill="#4C9AFF"/>
+      <rect x="13" y="15" width="38" height="33" rx="11" fill="#1C1C22" stroke="rgba(46,134,255,0.5)" stroke-width="1.6"/>
+      <rect class="mascot-eye" x="22.5" y="25" width="5.6" height="11.5" rx="2.8" fill="#4C9AFF"/>
+      <rect class="mascot-eye" x="35.9" y="25" width="5.6" height="11.5" rx="2.8" fill="#4C9AFF"/>
+      <path d="M26 42.5c2 2.3 10 2.3 12 0" stroke="#6E6E78" stroke-width="1.8" stroke-linecap="round"/>
+      <rect x="8" y="26" width="4" height="10" rx="2" fill="#2A2A31"/>
+      <rect x="52" y="26" width="4" height="10" rx="2" fill="#2A2A31"/>
+    </svg>
+</button>
+
+<div class="chat-teaser" id="chat-teaser" role="button" aria-label="Abrir chat">
+  <button class="x" id="chat-teaser-x" aria-label="Fechar aviso">×</button>
+  <svg viewBox="0 0 64 64" fill="none" class="mascot-float" aria-hidden="true">
+      <line x1="32" y1="8" x2="32" y2="15" stroke="#6E6E78" stroke-width="2"/>
+      <circle class="mascot-dot" cx="32" cy="7" r="3.4" fill="#4C9AFF"/>
+      <rect x="13" y="15" width="38" height="33" rx="11" fill="#1C1C22" stroke="rgba(46,134,255,0.5)" stroke-width="1.6"/>
+      <rect class="mascot-eye" x="22.5" y="25" width="5.6" height="11.5" rx="2.8" fill="#4C9AFF"/>
+      <rect class="mascot-eye" x="35.9" y="25" width="5.6" height="11.5" rx="2.8" fill="#4C9AFF"/>
+      <path d="M26 42.5c2 2.3 10 2.3 12 0" stroke="#6E6E78" stroke-width="1.8" stroke-linecap="round"/>
+      <rect x="8" y="26" width="4" height="10" rx="2" fill="#2A2A31"/>
+      <rect x="52" y="26" width="4" height="10" rx="2" fill="#2A2A31"/>
+    </svg>
+  <p><b>Olá! Eu sou o Átis.</b><br>Como posso ajudar? 👋</p>
+</div>
+
+<div class="chat-panel" id="chat-panel" role="dialog" aria-label="Chat com o assistente da Atlas">
+  <div class="chat-head">
+    <svg viewBox="0 0 64 64" fill="none" class="mascot-float" aria-hidden="true">
+      <line x1="32" y1="8" x2="32" y2="15" stroke="#6E6E78" stroke-width="2"/>
+      <circle class="mascot-dot" cx="32" cy="7" r="3.4" fill="#4C9AFF"/>
+      <rect x="13" y="15" width="38" height="33" rx="11" fill="#1C1C22" stroke="rgba(46,134,255,0.5)" stroke-width="1.6"/>
+      <rect class="mascot-eye" x="22.5" y="25" width="5.6" height="11.5" rx="2.8" fill="#4C9AFF"/>
+      <rect class="mascot-eye" x="35.9" y="25" width="5.6" height="11.5" rx="2.8" fill="#4C9AFF"/>
+      <path d="M26 42.5c2 2.3 10 2.3 12 0" stroke="#6E6E78" stroke-width="1.8" stroke-linecap="round"/>
+      <rect x="8" y="26" width="4" height="10" rx="2" fill="#2A2A31"/>
+      <rect x="52" y="26" width="4" height="10" rx="2" fill="#2A2A31"/>
+    </svg>
+    <div class="who">
+      <b>Átis — Assistente Atlas</b>
+      <span>Online agora</span>
+    </div>
+    <button class="chat-close" id="chat-close" aria-label="Fechar chat">×</button>
+  </div>
+  <div class="chat-msgs" id="chat-msgs">
+    <div class="chat-msg bot">Olá! 👋 Eu sou o <b>Átis</b>, o assistente da Atlas. Me conta: como posso ajudar você hoje?</div>
+  </div>
+  <div class="chat-chips" id="chat-chips">
+    <button data-msg="Quero um orçamento para um projeto de dados/BI.">💼 Quero um orçamento</button>
+    <button data-msg="Preciso de especialistas em dados para o meu time.">👥 Preciso de especialistas</button>
+    <button data-msg="Tenho outro assunto para tratar.">💬 Outro assunto</button>
+  </div>
+  <div class="chat-input">
+    <input id="chat-input" type="text" placeholder="Escreva sua mensagem…" maxlength="600" autocomplete="off">
+    <button id="chat-send" aria-label="Enviar mensagem">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+    </button>
+  </div>
+</div>
+<script>
+(function () {
+  'use strict';
+  // O site antigo forçava reduced=false porque as animações de CANVAS
+  // (partículas, universo de tecnologias) deixavam a página parecendo
+  // travada quando o sistema pedia menos movimento. Sem canvas nesta versão,
+  // a preferência do usuário pode — e deve — ser respeitada de verdade.
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  /* ---------- Cursor customizado ---------- */
+  if (finePointer && !reduced) {
+    document.body.classList.add('has-cursor');
+    const dot = document.querySelector('.cursor-dot');
+    const ring = document.querySelector('.cursor-ring');
+    const label = ring.querySelector('span');
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+    (function loop() {
+      rx = lerp(rx, mx, 0.18); ry = lerp(ry, my, 0.18);
+      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+      requestAnimationFrame(loop);
+    })();
+    document.addEventListener('mouseover', (e) => {
+      const labelled = e.target.closest('[data-cursor]');
+      const link = e.target.closest('a, button');
+      if (labelled) {
+        ring.classList.add('is-label'); ring.classList.remove('is-link');
+        label.textContent = labelled.getAttribute('data-cursor');
+      } else if (link) {
+        ring.classList.add('is-link'); ring.classList.remove('is-label');
+      } else {
+        ring.classList.remove('is-link', 'is-label');
+      }
+    });
+  }
+
+  /* ---------- Botões magnéticos ---------- */
+  if (finePointer && !reduced) {
+    document.querySelectorAll('[data-magnetic]').forEach((el) => {
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+        const y = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+        el.style.transform = 'translate(' + x * 5 + 'px,' + y * 5 + 'px)';
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+    });
+  }
+
+  /* ---------- Nav ---------- */
+  const nav = document.getElementById('nav');
+  const onScrollNav = () => nav.classList.toggle('is-scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScrollNav, { passive: true });
+  onScrollNav();
+
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    mobileMenu.setAttribute('aria-hidden', String(!open));
+    burger.textContent = open ? 'Fechar' : 'Menu';
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileMenu.addEventListener('click', (e) => {
+    if (e.target.closest('a')) {
+      mobileMenu.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.textContent = 'Menu';
+      document.body.style.overflow = '';
+    }
+  });
+
+  /* ---------- Barra de progresso ---------- */
+  // Sem a guarda, uma página sem a barra derruba este handler e todos os
+  // que forem registrados depois dele.
+  const bar = document.getElementById('progress-bar');
+  if (bar) window.addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+  }, { passive: true });
+
+  /* ---------- Reveals ---------- */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: 0.14 });
+  document.querySelectorAll('.reveal, .m-step').forEach((el) => io.observe(el));
+
+  /* ---------- Split do título do hero ---------- */
+  const h1 = document.getElementById('hero-title');
+  if (!reduced && h1) {
+    const split = (node) => {
+      [...node.childNodes].forEach((child) => {
+        if (child.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const w = document.createElement('span'); w.className = 'w'; w.setAttribute('aria-hidden', 'true');
+            const inner = document.createElement('span'); inner.textContent = part;
+            w.appendChild(inner); frag.appendChild(w);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) split(child);
+      });
+    };
+    split(h1);
+    h1.querySelectorAll('.w > span').forEach((s, i) => { s.style.animationDelay = (0.08 + i * 0.055) + 's'; });
+  }
+
+  /* ---------- Contadores ---------- */
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      cio.unobserve(en.target);
+      const el = en.target;
+      const to = parseFloat(el.dataset.to);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      if (reduced) { el.innerHTML = prefix + to + suffix; return; }
+      const t0 = performance.now();
+      const dur = 1400;
+      (function tick(t) {
+        const p = clamp((t - t0) / dur, 0, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.innerHTML = prefix + Math.round(to * eased) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.count').forEach((el) => cio.observe(el));
+
+
+  /* ---------- Accordion de serviços ---------- */
+  document.querySelectorAll('.sol-head').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.sol-item');
+      const wasOpen = item.classList.contains('open');
+      item.parentElement.querySelectorAll('.sol-item.open').forEach((other) => {
+        if (other !== item) {
+          other.classList.remove('open');
+          other.querySelector('.sol-head').setAttribute('aria-expanded', 'false');
+        }
+      });
+      item.classList.toggle('open', !wasOpen);
+      btn.setAttribute('aria-expanded', String(!wasOpen));
+    });
+  });
+
+  /* ---------- Vídeo da marca: toca quando visível ---------- */
+  (function () {
+    const video = document.getElementById('brand-video');
+    if (!video || reduced) return;
+    const vio = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          video.play().catch(() => {});
+          vio.unobserve(video);
+        }
+      });
+    }, { threshold: 0.4 });
+    vio.observe(video);
+  })();
+
+  /* ---------- Marquee: duplicar para loop ---------- */
+  // Guarda: se a faixa de setores não estiver na página, o resto deste
+  // bloco (incluindo o chat) não pode morrer junto.
+  const track = document.getElementById('marquee-track');
+  if (track) track.innerHTML += track.innerHTML;
+
+  /* ---------- Chat Átis: mascote + captura de lead ---------- */
+  (function () {
+    const fab = document.getElementById('chat-fab');
+    const panel = document.getElementById('chat-panel');
+    const teaser = document.getElementById('chat-teaser');
+    const teaserX = document.getElementById('chat-teaser-x');
+    const closeBtn = document.getElementById('chat-close');
+    const msgs = document.getElementById('chat-msgs');
+    const chips = document.getElementById('chat-chips');
+    const input = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('chat-send');
+    if (!fab || !panel) return;
+    const ENDPOINT = 'https://formsubmit.co/ajax/sergio.lavezo@atlas-partner.com';
+    let stage = 0; // 0 = aguardando mensagem, 1 = aguardando contato, 2 = enviado
+    let pendingMsg = '';
+
+    // ---- Som de notificação Atlas (sintetizado, sem arquivo) ----
+    // Duas notas em quinta perfeita (A5 → E6), ataque suave, decaimento
+    // rápido — minimalista como WhatsApp, timbre limpo como a marca.
+    let audioCtx = null, dingPlayed = false;
+    function unlockAudio() {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        if (!audioCtx) audioCtx = new AC();
+        if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+      } catch (e) {}
+    }
+    ['pointerdown', 'touchstart', 'keydown'].forEach((ev) =>
+      window.addEventListener(ev, unlockAudio, { once: true, passive: true }));
+    // Sintetizador: notas = [freq, atraso, duração, volume, freqFinal?]
+    function tone(notes) {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return false;
+        if (!audioCtx) audioCtx = new AC();
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().catch(() => {});
+          if (audioCtx.state === 'suspended') return false; // sem gesto do usuário ainda
+        }
+        const t0 = audioCtx.currentTime + 0.02;
+        notes.forEach(([freq, dt, dur, vol, freqEnd]) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, t0 + dt);
+          if (freqEnd) osc.frequency.exponentialRampToValueAtTime(freqEnd, t0 + dt + dur);
+          gain.gain.setValueAtTime(0, t0 + dt);
+          gain.gain.linearRampToValueAtTime(vol, t0 + dt + 0.012);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dt + dur);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(t0 + dt);
+          osc.stop(t0 + dt + dur + 0.05);
+        });
+        return true;
+      } catch (e) { return false; }
+    }
+    // Convite do Átis: duas notas em quinta (A5 → E6)
+    function playDing() { if (tone([[880, 0, 0.22, 0.13], [1318.5, 0.095, 0.3, 0.13]])) dingPlayed = true; }
+    // Visitante envia: "pop" grave descendente, curtinho
+    function playSend() { tone([[520, 0, 0.1, 0.1, 330]]); }
+    // Átis responde: "ding" agudo suave, nota única
+    function playRecv() { tone([[1318.5, 0, 0.16, 0.09]]); }
+
+    function addMsg(text, who) {
+      const d = document.createElement('div');
+      d.className = 'chat-msg ' + who;
+      d.textContent = text;
+      msgs.appendChild(d);
+      msgs.scrollTop = msgs.scrollHeight;
+      if (who === 'user') playSend(); else playRecv();
+    }
+    function botSay(text, delay) {
+      setTimeout(() => { addMsg(text, 'bot'); }, delay || 650);
+    }
+    // Mensagem do bot com link de ação (usado no fallback de erro)
+    function botSayAction(text, linkText, href, delay) {
+      setTimeout(() => {
+        const d = document.createElement('div');
+        d.className = 'chat-msg bot';
+        d.appendChild(document.createTextNode(text + ' '));
+        const a = document.createElement('a');
+        a.href = href;
+        a.textContent = linkText;
+        a.addEventListener('click', closePanel);
+        d.appendChild(a);
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+        playRecv();
+      }, delay || 650);
+    }
+    function hideTeaser() { teaser.classList.remove('show'); }
+    function openPanel() {
+      hideTeaser();
+      panel.classList.add('open');
+      if (!dingPlayed) playDing();
+      try { sessionStorage.setItem('atlas-chat-seen', '1'); } catch (e) {}
+      setTimeout(() => input.focus(), 350);
+    }
+    function closePanel() { panel.classList.remove('open'); }
+
+    fab.addEventListener('click', () => panel.classList.contains('open') ? closePanel() : openPanel());
+    closeBtn.addEventListener('click', closePanel);
+    teaser.addEventListener('click', openPanel);
+    teaserX.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hideTeaser();
+      try { sessionStorage.setItem('atlas-chat-seen', '1'); } catch (e2) {}
+    });
+
+    // Convite discreto 5s após entrar no site (uma vez por sessão)
+    let seen = false;
+    try { seen = !!sessionStorage.getItem('atlas-chat-seen'); } catch (e) {}
+    if (!seen) {
+      setTimeout(() => {
+        if (!panel.classList.contains('open')) {
+          teaser.classList.add('show');
+          playDing();
+        }
+      }, 5000);
+    }
+
+    chips.addEventListener('click', (e) => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      input.value = b.dataset.msg || b.textContent;
+      submit();
+    });
+
+    async function submit() {
+      const t = input.value.trim();
+      if (!t || stage === 2) return;
+      addMsg(t, 'user');
+      input.value = '';
+      if (stage === 0) {
+        pendingMsg = t;
+        stage = 1;
+        chips.style.display = 'none';
+        botSay('Perfeito! 🙌 Para o nosso time te responder, me deixa um e-mail ou WhatsApp?');
+        input.placeholder = 'Seu e-mail ou WhatsApp…';
+      } else if (stage === 1) {
+        const contato = t;
+        stage = 2;
+        input.disabled = true;
+        sendBtn.disabled = true;
+        try {
+          const r = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              _subject: 'Novo contato pelo CHAT do site (Átis)',
+              _template: 'table',
+              origem: 'Chat do site — mascote Átis',
+              mensagem: pendingMsg,
+              contato: contato,
+              pagina: location.href,
+            }),
+          });
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          botSay('Prontinho! ✅ Sua mensagem chegou para o nosso time. Vamos te responder em breve no contato que você deixou. Obrigado!', 800);
+        } catch (err) {
+          stage = 1;
+          input.disabled = false;
+          sendBtn.disabled = false;
+          botSayAction(
+            'Ops, tive uma instabilidade aqui e sua mensagem não saiu. 😕 Tente de novo em instantes — ou envie agora mesmo pelo nosso formulário:',
+            'ir para Fale conosco →', '#contato', 800);
+        }
+      }
+    }
+    sendBtn.addEventListener('click', submit);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); submit(); }
+    });
+  })();
+
+  /* ---------- Formulário → sergio.lavezo@atlas-partner.com (FormSubmit) ---------- */
+  const form = document.getElementById('form');
+  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/sergio.lavezo@atlas-partner.com';
+  if (form) form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const btn = form.querySelector('button[type="submit"]');
+    const errEl = document.getElementById('form-error');
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    const data = Object.fromEntries(new FormData(form).entries());
+    data._subject = 'Novo contato pelo site — ' + (data.empresa || data.nome);
+    data._template = 'table';
+    try {
+      const r = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      form.classList.add('sent');
+    } catch (err) {
+      errEl.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Enviar → ';
+    }
+  });
+
+})();
+</script>
+</body>
+</html>
