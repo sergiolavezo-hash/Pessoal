@@ -145,28 +145,33 @@ Braços — bi-sets (sem pausa entre os dois; 60s após o par):
 | 1× | Moela | 150g | ~225 | 45 | 4 |
 
 Pré-treino: atum 100g ↔ frango desfiado 100g ↔ moela 100g ↔ 4 claras + 1 ovo.
+Cuscuz 40g / pão 2 fatias ↔ aveia 40g ↔ 1 Rap10 ↔ tapioca 40g. Batata 120g (jantar) ↔ 1 Rap10 ↔ arroz 75g.
 
 ### Substituições por refeição (19/10)
 
-Cada opção troca a refeição inteira, com kcal e proteína parecidas. Não misturar metade de uma com metade de outra. Quinta: +100g carbo continua. Legumes e salada verde livres.
+Cada opção troca a refeição inteira, com kcal e proteína parecidas. Não misturar metade de uma com metade de outra. Quinta: +100g carbo continua. Legumes e salada verde livres. Farelo de arroz 10g pode entrar em qualquer café ou lanche (~30 kcal).
 
 | Refeição | Opção | Composição | kcal | P |
 |---|---|---|---|---|
 | Café | A | Omelete 2 ovos + 4 claras com espinafre e tomate + tapioca 40g | ~360 | 28 |
 | Café | B | Pão integral 2 fatias + 1 ovo + 5 claras + cottage 30g + mamão 100g | ~350 | 33 |
-| Café | C | Mingau: aveia 40g + whey 30g + leite desnatado 200ml | ~345 | 35 |
+| Café | C | Mingau: aveia 40g + whey 30g + leite desnatado 200ml + farelo de arroz 10g | ~375 | 36 |
+| Café | D | Wrap: 1 Rap10 + 1 ovo + 5 claras + queijo minas light 20g + espinafre | ~330 | 33 |
 | Lanche | A | Whey 30g + leite desnatado 200ml + morango 100g | ~220 | 31 |
 | Lanche | B | Atum em água 1 lata (120g) + 4 torradas integrais + tomate | ~250 | 32 |
 | Lanche | C | Cottage 150g + whey 15g + 1 kiwi | ~250 | 29 |
+| Lanche | D | Skyr 170g + whey 15g + granola sem açúcar 25g + farelo de arroz 10g | ~305 | 32 |
 | Almoço | A | Patinho moído 120g + batata-doce 150g + feijão 80g + legumes 200g | ~500 | 52 |
 | Almoço | B | Tilápia 200g + arroz 120g + legumes 200g + azeite 5ml | ~515 | 59 |
 | Almoço | C | Macarrão cozido 120g + frango 150g + molho de tomate caseiro + legumes 150g + parmesão 10g | ~505 | 60 |
 | Pré-treino | A | Tapioca 40g + frango desfiado 100g | ~300 | 31 |
 | Pré-treino | B | Whey 30g + banana 100g + aveia 20g batidos com água | ~285 | 28 |
 | Pré-treino | C | Batata-doce 200g + moela 100g | ~305 | 33 |
+| Pré-treino | D | 2 Rap10 + atum em água 100g + alface e tomate | ~345 | 32 |
 | Jantar | A | Camarão 200g + arroz 100g + abobrinha/cogumelos 200g + azeite 5ml | ~420 | 52 |
 | Jantar | B | Escondidinho: frango 130g + purê de batata 150g + parmesão 10g + salada | ~370 | 47 |
 | Jantar | C | Omelete 2 ovos + 5 claras com legumes 200g + batata 120g | ~370 | 29 |
+| Jantar | D | 1 Rap10 no lugar da batata + proteína do rodízio + salada | ~400 | 24-45 |
 | Ceia | A | Skyr/iogurte grego zero 170g + whey 15g | ~165 | 30 |
 | Ceia | B | Omelete 1 ovo + 4 claras com espinafre + cottage 30g | ~180 | 25 |
 | Ceia | C | Caseína ou whey 30g + leite desnatado 150ml | ~165 | 29 |
@@ -188,6 +193,15 @@ Cada opção troca a refeição inteira, com kcal e proteína parecidas. Não mi
 | Cogumelos | ~22 kcal · 3g P | |
 | Kiwi | ~60 kcal | vit C |
 
+### Carboidratos e fibras adicionados (por porção)
+| Alimento | kcal | P | C | G | Uso |
+|---|---|---|---|---|---|
+| Aveia em flocos 30g | ~120 | 4 | 20 | 2,5 | mingau, batido, panqueca de claras |
+| Granola sem açúcar 25g | ~110 | 3 | 16 | 4 | só como cobertura, pesada; evitar com açúcar/mel no topo dos ingredientes |
+| Rap10 (1 un, 40g) | ~115 | 3 | 20 | 3 | troca 2 fatias de pão ou 120g de batata; integral tem mais fibra |
+| Farelo de arroz 10g (1 colher de sopa) | ~32 | 1 | 5 | 2 | fibra, magnésio, vit B; comprar estabilizado, guardar na geladeira |
+
+- Com GLP-1, fibra demais de uma vez piora estufamento e náusea: começar com 1 colher de farelo/dia.
 - **Fígado excluído:** vitamina A 0,6 (limite 0,7) no exame de 08/09.
 - **Ferro dietético** (moela, sardinha, espinafre) é seguro, mas olhar hematócrito e ferritina no próximo exame.
 
