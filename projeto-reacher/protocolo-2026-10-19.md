@@ -146,6 +146,31 @@ Braços — bi-sets (sem pausa entre os dois; 60s após o par):
 
 Pré-treino: atum 100g ↔ frango desfiado 100g ↔ moela 100g ↔ 4 claras + 1 ovo.
 
+### Substituições por refeição (19/10)
+
+Cada opção troca a refeição inteira, com kcal e proteína parecidas. Não misturar metade de uma com metade de outra. Quinta: +100g carbo continua. Legumes e salada verde livres.
+
+| Refeição | Opção | Composição | kcal | P |
+|---|---|---|---|---|
+| Café | A | Omelete 2 ovos + 4 claras com espinafre e tomate + tapioca 40g | ~360 | 28 |
+| Café | B | Pão integral 2 fatias + 1 ovo + 5 claras + cottage 30g + mamão 100g | ~350 | 33 |
+| Café | C | Mingau: aveia 40g + whey 30g + leite desnatado 200ml | ~345 | 35 |
+| Lanche | A | Whey 30g + leite desnatado 200ml + morango 100g | ~220 | 31 |
+| Lanche | B | Atum em água 1 lata (120g) + 4 torradas integrais + tomate | ~250 | 32 |
+| Lanche | C | Cottage 150g + whey 15g + 1 kiwi | ~250 | 29 |
+| Almoço | A | Patinho moído 120g + batata-doce 150g + feijão 80g + legumes 200g | ~500 | 52 |
+| Almoço | B | Tilápia 200g + arroz 120g + legumes 200g + azeite 5ml | ~515 | 59 |
+| Almoço | C | Macarrão cozido 120g + frango 150g + molho de tomate caseiro + legumes 150g + parmesão 10g | ~505 | 60 |
+| Pré-treino | A | Tapioca 40g + frango desfiado 100g | ~300 | 31 |
+| Pré-treino | B | Whey 30g + banana 100g + aveia 20g batidos com água | ~285 | 28 |
+| Pré-treino | C | Batata-doce 200g + moela 100g | ~305 | 33 |
+| Jantar | A | Camarão 200g + arroz 100g + abobrinha/cogumelos 200g + azeite 5ml | ~420 | 52 |
+| Jantar | B | Escondidinho: frango 130g + purê de batata 150g + parmesão 10g + salada | ~370 | 47 |
+| Jantar | C | Omelete 2 ovos + 5 claras com legumes 200g + batata 120g | ~370 | 29 |
+| Ceia | A | Skyr/iogurte grego zero 170g + whey 15g | ~165 | 30 |
+| Ceia | B | Omelete 1 ovo + 4 claras com espinafre + cottage 30g | ~180 | 25 |
+| Ceia | C | Caseína ou whey 30g + leite desnatado 150ml | ~165 | 29 |
+
 ### Alimentos adicionados (100g)
 | Alimento | Calorias / proteína | Destaque |
 |---|---|---|
