@@ -30,26 +30,17 @@
 
 # 🏋️ TREINO v3
 
+> 19/10: costas passou para segunda (ênfase do usuário) e peito para terça. A elevação lateral 3×30-50 foi junto para a segunda, mantendo deltoide lateral em seg/qui/sex.
+
 | Dia | Sessão |
 |---|---|
-| Seg | Peito (clavicular + inferior) + Tríceps |
-| Ter | Costas (2 abertas, 2 fechadas, pulldown) + Bíceps |
+| Seg | Costas (2 abertas, 2 fechadas, pulldown) + Bíceps + lateral |
+| Ter | Peito (clavicular + inferior) + Tríceps |
 | Qua | Pernas (pump/definição) + Panturrilha |
 | Qui | ⭐ Ombros + Braços (pump técnico) — refeed |
 | Sex | Peito + Costas (volume menor) + ombro + panturrilha |
 
-## SEG — PEITO + TRÍCEPS
-| # | Exercício | Séries | Foco |
-|---|---|---|---|
-| 1 | Supino inclinado Hammer | aquec 15/10 + aprox 1×5 · 4×6-8 | clavicular · RIR 2/1/0-1/0-1 |
-| 2 | Supino declinado | aprox 1×6 · 3×8-10 | inferior |
-| 3 | Crucifixo no cabo, baixo → alto | 3×12-15 | clavicular · 2s no alongamento |
-| 4 | Crossover alto → baixo | 3×12-15 | inferior · 1s na contração |
-| 5 | Elevação lateral no cabo | 3×30-50 | carga baixa |
-| 6 | Tríceps francês no cabo (corda, acima da cabeça) | 3×10-12 | cabeça longa |
-| 7 | Tríceps corda | 3×12-15 | drop na última |
-
-## TER — COSTAS + BÍCEPS
+## SEG — COSTAS + BÍCEPS
 | # | Exercício | Séries | Foco |
 |---|---|---|---|
 | 1 | Puxada alta aberta (pronada) | aquec + aprox · 3×8-10 | largura |
@@ -60,6 +51,17 @@
 | 6 | Rosca inclinada com halteres | 3×10-12 | cabeça longa · descida 3s |
 | 7 | Rosca Scott unilateral | 3×8-10 | começar pelo direito |
 | 8 | Rosca martelo | 2×12 | braquial |
+| 9 | Elevação lateral no cabo | 3×30-50 | carga baixa |
+
+## TER — PEITO + TRÍCEPS
+| # | Exercício | Séries | Foco |
+|---|---|---|---|
+| 1 | Supino inclinado Hammer | aquec 15/10 + aprox 1×5 · 4×6-8 | clavicular · RIR 2/1/0-1/0-1 |
+| 2 | Supino declinado | aprox 1×6 · 3×8-10 | inferior |
+| 3 | Crucifixo no cabo, baixo → alto | 3×12-15 | clavicular · 2s no alongamento |
+| 4 | Crossover alto → baixo | 3×12-15 | inferior · 1s na contração |
+| 5 | Tríceps francês no cabo (corda, acima da cabeça) | 3×10-12 | cabeça longa |
+| 6 | Tríceps corda | 3×12-15 | drop na última |
 
 ## QUA — PERNAS + PANTURRILHA (descanso 60-90s)
 | # | Exercício | Séries | Execução |
