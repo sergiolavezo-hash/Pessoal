@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 100" role="img" aria-label="Atlas Tecnologia">
+  <defs>
+    <linearGradient id="g" x1="4" y1="6" x2="96" y2="92" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6FD4FF"/>
+      <stop offset="0.5" stop-color="#2E86FF"/>
+      <stop offset="1" stop-color="#0A2EE0"/>
+    </linearGradient>
+  </defs>
+  <path d="M50 58 L64 82 L36 82 Z" fill="#2E9BFF"/>
+  <path d="M50 6 L94 92 L64.5 92 L50 62 L35.5 92 L6 92 Z" fill="url(#g)"/>
+  <rect x="118" y="10" width="3" height="80" fill="#0A2EE0" opacity="0.5"/>
+  <text x="140" y="58" font-family="Manrope, 'Segoe UI', sans-serif" font-weight="800" font-size="46" letter-spacing="0.5" fill="#0B0B0E">ATLAS</text>
+  <text x="141" y="80" font-family="Manrope, 'Segoe UI', sans-serif" font-weight="500" font-size="15" letter-spacing="4.5" fill="#56565E">TECNOLOGIA</text>
+</svg>

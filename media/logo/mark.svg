@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Atlas Tecnologia">
+  <defs>
+    <linearGradient id="atlasMarkGradient" x1="4" y1="6" x2="96" y2="92" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6FD4FF"/>
+      <stop offset="0.5" stop-color="#2E86FF"/>
+      <stop offset="1" stop-color="#0A2EE0"/>
+    </linearGradient>
+  </defs>
+  <!-- Pico interno: visível através do vão do "A", dá a leitura de profundidade -->
+  <path d="M50 58 L64 82 L36 82 Z" fill="#2E9BFF"/>
+  <!-- Silhueta do "A": um único polígono côncavo — as duas pernas se separam a
+       partir do ápice do vão (50,62); nada de recorte booleano, o vão nasce
+       da própria geometria. -->
+  <path d="M50 6 L94 92 L64.5 92 L50 62 L35.5 92 L6 92 Z" fill="url(#atlasMarkGradient)"/>
+</svg>
