@@ -300,6 +300,12 @@
   .depois b { font-size: 0.95rem; font-weight: 600; }
   .depois span { color: var(--muted); font-size: 0.87rem; }
 
+  .depois-nao {
+    margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid var(--line-soft);
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; color: var(--muted);
+  }
+  .depois-nao i { font-style: normal; color: var(--dim); margin: 0 0.25rem; }
+
   /* ---------- Chips de assunto ---------- */
   .chips-field { border: 0; padding: 0; margin: 0; }
   .chips-field legend {
@@ -762,7 +768,7 @@
 
   .illus-note { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
 
-  /* ---------- Metodologia ---------- */
+  /* ---------- Timeline (usada em "Como entregamos" nas páginas de serviço) ---------- */
   .tl { position: relative; margin-top: 2.8rem; padding-left: 2.6rem; }
   .tl::before { content: ''; position: absolute; left: 0.62rem; top: 0.4rem; bottom: 0.4rem; width: 1px; background: var(--line); }
   .tl-fill { position: absolute; left: 0.62rem; top: 0.4rem; width: 1px; background: var(--accent); height: 0; transition: height 0.2s linear; }
@@ -1015,9 +1021,7 @@
         <span class="eyebrow reveal in">Consultoria de tecnologia e dados</span>
         <h1 id="hero-title" aria-label="Transformamos dados complexos em decisões extraordinárias.">Transformamos dados complexos em decisões extraordinárias.</h1>
         <p class="sub reveal d2 in">
-          Estratégia, engenharia de dados, Business Intelligence e Inteligência
-          Artificial — a Atlas conecta tecnologia e negócio para transformar
-          complexidade em vantagem competitiva.
+          Dados, BI, engenharia e IA. Da arquitetura à decisão, em produção.
         </p>
         <div class="hero-ctas reveal d3 in">
           <a class="btn btn-accent" href="#contato" data-magnetic>Falar com um especialista <span class="arr">→</span></a>
@@ -1044,7 +1048,7 @@
     </div>
     <div class="wrap">
       <div class="hero-ctas reveal" style="margin-top:2rem;justify-content:center">
-        <a class="btn btn-line" href="#contato" data-magnetic>Falar sobre o meu setor <span class="arr">&rarr;</span></a>
+        <a class="btn btn-line" href="#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
       </div>
     </div>
   </section>
@@ -1056,8 +1060,7 @@
         <span class="eyebrow reveal">Soluções</span>
         <h2 class="h-xl reveal d1">Da informação à ação.</h2>
         <p class="sub reveal d2">
-          Quatro frentes para transformar dados, tecnologia e inteligência em
-          resultado — e, quando o que falta é time, os especialistas para tocá-las.
+          Quatro frentes. E, quando o que falta é time, os especialistas para tocá-las.
           Não vendemos ferramenta: resolvemos o problema por trás dela.
         </p>
       </div>
@@ -1225,7 +1228,7 @@
       <p class="cases-note">Projetos reais entregues por especialistas Atlas Tec. Nomes de clientes preservados por confidencialidade.</p>
 
       <div class="hero-ctas reveal d3" style="margin-top:2.2rem">
-        <a class="btn btn-accent" href="#contato" data-magnetic>Falar sobre um projeto como esse <span class="arr">&rarr;</span></a>
+        <a class="btn btn-accent" href="#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
       </div>
     </div>
   </section>
@@ -1240,9 +1243,8 @@
         <span class="eyebrow reveal">Data Visualization</span>
         <h2 class="h-xl reveal d1">Dados também precisam ser compreendidos.</h2>
         <p class="sub reveal d2">
-          Dashboard não é decoração. Criamos experiências de dados que ajudam
-          pessoas a entender e decidir: um número principal, um destaque por
-          pergunta e o apoio embaixo — hierarquia antes de enfeite.
+          Dashboard não é decoração. Um número principal, um destaque por pergunta,
+          o apoio embaixo. Hierarquia antes de enfeite.
         </p>
       </div>
 
@@ -1408,7 +1410,7 @@
       <p class="illus-note">Ilustração do método — não representa dados ou resultado de cliente.</p>
 
       <div class="hero-ctas reveal d3" style="margin-top:2.2rem">
-        <a class="btn btn-accent" href="#contato" data-magnetic>Quero um painel assim <span class="arr">&rarr;</span></a>
+        <a class="btn btn-accent" href="#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
       </div>
     </div>
   </section>
@@ -1422,8 +1424,8 @@
         <span class="eyebrow reveal">Inteligência Artificial</span>
         <h2 class="h-xl reveal d1">A próxima vantagem competitiva já está nos seus dados.</h2>
         <p class="sub reveal d2">
-          IA aplicada sobre a sua própria base — uma camada que lê o que já existe,
-          aponta o que foge do padrão e antecipa o que vem.
+          IA sobre a sua própria base. Lê o que existe, aponta o desvio
+          e antecipa o que vem.
         </p>
       </div>
 
@@ -1458,8 +1460,8 @@
         <span class="eyebrow reveal" id="insight-ai">Insight AI &#10022; &middot; produto</span>
         <h2 class="h-xl reveal d1">Pergunte ao dado.</h2>
         <p class="sub reveal d2">
-          O produto da Atlas para conversar com os próprios dados: você faz a
-          pergunta de negócio, ele responde com o número e o caminho até ele.
+          Você pergunta em linguagem de negócio. Ele responde com o número
+          e a origem dele.
         </p>
       </div>
 
@@ -1473,7 +1475,6 @@
 
       <div class="hero-ctas reveal d3" style="margin-top:1.8rem">
         <a class="btn btn-accent" href="insight.html" data-magnetic>Conhecer o Insight AI <span class="arr">&rarr;</span></a>
-        <a class="btn btn-line" href="#contato" data-magnetic>Explorar IA no meu negócio <span class="arr">&rarr;</span></a>
       </div>
     </div>
   </section>
@@ -1482,7 +1483,6 @@
 
   <div class="divider"></div>
 
-  <!-- ================= METODOLOGIA ================= -->
   <!-- ================= DIFERENCIAIS ================= -->
   <section class="sec" id="diferenciais">
     <div class="wrap">
@@ -1521,15 +1521,12 @@
         <span class="eyebrow reveal">Sobre a Atlas</span>
         <h2 class="h-xl reveal d1">Tecnologia com profundidade. Negócio com clareza.</h2>
         <p class="sub reveal d2">
-          A Atlas é uma empresa de tecnologia especializada em dados, BI, cloud, IA
-          e automação. Atuamos da engenharia à tomada de decisão, conectando
-          arquitetura, tecnologia e negócio para construir soluções que funcionam
-          em produção.
+          Consultoria de tecnologia em dados e alocação de especialistas.
+          Da engenharia à decisão, em produção.
         </p>
         <p class="sub reveal d2" style="margin-top:1rem">
-          Parte estratégia. Parte laboratório. Parte engenharia. Nossa abordagem é
-          agnóstica de tecnologia — escolhemos a ferramenta que serve ao seu
-          problema, nunca o contrário.
+          Parte estratégia, parte engenharia. O stack sai do problema,
+          nunca do contrário.
         </p>
       </div>
       <div class="pillars four reveal d3" style="margin-top:2.2rem">
@@ -1540,7 +1537,7 @@
       </div>
 
       <div class="hero-ctas reveal d3" style="margin-top:2.2rem">
-        <a class="btn btn-line" href="#contato" data-magnetic>Falar com o time <span class="arr">&rarr;</span></a>
+        <a class="btn btn-line" href="#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
       </div>
     </div>
   </section>
@@ -1562,14 +1559,19 @@
         <span class="eyebrow">Contato</span>
         <h2 class="h-xl" style="margin-top:1.1rem">Solicite um diagnóstico.</h2>
         <p class="sub">
-          Em uma conversa de 30 minutos, mapeamos seu desafio e indicamos o
-          caminho — mesmo que ele não passe pela gente.
+          Conversa de 30 minutos. Mapeamos seu cenário e indicamos o caminho,
+          mesmo que não passe pela gente.
         </p>
         <ol class="depois">
-          <li><b>Você conta o desafio</b><span>Uma conversa de 30 minutos. Sem apresentação institucional.</span></li>
-          <li><b>Entendemos o cenário</b><span>Que dado existe, onde ele está e quem precisa dele para decidir.</span></li>
-          <li><b>Indicamos o caminho</b><span>O que dá resultado rápido e o que exige arquitetura, em ordem de prioridade.</span></li>
+          <li><b>Você conta o desafio</b><span>Conversa de 30 minutos, com quem vai executar.</span></li>
+          <li><b>Entendemos o cenário</b><span>Que dado existe, onde ele está e quem precisa dele.</span></li>
+          <li><b>Indicamos o caminho</b><span>O que resolve rápido e o que exige arquitetura, em ordem.</span></li>
+          <li><b>Você decide</b><span>Com escopo, stack e prazo na mão. Sem contrato até aqui.</span></li>
         </ol>
+        <p class="depois-nao">
+          Sem compromisso <i>·</i> Sem apresentação institucional <i>·</i>
+          Resposta em 1 dia útil
+        </p>
         <div class="contact-info">
           <span>Conecte-se:</span>
           <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram — @atlas_tecnologia ↗</a>

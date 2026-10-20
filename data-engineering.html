@@ -273,6 +273,12 @@
   .depois b { font-size: 0.95rem; font-weight: 600; }
   .depois span { color: var(--muted); font-size: 0.87rem; }
 
+  .depois-nao {
+    margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid var(--line-soft);
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; color: var(--muted);
+  }
+  .depois-nao i { font-style: normal; color: var(--dim); margin: 0 0.25rem; }
+
   /* ---------- Chips de assunto ---------- */
   .chips-field { border: 0; padding: 0; margin: 0; }
   .chips-field legend {
@@ -735,7 +741,7 @@
 
   .illus-note { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
 
-  /* ---------- Metodologia ---------- */
+  /* ---------- Timeline (usada em "Como entregamos" nas páginas de serviço) ---------- */
   .tl { position: relative; margin-top: 2.8rem; padding-left: 2.6rem; }
   .tl::before { content: ''; position: absolute; left: 0.62rem; top: 0.4rem; bottom: 0.4rem; width: 1px; background: var(--line); }
   .tl-fill { position: absolute; left: 0.62rem; top: 0.4rem; width: 1px; background: var(--accent); height: 0; transition: height 0.2s linear; }
@@ -997,7 +1003,7 @@
       <div class="sec-lead">
         <span class="eyebrow reveal in">Data Engineering</span>
         <h1 class="h-xl reveal d1 in">A base confiável que sustenta todo o resto.</h1>
-        <p class="sub reveal d2 in">Cada pergunta nova vira uma extração nova. A resposta chega depois que a decisão já foi tomada — e ninguém consegue dizer de onde veio o número.</p>
+        <p class="sub reveal d2 in">Cada pergunta nova vira uma extração nova. A resposta chega tarde, e ninguém sabe de onde veio o número.</p>
         <div class="hero-ctas reveal d3 in">
           <a class="btn btn-accent" href="index.html#contato" data-magnetic>Falar sobre Data Engineering <span class="arr">&rarr;</span></a>
           <a class="btn btn-line" href="index.html#solucoes" data-magnetic>Ver todas as soluções <span class="arr">&rarr;</span></a>

@@ -88,9 +88,8 @@ PAGINAS = [
              'semântica, dashboards executivos e governança de indicadores em '
              'Power BI, Looker, Tableau e MicroStrategy.',
         eyebrow='BI &amp; Analytics',
-        contexto=('O indicador existe. O problema é que cada área chega a um número '
-                  'diferente — e a reunião vira discussão sobre o dado, em vez de '
-                  'discussão sobre a decisão.'),
+        contexto=('O indicador existe. Mas cada área chega a um número diferente. '
+                  'A reunião discute o dado, não a decisão.'),
         capacidades=[
             ('Camada semântica', ['Modelagem dimensional', 'Definição única por métrica',
                                   'Regra de negócio versionada', 'Catálogo de indicadores']),
@@ -130,9 +129,8 @@ PAGINAS = [
              'Warehouse, transformação em dbt e orquestração em Airflow, em Azure, '
              'AWS e Google Cloud.',
         eyebrow='Data Engineering',
-        contexto=('Cada pergunta nova vira uma extração nova. A resposta chega depois '
-                  'que a decisão já foi tomada — e ninguém consegue dizer de onde veio '
-                  'o número.'),
+        contexto=('Cada pergunta nova vira uma extração nova. A resposta chega tarde, '
+                  'e ninguém sabe de onde veio o número.'),
         capacidades=[
             ('Ingestão e integração', ['Conectores gerenciados', 'Streaming de eventos',
                                        'Integração de sistemas legados', 'APIs e arquivos']),
@@ -171,9 +169,8 @@ PAGINAS = [
              'analistas de BI, cientistas de dados e arquitetos alocados no time do '
              'cliente, com respaldo técnico da Atlas.',
         eyebrow='Pessoas &amp; Alocação',
-        contexto=('O roadmap está definido e o orçamento aprovado, mas a vaga de '
-                  'engenheiro de dados segue aberta — e o projeto não anda enquanto '
-                  'a contratação não fecha.'),
+        contexto=('Roadmap definido, orçamento aprovado. A vaga de engenheiro de dados '
+                  'segue aberta, e o projeto não anda.'),
         capacidades=[
             ('Perfis que alocamos', ['Engenheiro de dados', 'Analista e desenvolvedor de BI',
                                      'Cientista de dados', 'Arquiteto de dados']),
@@ -191,10 +188,8 @@ PAGINAS = [
                      ('dbt', 'dbt', 1), ('Airflow', 'airflow', 1), ('Databricks', 'databricks', 1),
                      ('BigQuery', 'bigquery', 1), ('Spark', 'spark', 0)],
         case=None,
-        prova=('Mais de 150 profissionais já alocados, em contratos de no mínimo seis '
-               'meses e boa parte por tempo indeterminado — o cliente renova porque quer '
-               'manter a pessoa. São mais de 150 mil horas entregues dentro do time de '
-               'quem contrata, nos mesmos setores dos cases.'),
+        prova=('Mais de 150 profissionais alocados. Contratos de no mínimo seis meses, '
+               'boa parte por tempo indeterminado: o cliente renova para manter a pessoa.'),
         cta='Falar sobre alocação',
         cta2='Ver os projetos entregues',
     ),
