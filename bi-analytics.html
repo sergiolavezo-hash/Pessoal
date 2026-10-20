@@ -954,7 +954,36 @@
   .pag-tec .arq-ico { width: 1rem; height: 1rem; }
   .pag-tec .arq-mn { font-size: 0.42rem; }
   .fam-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.6rem; }
-  @media (max-width: 1000px) { .fam-grid { grid-template-columns: 1fr; } }
+
+  /* ---- bloco de talento ---- */
+  .tal-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2.5rem; align-items: start; margin-top: 2.6rem; }
+  .tal-pontos { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.2rem; }
+  .tal-pontos li { display: flex; flex-direction: column; gap: 0.2rem; border-left: 2px solid var(--accent); padding-left: 1rem; }
+  .tal-pontos b { font-size: 1rem; font-weight: 700; }
+  .tal-pontos span { color: var(--muted); font-size: 0.9rem; }
+  .tal-form select {
+    width: 100%%; background: var(--bg0); border: 1px solid var(--line); border-radius: 10px;
+    padding: 0.8rem 0.9rem; color: var(--ink); font-family: var(--body); font-size: 0.95rem;
+  }
+  .tal-form select:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+  .tal-form input[type="file"] { width: 100%%; color: var(--muted); font-size: 0.88rem; }
+  .tal-form input[type="file"]::file-selector-button {
+    margin-right: 0.8rem; border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.45rem 0.9rem; background: var(--panel); color: var(--ink);
+    font-family: var(--body); font-size: 0.85rem; cursor: pointer;
+  }
+  .tal-ok {
+    display: none; border: 1px solid rgba(46,134,255,0.4); border-radius: 14px;
+    padding: 1.4rem 1.5rem; background: rgba(46,134,255,0.08); margin-top: 2.6rem;
+  }
+  .tal-ok.on { display: block; }
+  .tal-ok b { display: block; font-family: var(--display); font-size: 1.15rem; font-weight: 700; }
+  .tal-ok span { display: block; color: var(--muted); margin-top: 0.3rem; }
+
+  @media (max-width: 1000px) {
+    .fam-grid { grid-template-columns: 1fr; }
+    .tal-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+  }
 </style>
 </head>
 <body>
@@ -972,6 +1001,7 @@
       <a href="index.html#sobre">Sobre</a>
       <a href="index.html#insight-ai">Insights</a>
       <a href="insight.html">IA</a>
+      <a href="alocacao.html#talento">Carreiras</a>
       <a href="index.html#contato">Contato</a>
       <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener" aria-label="Instagram da Atlas" data-cursor="Instagram" style="display:inline-flex;align-items:center;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
@@ -991,6 +1021,7 @@
   <a href="index.html#sobre">Sobre</a>
   <a href="index.html#insight-ai">Insights</a>
   <a href="insight.html">Atlas Insight AI <small>PRODUTO ✦</small></a>
+  <a href="alocacao.html#talento">Trabalhe com a gente</a>
   <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram <small>@atlas_tecnologia ✦</small></a>
   <a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn <small>Atlas Tecnologia ✦</small></a>
   <a class="btn btn-accent" href="index.html#contato">Falar com um especialista <span class="arr">→</span></a>
@@ -1121,6 +1152,7 @@
     </div>
   </section>
 
+
   <section class="sec final">
     <div class="wrap">
       <h2 class="h-xl reveal">Vamos transformar seu próximo desafio em resultado?</h2>
@@ -1149,6 +1181,7 @@
         <li><a href="index.html#sobre">Sobre</a></li>
         <li><a href="index.html#insight-ai">Insights</a></li>
         <li><a href="insight.html">Atlas Insight AI</a></li>
+        <li><a href="alocacao.html#talento">Trabalhe com a gente</a></li>
         <li><a href="index.html#contato">Contato</a></li>
       </ul>
     </nav>
