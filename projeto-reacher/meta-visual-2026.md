@@ -45,6 +45,30 @@ Se a retenção do Durateston/estradiol se mantiver, a balança engana: decidir 
 5. **Foto de comparação nas mesmas condições da referência:** mesmo espelho, luz de janela lateral, mesmo horário, pump leve antes. Quinzenal, domingo de manhã.
 6. **Se em 16/11 o peso médio estiver acima de 90,5 kg:** seguir a mesma estratégia até janeiro, sem apertar mais a dieta.
 
+## ❌ Manipulação de água — avaliada e descartada (24/10)
+
+O usuário enviou uma imagem (gerada por IA) com protocolo de 10 L/dia (dias 1–3) → 5 L (4–6) → 1–2 L (7–9) → zero água no dia, prometendo 86 → 78–80 kg e 10–12% → 4–6% de gordura.
+
+- **Água não muda percentual de gordura.** Tirar ~6% de gordura em 9 dias exigiria perder ~5 kg de gordura (~38.000 kcal). Os kg que saem são água, glicogênio e conteúdo intestinal; voltam em 24–48h.
+- **Músculo é ~75% água.** Desidratar costuma deixar o músculo murcho, não mais seco. O efeito visual da manipulação é pequeno e inconsistente.
+- **Riscos específicos deste caso:**
+  - Desidratação concentra o sangue: hematócrito já chegou a 56% (sangrias), 53% em set/26, com testosterona + nandrolona → risco de trombose, AVC, infarto
+  - 10 L/dia pode derrubar o sódio do sangue (hiponatremia): confusão, convulsão
+  - Dois GLP-1 já aumentam o risco de vômito e desidratação; esvaziamento gástrico lento torna 10 L intolerável
+  - Rins sob carga dupla (sobrecarga e depois falta de água)
+- **Decisão:** não entra no protocolo, em nenhuma versão. Diurético também não.
+
+## ✅ Semana da foto (versão segura)
+
+| Dia | Comida | Água e sal | Treino |
+|---|---|---|---|
+| D−3 | Dieta normal | 4–4,5 L, sal normal | Último treino pesado |
+| D−2 | +150–200 g de carbo (arroz, batata, tapioca, Rap10), gordura baixa, proteína normal | 4–4,5 L, sal normal | Leve, pump, sem falha |
+| D−1 | Igual ao D−2, com menos fibra e legumes (menos estufamento) | 4–4,5 L, sal normal | Descanso |
+| D | Café com carbo, refeições pequenas, sem refrigerante e sem comida que estufe | Normal, em goles ao longo do dia | Pump de 20–30 min antes da foto |
+
+O que mais muda a foto: luz lateral dura, bronzeado, óleo leve, pump e pose. Sem álcool nas 48h antes.
+
 ## Pendências do usuário
 
 - Peso em jejum de hoje
