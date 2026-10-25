@@ -42,7 +42,7 @@ Se a retenção do Durateston/estradiol se mantiver, a balança engana: decidir 
 2. **Passos: 8–10 mil/dia** além do cardio 4×30 min. Gasto extra sem custo de recuperação.
 3. **Treino v3 sem aumentar volume.** Deload em 16–22/11 mantido.
 4. **Sem corte de água nem de sódio na reta final** (hematócrito). Carbo mais alto nas 48h antes da foto.
-5. **Foto de comparação nas mesmas condições da referência:** mesmo espelho, luz de janela lateral, mesmo horário, pump leve antes. Quinzenal, domingo de manhã.
+5. **Foto de comparação nas mesmas condições da referência** (padrão abaixo).
 6. **Se em 16/11 o peso médio estiver acima de 90,5 kg:** seguir a mesma estratégia até janeiro, sem apertar mais a dieta.
 
 ## ❌ Manipulação de água — avaliada e descartada (24/10)
@@ -69,15 +69,33 @@ O usuário enviou uma imagem (gerada por IA) com protocolo de 10 L/dia (dias 1�
 
 O que mais muda a foto: luz lateral dura, bronzeado, óleo leve, pump e pose. Sem álcool nas 48h antes.
 
+## Avaliação das fotos de 24/10 (linha de base)
+
+Luz de teto à noite, baixa e chapada: esconde definição, então a leitura é conservadora.
+
+- **Mantido em relação a maio:** ombro e braço cheios, peitoral com espessura, coxa com volume. A massa muscular está lá.
+- **Diferença para maio:** abdômen liso, sem gomos visíveis; flancos e lombar baixa com gordura; cintura mais larga de frente e de costas. Bate com a InBody de agosto (gordura de tronco a 254% do esperado, membros normais).
+- **Rosto mais cheio**, coerente com a retenção da semana de 19/10.
+- **Estimativa visual: ~15–18% de gordura.** Distância para a foto de maio: ~7–9 kg de gordura, praticamente toda no tronco.
+- Conclusão: o que falta é gordura, não músculo. Plano atual mantido sem mudança.
+
+## Padrão das fotos de acompanhamento (a cada 15 dias)
+
+- Domingo de manhã, em jejum, depois do banheiro
+- Luz de dia, de janela, vindo de lado (como na foto de maio); luz de teto desligada
+- Mesmo lugar e mesma distância do espelho; celular na altura do peito
+- Mesma cueca boxer preta da foto de maio
+- 4 poses: frente relaxada, frente contraída (mão na cintura, como maio), lado, costas com bíceps contraído
+- Costas: celular apoiado com temporizador, não selfie por cima do ombro
+
 ## Pendências do usuário
 
 - Peso em jejum de hoje
 - Cintura na altura do umbigo
-- Foto atual na mesma pose e luz da referência
 - Valores dos exames "normalizados"
 
 ## Registro
 
 | Data | Peso médio | Cintura | Foto | Observação |
 |---|---|---|---|---|
-| 24/10/2026 | _pendente_ | _pendente_ | _pendente_ | meta registrada |
+| 24/10/2026 | _pendente_ | _pendente_ | frente, lado, costas (luz de teto, noite) | linha de base, ~15–18% visual |
