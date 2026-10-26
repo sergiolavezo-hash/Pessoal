@@ -53,6 +53,8 @@ mas fora do total, filtro pago / não pago / todos, simples e direto).
 - Status é **coluna filtrável**, não páginas separadas.
 - Divergências exibidas **lado a lado** e corrigidas **na própria linha**.
 - Nada é baixado sem confirmação humana (a "trava" continua).
+- **Baixa de comissão é MANUAL por decisão**: a baixa automática do Quiver só gera erro. A Tânia confere o
+  extrato (portal/impresso) e marca "Pago" no sistema — sem leitura/importação automática de extrato.
 
 ## 6. Escopo do MVP
 
@@ -61,7 +63,7 @@ mas fora do total, filtro pago / não pago / todos, simples e direto).
 | 1 | Migração | Importar clientes, apólices, endossos e repasses em aberto do Quiver (Excel) |
 | 2 | Cadastros | Categorias/produtos, seguradoras, comerciais, clientes, apólices (com % corretora e % comercial) |
 | 3 | Lançamento de endossos | **Importação do Excel da seguradora** ("Gestão de parcelas") em lote com conferência; manual para exceções; endosso único por apólice; nº do endosso pode ser completado depois |
-| 4 | Baixa de comissão | Tela única pago/não pago por ramo, **baixa em lote**, data de liberação automática, correção na linha |
+| 4 | Baixa de comissão | **Manual**: tela única pago/não pago por ramo, busca rápida por segurado/apólice/endosso, **baixa em lote**, data de liberação automática, correção na linha |
 | 5 | Fechamento do comercial | Lista tudo liberado e não pago (qualquer movimento), gera **recibo de quitação em PDF** para assinatura, lote vira pago e não pode entrar em outro recibo; estorno registrado |
 | 6 | Relatórios | Corretora (produção / recebido / pendente por movimento) e comercial (azul/vermelho, agrupado por movimento, atrasos sinalizados, totais "a pagar" e "pendente") |
 
@@ -70,8 +72,8 @@ Três datas por endosso: **movimento** (lançamento), **liberação** (baixa, au
 
 ## 7. Próximas versões
 
-1. Importação do extrato de comissão com **baixa por semelhança** (tudo bate → baixa; quase tudo → sugere;
-   nada → lista com motivo; correção atualiza o cadastro).
+1. (Opcional, só se a equipe pedir) Conferência assistida do extrato de comissão — **não** baixa sozinho,
+   apenas sugere. Decisão atual: baixa 100% manual.
 2. Leitura de PDF com IA (tolerante a mudança de layout).
 3. Agente de IA que baixa relatórios dos portais das seguradoras (atenção: captcha/2FA, senhas,
    termos de uso, custo).
@@ -89,8 +91,8 @@ Três datas por endosso: **movimento** (lançamento), **liberação** (baixa, au
 categoria (id, nome)
 produto (id, categoria_id, nome, ramo)
 seguradora (id, nome)
-comercial (id, nome)
-cliente (id, razao_social, cnpj, ativo, comercial_id)
+comercial (id, nome, tipo [comercial/assistente], ativo)   -- todos cadastrados no sistema
+cliente (id, razao_social, cnpj, ativo, comercial_id, assistente_id)
 apolice (id, cliente_id, produto_id, seguradora_id, numero,
          pct_comissao_corretora, pct_comissao_comercial)          -- 1 por cliente+produto
 fatura_endosso (id, apolice_id, numero_fatura, endosso, movimento [mês/ano],
@@ -114,4 +116,5 @@ auditoria (id, usuario, tabela, registro_id, campo, valor_antigo, valor_novo, da
 - [ ] Fluxograma do processo (equipe vai desenhar)
 - [ ] Perguntar às seguradoras: nº do endosso na exportação? API para corretoras?
 - [ ] Pedir ao desenvolvedor do sistema antigo: banco (.mdb) e/ou código-fonte (opcional)
-- [ ] Assistente (Paulo Ferreira) recebe comissão? — fora do escopo por enquanto
+- [x] Comerciais e assistentes serão cadastrados no sistema
+- [ ] Confirmar o papel do assistente (só vínculo ao cliente/relatório ou também recebe comissão)
