@@ -90,7 +90,7 @@ Luz de teto à noite, baixa e chapada: esconde definição, então a leitura é 
 
 ## Pendências do usuário
 
-- Peso em jejum de hoje
+- Média semanal de peso (a partir de 01/11)
 - Cintura na altura do umbigo
 - Valores dos exames "normalizados"
 
@@ -99,3 +99,4 @@ Luz de teto à noite, baixa e chapada: esconde definição, então a leitura é 
 | Data | Peso médio | Cintura | Foto | Observação |
 |---|---|---|---|---|
 | 24/10/2026 | _pendente_ | _pendente_ | frente, lado, costas (luz de teto, noite) | linha de base, ~15–18% visual |
+| 28/10/2026 | 94,1 kg (pesagem única, jejum) | _pendente_ | — | −3,9 kg desde 19/10 (98): saída da retenção. Ainda ~1–2 kg acima do peso real pré-retenção (92–93) |
