@@ -99,5 +99,5 @@ Luz de teto à noite, baixa e chapada: esconde definição, então a leitura é 
 | Data | Peso médio | Cintura | Foto | Observação |
 |---|---|---|---|---|
 | 24/10/2026 | _pendente_ | _pendente_ | frente, lado, costas (luz de teto, noite) | linha de base, ~15–18% visual |
-| 28/10/2026 | 94,1 kg (pesagem única, jejum) | _pendente_ | — | −3,9 kg desde 19/10 (98): saída da retenção. Ainda ~1–2 kg acima do peso real pré-retenção (92–93) |
-| 29/10/2026 | 94,0 kg (jejum) | _pendente_ | — | −0,1 kg em 24h: oscilação normal do dia a dia |
+| 28/10/2026 | 95,1 kg (jejum; corrigido — tinha sido registrado como 94,1) | _pendente_ | — | −2,9 kg desde 19/10 (98): saída da retenção. Ainda ~2–3 kg acima do peso real pré-retenção (92–93) |
+| 29/10/2026 | 94,4 kg (jejum) | _pendente_ | — | −0,7 kg em 24h: retenção ainda saindo |
