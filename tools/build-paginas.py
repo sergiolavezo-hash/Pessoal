@@ -40,6 +40,11 @@ def extrair(html):
     topo = um(r'<a class="skip-link".*?(?=\n\n<header)', 'elementos de topo')
     # widget de chat: do botão flutuante até o fim do painel
     chat = um(r'<button class="chat-fab".*?<!-- /chat -->|<button class="chat-fab".*?(?=<script>)', 'chat')
+    # O tema é decidido antes da primeira pintura. Sem este bloco a página
+    # interna abre no escuro enquanto a home abre no claro.
+    boot = um(r'  <script>\n  /\* Antes da primeira pintura.*?</script>', 'script de tema do head')
+    tema_btn = um(r'<button class="tema-btn".*?</button>\n', 'botão de tema')
+    tema_js = um(r'<script>\n/\* -+ Alternador de tema -+ \*/.*?</script>', 'script do alternador')
     # O script principal é o último bloco inline sem type — ancorar num nome de
     # variável quebra sempre que uma seção sai do ar.
     blocos = re.findall(r'<script>(?:(?!</script>).)*</script>', html, re.S)
@@ -47,7 +52,8 @@ def extrair(html):
         sys.exit('não encontrei o <script> principal no index.html')
     script = max(blocos, key=len)
     return dict(estilo=estilo, header=header, menu=menu, rodape=rodape,
-                topo=topo, chat=chat.rstrip(), script=script)
+                topo=topo, chat=chat.rstrip(), script=script,
+                boot=boot, tema_btn=tema_btn.rstrip(), tema_js=tema_js)
 
 
 # ---------------------------------------------------------------- conteúdo
@@ -471,6 +477,8 @@ def montar(pag, comum):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#F2F1ED">
+%(boot)s
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -496,15 +504,18 @@ def montar(pag, comum):
 %(corpo)s
 
 %(rodape)s
+%(tema_btn)s
 %(chat)s
 %(script)s
+%(tema_js)s
 </body>
 </html>
 ''' % dict(titulo=pag['titulo'], meta=pag['meta'], url=url, site=SITE,
            estilo=comum['estilo'], extra=extra, header=comum['header'],
            topo=comum['topo'],
            menu=comum['menu'], corpo=corpo, rodape=comum['rodape'],
-           chat=comum['chat'], script=comum['script'])
+           chat=comum['chat'], script=comum['script'], boot=comum['boot'],
+           tema_btn=comum['tema_btn'], tema_js=comum['tema_js'])
 
 
 def main():

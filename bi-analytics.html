@@ -14,6 +14,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#F2F1ED">
+  <script>
+  /* Antes da primeira pintura: sem isto a página aparece no tema errado
+     por um quadro e só depois corrige. */
+  (function () {
+    try {
+      var g = localStorage.getItem('atlas-tema');
+      var t = (g === 'claro' || g === 'escuro') ? g : 'claro';
+      document.documentElement.setAttribute('data-tema', t);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'claro' ? '#F2F1ED' : '#05070A');
+    } catch (e) { document.documentElement.setAttribute('data-tema', 'claro'); }
+  })();
+  </script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -52,6 +66,16 @@
     --body: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
     --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --grid: rgba(244, 243, 239, 0.05);
+    --veil: rgba(5, 7, 10, 0.72);
+    --veil-forte: rgba(5, 7, 10, 0.92);
+    --veil-fundo: rgba(5, 7, 10, 0.45);
+    --line-strong: rgba(244, 243, 239, 0.25);
+    /* O accent puro com texto branco dá 3,5:1 — abaixo do mínimo. O
+       preenchimento do botão fecha um tom; o accent segue o mesmo em
+       selos, links e ícones. */
+    --btn-fill: #1F6FE0;   /* branco sobre ele: 4,76:1 */
+    --sombra: 0 10px 30px -8px rgba(5, 7, 10, 0.55);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -61,8 +85,8 @@
      site e as postagens sem competir com o conteúdo. */
   body {
     background:
-      linear-gradient(rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
-      linear-gradient(90deg, rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 56px 56px,
       var(--bg0);
     color: var(--ink);
     font-family: var(--body);
@@ -83,7 +107,7 @@
   section[id] { scroll-margin-top: 5rem; }
   .skip-link {
     position: absolute; left: -999px; top: 0; z-index: 100;
-    background: var(--accent); color: #fff; padding: 0.7rem 1.2rem; border-radius: 0 0 8px 0;
+    background: var(--btn-fill); color: #fff; padding: 0.7rem 1.2rem; border-radius: 0 0 8px 0;
     font-weight: 700; text-decoration: none;
   }
   .skip-link:focus { left: 0; }
@@ -108,9 +132,9 @@
     padding: 0.9rem 1.7rem; border-radius: 999px; text-decoration: none;
     border: 1px solid transparent; cursor: pointer; transition: all 0.25s var(--ease);
   }
-  .btn-accent { background: var(--accent); color: #fff; }
+  .btn-accent { background: var(--btn-fill); color: #fff; }
   .btn-accent:hover { background: var(--accent-light); color: var(--accent-ink); transform: translateY(-1px); box-shadow: 0 10px 30px -8px rgba(46,134,255,0.5); }
-  .btn-line { background: none; color: var(--ink); border-color: rgba(244,243,239,0.25); }
+  .btn-line { background: none; color: var(--ink); border-color: var(--line-strong); }
   .btn-line:hover { border-color: var(--accent); color: var(--accent-light); }
   .btn .arr { transition: transform 0.25s var(--ease); }
   .btn:hover .arr { transform: translateX(3px); }
@@ -130,8 +154,8 @@
   .scroll-progress i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); transform-origin: left; transform: scaleX(0); }
 
   /* ---------- Header ---------- */
-  .nav { position: sticky; top: 0; z-index: 50; background: rgba(5,7,10,0.72); backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
-  .nav.is-scrolled { background: rgba(5,7,10,0.92); border-bottom-color: var(--line-soft); }
+  .nav { position: sticky; top: 0; z-index: 50; background: var(--veil); backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  .nav.is-scrolled { background: var(--veil-forte); border-bottom-color: var(--line-soft); }
   .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 5rem; transition: height 0.3s var(--ease); }
   .nav.is-scrolled .wrap { height: 4.25rem; }
 
@@ -168,10 +192,10 @@
   /* ---------- Hero ---------- */
   .hero { position: relative; padding: 7rem 0 5rem; overflow: hidden;
     background: radial-gradient(60rem 34rem at 82% -12%, rgba(46,134,255,0.14), transparent 60%),
-      linear-gradient(rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
-      linear-gradient(90deg, rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 56px 56px,
       var(--bg0); }
-  .hero > canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+  .hero > canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: auto; z-index: 0; }
   /* Uma coluna só: a lista de camadas que ocupava a direita repetia os
      serviços logo abaixo. O território 3D fica com aquele espaço. */
   .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; align-items: center; }
@@ -209,7 +233,7 @@
     position: fixed; top: var(--navh, 4.25rem); left: 0; right: 0; z-index: 45;
     display: flex; align-items: center; justify-content: center; gap: 1.2rem;
     padding: 0.6rem 3rem 0.6rem 1.2rem;
-    background: rgba(5,7,10,0.92); border-bottom: 1px solid var(--line);
+    background: var(--veil-forte); border-bottom: 1px solid var(--line);
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     transform: translateY(-100%); transition: transform 0.45s var(--ease);
   }
@@ -357,7 +381,7 @@
   .ad {
     display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.9rem; align-items: stretch;
     margin: 1.2rem 0 0.4rem; padding: 1rem; border-radius: 12px;
-    border: 1px solid var(--line); background: rgba(5,7,10,0.45);
+    border: 1px solid var(--line); background: var(--veil-fundo);
   }
   .ad-lado { display: flex; flex-direction: column; gap: 0.15rem; }
   .ad-k { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
@@ -425,8 +449,8 @@
   /* ---------- CTA final ---------- */
   .cta-final { position: relative; padding: 6.5rem 0; text-align: center; overflow: hidden;
     background:
-      linear-gradient(rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
-      linear-gradient(90deg, rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 56px 56px,
       var(--bg1); }
   .cta-glow { position: absolute; inset: 0; background: radial-gradient(38rem 22rem at 50% 0%, rgba(46,134,255,0.22), transparent 70%); pointer-events: none; }
   .cta-final .wrap { position: relative; }
@@ -461,10 +485,10 @@
   /* ---------- Footer ---------- */
   .footer { border-top: 1px solid var(--line-soft); padding: 4rem 0 2rem;
     background:
-      linear-gradient(rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
-      linear-gradient(90deg, rgba(244, 243, 239, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 56px 56px,
       var(--bg0); }
-  .footer-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); gap: 2.5rem; }
+  .footer-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
   .footer .brand svg { width: 2.4rem; height: 2.4rem; }
   .footer .brand .wordmark b { font-size: 1.15rem; }
   .footer-sig { margin-top: 1rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--dim); text-transform: uppercase; }
@@ -937,6 +961,227 @@
     .dash-sub b { font-size: 1rem; }
   }
 
+  /* ============================================================
+     Arquitetura de blocos no formato da referência — com os
+     tokens, a tipografia e o fundo escuro da Atlas.
+     ============================================================ */
+
+  /* Selo de seção: variante em pílula do .eyebrow */
+  .pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-light);
+    background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.3);
+    border-radius: 999px; padding: 0.42rem 0.9rem;
+  }
+  .pill svg { width: 0.85rem; height: 0.85rem; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  /* ---------- Hero centralizado ---------- */
+  .hero-c { min-height: 100svh; display: grid; align-items: center; padding: 9rem 0 7rem; }
+  .hero-c .wrap > div { max-width: 56rem; margin: 0 auto; text-align: center; }
+  .hero-c h1 { max-width: 20ch; margin-left: auto; margin-right: auto; }
+  .hero-c h1 .ac { color: var(--accent-light); }
+  .hero-c p.sub { max-width: 40rem; margin-left: auto; margin-right: auto; }
+  .hero-c .hero-ctas { justify-content: center; }
+  .hero-cue {
+    display: inline-flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    margin-top: 3rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--dim); text-decoration: none;
+    transition: color 0.25s var(--ease);
+  }
+  .hero-cue:hover { color: var(--accent-light); }
+  .hero-cue svg { width: 1.1rem; height: 1.1rem; stroke: currentColor; fill: none; stroke-width: 2; transition: transform 0.25s var(--ease); }
+  .hero-cue:hover svg { transform: translateY(3px); }
+
+  /* ---------- Trilho de setores com rótulo à esquerda ---------- */
+  .rail { padding: 3.2rem 0; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+  .rail-grid { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center; }
+  .rail-label {
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--dim); max-width: 11rem; line-height: 1.5;
+    border-right: 1px solid var(--line); padding-right: 2rem;
+  }
+  .rail .marquee { min-width: 0; }
+
+  /* ---------- Essência: duas colunas desiguais ---------- */
+  .ess { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 1.2rem; }
+  .ess-card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem); display: flex; flex-direction: column; }
+  .ess-card h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 800; margin: 1.1rem 0 0.9rem; }
+  .ess-card > p { color: var(--muted); font-size: 0.99rem; }
+  .ess-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: auto; padding-top: 1.6rem; }
+  .ess-chips span {
+    flex: 1 1 auto; text-align: center; background: var(--panel-2); border: 1px solid var(--line);
+    border-radius: 10px; padding: 0.7rem 0.9rem; font-family: var(--display); font-weight: 700;
+    font-size: 0.92rem; transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+  }
+  .ess-chips span:hover { border-color: rgba(46,134,255,0.45); color: var(--accent-light); }
+  .ess-list { list-style: none; display: grid; gap: 0.9rem; margin-top: 1.4rem; }
+  .ess-list li { display: grid; grid-template-columns: auto 1fr; gap: 0.8rem; align-items: start; color: var(--muted); font-size: 0.95rem; }
+  .ess-list svg { width: 1.1rem; height: 1.1rem; stroke: var(--accent); fill: none; stroke-width: 2.2; margin-top: 0.3rem; }
+  .ess-list b { color: var(--ink); font-weight: 700; display: block; font-family: var(--display); }
+  .ess-foot { border-top: 1px solid var(--line-soft); margin-top: 1.6rem; padding-top: 1.2rem; color: var(--dim); font-size: 0.88rem; }
+
+  /* ---------- Ladrilhos de números ---------- */
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1.2rem; }
+  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem; transition: border-color 0.35s var(--ease), transform 0.35s var(--ease); }
+  .tile:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .tile-top { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 1.5rem; }
+  .tile-ico { width: 2.3rem; height: 2.3rem; display: grid; place-items: center; border-radius: 9px; background: rgba(46,134,255,0.12); border: 1px solid rgba(46,134,255,0.26); }
+  .tile-ico svg { width: 1.1rem; height: 1.1rem; stroke: var(--accent-light); fill: none; stroke-width: 2; }
+  .tile-cat { font-family: var(--mono); font-size: 0.64rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); text-align: right; }
+  .tile b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.4vw, 2.7rem); font-weight: 800; letter-spacing: -0.04em; color: var(--ink); line-height: 1; }
+  .tile span { display: block; color: var(--muted); font-size: 0.89rem; margin-top: 0.6rem; }
+
+  /* ---------- Faixa de destaque ---------- */
+  .banner {
+    position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 20px;
+    background:
+      radial-gradient(40rem 22rem at 88% 20%, rgba(46,134,255,0.17), transparent 62%),
+      var(--panel);
+    padding: clamp(1.8rem, 4vw, 3.2rem);
+    display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 2rem; align-items: center;
+  }
+  .banner h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; margin: 1.1rem 0 1rem; max-width: 24ch; }
+  .banner p { color: var(--muted); font-size: 0.99rem; max-width: 46ch; }
+  .banner-cta { display: flex; justify-content: flex-end; }
+
+  /* ---------- Soluções: lista 01–04 + painel ---------- */
+  .sol { display: grid; grid-template-columns: 0.88fr 1.12fr; gap: 1.2rem; margin-top: 2.6rem; align-items: start; }
+  .sol-list { display: grid; gap: 0.7rem; }
+  .sol-item {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; width: 100%;
+    text-align: left; background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.1rem 1.2rem; cursor: pointer; color: inherit;
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .sol-item:hover { border-color: rgba(46,134,255,0.4); transform: translateX(3px); }
+  .sol-item[aria-selected="true"] { border-color: var(--accent); background: var(--panel-2); }
+  .sol-ico { width: 2.3rem; height: 2.3rem; display: grid; place-items: center; border-radius: 9px; background: rgba(46,134,255,0.12); border: 1px solid rgba(46,134,255,0.26); }
+  .sol-ico svg { width: 1.1rem; height: 1.1rem; stroke: var(--accent-light); fill: none; stroke-width: 2; }
+  .sol-item[aria-selected="true"] .sol-ico { background: var(--accent); border-color: var(--accent); }
+  .sol-item[aria-selected="true"] .sol-ico svg { stroke: #fff; }
+  .sol-k { font-family: var(--mono); font-size: 0.64rem; font-weight: 500; letter-spacing: 0.17em; text-transform: uppercase; color: var(--accent); display: block; }
+  .sol-t { font-family: var(--display); font-size: 1.05rem; font-weight: 700; display: block; margin-top: 0.2rem; }
+  .sol-arr { width: 2rem; height: 2rem; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); color: var(--dim); font-size: 0.85rem; transition: all 0.3s var(--ease); }
+  .sol-item[aria-selected="true"] .sol-arr { background: rgba(46,134,255,0.16); border-color: rgba(46,134,255,0.45); color: var(--accent-light); }
+  .sol-panel[hidden] { display: none; }
+  .sol-panel { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem); min-height: 100%; display: flex; flex-direction: column; }
+  .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 800; margin: 1.1rem 0 1rem; }
+  .sol-panel > p { color: var(--muted); font-size: 1rem; }
+  .sol-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.3rem; }
+  .sol-tags span { font-size: 0.74rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0.32rem 0.75rem; }
+  .sol-foot { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; border-top: 1px solid var(--line-soft); margin-top: auto; padding-top: 1.5rem; }
+  .sol-sig { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--dim); font-size: 0.84rem; }
+  .sol-sig svg { width: 1rem; height: 1rem; stroke: var(--accent); fill: none; stroke-width: 2.2; }
+
+  /* ---------- Cabeçalho assimétrico ---------- */
+  .head2 { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2.5rem; align-items: end; }
+  .head2 h2 { margin-bottom: 0; }
+  .head2-side { display: flex; flex-direction: column; gap: 1.3rem; align-items: flex-start; }
+  .head2-side .sub { margin: 0; }
+
+  /* ---------- Contato: formulário + contatos ---------- */
+  .ct-side { display: grid; gap: 0.8rem; align-content: start; }
+  .ct-card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 1.3rem 1.4rem; text-decoration: none; display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: center; transition: border-color 0.3s var(--ease), transform 0.3s var(--ease); }
+  a.ct-card:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-2px); }
+  .ct-card .tile-ico { flex: none; }
+  .ct-card .k { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); display: block; }
+  .ct-card .v { font-family: var(--display); font-weight: 700; font-size: 0.97rem; display: block; margin-top: 0.15rem; word-break: break-word; }
+
+  @media (max-width: 1000px) {
+    .ess, .sol, .banner, .head2 { grid-template-columns: 1fr; }
+    .banner-cta { justify-content: flex-start; }
+    .head2 { align-items: start; }
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .rail-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .rail-label { border-right: 0; border-bottom: 1px solid var(--line); padding-right: 0; padding-bottom: 1rem; max-width: none; }
+    .hero-c { min-height: auto; padding: 7rem 0 4rem; }
+  }
+  @media (max-width: 520px) {
+    .tiles { grid-template-columns: 1fr; }
+    .ess-chips span { flex: 1 1 100%; }
+  }
+
+  /* ============================================================
+     Tema claro. Os mesmos tokens com outros valores — nenhum
+     componente precisa saber em que tema está.
+
+     Todos os pares texto/fundo daqui foram medidos: o menor é
+     4,74:1 (--dim sobre o papel), acima do mínimo de 4,5:1.
+
+     O azul claro do tema escuro não serve de texto sobre branco
+     (3,5:1), então --accent e --accent-light passam a azuis
+     fechados. E --paper, que no escuro é a seção clara que
+     inverte o ritmo da página, aqui vira a escura — a inversão
+     continua acontecendo, na direção oposta.
+     ============================================================ */
+  :root[data-tema="claro"] {
+    --bg0: #F2F1ED;
+    --bg1: #FFFFFF;
+    --panel: #FFFFFF;
+    --panel-2: #F7F6F2;
+    --line: rgba(19, 19, 22, 0.12);
+    --line-soft: rgba(19, 19, 22, 0.07);
+    --line-strong: rgba(19, 19, 22, 0.25);
+    --ink: #131316;      /* 16,4:1 sobre o papel */
+    --muted: #56565E;    /* 6,4:1 */
+    --dim: #6A6A73;      /* 4,7:1 sobre o papel, 5,0:1 sobre o painel */
+    --accent: #0B5ED7;   /* 5,2:1 como texto; branco sobre ele, 5,8:1 */
+    --accent-light: #0A54C4;  /* 6,0:1 — este token também é texto */
+    --accent-deep: #6FD4FF;
+    --accent-ink: #FFFFFF;
+    --chart-a: #0B5ED7;
+    --chart-b: #4A6FA8;
+    --paper: #0D1117;
+    --paper-ink: #F4F3EF;
+    --paper-muted: #9BA3AE;
+    --paper-line: rgba(244, 243, 239, 0.12);
+    --grid: rgba(19, 19, 22, 0.045);
+    --veil: rgba(255, 255, 255, 0.78);
+    --veil-forte: rgba(255, 255, 255, 0.94);
+    --veil-fundo: rgba(255, 255, 255, 0.62);
+    --sombra: 0 10px 30px -10px rgba(19, 19, 22, 0.18);
+    --btn-fill: #0B5ED7;   /* branco sobre ele: 5,84:1 */
+  }
+  /* No claro a seção de papel é a escura, então o selo dela volta
+     a ser o azul aberto. */
+  :root[data-tema="claro"] .eyebrow.on-paper { color: var(--accent-deep); }
+  :root[data-tema="claro"] .eyebrow.on-paper::before { background: var(--accent-deep); }
+  /* O branco puro dos cartões pede uma sombra no lugar do contorno
+     que no escuro vinha do próprio fundo. */
+  :root[data-tema="claro"] .tile,
+  :root[data-tema="claro"] .ess-card,
+  :root[data-tema="claro"] .sol-panel,
+  :root[data-tema="claro"] .sol-item,
+  :root[data-tema="claro"] .case-card,
+  :root[data-tema="claro"] .case-mini,
+  :root[data-tema="claro"] .pillar,
+  :root[data-tema="claro"] .pilar,
+  :root[data-tema="claro"] .ct-card,
+  :root[data-tema="claro"] .banner { box-shadow: var(--sombra); }
+
+  /* ---------- Alternador de tema ---------- */
+  .tema-btn {
+    /* Empilhado logo acima do Átis, centros alinhados: o canto
+       inferior direito já é dele. */
+    position: fixed; right: 1.79rem; bottom: 6.2rem; z-index: 149;
+    width: 2.9rem; height: 2.9rem; display: grid; place-items: center;
+    border-radius: 12px; cursor: pointer;
+    background: var(--veil-forte); backdrop-filter: blur(10px);
+    border: 1px solid var(--line); color: var(--muted);
+    box-shadow: var(--sombra);
+    transition: color 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .tema-btn:hover { color: var(--accent-light); border-color: rgba(46,134,255,0.45); transform: translateY(-2px); }
+  .tema-btn svg { width: 1.15rem; height: 1.15rem; stroke: currentColor; fill: none; stroke-width: 1.9; }
+  /* O ícone mostra para onde o clique leva: lua no tema claro, sol no escuro. */
+  .tema-btn .ico-claro { display: none; }
+  :root[data-tema="escuro"] .tema-btn .ico-claro { display: block; }
+  :root[data-tema="escuro"] .tema-btn .ico-escuro { display: none; }
+  @media (max-width: 760px) { .tema-btn { right: 1.59rem; bottom: 5.9rem; } }
+
 </style>
 <style>
   /* Ajustes próprios das páginas de serviço. O resto vem do index.html. */
@@ -1173,31 +1418,44 @@
       <a class="brand" href="index.html#inicio"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="footerMarkGradient" x1="4" y1="6" x2="96" y2="92" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6FD4FF"/><stop offset="0.5" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/></linearGradient></defs><path d="M50 58 L64 82 L36 82 Z" fill="#2E9BFF"/><path d="M50 6 L94 92 L64.5 92 L50 62 L35.5 92 L6 92 Z" fill="url(#footerMarkGradient)"/></svg><span class="wordmark"><b>ATLAS</b><small>TECNOLOGIA</small></span></a>
       <div class="footer-sig">Data · AI · Cloud</div>
     </div>
-    <nav aria-label="Mapa do site">
-      <h4>Navegação</h4>
+    <nav aria-label="Soluções">
+      <h4>Soluções</h4>
       <ul>
-        <li><a href="index.html#solucoes">Soluções</a></li>
-        <li><a href="index.html#cases">Cases</a></li>
-        <li><a href="index.html#sobre">Sobre</a></li>
-        <li><a href="index.html#insight-ai">Insights</a></li>
-        <li><a href="insight.html">Atlas Insight AI</a></li>
-        <li><a href="alocacao.html#talento">Trabalhe com a gente</a></li>
-        <li><a href="index.html#contato">Contato</a></li>
+        <li><a href="bi-analytics.html">BI &amp; Analytics</a></li>
+        <li><a href="data-engineering.html">Data Engineering &amp; Cloud</a></li>
+        <li><a href="insight.html">Inteligência Artificial</a></li>
+        <li><a href="alocacao.html">Alocação de especialistas</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Sobre a Atlas">
+      <h4>Sobre</h4>
+      <ul>
+        <li><a href="index.html#sobre">A Atlas</a></li>
+        <li><a href="index.html#setores">Setores</a></li>
+        <li><a href="cases-de-sucesso.html">Cases de sucesso</a></li>
+        <li><a href="index.html#ia">Insight AI</a></li>
+        <li><a href="alocacao.html#talento">Carreiras</a></li>
       </ul>
     </nav>
     <div>
-      <h4>Social</h4>
+      <h4>Fale conosco</h4>
       <ul>
+        <li><a href="mailto:contato@atlas-partner.com">contato@atlas-partner.com</a></li>
+        <li><a href="index.html#contato">Solicitar um diagnóstico</a></li>
+        <li><a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn</a></li>
         <li><a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram — @atlas_tecnologia</a></li>
-        <li><a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn — Atlas Tecnologia</a></li>
       </ul>
     </div>
   </div>
   <div class="wrap footer-bottom">
     <span>© 2026 Atlas Tec. Todos os direitos reservados.</span>
-    <span>atlas-partner.com</span>
+    <span><a href="insight.html" style="text-decoration:none">Área do cliente</a> <i aria-hidden="true" style="opacity:.4">·</i> atlas-partner.com</span>
   </div>
 </footer>
+<button class="tema-btn" id="tema-btn" type="button" aria-label="Alternar entre tema claro e escuro">
+  <svg class="ico-escuro" viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+  <svg class="ico-claro" viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
 <button class="chat-fab" id="chat-fab" aria-label="Abrir chat com o assistente da Atlas">
   <svg viewBox="0 0 64 64" fill="none" class="mascot-float" aria-hidden="true">
       <line x1="32" y1="8" x2="32" y2="15" stroke="#6E6E78" stroke-width="2"/>
@@ -1640,6 +1898,30 @@
     }
   });
 
+})();
+</script>
+<script>
+/* ---------- Alternador de tema ---------- */
+(function () {
+  var btn = document.getElementById('tema-btn');
+  if (!btn) return;
+  var raiz = document.documentElement;
+  var meta = document.querySelector('meta[name="theme-color"]');
+
+  function aplicar(t, guardar) {
+    raiz.setAttribute('data-tema', t);
+    if (meta) meta.setAttribute('content', t === 'claro' ? '#F2F1ED' : '#05070A');
+    btn.setAttribute('aria-label', t === 'claro' ? 'Mudar para o tema escuro' : 'Mudar para o tema claro');
+    if (guardar) { try { localStorage.setItem('atlas-tema', t); } catch (e) {} }
+    /* a constelação relê as cores daqui */
+    document.dispatchEvent(new CustomEvent('atlas:tema', { detail: { tema: t } }));
+  }
+
+  aplicar(raiz.getAttribute('data-tema') === 'escuro' ? 'escuro' : 'claro', false);
+
+  btn.addEventListener('click', function () {
+    aplicar(raiz.getAttribute('data-tema') === 'claro' ? 'escuro' : 'claro', true);
+  });
 })();
 </script>
 </body>
