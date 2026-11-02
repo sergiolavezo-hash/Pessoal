@@ -25,7 +25,7 @@ const ARQS = process.argv.slice(2).length ? process.argv.slice(2) : ['index.html
     await p.waitForTimeout(500);
     const blocos = await p.evaluate(() => {
       const INLINE = new Set(['B','I','EM','STRONG','SMALL','BR','SPAN','A','U','SUP','SUB','CODE','ABBR','TIME','MARK']);
-      const BLOCO = new Set(['P','H1','H2','H3','H4','H5','LI','DT','DD','LABEL','BUTTON','FIGCAPTION','TH','TD','OPTION','SUMMARY','A','SPAN','DIV']);
+      const BLOCO = new Set(['P','H1','H2','H3','H4','H5','LI','DT','DD','LABEL','BUTTON','FIGCAPTION','TH','TD','OPTION','SUMMARY','A','SPAN','DIV','B','STRONG','EM','SMALL']);
       const FORA = new Set(['SCRIPT','STYLE','SVG','CANVAS','NOSCRIPT','TEMPLATE']);
       const out = [];
       const vistos = new Set();

@@ -1,5 +1,5 @@
 {
- "total": 504,
+ "total": 530,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -72,8 +72,18 @@
    "cls": "mega-topico"
   },
   {
+   "chave": "BI &amp; Analytics",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Do dado organizado à leitura do negócio: dashboards, self-service e governança de métricas.",
    "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Data Engineering &amp; Cloud",
+   "tag": "b",
    "cls": ""
   },
   {
@@ -82,14 +92,19 @@
    "cls": ""
   },
   {
+   "chave": "Inteligência Artificial",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Modelos preditivos, detecção de anomalias, GenAI e Document AI sobre a sua própria base.",
    "tag": "p",
    "cls": ""
   },
   {
-   "chave": "150+ alocados",
-   "tag": "span",
-   "cls": "mega-tag"
+   "chave": "Alocação de especialistas <span class=\"mega-tag\">150+ alocados</span>",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "Gente de dados dentro do seu time, em contratos de no mínimo 6 meses.",
@@ -97,13 +112,18 @@
    "cls": ""
   },
   {
-   "chave": "13 projetos",
-   "tag": "span",
-   "cls": "mega-tag"
+   "chave": "Todos os cases <span class=\"mega-tag\">13 projetos</span>",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "Cenário, arquitetura, stack e o antes e depois de cada entrega.",
    "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "De 200+ painéis a um ambiente",
+   "tag": "b",
    "cls": ""
   },
   {
@@ -112,14 +132,19 @@
    "cls": ""
   },
   {
+   "chave": "Legado Oracle aposentado",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Modernização para Google Cloud sem interromper a operação.",
    "tag": "p",
    "cls": ""
   },
   {
-   "chave": "10+",
-   "tag": "span",
-   "cls": "mega-tag"
+   "chave": "Setores atendidos <span class=\"mega-tag\">10+</span>",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "Do bancário ao food service, passando por saúde, educação e varejo.",
@@ -127,9 +152,9 @@
    "cls": ""
   },
   {
-   "chave": "Demonstração",
-   "tag": "span",
-   "cls": "mega-tag"
+   "chave": "Pergunte ao dado <span class=\"mega-tag\">Demonstração</span>",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "Pergunta em linguagem de negócio, resposta com o número e a origem dele.",
@@ -137,13 +162,18 @@
    "cls": ""
   },
   {
-   "chave": "A página do produto: o que ele faz, como se conecta e o que custa.",
+   "chave": "O que a IA resolve",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "Modelos preditivos, detecção de anomalias, GenAI e Document AI.",
    "tag": "p",
    "cls": ""
   },
   {
-   "chave": "Onde o dado fica, quem acessa e o que o modelo vê.",
-   "tag": "p",
+   "chave": "Visualização de dados",
+   "tag": "b",
    "cls": ""
   },
   {
@@ -152,8 +182,18 @@
    "cls": ""
   },
   {
+   "chave": "Como funciona",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Especialistas que entram na sua operação e respondem à sua gestão.",
    "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Perfis disponíveis",
+   "tag": "b",
    "cls": ""
   },
   {
@@ -162,9 +202,9 @@
    "cls": ""
   },
   {
-   "chave": "Carreiras",
-   "tag": "span",
-   "cls": "mega-tag"
+   "chave": "Trabalhe com a gente <span class=\"mega-tag\">Carreiras</span>",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "Banco de talentos da Atlas: envie seu perfil e seu currículo.",
@@ -172,13 +212,18 @@
    "cls": ""
   },
   {
-   "chave": "150.000+ horas",
-   "tag": "span",
-   "cls": "mega-tag"
+   "chave": "Permanência <span class=\"mega-tag\">150.000+ horas</span>",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "Contratos de no mínimo 6 meses, muitos por tempo indeterminado.",
    "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "A Atlas",
+   "tag": "b",
    "cls": ""
   },
   {
@@ -187,18 +232,28 @@
    "cls": ""
   },
   {
+   "chave": "Valores e método",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Clareza, resultado, profundidade e parceria — e como isso vira projeto.",
    "tag": "p",
    "cls": ""
   },
   {
-   "chave": "500+ projetos",
-   "tag": "span",
-   "cls": "mega-tag"
+   "chave": "Números <span class=\"mega-tag\">500+ projetos</span>",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "Entregas, setores, profissionais alocados e horas em alocação.",
    "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Contato",
+   "tag": "b",
    "cls": ""
   },
   {
@@ -462,6 +517,11 @@
    "cls": "tile-cat"
   },
   {
+   "chave": "500+",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "projetos entregues em dados, BI e inteligência",
    "tag": "span",
    "cls": ""
@@ -470,6 +530,11 @@
    "chave": "Alcance",
    "tag": "span",
    "cls": "tile-cat"
+  },
+  {
+   "chave": "10+",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "setores atendidos — do bancário ao food service",
@@ -482,6 +547,11 @@
    "cls": "tile-cat"
   },
   {
+   "chave": "150+",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "profissionais alocados dentro do time do cliente",
    "tag": "span",
    "cls": ""
@@ -490,6 +560,11 @@
    "chave": "Permanência",
    "tag": "span",
    "cls": "tile-cat"
+  },
+  {
+   "chave": "150.000+",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "horas em alocação — contratos de no mínimo 6 meses, muitos por tempo indeterminado",
@@ -1012,6 +1087,11 @@
    "cls": "sub reveal d2"
   },
   {
+   "chave": "Painel executivo · exemplo",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Visão geral",
    "tag": "button",
    "cls": "dash-tab"
@@ -1052,14 +1132,29 @@
    "cls": "kpi-k"
   },
   {
+   "chave": "31,2%",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Ticket médio",
    "tag": "p",
    "cls": "kpi-k"
   },
   {
+   "chave": "R$ 318",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Pedidos",
    "tag": "p",
    "cls": "kpi-k"
+  },
+  {
+   "chave": "15,1 mil",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "Receita por mês · últimos 12 meses",
@@ -1102,14 +1197,29 @@
    "cls": "kpi-k"
   },
   {
+   "chave": "38%",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Marketplace",
    "tag": "p",
    "cls": "kpi-k"
   },
   {
+   "chave": "20%",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Margem digital",
    "tag": "p",
    "cls": "kpi-k"
+  },
+  {
+   "chave": "34,6%",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "Receita por canal · últimos 12 meses",
@@ -1122,9 +1232,34 @@
    "cls": ""
   },
   {
+   "chave": "R$ 2,02 Mi",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "R$ 1,83 Mi",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "R$ 0,97 Mi",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Margem por canal",
    "tag": "p",
    "cls": "dash-title mt"
+  },
+  {
+   "chave": "30,1%",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "24,8%",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "O <b>digital</b> passa a loja física em receita — e é o canal de maior margem.",
@@ -1157,14 +1292,29 @@
    "cls": "kpi-k"
   },
   {
+   "chave": "2,4 h",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Ruptura",
    "tag": "p",
    "cls": "kpi-k"
   },
   {
+   "chave": "3,1%",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Devolução",
    "tag": "p",
    "cls": "kpi-k"
+  },
+  {
+   "chave": "1,8%",
+   "tag": "b",
+   "cls": ""
   },
   {
    "chave": "Pedidos no prazo · últimos 12 meses <span class=\"dash-scale\">escala 86–95%</span>",
@@ -1187,13 +1337,28 @@
    "cls": ""
   },
   {
+   "chave": "96,1%",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Sul",
    "tag": "span",
    "cls": ""
   },
   {
+   "chave": "93,4%",
+   "tag": "b",
+   "cls": ""
+  },
+  {
    "chave": "Nordeste",
    "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "91,2%",
+   "tag": "b",
    "cls": ""
   },
   {
@@ -1205,11 +1370,6 @@
    "chave": "Ilustração do método — não representa dados ou resultado de cliente.",
    "tag": "p",
    "cls": "illus-note"
-  },
-  {
-   "chave": "Inteligência Artificial",
-   "tag": "span",
-   "cls": "eyebrow reveal"
   },
   {
    "chave": "A próxima vantagem competitiva já está nos seus dados.",
@@ -1290,11 +1450,6 @@
    "chave": "Vamos transformar tecnologia, dados e inteligência em resultado.",
    "tag": "p",
    "cls": "sub reveal d1"
-  },
-  {
-   "chave": "Contato",
-   "tag": "span",
-   "cls": "eyebrow"
   },
   {
    "chave": "Solicite um diagnóstico.",
@@ -1502,27 +1657,17 @@
    "cls": "footer-sig"
   },
   {
-   "chave": "BI &amp; Analytics",
-   "tag": "a",
-   "cls": ""
-  },
-  {
-   "chave": "Data Engineering &amp; Cloud",
-   "tag": "a",
-   "cls": ""
-  },
-  {
-   "chave": "A Atlas",
-   "tag": "a",
-   "cls": ""
-  },
-  {
    "chave": "Setores",
    "tag": "a",
    "cls": ""
   },
   {
    "chave": "Cases de sucesso",
+   "tag": "a",
+   "cls": ""
+  },
+  {
+   "chave": "Carreiras",
    "tag": "a",
    "cls": ""
   },
@@ -1552,19 +1697,9 @@
    "cls": ""
   },
   {
-   "chave": "© 2026 Atlas Tec. Todos os direitos reservados.",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "Área do cliente",
-   "tag": "a",
-   "cls": ""
-  },
-  {
-   "chave": "atlas-partner.com",
-   "tag": "span#texto",
-   "cls": ""
+   "chave": "<span>© 2026 Atlas Tec. Todos os direitos reservados.</span> <span>atlas-partner.com</span>",
+   "tag": "div",
+   "cls": "wrap footer-bottom"
   },
   {
    "chave": "<b>Olá! Eu sou o Átis.</b><br>Como posso ajudar? 👋",
@@ -1900,11 +2035,6 @@
    "chave": "Arquiteto de dados",
    "tag": "li",
    "cls": ""
-  },
-  {
-   "chave": "Como funciona",
-   "tag": "h3",
-   "cls": "svc-t"
   },
   {
    "chave": "Contratos de no mínimo 6 meses",

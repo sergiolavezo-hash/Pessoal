@@ -70,11 +70,9 @@ TRAD = {
   'Modelos preditivos, detecção de anomalias, GenAI e Document AI sobre a sua própria base.':
     ('Predictive models, anomaly detection, GenAI and Document AI on your own data.',
      'Modelos predictivos, detección de anomalías, GenAI y Document AI sobre su propia base.'),
-  '150+ alocados': ('150+ placed', '150+ asignados'),
   'Gente de dados dentro do seu time, em contratos de no mínimo 6 meses.':
     ('Data people inside your team, on contracts of at least 6 months.',
      'Gente de datos dentro de su equipo, en contratos de 6 meses como mínimo.'),
-  '13 projetos': ('13 projects', '13 proyectos'),
   'Cenário, arquitetura, stack e o antes e depois de cada entrega.':
     ('Context, architecture, stack and the before and after of every delivery.',
      'Escenario, arquitectura, stack y el antes y el después de cada entrega.'),
@@ -87,16 +85,53 @@ TRAD = {
   'Do bancário ao food service, passando por saúde, educação e varejo.':
     ('From banking to food service, by way of healthcare, education and retail.',
      'De la banca al food service, pasando por salud, educación y retail.'),
-  'Demonstração': ('Demo', 'Demostración'),
   'Pergunta em linguagem de negócio, resposta com o número e a origem dele.':
     ('Ask in business language, get the number and where it came from.',
      'Pregunta en lenguaje de negocio, respuesta con el número y su origen.'),
-  'A página do produto: o que ele faz, como se conecta e o que custa.':
-    ('The product page: what it does, how it connects and what it costs.',
-     'La página del producto: qué hace, cómo se conecta y cuánto cuesta.'),
-  'Onde o dado fica, quem acessa e o que o modelo vê.':
-    ('Where the data lives, who can reach it and what the model sees.',
-     'Dónde queda el dato, quién accede y qué ve el modelo.'),
+  'Modelos preditivos, detecção de anomalias, GenAI e Document AI.':
+    ('Predictive models, anomaly detection, GenAI and Document AI.',
+     'Modelos predictivos, detección de anomalías, GenAI y Document AI.'),
+  'O que a IA resolve': ('What AI solves', 'Lo que resuelve la IA'),
+  'Alocação de especialistas <span class="mega-tag">150+ alocados</span>':
+    ('Specialist staffing <span class="mega-tag">150+ placed</span>',
+     'Asignación de especialistas <span class="mega-tag">150+ asignados</span>'),
+  'Todos os cases <span class="mega-tag">13 projetos</span>':
+    ('All case studies <span class="mega-tag">13 projects</span>',
+     'Todos los casos <span class="mega-tag">13 proyectos</span>'),
+  'De 200+ painéis a um ambiente': ('From 200+ dashboards to one environment', 'De 200+ paneles a un solo entorno'),
+  'Legado Oracle aposentado': ('Oracle legacy retired', 'Legado Oracle jubilado'),
+  'Setores atendidos <span class="mega-tag">10+</span>':
+    ('Industries served <span class="mega-tag">10+</span>', 'Sectores atendidos <span class="mega-tag">10+</span>'),
+  'Pergunte ao dado <span class="mega-tag">Demonstração</span>':
+    ('Ask the data <span class="mega-tag">Demo</span>', 'Pregúntele al dato <span class="mega-tag">Demostración</span>'),
+  'Visualização de dados': ('Data visualization', 'Visualización de datos'),
+  'Perfis disponíveis': ('Available profiles', 'Perfiles disponibles'),
+  'Trabalhe com a gente <span class="mega-tag">Carreiras</span>':
+    ('Work with us <span class="mega-tag">Careers</span>', 'Trabaje con nosotros <span class="mega-tag">Carreras</span>'),
+  'Permanência <span class="mega-tag">150.000+ horas</span>':
+    ('Tenure <span class="mega-tag">150,000+ hours</span>', 'Permanencia <span class="mega-tag">150.000+ horas</span>'),
+  'Valores e método': ('Values and method', 'Valores y método'),
+  'Números <span class="mega-tag">500+ projetos</span>':
+    ('Numbers <span class="mega-tag">500+ projects</span>', 'Números <span class="mega-tag">500+ proyectos</span>'),
+  'Como funciona': ('How it works', 'Cómo funciona'),
+  'Painel executivo · exemplo': ('Executive dashboard · example', 'Panel ejecutivo · ejemplo'),
+
+  # Números do painel: só o inglês muda o separador decimal.
+  'R$ 0,97 Mi': ('R$ 0.97M', 'R$ 0,97 M'),
+  'R$ 1,83 Mi': ('R$ 1.83M', 'R$ 1,83 M'),
+  'R$ 2,02 Mi': ('R$ 2.02M', 'R$ 2,02 M'),
+  'R$ 318': ('R$ 318', 'R$ 318'),
+  '15,1 mil': ('15.1k', '15,1 mil'),
+  '2,4 h': ('2.4 h', '2,4 h'),
+  '1,8%': ('1.8%', '1,8%'),
+  '3,1%': ('3.1%', '3,1%'),
+  '24,8%': ('24.8%', '24,8%'),
+  '30,1%': ('30.1%', '30,1%'),
+  '31,2%': ('31.2%', '31,2%'),
+  '34,6%': ('34.6%', '34,6%'),
+  '91,2%': ('91.2%', '91,2%'),
+  '93,4%': ('93.4%', '93,4%'),
+  '96,1%': ('96.1%', '96,1%'),
   'O painel que é lido e usado — padrão visual definido antes do desenvolvimento.':
     ('The dashboard that gets read and used — visual standard set before development.',
      'El panel que se lee y se usa — estándar visual definido antes del desarrollo.'),
@@ -109,7 +144,6 @@ TRAD = {
   'Banco de talentos da Atlas: envie seu perfil e seu currículo.':
     ('Atlas talent pool: send your profile and your CV.',
      'Banco de talentos de Atlas: envíe su perfil y su currículum.'),
-  '150.000+ horas': ('150,000+ hours', '150.000+ horas'),
   'Contratos de no mínimo 6 meses, muitos por tempo indeterminado.':
     ('Contracts of at least 6 months, many of them open-ended.',
      'Contratos de 6 meses como mínimo, muchos por tiempo indefinido.'),
@@ -119,7 +153,6 @@ TRAD = {
   'Clareza, resultado, profundidade e parceria — e como isso vira projeto.':
     ('Clarity, results, depth and partnership — and how that becomes a project.',
      'Claridad, resultado, profundidad y alianza — y cómo eso se vuelve proyecto.'),
-  '500+ projetos': ('500+ projects', '500+ proyectos'),
   'Entregas, setores, profissionais alocados e horas em alocação.':
     ('Deliveries, industries, professionals placed and hours on assignment.',
      'Entregas, sectores, profesionales asignados y horas en asignación.'),
@@ -577,10 +610,10 @@ TRAD.update({
   'Cases de sucesso': ('Success stories', 'Historias de éxito'),
   'Fale conosco': ('Contact us', 'Contáctenos'),
   'Solicitar um diagnóstico': ('Request an assessment', 'Solicitar un diagnóstico'),
-  'Área do cliente': ('Client area', 'Área del cliente'),
   'Sobre a Atlas': ('About Atlas', 'Acerca de Atlas'),
-  '© 2026 Atlas Tec. Todos os direitos reservados.':
-    ('© 2026 Atlas Tec. All rights reserved.', '© 2026 Atlas Tec. Todos los derechos reservados.'),
+  '<span>© 2026 Atlas Tec. Todos os direitos reservados.</span> <span>atlas-partner.com</span>':
+    ('<span>© 2026 Atlas Tec. All rights reserved.</span> <span>atlas-partner.com</span>',
+     '<span>© 2026 Atlas Tec. Todos los derechos reservados.</span> <span>atlas-partner.com</span>'),
 
   # ---------------- chat ----------------
   '<b>Olá! Eu sou o Átis.</b><br>Como posso ajudar? 👋':

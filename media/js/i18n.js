@@ -30,7 +30,11 @@
   var atual = 'pt';
 
   var INLINE = { B:1, I:1, EM:1, STRONG:1, SMALL:1, BR:1, SPAN:1, A:1, U:1, SUP:1, SUB:1, CODE:1, ABBR:1, TIME:1, MARK:1 };
-  var BLOCO  = { P:1, H1:1, H2:1, H3:1, H4:1, H5:1, LI:1, DT:1, DD:1, LABEL:1, BUTTON:1, FIGCAPTION:1, TH:1, TD:1, OPTION:1, SUMMARY:1, A:1, SPAN:1, DIV:1 };
+  /* B/STRONG/EM/SMALL entram aqui porque um <b> solto — o título de um
+     cartão do mega-menu, por exemplo — é o único portador do texto. Um
+     <b> dentro de um parágrafo traduzível continua perdendo para ele,
+     porque a subida pelos pais encontra o parágrafo primeiro. */
+  var BLOCO  = { P:1, H1:1, H2:1, H3:1, H4:1, H5:1, LI:1, DT:1, DD:1, LABEL:1, BUTTON:1, FIGCAPTION:1, TH:1, TD:1, OPTION:1, SUMMARY:1, A:1, SPAN:1, DIV:1, B:1, STRONG:1, EM:1, SMALL:1 };
   var FORA   = { SCRIPT:1, STYLE:1, SVG:1, CANVAS:1, NOSCRIPT:1, TEMPLATE:1 };
   var ATRIBS = ['placeholder', 'aria-label', 'title'];
   var ESCOPO = 'header, main, footer, nav, .mega, .chat-panel, .chat-teaser, .cbar, .skip-link';
