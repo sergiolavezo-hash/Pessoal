@@ -45,6 +45,8 @@ def extrair(html):
     boot = um(r'  <script>\n  /\* Antes da primeira pintura.*?</script>', 'script de tema do head')
     tema_btn = um(r'<button class="tema-btn".*?</button>\n', 'botão de tema')
     tema_js = um(r'<script>\n/\* -+ Alternador de tema -+ \*/.*?</script>', 'script do alternador')
+    # Dicionário antes do motor: o motor lê window.ATLAS_I18N na carga.
+    idioma = um(r'<script src="media/js/i18n-dic\.js" defer></script>\n<script src="media/js/i18n\.js" defer></script>', 'scripts de idioma')
     # O script principal é o último bloco inline sem type — ancorar num nome de
     # variável quebra sempre que uma seção sai do ar.
     blocos = re.findall(r'<script>(?:(?!</script>).)*</script>', html, re.S)
@@ -53,7 +55,8 @@ def extrair(html):
     script = max(blocos, key=len)
     return dict(estilo=estilo, header=header, menu=menu, rodape=rodape,
                 topo=topo, chat=chat.rstrip(), script=script,
-                boot=boot, tema_btn=tema_btn.rstrip(), tema_js=tema_js)
+                boot=boot, tema_btn=tema_btn.rstrip(), tema_js=tema_js,
+                idioma=idioma)
 
 
 # ---------------------------------------------------------------- conteúdo
@@ -508,6 +511,7 @@ def montar(pag, comum):
 %(chat)s
 %(script)s
 %(tema_js)s
+%(idioma)s
 </body>
 </html>
 ''' % dict(titulo=pag['titulo'], meta=pag['meta'], url=url, site=SITE,
@@ -515,7 +519,8 @@ def montar(pag, comum):
            topo=comum['topo'],
            menu=comum['menu'], corpo=corpo, rodape=comum['rodape'],
            chat=comum['chat'], script=comum['script'], boot=comum['boot'],
-           tema_btn=comum['tema_btn'], tema_js=comum['tema_js'])
+           tema_btn=comum['tema_btn'], tema_js=comum['tema_js'],
+           idioma=comum['idioma'])
 
 
 def main():

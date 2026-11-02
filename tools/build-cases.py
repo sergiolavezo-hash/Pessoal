@@ -133,13 +133,15 @@ def main():
 %(chat)s
 %(script)s
 %(tema_js)s
+%(idioma)s
 </body>
 </html>
 ''' % dict(titulo=TITULO, meta=META, url='%s/%s' % (SITE, ARQUIVO),
            estilo=comum['estilo'], header=comum['header'], topo=comum['topo'],
            menu=comum['menu'], corpo=corpo, rodape=comum['rodape'],
            chat=comum['chat'], script=comum['script'], boot=comum['boot'],
-           tema_btn=comum['tema_btn'], tema_js=comum['tema_js'])
+           tema_btn=comum['tema_btn'], tema_js=comum['tema_js'],
+           idioma=comum['idioma'])
 
     destino = RAIZ / ARQUIVO
     destino.write_text(pagina)
