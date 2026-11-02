@@ -28,37 +28,43 @@
 
 ---
 
-# 🏋️ TREINO v3
+# 🏋️ TREINO v3.1
 
 > 19/10: costas passou para segunda (ênfase do usuário) e peito para terça. A elevação lateral 3×30-50 foi junto para a segunda, mantendo deltoide lateral em seg/qui/sex.
+>
+> 02/11 (v3.1): segunda reformulada (dorsal "não blocada") e técnicas avançadas na última série de exercícios de costas e peito.
 
 | Dia | Sessão |
 |---|---|
-| Seg | Costas (2 abertas, 2 fechadas, pulldown) + Bíceps + lateral |
-| Ter | Peito (clavicular + inferior) + Tríceps |
+| Seg | Costas (espessura + dorsal, com técnicas avançadas) + Bíceps + lateral |
+| Ter | Peito (clavicular + inferior, com técnicas avançadas) + Tríceps |
 | Qua | Pernas (pump/definição) + Panturrilha |
 | Qui | ⭐ Ombros + Braços (pump técnico) — refeed |
 | Sex | Peito + Costas (volume menor) + ombro + panturrilha |
 
-## SEG — COSTAS + BÍCEPS
+## SEG — COSTAS + BÍCEPS (v3.1 — 02/11)
+> Reformulada a pedido: dorsal sem densidade ("não blocada"). Remada pesada com apoio no peito para espessura, unilaterais para alongamento e lado direito, técnicas avançadas na última série. Strap nos exercícios 1–4.
+
 | # | Exercício | Séries | Foco |
 |---|---|---|---|
-| 1 | Puxada alta aberta (pronada) | aquec + aprox · 3×8-10 | largura |
-| 2 | Remada aberta (cotovelos abertos) | 3×8-10 | espessura alta + deltoide posterior |
-| 3 | Puxada alta fechada (triângulo) | 3×8-10 | dorsal baixa |
-| 4 | Remada baixa fechada (triângulo) | 3×8-10 | espessura |
-| 5 | Pulldown braço estendido (corda) | 3×12-15 | finalizador · 2s embaixo |
-| 6 | Rosca inclinada com halteres | 3×10-12 | cabeça longa · descida 3s |
-| 7 | Rosca Scott unilateral | 3×8-10 | começar pelo direito |
-| 8 | Rosca martelo | 2×12 | braquial |
+| 1 | Remada T (cavalinho) com apoio no peito, pegada aberta | aquec + aprox · 3×6-8 | espessura · aperta escápulas 1s |
+| 2 | Puxada unilateral no cabo, ajoelhado | 3×10-12/lado | dorsal · cotovelo ao quadril, alongamento total · direito primeiro |
+| 3 | Remada unilateral com halter, apoio no banco | 3×8-10/lado | dorsal baixa · **última série + 4–6 parciais alongadas** |
+| 4 | Puxada alta aberta (pronada) | 3×8-10 | largura · **última série rest-pause** |
+| 5 | Remada baixa, triângulo | 2×10-12 | espessura · 2s na contração |
+| 6 | Pullover no cabo (corda) | 2×12-15 | finalizador · **drop set na última** |
+| 7 | Rosca inclinada com halteres | 3×10-12 | cabeça longa · descida 3s |
+| 8 | Rosca Scott unilateral | 3×8-10 | começar pelo direito |
 | 9 | Elevação lateral no cabo | 3×30-50 | carga baixa |
+
+Rosca martelo saiu da segunda (continua na quinta, martelo na corda).
 
 ## TER — PEITO + TRÍCEPS
 | # | Exercício | Séries | Foco |
 |---|---|---|---|
 | 1 | Supino inclinado Hammer | aquec 15/10 + aprox 1×5 · 4×6-8 | clavicular · RIR 2/1/0-1/0-1 |
-| 2 | Supino declinado | aprox 1×6 · 3×8-10 | inferior |
-| 3 | Crucifixo no cabo, baixo → alto | 3×12-15 | clavicular · 2s no alongamento |
+| 2 | Supino declinado na máquina | aprox 1×6 · 3×8-10 | inferior · **última série rest-pause** (nunca na barra sem ajudante) |
+| 3 | Crucifixo no cabo, baixo → alto | 3×12-15 | clavicular · 2s no alongamento · **drop set duplo na última** |
 | 4 | Crossover alto → baixo | 3×12-15 | inferior · 1s na contração |
 | 5 | Tríceps francês no cabo (corda, acima da cabeça) | 3×10-12 | cabeça longa |
 | 6 | Tríceps corda | 3×12-15 | drop na última |
@@ -96,7 +102,7 @@ Braços — bi-sets (sem pausa entre os dois; 60s após o par):
 | 1 | Paralelas, tronco à frente | 3×8-12 (inferior) |
 | 2 | Supino inclinado com halteres | 3×8-10 (clavicular) |
 | 3 | Remada cavalinho neutra | 3×8-10 |
-| 4 | Puxada alta aberta | 2×10-12 |
+| 4 | Puxada alta, pegada neutra média | 2×10-12 |
 | 5 | Encolhimento Hammer | 3×12-15, 2s no topo |
 | 6 | Elevação lateral no cabo | 3×30-50 |
 | 7 | Panturrilha em pé | 3×30-50 |
@@ -105,18 +111,25 @@ Braços — bi-sets (sem pausa entre os dois; 60s após o par):
 **Cardio:** 4×/semana, 30 min, leve. Não aumentar.
 
 ## Volume semanal
-| Grupo | Antes (v2) | v3 |
+| Grupo | Antes (v2) | v3.1 |
 |---|---|---|
 | Peito | 20 | 19 |
-| Costas | 19 | 20 |
+| Costas | 19 | 21 |
 | Deltoide lateral | 16 | 12 (9 em 30-50) |
-| Bíceps | 9 | 16 |
+| Bíceps | 9 | 14 |
 | Tríceps | 10 | 14 |
 | Quadríceps / Posterior | 9 / 8 | 10 / 7 |
 | Panturrilha | 10 | 9 |
-| Total | ~124 | ~122 |
+| Total | ~124 | ~121 |
+
+## Técnicas avançadas (v3.1)
+- **Rest-pause:** carga de 8–10 reps; até 1 rep da falha, 15s, repete até falhar, 15s, mais uma vez.
+- **Drop set:** na falha, baixa 20–30% e continua até falhar (duplo = 2 quedas).
+- **Parciais alongadas:** na falha, 4–6 reps curtas na metade esticada.
+- Só na última série do exercício marcado, em máquina/cabo/halter. Sem técnicas na semana leve (16–22/11). Força caindo 2 treinos: tirar técnicas antes de tirar a sexta.
 
 ## Execução
+- **Costas:** começar cada repetição pela escápula (ombro longe da orelha); cotovelo vai ao bolso de trás, a mão é só gancho; 1s esticado no alongamento; descida 2–3s; strap nos exercícios pesados. Anotar carga × reps dos exercícios 1–4. A densidade aparece com a perda de gordura da lombar e dos flancos; mudança de treino aparece em 6–8 semanas.
 - **30-50 reps:** ~20-30% da carga de 10 reps, tensão contínua, terminar perto da falha; >50 fácil → sobe carga; <30 → baixa. Descanso 60-90s.
 - **Braço:** tríceps ≈ 2/3 do braço; cabeça longa precisa de exercício acima da cabeça. Bíceps responde a alongamento (inclinada, Bayesian); martelo trabalha o braquial. Glicogênio = músculo cheio → carbo concentrado no pré/pós e refeed na quinta. Cadência 2s/2s, 1s de pico, sem embalo.
 - **Pernas:** definição vem do % de gordura; hack mantido em carga moderada para preservar massa no déficit.
@@ -125,14 +138,14 @@ Braços — bi-sets (sem pausa entre os dois; 60s após o par):
 
 # 🍽️ DIETA — 2000 kcal
 
-**Alvo: ~2000 kcal · P ~215g · C ~170g · G ~45g** — Quinta: ~2400 kcal (+100g carbo).
+**Alvo: ~2000 kcal · P ~215g · C ~170g · G ~45g · fibra 30–38g** — Quinta: ~2400 kcal (+100g carbo). Revisada em 26/10 pela análise genética e exames (suplementação no PDF da dieta).
 
 | Refeição | Composição | kcal | P | C | G |
 |---|---|---|---|---|---|
 | Café 7h | 2 ovos + 4 claras + cuscuz 40g + espinafre 100g | ~380 | 32 | 35 | 10 |
 | Lanche 10h | Skyr/iogurte grego zero 170g + whey 25g + frutas vermelhas 100g | ~240 | 38 | 15 | 1 |
 | Almoço 13h | Frango 150g + arroz 100g + feijão 80g + aspargos/brócolis 200g + azeite 5ml | ~540 | 57 | 49 | 10 |
-| Pré-treino 16h30 | Pão de forma 2 fatias + atum em água 100g + banana 60g | ~295 | 31 | 39 | 3 |
+| Pré-treino 16h30 | Pão de forma 2 fatias + atum em água 100g + banana 60g (sem cafeína) | ~295 | 31 | 39 | 3 |
 | Jantar 20h | Proteína do rodízio + batata 120g + espinafre/abobrinha 200g | ~400 | 24-45 | 31 | 4-16 |
 | Ceia 22h30 | Cottage 100g + whey 20g | ~175 | 28 | 3 | 5 |
 
@@ -162,7 +175,7 @@ Cada opção troca a refeição inteira, com kcal e proteína parecidas. Não mi
 | Lanche | C | Cottage 150g + whey 15g + 1 kiwi | ~250 | 29 |
 | Lanche | D | Skyr 170g + whey 15g + granola sem açúcar 25g + farelo de arroz 10g | ~305 | 32 |
 | Almoço | A | Patinho moído 120g + batata-doce 150g + feijão 80g + legumes 200g | ~500 | 52 |
-| Almoço | B | Tilápia 200g + arroz 120g + legumes 200g + azeite 5ml | ~515 | 59 |
+| Almoço | B | Merluza ou polaca 250g (ou tilápia 200g, se gostar) + arroz 120g + legumes 200g + azeite 5ml | ~500 | 56 |
 | Almoço | C | Macarrão cozido 120g + frango 150g + molho de tomate caseiro + legumes 150g + parmesão 10g | ~505 | 60 |
 | Pré-treino | A | Tapioca 40g + frango desfiado 100g | ~300 | 31 |
 | Pré-treino | B | Whey 30g + banana 100g + aveia 20g batidos com água | ~285 | 28 |
@@ -204,11 +217,12 @@ Cada opção troca a refeição inteira, com kcal e proteína parecidas. Não mi
 - Com GLP-1, fibra demais de uma vez piora estufamento e náusea: começar com 1 colher de farelo/dia.
 - **Fígado excluído:** vitamina A 0,6 (limite 0,7) no exame de 08/09.
 - **Ferro dietético** (moela, sardinha, espinafre) é seguro, mas olhar hematócrito e ferritina no próximo exame.
+- **Cafeína só até 14h.** **Água com gás:** preferir sódio < 20 mg/L (a atual, 7,7 mg/L, está ótima).
 
 ### Retenção — lado da dieta
 - Sódio constante, sem zerar
 - Potássio alto (espinafre, aspargos, feijão, batata)
-- Água 4-4,5 L mantida
+- Água pela sede e pela cor da urina (~3–4,5 L), sem forçar nem cortar
 - Sem embutidos, ultraprocessados, temperos prontos e álcool
 - Causa principal com Durateston é estradiol — se não ceder em 2-3 semanas, exame + Dr. Nicola
 
@@ -225,14 +239,15 @@ Cada opção troca a refeição inteira, com kcal e proteína parecidas. Não mi
 | Sinal | Ação |
 |---|---|
 | Peso | 1ª semana: ignorar (água). Depois: 0,7-1 kg/sem. >1,2 kg/sem constante → +200 kcal |
-| Força caindo 2 treinos seguidos nos principais | Tirar sexta; persistindo, +200 kcal carbo |
+| Força caindo 2 treinos seguidos nos principais | Tirar técnicas avançadas, depois a sexta; persistindo, +200 kcal carbo |
 | Pressão arterial | 2×/semana |
 | Dor abdominal forte e persistente (pode irradiar às costas) | Pronto-socorro (risco de pancreatite) |
 | Vômito persistente / não segura líquido | Médico (desidratação + hematócrito) |
-| Próximo exame (4-6 semanas) | Hemograma, prolactina, estradiol, lipase, amilase, função renal. Base de setembro: lipase 25, amilase 70 |
+| Próximo exame (4-6 semanas) | Hemograma, ferritina, prolactina, estradiol, TGP, lipase, amilase, creatinina + cistatina C, Lp(a), B12, folato, 25(OH)D. Base de setembro: lipase 25, amilase 70 |
 
 ## 📝 Registro
 | Data | Peso (jejum) | Observação |
 |---|---|---|
 | 12/10/2026 | 92 kg | início Bloco 2 |
 | 19/10/2026 | 98 kg | retenção; início protocolo revisado |
+| 02/11/2026 | 94 kg | treino v3.1 (costas reformulada + técnicas avançadas) |
