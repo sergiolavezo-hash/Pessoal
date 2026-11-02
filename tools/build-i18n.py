@@ -664,6 +664,241 @@ TRAD.update({
 })
 
 
+# ============================================================
+# Páginas internas: cases, alocação, BI & Analytics e Data Engineering.
+# ============================================================
+TRAD.update({
+  # ---------------- página de cases ----------------
+  '13 projetos entregues por especialistas da Atlas, com o antes e o depois de cada um. Nomes de clientes preservados por confidencialidade.':
+    ('13 projects delivered by Atlas specialists, with the before and after of each one. Client names withheld for confidentiality.',
+     '13 proyectos entregados por especialistas de Atlas, con el antes y el después de cada uno. Nombres de clientes reservados por confidencialidad.'),
+  'Ver todas as soluções <span class="arr">→</span>':
+    ('See all solutions <span class="arr">→</span>', 'Ver todas las soluciones <span class="arr">→</span>'),
+  'Projetos detalhados': ('Detailed projects', 'Proyectos detallados'),
+  'Arquitetura, solução e o que mudou.': ('Architecture, solution and what changed.', 'Arquitectura, solución y qué cambió.'),
+  'Os três projetos abaixo estão abertos por inteiro: cenário, arquitetura, stack e o resultado medido no antes e depois.':
+    ('The three projects below are laid out in full: context, architecture, stack and the result measured before and after.',
+     'Los tres proyectos de abajo están abiertos por completo: escenario, arquitectura, stack y el resultado medido en el antes y el después.'),
+  'Ver os projetos entregues <span class="arr">→</span>':
+    ('See the delivered projects <span class="arr">→</span>', 'Ver los proyectos entregados <span class="arr">→</span>'),
+
+  # mini cases que vivem só na página completa
+  'Varejo de Moda': ('Fashion Retail', 'Retail de Moda'),
+  'Saúde Hospitalar': ('Hospital Healthcare', 'Salud Hospitalaria'),
+  'Todas as áreas lendo os mesmos números': ('Every team reading the same numbers', 'Todas las áreas leyendo los mismos números'),
+  'Dashboards de vendas, logística e operações dando acesso a indicadores para todas as áreas da organização.':
+    ('Sales, logistics and operations dashboards giving every area of the organization access to indicators.',
+     'Dashboards de ventas, logística y operaciones dando acceso a indicadores a todas las áreas de la organización.'),
+  '<span class="adm-a">Por área</span><i aria-hidden="true">→</i><span class="adm-d">Toda a empresa</span>':
+    ('<span class="adm-a">Per team</span><i aria-hidden="true">→</i><span class="adm-d">The whole company</span>',
+     '<span class="adm-a">Por área</span><i aria-hidden="true">→</i><span class="adm-d">Toda la empresa</span>'),
+  'Duas ferramentas de BI viraram uma': ('Two BI tools became one', 'Dos herramientas de BI se volvieron una'),
+  'Pipelines em BigQuery e Airflow para uma rede de diagnóstico, com migração da visualização de Tableau para Power BI.':
+    ('BigQuery and Airflow pipelines for a diagnostics network, migrating visualization from Tableau to Power BI.',
+     'Pipelines en BigQuery y Airflow para una red de diagnóstico, con migración de la visualización de Tableau a Power BI.'),
+  '<span class="adm-a">2 ferramentas</span><i aria-hidden="true">→</i><span class="adm-d">1 ferramenta</span>':
+    ('<span class="adm-a">2 tools</span><i aria-hidden="true">→</i><span class="adm-d">1 tool</span>',
+     '<span class="adm-a">2 herramientas</span><i aria-hidden="true">→</i><span class="adm-d">1 herramienta</span>'),
+  'A evasão passou a ser antecipada': ('Dropout came to be anticipated', 'La deserción pasó a anticiparse'),
+  'Centenas de dashboards educacionais e modelos preditivos que anteciparam a evasão para apoiar ações preventivas.':
+    ('Hundreds of education dashboards and predictive models that anticipated dropout to support preventive action.',
+     'Cientos de dashboards educativos y modelos predictivos que anticiparon la deserción para apoyar acciones preventivas.'),
+  '<span class="adm-a">Constatada</span><i aria-hidden="true">→</i><span class="adm-d">Antecipada</span>':
+    ('<span class="adm-a">Observed</span><i aria-hidden="true">→</i><span class="adm-d">Anticipated</span>',
+     '<span class="adm-a">Constatada</span><i aria-hidden="true">→</i><span class="adm-d">Anticipada</span>'),
+  'O padrão visual antes do primeiro painel': ('The visual standard before the first dashboard', 'El estándar visual antes del primer panel'),
+  'Protótipos em Figma definindo o padrão visual antes do desenvolvimento — centenas de dashboards Power BI padronizados.':
+    ('Figma prototypes setting the visual standard before development — hundreds of standardized Power BI dashboards.',
+     'Prototipos en Figma definiendo el estándar visual antes del desarrollo — cientos de dashboards Power BI estandarizados.'),
+  '<span class="adm-a">Padrão depois</span><i aria-hidden="true">→</i><span class="adm-d">Padrão antes</span>':
+    ('<span class="adm-a">Standard after</span><i aria-hidden="true">→</i><span class="adm-d">Standard first</span>',
+     '<span class="adm-a">Estándar después</span><i aria-hidden="true">→</i><span class="adm-d">Estándar antes</span>'),
+  'Do fechamento do mês para o mesmo dia': ('From month-end close to the same day', 'Del cierre del mes al mismo día'),
+  'Painéis de acompanhamento diário das unidades de um grande grupo de restaurantes — desvios visíveis em tempo hábil.':
+    ('Daily tracking dashboards for the sites of a large restaurant group — deviations visible in time to act.',
+     'Paneles de seguimiento diario de las unidades de un gran grupo de restaurantes — desvíos visibles a tiempo.'),
+  '<span class="adm-a">Mês</span><i aria-hidden="true">→</i><span class="adm-d">Dia</span>':
+    ('<span class="adm-a">Month</span><i aria-hidden="true">→</i><span class="adm-d">Day</span>',
+     '<span class="adm-a">Mes</span><i aria-hidden="true">→</i><span class="adm-d">Día</span>'),
+  'Três operações numa leitura só': ('Three operations in a single read', 'Tres operaciones en una sola lectura'),
+  'Painéis integrando gestão de acidentes, arrecadação de pedágios e operação aeroportuária em uma visão única.':
+    ('Dashboards integrating accident management, toll collection and airport operations into a single view.',
+     'Paneles integrando gestión de accidentes, recaudación de peajes y operación aeroportuaria en una visión única.'),
+  '<span class="adm-a">3 operações</span><i aria-hidden="true">→</i><span class="adm-d">1 leitura</span>':
+    ('<span class="adm-a">3 operations</span><i aria-hidden="true">→</i><span class="adm-d">1 read</span>',
+     '<span class="adm-a">3 operaciones</span><i aria-hidden="true">→</i><span class="adm-d">1 lectura</span>'),
+
+  # ---------------- comum às páginas de serviço ----------------
+  'O que fazemos': ('What we do', 'Qué hacemos'),
+  'As frentes que entregamos.': ('The fronts we deliver.', 'Los frentes que entregamos.'),
+  'Como entregamos': ('How we deliver', 'Cómo entregamos'),
+  'Do entendimento à produção.': ('From understanding to production.', 'Del entendimiento a la producción.'),
+  'O stack sai do problema, não do contrato.': ('The stack follows the problem, not the contract.', 'El stack sale del problema, no del contrato.'),
+  '✦ marca as tecnologias com projeto entregue pela Atlas':
+    ('✦ marks the technologies with a project delivered by Atlas',
+     '✦ marca las tecnologías con proyecto entregado por Atlas'),
+  'A prova está nos projetos': ('The proof is in the projects', 'La prueba está en los proyectos'),
+  'Um projeto entregue': ('One delivered project', 'Un proyecto entregado'),
+  'Vamos transformar seu próximo desafio em resultado?':
+    ('Shall we turn your next challenge into a result?', '¿Vamos a transformar su próximo desafío en resultado?'),
+  'Converse com quem vai executar. Em 30 minutos mapeamos seu cenário e indicamos o caminho — mesmo que ele não passe pela gente.':
+    ('Talk to the people who will do the work. In 30 minutes we map your situation and point out the path — even if it does not run through us.',
+     'Hable con quien va a ejecutar. En 30 minutos mapeamos su escenario e indicamos el camino — incluso si no pasa por nosotros.'),
+  'Discovery': ('Discovery', 'Discovery'),
+  'Diagnóstico': ('Assessment', 'Diagnóstico'),
+  'Produção': ('Production', 'Producción'),
+  'Construção': ('Build', 'Construcción'),
+  'Modelagem': ('Modelling', 'Modelado'),
+
+  # ---------------- alocação ----------------
+  'Roadmap definido, orçamento aprovado. A vaga de engenheiro de dados segue aberta, e o projeto não anda.':
+    ('Roadmap set, budget approved. The data engineer role is still open, and the project is not moving.',
+     'Roadmap definido, presupuesto aprobado. La vacante de ingeniero de datos sigue abierta, y el proyecto no avanza.'),
+  'Falar sobre alocação <span class="arr">→</span>': ('Talk about staffing <span class="arr">→</span>', 'Hablar sobre asignación <span class="arr">→</span>'),
+  'Perfis que alocamos': ('Profiles we place', 'Perfiles que asignamos'),
+  'Engenheiro de dados': ('Data engineer', 'Ingeniero de datos'),
+  'Analista e desenvolvedor de BI': ('BI analyst and developer', 'Analista y desarrollador de BI'),
+  'Cientista de dados': ('Data scientist', 'Científico de datos'),
+  'Arquiteto de dados': ('Data architect', 'Arquitecto de datos'),
+  'Contratos de no mínimo 6 meses': ('Contracts of at least 6 months', 'Contratos de 6 meses como mínimo'),
+  'Alocações por tempo indeterminado': ('Open-ended assignments', 'Asignaciones por tiempo indefinido'),
+  'Sob a gestão do cliente, com respaldo técnico da Atlas':
+    ('Under the client\u2019s management, with technical backing from Atlas',
+     'Bajo la gestión del cliente, con respaldo técnico de Atlas'),
+  'Substituição sem quebra de ritmo': ('Replacement without breaking stride', 'Sustitución sin quebrar el ritmo'),
+  'Squads completos': ('Complete squads', 'Squads completos'),
+  'Time montado por perfil e senioridade': ('A team built by profile and seniority', 'Equipo armado por perfil y seniority'),
+  'Liderança técnica da Atlas': ('Technical leadership from Atlas', 'Liderazgo técnico de Atlas'),
+  'Ritmo de entrega acordado': ('An agreed delivery pace', 'Ritmo de entrega acordado'),
+  'Transferência de conhecimento': ('Knowledge transfer', 'Transferencia de conocimiento'),
+  'Entendimento': ('Understanding', 'Entendimiento'),
+  'Que perfil, que senioridade e para qual etapa do roadmap.':
+    ('Which profile, which seniority and for which stage of the roadmap.',
+     'Qué perfil, qué seniority y para qué etapa del roadmap.'),
+  'Seleção': ('Selection', 'Selección'),
+  'Indicação de profissionais com o histórico técnico compatível.':
+    ('Professionals put forward with a matching technical background.',
+     'Propuesta de profesionales con el historial técnico compatible.'),
+  'Entrada': ('Onboarding', 'Entrada'),
+  'O especialista entra no seu time e na sua gestão.':
+    ('The specialist joins your team and your management.', 'El especialista entra en su equipo y en su gestión.'),
+  'Acompanhamento': ('Follow-up', 'Seguimiento'),
+  'A Atlas segue por trás, como respaldo técnico.': ('Atlas stays behind, as technical backing.', 'Atlas sigue detrás, como respaldo técnico.'),
+  'Mais de 150 profissionais alocados. Contratos de no mínimo seis meses, boa parte por tempo indeterminado: o cliente renova para manter a pessoa.':
+    ('Over 150 professionals placed. Contracts of at least six months, a good share of them open-ended: the client renews to keep the person.',
+     'Más de 150 profesionales asignados. Contratos de seis meses como mínimo, buena parte por tiempo indefinido: el cliente renueva para mantener a la persona.'),
+  'Para profissionais de TI': ('For IT professionals', 'Para profesionales de TI'),
+  'Trabalhe com a gente.': ('Work with us.', 'Trabaje con nosotros.'),
+  'Você atua dentro do time do cliente, com o respaldo técnico da Atlas por trás. Deixe seu perfil e a gente chama quando houver encaixe.':
+    ('You work inside the client\u2019s team, with Atlas\u2019s technical backing behind you. Leave your profile and we will call when there is a fit.',
+     'Usted trabaja dentro del equipo del cliente, con el respaldo técnico de Atlas detrás. Deje su perfil y lo llamamos cuando haya encaje.'),
+  '<b>Contratos longos</b><span>No mínimo seis meses, boa parte por tempo indeterminado.</span>':
+    ('<b>Long contracts</b><span>At least six months, a good share of them open-ended.</span>',
+     '<b>Contratos largos</b><span>Seis meses como mínimo, buena parte por tiempo indefinido.</span>'),
+  '<b>Projeto de verdade</b><span>Dados, BI, engenharia e IA em mais de 10 setores.</span>':
+    ('<b>Real projects</b><span>Data, BI, engineering and AI across more than 10 industries.</span>',
+     '<b>Proyecto de verdad</b><span>Datos, BI, ingeniería e IA en más de 10 sectores.</span>'),
+  '<b>Respaldo técnico</b><span>Você não fica sozinho no cliente: a Atlas está atrás.</span>':
+    ('<b>Technical backing</b><span>You are not alone at the client: Atlas is behind you.</span>',
+     '<b>Respaldo técnico</b><span>Usted no queda solo en el cliente: Atlas está detrás.</span>'),
+  'E-mail': ('E-mail', 'Correo'),
+  'Perfil': ('Profile', 'Perfil'),
+  'Selecione': ('Select', 'Seleccione'),
+  'Analista / desenvolvedor de BI': ('BI analyst / developer', 'Analista / desarrollador de BI'),
+  'Analista de dados': ('Data analyst', 'Analista de datos'),
+  'Senioridade': ('Seniority', 'Seniority'),
+  'Júnior': ('Junior', 'Junior'),
+  'Pleno': ('Mid-level', 'Semi-senior'),
+  'Sênior': ('Senior', 'Senior'),
+  'Especialista / Lead': ('Specialist / Lead', 'Especialista / Lead'),
+  'LinkedIn <em>(opcional)</em>': ('LinkedIn <em>(optional)</em>', 'LinkedIn <em>(opcional)</em>'),
+  'Currículo <em>(PDF ou Word, até 5 MB)</em>': ('CV <em>(PDF or Word, up to 5 MB)</em>', 'Currículum <em>(PDF o Word, hasta 5 MB)</em>'),
+  'Enviar meu perfil →': ('Send my profile →', 'Enviar mi perfil →'),
+  'Seu currículo é usado só para avaliar encaixe em projetos da Atlas.':
+    ('Your CV is used only to assess fit for Atlas projects.',
+     'Su currículum se usa solo para evaluar encaje en proyectos de Atlas.'),
+  '<b>Perfil recebido.</b> <span>Guardamos seu currículo no banco de talentos e chamamos quando houver encaixe em um projeto.</span>':
+    ('<b>Profile received.</b> <span>We have saved your CV in the talent pool and will call when there is a fit on a project.</span>',
+     '<b>Perfil recibido.</b> <span>Guardamos su currículum en el banco de talentos y lo llamamos cuando haya encaje en un proyecto.</span>'),
+
+  # ---------------- BI & Analytics ----------------
+  'O indicador existe. Mas cada área chega a um número diferente. A reunião discute o dado, não a decisão.':
+    ('The indicator exists. But each team arrives at a different number. The meeting argues about the data, not the decision.',
+     'El indicador existe. Pero cada área llega a un número distinto. La reunión discute el dato, no la decisión.'),
+  'Falar sobre BI &amp; Analytics <span class="arr">→</span>':
+    ('Talk about BI &amp; Analytics <span class="arr">→</span>', 'Hablar sobre BI &amp; Analytics <span class="arr">→</span>'),
+  'Camada semântica': ('Semantic layer', 'Capa semántica'),
+  'Modelagem dimensional': ('Dimensional modelling', 'Modelado dimensional'),
+  'Definição única por métrica': ('A single definition per metric', 'Definición única por métrica'),
+  'Regra de negócio versionada': ('Versioned business rules', 'Regla de negocio versionada'),
+  'Catálogo de indicadores': ('Indicator catalogue', 'Catálogo de indicadores'),
+  'Dashboards que se usam': ('Dashboards people actually use', 'Dashboards que se usan'),
+  'Visão executiva e operacional': ('Executive and operational view', 'Visión ejecutiva y operativa'),
+  'Self-service para as áreas': ('Self-service for the business teams', 'Autoservicio para las áreas'),
+  'Padrão visual definido antes do desenvolvimento':
+    ('Visual standard set before development', 'Estándar visual definido antes del desarrollo'),
+  'Performance e otimização de DAX': ('Performance and DAX optimization', 'Rendimiento y optimización de DAX'),
+  'Governança de BI': ('BI governance', 'Gobernanza de BI'),
+  'Padrão de nomenclatura e layout': ('Naming and layout standards', 'Estándar de nomenclatura y layout'),
+  'Controle de acesso por perfil': ('Role-based access control', 'Control de acceso por perfil'),
+  'Migração e consolidação de painéis': ('Dashboard migration and consolidation', 'Migración y consolidación de paneles'),
+  'Documentação do modelo': ('Model documentation', 'Documentación del modelo'),
+  'Que decisão precisa melhorar, por quem e com que frequência.':
+    ('Which decision needs to improve, by whom and how often.',
+     'Qué decisión necesita mejorar, por quién y con qué frecuencia.'),
+  'A definição de cada métrica acordada antes do primeiro painel.':
+    ('The definition of every metric agreed before the first dashboard.',
+     'La definición de cada métrica acordada antes del primer panel.'),
+  'Dashboards com padrão visual e de performance definidos na largada.':
+    ('Dashboards with visual and performance standards set at the start.',
+     'Dashboards con estándar visual y de rendimiento definidos de salida.'),
+  'Entrega com documentação e as áreas autônomas para usar.':
+    ('Delivered with documentation and the teams able to use it on their own.',
+     'Entrega con documentación y las áreas autónomas para usarlo.'),
+  'Migração e padronização em Looker, com dados e definições unificados e um modelo de self-service para as áreas de negócio.':
+    ('Migration and standardization on Looker, with unified data and definitions and a self-service model for the business teams.',
+     'Migración y estandarización en Looker, con datos y definiciones unificados y un modelo de autoservicio para las áreas de negocio.'),
+  'Quero avaliar meu BI <span class="arr">→</span>': ('I want my BI assessed <span class="arr">→</span>', 'Quiero evaluar mi BI <span class="arr">→</span>'),
+
+  # ---------------- Data Engineering ----------------
+  'Cada pergunta nova vira uma extração nova. A resposta chega tarde, e ninguém sabe de onde veio o número.':
+    ('Every new question turns into a new extraction. The answer arrives late, and nobody knows where the number came from.',
+     'Cada pregunta nueva se vuelve una extracción nueva. La respuesta llega tarde, y nadie sabe de dónde salió el número.'),
+  'Falar sobre Data Engineering <span class="arr">→</span>':
+    ('Talk about Data Engineering <span class="arr">→</span>', 'Hablar sobre Data Engineering <span class="arr">→</span>'),
+  'Ingestão e integração': ('Ingestion and integration', 'Ingesta e integración'),
+  'Conectores gerenciados': ('Managed connectors', 'Conectores gestionados'),
+  'Streaming de eventos': ('Event streaming', 'Streaming de eventos'),
+  'Integração de sistemas legados': ('Legacy system integration', 'Integración de sistemas heredados'),
+  'APIs e arquivos': ('APIs and files', 'APIs y archivos'),
+  'Armazenamento': ('Storage', 'Almacenamiento'),
+  'Modelagem de dados': ('Data modelling', 'Modelado de datos'),
+  'Transformação e orquestração': ('Transformation and orchestration', 'Transformación y orquestación'),
+  'ETL e ELT': ('ETL and ELT', 'ETL y ELT'),
+  'Transformação versionada e testada': ('Versioned and tested transformation', 'Transformación versionada y probada'),
+  'Orquestração de pipelines': ('Pipeline orchestration', 'Orquestación de pipelines'),
+  'Testes de qualidade': ('Quality tests', 'Pruebas de calidad'),
+  'Que fontes existem, em que estado, e o que o negócio precisa ler.':
+    ('Which sources exist, in what shape, and what the business needs to read.',
+     'Qué fuentes existen, en qué estado, y qué necesita leer el negocio.'),
+  'O desenho da base sobre a nuvem que serve ao problema.':
+    ('The design of the foundation on the cloud that fits the problem.',
+     'El diseño de la base sobre la nube que sirve al problema.'),
+  'Pipelines com teste e orquestração desde o primeiro dia.':
+    ('Pipelines with tests and orchestration from day one.',
+     'Pipelines con pruebas y orquestación desde el primer día.'),
+  'Em produção, com falha visível antes de chegar ao usuário.':
+    ('In production, with failures visible before they reach the user.',
+     'En producción, con fallos visibles antes de llegar al usuario.'),
+  'Modernização de legado para a nuvem': ('Legacy modernization to the cloud', 'Modernización de legado a la nube'),
+  'Data Lake em Google Cloud com processamento em BigQuery, transformações em dbt, orquestração em Airflow e BI unificado em Looker.':
+    ('A data lake on Google Cloud with processing on BigQuery, transformations in dbt, orchestration in Airflow and unified BI in Looker.',
+     'Data Lake en Google Cloud con procesamiento en BigQuery, transformaciones en dbt, orquestación en Airflow y BI unificado en Looker.'),
+  'Quero avaliar minha arquitetura <span class="arr">→</span>':
+    ('I want my architecture assessed <span class="arr">→</span>', 'Quiero evaluar mi arquitectura <span class="arr">→</span>'),
+})
+
+
 def main():
     if not FONTE.exists():
         sys.exit('rode antes: node tools/extrai-textos.js index.html > tools/textos-pt.json')
