@@ -39,24 +39,27 @@ def extrair(html):
     # despercebido e derruba o script da página inteira.
     topo = um(r'<a class="skip-link".*?(?=\n\n<header)', 'elementos de topo')
     # widget de chat: do botão flutuante até o fim do painel
-    chat = um(r'<button class="chat-fab".*?<!-- /chat -->|<button class="chat-fab".*?(?=<script>)', 'chat')
+    chat = um(r'<button class="chat-fab".*?<!-- /chat -->', 'chat')
     # O tema é decidido antes da primeira pintura. Sem este bloco a página
     # interna abre no escuro enquanto a home abre no claro.
     boot = um(r'  <script>\n  /\* Antes da primeira pintura.*?</script>', 'script de tema do head')
     tema_btn = um(r'<button class="tema-btn".*?</button>\n', 'botão de tema')
-    tema_js = um(r'<script>\n/\* -+ Alternador de tema -+ \*/.*?</script>', 'script do alternador')
-    # Dicionário antes do motor: o motor lê window.ATLAS_I18N na carga.
-    idioma = um(r'<script src="media/js/i18n-dic\.js" defer></script>\n<script src="media/js/i18n\.js" defer></script>', 'scripts de idioma')
-    # O script principal é o último bloco inline sem type — ancorar num nome de
-    # variável quebra sempre que uma seção sai do ar.
-    blocos = re.findall(r'<script>(?:(?!</script>).)*</script>', html, re.S)
-    if not blocos:
-        sys.exit('não encontrei o <script> principal no index.html')
-    script = max(blocos, key=len)
+
+    # TODOS os blocos de script que vêm depois do widget de chat, na ordem.
+    #
+    # Antes isto pegava só o maior deles, e o resultado é que o mega-menu, o
+    # carrossel e a frase do hero ficavam de fora de toda página gerada: o
+    # botão "Menu" existia no HTML e não fazia nada em dezenove páginas.
+    # Cada bloco já se protege sozinho — some quando o elemento dele não
+    # está na página —, então levar todos é mais seguro do que escolher.
+    fim = html.rindex('</body>')
+    ini = html.index('<script', html.index('<!-- /chat -->'))
+    script = html[ini:fim].strip()
+    if 'Mega-menu' not in script:
+        sys.exit('o bloco de scripts não inclui o mega-menu — a fatia saiu errada')
     return dict(estilo=estilo, header=header, menu=menu, rodape=rodape,
                 topo=topo, chat=chat.rstrip(), script=script,
-                boot=boot, tema_btn=tema_btn.rstrip(), tema_js=tema_js,
-                idioma=idioma)
+                boot=boot, tema_btn=tema_btn.rstrip())
 
 
 # ---------------------------------------------------------------- conteúdo
@@ -510,8 +513,6 @@ def montar(pag, comum):
 %(tema_btn)s
 %(chat)s
 %(script)s
-%(tema_js)s
-%(idioma)s
 </body>
 </html>
 ''' % dict(titulo=pag['titulo'], meta=pag['meta'], url=url, site=SITE,
@@ -519,8 +520,7 @@ def montar(pag, comum):
            topo=comum['topo'],
            menu=comum['menu'], corpo=corpo, rodape=comum['rodape'],
            chat=comum['chat'], script=comum['script'], boot=comum['boot'],
-           tema_btn=comum['tema_btn'], tema_js=comum['tema_js'],
-           idioma=comum['idioma'])
+           tema_btn=comum['tema_btn'])
 
 
 def main():

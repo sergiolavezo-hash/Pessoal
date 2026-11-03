@@ -1,5 +1,5 @@
 {
- "total": 631,
+ "total": 637,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -1092,11 +1092,6 @@
    "cls": ""
   },
   {
-   "chave": "Sem compromisso <i>·</i> Sem apresentação institucional <i>·</i> Resposta em 1 dia útil",
-   "tag": "p",
-   "cls": "depois-nao"
-  },
-  {
    "chave": "Nome",
    "tag": "label",
    "cls": ""
@@ -1170,11 +1165,6 @@
    "chave": "Quero conversar com a Atlas →",
    "tag": "button",
    "cls": "btn btn-accent"
-  },
-  {
-   "chave": "Respondemos em até 1 dia útil. Sem cadastro em lista e sem disparo automático.",
-   "tag": "p",
-   "cls": "form-note"
   },
   {
    "chave": "Não foi possível enviar agora. Tente novamente em instantes ou fale com a gente pelo LinkedIn ou Instagram.",
@@ -1527,79 +1517,99 @@
    "cls": ""
   },
   {
-   "chave": "<b>Canais separados viraram uma plataforma só</b><small>Varejo Multimarca</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "<span>BI &amp; Analytics</span><span>Engenharia de Dados</span><span>Cloud</span>",
+   "tag": "div",
+   "cls": "dest-chips"
   },
   {
-   "chave": "<b>Legado Oracle aposentado sem parar a operação</b><small>Serviços Financeiros</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "Continuar lendo <span class=\"arr\">→</span>",
+   "tag": "a",
+   "cls": "dest-link"
   },
   {
-   "chave": "<b>De 200+ painéis sem padrão a um ambiente só</b><small>BI Governance</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "<span>BI &amp; Analytics</span><span>Engenharia de Dados</span><span>Cloud</span><span>Migração</span>",
+   "tag": "div",
+   "cls": "dest-chips"
   },
   {
-   "chave": "<b>Os acessos da holding inteira sob auditoria</b><small>Instituição Financeira</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "<span>BI &amp; Analytics</span><span>Governança</span><span>Migração</span>",
+   "tag": "div",
+   "cls": "dest-chips"
   },
   {
-   "chave": "<b>Faturamento, endossos e comissões num sistema só</b><small>Corretagem de Seguros</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "Todos os cases de sucesso",
+   "tag": "h2",
+   "cls": "h-xl"
   },
   {
-   "chave": "<b>Chamados viraram indicador de SLA</b><small>Software &amp; Tecnologia</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "Categorias",
+   "tag": "p",
+   "cls": "filtro-k"
   },
   {
-   "chave": "<b>Três linhas de negócio, uma visão só</b><small>Turismo &amp; Viagens</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "Todos",
+   "tag": "button",
+   "cls": "filtro"
   },
   {
-   "chave": "<b>O comercial ganhou número próprio</b><small>Serviços Financeiros</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "Engenharia de Dados",
+   "tag": "button",
+   "cls": "filtro"
   },
   {
-   "chave": "<b>A voz do cliente virou indicador vivo</b><small>Bancário</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "Governança",
+   "tag": "button",
+   "cls": "filtro"
   },
   {
-   "chave": "<b>Todas as áreas lendo os mesmos números</b><small>Varejo de Moda</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "IA &amp; Preditivo",
+   "tag": "button",
+   "cls": "filtro"
   },
   {
-   "chave": "<b>Duas ferramentas de BI viraram uma</b><small>Saúde &amp; Diagnóstico</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "Migração",
+   "tag": "button",
+   "cls": "filtro"
   },
   {
-   "chave": "<b>A evasão passou a ser antecipada</b><small>Educação</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "<span>BI &amp; Analytics</span><span>Engenharia de Dados</span>",
+   "tag": "div",
+   "cls": "gc-chips"
   },
   {
-   "chave": "<b>O padrão visual antes do primeiro painel</b><small>Saúde Hospitalar</small>",
+   "chave": "Ver estudo de caso completo <span class=\"arr\">→</span>",
    "tag": "span",
-   "cls": ""
+   "cls": "gc-link"
   },
   {
-   "chave": "<b>Do fechamento do mês para o mesmo dia</b><small>Food Service</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "<span>BI &amp; Analytics</span><span>Governança</span>",
+   "tag": "div",
+   "cls": "gc-chips"
   },
   {
-   "chave": "<b>Três operações numa leitura só</b><small>Infraestrutura &amp; Mobilidade</small>",
-   "tag": "span",
-   "cls": ""
+   "chave": "<span>Desenvolvimento</span>",
+   "tag": "div",
+   "cls": "gc-chips"
+  },
+  {
+   "chave": "<span>BI &amp; Analytics</span>",
+   "tag": "div",
+   "cls": "gc-chips"
+  },
+  {
+   "chave": "<span>BI &amp; Analytics</span><span>IA &amp; Preditivo</span>",
+   "tag": "div",
+   "cls": "gc-chips"
+  },
+  {
+   "chave": "Projetos em destaque",
+   "tag": "@aria-label",
+   "cls": "dest-trilho"
+  },
+  {
+   "chave": "Filtrar por categoria",
+   "tag": "@aria-label",
+   "cls": "filtros"
   },
   {
    "chave": "Roadmap definido, orçamento aprovado. A vaga de engenheiro de dados segue aberta, e o projeto não anda.",
@@ -2462,6 +2472,21 @@
    "cls": "cases-more-head"
   },
   {
+   "chave": "<b>Canais separados viraram uma plataforma só</b><small>Varejo Multimarca</small>",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Legado Oracle aposentado sem parar a operação</b><small>Serviços Financeiros</small>",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "<b>De 200+ painéis sem padrão a um ambiente só</b><small>BI Governance</small>",
+   "tag": "span",
+   "cls": ""
+  },
+  {
    "chave": "Antes e depois",
    "tag": "@aria-label",
    "cls": "ad"
@@ -2584,6 +2609,11 @@
   {
    "chave": "<span>Varejo Multimarca</span>",
    "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Os acessos da holding inteira sob auditoria</b><small>Instituição Financeira</small>",
+   "tag": "span",
    "cls": ""
   },
   {

@@ -90,6 +90,101 @@ def carrossel(cases):
   <!-- cases:fim -->''' % cartoes
 
 
+def destaque(c):
+    """Slide do carrossel de destaque: texto à esquerda, arte à direita."""
+    chips = ''.join('<span>%s</span>' % e(t) for t in c['categorias'])
+    return (
+        '      <article class="dest">\n'
+        '        <div class="dest-txt">\n'
+        '          <p class="dest-setor">%s</p>\n'
+        '          <h3 class="dest-t">%s</h3>\n'
+        '          <p class="dest-cap">%s</p>\n'
+        '          <div class="dest-chips">%s</div>\n'
+        '          <a class="dest-link" href="cases/%s.html">Continuar lendo <span class="arr">&rarr;</span></a>\n'
+        '        </div>\n'
+        '        <figure class="dest-art"><img src="media/cases/%s.svg" alt="%s" loading="lazy" decoding="async"></figure>\n'
+        '      </article>' % (e(c.get('setor') or (c['meta'][0] if c.get('meta') else '')),
+                             e(c['titulo']), e(c['capa']), chips, c['slug'], c['arte'], e(c['capa'])))
+
+
+def cartao_grade(c):
+    chips = ''.join('<span>%s</span>' % e(t) for t in c['categorias'][:2])
+    return (
+        '        <a class="gc" href="cases/%s.html" data-cats="%s">\n'
+        '          <img src="media/cases/%s.svg" alt="" loading="lazy" decoding="async">\n'
+        '          <div class="gc-corpo">\n'
+        '            <p class="gc-setor">%s</p>\n'
+        '            <h3 class="gc-t">%s</h3>\n'
+        '            <p class="gc-cap">%s</p>\n'
+        '            <div class="gc-chips">%s</div>\n'
+        '            <span class="gc-link">Ver estudo de caso completo <span class="arr">&rarr;</span></span>\n'
+        '          </div>\n'
+        '        </a>' % (c['slug'], e(' '.join(c['categorias'])), c['arte'],
+                         e(c.get('setor') or (c['meta'][0] if c.get('meta') else '')),
+                         e(c['titulo']), e(c['capa']), chips))
+
+
+def corpo_indice(cases):
+    destaques = [c for c in cases if c.get('destaque')] or cases[:3]
+    cats = []
+    for c in cases:
+        for k in c['categorias']:
+            if k not in cats:
+                cats.append(k)
+    botoes = ''.join(
+        '        <button class="filtro" type="button" data-cat="%s"%s>%s</button>\n'
+        % (e(k), ' aria-pressed="true"' if i == 0 else ' aria-pressed="false"', e(k))
+        for i, k in enumerate(['Todos'] + sorted(cats)))
+    return (
+        '<main id="inicio">\n\n'
+        '  <section class="sec caso-hero">\n'
+        '    <div class="wrap">\n'
+        '      <span class="pill" data-ico="cases">Histórias de sucesso</span>\n'
+        '      <h1 class="h-xl">%(titulo)s</h1>\n'
+        '      <p class="sub">%(lead)s</p>\n'
+        '    </div>\n'
+        '  </section>\n\n'
+        '  <section class="sec" style="padding-top:0">\n'
+        '    <div class="wrap">\n'
+        '      <div class="dest-carr" id="dest-carr">\n'
+        '        <div class="dest-trilho" id="dest-trilho" role="group" aria-label="Projetos em destaque">\n'
+        '%(destaques)s\n'
+        '        </div>\n'
+        '        <div class="carr-progresso" id="dest-progresso" aria-hidden="true"><i></i></div>\n'
+        '        <div class="carr-barra">\n'
+        '          <div class="carr-pontos" id="dest-pontos"></div>\n'
+        '          <button class="carr-seta" id="dest-ant" type="button" aria-label="Case anterior">\n'
+        '            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>\n'
+        '          </button>\n'
+        '          <button class="carr-seta" id="dest-prox" type="button" aria-label="Próximo case">\n'
+        '            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>\n'
+        '          </button>\n'
+        '        </div>\n'
+        '      </div>\n'
+        '    </div>\n'
+        '  </section>\n\n'
+        '  <div class="divider"></div>\n\n'
+        '  <section class="sec">\n'
+        '    <div class="wrap">\n'
+        '      <h2 class="h-xl" style="max-width:none">Todos os cases de sucesso</h2>\n'
+        '      <p class="filtro-k">Categorias</p>\n'
+        '      <div class="filtros" id="filtros" role="group" aria-label="Filtrar por categoria">\n'
+        '%(botoes)s      </div>\n'
+        '      <p class="filtro-conta" id="filtro-conta" aria-live="polite"></p>\n'
+        '      <div class="grade" id="grade">\n'
+        '%(grade)s\n'
+        '      </div>\n'
+        '      <div class="hero-ctas" style="margin-top:2.8rem">\n'
+        '        <a class="btn btn-accent" href="index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>\n'
+        '      </div>\n'
+        '    </div>\n'
+        '  </section>\n'
+        '</main>' % dict(titulo=TITULO_SEC, lead=LEAD_SEC,
+                         destaques='\n'.join(destaque(c) for c in destaques),
+                         botoes=botoes,
+                         grade='\n'.join(cartao_grade(c) for c in cases)))
+
+
 # ------------------------------------------------- página de um case
 def lista(itens):
     return '\n'.join('            <li>%s</li>' % e(i) for i in itens)
@@ -259,6 +354,176 @@ CSS_CASO = '''<style>
 </style>'''
 
 
+CSS_INDICE = '''<style>
+  /* ---------- Destaque que gira ---------- */
+  .dest-carr { position: relative; }
+  .dest-trilho { display: flex; gap: 1.2rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
+  .dest-trilho::-webkit-scrollbar { display: none; }
+  .dest {
+    flex: 0 0 100%; scroll-snap-align: start;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 0;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
+  }
+  .dest-txt { padding: clamp(1.6rem, 3.4vw, 2.8rem); display: flex; flex-direction: column; justify-content: center; gap: 0.9rem; }
+  .dest-setor { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+  .dest-t { font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-weight: 600; line-height: 1.18; }
+  .dest-cap { color: var(--muted); font-size: 1rem; line-height: 1.6; max-width: 46ch; }
+  .dest-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .dest-chips span { font-size: 0.72rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.24rem 0.68rem; }
+  .dest-link { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 0.4rem; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 0.96rem; color: var(--accent); }
+  .dest-link .arr { transition: transform 0.25s var(--ease); }
+  .dest-link:hover .arr { transform: translateX(3px); }
+  .dest-art { margin: 0; line-height: 0; }
+  .dest-art img { width: 100%; height: 100%; min-height: 260px; object-fit: cover; display: block; }
+
+  /* ---------- Filtro e grade ---------- */
+  .filtro-k { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); margin: 1.6rem 0 0.8rem; }
+  .filtros { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .filtro {
+    cursor: pointer; background: var(--panel); border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.5rem 1rem; color: var(--muted); font-family: var(--display); font-weight: 600; font-size: 0.86rem;
+    transition: border-color 0.25s var(--ease), color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+  .filtro:hover { border-color: rgba(46,134,255,0.45); color: var(--ink); }
+  .filtro[aria-pressed="true"] { background: var(--btn-fill); border-color: var(--btn-fill); color: #fff; }
+  .filtro-conta { color: var(--dim); font-size: 0.84rem; margin-top: 1rem; }
+  .grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.1rem; margin-top: 1.4rem; }
+  .gc {
+    display: grid; grid-template-rows: auto 1fr; text-decoration: none; overflow: hidden;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .gc:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .gc > img { width: 100%; height: 160px; object-fit: cover; display: block; }
+  .gc-corpo { padding: 1.3rem 1.3rem 1.2rem; display: grid; grid-template-rows: auto auto 1fr auto auto; gap: 0.55rem; }
+  .gc-setor { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .gc-t { font-size: 1.08rem; font-weight: 600; line-height: 1.28; }
+  .gc-cap { color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
+  .gc-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .gc-chips span { font-size: 0.68rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.18rem 0.55rem; }
+  .gc-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.3rem; font-family: var(--display); font-weight: 600; font-size: 0.85rem; color: var(--accent); }
+  .gc .arr { transition: transform 0.25s var(--ease); }
+  .gc:hover .arr { transform: translateX(3px); }
+
+  @media (max-width: 1000px) {
+    .dest { grid-template-columns: 1fr; }
+    .dest-art { order: -1; }
+    .dest-art img { min-height: 180px; height: 180px; }
+    .grade { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 640px) { .grade { grid-template-columns: 1fr; } }
+</style>'''
+
+JS_INDICE = '''<script>
+/* Carrossel de destaque e filtro de categorias da página de cases.
+   O mesmo desenho do carrossel da home: avança sozinho com barra de
+   progresso e para de vez quando alguém usa os controles.
+
+   Este bloco vai no <head> junto com o CSS da página, então ele espera o
+   DOM: sem a guarda, getElementById devolve null e nada se liga. */
+document.addEventListener('DOMContentLoaded', function () {
+  var trilho = document.getElementById('dest-trilho');
+  if (trilho) (function () {
+    var cards = [].slice.call(trilho.children);
+    var pontos = document.getElementById('dest-pontos');
+    var prog = document.getElementById('dest-progresso');
+    var barra = prog ? prog.querySelector('i') : null;
+    var ant = document.getElementById('dest-ant');
+    var prox = document.getElementById('dest-prox');
+    var i = 0, timer = 0, praf = 0, t0 = 0, parado = false;
+    var INTERVALO = 7000;
+    if (cards.length < 2) { if (prog) prog.style.display = 'none'; return; }
+
+    cards.forEach(function (c, k) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'carr-ponto';
+      b.setAttribute('aria-label', 'Ver o destaque ' + (k + 1) + ' de ' + cards.length);
+      b.addEventListener('click', function () { parar(); ir(k); });
+      pontos.appendChild(b);
+    });
+    var bolas = [].slice.call(pontos.children);
+
+    function pintar() {
+      bolas.forEach(function (b, k) { b.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+      ant.disabled = i === 0;
+      prox.disabled = i === cards.length - 1;
+    }
+    function ir(k) {
+      i = Math.max(0, Math.min(cards.length - 1, k));
+      trilho.scrollLeft = cards[i].offsetLeft - cards[0].offsetLeft;
+      pintar();
+    }
+    function pintarBarra() {
+      if (!barra) return;
+      barra.style.width = (Math.min(1, (Date.now() - t0) / INTERVALO) * 100).toFixed(2) + '%';
+      praf = requestAnimationFrame(pintarBarra);
+    }
+    function pararBarra() { if (praf) { cancelAnimationFrame(praf); praf = 0; } }
+    function tique() { ir(i === cards.length - 1 ? 0 : i + 1); t0 = Date.now(); }
+    function tocar() { if (parado || timer) return; t0 = Date.now(); timer = setInterval(tique, INTERVALO); pararBarra(); pintarBarra(); }
+    function pausar() { if (timer) { clearInterval(timer); timer = 0; } pararBarra(); }
+    function parar() { parado = true; pausar(); if (prog) prog.classList.add('parado'); }
+
+    ant.addEventListener('click', function () { parar(); ir(i - 1); });
+    prox.addEventListener('click', function () { parar(); ir(i + 1); });
+    trilho.addEventListener('pointerdown', parar);
+    ['pointerenter', 'focusin'].forEach(function (ev) { trilho.parentNode.addEventListener(ev, pausar); });
+    ['pointerleave', 'focusout'].forEach(function (ev) { trilho.parentNode.addEventListener(ev, tocar); });
+    document.addEventListener('visibilitychange', function () { document.hidden ? pausar() : tocar(); });
+    window.addEventListener('resize', function () { ir(i); });
+
+    var tRolar;
+    trilho.addEventListener('scroll', function () {
+      clearTimeout(tRolar);
+      tRolar = setTimeout(function () {
+        var base = cards[0].offsetLeft, perto = 0, melhor = Infinity;
+        cards.forEach(function (c, k) {
+          var d = Math.abs((c.offsetLeft - base) - trilho.scrollLeft);
+          if (d < melhor) { melhor = d; perto = k; }
+        });
+        if (perto !== i) { i = perto; pintar(); }
+      }, 120);
+    }, { passive: true });
+
+    pintar();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) { e.isIntersecting ? tocar() : pausar(); });
+      }, { threshold: 0.25 }).observe(trilho);
+    } else { tocar(); }
+  })();
+
+  /* Filtro por categoria. Esconde em vez de remover: o cartão volta sem
+     reconstruir nada, e o estado continua no HTML para quem lê sem script. */
+  var filtros = document.getElementById('filtros');
+  var grade = document.getElementById('grade');
+  var conta = document.getElementById('filtro-conta');
+  if (!filtros || !grade) return;
+  var cartoes = [].slice.call(grade.children);
+
+  function aplicar(cat) {
+    var n = 0;
+    cartoes.forEach(function (c) {
+      var ok = cat === 'Todos' || (' ' + c.dataset.cats + ' ').indexOf(' ' + cat + ' ') > -1;
+      c.hidden = !ok;
+      if (ok) n++;
+    });
+    [].slice.call(filtros.children).forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.cat === cat ? 'true' : 'false');
+    });
+    if (conta) conta.textContent = n === cartoes.length
+      ? (n + ' cases')
+      : (n + ' de ' + cartoes.length + ' cases');
+  }
+
+  filtros.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-cat]');
+    if (b) aplicar(b.dataset.cat);
+  });
+  aplicar('Todos');
+});
+</script>'''
+
 def pagina(titulo, meta, url, corpo, comum, prefixo='', extra=''):
     c = dict(comum)
     for k in ('header', 'menu', 'rodape', 'chat', 'topo', 'tema_btn'):
@@ -266,7 +531,9 @@ def pagina(titulo, meta, url, corpo, comum, prefixo='', extra=''):
         c[k] = c[k].replace('href="#', 'href="' + prefixo + 'index.html#')
     estilo = re.sub(r'url\((media/)', r'url(' + prefixo + r'\1', c['estilo'])
     boot = c['boot']
-    idioma = re.sub(r'src="(media/)', r'src="' + prefixo + r'\1', c['idioma'])
+    # os scripts inline referenciam media/ por src e por url(): nas páginas
+    # dentro de cases/ os dois precisam do ../
+    c['script'] = re.sub(r'(src|href)="(media/)', r'\1="' + prefixo + r'\2', c['script'])
     return '''<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -301,14 +568,11 @@ def pagina(titulo, meta, url, corpo, comum, prefixo='', extra=''):
 %(tema_btn)s
 %(chat)s
 %(script)s
-%(tema_js)s
-%(idioma)s
 </body>
 </html>
 ''' % dict(titulo=titulo, meta=meta, url=url, pre=prefixo, boot=boot, estilo=estilo, extra=extra,
            topo=c['topo'], header=c['header'], menu=c['menu'], corpo=corpo, rodape=c['rodape'],
-           tema_btn=c['tema_btn'], chat=c['chat'], script=c['script'], tema_js=c['tema_js'],
-           idioma=idioma)
+           tema_btn=c['tema_btn'], chat=c['chat'], script=c['script'])
 
 
 def main():
@@ -326,39 +590,14 @@ def main():
 
     comum = bp.extrair(html)
 
-    # 2) índice
-    cartoes = '\n'.join('''        <a class="rel" href="cases/%s.html">
-          <img src="media/cases/%s.svg" alt="" loading="lazy" decoding="async">
-          <span><b>%s</b><small>%s</small></span>
-        </a>''' % (c['slug'], c['arte'], e(c['titulo']),
-                   e(c.get('setor') or (c['meta'][0] if c.get('meta') else '')))
-        for c in cases)
-    corpo_indice = '''<main id="inicio">
-  <section class="sec caso-hero">
-    <div class="wrap">
-      <span class="pill" data-ico="cases">Histórias de sucesso</span>
-      <h1 class="h-xl">%s</h1>
-      <p class="sub">%s</p>
-    </div>
-  </section>
-  <section class="sec" style="padding-top:1rem">
-    <div class="wrap">
-      <div class="rels" style="grid-template-columns:repeat(3,minmax(0,1fr))">
-%s
-      </div>
-      <div class="hero-ctas" style="margin-top:2.6rem">
-        <a class="btn btn-accent" href="index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
-      </div>
-    </div>
-  </section>
-</main>''' % (TITULO_SEC, LEAD_SEC, cartoes)
+    # 2) índice: destaque que gira no topo, filtro e a grade embaixo
 
     comum_raiz = dict(comum)
     for k in ('header', 'menu', 'rodape'):
         comum_raiz[k] = re.sub(r'href="#([a-z0-9-]+)"', r'href="index.html#\1"', comum_raiz[k])
     (RAIZ / INDICE).write_text(pagina(
         'Cases de sucesso', LEAD_SEC, '%s/%s' % (SITE, INDICE),
-        corpo_indice, comum_raiz, prefixo='', extra=CSS_CASO))
+        corpo_indice(cases), comum_raiz, prefixo='', extra=CSS_CASO + CSS_INDICE + JS_INDICE))
     print('%-26s %6.1f KB' % (INDICE, (RAIZ / INDICE).stat().st_size / 1024))
 
     # 3) uma página por case

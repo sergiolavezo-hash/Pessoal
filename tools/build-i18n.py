@@ -370,9 +370,6 @@ TRAD.update({
   '<b>Você decide</b><span>Com escopo, stack e prazo na mão. Sem contrato até aqui.</span>':
     ('<b>You decide</b><span>With scope, stack and timeline in hand. No contract up to this point.</span>',
      '<b>Usted decide</b><span>Con alcance, stack y plazo en la mano. Sin contrato hasta aquí.</span>'),
-  'Sem compromisso <i>·</i> Sem apresentação institucional <i>·</i> Resposta em 1 dia útil':
-    ('No commitment <i>·</i> No corporate deck <i>·</i> Reply within 1 business day',
-     'Sin compromiso <i>·</i> Sin presentación institucional <i>·</i> Respuesta en 1 día hábil'),
   'Nome': ('Name', 'Nombre'),
   'Empresa': ('Company', 'Empresa'),
   'Cargo <em>(opcional)</em>': ('Role <em>(optional)</em>', 'Cargo <em>(opcional)</em>'),
@@ -387,9 +384,6 @@ TRAD.update({
   'Em duas linhas: o que você precisa que passe a funcionar.':
     ('In two lines: what you need to start working.', 'En dos líneas: qué necesita que pase a funcionar.'),
   'Quero conversar com a Atlas →': ('I want to talk to Atlas →', 'Quiero hablar con Atlas →'),
-  'Respondemos em até 1 dia útil. Sem cadastro em lista e sem disparo automático.':
-    ('We reply within 1 business day. No mailing list and no automated blast.',
-     'Respondemos en hasta 1 día hábil. Sin alta en lista y sin envío automático.'),
   'Não foi possível enviar agora. Tente novamente em instantes ou fale com a gente pelo LinkedIn ou Instagram.':
     ('We could not send it right now. Try again in a moment, or reach us on LinkedIn or Instagram.',
      'No fue posible enviar ahora. Inténtelo de nuevo en un momento o escríbanos por LinkedIn o Instagram.'),
@@ -965,8 +959,6 @@ TRAD.update({
     ('Information security came to have an audit report covering access across the entire holding.',
      'La seguridad de la información pasó a tener un informe de auditoría que cubre los accesos de todo el holding.'),
   'Instituição Financeira': ('Financial Institution', 'Institución Financiera'),
-  'Segurança da Informação': ('Information Security', 'Seguridad de la Información'),
-  'Desenvolvimento de sistemas': ('Systems development', 'Desarrollo de sistemas'),
 
   'Faturamento, endossos e comissões num sistema só':
     ('Billing, endorsements and commissions in a single system',
@@ -990,8 +982,18 @@ TRAD.update({
     ('Commission payment now derives from what was billed, with no manual check between the two.',
      'El pago de comisión pasa a derivar de lo facturado, sin verificación manual entre ambos.'),
   'Corretagem de Seguros': ('Insurance Brokerage', 'Correduría de Seguros'),
-  'Automação de processos': ('Process automation', 'Automatización de procesos'),
-  'Faturamento': ('Billing', 'Facturación'),
+})
+
+TRAD.update({
+  # ---------------- índice de cases: filtro e grade ----------------
+  'Todos os cases de sucesso': ('All success stories', 'Todos los casos de éxito'),
+  'Projetos em destaque': ('Featured projects', 'Proyectos destacados'),
+  'Continuar lendo <span class="arr">→</span>':
+    ('Keep reading <span class="arr">→</span>', 'Seguir leyendo <span class="arr">→</span>'),
+  'Ver estudo de caso completo <span class="arr">→</span>':
+    ('See the full case study <span class="arr">→</span>', 'Ver el estudio de caso completo <span class="arr">→</span>'),
+  'Categorias': ('Categories', 'Categorías'),
+  'Todos': ('All', 'Todos'),
 })
 
 
@@ -1080,6 +1082,15 @@ TERMOS = {
   'Uma definição por métrica': ('One definition per metric', 'Una definición por métrica'),
   'Pergunta sem fila': ('Questions without a queue', 'Preguntas sin fila'),
   'Crescimento com padrão': ('Growth with a standard', 'Crecimiento con estándar'),
+
+  # categorias do filtro de cases
+  'BI &amp; Analytics': ('BI &amp; Analytics', 'BI &amp; Analytics'),
+  'Engenharia de Dados': ('Data Engineering', 'Ingeniería de Datos'),
+  'Cloud': ('Cloud', 'Cloud'),
+  'Governança': ('Governance', 'Gobernanza'),
+  'IA &amp; Preditivo': ('AI &amp; Predictive', 'IA &amp; Predictivo'),
+  'Desenvolvimento': ('Development', 'Desarrollo'),
+  'Todos': ('All', 'Todos'),
 
   # navegação do carrossel
   'Case anterior': ('Previous case', 'Caso anterior'),

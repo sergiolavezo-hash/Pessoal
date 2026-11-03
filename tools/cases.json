@@ -66,7 +66,13 @@
       "Loja física e digital deixaram de ser medidos em sistemas separados e passaram a ser comparáveis.",
       "Venda e operação passaram a ser lidas no mesmo painel, sem consolidação manual.",
       "Cada nova análise parte da plataforma existente, não de uma nova extração."
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics",
+      "Engenharia de Dados",
+      "Cloud"
+    ],
+    "destaque": true
   },
   {
     "tipo": "grande",
@@ -137,7 +143,14 @@
       "O custo de manter o ambiente Oracle deixou de existir.",
       "As transformações saíram de scripts avulsos para dbt, testado e versionado.",
       "Looker passou a ser o único caminho entre o dado e o negócio."
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics",
+      "Engenharia de Dados",
+      "Cloud",
+      "Migração"
+    ],
+    "destaque": true
   },
   {
     "tipo": "grande",
@@ -205,7 +218,13 @@
       "A mesma conta deixou de ter versões diferentes em mais de 200 painéis.",
       "O self-service tirou o intervalo entre a dúvida da área e a resposta.",
       "Painel novo passa a nascer dentro de um modelo, não ao lado dele."
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics",
+      "Governança",
+      "Migração"
+    ],
+    "destaque": true
   },
   {
     "tipo": "mini",
@@ -246,7 +265,14 @@
     "resultados": [
       "A concessão e a revisão de acessos passaram a sair de uma central única, não de cada empresa em separado.",
       "A segurança da informação passou a ter relatório de auditoria cobrindo os acessos de toda a holding."
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics",
+      "Engenharia de Dados",
+      "Governança",
+      "Desenvolvimento"
+    ],
+    "destaque": false
   },
   {
     "tipo": "mini",
@@ -277,7 +303,11 @@
     "resultados": [
       "As três rotinas passaram a viver no mesmo sistema, em vez de em planilhas separadas.",
       "O pagamento de comissão passa a derivar do que foi faturado, sem conferência manual entre os dois."
-    ]
+    ],
+    "categorias": [
+      "Desenvolvimento"
+    ],
+    "destaque": false
   },
   {
     "tipo": "mini",
@@ -312,7 +342,12 @@
     "solucao": "BI sobre a base de incidentes, transformando cada chamado em indicador de SLA, prazo e desempenho operacional, com histórico em Data Warehouse.",
     "resultados": [
       "Chamados → Indicadores de SLA"
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics",
+      "Engenharia de Dados"
+    ],
+    "destaque": false
   },
   {
     "tipo": "mini",
@@ -347,7 +382,12 @@
     "solucao": "Arquitetura completa ETL → DW → BI consolidando as três linhas em um modelo único, com a visão do negócio inteiro em MicroStrategy.",
     "resultados": [
       "3 linhas → 1 visão"
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics",
+      "Engenharia de Dados"
+    ],
+    "destaque": false
   },
   {
     "tipo": "mini",
@@ -382,7 +422,12 @@
     "solucao": "Estrutura de dados e indicadores própria do comercial, consolidando as informações do departamento para análise e decisão.",
     "resultados": [
       "Extração pontual → Camada própria"
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics",
+      "Engenharia de Dados"
+    ],
+    "destaque": false
   },
   {
     "tipo": "mini",
@@ -417,7 +462,11 @@
     "solucao": "Acompanhamento contínuo de NPS, transformando as respostas em indicadores de experiência e em oportunidades de melhoria distribuídas às áreas.",
     "resultados": [
       "Relatório avulso → Indicador vivo"
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics"
+    ],
+    "destaque": false
   },
   {
     "tipo": "mini",
@@ -452,7 +501,12 @@
     "solucao": "Dashboards de vendas, logística e operações com acesso aberto a todas as áreas da organização, sobre o mesmo Data Warehouse.",
     "resultados": [
       "Por área → Toda a empresa"
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics",
+      "Engenharia de Dados"
+    ],
+    "destaque": false
   },
   {
     "tipo": "mini",
@@ -494,7 +548,14 @@
     "solucao": "Pipelines em BigQuery e Airflow alimentando uma camada única, com a visualização migrada de Tableau para Power BI.",
     "resultados": [
       "2 ferramentas → 1 ferramenta"
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics",
+      "Engenharia de Dados",
+      "Cloud",
+      "Migração"
+    ],
+    "destaque": false
   },
   {
     "tipo": "mini",
@@ -529,7 +590,12 @@
     "solucao": "Centenas de dashboards educacionais somados a modelos preditivos que estimam risco de evasão a tempo de apoiar ações preventivas.",
     "resultados": [
       "Constatada → Antecipada"
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics",
+      "IA & Preditivo"
+    ],
+    "destaque": false
   },
   {
     "tipo": "mini",
@@ -566,7 +632,11 @@
     "solucao": "Protótipos em Figma fixando o padrão visual antes do desenvolvimento, e centenas de dashboards Power BI construídos já dentro dele.",
     "resultados": [
       "Padrão depois → Padrão antes"
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics"
+    ],
+    "destaque": false
   },
   {
     "tipo": "mini",
@@ -598,7 +668,11 @@
     "solucao": "Painéis de acompanhamento diário das unidades do grupo, com os desvios visíveis em tempo de agir sobre eles.",
     "resultados": [
       "Mês → Dia"
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics"
+    ],
+    "destaque": false
   },
   {
     "tipo": "mini",
@@ -631,6 +705,11 @@
     "solucao": "Painéis integrando as três operações em uma visão única, sobre a mesma base de dados e indicadores.",
     "resultados": [
       "3 operações → 1 leitura"
-    ]
+    ],
+    "categorias": [
+      "BI & Analytics",
+      "Engenharia de Dados"
+    ],
+    "destaque": false
   }
 ]

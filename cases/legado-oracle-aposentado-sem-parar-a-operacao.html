@@ -1794,6 +1794,7 @@
     </button>
   </div>
 </div>
+<!-- /chat -->
 <script>
 (function () {
   'use strict';
@@ -2178,6 +2179,341 @@
 })();
 </script>
 <script>
+/* O brilho percorre a lista de serviços conforme a página desce.
+   A frente marca a frente que o leitor está encarando; o que ficou para
+   trás permanece aceso. Sem loop: só recalcula quando alguém rola. */
+(function () {
+  const items = Array.prototype.slice.call(document.querySelectorAll('.sol-item'));
+  if (!items.length) return;
+
+  let raf = 0;
+  function update() {
+    raf = 0;
+    // A linha de leitura fica a 45% da altura da janela: é onde o olho
+    // costuma estar, e não no centro exato.
+    const line = window.innerHeight * 0.45;
+    let head = -1, best = Infinity;
+    for (let i = 0; i < items.length; i++) {
+      const r = items[i].getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) continue;
+      const d = Math.abs(r.top + r.height / 2 - line);
+      if (d < best) { best = d; head = i; }
+    }
+    for (let i = 0; i < items.length; i++) {
+      items[i].classList.toggle('is-on', head >= 0 && i <= head);
+      items[i].classList.toggle('is-head', i === head);
+    }
+  }
+  function schedule() { if (!raf) raf = requestAnimationFrame(update); }
+
+  update();
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
+  // As sanfonas mudam a altura dos itens: recalcula quando abrem.
+  document.addEventListener('click', schedule, true);
+})();
+</script>
+<script>
+/* ============================================================
+   Interações do redesenho. Tudo dirigido por scroll ou toque —
+   nenhum autoplay. Cada bloco só recalcula quando há o que mudar.
+   ============================================================ */
+(function () {
+  'use strict';
+
+
+
+
+  /* ---------- Barra de conversa ---------- */
+  var cbar = document.getElementById('cbar');
+  if (cbar) {
+    var hero = document.querySelector('.hero');
+    var contato = document.getElementById('contato');
+    var dispensada = false;
+    try { dispensada = sessionStorage.getItem('cbar-off') === '1'; } catch (e) {}
+    var bx = document.getElementById('cbar-x');
+    if (bx) bx.addEventListener('click', function () {
+      dispensada = true;
+      cbar.classList.remove('on');
+      try { sessionStorage.setItem('cbar-off', '1'); } catch (e) {}
+    });
+    var navEl = document.querySelector('.nav');
+    function medirNav() {
+      if (navEl) document.documentElement.style.setProperty('--navh', navEl.getBoundingClientRect().height + 'px');
+    }
+    window.addEventListener('resize', medirNav, { passive: true });
+    // A nav encolhe com transição de 0,3s; medir só no scroll capturaria a
+    // altura no meio do caminho e a barra ficaria 1px por cima.
+    if (navEl) navEl.addEventListener('transitionend', medirNav);
+    var braf = 0;
+    function cbarCheck() {
+      braf = 0;
+      medirNav();
+      if (dispensada) { cbar.classList.remove('on'); return; }
+      var passouHero = hero ? hero.getBoundingClientRect().bottom < 0 : window.scrollY > 600;
+      // Some quando o contato entra na tela: ali o pedido já está na página.
+      var noContato = contato ? contato.getBoundingClientRect().top < window.innerHeight : false;
+      var mostrar = passouHero && !noContato;
+      if (mostrar && cbar.hidden) cbar.hidden = false;
+      cbar.classList.toggle('on', mostrar);
+    }
+    window.addEventListener('scroll', function () {
+      if (!braf) braf = requestAnimationFrame(cbarCheck);
+    }, { passive: true });
+    cbarCheck();
+  }
+
+
+  /* ---------- Acende ao entrar na tela: timeline ---------- */
+  var tl = document.getElementById('tl');
+  var tlFill = document.getElementById('tl-fill');
+  var tlSteps = tl ? [].slice.call(tl.querySelectorAll('.tl-step')) : [];
+
+
+  function timeline() {
+    if (!tl) return;
+    var r = tl.getBoundingClientRect();
+    var line = window.innerHeight * 0.5;
+    var done = 0;
+    tlSteps.forEach(function (st) {
+      var sr = st.getBoundingClientRect();
+      var on = sr.top < line;
+      st.classList.toggle('on', on);
+      if (on) done = sr.top - r.top + sr.height * 0.5;
+    });
+    tlFill.style.height = Math.max(0, Math.min(r.height, done)) + 'px';
+  }
+
+  var raf = 0;
+  function update() { raf = 0; timeline(); }
+  function schedule() { if (!raf) raf = requestAnimationFrame(update); }
+
+  update();
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
+})();
+</script>
+<script>
+/* ---------- Carrossel dos cases ---------- */
+(function () {
+  var trilho = document.getElementById('carr-trilho');
+  if (!trilho) return;
+  var cards = [].slice.call(trilho.children);
+  if (cards.length < 2) return;
+  var pontos = document.getElementById('carr-pontos');
+  var ant = document.getElementById('carr-ant');
+  var prox = document.getElementById('carr-prox');
+  var i = 0, timer = 0, parado = false;
+  var INTERVALO = 7000;
+  var barra = document.querySelector('#carr-progresso i');
+  var prog = document.getElementById('carr-progresso');
+  var t0 = 0, praf = 0;
+
+  cards.forEach(function (c, k) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'carr-ponto';
+    b.setAttribute('aria-label', 'Ver o case ' + (k + 1) + ' de ' + cards.length);
+    b.addEventListener('click', function () { parar(); ir(k); });
+    pontos.appendChild(b);
+  });
+  var bolas = [].slice.call(pontos.children);
+
+  function pintar() {
+    bolas.forEach(function (b, k) { b.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    ant.disabled = i === 0;
+    prox.disabled = i === cards.length - 1;
+  }
+
+  function ir(k) {
+    i = Math.max(0, Math.min(cards.length - 1, k));
+    /* scrollLeft em vez de scrollIntoView: scrollIntoView rola a página
+       inteira até o cartão, e a seção salta embaixo do leitor. */
+    trilho.scrollLeft = cards[i].offsetLeft - cards[0].offsetLeft;
+    pintar();
+  }
+
+  /* quem rolou com o dedo ou com o trackpad também move o indicador */
+  var tRolar;
+  trilho.addEventListener('scroll', function () {
+    clearTimeout(tRolar);
+    tRolar = setTimeout(function () {
+      var base = cards[0].offsetLeft;
+      var perto = 0, melhor = Infinity;
+      cards.forEach(function (c, k) {
+        var d = Math.abs((c.offsetLeft - base) - trilho.scrollLeft);
+        if (d < melhor) { melhor = d; perto = k; }
+      });
+      if (perto !== i) { i = perto; pintar(); }
+    }, 120);
+  }, { passive: true });
+
+  /* A barra azul mostra quanto falta para o próximo. Desenhada por rAF e
+     não por animação CSS porque precisa retomar de onde parou quando o
+     ponteiro sai do carrossel, em vez de recomeçar do zero. */
+  function pintarBarra() {
+    if (!barra) return;
+    barra.style.width = (Math.min(1, (Date.now() - t0) / INTERVALO) * 100).toFixed(2) + '%';
+    praf = requestAnimationFrame(pintarBarra);
+  }
+  function pararBarra() { if (praf) { cancelAnimationFrame(praf); praf = 0; } }
+
+  function tique() { ir(i === cards.length - 1 ? 0 : i + 1); t0 = Date.now(); }
+  function tocar() {
+    if (parado || timer) return;
+    t0 = Date.now();
+    timer = setInterval(tique, INTERVALO);
+    pararBarra(); pintarBarra();
+  }
+  function pausar() { if (timer) { clearInterval(timer); timer = 0; } pararBarra(); }
+  /* parar é definitivo: depois que alguém usou os controles, o carrossel
+     não volta a andar sozinho por cima da leitura */
+  function parar() {
+    parado = true; pausar();
+    /* some em vez de deixar uma barra congelada sem significado */
+    if (prog) prog.classList.add('parado');
+  }
+
+  ant.addEventListener('click', function () { parar(); ir(i - 1); });
+  prox.addEventListener('click', function () { parar(); ir(i + 1); });
+  trilho.addEventListener('pointerdown', parar);
+  ['pointerenter', 'focusin'].forEach(function (e) { trilho.parentNode.addEventListener(e, pausar); });
+  ['pointerleave', 'focusout'].forEach(function (e) { trilho.parentNode.addEventListener(e, tocar); });
+  document.addEventListener('visibilitychange', function () { document.hidden ? pausar() : tocar(); });
+
+  trilho.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); parar(); ir(i + 1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); parar(); ir(i - 1); }
+  });
+
+  window.addEventListener('resize', function () { ir(i); });
+
+  pintar();
+  /* só começa a girar quando a seção aparece */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { e.isIntersecting ? tocar() : pausar(); });
+    }, { threshold: 0.25 }).observe(trilho);
+  } else { tocar(); }
+})();
+</script>
+
+<script>
+/* ---------- Mega-menu ---------- */
+(function () {
+  var bt = document.getElementById('nav-toggle');
+  var mega = document.getElementById('mega');
+  if (!bt || !mega) return;
+  var fechar = document.getElementById('mega-fechar');
+  var topicos = [].slice.call(mega.querySelectorAll('.mega-topico'));
+  var aberto = false;
+
+  function mostrar(v) {
+    aberto = v;
+    bt.setAttribute('aria-expanded', v ? 'true' : 'false');
+    if (v) {
+      mega.hidden = false;
+      /* um quadro entre revelar e animar, senão a transição de max-height
+         não tem de onde partir */
+      requestAnimationFrame(function () { mega.classList.add('on'); });
+    } else {
+      mega.classList.remove('on');
+      var fim = function () { if (!aberto) mega.hidden = true; mega.removeEventListener('transitionend', fim); };
+      mega.addEventListener('transitionend', fim);
+      /* se a transição não disparar (reduced-motion), esconde mesmo assim */
+      setTimeout(function () { if (!aberto) mega.hidden = true; }, 450);
+    }
+  }
+
+  function abrirTopico(i, focar) {
+    topicos.forEach(function (t, k) {
+      var sel = k === i;
+      t.setAttribute('aria-selected', sel ? 'true' : 'false');
+      t.tabIndex = sel ? 0 : -1;
+      var pan = document.getElementById(t.getAttribute('aria-controls'));
+      if (pan) pan.hidden = !sel;
+    });
+    if (focar) topicos[i].focus();
+  }
+
+  bt.addEventListener('click', function () { mostrar(!aberto); });
+  if (fechar) fechar.addEventListener('click', function () { mostrar(false); bt.focus(); });
+
+  topicos.forEach(function (t, i) {
+    t.addEventListener('click', function () { abrirTopico(i, false); });
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) { e.preventDefault(); abrirTopico((i + d + topicos.length) % topicos.length, true); }
+    });
+  });
+  abrirTopico(0, false);
+
+  /* fecha ao navegar, ao clicar fora e no Esc */
+  mega.addEventListener('click', function (e) { if (e.target.closest('a')) mostrar(false); });
+  document.addEventListener('click', function (e) {
+    if (aberto && !mega.contains(e.target) && !bt.contains(e.target)) mostrar(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && aberto) { mostrar(false); bt.focus(); }
+  });
+})();
+</script>
+
+<script>
+/* ---------- Soluções: lista 01–04 e painel ---------- */
+(function () {
+  var abas = [].slice.call(document.querySelectorAll('.sol-item[role="tab"]'));
+  if (!abas.length) return;
+
+  function abrir(i, focar) {
+    abas.forEach(function (ab, k) {
+      var sel = k === i;
+      ab.setAttribute('aria-selected', sel ? 'true' : 'false');
+      ab.tabIndex = sel ? 0 : -1;
+      var pan = document.getElementById(ab.getAttribute('aria-controls'));
+      if (pan) pan.hidden = !sel;
+    });
+    if (focar) abas[i].focus();
+  }
+
+  abas.forEach(function (ab, i) {
+    ab.addEventListener('click', function () { abrir(i, false); });
+    ab.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1
+            : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) { e.preventDefault(); abrir((i + d + abas.length) % abas.length, true); }
+      else if (e.key === 'Home') { e.preventDefault(); abrir(0, true); }
+      else if (e.key === 'End') { e.preventDefault(); abrir(abas.length - 1, true); }
+    });
+  });
+  abrir(0, false);
+
+  /* Avança sozinho entre as quatro frentes, para quem chega ver que há
+     mais de uma. Para de vez no primeiro clique ou foco: depois disso a
+     escolha é de quem lê, e um painel que troca sob o cursor atrapalha. */
+  var timer = 0, parado = false;
+  function tocar() { if (!parado && !timer) timer = setInterval(function () { abrir((atual() + 1) % abas.length, false); }, 6000); }
+  function pausar() { if (timer) { clearInterval(timer); timer = 0; } }
+  function parar() { parado = true; pausar(); }
+  function atual() {
+    for (var k = 0; k < abas.length; k++) if (abas[k].getAttribute('aria-selected') === 'true') return k;
+    return 0;
+  }
+  var caixa = abas[0].closest('.sol');
+  if (caixa) {
+    abas.forEach(function (ab) { ab.addEventListener('click', parar); ab.addEventListener('keydown', parar); });
+    ['pointerenter', 'focusin'].forEach(function (e) { caixa.addEventListener(e, pausar); });
+    ['pointerleave', 'focusout'].forEach(function (e) { caixa.addEventListener(e, tocar); });
+    document.addEventListener('visibilitychange', function () { document.hidden ? pausar() : tocar(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) { e.isIntersecting ? tocar() : pausar(); });
+      }, { threshold: 0.3 }).observe(caixa);
+    } else { tocar(); }
+  }
+})();
+</script>
+
+<script>
 /* ---------- Alternador de tema ---------- */
 (function () {
   var btn = document.getElementById('tema-btn');
@@ -2203,5 +2539,71 @@
 </script>
 <script src="../media/js/i18n-dic.js" defer></script>
 <script src="../media/js/i18n.js" defer></script>
+<script src="../media/js/constelacao.js" defer></script>
+<script>
+/* ---------- A frase em destaque do hero gira ---------- */
+(function () {
+  /* Frases escritas pelo dono do site. São longas de propósito: cada uma
+     fecha a sentença com uma promessa inteira, não com um rótulo. */
+  var FRASES = [
+    'decisões extraordinárias',
+    'inteligência estratégica e decisões mais assertivas',
+    'oportunidades de negócio e resultados mensuráveis',
+    'conhecimento que impulsiona o crescimento',
+    'vantagem competitiva por meio de analytics e inovação',
+    'clareza para decidir, eficiência para operar',
+    'valor, conectando informação à estratégia do negócio',
+    'soluções que simplificam operações e potencializam resultados'
+  ];
+  /* Mais tempo que os 3,4s de antes: frase de oito palavras não se lê em
+     três segundos, e trocar no meio da leitura irrita. */
+  var INTERVALO = 5200;
+
+  function iniciar() {
+    var el = document.getElementById('hero-gira');
+    if (!el) return;
+    var i = 0, timer = 0;
+
+    function traduz(f) {
+      var lang = window.AtlasI18n ? window.AtlasI18n.idioma() : 'pt';
+      if (lang === 'pt') return f;
+      var d = window.ATLAS_I18N && window.ATLAS_I18N[lang];
+      return (d && d[f]) || f;
+    }
+
+    function trocar() {
+      i = (i + 1) % FRASES.length;
+      el.classList.add('trocando');
+      setTimeout(function () {
+        el.textContent = traduz(FRASES[i]);
+        el.classList.remove('trocando');
+      }, 400);
+    }
+
+    function tocar() { if (!timer) timer = setInterval(trocar, INTERVALO); }
+    function pausar() { if (timer) { clearInterval(timer); timer = 0; } }
+
+    /* O i18n reescreve o h1 inteiro ao trocar de idioma e leva o span
+       junto; depois disso é preciso reencontrá-lo e recomeçar do zero. */
+    document.addEventListener('atlas:idioma', function () {
+      pausar();
+      var novo = document.querySelector('#hero-title .ac');
+      if (!novo) return;
+      novo.id = 'hero-gira';
+      novo.setAttribute('aria-hidden', 'true');
+      el = novo; i = 0;
+      el.textContent = traduz(FRASES[0]);
+      tocar();
+    });
+
+    document.addEventListener('visibilitychange', function () { document.hidden ? pausar() : tocar(); });
+    el.textContent = traduz(FRASES[0]);
+    tocar();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
+  else iniciar();
+})();
+</script>
 </body>
 </html>
