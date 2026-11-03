@@ -290,10 +290,18 @@
     padding: 0.6rem 3rem 0.6rem 1.2rem;
     background: var(--veil-forte); border-bottom: 1px solid var(--line);
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    transform: translateY(-100%); transition: transform 0.45s var(--ease);
+    /* Recolhida ela não é só deslocada: fica invisível. Antes, translateY
+       sozinho a mantinha pintada em cima do cabeçalho — o atributo hidden
+       some no primeiro aparecimento e nunca volta, então era a barra
+       recolhida que cobria a marca e o menu. */
+    transform: translateY(-100%); opacity: 0; visibility: hidden; pointer-events: none;
+    transition: transform 0.45s var(--ease), opacity 0.3s var(--ease), visibility 0s linear 0.45s;
   }
-  .cbar.on { transform: none; }
-  .nav.mega-aberto .cbar { transform: translateY(-100%); }
+  .cbar.on {
+    transform: none; opacity: 1; visibility: visible; pointer-events: auto;
+    transition: transform 0.45s var(--ease), opacity 0.3s var(--ease), visibility 0s;
+  }
+  .nav.mega-aberto .cbar { transform: translateY(-100%); opacity: 0; visibility: hidden; pointer-events: none; }
   .cbar p { font-size: 0.88rem; color: var(--muted); margin: 0; }
   .cbar .btn { padding: 0.5rem 1rem; font-size: 0.82rem; }
   .cbar-x {
@@ -1314,6 +1322,18 @@
   .hero h1 .ac { transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); display: inline-block; }
   .hero h1 .ac.trocando { opacity: 0; transform: translateY(-0.18em); }
 
+  /* Restaurado: uma limpeza por expressão regular levou o selo junto com o
+     CSS do painel de contatos que saiu na mesma rodada. Sem a regra de
+     .pill svg o ícone perdia tamanho e cor e virava uma mancha preta. */
+  .pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-light);
+    background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.3);
+    border-radius: 999px; padding: 0.42rem 0.9rem;
+  }
+  .pill svg { width: 0.9rem; height: 0.9rem; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
 </style>
 </head>
 <body>
@@ -1365,19 +1385,19 @@
           <div id="mp-1" role="tabpanel" aria-labelledby="mt-1">
             <div class="mega-cards">
               <a class="mega-card" href="bi-analytics.html">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20h-20"/></svg></span>
+                <span class="tile-ico" data-ico="analytics"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5h17"/><path d="M6.5 20.5v-5M11 20.5V8M15.5 20.5v-8M20 20.5V4.5"/></svg></span>
                 <span><b>BI &amp; Analytics</b><p>Do dado organizado à leitura do negócio: dashboards, self-service e governança de métricas.</p></span>
               </a>
               <a class="mega-card" href="data-engineering.html">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
+                <span class="tile-ico" data-ico="engenharia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6.2" rx="7.5" ry="2.7"/><path d="M4.5 6.2v5.6c0 1.5 3.4 2.7 7.5 2.7s7.5-1.2 7.5-2.7V6.2"/><path d="M4.5 11.8v5.6c0 1.5 3.4 2.7 7.5 2.7s7.5-1.2 7.5-2.7v-5.6"/></svg></span>
                 <span><b>Data Engineering &amp; Cloud</b><p>Ingestão, armazenamento, transformação e governança — a base por onde o dado anda.</p></span>
               </a>
               <a class="mega-card" href="#ia-capacidades">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z"/><path d="M19 16v4M17 18h4"/></svg></span>
+                <span class="tile-ico" data-ico="ia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m10 3.5 1.7 4.3 4.3 1.7-4.3 1.7L10 15.5 8.3 11.2 4 9.5l4.3-1.7Z"/><path d="m17.5 14.5.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9Z"/></svg></span>
                 <span><b>Inteligência Artificial</b><p>Modelos preditivos, detecção de anomalias, GenAI e Document AI sobre a sua própria base.</p></span>
               </a>
               <a class="mega-card" href="alocacao.html">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/></svg></span>
+                <span class="tile-ico" data-ico="pessoas"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.3"/><path d="M5.5 20.5a6.5 6.5 0 0 1 13 0"/></svg></span>
                 <span><b>Alocação de especialistas <span class="mega-tag">150+ alocados</span></b><p>Gente de dados dentro do seu time, em contratos de no mínimo 6 meses.</p></span>
               </a>
             </div>
@@ -1386,19 +1406,19 @@
           <div id="mp-2" role="tabpanel" aria-labelledby="mt-2" hidden>
             <div class="mega-cards">
               <a class="mega-card" href="cases-de-sucesso.html">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 8-8"/><path d="M16 7h5v5"/></svg></span>
+                <span class="tile-ico" data-ico="cases"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 16.5 9 11l3.5 3L20.5 6"/><path d="M15.5 6h5v5"/></svg></span>
                 <span><b>Todos os cases <span class="mega-tag">13 projetos</span></b><p>Cenário, arquitetura, stack e o antes e depois de cada entrega.</p></span>
               </a>
               <a class="mega-card" href="cases-de-sucesso.html#cases">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l9-7 9 7v11"/><path d="M9 21v-6h6v6"/></svg></span>
+                <span class="tile-ico" data-ico="migracao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="14" width="7" height="6.5" rx="1.6"/><path d="M13.5 8.5h7M17.5 5.5l3.5 3-3.5 3"/><rect x="13.5" y="14" width="7" height="6.5" rx="1.6"/></svg></span>
                 <span><b>De 200+ painéis a um ambiente</b><p>Migração e governança de BI em escala, com uma definição por métrica.</p></span>
               </a>
               <a class="mega-card" href="cases-de-sucesso.html#cases">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/></svg></span>
+                <span class="tile-ico" data-ico="nuvem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 18.5A4 4 0 0 1 7 10.6a5.6 5.6 0 0 1 10.8-1.3 3.8 3.8 0 0 1-.8 9.2Z"/><path d="M12 12v5M9.8 14.6 12 12.2l2.2 2.4"/></svg></span>
                 <span><b>Legado Oracle aposentado</b><p>Modernização para Google Cloud sem interromper a operação.</p></span>
               </a>
               <a class="mega-card" href="#setores">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.2 9h17.6M3.2 15h17.6"/><path d="M12 3a16 16 0 0 1 0 18M12 3a16 16 0 0 0 0 18"/></svg></span>
+                <span class="tile-ico" data-ico="setores"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="12.5" width="5.5" height="8" rx="1.2"/><rect x="9.5" y="8.5" width="5" height="12" rx="1.2"/><rect x="15" y="4.5" width="5.5" height="16" rx="1.2"/></svg></span>
                 <span><b>Setores atendidos <span class="mega-tag">10+</span></b><p>Do bancário ao food service, passando por saúde, educação e varejo.</p></span>
               </a>
             </div>
@@ -1407,7 +1427,7 @@
           <div id="mp-3" role="tabpanel" aria-labelledby="mt-3" hidden>
             <div class="mega-cards">
               <a class="mega-card" href="#ia-capacidades">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z"/></svg></span>
+                <span class="tile-ico" data-ico="ia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m10 3.5 1.7 4.3 4.3 1.7-4.3 1.7L10 15.5 8.3 11.2 4 9.5l4.3-1.7Z"/><path d="m17.5 14.5.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9Z"/></svg></span>
                 <span><b>O que a IA resolve</b><p>Modelos preditivos, detecção de anomalias, GenAI e Document AI.</p></span>
               </a>
             </div>
@@ -1416,19 +1436,19 @@
           <div id="mp-4" role="tabpanel" aria-labelledby="mt-4" hidden>
             <div class="mega-cards">
               <a class="mega-card" href="alocacao.html">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/></svg></span>
+                <span class="tile-ico" data-ico="pessoas"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.3"/><path d="M5.5 20.5a6.5 6.5 0 0 1 13 0"/></svg></span>
                 <span><b>Como funciona</b><p>Especialistas que entram na sua operação e respondem à sua gestão.</p></span>
               </a>
               <a class="mega-card" href="alocacao.html#perfis">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><path d="M3 19a5 5 0 0 1 10 0"/><path d="M16 9h5M16 13h5M16 17h3"/></svg></span>
+                <span class="tile-ico" data-ico="perfis"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="3"/><path d="M2.5 19.5a4.5 4.5 0 0 1 9 0"/><path d="M15 8.5h6.5M15 12.5h6.5M15 16.5h4"/></svg></span>
                 <span><b>Perfis disponíveis</b><p>Engenheiros, analistas, cientistas de dados e squads completos.</p></span>
               </a>
               <a class="mega-card" href="alocacao.html#talento">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M19 8v6M16 11h6"/></svg></span>
+                <span class="tile-ico" data-ico="carreira"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 20.5v-1.8a3.8 3.8 0 0 0-3.8-3.8H6.3a3.8 3.8 0 0 0-3.8 3.8v1.8"/><circle cx="9" cy="7.5" r="3.2"/><path d="M19 7.5v6M16 10.5h6"/></svg></span>
                 <span><b>Trabalhe com a gente <span class="mega-tag">Carreiras</span></b><p>Banco de talentos da Atlas: envie seu perfil e seu currículo.</p></span>
               </a>
               <a class="mega-card" href="#sobre">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 1.9"/></svg></span>
+                <span class="tile-ico" data-ico="tempo"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5.3l3.6 2.1"/><path d="M12 3.5V2M20.5 12H22"/></svg></span>
                 <span><b>Permanência <span class="mega-tag">150.000+ horas</span></b><p>Contratos de no mínimo 6 meses, muitos por tempo indeterminado.</p></span>
               </a>
             </div>
@@ -1437,23 +1457,23 @@
           <div id="mp-5" role="tabpanel" aria-labelledby="mt-5" hidden>
             <div class="mega-cards">
               <a class="mega-card" href="#sobre">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10Z"/><circle cx="12" cy="11" r="2.4"/></svg></span>
+                <span class="tile-ico" data-ico="empresa"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5h17"/><path d="M5.5 20.5V6.5L12 3.5v17"/><path d="M12 9.5h6.5v11"/><path d="M8 9h1.2M8 12.5h1.2M8 16h1.2M15 13h1.2M15 16.5h1.2"/></svg></span>
                 <span><b>A Atlas</b><p>Consultoria de tecnologia em dados e alocação de especialistas.</p></span>
               </a>
               <a class="mega-card" href="#sobre">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg></span>
+                <span class="tile-ico" data-ico="valores"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></svg></span>
                 <span><b>Valores e método</b><p>Clareza, resultado, profundidade e parceria — e como isso vira projeto.</p></span>
               </a>
               <a class="mega-card" href="#sobre">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20h-20"/></svg></span>
+                <span class="tile-ico" data-ico="numeros"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5h17"/><path d="M7 20.5v-4.5M12 20.5v-9M17 20.5v-6.5"/><circle cx="17" cy="9" r="1.4" fill="currentColor" stroke="none"/></svg></span>
                 <span><b>Números <span class="mega-tag">500+ projetos</span></b><p>Entregas, setores, profissionais alocados e horas em alocação.</p></span>
               </a>
               <a class="mega-card" href="#parceiros">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/></svg></span>
+                <span class="tile-ico" data-ico="parceiros"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7.5 8 4 4 7.5v5L8 16l4-3.5Z"/><path d="M20 16.5 16 20l-4-3.5v-5L16 8l4 3.5Z"/></svg></span>
                 <span><b>Parceiros <span class="mega-tag">8 programas</span></b><p>Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake e Oracle.</p></span>
               </a>
               <a class="mega-card" href="#contato">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></span>
+                <span class="tile-ico" data-ico="contato"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2.4"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></span>
                 <span><b>Contato</b><p>Conversa de 30 minutos, com quem vai executar. Resposta em 1 dia útil.</p></span>
               </a>
             </div>
@@ -1466,12 +1486,12 @@
           <p>Escolha o caminho mais perto do seu cenário e fale com quem vai executar.</p>
           <div class="mega-cam">
             <a href="#contato">
-              <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20h-20"/></svg></span>
+              <span class="tile-ico" data-ico="analytics"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5h17"/><path d="M6.5 20.5v-5M11 20.5V8M15.5 20.5v-8M20 20.5V4.5"/></svg></span>
               <span><b>Decidir mais rápido com dados</b><span>Transformar o dado que já existe em leitura do negócio.</span></span>
               <i aria-hidden="true">&rarr;</i>
             </a>
             <a href="alocacao.html">
-              <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/></svg></span>
+              <span class="tile-ico" data-ico="time"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.5" cy="8" r="3.2"/><path d="M4 19.5a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9.5" r="2.3"/><path d="M14.8 19.5a5.3 5.3 0 0 1 5.2-5.3"/></svg></span>
               <span><b>Reforçar o time com especialistas</b><span>Quando o que falta não é projeto, é gente de dados.</span></span>
               <i aria-hidden="true">&rarr;</i>
             </a>
@@ -1551,7 +1571,7 @@
       <div class="ess reveal">
         <article class="ess-card">
           <span class="pill">
-            <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10Z"/><circle cx="12" cy="11" r="2.4"/></svg>
+            <span data-ico="essencia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-6.5-4.4-6.5-9.5a6.5 6.5 0 0 1 13 0c0 5.1-6.5 9.5-6.5 9.5Z"/><circle cx="12" cy="11" r="2.2"/></svg></span>
             Nossa essência
           </span>
           <h2>Nossos valores</h2>
@@ -1569,28 +1589,28 @@
         <div class="tiles">
         <div class="tile">
           <div class="tile-top">
-            <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8.5v7a2 2 0 0 1-1.1 1.8l-7 3.4a2 2 0 0 1-1.8 0l-7-3.4A2 2 0 0 1 3 15.5v-7a2 2 0 0 1 1.1-1.8l7-3.4a2 2 0 0 1 1.8 0l7 3.4A2 2 0 0 1 21 8.5Z"/><path d="m3.4 7.6 8.6 4.2 8.6-4.2M12 21v-9.2"/></svg></span>
+            <span class="tile-ico" data-ico="entrega"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3.5 7.5v9L12 21l8.5-4.5v-9Z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg></span>
             <span class="tile-cat">Entrega</span>
           </div>
           <b>500+</b><span>projetos entregues em dados, BI e inteligência</span>
         </div>
         <div class="tile">
           <div class="tile-top">
-            <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.2 9h17.6M3.2 15h17.6"/><path d="M12 3a16 16 0 0 1 0 18M12 3a16 16 0 0 0 0 18"/></svg></span>
+            <span class="tile-ico" data-ico="alcance"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 9.5h17M3.5 14.5h17"/><path d="M12 3.5a15 15 0 0 1 0 17M12 3.5a15 15 0 0 0 0 17"/></svg></span>
             <span class="tile-cat">Alcance</span>
           </div>
           <b>10+</b><span>setores atendidos — do bancário ao food service</span>
         </div>
         <div class="tile">
           <div class="tile-top">
-            <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/></svg></span>
+            <span class="tile-ico" data-ico="time"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.5" cy="8" r="3.2"/><path d="M4 19.5a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9.5" r="2.3"/><path d="M14.8 19.5a5.3 5.3 0 0 1 5.2-5.3"/></svg></span>
             <span class="tile-cat">Time</span>
           </div>
           <b>150+</b><span>profissionais alocados dentro do time do cliente</span>
         </div>
         <div class="tile">
           <div class="tile-top">
-            <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 1.9"/></svg></span>
+            <span class="tile-ico" data-ico="permanencia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5.3l3.6 2.1"/></svg></span>
             <span class="tile-cat">Permanência</span>
           </div>
           <b>150.000+</b><span>horas em alocação — contratos de no mínimo 6 meses, muitos por tempo indeterminado</span>
@@ -1600,8 +1620,7 @@
 
       <div class="banner reveal d3" style="margin-top:1.2rem">
         <div>
-          <span class="pill">
-            <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/></svg>
+          <span class="pill"><span data-ico="pessoas"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.3"/><path d="M5.5 20.5a6.5 6.5 0 0 1 13 0"/></svg></span>
             Alocação de especialistas
           </span>
           <h2>Especialistas de dados dentro do seu time.</h2>
@@ -1640,22 +1659,22 @@
       <div class="sol">
         <div class="sol-list" role="tablist" aria-label="Frentes de atuação">
           <button class="sol-item" type="button" role="tab" id="sol-t1" aria-controls="sol-p1" aria-selected="true">
-            <span class="sol-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20h-20"/></svg></span>
+            <span class="sol-ico" data-ico="analytics"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5h17"/><path d="M6.5 20.5v-5M11 20.5V8M15.5 20.5v-8M20 20.5V4.5"/></svg></span>
             <span><span class="sol-k">01 · Data &amp; Analytics</span><span class="sol-t">Do dado à decisão</span></span>
             <span class="sol-arr" aria-hidden="true">&rarr;</span>
           </button>
           <button class="sol-item" type="button" role="tab" id="sol-t2" aria-controls="sol-p2" aria-selected="false">
-            <span class="sol-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
+            <span class="sol-ico" data-ico="engenharia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6.2" rx="7.5" ry="2.7"/><path d="M4.5 6.2v5.6c0 1.5 3.4 2.7 7.5 2.7s7.5-1.2 7.5-2.7V6.2"/><path d="M4.5 11.8v5.6c0 1.5 3.4 2.7 7.5 2.7s7.5-1.2 7.5-2.7v-5.6"/></svg></span>
             <span><span class="sol-k">02 · Engenharia &amp; Cloud</span><span class="sol-t">A base por onde o dado anda</span></span>
             <span class="sol-arr" aria-hidden="true">&rarr;</span>
           </button>
           <button class="sol-item" type="button" role="tab" id="sol-t3" aria-controls="sol-p3" aria-selected="false">
-            <span class="sol-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z"/><path d="M19 16v4M17 18h4"/></svg></span>
+            <span class="sol-ico" data-ico="ia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m10 3.5 1.7 4.3 4.3 1.7-4.3 1.7L10 15.5 8.3 11.2 4 9.5l4.3-1.7Z"/><path d="m17.5 14.5.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9Z"/></svg></span>
             <span><span class="sol-k">03 · Inteligência &amp; IA</span><span class="sol-t">O que os dados antecipam</span></span>
             <span class="sol-arr" aria-hidden="true">&rarr;</span>
           </button>
           <button class="sol-item" type="button" role="tab" id="sol-t4" aria-controls="sol-p4" aria-selected="false">
-            <span class="sol-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/></svg></span>
+            <span class="sol-ico" data-ico="pessoas"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.3"/><path d="M5.5 20.5a6.5 6.5 0 0 1 13 0"/></svg></span>
             <span><span class="sol-k">04 · Pessoas &amp; Alocação</span><span class="sol-t">Especialistas no seu time</span></span>
             <span class="sol-arr" aria-hidden="true">&rarr;</span>
           </button>
@@ -1721,7 +1740,7 @@
     <div class="wrap">
       <div class="sec-lead" style="margin:0 auto;text-align:center">
         <span class="pill reveal">
-          <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/></svg>
+          <span data-ico="parceiros"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7.5 8 4 4 7.5v5L8 16l4-3.5Z"/><path d="M20 16.5 16 20l-4-3.5v-5L16 8l4 3.5Z"/></svg></span>
           Parceiros
         </span>
         <h2 class="h-xl reveal d1" style="margin-left:auto;margin-right:auto">Programas de parceria.</h2>
@@ -1779,7 +1798,7 @@
       <div class="head2 reveal">
         <div>
           <span class="pill">
-            <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 8-8"/><path d="M16 7h5v5"/></svg>
+            <span data-ico="cases"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 16.5 9 11l3.5 3L20.5 6"/><path d="M15.5 6h5v5"/></svg></span>
             Histórias de sucesso
           </span>
           <h2 class="h-xl d1" style="margin-bottom:0">Resultados que falam por si.</h2>
