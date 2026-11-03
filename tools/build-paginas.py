@@ -43,7 +43,6 @@ def extrair(html):
     # O tema é decidido antes da primeira pintura. Sem este bloco a página
     # interna abre no escuro enquanto a home abre no claro.
     boot = um(r'  <script>\n  /\* Antes da primeira pintura.*?</script>', 'script de tema do head')
-    tema_btn = um(r'<button class="tema-btn".*?</button>\n', 'botão de tema')
 
     # TODOS os blocos de script que vêm depois do widget de chat, na ordem.
     #
@@ -59,7 +58,7 @@ def extrair(html):
         sys.exit('o bloco de scripts não inclui o mega-menu — a fatia saiu errada')
     return dict(estilo=estilo, header=header, menu=menu, rodape=rodape,
                 topo=topo, chat=chat.rstrip(), script=script,
-                boot=boot, tema_btn=tema_btn.rstrip())
+                boot=boot)
 
 
 # ---------------------------------------------------------------- conteúdo
@@ -511,7 +510,6 @@ def montar(pag, comum):
 %(corpo)s
 
 %(rodape)s
-%(tema_btn)s
 %(chat)s
 %(script)s
 </body>
@@ -520,8 +518,77 @@ def montar(pag, comum):
            estilo=comum['estilo'], extra=extra, header=comum['header'],
            topo=comum['topo'],
            menu=comum['menu'], corpo=corpo, rodape=comum['rodape'],
-           chat=comum['chat'], script=comum['script'], boot=comum['boot'],
-           tema_btn=comum['tema_btn'])
+           chat=comum['chat'], script=comum['script'], boot=comum['boot'])
+
+
+CASCA_404 = '''<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página não encontrada &mdash; Atlas Tec</title>
+<meta name="description" content="A página pedida não existe neste endereço.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="/media/fonts/mona-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#F2F1ED">
+%(boot)s
+%(estilo)s
+</head>
+<body>
+%(topo)s
+
+%(header)s
+
+%(menu)s
+
+%(corpo)s
+
+%(rodape)s
+%(chat)s
+%(script)s
+</body>
+</html>
+'''
+
+
+def montar_404(comum):
+    """A página que o GitHub Pages devolve em qualquer caminho inexistente.
+
+    Como ela responde tanto em /nao-existe quanto em /cases/nao-existe, todo
+    link e todo arquivo precisam sair da raiz: caminho relativo quebraria na
+    subpasta. Não leva canonical nem JSON-LD, e pede noindex — página de erro
+    não entra em índice de busca.
+    """
+    c = dict(comum)
+    for k in ('header', 'menu', 'rodape', 'chat', 'topo', 'script'):
+        c[k] = re.sub(r'(href|src)="(?!https?:|#|mailto:|//|/)', r'\1="/', c[k])
+        c[k] = c[k].replace('href="#', 'href="/index.html#')
+    c['estilo'] = re.sub(r'url\((?!https?:|data:|/)', 'url(/', comum['estilo'])
+
+    corpo = (
+        '<main id="conteudo">\n'
+        '  <section class="sec">\n'
+        '    <div class="wrap" style="min-height:52vh;display:flex;flex-direction:column;justify-content:center">\n'
+        '      <p class="eyebrow"><i></i> Erro 404</p>\n'
+        '      <h1 class="h-xl" style="max-width:20ch">Essa página não existe.</h1>\n'
+        '      <p class="lead" style="max-width:54ch">O endereço pode ter mudado de lugar ou vindo com '
+        'algum caractere a mais. Os caminhos abaixo continuam valendo.</p>\n'
+        '      <div class="hero-ctas" style="margin-top:2rem">\n'
+        '        <a class="btn btn-accent" href="/index.html">Voltar para a home <span class="arr">&rarr;</span></a>\n'
+        '        <a class="btn btn-ghost" href="/cases-de-sucesso.html">Ver os cases <span class="arr">&rarr;</span></a>\n'
+        '      </div>\n'
+        '    </div>\n'
+        '  </section>\n'
+        '</main>'
+    )
+
+    return CASCA_404 % dict(boot=comum['boot'], estilo=c['estilo'], topo=c['topo'],
+                            header=c['header'], menu=c['menu'], corpo=corpo,
+                            rodape=c['rodape'], chat=c['chat'], script=c['script'])
 
 
 def main():
@@ -534,6 +601,10 @@ def main():
         destino = RAIZ / pag['arquivo']
         destino.write_text(montar(pag, comum))
         print('%-24s %6.1f KB' % (pag['arquivo'], destino.stat().st_size / 1024))
+
+    erro = RAIZ / '404.html'
+    erro.write_text(montar_404(comum))
+    print('%-24s %6.1f KB' % ('404.html', erro.stat().st_size / 1024))
 
 
 if __name__ == '__main__':

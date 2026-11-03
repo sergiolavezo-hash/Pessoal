@@ -526,7 +526,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 def pagina(titulo, meta, url, corpo, comum, prefixo='', extra=''):
     c = dict(comum)
-    for k in ('header', 'menu', 'rodape', 'chat', 'topo', 'tema_btn'):
+    for k in ('header', 'menu', 'rodape', 'chat', 'topo'):
         c[k] = re.sub(r'(href|src)="(?!https?:|#|mailto:|//)', r'\1="' + prefixo, c[k])
         c[k] = c[k].replace('href="#', 'href="' + prefixo + 'index.html#')
     estilo = re.sub(r'url\((media/)', r'url(' + prefixo + r'\1', c['estilo'])
@@ -566,14 +566,13 @@ def pagina(titulo, meta, url, corpo, comum, prefixo='', extra=''):
 %(corpo)s
 
 %(rodape)s
-%(tema_btn)s
 %(chat)s
 %(script)s
 </body>
 </html>
 ''' % dict(titulo=titulo, meta=meta, url=url, pre=prefixo, boot=boot, estilo=estilo, extra=extra,
            topo=c['topo'], header=c['header'], menu=c['menu'], corpo=corpo, rodape=c['rodape'],
-           tema_btn=c['tema_btn'], chat=c['chat'], script=c['script'])
+           chat=c['chat'], script=c['script'])
 
 
 def main():

@@ -9,6 +9,7 @@ on:
     # deployment desperdiçado por commit, num plano com teto diário.
     paths:
       - index.html
+      - 404.html
       - atlas.html
       - robots.txt
       - bi-analytics.html
@@ -46,7 +47,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p /tmp/site/media
-          cp index.html atlas.html bi-analytics.html data-engineering.html alocacao.html cases-de-sucesso.html robots.txt sitemap.xml llms.txt favicon.svg favicon.ico favicon-32.png apple-touch-icon.png /tmp/site/
+          cp index.html 404.html atlas.html bi-analytics.html data-engineering.html alocacao.html cases-de-sucesso.html robots.txt sitemap.xml llms.txt favicon.svg favicon.ico favicon-32.png apple-touch-icon.png /tmp/site/
           mkdir -p /tmp/site/cases && cp cases/*.html /tmp/site/cases/
           cp -r media/. /tmp/site/media/
           # O arquivo CNAME é adicionado ao gh-pages apenas quando o DNS do
