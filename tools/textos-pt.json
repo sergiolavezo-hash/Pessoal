@@ -1,5 +1,5 @@
 {
- "total": 530,
+ "total": 548,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -248,6 +248,16 @@
   },
   {
    "chave": "Entregas, setores, profissionais alocados e horas em alocação.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Parceiros <span class=\"mega-tag\">8 programas</span>",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake e Oracle.",
    "tag": "p",
    "cls": ""
   },
@@ -717,6 +727,101 @@
    "cls": "sol-tags"
   },
   {
+   "chave": "Programas de parceria.",
+   "tag": "h2",
+   "cls": "h-xl reveal d1"
+  },
+  {
+   "chave": "A Atlas participa dos programas de parceria dos fabricantes com que trabalha — o que mantém o time perto da documentação, do roadmap e do suporte de cada plataforma.",
+   "tag": "p",
+   "cls": "sub reveal d2"
+  },
+  {
+   "chave": "Microsoft",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "Microsoft AI Cloud Partner Program",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Google",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "Google Cloud Partner Network",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "AWS",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "Amazon Web Services Partner Network",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "IBM",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "IBM Partner Plus",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Databricks",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "Databricks Partner Program",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Tableau",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "Tableau Partner Program · Salesforce",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Snowflake",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "Snowflake Partner Network",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Oracle",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "Oracle PartnerNetwork",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Marcas e nomes de programa pertencem aos respectivos fabricantes.",
+   "tag": "p",
+   "cls": "parc-nota reveal d3"
+  },
+  {
    "chave": "Resultados que falam por si.",
    "tag": "h2",
    "cls": "h-xl d1"
@@ -850,11 +955,6 @@
    "chave": "Modernização para Google Cloud",
    "tag": "p",
    "cls": "case-sub"
-  },
-  {
-   "chave": "Oracle",
-   "tag": "p",
-   "cls": "ad-n"
   },
   {
    "chave": "legado caro de manter, distante da análise",
@@ -1642,6 +1742,11 @@
    "cls": "sol-sig"
   },
   {
+   "chave": "Parceiros",
+   "tag": "span#texto",
+   "cls": "pill reveal"
+  },
+  {
    "chave": "Histórias de sucesso",
    "tag": "span#texto",
    "cls": "pill"
@@ -2302,11 +2407,6 @@
    "cls": "pag-tec"
   },
   {
-   "chave": "Databricks",
-   "tag": "@title",
-   "cls": "pag-tec"
-  },
-  {
    "chave": "BigQuery",
    "tag": "@title",
    "cls": "pag-tec"
@@ -2467,11 +2567,6 @@
    "cls": "btn btn-line"
   },
   {
-   "chave": "Tableau",
-   "tag": "@title",
-   "cls": "pag-tec"
-  },
-  {
    "chave": "Looker",
    "tag": "@title",
    "cls": "pag-tec"
@@ -2625,11 +2720,6 @@
    "chave": "Quero avaliar minha arquitetura <span class=\"arr\">→</span>",
    "tag": "a",
    "cls": "btn btn-line"
-  },
-  {
-   "chave": "Snowflake",
-   "tag": "@title",
-   "cls": "pag-tec"
   },
   {
    "chave": "Redshift",

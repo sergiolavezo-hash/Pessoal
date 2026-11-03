@@ -1315,6 +1315,30 @@
     .lang-btn { padding: 0.5rem 0.55rem; }
   }
 
+  /* ---------- Parceiros ---------- */
+  /* Em tipografia, não em logos: dois dos oito (Microsoft e IBM) não existem
+     no conjunto CC0 de onde vêm os ícones do resto do site — foram retirados
+     de lá por marca registrada. Com seis marcas reais e duas faltando, a
+     grade ficaria visivelmente torta; e a arte oficial de cada programa de
+     parceria vem do portal do próprio programa, não de um pacote de ícones.
+     Quando as artes chegarem, elas entram no lugar do nome. */
+  .parc { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; margin-top: 2.4rem; }
+  .parc-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.3rem 1.2rem; text-align: center;
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .parc-card:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .parc-card b {
+    display: block; font-family: var(--display); font-weight: 800;
+    font-size: clamp(1.05rem, 1.7vw, 1.3rem); letter-spacing: -0.03em; color: var(--ink);
+  }
+  .parc-card span { display: block; color: var(--dim); font-size: 0.78rem; margin-top: 0.45rem; line-height: 1.45; }
+  .parc-nota { margin-top: 1.4rem; color: var(--dim); font-size: 0.84rem; }
+
+  @media (max-width: 1000px) { .parc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 440px)  { .parc { grid-template-columns: 1fr; } }
+
 </style>
 <style>
   /* Ajustes próprios das páginas de serviço. O resto vem do index.html. */
@@ -1502,6 +1526,10 @@
               <a class="mega-card" href="index.html#sobre">
                 <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20h-20"/></svg></span>
                 <span><b>Números <span class="mega-tag">500+ projetos</span></b><p>Entregas, setores, profissionais alocados e horas em alocação.</p></span>
+              </a>
+              <a class="mega-card" href="index.html#parceiros">
+                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/></svg></span>
+                <span><b>Parceiros <span class="mega-tag">8 programas</span></b><p>Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake e Oracle.</p></span>
               </a>
               <a class="mega-card" href="index.html#contato">
                 <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></span>
@@ -1719,6 +1747,7 @@
         <li><a href="index.html#sobre">A Atlas</a></li>
         <li><a href="index.html#setores">Setores</a></li>
         <li><a href="cases-de-sucesso.html">Cases de sucesso</a></li>
+        <li><a href="index.html#parceiros">Parceiros</a></li>
         <li><a href="index.html#ia">Insight AI</a></li>
         <li><a href="alocacao.html#talento">Carreiras</a></li>
       </ul>

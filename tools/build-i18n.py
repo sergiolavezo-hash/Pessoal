@@ -899,6 +899,26 @@ TRAD.update({
 })
 
 
+TRAD.update({
+  # ---------------- parceiros ----------------
+  # Os nomes dos programas são nomes próprios dos fabricantes: ficam iguais
+  # nas três línguas. Só a moldura em volta deles muda.
+  'Parceiros': ('Partners', 'Socios'),
+  'Parceiros <span class="mega-tag">8 programas</span>':
+    ('Partners <span class="mega-tag">8 programs</span>', 'Socios <span class="mega-tag">8 programas</span>'),
+  'Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake e Oracle.':
+    ('Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake and Oracle.',
+     'Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake y Oracle.'),
+  'Programas de parceria.': ('Partner programs.', 'Programas de alianza.'),
+  'A Atlas participa dos programas de parceria dos fabricantes com que trabalha — o que mantém o time perto da documentação, do roadmap e do suporte de cada plataforma.':
+    ('Atlas takes part in the partner programs of the vendors it works with — which keeps the team close to each platform\u2019s documentation, roadmap and support.',
+     'Atlas participa en los programas de alianza de los fabricantes con los que trabaja — lo que mantiene al equipo cerca de la documentación, el roadmap y el soporte de cada plataforma.'),
+  'Marcas e nomes de programa pertencem aos respectivos fabricantes.':
+    ('Trademarks and program names belong to their respective vendors.',
+     'Marcas y nombres de programa pertenecen a sus respectivos fabricantes.'),
+})
+
+
 def main():
     if not FONTE.exists():
         sys.exit('rode antes: node tools/extrai-textos.js index.html > tools/textos-pt.json')
