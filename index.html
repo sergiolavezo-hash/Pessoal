@@ -147,7 +147,11 @@
   }
   ::selection { background: var(--accent); color: #fff; }
 
-  h1, h2, h3 { font-family: var(--display); letter-spacing: -0.03em; line-height: 1.06; text-wrap: balance; }
+  /* Peso 600 em vez de 800 nos títulos grandes: a Mona Sans é variável,
+     então 600 é um peso desenhado, não uma simulação. O letter-spacing
+     afrouxa junto — o -0,03em foi calibrado para o peso cheio e, mais
+     leve, fechava as letras. */
+  h1, h2, h3 { font-family: var(--display); letter-spacing: -0.022em; line-height: 1.08; text-wrap: balance; }
   a { color: inherit; }
   button { font-family: inherit; }
   img, canvas, svg { max-width: 100%; }
@@ -171,7 +175,7 @@
   .eyebrow.on-paper { color: var(--accent-deep); }
   .eyebrow.on-paper::before { background: var(--accent-deep); }
 
-  .h-xl { font-size: clamp(2.2rem, 4.6vw, 3.4rem); font-weight: 800; color: var(--ink); margin: 1.1rem 0 1.1rem; max-width: 22ch; }
+  .h-xl { font-size: clamp(2.2rem, 4.6vw, 3.4rem); font-weight: 600; color: var(--ink); margin: 1.1rem 0 1.1rem; max-width: 22ch; }
   .sub { color: var(--muted); font-size: 1.06rem; max-width: 42rem; margin-bottom: 0.5rem; }
   .sec { padding: 6rem 0; }
   .sec + .sec { border-top: 1px solid var(--line-soft); }
@@ -222,7 +226,10 @@
   .nav-links { display: flex; align-items: center; gap: 1.9rem; }
   .nav-links a:not(.btn) { text-decoration: none; font-size: 0.92rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
   .nav-links a:not(.btn):hover { color: var(--ink); }
-  .nav-burger { display: none; background: none; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.5rem 0.9rem; cursor: pointer; }
+  /* No azul da marca, não na cor do texto: assim ele se destaca igual nos
+     dois temas, em vez de virar cinza no claro e branco no escuro. */
+  .nav-burger { display: none; background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.35); border-radius: 8px; color: var(--accent); font-family: var(--mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.5rem 0.9rem; cursor: pointer; transition: background 0.25s var(--ease), border-color 0.25s var(--ease); }
+  .nav-burger:hover { background: rgba(46,134,255,0.18); border-color: var(--accent); }
 
   .mobile-menu {
     position: fixed; inset: 4.25rem 0 0; z-index: 45; background: var(--bg0);
@@ -254,7 +261,7 @@
      serviços logo abaixo. O território 3D fica com aquele espaço. */
   .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; align-items: center; }
   .hero .wrap > div { max-width: 44rem; }
-  .hero h1 { font-size: clamp(2.4rem, 5vw, 3.9rem); font-weight: 800; margin: 1.1rem 0 1.2rem; max-width: 16ch; }
+  .hero h1 { font-size: clamp(2.4rem, 5vw, 3.9rem); font-weight: 600; margin: 1.1rem 0 1.2rem; max-width: 16ch; }
   .hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; }
   .hero h1 .w > span { display: inline-block; opacity: 0; transform: translateY(0.65em); animation: word-in 0.7s var(--ease) forwards; }
   @keyframes word-in { to { opacity: 1; transform: none; } }
@@ -986,7 +993,7 @@
      vão de quase 300px entre o parágrafo e os chips. */
   .ess { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 1.2rem; align-items: start; }
   .ess-card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem); display: flex; flex-direction: column; }
-  .ess-card h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 800; margin: 1.1rem 0 0.9rem; }
+  .ess-card h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 600; margin: 1.1rem 0 0.9rem; }
   .ess-card > p { color: var(--muted); font-size: 0.99rem; }
   .ess-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; padding-top: 1.6rem; }
   .ess-chips span {
@@ -1019,7 +1026,7 @@
     padding: clamp(1.8rem, 4vw, 3.2rem);
     display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 2rem; align-items: center;
   }
-  .banner h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; margin: 1.1rem 0 1rem; max-width: 24ch; }
+  .banner h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 600; margin: 1.1rem 0 1rem; max-width: 24ch; }
   .banner p { color: var(--muted); font-size: 0.99rem; max-width: 46ch; }
   .banner-cta { display: flex; justify-content: flex-end; }
 
@@ -1043,7 +1050,7 @@
   .sol-arr { width: 2rem; height: 2rem; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); color: var(--dim); font-size: 0.85rem; transition: all 0.3s var(--ease); }
   .sol-item[aria-selected="true"] .sol-arr { background: rgba(46,134,255,0.16); border-color: rgba(46,134,255,0.45); color: var(--accent-light); }
   .sol-panel { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem); min-height: 100%; display: flex; flex-direction: column; }
-  .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 800; margin: 1.1rem 0 1rem; }
+  .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 600; margin: 1.1rem 0 1rem; }
   .sol-panel > p { color: var(--muted); font-size: 1rem; }
   .sol-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.3rem; }
   .sol-tags span { font-size: 0.74rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0.32rem 0.75rem; }
@@ -1319,7 +1326,11 @@
   /* A segunda linha do título troca de frase sozinha, como na referência.
      O h1 tem aria-label fixo, então quem usa leitor de tela ouve a frase
      canônica uma vez — não a troca a cada três segundos. */
+  /* min-height segura a dobra: as frases têm comprimentos diferentes e,
+     sem isso, o h1 muda de altura a cada troca e empurra tudo embaixo. */
   .hero h1 .ac { transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); display: inline-block; }
+  .hero h1 { min-height: calc(3 * 1.08em); }
+  @media (max-width: 760px) { .hero h1 { min-height: calc(4 * 1.08em); } }
   .hero h1 .ac.trocando { opacity: 0; transform: translateY(-0.18em); }
 
   /* Restaurado: uma limpeza por expressão regular levou o selo junto com o
@@ -1333,6 +1344,38 @@
     border-radius: 999px; padding: 0.42rem 0.9rem;
   }
   .pill svg { width: 0.9rem; height: 0.9rem; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---------- Cartão de case no carrossel ---------- */
+  /* Capa, chamada curta e link. O case inteiro vive em cases/<slug>.html —
+     treze cases abertos por inteiro na home seriam quinze mil palavras
+     antes do formulário. */
+  .cc {
+    flex: 0 0 min(420px, 84vw); scroll-snap-align: start;
+    display: grid; grid-template-rows: auto 1fr;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .cc:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .cc-art { margin: 0; line-height: 0; }
+  .cc-art img { width: 100%; height: 190px; object-fit: cover; display: block; }
+  .cc-corpo { padding: 1.4rem 1.4rem 1.3rem; display: grid; grid-template-rows: auto auto 1fr auto auto auto; gap: 0.6rem; }
+  .cc-setor { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .cc-t { font-size: 1.16rem; font-weight: 600; line-height: 1.25; }
+  .cc-cap { color: var(--muted); font-size: 0.91rem; line-height: 1.55; }
+  .cc-ad { display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.7rem; }
+  .cc-ad .cc-a { color: var(--dim); }
+  .cc-ad .cc-d { color: var(--accent); }
+  .cc-ad i { font-style: normal; color: var(--dim); }
+  .cc-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .cc-chips span { font-size: 0.7rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.6rem; }
+  .cc-link { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 0.4rem; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 0.9rem; color: var(--accent); }
+  .cc-link .arr { transition: transform 0.25s var(--ease); }
+  .cc:hover .cc-link .arr { transform: translateX(3px); }
+
+  /* Barra azul de progresso do avanço automático */
+  .carr-progresso { height: 2px; background: var(--line); border-radius: 2px; margin-top: 1.1rem; overflow: hidden; }
+  .carr-progresso i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 2px; }
+  .carr-progresso.parado { opacity: 0; }
 
 </style>
 </head>
@@ -1524,7 +1567,6 @@
   <a href="#cases">Cases</a>
   <a href="#sobre">Sobre</a>
   <a href="#ia-capacidades">Inteligência Artificial</a>
-  <a href="#ia-capacidades">Inteligência Artificial <small>IA ✦</small></a>
   <a href="alocacao.html#talento">Trabalhe com a gente</a>
   <a class="btn btn-accent" href="#contato">Falar com um especialista <span class="arr">→</span></a>
 </nav>
@@ -1797,134 +1839,177 @@
     <div class="wrap">
       <div class="head2 reveal">
         <div>
-          <span class="pill">
-            <span data-ico="cases"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 16.5 9 11l3.5 3L20.5 6"/><path d="M15.5 6h5v5"/></svg></span>
-            Histórias de sucesso
-          </span>
-          <h2 class="h-xl d1" style="margin-bottom:0">Resultados que falam por si.</h2>
+          <span class="pill" data-ico="cases">Histórias de sucesso</span>
+          <h2 class="h-xl d1" style="margin-bottom:0">Investindo no sucesso dos nossos clientes</h2>
         </div>
         <div class="head2-side">
           <p class="sub">
-            Projetos reais entregues por especialistas da Atlas, com o antes e o
-            depois de cada um. Nomes de clientes preservados por confidencialidade.
+            Nosso portfólio reflete foco e excelência em arquitetura de dados, nuvem e
+            inteligência artificial, transformando visão estratégica em valor de longo prazo.
           </p>
           <a class="btn btn-accent" href="cases-de-sucesso.html" data-magnetic>Ver todos os cases <span class="arr">&rarr;</span></a>
         </div>
       </div>
 
-      <div class="carr" id="carr-cases">
-        <div class="carr-trilho" id="carr-trilho" tabindex="0" role="group" aria-label="Projetos entregues" aria-live="polite">
-      <article class="case-card">
-        <figure class="case-art">
-          <img src="media/cases/omnichannel.svg" alt="Canais de venda separados convergindo em uma plataforma de dados única" loading="lazy" decoding="async">
-        </figure>
-        <div>
-          <span class="case-conf">Cliente confidencial</span>
-          <div class="case-meta"><span>Varejo Multimarca</span><span>Data &amp; Analytics</span><span>Cloud Azure</span></div>
-          <h3>Canais separados viraram uma plataforma só</h3>
-          <p class="case-sub">Plataforma omnichannel de dados em Azure</p>
-          <div class="ad" aria-label="Antes e depois">
-            <div class="ad-lado"><p class="ad-k">Antes</p><p class="ad-n">Vários</p><p class="ad-d">sistemas medindo os canais em separado</p></div>
-            <span class="ad-seta" aria-hidden="true">&rarr;</span>
-            <div class="ad-lado ad-pos"><p class="ad-k">Depois</p><p class="ad-n">Uma</p><p class="ad-d">plataforma com venda e operação lado a lado</p></div>
-          </div>
-          <dl class="case-fields">
-            <div><dt>Cenário</dt><dd>Dados de lojas físicas e canais digitais espalhados em sistemas diferentes, sem visão única de performance.</dd></div>
-            <div><dt>Arquitetura</dt><dd>Plataforma de dados em Azure integrando todos os canais de venda.</dd></div>
-            <div><dt>Solução</dt><dd>Pipelines em Synapse, Data Factory e Databricks, com dashboards Power BI de vendas, operação e performance por canal.</dd></div>
-            <div><dt>Tecnologias</dt><dd>Azure Synapse, Data Factory, Databricks, Power BI</dd></div>
-          </dl>
-        </div>
-        <div class="case-metrics">
-          <p class="cm-k">O que mudou</p>
-          <p><b>Canais comparáveis</b><span>loja física e digital deixaram de ser medidos em sistemas separados</span></p>
-          <p><b>Fim da consolidação manual</b><span>venda e operação passaram a ser lidas no mesmo painel</span></p>
-          <p><b>Base reaproveitável</b><span>nova análise parte da plataforma existente, não de uma nova extração</span></p>
+  <!-- cases:inicio — gerado por tools/build-cases.py, não editar à mão -->
+  <div class="carr" id="carr-cases">
+    <div class="carr-trilho" id="carr-trilho" tabindex="0" role="group" aria-label="Projetos entregues">
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/omnichannel.svg" alt="Loja física e canais digitais passaram a ser medidos na mesma plataforma, em Azure." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">Varejo Multimarca</p>
+          <h3 class="cc-t">Canais separados viraram uma plataforma só</h3>
+          <p class="cc-cap">Loja física e canais digitais passaram a ser medidos na mesma plataforma, em Azure.</p>
+          <p class="cc-ad"><span class="cc-a">Vários</span><i aria-hidden="true">&rarr;</i><span class="cc-d">Uma</span></p>
+          <div class="cc-chips"><span>Data &amp; Analytics</span><span>Cloud Azure</span></div>
+          <a class="cc-link" href="cases/canais-separados-viraram-uma-plataforma-so.html">Ver case <span class="arr">&rarr;</span></a>
         </div>
       </article>
-
-      <article class="case-card">
-        <figure class="case-art">
-          <img src="media/cases/legado.svg" alt="Um banco de dados legado denso dando lugar a um fluxo de pipelines organizados" loading="lazy" decoding="async">
-        </figure>
-        <div>
-          <span class="case-conf">Cliente confidencial</span>
-          <div class="case-meta"><span>Serviços Financeiros</span><span>Data Engineering</span><span>Cloud GCP</span></div>
-          <h3>Legado Oracle aposentado sem parar a operação</h3>
-          <p class="case-sub">Modernização para Google Cloud</p>
-          <div class="ad" aria-label="Antes e depois">
-            <div class="ad-lado"><p class="ad-k">Antes</p><p class="ad-n">Oracle</p><p class="ad-d">legado caro de manter, distante da análise</p></div>
-            <span class="ad-seta" aria-hidden="true">&rarr;</span>
-            <div class="ad-lado ad-pos"><p class="ad-k">Depois</p><p class="ad-n">GCP</p><p class="ad-d">legado aposentado, sem interromper a operação</p></div>
-          </div>
-          <dl class="case-fields">
-            <div><dt>Cenário</dt><dd>Dados presos em um legado Oracle — caro de manter e distante das necessidades analíticas do negócio.</dd></div>
-            <div><dt>Arquitetura</dt><dd>Data Lake em Google Cloud, com processamento em BigQuery.</dd></div>
-            <div><dt>Solução</dt><dd>Transformações em dbt, orquestração em Airflow e BI unificado em Looker.</dd></div>
-            <div><dt>Tecnologias</dt><dd>GCP, BigQuery, dbt, Airflow, Looker</dd></div>
-          </dl>
-        </div>
-        <div class="case-metrics">
-          <p class="cm-k">O que mudou</p>
-          <p><b>Legado fora da conta</b><span>o custo de manter o ambiente Oracle deixou de existir</span></p>
-          <p><b>Regra em código</b><span>as transformações saíram de scripts avulsos para dbt, testado e versionado</span></p>
-          <p><b>Uma camada só</b><span>Looker passou a ser o único caminho entre o dado e o negócio</span></p>
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/nuvem.svg" alt="Data Lake em Google Cloud com BigQuery, dbt e Airflow — e o legado fora da conta." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">Serviços Financeiros</p>
+          <h3 class="cc-t">Legado Oracle aposentado sem parar a operação</h3>
+          <p class="cc-cap">Data Lake em Google Cloud com BigQuery, dbt e Airflow — e o legado fora da conta.</p>
+          <p class="cc-ad"><span class="cc-a">Oracle</span><i aria-hidden="true">&rarr;</i><span class="cc-d">GCP</span></p>
+          <div class="cc-chips"><span>Data Engineering</span><span>Cloud GCP</span></div>
+          <a class="cc-link" href="cases/legado-oracle-aposentado-sem-parar-a-operacao.html">Ver case <span class="arr">&rarr;</span></a>
         </div>
       </article>
-
-      <article class="case-card">
-        <figure class="case-art">
-          <img src="media/cases/governanca.svg" alt="Painéis soltos e desalinhados dando lugar a uma grade padronizada" loading="lazy" decoding="async">
-        </figure>
-        <div>
-          <span class="case-conf">Cliente confidencial</span>
-          <div class="case-meta"><span>BI Governance</span><span>Migração</span><span>Self-Service BI</span></div>
-          <h3>De 200+ painéis sem padrão a um ambiente só</h3>
-          <p class="case-sub">Migração e governança de BI em escala</p>
-          <div class="ad" aria-label="Antes e depois">
-            <div class="ad-lado"><p class="ad-k">Antes</p><p class="ad-n">200+</p><p class="ad-d">painéis crescendo sem padrão nem fonte única</p></div>
-            <span class="ad-seta" aria-hidden="true">&rarr;</span>
-            <div class="ad-lado ad-pos"><p class="ad-k">Depois</p><p class="ad-n">1</p><p class="ad-d">ambiente, com uma definição por métrica</p></div>
-          </div>
-          <dl class="case-fields">
-            <div><dt>Cenário</dt><dd>Mais de 200 dashboards Power BI crescendo sem padrão, sem governança e sem fonte única da verdade.</dd></div>
-            <div><dt>Arquitetura</dt><dd>Ambiente centralizado em Looker, com dados e definições unificados.</dd></div>
-            <div><dt>Solução</dt><dd>Migração, padronização e um modelo de self-service BI para as áreas de negócio.</dd></div>
-            <div><dt>Tecnologias</dt><dd>Power BI, Looker, Governança de dados</dd></div>
-          </dl>
-        </div>
-        <div class="case-metrics">
-          <p class="cm-k">O que mudou</p>
-          <p><b>Uma definição por métrica</b><span>a mesma conta deixou de ter versões diferentes em mais de 200 painéis</span></p>
-          <p><b>Pergunta sem fila</b><span>o self-service tirou o intervalo entre a dúvida da área e a resposta</span></p>
-          <p><b>Crescimento com padrão</b><span>painel novo passa a nascer dentro de um modelo, não ao lado dele</span></p>
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/governanca.svg" alt="Mais de 200 dashboards com definições divergentes viraram um ambiente governado." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">BI Governance</p>
+          <h3 class="cc-t">De 200+ painéis sem padrão a um ambiente só</h3>
+          <p class="cc-cap">Mais de 200 dashboards com definições divergentes viraram um ambiente governado.</p>
+          <p class="cc-ad"><span class="cc-a">200+</span><i aria-hidden="true">&rarr;</i><span class="cc-d">1</span></p>
+          <div class="cc-chips"><span>Migração</span><span>Self-Service BI</span></div>
+          <a class="cc-link" href="cases/de-200-paineis-sem-padrao-a-um-ambiente-so.html">Ver case <span class="arr">&rarr;</span></a>
         </div>
       </article>
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/sla.svg" alt="Os chamados do sistema de incidentes viraram indicadores de SLA, prazo e desempenho." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">Software &amp; Tecnologia</p>
+          <h3 class="cc-t">Chamados viraram indicador de SLA</h3>
+          <p class="cc-cap">Os chamados do sistema de incidentes viraram indicadores de SLA, prazo e desempenho.</p>
+          <p class="cc-ad"><span class="cc-a">Chamados</span><i aria-hidden="true">&rarr;</i><span class="cc-d">Indicadores de SLA</span></p>
+          <div class="cc-chips"><span>Pentaho</span><span>SQL Server</span></div>
+          <a class="cc-link" href="cases/chamados-viraram-indicador-de-sla.html">Ver case <span class="arr">&rarr;</span></a>
         </div>
-        <div class="carr-barra">
-          <div class="carr-pontos" id="carr-pontos"></div>
-          <button class="carr-seta" id="carr-ant" type="button" aria-label="Case anterior">
-            <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-          </button>
-          <button class="carr-seta" id="carr-prox" type="button" aria-label="Próximo case">
-            <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </button>
+      </article>
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/consolidacao.svg" alt="Viagens, hospedagens e locações consolidadas numa arquitetura ETL → DW → BI." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">Turismo &amp; Viagens</p>
+          <h3 class="cc-t">Três linhas de negócio, uma visão só</h3>
+          <p class="cc-cap">Viagens, hospedagens e locações consolidadas numa arquitetura ETL → DW → BI.</p>
+          <p class="cc-ad"><span class="cc-a">3 linhas</span><i aria-hidden="true">&rarr;</i><span class="cc-d">1 visão</span></p>
+          <div class="cc-chips"><span>Pentaho</span><span>SQL Server</span></div>
+          <a class="cc-link" href="cases/tres-linhas-de-negocio-uma-visao-so.html">Ver case <span class="arr">&rarr;</span></a>
         </div>
-      </div>
-
-
-      <h3 class="cases-more-head reveal">Mais projetos entregues</h3>
-      <div class="case-mini-grid reveal d1">
-        <article class="case-mini"><p class="sector">Software &amp; Tecnologia</p><h4>Chamados viraram indicador de SLA</h4><p>BI que transformou os chamados do sistema de incidentes em indicadores de SLA, prazo e desempenho operacional.</p><p class="adm"><span class="adm-a">Chamados</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Indicadores de SLA</span></p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>Data Warehouse</span></div></article>
-        <article class="case-mini"><p class="sector">Turismo &amp; Viagens</p><h4>Três linhas de negócio, uma visão só</h4><p>Arquitetura completa ETL → DW → BI consolidando viagens, hospedagens e locações em uma visão única do negócio.</p><p class="adm"><span class="adm-a">3 linhas</span><i aria-hidden="true">&rarr;</i><span class="adm-d">1 visão</span></p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>MicroStrategy</span></div></article>
-        <article class="case-mini"><p class="sector">Serviços Financeiros</p><h4>O comercial ganhou número próprio</h4><p>Estrutura de dados e indicadores consolidando as informações do departamento comercial para análise e decisão.</p><p class="adm"><span class="adm-a">Extração pontual</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Camada própria</span></p><div class="stack"><span>SSIS</span><span>Data Warehouse</span><span>MicroStrategy</span></div></article>
-        <article class="case-mini"><p class="sector">Bancário</p><h4>A voz do cliente virou indicador vivo</h4><p>Acompanhamento de NPS transformando a voz dos clientes em indicadores de experiência e oportunidades de melhoria.</p><p class="adm"><span class="adm-a">Relatório avulso</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Indicador vivo</span></p><div class="stack"><span>NPS</span><span>Analytics</span><span>CX</span></div></article>
-      </div>
-      <p class="cases-note">Projetos reais entregues por especialistas Atlas Tec. Nomes de clientes preservados por confidencialidade. <a href="cases-de-sucesso.html">Ver os 13 cases &rarr;</a></p>
-
-      <div class="hero-ctas reveal d3" style="margin-top:2.2rem">
-        <a class="btn btn-line" href="cases-de-sucesso.html" data-magnetic>Ver todos os cases <span class="arr">&rarr;</span></a>
-      </div>
+      </article>
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/comercial.svg" alt="O departamento comercial saiu da extração pontual para uma camada de dados própria." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">Serviços Financeiros</p>
+          <h3 class="cc-t">O comercial ganhou número próprio</h3>
+          <p class="cc-cap">O departamento comercial saiu da extração pontual para uma camada de dados própria.</p>
+          <p class="cc-ad"><span class="cc-a">Extração pontual</span><i aria-hidden="true">&rarr;</i><span class="cc-d">Camada própria</span></p>
+          <div class="cc-chips"><span>SSIS</span><span>Data Warehouse</span></div>
+          <a class="cc-link" href="cases/o-comercial-ganhou-numero-proprio.html">Ver case <span class="arr">&rarr;</span></a>
+        </div>
+      </article>
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/nps.svg" alt="O NPS deixou de ser relatório avulso e virou indicador de experiência acompanhado." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">Bancário</p>
+          <h3 class="cc-t">A voz do cliente virou indicador vivo</h3>
+          <p class="cc-cap">O NPS deixou de ser relatório avulso e virou indicador de experiência acompanhado.</p>
+          <p class="cc-ad"><span class="cc-a">Relatório avulso</span><i aria-hidden="true">&rarr;</i><span class="cc-d">Indicador vivo</span></p>
+          <div class="cc-chips"><span>NPS</span><span>Analytics</span></div>
+          <a class="cc-link" href="cases/a-voz-do-cliente-virou-indicador-vivo.html">Ver case <span class="arr">&rarr;</span></a>
+        </div>
+      </article>
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/difusao.svg" alt="Vendas, logística e operações com acesso aos mesmos indicadores, em toda a empresa." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">Varejo de Moda</p>
+          <h3 class="cc-t">Todas as áreas lendo os mesmos números</h3>
+          <p class="cc-cap">Vendas, logística e operações com acesso aos mesmos indicadores, em toda a empresa.</p>
+          <p class="cc-ad"><span class="cc-a">Por área</span><i aria-hidden="true">&rarr;</i><span class="cc-d">Toda a empresa</span></p>
+          <div class="cc-chips"><span>Pentaho</span><span>MicroStrategy</span></div>
+          <a class="cc-link" href="cases/todas-as-areas-lendo-os-mesmos-numeros.html">Ver case <span class="arr">&rarr;</span></a>
+        </div>
+      </article>
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/unificacao.svg" alt="Pipelines em BigQuery e Airflow, com a visualização migrada de Tableau para Power BI." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">Saúde &amp; Diagnóstico</p>
+          <h3 class="cc-t">Duas ferramentas de BI viraram uma</h3>
+          <p class="cc-cap">Pipelines em BigQuery e Airflow, com a visualização migrada de Tableau para Power BI.</p>
+          <p class="cc-ad"><span class="cc-a">2 ferramentas</span><i aria-hidden="true">&rarr;</i><span class="cc-d">1 ferramenta</span></p>
+          <div class="cc-chips"><span>GCP</span><span>BigQuery</span></div>
+          <a class="cc-link" href="cases/duas-ferramentas-de-bi-viraram-uma.html">Ver case <span class="arr">&rarr;</span></a>
+        </div>
+      </article>
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/preditivo.svg" alt="Modelos preditivos anteciparam a evasão escolar para apoiar ações preventivas." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">Educação</p>
+          <h3 class="cc-t">A evasão passou a ser antecipada</h3>
+          <p class="cc-cap">Modelos preditivos anteciparam a evasão escolar para apoiar ações preventivas.</p>
+          <p class="cc-ad"><span class="cc-a">Constatada</span><i aria-hidden="true">&rarr;</i><span class="cc-d">Antecipada</span></p>
+          <div class="cc-chips"><span>Analytics</span><span>Machine Learning</span></div>
+          <a class="cc-link" href="cases/a-evasao-passou-a-ser-antecipada.html">Ver case <span class="arr">&rarr;</span></a>
+        </div>
+      </article>
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/design.svg" alt="Protótipos em Figma fixaram o padrão antes do desenvolvimento dos painéis." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">Saúde Hospitalar</p>
+          <h3 class="cc-t">O padrão visual antes do primeiro painel</h3>
+          <p class="cc-cap">Protótipos em Figma fixaram o padrão antes do desenvolvimento dos painéis.</p>
+          <p class="cc-ad"><span class="cc-a">Padrão depois</span><i aria-hidden="true">&rarr;</i><span class="cc-d">Padrão antes</span></p>
+          <div class="cc-chips"><span>Figma</span><span>Power BI</span></div>
+          <a class="cc-link" href="cases/o-padrao-visual-antes-do-primeiro-painel.html">Ver case <span class="arr">&rarr;</span></a>
+        </div>
+      </article>
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/diario.svg" alt="Acompanhamento diário das unidades de um grande grupo de restaurantes." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">Food Service</p>
+          <h3 class="cc-t">Do fechamento do mês para o mesmo dia</h3>
+          <p class="cc-cap">Acompanhamento diário das unidades de um grande grupo de restaurantes.</p>
+          <p class="cc-ad"><span class="cc-a">Mês</span><i aria-hidden="true">&rarr;</i><span class="cc-d">Dia</span></p>
+          <div class="cc-chips"><span>Dashboards</span><span>Operações</span></div>
+          <a class="cc-link" href="cases/do-fechamento-do-mes-para-o-mesmo-dia.html">Ver case <span class="arr">&rarr;</span></a>
+        </div>
+      </article>
+      <article class="cc">
+        <figure class="cc-art"><img src="media/cases/operacoes.svg" alt="Acidentes, pedágios e operação aeroportuária integrados numa visão única." loading="lazy" decoding="async"></figure>
+        <div class="cc-corpo">
+          <p class="cc-setor">Infraestrutura &amp; Mobilidade</p>
+          <h3 class="cc-t">Três operações numa leitura só</h3>
+          <p class="cc-cap">Acidentes, pedágios e operação aeroportuária integrados numa visão única.</p>
+          <p class="cc-ad"><span class="cc-a">3 operações</span><i aria-hidden="true">&rarr;</i><span class="cc-d">1 leitura</span></p>
+          <div class="cc-chips"><span>Data &amp; BI</span><span>Operações</span></div>
+          <a class="cc-link" href="cases/tres-operacoes-numa-leitura-so.html">Ver case <span class="arr">&rarr;</span></a>
+        </div>
+      </article>
+    </div>
+    <div class="carr-progresso" id="carr-progresso" aria-hidden="true"><i></i></div>
+    <div class="carr-barra">
+      <div class="carr-pontos" id="carr-pontos"></div>
+      <button class="carr-seta" id="carr-ant" type="button" aria-label="Case anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button class="carr-seta" id="carr-prox" type="button" aria-label="Próximo case">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+  <!-- cases:fim -->
     </div>
   </section>
 
@@ -2673,6 +2758,9 @@
   var prox = document.getElementById('carr-prox');
   var i = 0, timer = 0, parado = false;
   var INTERVALO = 7000;
+  var barra = document.querySelector('#carr-progresso i');
+  var prog = document.getElementById('carr-progresso');
+  var t0 = 0, praf = 0;
 
   cards.forEach(function (c, k) {
     var b = document.createElement('button');
@@ -2712,12 +2800,31 @@
     }, 120);
   }, { passive: true });
 
-  function tique() { ir(i === cards.length - 1 ? 0 : i + 1); }
-  function tocar() { if (!parado && !timer) timer = setInterval(tique, INTERVALO); }
-  function pausar() { if (timer) { clearInterval(timer); timer = 0; } }
+  /* A barra azul mostra quanto falta para o próximo. Desenhada por rAF e
+     não por animação CSS porque precisa retomar de onde parou quando o
+     ponteiro sai do carrossel, em vez de recomeçar do zero. */
+  function pintarBarra() {
+    if (!barra) return;
+    barra.style.width = (Math.min(1, (Date.now() - t0) / INTERVALO) * 100).toFixed(2) + '%';
+    praf = requestAnimationFrame(pintarBarra);
+  }
+  function pararBarra() { if (praf) { cancelAnimationFrame(praf); praf = 0; } }
+
+  function tique() { ir(i === cards.length - 1 ? 0 : i + 1); t0 = Date.now(); }
+  function tocar() {
+    if (parado || timer) return;
+    t0 = Date.now();
+    timer = setInterval(tique, INTERVALO);
+    pararBarra(); pintarBarra();
+  }
+  function pausar() { if (timer) { clearInterval(timer); timer = 0; } pararBarra(); }
   /* parar é definitivo: depois que alguém usou os controles, o carrossel
      não volta a andar sozinho por cima da leitura */
-  function parar() { parado = true; pausar(); }
+  function parar() {
+    parado = true; pausar();
+    /* some em vez de deixar uma barra congelada sem significado */
+    if (prog) prog.classList.add('parado');
+  }
 
   ant.addEventListener('click', function () { parar(); ir(i - 1); });
   prox.addEventListener('click', function () { parar(); ir(i + 1); });
@@ -2832,6 +2939,30 @@
     });
   });
   abrir(0, false);
+
+  /* Avança sozinho entre as quatro frentes, para quem chega ver que há
+     mais de uma. Para de vez no primeiro clique ou foco: depois disso a
+     escolha é de quem lê, e um painel que troca sob o cursor atrapalha. */
+  var timer = 0, parado = false;
+  function tocar() { if (!parado && !timer) timer = setInterval(function () { abrir((atual() + 1) % abas.length, false); }, 6000); }
+  function pausar() { if (timer) { clearInterval(timer); timer = 0; } }
+  function parar() { parado = true; pausar(); }
+  function atual() {
+    for (var k = 0; k < abas.length; k++) if (abas[k].getAttribute('aria-selected') === 'true') return k;
+    return 0;
+  }
+  var caixa = abas[0].closest('.sol');
+  if (caixa) {
+    abas.forEach(function (ab) { ab.addEventListener('click', parar); ab.addEventListener('keydown', parar); });
+    ['pointerenter', 'focusin'].forEach(function (e) { caixa.addEventListener(e, pausar); });
+    ['pointerleave', 'focusout'].forEach(function (e) { caixa.addEventListener(e, tocar); });
+    document.addEventListener('visibilitychange', function () { document.hidden ? pausar() : tocar(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) { e.isIntersecting ? tocar() : pausar(); });
+      }, { threshold: 0.3 }).observe(caixa);
+    } else { tocar(); }
+  }
 })();
 </script>
 
@@ -2865,14 +2996,21 @@
 <script>
 /* ---------- A frase em destaque do hero gira ---------- */
 (function () {
+  /* Frases escritas pelo dono do site. São longas de propósito: cada uma
+     fecha a sentença com uma promessa inteira, não com um rótulo. */
   var FRASES = [
     'decisões extraordinárias',
-    'dados e analytics',
-    'engenharia de dados',
-    'inteligência artificial',
-    'times de especialistas'
+    'inteligência estratégica e decisões mais assertivas',
+    'oportunidades de negócio e resultados mensuráveis',
+    'conhecimento que impulsiona o crescimento',
+    'vantagem competitiva por meio de analytics e inovação',
+    'clareza para decidir, eficiência para operar',
+    'valor, conectando informação à estratégia do negócio',
+    'soluções que simplificam operações e potencializam resultados'
   ];
-  var INTERVALO = 3400;
+  /* Mais tempo que os 3,4s de antes: frase de oito palavras não se lê em
+     três segundos, e trocar no meio da leitura irrita. */
+  var INTERVALO = 5200;
 
   function iniciar() {
     var el = document.getElementById('hero-gira');

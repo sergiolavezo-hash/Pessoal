@@ -1,0 +1,290 @@
+[
+ {
+  "tipo": "grande",
+  "titulo": "Canais separados viraram uma plataforma só",
+  "slug": "canais-separados-viraram-uma-plataforma-so",
+  "sub": "Plataforma omnichannel de dados em Azure",
+  "meta": [
+   "Varejo Multimarca",
+   "Data & Analytics",
+   "Cloud Azure"
+  ],
+  "antes": [
+   "Antes",
+   "Vários",
+   "sistemas medindo os canais em separado"
+  ],
+  "depois": [
+   "Depois",
+   "Uma",
+   "plataforma com venda e operação lado a lado"
+  ],
+  "campos": {
+   "Cenário": "Dados de lojas físicas e canais digitais espalhados em sistemas diferentes, sem visão única de performance.",
+   "Arquitetura": "Plataforma de dados em Azure integrando todos os canais de venda.",
+   "Solução": "Pipelines em Synapse, Data Factory e Databricks, com dashboards Power BI de vendas, operação e performance por canal.",
+   "Tecnologias": "Azure Synapse, Data Factory, Databricks, Power BI"
+  },
+  "mudou": [
+   [
+    "Canais comparáveis",
+    "loja física e digital deixaram de ser medidos em sistemas separados"
+   ],
+   [
+    "Fim da consolidação manual",
+    "venda e operação passaram a ser lidas no mesmo painel"
+   ],
+   [
+    "Base reaproveitável",
+    "nova análise parte da plataforma existente, não de uma nova extração"
+   ]
+  ],
+  "arte": "omnichannel",
+  "capa": "Loja física e canais digitais passaram a ser medidos na mesma plataforma, em Azure."
+ },
+ {
+  "tipo": "grande",
+  "titulo": "Legado Oracle aposentado sem parar a operação",
+  "slug": "legado-oracle-aposentado-sem-parar-a-operacao",
+  "sub": "Modernização para Google Cloud",
+  "meta": [
+   "Serviços Financeiros",
+   "Data Engineering",
+   "Cloud GCP"
+  ],
+  "antes": [
+   "Antes",
+   "Oracle",
+   "legado caro de manter, distante da análise"
+  ],
+  "depois": [
+   "Depois",
+   "GCP",
+   "legado aposentado, sem interromper a operação"
+  ],
+  "campos": {
+   "Cenário": "Dados presos em um legado Oracle — caro de manter e distante das necessidades analíticas do negócio.",
+   "Arquitetura": "Data Lake em Google Cloud, com processamento em BigQuery.",
+   "Solução": "Transformações em dbt, orquestração em Airflow e BI unificado em Looker.",
+   "Tecnologias": "GCP, BigQuery, dbt, Airflow, Looker"
+  },
+  "mudou": [
+   [
+    "Legado fora da conta",
+    "o custo de manter o ambiente Oracle deixou de existir"
+   ],
+   [
+    "Regra em código",
+    "as transformações saíram de scripts avulsos para dbt, testado e versionado"
+   ],
+   [
+    "Uma camada só",
+    "Looker passou a ser o único caminho entre o dado e o negócio"
+   ]
+  ],
+  "arte": "nuvem",
+  "capa": "Data Lake em Google Cloud com BigQuery, dbt e Airflow — e o legado fora da conta."
+ },
+ {
+  "tipo": "grande",
+  "titulo": "De 200+ painéis sem padrão a um ambiente só",
+  "slug": "de-200-paineis-sem-padrao-a-um-ambiente-so",
+  "sub": "Migração e governança de BI em escala",
+  "meta": [
+   "BI Governance",
+   "Migração",
+   "Self-Service BI"
+  ],
+  "antes": [
+   "Antes",
+   "200+",
+   "painéis crescendo sem padrão nem fonte única"
+  ],
+  "depois": [
+   "Depois",
+   "1",
+   "ambiente, com uma definição por métrica"
+  ],
+  "campos": {
+   "Cenário": "Mais de 200 dashboards Power BI crescendo sem padrão, sem governança e sem fonte única da verdade.",
+   "Arquitetura": "Ambiente centralizado em Looker, com dados e definições unificados.",
+   "Solução": "Migração, padronização e um modelo de self-service BI para as áreas de negócio.",
+   "Tecnologias": "Power BI, Looker, Governança de dados"
+  },
+  "mudou": [
+   [
+    "Uma definição por métrica",
+    "a mesma conta deixou de ter versões diferentes em mais de 200 painéis"
+   ],
+   [
+    "Pergunta sem fila",
+    "o self-service tirou o intervalo entre a dúvida da área e a resposta"
+   ],
+   [
+    "Crescimento com padrão",
+    "painel novo passa a nascer dentro de um modelo, não ao lado dele"
+   ]
+  ],
+  "arte": "governanca",
+  "capa": "Mais de 200 dashboards com definições divergentes viraram um ambiente governado."
+ },
+ {
+  "tipo": "mini",
+  "titulo": "Chamados viraram indicador de SLA",
+  "slug": "chamados-viraram-indicador-de-sla",
+  "setor": "Software & Tecnologia",
+  "resumo": "BI que transformou os chamados do sistema de incidentes em indicadores de SLA, prazo e desempenho operacional.",
+  "antes": "Chamados",
+  "depois": "Indicadores de SLA",
+  "stack": [
+   "Pentaho",
+   "SQL Server",
+   "Data Warehouse"
+  ],
+  "arte": "sla",
+  "capa": "Os chamados do sistema de incidentes viraram indicadores de SLA, prazo e desempenho."
+ },
+ {
+  "tipo": "mini",
+  "titulo": "Três linhas de negócio, uma visão só",
+  "slug": "tres-linhas-de-negocio-uma-visao-so",
+  "setor": "Turismo & Viagens",
+  "resumo": "Arquitetura completa ETL → DW → BI consolidando viagens, hospedagens e locações em uma visão única do negócio.",
+  "antes": "3 linhas",
+  "depois": "1 visão",
+  "stack": [
+   "Pentaho",
+   "SQL Server",
+   "MicroStrategy"
+  ],
+  "arte": "consolidacao",
+  "capa": "Viagens, hospedagens e locações consolidadas numa arquitetura ETL → DW → BI."
+ },
+ {
+  "tipo": "mini",
+  "titulo": "O comercial ganhou número próprio",
+  "slug": "o-comercial-ganhou-numero-proprio",
+  "setor": "Serviços Financeiros",
+  "resumo": "Estrutura de dados e indicadores consolidando as informações do departamento comercial para análise e decisão.",
+  "antes": "Extração pontual",
+  "depois": "Camada própria",
+  "stack": [
+   "SSIS",
+   "Data Warehouse",
+   "MicroStrategy"
+  ],
+  "arte": "comercial",
+  "capa": "O departamento comercial saiu da extração pontual para uma camada de dados própria."
+ },
+ {
+  "tipo": "mini",
+  "titulo": "A voz do cliente virou indicador vivo",
+  "slug": "a-voz-do-cliente-virou-indicador-vivo",
+  "setor": "Bancário",
+  "resumo": "Acompanhamento de NPS transformando a voz dos clientes em indicadores de experiência e oportunidades de melhoria.",
+  "antes": "Relatório avulso",
+  "depois": "Indicador vivo",
+  "stack": [
+   "NPS",
+   "Analytics",
+   "CX"
+  ],
+  "arte": "nps",
+  "capa": "O NPS deixou de ser relatório avulso e virou indicador de experiência acompanhado."
+ },
+ {
+  "tipo": "mini",
+  "titulo": "Todas as áreas lendo os mesmos números",
+  "slug": "todas-as-areas-lendo-os-mesmos-numeros",
+  "setor": "Varejo de Moda",
+  "resumo": "Dashboards de vendas, logística e operações dando acesso a indicadores para todas as áreas da organização.",
+  "antes": "Por área",
+  "depois": "Toda a empresa",
+  "stack": [
+   "Pentaho",
+   "MicroStrategy",
+   "DW"
+  ],
+  "arte": "difusao",
+  "capa": "Vendas, logística e operações com acesso aos mesmos indicadores, em toda a empresa."
+ },
+ {
+  "tipo": "mini",
+  "titulo": "Duas ferramentas de BI viraram uma",
+  "slug": "duas-ferramentas-de-bi-viraram-uma",
+  "setor": "Saúde & Diagnóstico",
+  "resumo": "Pipelines em BigQuery e Airflow para uma rede de diagnóstico, com migração da visualização de Tableau para Power BI.",
+  "antes": "2 ferramentas",
+  "depois": "1 ferramenta",
+  "stack": [
+   "GCP",
+   "BigQuery",
+   "Airflow",
+   "Power BI"
+  ],
+  "arte": "unificacao",
+  "capa": "Pipelines em BigQuery e Airflow, com a visualização migrada de Tableau para Power BI."
+ },
+ {
+  "tipo": "mini",
+  "titulo": "A evasão passou a ser antecipada",
+  "slug": "a-evasao-passou-a-ser-antecipada",
+  "setor": "Educação",
+  "resumo": "Centenas de dashboards educacionais e modelos preditivos que anteciparam a evasão para apoiar ações preventivas.",
+  "antes": "Constatada",
+  "depois": "Antecipada",
+  "stack": [
+   "Analytics",
+   "Machine Learning",
+   "BI"
+  ],
+  "arte": "preditivo",
+  "capa": "Modelos preditivos anteciparam a evasão escolar para apoiar ações preventivas."
+ },
+ {
+  "tipo": "mini",
+  "titulo": "O padrão visual antes do primeiro painel",
+  "slug": "o-padrao-visual-antes-do-primeiro-painel",
+  "setor": "Saúde Hospitalar",
+  "resumo": "Protótipos em Figma definindo o padrão visual antes do desenvolvimento — centenas de dashboards Power BI padronizados.",
+  "antes": "Padrão depois",
+  "depois": "Padrão antes",
+  "stack": [
+   "Figma",
+   "Power BI",
+   "Data Design"
+  ],
+  "arte": "design",
+  "capa": "Protótipos em Figma fixaram o padrão antes do desenvolvimento dos painéis."
+ },
+ {
+  "tipo": "mini",
+  "titulo": "Do fechamento do mês para o mesmo dia",
+  "slug": "do-fechamento-do-mes-para-o-mesmo-dia",
+  "setor": "Food Service",
+  "resumo": "Painéis de acompanhamento diário das unidades de um grande grupo de restaurantes — desvios visíveis em tempo hábil.",
+  "antes": "Mês",
+  "depois": "Dia",
+  "stack": [
+   "Dashboards",
+   "Operações"
+  ],
+  "arte": "diario",
+  "capa": "Acompanhamento diário das unidades de um grande grupo de restaurantes."
+ },
+ {
+  "tipo": "mini",
+  "titulo": "Três operações numa leitura só",
+  "slug": "tres-operacoes-numa-leitura-so",
+  "setor": "Infraestrutura & Mobilidade",
+  "resumo": "Painéis integrando gestão de acidentes, arrecadação de pedágios e operação aeroportuária em uma visão única.",
+  "antes": "3 operações",
+  "depois": "1 leitura",
+  "stack": [
+   "Data & BI",
+   "Operações"
+  ],
+  "arte": "operacoes",
+  "capa": "Acidentes, pedágios e operação aeroportuária integrados numa visão única."
+ }
+]

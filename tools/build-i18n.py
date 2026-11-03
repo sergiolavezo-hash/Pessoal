@@ -28,7 +28,14 @@ SAIDA = RAIZ / 'media' / 'js' / 'i18n-dic.js'
 EXTRAS = {'@h1-destaque', 'Alternar entre tema claro e escuro',
           'Mudar para o tema claro', 'Mudar para o tema escuro',
           'decisões extraordinárias', 'dados e analytics', 'engenharia de dados',
-          'inteligência artificial', 'times de especialistas'}
+          'inteligência artificial', 'times de especialistas',
+          'inteligência estratégica e decisões mais assertivas',
+          'oportunidades de negócio e resultados mensuráveis',
+          'conhecimento que impulsiona o crescimento',
+          'vantagem competitiva por meio de analytics e inovação',
+          'clareza para decidir, eficiência para operar',
+          'valor, conectando informação à estratégia do negócio',
+          'soluções que simplificam operações e potencializam resultados'}
 
 # pt: (en, es)
 TRAD = {
@@ -251,9 +258,6 @@ TRAD.update({
   # ---------------- cases ----------------
   'Histórias de sucesso': ('Success stories', 'Historias de éxito'),
   'Resultados que falam por si.': ('Results that speak for themselves.', 'Resultados que hablan por sí solos.'),
-  'Projetos reais entregues por especialistas da Atlas, com o antes e o depois de cada um. Nomes de clientes preservados por confidencialidade.':
-    ('Real projects delivered by Atlas specialists, with the before and after of each one. Client names withheld for confidentiality.',
-     'Proyectos reales entregados por especialistas de Atlas, con el antes y el después de cada uno. Nombres de clientes reservados por confidencialidad.'),
   'Cliente confidencial': ('Confidential client', 'Cliente confidencial'),
   'Antes e depois': ('Before and after', 'Antes y después'),
   'Antes': ('Before', 'Antes'),
@@ -263,14 +267,12 @@ TRAD.update({
   'Solução': ('Solution', 'Solución'),
   'Tecnologias': ('Technologies', 'Tecnologías'),
   'O que mudou': ('What changed', 'Qué cambió'),
-  'Mais projetos entregues': ('More projects delivered', 'Más proyectos entregados'),
 
   # case 1
   '<span>Varejo Multimarca</span><span>Data &amp; Analytics</span><span>Cloud Azure</span>':
     ('<span>Multi-brand Retail</span><span>Data &amp; Analytics</span><span>Azure Cloud</span>',
      '<span>Retail Multimarca</span><span>Data &amp; Analytics</span><span>Cloud Azure</span>'),
   'Canais separados viraram uma plataforma só': ('Separate channels became a single platform', 'Canales separados se volvieron una sola plataforma'),
-  'Plataforma omnichannel de dados em Azure': ('Omnichannel data platform on Azure', 'Plataforma omnicanal de datos en Azure'),
   'Vários': ('Several', 'Varios'),
   'sistemas medindo os canais em separado': ('systems measuring the channels separately', 'sistemas midiendo los canales por separado'),
   'Uma': ('One', 'Una'),
@@ -299,17 +301,9 @@ TRAD.update({
     ('<span>Financial Services</span><span>Data Engineering</span><span>GCP Cloud</span>',
      '<span>Servicios Financieros</span><span>Data Engineering</span><span>Cloud GCP</span>'),
   'Legado Oracle aposentado sem parar a operação': ('Oracle legacy retired without stopping operations', 'Legado Oracle jubilado sin parar la operación'),
-  'Modernização para Google Cloud': ('Modernization to Google Cloud', 'Modernización a Google Cloud'),
-  'legado caro de manter, distante da análise': ('legacy expensive to maintain, far from analysis', 'legado caro de mantener, lejos del análisis'),
-  'legado aposentado, sem interromper a operação': ('legacy retired, without interrupting operations', 'legado jubilado, sin interrumpir la operación'),
   'Dados presos em um legado Oracle — caro de manter e distante das necessidades analíticas do negócio.':
     ('Data locked in an Oracle legacy — expensive to maintain and far from the analytical needs of the business.',
      'Datos atrapados en un legado Oracle — caro de mantener y lejos de las necesidades analíticas del negocio.'),
-  'Data Lake em Google Cloud, com processamento em BigQuery.':
-    ('A data lake on Google Cloud, with processing on BigQuery.', 'Data Lake en Google Cloud, con procesamiento en BigQuery.'),
-  'Transformações em dbt, orquestração em Airflow e BI unificado em Looker.':
-    ('Transformations in dbt, orchestration in Airflow and unified BI in Looker.',
-     'Transformaciones en dbt, orquestación en Airflow y BI unificado en Looker.'),
   '<b>Legado fora da conta</b><span>o custo de manter o ambiente Oracle deixou de existir</span>':
     ('<b>Legacy off the bill</b><span>the cost of keeping the Oracle environment stopped existing</span>',
      '<b>Legado fuera de la cuenta</b><span>el costo de mantener el entorno Oracle dejó de existir</span>'),
@@ -326,17 +320,9 @@ TRAD.update({
      '<span>BI Governance</span><span>Migración</span><span>Self-Service BI</span>'),
   'De 200+ painéis sem padrão a um ambiente só': ('From 200+ unstandardized dashboards to a single environment', 'De 200+ paneles sin estándar a un solo entorno'),
   'Migração e governança de BI em escala': ('BI migration and governance at scale', 'Migración y gobernanza de BI a escala'),
-  'painéis crescendo sem padrão nem fonte única': ('dashboards growing with no standard and no single source', 'paneles creciendo sin estándar ni fuente única'),
-  'ambiente, com uma definição por métrica': ('environment, with one definition per metric', 'entorno, con una definición por métrica'),
   'Mais de 200 dashboards Power BI crescendo sem padrão, sem governança e sem fonte única da verdade.':
     ('Over 200 Power BI dashboards growing with no standard, no governance and no single source of truth.',
      'Más de 200 dashboards Power BI creciendo sin estándar, sin gobernanza y sin fuente única de la verdad.'),
-  'Ambiente centralizado em Looker, com dados e definições unificados.':
-    ('A centralized environment on Looker, with unified data and definitions.',
-     'Entorno centralizado en Looker, con datos y definiciones unificados.'),
-  'Migração, padronização e um modelo de self-service BI para as áreas de negócio.':
-    ('Migration, standardization and a self-service BI model for the business areas.',
-     'Migración, estandarización y un modelo de BI de autoservicio para las áreas de negocio.'),
   'Power BI, Looker, Governança de dados': ('Power BI, Looker, Data governance', 'Power BI, Looker, Gobernanza de datos'),
   '<b>Uma definição por métrica</b><span>a mesma conta deixou de ter versões diferentes em mais de 200 painéis</span>':
     ('<b>One definition per metric</b><span>the same calculation stopped having different versions across 200+ dashboards</span>',
@@ -351,37 +337,12 @@ TRAD.update({
   # mini cases
   'Software &amp; Tecnologia': ('Software &amp; Technology', 'Software &amp; Tecnología'),
   'Chamados viraram indicador de SLA': ('Tickets became an SLA indicator', 'Los tickets se volvieron indicador de SLA'),
-  'BI que transformou os chamados do sistema de incidentes em indicadores de SLA, prazo e desempenho operacional.':
-    ('BI that turned incident-system tickets into indicators of SLA, deadlines and operational performance.',
-     'BI que transformó los tickets del sistema de incidencias en indicadores de SLA, plazo y desempeño operativo.'),
-  '<span class="adm-a">Chamados</span><i aria-hidden="true">→</i><span class="adm-d">Indicadores de SLA</span>':
-    ('<span class="adm-a">Tickets</span><i aria-hidden="true">→</i><span class="adm-d">SLA indicators</span>',
-     '<span class="adm-a">Tickets</span><i aria-hidden="true">→</i><span class="adm-d">Indicadores de SLA</span>'),
   'Turismo &amp; Viagens': ('Travel &amp; Tourism', 'Turismo &amp; Viajes'),
   'Três linhas de negócio, uma visão só': ('Three business lines, a single view', 'Tres líneas de negocio, una sola visión'),
-  'Arquitetura completa ETL → DW → BI consolidando viagens, hospedagens e locações em uma visão única do negócio.':
-    ('A complete ETL → DW → BI architecture consolidating flights, lodging and rentals into a single view of the business.',
-     'Arquitectura completa ETL → DW → BI consolidando viajes, alojamientos y alquileres en una visión única del negocio.'),
-  '<span class="adm-a">3 linhas</span><i aria-hidden="true">→</i><span class="adm-d">1 visão</span>':
-    ('<span class="adm-a">3 lines</span><i aria-hidden="true">→</i><span class="adm-d">1 view</span>',
-     '<span class="adm-a">3 líneas</span><i aria-hidden="true">→</i><span class="adm-d">1 visión</span>'),
   'Serviços Financeiros': ('Financial Services', 'Servicios Financieros'),
   'O comercial ganhou número próprio': ('Sales got numbers of its own', 'El área comercial ganó número propio'),
-  'Estrutura de dados e indicadores consolidando as informações do departamento comercial para análise e decisão.':
-    ('A data and indicator structure consolidating the sales department’s information for analysis and decision.',
-     'Estructura de datos e indicadores consolidando la información del departamento comercial para análisis y decisión.'),
-  '<span class="adm-a">Extração pontual</span><i aria-hidden="true">→</i><span class="adm-d">Camada própria</span>':
-    ('<span class="adm-a">One-off extraction</span><i aria-hidden="true">→</i><span class="adm-d">A layer of its own</span>',
-     '<span class="adm-a">Extracción puntual</span><i aria-hidden="true">→</i><span class="adm-d">Capa propia</span>'),
   'Bancário': ('Banking', 'Banca'),
   'A voz do cliente virou indicador vivo': ('The customer’s voice became a live indicator', 'La voz del cliente se volvió indicador vivo'),
-  'Acompanhamento de NPS transformando a voz dos clientes em indicadores de experiência e oportunidades de melhoria.':
-    ('NPS tracking turning the voice of customers into experience indicators and improvement opportunities.',
-     'Seguimiento de NPS transformando la voz de los clientes en indicadores de experiencia y oportunidades de mejora.'),
-  '<span class="adm-a">Relatório avulso</span><i aria-hidden="true">→</i><span class="adm-d">Indicador vivo</span>':
-    ('<span class="adm-a">Standalone report</span><i aria-hidden="true">→</i><span class="adm-d">Live indicator</span>',
-     '<span class="adm-a">Informe suelto</span><i aria-hidden="true">→</i><span class="adm-d">Indicador vivo</span>'),
-  'Ver os 13 cases →': ('See all 13 case studies →', 'Ver los 13 casos →'),
 })
 
 TRAD.update({
@@ -510,9 +471,6 @@ TRAD.update({
   'Varejo de Moda': ('Fashion Retail', 'Retail de Moda'),
 
   # ---------------- restos medidos na varredura ----------------
-  'Projetos reais entregues por especialistas Atlas Tec. Nomes de clientes preservados por confidencialidade.':
-    ('Real projects delivered by Atlas Tec specialists. Client names withheld for confidentiality.',
-     'Proyectos reales entregados por especialistas de Atlas Tec. Nombres de clientes reservados por confidencialidad.'),
 })
 
 
@@ -521,16 +479,8 @@ TRAD.update({
 # ============================================================
 TRAD.update({
   # ---------------- página de cases ----------------
-  '13 projetos entregues por especialistas da Atlas, com o antes e o depois de cada um. Nomes de clientes preservados por confidencialidade.':
-    ('13 projects delivered by Atlas specialists, with the before and after of each one. Client names withheld for confidentiality.',
-     '13 proyectos entregados por especialistas de Atlas, con el antes y el después de cada uno. Nombres de clientes reservados por confidencialidad.'),
   'Ver todas as soluções <span class="arr">→</span>':
     ('See all solutions <span class="arr">→</span>', 'Ver todas las soluciones <span class="arr">→</span>'),
-  'Projetos detalhados': ('Detailed projects', 'Proyectos detallados'),
-  'Arquitetura, solução e o que mudou.': ('Architecture, solution and what changed.', 'Arquitectura, solución y qué cambió.'),
-  'Os três projetos abaixo estão abertos por inteiro: cenário, arquitetura, stack e o resultado medido no antes e depois.':
-    ('The three projects below are laid out in full: context, architecture, stack and the result measured before and after.',
-     'Los tres proyectos de abajo están abiertos por completo: escenario, arquitectura, stack y el resultado medido en el antes y el después.'),
   'Ver os projetos entregues <span class="arr">→</span>':
     ('See the delivered projects <span class="arr">→</span>', 'Ver los proyectos entregados <span class="arr">→</span>'),
 
@@ -538,47 +488,11 @@ TRAD.update({
   'Varejo de Moda': ('Fashion Retail', 'Retail de Moda'),
   'Saúde Hospitalar': ('Hospital Healthcare', 'Salud Hospitalaria'),
   'Todas as áreas lendo os mesmos números': ('Every team reading the same numbers', 'Todas las áreas leyendo los mismos números'),
-  'Dashboards de vendas, logística e operações dando acesso a indicadores para todas as áreas da organização.':
-    ('Sales, logistics and operations dashboards giving every area of the organization access to indicators.',
-     'Dashboards de ventas, logística y operaciones dando acceso a indicadores a todas las áreas de la organización.'),
-  '<span class="adm-a">Por área</span><i aria-hidden="true">→</i><span class="adm-d">Toda a empresa</span>':
-    ('<span class="adm-a">Per team</span><i aria-hidden="true">→</i><span class="adm-d">The whole company</span>',
-     '<span class="adm-a">Por área</span><i aria-hidden="true">→</i><span class="adm-d">Toda la empresa</span>'),
   'Duas ferramentas de BI viraram uma': ('Two BI tools became one', 'Dos herramientas de BI se volvieron una'),
-  'Pipelines em BigQuery e Airflow para uma rede de diagnóstico, com migração da visualização de Tableau para Power BI.':
-    ('BigQuery and Airflow pipelines for a diagnostics network, migrating visualization from Tableau to Power BI.',
-     'Pipelines en BigQuery y Airflow para una red de diagnóstico, con migración de la visualización de Tableau a Power BI.'),
-  '<span class="adm-a">2 ferramentas</span><i aria-hidden="true">→</i><span class="adm-d">1 ferramenta</span>':
-    ('<span class="adm-a">2 tools</span><i aria-hidden="true">→</i><span class="adm-d">1 tool</span>',
-     '<span class="adm-a">2 herramientas</span><i aria-hidden="true">→</i><span class="adm-d">1 herramienta</span>'),
   'A evasão passou a ser antecipada': ('Dropout came to be anticipated', 'La deserción pasó a anticiparse'),
-  'Centenas de dashboards educacionais e modelos preditivos que anteciparam a evasão para apoiar ações preventivas.':
-    ('Hundreds of education dashboards and predictive models that anticipated dropout to support preventive action.',
-     'Cientos de dashboards educativos y modelos predictivos que anticiparon la deserción para apoyar acciones preventivas.'),
-  '<span class="adm-a">Constatada</span><i aria-hidden="true">→</i><span class="adm-d">Antecipada</span>':
-    ('<span class="adm-a">Observed</span><i aria-hidden="true">→</i><span class="adm-d">Anticipated</span>',
-     '<span class="adm-a">Constatada</span><i aria-hidden="true">→</i><span class="adm-d">Anticipada</span>'),
   'O padrão visual antes do primeiro painel': ('The visual standard before the first dashboard', 'El estándar visual antes del primer panel'),
-  'Protótipos em Figma definindo o padrão visual antes do desenvolvimento — centenas de dashboards Power BI padronizados.':
-    ('Figma prototypes setting the visual standard before development — hundreds of standardized Power BI dashboards.',
-     'Prototipos en Figma definiendo el estándar visual antes del desarrollo — cientos de dashboards Power BI estandarizados.'),
-  '<span class="adm-a">Padrão depois</span><i aria-hidden="true">→</i><span class="adm-d">Padrão antes</span>':
-    ('<span class="adm-a">Standard after</span><i aria-hidden="true">→</i><span class="adm-d">Standard first</span>',
-     '<span class="adm-a">Estándar después</span><i aria-hidden="true">→</i><span class="adm-d">Estándar antes</span>'),
   'Do fechamento do mês para o mesmo dia': ('From month-end close to the same day', 'Del cierre del mes al mismo día'),
-  'Painéis de acompanhamento diário das unidades de um grande grupo de restaurantes — desvios visíveis em tempo hábil.':
-    ('Daily tracking dashboards for the sites of a large restaurant group — deviations visible in time to act.',
-     'Paneles de seguimiento diario de las unidades de un gran grupo de restaurantes — desvíos visibles a tiempo.'),
-  '<span class="adm-a">Mês</span><i aria-hidden="true">→</i><span class="adm-d">Dia</span>':
-    ('<span class="adm-a">Month</span><i aria-hidden="true">→</i><span class="adm-d">Day</span>',
-     '<span class="adm-a">Mes</span><i aria-hidden="true">→</i><span class="adm-d">Día</span>'),
   'Três operações numa leitura só': ('Three operations in a single read', 'Tres operaciones en una sola lectura'),
-  'Painéis integrando gestão de acidentes, arrecadação de pedágios e operação aeroportuária em uma visão única.':
-    ('Dashboards integrating accident management, toll collection and airport operations into a single view.',
-     'Paneles integrando gestión de accidentes, recaudación de peajes y operación aeroportuaria en una visión única.'),
-  '<span class="adm-a">3 operações</span><i aria-hidden="true">→</i><span class="adm-d">1 leitura</span>':
-    ('<span class="adm-a">3 operations</span><i aria-hidden="true">→</i><span class="adm-d">1 read</span>',
-     '<span class="adm-a">3 operaciones</span><i aria-hidden="true">→</i><span class="adm-d">1 lectura</span>'),
 
   # ---------------- comum às páginas de serviço ----------------
   'O que fazemos': ('What we do', 'Qué hacemos'),
@@ -793,18 +707,78 @@ TRAD.update({
   'engenharia de dados': ('data engineering', 'ingeniería de datos'),
   'inteligência artificial': ('artificial intelligence', 'inteligencia artificial'),
   'times de especialistas': ('teams of specialists', 'equipos de especialistas'),
-  'Inteligência Artificial <small>IA ✦</small>':
-    ('Artificial Intelligence <small>AI ✦</small>', 'Inteligencia Artificial <small>IA ✦</small>'),
   # alt das artes dos cases — texto que o leitor de tela lê
-  'Canais de venda separados convergindo em uma plataforma de dados única':
-    ('Separate sales channels converging into a single data platform',
-     'Canales de venta separados convergiendo en una plataforma de datos única'),
-  'Um banco de dados legado denso dando lugar a um fluxo de pipelines organizados':
-    ('A dense legacy database giving way to an organized flow of pipelines',
-     'Una base de datos heredada densa dando lugar a un flujo de pipelines organizados'),
-  'Painéis soltos e desalinhados dando lugar a uma grade padronizada':
-    ('Loose, misaligned dashboards giving way to a standardized grid',
-     'Paneles sueltos y desalineados dando lugar a una cuadrícula estandarizada'),
+})
+
+
+TRAD.update({
+  # ---------------- capas e títulos dos treze cases ----------------
+  'Histórias de sucesso': ('Success stories', 'Historias de éxito'),
+  'Investindo no sucesso dos nossos clientes':
+    ('Investing in our clients\u2019 success', 'Invirtiendo en el éxito de nuestros clientes'),
+  'Nosso portfólio reflete foco e excelência em arquitetura de dados, nuvem e inteligência artificial, transformando visão estratégica em valor de longo prazo.':
+    ('Our portfolio reflects focus and excellence in data architecture, cloud and artificial intelligence, turning strategic vision into long-term value.',
+     'Nuestro portafolio refleja foco y excelencia en arquitectura de datos, nube e inteligencia artificial, transformando la visión estratégica en valor de largo plazo.'),
+  'Ver case <span class="arr">→</span>': ('View case <span class="arr">→</span>', 'Ver caso <span class="arr">→</span>'),
+  '<span aria-hidden="true">←</span> Todos os cases':
+    ('<span aria-hidden="true">←</span> All case studies', '<span aria-hidden="true">←</span> Todos los casos'),
+  'Outros projetos': ('Other projects', 'Otros proyectos'),
+
+  'Loja física e canais digitais passaram a ser medidos na mesma plataforma, em Azure.':
+    ('Physical stores and digital channels came to be measured on the same platform, on Azure.',
+     'Tiendas físicas y canales digitales pasaron a medirse en la misma plataforma, en Azure.'),
+  'Data Lake em Google Cloud com BigQuery, dbt e Airflow — e o legado fora da conta.':
+    ('A data lake on Google Cloud with BigQuery, dbt and Airflow — and the legacy off the bill.',
+     'Data Lake en Google Cloud con BigQuery, dbt y Airflow — y el legado fuera de la cuenta.'),
+  'Mais de 200 dashboards com definições divergentes viraram um ambiente governado.':
+    ('Over 200 dashboards with diverging definitions became one governed environment.',
+     'Más de 200 dashboards con definiciones divergentes se volvieron un entorno gobernado.'),
+  'Os chamados do sistema de incidentes viraram indicadores de SLA, prazo e desempenho.':
+    ('Tickets from the incident system became indicators of SLA, deadlines and performance.',
+     'Los tickets del sistema de incidencias se volvieron indicadores de SLA, plazo y desempeño.'),
+  'Viagens, hospedagens e locações consolidadas numa arquitetura ETL → DW → BI.':
+    ('Flights, lodging and rentals consolidated in an ETL → DW → BI architecture.',
+     'Viajes, alojamientos y alquileres consolidados en una arquitectura ETL → DW → BI.'),
+  'O departamento comercial saiu da extração pontual para uma camada de dados própria.':
+    ('The sales department moved from one-off extractions to a data layer of its own.',
+     'El área comercial pasó de la extracción puntual a una capa de datos propia.'),
+  'O NPS deixou de ser relatório avulso e virou indicador de experiência acompanhado.':
+    ('NPS stopped being a standalone report and became a tracked experience indicator.',
+     'El NPS dejó de ser un informe suelto y se volvió un indicador de experiencia seguido.'),
+  'Vendas, logística e operações com acesso aos mesmos indicadores, em toda a empresa.':
+    ('Sales, logistics and operations with access to the same indicators, company-wide.',
+     'Ventas, logística y operaciones con acceso a los mismos indicadores, en toda la empresa.'),
+  'Pipelines em BigQuery e Airflow, com a visualização migrada de Tableau para Power BI.':
+    ('BigQuery and Airflow pipelines, with visualization migrated from Tableau to Power BI.',
+     'Pipelines en BigQuery y Airflow, con la visualización migrada de Tableau a Power BI.'),
+  'Modelos preditivos anteciparam a evasão escolar para apoiar ações preventivas.':
+    ('Predictive models anticipated student dropout to support preventive action.',
+     'Modelos predictivos anticiparon la deserción escolar para apoyar acciones preventivas.'),
+  'Protótipos em Figma fixaram o padrão antes do desenvolvimento dos painéis.':
+    ('Figma prototypes set the standard before the dashboards were developed.',
+     'Prototipos en Figma fijaron el estándar antes del desarrollo de los paneles.'),
+  'Acompanhamento diário das unidades de um grande grupo de restaurantes.':
+    ('Daily tracking of the sites of a large restaurant group.',
+     'Seguimiento diario de las unidades de un gran grupo de restaurantes.'),
+  'Acidentes, pedágios e operação aeroportuária integrados numa visão única.':
+    ('Accidents, tolls and airport operations integrated into a single view.',
+     'Accidentes, peajes y operación aeroportuaria integrados en una visión única.'),
+
+  # frases novas do hero
+  'inteligência estratégica e decisões mais assertivas':
+    ('strategic intelligence and sharper decisions', 'inteligencia estratégica y decisiones más acertadas'),
+  'oportunidades de negócio e resultados mensuráveis':
+    ('business opportunities and measurable results', 'oportunidades de negocio y resultados medibles'),
+  'conhecimento que impulsiona o crescimento':
+    ('knowledge that drives growth', 'conocimiento que impulsa el crecimiento'),
+  'vantagem competitiva por meio de analytics e inovação':
+    ('competitive advantage through analytics and innovation', 'ventaja competitiva a través de analytics e innovación'),
+  'clareza para decidir, eficiência para operar':
+    ('clarity to decide, efficiency to operate', 'claridad para decidir, eficiencia para operar'),
+  'valor, conectando informação à estratégia do negócio':
+    ('value, connecting information to business strategy', 'valor, conectando la información a la estrategia del negocio'),
+  'soluções que simplificam operações e potencializam resultados':
+    ('solutions that simplify operations and amplify results', 'soluciones que simplifican operaciones y potencian resultados'),
 })
 
 

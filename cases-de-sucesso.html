@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cases de sucesso &mdash; Atlas Tec</title>
-<meta name="description" content="Treze projetos de dados, BI e inteligência entregues pela Atlas Tec, com o antes e o depois de cada um. Nomes de clientes preservados por confidencialidade.">
+<meta name="description" content="Nosso portfólio reflete foco e excelência em arquitetura de dados, nuvem e inteligência artificial, transformando visão estratégica em valor de longo prazo.">
 <link rel="canonical" href="https://atlas-partner.com/cases-de-sucesso.html">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Cases de sucesso &mdash; Atlas Tec">
-<meta property="og:description" content="Treze projetos de dados, BI e inteligência entregues pela Atlas Tec, com o antes e o depois de cada um. Nomes de clientes preservados por confidencialidade.">
+<meta property="og:description" content="Nosso portfólio reflete foco e excelência em arquitetura de dados, nuvem e inteligência artificial, transformando visão estratégica em valor de longo prazo.">
 <meta property="og:url" content="https://atlas-partner.com/cases-de-sucesso.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#F2F1ED">
   <script>
   /* Antes da primeira pintura: sem isto a página aparece no tema errado
@@ -108,7 +108,11 @@
   }
   ::selection { background: var(--accent); color: #fff; }
 
-  h1, h2, h3 { font-family: var(--display); letter-spacing: -0.03em; line-height: 1.06; text-wrap: balance; }
+  /* Peso 600 em vez de 800 nos títulos grandes: a Mona Sans é variável,
+     então 600 é um peso desenhado, não uma simulação. O letter-spacing
+     afrouxa junto — o -0,03em foi calibrado para o peso cheio e, mais
+     leve, fechava as letras. */
+  h1, h2, h3 { font-family: var(--display); letter-spacing: -0.022em; line-height: 1.08; text-wrap: balance; }
   a { color: inherit; }
   button { font-family: inherit; }
   img, canvas, svg { max-width: 100%; }
@@ -132,7 +136,7 @@
   .eyebrow.on-paper { color: var(--accent-deep); }
   .eyebrow.on-paper::before { background: var(--accent-deep); }
 
-  .h-xl { font-size: clamp(2.2rem, 4.6vw, 3.4rem); font-weight: 800; color: var(--ink); margin: 1.1rem 0 1.1rem; max-width: 22ch; }
+  .h-xl { font-size: clamp(2.2rem, 4.6vw, 3.4rem); font-weight: 600; color: var(--ink); margin: 1.1rem 0 1.1rem; max-width: 22ch; }
   .sub { color: var(--muted); font-size: 1.06rem; max-width: 42rem; margin-bottom: 0.5rem; }
   .sec { padding: 6rem 0; }
   .sec + .sec { border-top: 1px solid var(--line-soft); }
@@ -183,7 +187,10 @@
   .nav-links { display: flex; align-items: center; gap: 1.9rem; }
   .nav-links a:not(.btn) { text-decoration: none; font-size: 0.92rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
   .nav-links a:not(.btn):hover { color: var(--ink); }
-  .nav-burger { display: none; background: none; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.5rem 0.9rem; cursor: pointer; }
+  /* No azul da marca, não na cor do texto: assim ele se destaca igual nos
+     dois temas, em vez de virar cinza no claro e branco no escuro. */
+  .nav-burger { display: none; background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.35); border-radius: 8px; color: var(--accent); font-family: var(--mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.5rem 0.9rem; cursor: pointer; transition: background 0.25s var(--ease), border-color 0.25s var(--ease); }
+  .nav-burger:hover { background: rgba(46,134,255,0.18); border-color: var(--accent); }
 
   .mobile-menu {
     position: fixed; inset: 4.25rem 0 0; z-index: 45; background: var(--bg0);
@@ -215,7 +222,7 @@
      serviços logo abaixo. O território 3D fica com aquele espaço. */
   .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; align-items: center; }
   .hero .wrap > div { max-width: 44rem; }
-  .hero h1 { font-size: clamp(2.4rem, 5vw, 3.9rem); font-weight: 800; margin: 1.1rem 0 1.2rem; max-width: 16ch; }
+  .hero h1 { font-size: clamp(2.4rem, 5vw, 3.9rem); font-weight: 600; margin: 1.1rem 0 1.2rem; max-width: 16ch; }
   .hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; }
   .hero h1 .w > span { display: inline-block; opacity: 0; transform: translateY(0.65em); animation: word-in 0.7s var(--ease) forwards; }
   @keyframes word-in { to { opacity: 1; transform: none; } }
@@ -947,7 +954,7 @@
      vão de quase 300px entre o parágrafo e os chips. */
   .ess { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 1.2rem; align-items: start; }
   .ess-card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem); display: flex; flex-direction: column; }
-  .ess-card h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 800; margin: 1.1rem 0 0.9rem; }
+  .ess-card h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 600; margin: 1.1rem 0 0.9rem; }
   .ess-card > p { color: var(--muted); font-size: 0.99rem; }
   .ess-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; padding-top: 1.6rem; }
   .ess-chips span {
@@ -980,7 +987,7 @@
     padding: clamp(1.8rem, 4vw, 3.2rem);
     display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 2rem; align-items: center;
   }
-  .banner h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; margin: 1.1rem 0 1rem; max-width: 24ch; }
+  .banner h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 600; margin: 1.1rem 0 1rem; max-width: 24ch; }
   .banner p { color: var(--muted); font-size: 0.99rem; max-width: 46ch; }
   .banner-cta { display: flex; justify-content: flex-end; }
 
@@ -1004,7 +1011,7 @@
   .sol-arr { width: 2rem; height: 2rem; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); color: var(--dim); font-size: 0.85rem; transition: all 0.3s var(--ease); }
   .sol-item[aria-selected="true"] .sol-arr { background: rgba(46,134,255,0.16); border-color: rgba(46,134,255,0.45); color: var(--accent-light); }
   .sol-panel { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem); min-height: 100%; display: flex; flex-direction: column; }
-  .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 800; margin: 1.1rem 0 1rem; }
+  .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 600; margin: 1.1rem 0 1rem; }
   .sol-panel > p { color: var(--muted); font-size: 1rem; }
   .sol-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.3rem; }
   .sol-tags span { font-size: 0.74rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0.32rem 0.75rem; }
@@ -1280,7 +1287,11 @@
   /* A segunda linha do título troca de frase sozinha, como na referência.
      O h1 tem aria-label fixo, então quem usa leitor de tela ouve a frase
      canônica uma vez — não a troca a cada três segundos. */
+  /* min-height segura a dobra: as frases têm comprimentos diferentes e,
+     sem isso, o h1 muda de altura a cada troca e empurra tudo embaixo. */
   .hero h1 .ac { transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); display: inline-block; }
+  .hero h1 { min-height: calc(3 * 1.08em); }
+  @media (max-width: 760px) { .hero h1 { min-height: calc(4 * 1.08em); } }
   .hero h1 .ac.trocando { opacity: 0; transform: translateY(-0.18em); }
 
   /* Restaurado: uma limpeza por expressão regular levou o selo junto com o
@@ -1295,10 +1306,62 @@
   }
   .pill svg { width: 0.9rem; height: 0.9rem; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
+  /* ---------- Cartão de case no carrossel ---------- */
+  /* Capa, chamada curta e link. O case inteiro vive em cases/<slug>.html —
+     treze cases abertos por inteiro na home seriam quinze mil palavras
+     antes do formulário. */
+  .cc {
+    flex: 0 0 min(420px, 84vw); scroll-snap-align: start;
+    display: grid; grid-template-rows: auto 1fr;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .cc:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .cc-art { margin: 0; line-height: 0; }
+  .cc-art img { width: 100%; height: 190px; object-fit: cover; display: block; }
+  .cc-corpo { padding: 1.4rem 1.4rem 1.3rem; display: grid; grid-template-rows: auto auto 1fr auto auto auto; gap: 0.6rem; }
+  .cc-setor { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .cc-t { font-size: 1.16rem; font-weight: 600; line-height: 1.25; }
+  .cc-cap { color: var(--muted); font-size: 0.91rem; line-height: 1.55; }
+  .cc-ad { display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.7rem; }
+  .cc-ad .cc-a { color: var(--dim); }
+  .cc-ad .cc-d { color: var(--accent); }
+  .cc-ad i { font-style: normal; color: var(--dim); }
+  .cc-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .cc-chips span { font-size: 0.7rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.6rem; }
+  .cc-link { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 0.4rem; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 0.9rem; color: var(--accent); }
+  .cc-link .arr { transition: transform 0.25s var(--ease); }
+  .cc:hover .cc-link .arr { transform: translateX(3px); }
+
+  /* Barra azul de progresso do avanço automático */
+  .carr-progresso { height: 2px; background: var(--line); border-radius: 2px; margin-top: 1.1rem; overflow: hidden; }
+  .carr-progresso i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 2px; }
+  .carr-progresso.parado { opacity: 0; }
+
+</style>
+<style>
+  .caso-hero { padding-top: 7rem; padding-bottom: 2rem; }
+  .voltar { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--dim); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1.6rem; transition: color 0.25s var(--ease); }
+  .voltar:hover { color: var(--accent); }
+  .caso-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.4rem; }
+  .caso-chips span { font-size: 0.76rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0.34rem 0.8rem; }
+  .caso-arte { padding-top: 0; padding-bottom: 2rem; }
+  .caso-capa { margin: 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); line-height: 0; }
+  .caso-capa img { width: 100%; display: block; }
+  .caso-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: start; }
+  .caso-texto { color: var(--muted); font-size: 1.02rem; }
+  .rels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1.4rem; }
+  .rel { display: grid; gap: 0.9rem; text-decoration: none; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; transition: border-color 0.3s var(--ease), transform 0.3s var(--ease); }
+  .rel:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .rel img { width: 100%; height: 118px; object-fit: cover; display: block; }
+  .rel span { display: block; padding: 0 1.1rem 1.2rem; }
+  .rel b { display: block; font-family: var(--display); font-size: 0.98rem; font-weight: 600; }
+  .rel small { display: block; color: var(--dim); font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 0.4rem; }
+  @media (max-width: 1000px) { .caso-grid { grid-template-columns: 1fr; gap: 2rem; } .rels { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
-<a class="skip-link" href="#inicio">Pular para o conteúdo</a>
+<a class="skip-link" href="index.html#inicio">Pular para o conteúdo</a>
 <div class="cursor-dot" aria-hidden="true"></div>
 <div class="cursor-ring" aria-hidden="true"><span></span></div>
 <div class="scroll-progress" aria-hidden="true"><i id="progress-bar"></i></div>
@@ -1484,150 +1547,75 @@
   <a href="index.html#cases">Cases</a>
   <a href="index.html#sobre">Sobre</a>
   <a href="index.html#ia-capacidades">Inteligência Artificial</a>
-  <a href="index.html#ia-capacidades">Inteligência Artificial <small>IA ✦</small></a>
   <a href="alocacao.html#talento">Trabalhe com a gente</a>
   <a class="btn btn-accent" href="index.html#contato">Falar com um especialista <span class="arr">→</span></a>
 </nav>
 
 <main id="inicio">
-
-  <section class="sec pag-hero">
+  <section class="sec caso-hero">
     <div class="wrap">
-      <div class="sec-lead">
-        <span class="eyebrow reveal in">Cases</span>
-        <h1 class="h-xl reveal d1 in">Resultados que falam por si.</h1>
-        <p class="sub reveal d2 in">
-          13 projetos entregues por especialistas da Atlas, com o antes e o
-          depois de cada um. Nomes de clientes preservados por confidencialidade.
-        </p>
-        <div class="hero-ctas reveal d3 in">
-          <a class="btn btn-accent" href="index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
-          <a class="btn btn-line" href="index.html#solucoes" data-magnetic>Ver todas as soluções <span class="arr">&rarr;</span></a>
-        </div>
-      </div>
+      <span class="pill" data-ico="cases">Histórias de sucesso</span>
+      <h1 class="h-xl">Investindo no sucesso dos nossos clientes</h1>
+      <p class="sub">Nosso portfólio reflete foco e excelência em arquitetura de dados, nuvem e inteligência artificial, transformando visão estratégica em valor de longo prazo.</p>
     </div>
   </section>
-
-  <div class="divider"></div>
-
-  <section class="sec" id="cases">
+  <section class="sec" style="padding-top:1rem">
     <div class="wrap">
-      <div class="head2 reveal">
-        <div>
-          <span class="pill">
-            <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 8-8"/><path d="M16 7h5v5"/></svg>
-            Projetos detalhados
-          </span>
-          <h2 class="h-xl d1" style="margin-bottom:0">Arquitetura, solução e o que mudou.</h2>
-        </div>
-        <div class="head2-side">
-          <p class="sub">
-            Os três projetos abaixo estão abertos por inteiro: cenário, arquitetura,
-            stack e o resultado medido no antes e depois.
-          </p>
-        </div>
+      <div class="rels" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+        <a class="rel" href="cases/canais-separados-viraram-uma-plataforma-so.html">
+          <img src="media/cases/omnichannel.svg" alt="" loading="lazy" decoding="async">
+          <span><b>Canais separados viraram uma plataforma só</b><small>Varejo Multimarca</small></span>
+        </a>
+        <a class="rel" href="cases/legado-oracle-aposentado-sem-parar-a-operacao.html">
+          <img src="media/cases/nuvem.svg" alt="" loading="lazy" decoding="async">
+          <span><b>Legado Oracle aposentado sem parar a operação</b><small>Serviços Financeiros</small></span>
+        </a>
+        <a class="rel" href="cases/de-200-paineis-sem-padrao-a-um-ambiente-so.html">
+          <img src="media/cases/governanca.svg" alt="" loading="lazy" decoding="async">
+          <span><b>De 200+ painéis sem padrão a um ambiente só</b><small>BI Governance</small></span>
+        </a>
+        <a class="rel" href="cases/chamados-viraram-indicador-de-sla.html">
+          <img src="media/cases/sla.svg" alt="" loading="lazy" decoding="async">
+          <span><b>Chamados viraram indicador de SLA</b><small>Software &amp; Tecnologia</small></span>
+        </a>
+        <a class="rel" href="cases/tres-linhas-de-negocio-uma-visao-so.html">
+          <img src="media/cases/consolidacao.svg" alt="" loading="lazy" decoding="async">
+          <span><b>Três linhas de negócio, uma visão só</b><small>Turismo &amp; Viagens</small></span>
+        </a>
+        <a class="rel" href="cases/o-comercial-ganhou-numero-proprio.html">
+          <img src="media/cases/comercial.svg" alt="" loading="lazy" decoding="async">
+          <span><b>O comercial ganhou número próprio</b><small>Serviços Financeiros</small></span>
+        </a>
+        <a class="rel" href="cases/a-voz-do-cliente-virou-indicador-vivo.html">
+          <img src="media/cases/nps.svg" alt="" loading="lazy" decoding="async">
+          <span><b>A voz do cliente virou indicador vivo</b><small>Bancário</small></span>
+        </a>
+        <a class="rel" href="cases/todas-as-areas-lendo-os-mesmos-numeros.html">
+          <img src="media/cases/difusao.svg" alt="" loading="lazy" decoding="async">
+          <span><b>Todas as áreas lendo os mesmos números</b><small>Varejo de Moda</small></span>
+        </a>
+        <a class="rel" href="cases/duas-ferramentas-de-bi-viraram-uma.html">
+          <img src="media/cases/unificacao.svg" alt="" loading="lazy" decoding="async">
+          <span><b>Duas ferramentas de BI viraram uma</b><small>Saúde &amp; Diagnóstico</small></span>
+        </a>
+        <a class="rel" href="cases/a-evasao-passou-a-ser-antecipada.html">
+          <img src="media/cases/preditivo.svg" alt="" loading="lazy" decoding="async">
+          <span><b>A evasão passou a ser antecipada</b><small>Educação</small></span>
+        </a>
+        <a class="rel" href="cases/o-padrao-visual-antes-do-primeiro-painel.html">
+          <img src="media/cases/design.svg" alt="" loading="lazy" decoding="async">
+          <span><b>O padrão visual antes do primeiro painel</b><small>Saúde Hospitalar</small></span>
+        </a>
+        <a class="rel" href="cases/do-fechamento-do-mes-para-o-mesmo-dia.html">
+          <img src="media/cases/diario.svg" alt="" loading="lazy" decoding="async">
+          <span><b>Do fechamento do mês para o mesmo dia</b><small>Food Service</small></span>
+        </a>
+        <a class="rel" href="cases/tres-operacoes-numa-leitura-so.html">
+          <img src="media/cases/operacoes.svg" alt="" loading="lazy" decoding="async">
+          <span><b>Três operações numa leitura só</b><small>Infraestrutura &amp; Mobilidade</small></span>
+        </a>
       </div>
-
-      <article class="case-card">
-        <figure class="case-art">
-          <img src="media/cases/omnichannel.svg" alt="Canais de venda separados convergindo em uma plataforma de dados única" loading="lazy" decoding="async">
-        </figure>
-        <div>
-          <span class="case-conf">Cliente confidencial</span>
-          <div class="case-meta"><span>Varejo Multimarca</span><span>Data &amp; Analytics</span><span>Cloud Azure</span></div>
-          <h3>Canais separados viraram uma plataforma só</h3>
-          <p class="case-sub">Plataforma omnichannel de dados em Azure</p>
-          <div class="ad" aria-label="Antes e depois">
-            <div class="ad-lado"><p class="ad-k">Antes</p><p class="ad-n">Vários</p><p class="ad-d">sistemas medindo os canais em separado</p></div>
-            <span class="ad-seta" aria-hidden="true">&rarr;</span>
-            <div class="ad-lado ad-pos"><p class="ad-k">Depois</p><p class="ad-n">Uma</p><p class="ad-d">plataforma com venda e operação lado a lado</p></div>
-          </div>
-          <dl class="case-fields">
-            <div><dt>Cenário</dt><dd>Dados de lojas físicas e canais digitais espalhados em sistemas diferentes, sem visão única de performance.</dd></div>
-            <div><dt>Arquitetura</dt><dd>Plataforma de dados em Azure integrando todos os canais de venda.</dd></div>
-            <div><dt>Solução</dt><dd>Pipelines em Synapse, Data Factory e Databricks, com dashboards Power BI de vendas, operação e performance por canal.</dd></div>
-            <div><dt>Tecnologias</dt><dd>Azure Synapse, Data Factory, Databricks, Power BI</dd></div>
-          </dl>
-        </div>
-        <div class="case-metrics">
-          <p class="cm-k">O que mudou</p>
-          <p><b>Canais comparáveis</b><span>loja física e digital deixaram de ser medidos em sistemas separados</span></p>
-          <p><b>Fim da consolidação manual</b><span>venda e operação passaram a ser lidas no mesmo painel</span></p>
-          <p><b>Base reaproveitável</b><span>nova análise parte da plataforma existente, não de uma nova extração</span></p>
-        </div>
-      </article>
-      <article class="case-card">
-        <figure class="case-art">
-          <img src="media/cases/legado.svg" alt="Um banco de dados legado denso dando lugar a um fluxo de pipelines organizados" loading="lazy" decoding="async">
-        </figure>
-        <div>
-          <span class="case-conf">Cliente confidencial</span>
-          <div class="case-meta"><span>Serviços Financeiros</span><span>Data Engineering</span><span>Cloud GCP</span></div>
-          <h3>Legado Oracle aposentado sem parar a operação</h3>
-          <p class="case-sub">Modernização para Google Cloud</p>
-          <div class="ad" aria-label="Antes e depois">
-            <div class="ad-lado"><p class="ad-k">Antes</p><p class="ad-n">Oracle</p><p class="ad-d">legado caro de manter, distante da análise</p></div>
-            <span class="ad-seta" aria-hidden="true">&rarr;</span>
-            <div class="ad-lado ad-pos"><p class="ad-k">Depois</p><p class="ad-n">GCP</p><p class="ad-d">legado aposentado, sem interromper a operação</p></div>
-          </div>
-          <dl class="case-fields">
-            <div><dt>Cenário</dt><dd>Dados presos em um legado Oracle — caro de manter e distante das necessidades analíticas do negócio.</dd></div>
-            <div><dt>Arquitetura</dt><dd>Data Lake em Google Cloud, com processamento em BigQuery.</dd></div>
-            <div><dt>Solução</dt><dd>Transformações em dbt, orquestração em Airflow e BI unificado em Looker.</dd></div>
-            <div><dt>Tecnologias</dt><dd>GCP, BigQuery, dbt, Airflow, Looker</dd></div>
-          </dl>
-        </div>
-        <div class="case-metrics">
-          <p class="cm-k">O que mudou</p>
-          <p><b>Legado fora da conta</b><span>o custo de manter o ambiente Oracle deixou de existir</span></p>
-          <p><b>Regra em código</b><span>as transformações saíram de scripts avulsos para dbt, testado e versionado</span></p>
-          <p><b>Uma camada só</b><span>Looker passou a ser o único caminho entre o dado e o negócio</span></p>
-        </div>
-      </article>
-      <article class="case-card">
-        <figure class="case-art">
-          <img src="media/cases/governanca.svg" alt="Painéis soltos e desalinhados dando lugar a uma grade padronizada" loading="lazy" decoding="async">
-        </figure>
-        <div>
-          <span class="case-conf">Cliente confidencial</span>
-          <div class="case-meta"><span>BI Governance</span><span>Migração</span><span>Self-Service BI</span></div>
-          <h3>De 200+ painéis sem padrão a um ambiente só</h3>
-          <p class="case-sub">Migração e governança de BI em escala</p>
-          <div class="ad" aria-label="Antes e depois">
-            <div class="ad-lado"><p class="ad-k">Antes</p><p class="ad-n">200+</p><p class="ad-d">painéis crescendo sem padrão nem fonte única</p></div>
-            <span class="ad-seta" aria-hidden="true">&rarr;</span>
-            <div class="ad-lado ad-pos"><p class="ad-k">Depois</p><p class="ad-n">1</p><p class="ad-d">ambiente, com uma definição por métrica</p></div>
-          </div>
-          <dl class="case-fields">
-            <div><dt>Cenário</dt><dd>Mais de 200 dashboards Power BI crescendo sem padrão, sem governança e sem fonte única da verdade.</dd></div>
-            <div><dt>Arquitetura</dt><dd>Ambiente centralizado em Looker, com dados e definições unificados.</dd></div>
-            <div><dt>Solução</dt><dd>Migração, padronização e um modelo de self-service BI para as áreas de negócio.</dd></div>
-            <div><dt>Tecnologias</dt><dd>Power BI, Looker, Governança de dados</dd></div>
-          </dl>
-        </div>
-        <div class="case-metrics">
-          <p class="cm-k">O que mudou</p>
-          <p><b>Uma definição por métrica</b><span>a mesma conta deixou de ter versões diferentes em mais de 200 painéis</span></p>
-          <p><b>Pergunta sem fila</b><span>o self-service tirou o intervalo entre a dúvida da área e a resposta</span></p>
-          <p><b>Crescimento com padrão</b><span>painel novo passa a nascer dentro de um modelo, não ao lado dele</span></p>
-        </div>
-      </article>
-
-      <h3 class="cases-more-head reveal">Mais projetos entregues</h3>
-      <div class="case-mini-grid reveal d1">
-        <article class="case-mini"><p class="sector">Software &amp; Tecnologia</p><h4>Chamados viraram indicador de SLA</h4><p>BI que transformou os chamados do sistema de incidentes em indicadores de SLA, prazo e desempenho operacional.</p><p class="adm"><span class="adm-a">Chamados</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Indicadores de SLA</span></p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>Data Warehouse</span></div></article>
-        <article class="case-mini"><p class="sector">Turismo &amp; Viagens</p><h4>Três linhas de negócio, uma visão só</h4><p>Arquitetura completa ETL → DW → BI consolidando viagens, hospedagens e locações em uma visão única do negócio.</p><p class="adm"><span class="adm-a">3 linhas</span><i aria-hidden="true">&rarr;</i><span class="adm-d">1 visão</span></p><div class="stack"><span>Pentaho</span><span>SQL Server</span><span>MicroStrategy</span></div></article>
-        <article class="case-mini"><p class="sector">Serviços Financeiros</p><h4>O comercial ganhou número próprio</h4><p>Estrutura de dados e indicadores consolidando as informações do departamento comercial para análise e decisão.</p><p class="adm"><span class="adm-a">Extração pontual</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Camada própria</span></p><div class="stack"><span>SSIS</span><span>Data Warehouse</span><span>MicroStrategy</span></div></article>
-        <article class="case-mini"><p class="sector">Bancário</p><h4>A voz do cliente virou indicador vivo</h4><p>Acompanhamento de NPS transformando a voz dos clientes em indicadores de experiência e oportunidades de melhoria.</p><p class="adm"><span class="adm-a">Relatório avulso</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Indicador vivo</span></p><div class="stack"><span>NPS</span><span>Analytics</span><span>CX</span></div></article>
-        <article class="case-mini"><p class="sector">Varejo de Moda</p><h4>Todas as áreas lendo os mesmos números</h4><p>Dashboards de vendas, logística e operações dando acesso a indicadores para todas as áreas da organização.</p><p class="adm"><span class="adm-a">Por área</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Toda a empresa</span></p><div class="stack"><span>Pentaho</span><span>MicroStrategy</span><span>DW</span></div></article>
-        <article class="case-mini"><p class="sector">Saúde &amp; Diagnóstico</p><h4>Duas ferramentas de BI viraram uma</h4><p>Pipelines em BigQuery e Airflow para uma rede de diagnóstico, com migração da visualização de Tableau para Power BI.</p><p class="adm"><span class="adm-a">2 ferramentas</span><i aria-hidden="true">&rarr;</i><span class="adm-d">1 ferramenta</span></p><div class="stack"><span>GCP</span><span>BigQuery</span><span>Airflow</span><span>Power BI</span></div></article>
-        <article class="case-mini"><p class="sector">Educação</p><h4>A evasão passou a ser antecipada</h4><p>Centenas de dashboards educacionais e modelos preditivos que anteciparam a evasão para apoiar ações preventivas.</p><p class="adm"><span class="adm-a">Constatada</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Antecipada</span></p><div class="stack"><span>Analytics</span><span>Machine Learning</span><span>BI</span></div></article>
-        <article class="case-mini"><p class="sector">Saúde Hospitalar</p><h4>O padrão visual antes do primeiro painel</h4><p>Protótipos em Figma definindo o padrão visual antes do desenvolvimento — centenas de dashboards Power BI padronizados.</p><p class="adm"><span class="adm-a">Padrão depois</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Padrão antes</span></p><div class="stack"><span>Figma</span><span>Power BI</span><span>Data Design</span></div></article>
-        <article class="case-mini"><p class="sector">Food Service</p><h4>Do fechamento do mês para o mesmo dia</h4><p>Painéis de acompanhamento diário das unidades de um grande grupo de restaurantes — desvios visíveis em tempo hábil.</p><p class="adm"><span class="adm-a">Mês</span><i aria-hidden="true">&rarr;</i><span class="adm-d">Dia</span></p><div class="stack"><span>Dashboards</span><span>Operações</span></div></article>
-        <article class="case-mini"><p class="sector">Infraestrutura &amp; Mobilidade</p><h4>Três operações numa leitura só</h4><p>Painéis integrando gestão de acidentes, arrecadação de pedágios e operação aeroportuária em uma visão única.</p><p class="adm"><span class="adm-a">3 operações</span><i aria-hidden="true">&rarr;</i><span class="adm-d">1 leitura</span></p><div class="stack"><span>Data &amp; BI</span><span>Operações</span></div></article>
-      </div>
-
-      <div class="hero-ctas reveal d3" style="margin-top:2.6rem">
+      <div class="hero-ctas" style="margin-top:2.6rem">
         <a class="btn btn-accent" href="index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
       </div>
     </div>

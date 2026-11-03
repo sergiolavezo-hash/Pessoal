@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 460" role="img" aria-label="Histórico de dados estendido por uma projeção">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6FD4FF"/><stop offset="0.55" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/>
+    </linearGradient>
+    <radialGradient id="brilho" cx="78%" cy="18%" r="68%">
+      <stop offset="0" stop-color="#2E86FF" stop-opacity="0.26"/><stop offset="1" stop-color="#2E86FF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grade" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0v36" fill="none" stroke="rgba(244,243,239,0.07)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="720" height="460" fill="#0B1220"/>
+  <rect width="720" height="460" fill="url(#grade)"/>
+  <rect width="720" height="460" fill="url(#brilho)"/>
+  <rect x="52" y="100" width="610" height="262" rx="12" fill="#0E1826" stroke="#2E86FF" stroke-width="1.4" opacity="0.95"/>
+  <path d="M52 130 h610" stroke="#2E86FF" stroke-width="1" opacity="0.35"/>
+  <rect x="66" y="111" width="104" height="8" rx="4" fill="url(#g)" opacity="0.85"/>
+  <circle cx="646" cy="115" r="2.6" fill="#2E86FF" opacity="0.5"/>
+  <circle cx="633" cy="115" r="2.6" fill="#2E86FF" opacity="0.38"/>
+  <circle cx="620" cy="115" r="2.6" fill="#2E86FF" opacity="0.26"/>
+  <path d="M84.0 261.0 L134.0 243.0 L184.0 252.0 L234.0 228.0 L284.0 237.0 L334.0 216.0 L384.0 222.0" fill="none" stroke="#6FD4FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+  <path d="M384.0 222.0 L444.0 207.0 L504.0 213.0 L564.0 189.0 L624.0 174.0" fill="none" stroke="#2E86FF" stroke-width="2.4" stroke-dasharray="7 6" stroke-linecap="round" opacity="0.9"/>
+  <path d="M384 140 v182" stroke="#2E86FF" stroke-width="1.2" stroke-dasharray="4 5" opacity="0.5"/>
+  <text x="384" y="336" fill="#2E86FF" opacity="0.6" font-family="monospace" font-size="12" text-anchor="middle">hoje</text>
+  <circle cx="444.0" cy="207.0" r="3.6" fill="#6FD4FF" opacity="0.9"/>
+  <circle cx="504.0" cy="213.0" r="3.6" fill="#6FD4FF" opacity="0.9"/>
+  <circle cx="564.0" cy="189.0" r="3.6" fill="#6FD4FF" opacity="0.9"/>
+  <circle cx="624.0" cy="174.0" r="3.6" fill="#6FD4FF" opacity="0.9"/>
+  <path d="M384 222 L624 159 L624 195 Z" fill="#2E86FF" opacity="0.1"/>
+</svg>

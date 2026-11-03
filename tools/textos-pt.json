@@ -1,5 +1,5 @@
 {
- "total": 462,
+ "total": 475,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -294,11 +294,6 @@
   {
    "chave": "Español",
    "tag": "button#texto",
-   "cls": ""
-  },
-  {
-   "chave": "Inteligência Artificial <small>IA ✦</small>",
-   "tag": "a",
    "cls": ""
   },
   {
@@ -647,359 +642,304 @@
    "cls": "parc-nota reveal d3"
   },
   {
-   "chave": "Resultados que falam por si.",
+   "chave": "Histórias de sucesso",
+   "tag": "span",
+   "cls": "pill"
+  },
+  {
+   "chave": "Investindo no sucesso dos nossos clientes",
    "tag": "h2",
    "cls": "h-xl d1"
   },
   {
-   "chave": "Projetos reais entregues por especialistas da Atlas, com o antes e o depois de cada um. Nomes de clientes preservados por confidencialidade.",
+   "chave": "Nosso portfólio reflete foco e excelência em arquitetura de dados, nuvem e inteligência artificial, transformando visão estratégica em valor de longo prazo.",
    "tag": "p",
    "cls": "sub"
   },
   {
-   "chave": "Cliente confidencial",
-   "tag": "span",
-   "cls": "case-conf"
-  },
-  {
-   "chave": "<span>Varejo Multimarca</span><span>Data &amp; Analytics</span><span>Cloud Azure</span>",
-   "tag": "div",
-   "cls": "case-meta"
+   "chave": "Varejo Multimarca",
+   "tag": "p",
+   "cls": "cc-setor"
   },
   {
    "chave": "Canais separados viraram uma plataforma só",
    "tag": "h3",
-   "cls": ""
+   "cls": "cc-t"
   },
   {
-   "chave": "Plataforma omnichannel de dados em Azure",
+   "chave": "Loja física e canais digitais passaram a ser medidos na mesma plataforma, em Azure.",
    "tag": "p",
-   "cls": "case-sub"
+   "cls": "cc-cap"
   },
   {
-   "chave": "Antes",
+   "chave": "<span class=\"cc-a\">Vários</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">Uma</span>",
    "tag": "p",
-   "cls": "ad-k"
+   "cls": "cc-ad"
   },
   {
-   "chave": "Vários",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "sistemas medindo os canais em separado",
-   "tag": "p",
-   "cls": "ad-d"
-  },
-  {
-   "chave": "Depois",
-   "tag": "p",
-   "cls": "ad-k"
-  },
-  {
-   "chave": "Uma",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "plataforma com venda e operação lado a lado",
-   "tag": "p",
-   "cls": "ad-d"
-  },
-  {
-   "chave": "Cenário",
-   "tag": "dt",
-   "cls": ""
-  },
-  {
-   "chave": "Dados de lojas físicas e canais digitais espalhados em sistemas diferentes, sem visão única de performance.",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Arquitetura",
-   "tag": "dt",
-   "cls": ""
-  },
-  {
-   "chave": "Plataforma de dados em Azure integrando todos os canais de venda.",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Solução",
-   "tag": "dt",
-   "cls": ""
-  },
-  {
-   "chave": "Pipelines em Synapse, Data Factory e Databricks, com dashboards Power BI de vendas, operação e performance por canal.",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Tecnologias",
-   "tag": "dt",
-   "cls": ""
-  },
-  {
-   "chave": "Azure Synapse, Data Factory, Databricks, Power BI",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "O que mudou",
-   "tag": "p",
-   "cls": "cm-k"
-  },
-  {
-   "chave": "<b>Canais comparáveis</b><span>loja física e digital deixaram de ser medidos em sistemas separados</span>",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Fim da consolidação manual</b><span>venda e operação passaram a ser lidas no mesmo painel</span>",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Base reaproveitável</b><span>nova análise parte da plataforma existente, não de uma nova extração</span>",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Serviços Financeiros</span><span>Data Engineering</span><span>Cloud GCP</span>",
+   "chave": "<span>Data &amp; Analytics</span><span>Cloud Azure</span>",
    "tag": "div",
-   "cls": "case-meta"
+   "cls": "cc-chips"
+  },
+  {
+   "chave": "Ver case <span class=\"arr\">→</span>",
+   "tag": "a",
+   "cls": "cc-link"
   },
   {
    "chave": "Legado Oracle aposentado sem parar a operação",
    "tag": "h3",
-   "cls": ""
+   "cls": "cc-t"
   },
   {
-   "chave": "Modernização para Google Cloud",
+   "chave": "Data Lake em Google Cloud com BigQuery, dbt e Airflow — e o legado fora da conta.",
    "tag": "p",
-   "cls": "case-sub"
+   "cls": "cc-cap"
   },
   {
-   "chave": "Oracle",
+   "chave": "<span class=\"cc-a\">Oracle</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">GCP</span>",
    "tag": "p",
-   "cls": "ad-n"
+   "cls": "cc-ad"
   },
   {
-   "chave": "legado caro de manter, distante da análise",
-   "tag": "p",
-   "cls": "ad-d"
-  },
-  {
-   "chave": "GCP",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "legado aposentado, sem interromper a operação",
-   "tag": "p",
-   "cls": "ad-d"
-  },
-  {
-   "chave": "Dados presos em um legado Oracle — caro de manter e distante das necessidades analíticas do negócio.",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Data Lake em Google Cloud, com processamento em BigQuery.",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Transformações em dbt, orquestração em Airflow e BI unificado em Looker.",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "GCP, BigQuery, dbt, Airflow, Looker",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Legado fora da conta</b><span>o custo de manter o ambiente Oracle deixou de existir</span>",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Regra em código</b><span>as transformações saíram de scripts avulsos para dbt, testado e versionado</span>",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Uma camada só</b><span>Looker passou a ser o único caminho entre o dado e o negócio</span>",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>BI Governance</span><span>Migração</span><span>Self-Service BI</span>",
+   "chave": "<span>Data Engineering</span><span>Cloud GCP</span>",
    "tag": "div",
-   "cls": "case-meta"
+   "cls": "cc-chips"
+  },
+  {
+   "chave": "BI Governance",
+   "tag": "p",
+   "cls": "cc-setor"
   },
   {
    "chave": "De 200+ painéis sem padrão a um ambiente só",
    "tag": "h3",
-   "cls": ""
+   "cls": "cc-t"
   },
   {
-   "chave": "Migração e governança de BI em escala",
+   "chave": "Mais de 200 dashboards com definições divergentes viraram um ambiente governado.",
    "tag": "p",
-   "cls": "case-sub"
+   "cls": "cc-cap"
   },
   {
-   "chave": "200+",
+   "chave": "<span class=\"cc-a\">200+</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">1</span>",
    "tag": "p",
-   "cls": "ad-n"
+   "cls": "cc-ad"
   },
   {
-   "chave": "painéis crescendo sem padrão nem fonte única",
-   "tag": "p",
-   "cls": "ad-d"
-  },
-  {
-   "chave": "1",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "ambiente, com uma definição por métrica",
-   "tag": "p",
-   "cls": "ad-d"
-  },
-  {
-   "chave": "Mais de 200 dashboards Power BI crescendo sem padrão, sem governança e sem fonte única da verdade.",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Ambiente centralizado em Looker, com dados e definições unificados.",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Migração, padronização e um modelo de self-service BI para as áreas de negócio.",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Power BI, Looker, Governança de dados",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Uma definição por métrica</b><span>a mesma conta deixou de ter versões diferentes em mais de 200 painéis</span>",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Pergunta sem fila</b><span>o self-service tirou o intervalo entre a dúvida da área e a resposta</span>",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Crescimento com padrão</b><span>painel novo passa a nascer dentro de um modelo, não ao lado dele</span>",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Mais projetos entregues",
-   "tag": "h3",
-   "cls": "cases-more-head reveal"
+   "chave": "<span>Migração</span><span>Self-Service BI</span>",
+   "tag": "div",
+   "cls": "cc-chips"
   },
   {
    "chave": "Chamados viraram indicador de SLA",
-   "tag": "h4",
-   "cls": ""
+   "tag": "h3",
+   "cls": "cc-t"
   },
   {
-   "chave": "BI que transformou os chamados do sistema de incidentes em indicadores de SLA, prazo e desempenho operacional.",
+   "chave": "Os chamados do sistema de incidentes viraram indicadores de SLA, prazo e desempenho.",
    "tag": "p",
-   "cls": ""
+   "cls": "cc-cap"
   },
   {
-   "chave": "<span class=\"adm-a\">Chamados</span><i aria-hidden=\"true\">→</i><span class=\"adm-d\">Indicadores de SLA</span>",
+   "chave": "<span class=\"cc-a\">Chamados</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">Indicadores de SLA</span>",
    "tag": "p",
-   "cls": "adm"
+   "cls": "cc-ad"
   },
   {
-   "chave": "<span>Pentaho</span><span>SQL Server</span><span>Data Warehouse</span>",
+   "chave": "<span>Pentaho</span><span>SQL Server</span>",
    "tag": "div",
-   "cls": "stack"
+   "cls": "cc-chips"
   },
   {
    "chave": "Turismo &amp; Viagens",
    "tag": "p",
-   "cls": "sector"
+   "cls": "cc-setor"
   },
   {
    "chave": "Três linhas de negócio, uma visão só",
-   "tag": "h4",
-   "cls": ""
+   "tag": "h3",
+   "cls": "cc-t"
   },
   {
-   "chave": "Arquitetura completa ETL → DW → BI consolidando viagens, hospedagens e locações em uma visão única do negócio.",
+   "chave": "Viagens, hospedagens e locações consolidadas numa arquitetura ETL → DW → BI.",
    "tag": "p",
-   "cls": ""
+   "cls": "cc-cap"
   },
   {
-   "chave": "<span class=\"adm-a\">3 linhas</span><i aria-hidden=\"true\">→</i><span class=\"adm-d\">1 visão</span>",
+   "chave": "<span class=\"cc-a\">3 linhas</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">1 visão</span>",
    "tag": "p",
-   "cls": "adm"
-  },
-  {
-   "chave": "<span>Pentaho</span><span>SQL Server</span><span>MicroStrategy</span>",
-   "tag": "div",
-   "cls": "stack"
+   "cls": "cc-ad"
   },
   {
    "chave": "O comercial ganhou número próprio",
-   "tag": "h4",
-   "cls": ""
+   "tag": "h3",
+   "cls": "cc-t"
   },
   {
-   "chave": "Estrutura de dados e indicadores consolidando as informações do departamento comercial para análise e decisão.",
+   "chave": "O departamento comercial saiu da extração pontual para uma camada de dados própria.",
    "tag": "p",
-   "cls": ""
+   "cls": "cc-cap"
   },
   {
-   "chave": "<span class=\"adm-a\">Extração pontual</span><i aria-hidden=\"true\">→</i><span class=\"adm-d\">Camada própria</span>",
+   "chave": "<span class=\"cc-a\">Extração pontual</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">Camada própria</span>",
    "tag": "p",
-   "cls": "adm"
+   "cls": "cc-ad"
   },
   {
-   "chave": "<span>SSIS</span><span>Data Warehouse</span><span>MicroStrategy</span>",
+   "chave": "<span>SSIS</span><span>Data Warehouse</span>",
    "tag": "div",
-   "cls": "stack"
+   "cls": "cc-chips"
   },
   {
    "chave": "A voz do cliente virou indicador vivo",
-   "tag": "h4",
-   "cls": ""
+   "tag": "h3",
+   "cls": "cc-t"
   },
   {
-   "chave": "Acompanhamento de NPS transformando a voz dos clientes em indicadores de experiência e oportunidades de melhoria.",
+   "chave": "O NPS deixou de ser relatório avulso e virou indicador de experiência acompanhado.",
    "tag": "p",
-   "cls": ""
+   "cls": "cc-cap"
   },
   {
-   "chave": "<span class=\"adm-a\">Relatório avulso</span><i aria-hidden=\"true\">→</i><span class=\"adm-d\">Indicador vivo</span>",
+   "chave": "<span class=\"cc-a\">Relatório avulso</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">Indicador vivo</span>",
    "tag": "p",
-   "cls": "adm"
+   "cls": "cc-ad"
   },
   {
-   "chave": "<span>NPS</span><span>Analytics</span><span>CX</span>",
+   "chave": "<span>NPS</span><span>Analytics</span>",
    "tag": "div",
-   "cls": "stack"
+   "cls": "cc-chips"
   },
   {
-   "chave": "Ver os 13 cases →",
-   "tag": "a",
-   "cls": ""
+   "chave": "Varejo de Moda",
+   "tag": "p",
+   "cls": "cc-setor"
+  },
+  {
+   "chave": "Todas as áreas lendo os mesmos números",
+   "tag": "h3",
+   "cls": "cc-t"
+  },
+  {
+   "chave": "Vendas, logística e operações com acesso aos mesmos indicadores, em toda a empresa.",
+   "tag": "p",
+   "cls": "cc-cap"
+  },
+  {
+   "chave": "<span class=\"cc-a\">Por área</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">Toda a empresa</span>",
+   "tag": "p",
+   "cls": "cc-ad"
+  },
+  {
+   "chave": "<span>Pentaho</span><span>MicroStrategy</span>",
+   "tag": "div",
+   "cls": "cc-chips"
+  },
+  {
+   "chave": "Duas ferramentas de BI viraram uma",
+   "tag": "h3",
+   "cls": "cc-t"
+  },
+  {
+   "chave": "Pipelines em BigQuery e Airflow, com a visualização migrada de Tableau para Power BI.",
+   "tag": "p",
+   "cls": "cc-cap"
+  },
+  {
+   "chave": "<span class=\"cc-a\">2 ferramentas</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">1 ferramenta</span>",
+   "tag": "p",
+   "cls": "cc-ad"
+  },
+  {
+   "chave": "<span>GCP</span><span>BigQuery</span>",
+   "tag": "div",
+   "cls": "cc-chips"
+  },
+  {
+   "chave": "A evasão passou a ser antecipada",
+   "tag": "h3",
+   "cls": "cc-t"
+  },
+  {
+   "chave": "Modelos preditivos anteciparam a evasão escolar para apoiar ações preventivas.",
+   "tag": "p",
+   "cls": "cc-cap"
+  },
+  {
+   "chave": "<span class=\"cc-a\">Constatada</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">Antecipada</span>",
+   "tag": "p",
+   "cls": "cc-ad"
+  },
+  {
+   "chave": "<span>Analytics</span><span>Machine Learning</span>",
+   "tag": "div",
+   "cls": "cc-chips"
+  },
+  {
+   "chave": "Saúde Hospitalar",
+   "tag": "p",
+   "cls": "cc-setor"
+  },
+  {
+   "chave": "O padrão visual antes do primeiro painel",
+   "tag": "h3",
+   "cls": "cc-t"
+  },
+  {
+   "chave": "Protótipos em Figma fixaram o padrão antes do desenvolvimento dos painéis.",
+   "tag": "p",
+   "cls": "cc-cap"
+  },
+  {
+   "chave": "<span class=\"cc-a\">Padrão depois</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">Padrão antes</span>",
+   "tag": "p",
+   "cls": "cc-ad"
+  },
+  {
+   "chave": "<span>Figma</span><span>Power BI</span>",
+   "tag": "div",
+   "cls": "cc-chips"
+  },
+  {
+   "chave": "Do fechamento do mês para o mesmo dia",
+   "tag": "h3",
+   "cls": "cc-t"
+  },
+  {
+   "chave": "Acompanhamento diário das unidades de um grande grupo de restaurantes.",
+   "tag": "p",
+   "cls": "cc-cap"
+  },
+  {
+   "chave": "<span class=\"cc-a\">Mês</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">Dia</span>",
+   "tag": "p",
+   "cls": "cc-ad"
+  },
+  {
+   "chave": "<span>Dashboards</span><span>Operações</span>",
+   "tag": "div",
+   "cls": "cc-chips"
+  },
+  {
+   "chave": "Três operações numa leitura só",
+   "tag": "h3",
+   "cls": "cc-t"
+  },
+  {
+   "chave": "Acidentes, pedágios e operação aeroportuária integrados numa visão única.",
+   "tag": "p",
+   "cls": "cc-cap"
+  },
+  {
+   "chave": "<span class=\"cc-a\">3 operações</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">1 leitura</span>",
+   "tag": "p",
+   "cls": "cc-ad"
+  },
+  {
+   "chave": "<span>Data &amp; BI</span><span>Operações</span>",
+   "tag": "div",
+   "cls": "cc-chips"
   },
   {
    "chave": "A próxima vantagem competitiva já está nos seus dados.",
@@ -1172,6 +1112,11 @@
    "cls": ""
   },
   {
+   "chave": "Arquitetura",
+   "tag": "span",
+   "cls": ""
+  },
+  {
    "chave": "Outro",
    "tag": "span",
    "cls": ""
@@ -1245,16 +1190,6 @@
    "chave": "Parceiros",
    "tag": "span#texto",
    "cls": "pill reveal"
-  },
-  {
-   "chave": "Histórias de sucesso",
-   "tag": "span#texto",
-   "cls": "pill"
-  },
-  {
-   "chave": "Projetos reais entregues por especialistas Atlas Tec. Nomes de clientes preservados por confidencialidade.",
-   "tag": "p#texto",
-   "cls": "cases-note"
   },
   {
    "chave": "Data · AI · Cloud",
@@ -1407,42 +1342,77 @@
    "cls": ""
   },
   {
+   "chave": "Oracle",
+   "tag": "@alt",
+   "cls": ""
+  },
+  {
    "chave": "Projetos entregues",
    "tag": "@aria-label",
    "cls": "carr-trilho"
   },
   {
-   "chave": "Canais de venda separados convergindo em uma plataforma de dados única",
-   "tag": "@alt",
-   "cls": ""
-  },
-  {
-   "chave": "Antes e depois",
-   "tag": "@aria-label",
-   "cls": "ad"
-  },
-  {
-   "chave": "Um banco de dados legado denso dando lugar a um fluxo de pipelines organizados",
-   "tag": "@alt",
-   "cls": ""
-  },
-  {
-   "chave": "Painéis soltos e desalinhados dando lugar a uma grade padronizada",
-   "tag": "@alt",
-   "cls": ""
-  },
-  {
-   "chave": "Ver o case 1 de 3",
+   "chave": "Ver o case 1 de 13",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 2 de 3",
+   "chave": "Ver o case 2 de 13",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 3 de 3",
+   "chave": "Ver o case 3 de 13",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 4 de 13",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 5 de 13",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 6 de 13",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 7 de 13",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 8 de 13",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 9 de 13",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 10 de 13",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 11 de 13",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 12 de 13",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 13 de 13",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
@@ -1507,159 +1477,69 @@
    "cls": ""
   },
   {
-   "chave": "13 projetos entregues por especialistas da Atlas, com o antes e o depois de cada um. Nomes de clientes preservados por confidencialidade.",
-   "tag": "p",
-   "cls": "sub reveal d2 in"
-  },
-  {
-   "chave": "Ver todas as soluções <span class=\"arr\">→</span>",
-   "tag": "a",
-   "cls": "btn btn-line"
-  },
-  {
-   "chave": "Arquitetura, solução e o que mudou.",
-   "tag": "h2",
-   "cls": "h-xl d1"
-  },
-  {
-   "chave": "Os três projetos abaixo estão abertos por inteiro: cenário, arquitetura, stack e o resultado medido no antes e depois.",
-   "tag": "p",
-   "cls": "sub"
-  },
-  {
-   "chave": "Varejo de Moda",
-   "tag": "p",
-   "cls": "sector"
-  },
-  {
-   "chave": "Todas as áreas lendo os mesmos números",
-   "tag": "h4",
+   "chave": "<b>Canais separados viraram uma plataforma só</b><small>Varejo Multimarca</small>",
+   "tag": "span",
    "cls": ""
   },
   {
-   "chave": "Dashboards de vendas, logística e operações dando acesso a indicadores para todas as áreas da organização.",
-   "tag": "p",
+   "chave": "<b>Legado Oracle aposentado sem parar a operação</b><small>Serviços Financeiros</small>",
+   "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"adm-a\">Por área</span><i aria-hidden=\"true\">→</i><span class=\"adm-d\">Toda a empresa</span>",
-   "tag": "p",
-   "cls": "adm"
-  },
-  {
-   "chave": "<span>Pentaho</span><span>MicroStrategy</span><span>DW</span>",
-   "tag": "div",
-   "cls": "stack"
-  },
-  {
-   "chave": "Duas ferramentas de BI viraram uma",
-   "tag": "h4",
+   "chave": "<b>De 200+ painéis sem padrão a um ambiente só</b><small>BI Governance</small>",
+   "tag": "span",
    "cls": ""
   },
   {
-   "chave": "Pipelines em BigQuery e Airflow para uma rede de diagnóstico, com migração da visualização de Tableau para Power BI.",
-   "tag": "p",
+   "chave": "<b>Chamados viraram indicador de SLA</b><small>Software &amp; Tecnologia</small>",
+   "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"adm-a\">2 ferramentas</span><i aria-hidden=\"true\">→</i><span class=\"adm-d\">1 ferramenta</span>",
-   "tag": "p",
-   "cls": "adm"
-  },
-  {
-   "chave": "<span>GCP</span><span>BigQuery</span><span>Airflow</span><span>Power BI</span>",
-   "tag": "div",
-   "cls": "stack"
-  },
-  {
-   "chave": "A evasão passou a ser antecipada",
-   "tag": "h4",
+   "chave": "<b>Três linhas de negócio, uma visão só</b><small>Turismo &amp; Viagens</small>",
+   "tag": "span",
    "cls": ""
   },
   {
-   "chave": "Centenas de dashboards educacionais e modelos preditivos que anteciparam a evasão para apoiar ações preventivas.",
-   "tag": "p",
+   "chave": "<b>O comercial ganhou número próprio</b><small>Serviços Financeiros</small>",
+   "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"adm-a\">Constatada</span><i aria-hidden=\"true\">→</i><span class=\"adm-d\">Antecipada</span>",
-   "tag": "p",
-   "cls": "adm"
-  },
-  {
-   "chave": "<span>Analytics</span><span>Machine Learning</span><span>BI</span>",
-   "tag": "div",
-   "cls": "stack"
-  },
-  {
-   "chave": "Saúde Hospitalar",
-   "tag": "p",
-   "cls": "sector"
-  },
-  {
-   "chave": "O padrão visual antes do primeiro painel",
-   "tag": "h4",
+   "chave": "<b>A voz do cliente virou indicador vivo</b><small>Bancário</small>",
+   "tag": "span",
    "cls": ""
   },
   {
-   "chave": "Protótipos em Figma definindo o padrão visual antes do desenvolvimento — centenas de dashboards Power BI padronizados.",
-   "tag": "p",
+   "chave": "<b>Todas as áreas lendo os mesmos números</b><small>Varejo de Moda</small>",
+   "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"adm-a\">Padrão depois</span><i aria-hidden=\"true\">→</i><span class=\"adm-d\">Padrão antes</span>",
-   "tag": "p",
-   "cls": "adm"
-  },
-  {
-   "chave": "<span>Figma</span><span>Power BI</span><span>Data Design</span>",
-   "tag": "div",
-   "cls": "stack"
-  },
-  {
-   "chave": "Do fechamento do mês para o mesmo dia",
-   "tag": "h4",
+   "chave": "<b>Duas ferramentas de BI viraram uma</b><small>Saúde &amp; Diagnóstico</small>",
+   "tag": "span",
    "cls": ""
   },
   {
-   "chave": "Painéis de acompanhamento diário das unidades de um grande grupo de restaurantes — desvios visíveis em tempo hábil.",
-   "tag": "p",
+   "chave": "<b>A evasão passou a ser antecipada</b><small>Educação</small>",
+   "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"adm-a\">Mês</span><i aria-hidden=\"true\">→</i><span class=\"adm-d\">Dia</span>",
-   "tag": "p",
-   "cls": "adm"
-  },
-  {
-   "chave": "<span>Dashboards</span><span>Operações</span>",
-   "tag": "div",
-   "cls": "stack"
-  },
-  {
-   "chave": "Três operações numa leitura só",
-   "tag": "h4",
+   "chave": "<b>O padrão visual antes do primeiro painel</b><small>Saúde Hospitalar</small>",
+   "tag": "span",
    "cls": ""
   },
   {
-   "chave": "Painéis integrando gestão de acidentes, arrecadação de pedágios e operação aeroportuária em uma visão única.",
-   "tag": "p",
+   "chave": "<b>Do fechamento do mês para o mesmo dia</b><small>Food Service</small>",
+   "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"adm-a\">3 operações</span><i aria-hidden=\"true\">→</i><span class=\"adm-d\">1 leitura</span>",
-   "tag": "p",
-   "cls": "adm"
-  },
-  {
-   "chave": "<span>Data &amp; BI</span><span>Operações</span>",
-   "tag": "div",
-   "cls": "stack"
-  },
-  {
-   "chave": "Projetos detalhados",
-   "tag": "span#texto",
-   "cls": "pill"
+   "chave": "<b>Três operações numa leitura só</b><small>Infraestrutura &amp; Mobilidade</small>",
+   "tag": "span",
+   "cls": ""
   },
   {
    "chave": "Roadmap definido, orçamento aprovado. A vaga de engenheiro de dados segue aberta, e o projeto não anda.",
@@ -1670,6 +1550,11 @@
    "chave": "Falar sobre alocação <span class=\"arr\">→</span>",
    "tag": "a",
    "cls": "btn btn-accent"
+  },
+  {
+   "chave": "Ver todas as soluções <span class=\"arr\">→</span>",
+   "tag": "a",
+   "cls": "btn btn-line"
   },
   {
    "chave": "O que fazemos",
@@ -1802,6 +1687,11 @@
    "cls": "tl-d"
   },
   {
+   "chave": "Tecnologias",
+   "tag": "span",
+   "cls": "eyebrow reveal"
+  },
+  {
    "chave": "O stack sai do problema, não do contrato.",
    "tag": "h2",
    "cls": "h-xl reveal d1"
@@ -1820,6 +1710,11 @@
    "chave": "A prova está nos projetos",
    "tag": "span",
    "cls": "eyebrow reveal"
+  },
+  {
+   "chave": "Resultados que falam por si.",
+   "tag": "h2",
+   "cls": "h-xl reveal d1"
   },
   {
    "chave": "Mais de 150 profissionais alocados. Contratos de no mínimo seis meses, boa parte por tempo indeterminado: o cliente renova para manter a pessoa.",
@@ -2122,8 +2017,63 @@
    "cls": "eyebrow reveal"
   },
   {
+   "chave": "Cliente confidencial",
+   "tag": "span",
+   "cls": "case-conf"
+  },
+  {
+   "chave": "<span>BI Governance</span><span>Migração</span><span>Self-Service BI</span>",
+   "tag": "div",
+   "cls": "case-meta"
+  },
+  {
+   "chave": "Migração e governança de BI em escala",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Cenário",
+   "tag": "dt",
+   "cls": ""
+  },
+  {
+   "chave": "Mais de 200 dashboards Power BI crescendo sem padrão, sem governança e sem fonte única da verdade.",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Solução",
+   "tag": "dt",
+   "cls": ""
+  },
+  {
    "chave": "Migração e padronização em Looker, com dados e definições unificados e um modelo de self-service para as áreas de negócio.",
    "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Power BI, Looker, Governança de dados",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "O que mudou",
+   "tag": "p",
+   "cls": "cm-k"
+  },
+  {
+   "chave": "<b>Uma definição por métrica</b><span>a mesma conta deixou de ter versões diferentes em mais de 200 painéis</span>",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Pergunta sem fila</b><span>o self-service tirou o intervalo entre a dúvida da área e a resposta</span>",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Crescimento com padrão</b><span>painel novo passa a nascer dentro de um modelo, não ao lado dele</span>",
+   "tag": "p",
    "cls": ""
   },
   {
@@ -2277,13 +2227,43 @@
    "cls": "pag-tecs reveal d2"
   },
   {
+   "chave": "<span>Serviços Financeiros</span><span>Data Engineering</span><span>Cloud GCP</span>",
+   "tag": "div",
+   "cls": "case-meta"
+  },
+  {
    "chave": "Modernização de legado para a nuvem",
    "tag": "h3",
    "cls": ""
   },
   {
+   "chave": "Dados presos em um legado Oracle — caro de manter e distante das necessidades analíticas do negócio.",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
    "chave": "Data Lake em Google Cloud com processamento em BigQuery, transformações em dbt, orquestração em Airflow e BI unificado em Looker.",
    "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "GCP, BigQuery, dbt, Airflow, Looker",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Legado fora da conta</b><span>o custo de manter o ambiente Oracle deixou de existir</span>",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Regra em código</b><span>as transformações saíram de scripts avulsos para dbt, testado e versionado</span>",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Uma camada só</b><span>Looker passou a ser o único caminho entre o dado e o negócio</span>",
+   "tag": "p",
    "cls": ""
   },
   {
@@ -2310,6 +2290,91 @@
    "chave": "Airbyte",
    "tag": "@title",
    "cls": "pag-tec"
+  },
+  {
+   "chave": "<span aria-hidden=\"true\">←</span> Todos os cases",
+   "tag": "a",
+   "cls": "voltar"
+  },
+  {
+   "chave": "<span>Varejo Multimarca</span><span>Data &amp; Analytics</span><span>Cloud Azure</span>",
+   "tag": "div",
+   "cls": "caso-chips"
+  },
+  {
+   "chave": "Antes",
+   "tag": "p",
+   "cls": "ad-k"
+  },
+  {
+   "chave": "Vários",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "sistemas medindo os canais em separado",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "Depois",
+   "tag": "p",
+   "cls": "ad-k"
+  },
+  {
+   "chave": "Uma",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "plataforma com venda e operação lado a lado",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "Dados de lojas físicas e canais digitais espalhados em sistemas diferentes, sem visão única de performance.",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Plataforma de dados em Azure integrando todos os canais de venda.",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Pipelines em Synapse, Data Factory e Databricks, com dashboards Power BI de vendas, operação e performance por canal.",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Azure Synapse, Data Factory, Databricks, Power BI",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Canais comparáveis</b><span>loja física e digital deixaram de ser medidos em sistemas separados</span>",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Fim da consolidação manual</b><span>venda e operação passaram a ser lidas no mesmo painel</span>",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Base reaproveitável</b><span>nova análise parte da plataforma existente, não de uma nova extração</span>",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Outros projetos",
+   "tag": "h2",
+   "cls": "cases-more-head"
+  },
+  {
+   "chave": "Antes e depois",
+   "tag": "@aria-label",
+   "cls": "ad"
   }
  ]
 }

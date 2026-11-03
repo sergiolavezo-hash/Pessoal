@@ -205,10 +205,198 @@ def governanca():
 
 
 
+def sla():
+    """Fila de chamados virando medidor de prazo."""
+    p = []
+    for i in range(5):
+        y = 108 + i * 42
+        p.append(f'  <rect x="52" y="{y}" width="150" height="30" rx="7" fill="#0E1826" stroke="{AZUL}" stroke-width="1.3" opacity="{0.8 - i * 0.1}"/>')
+        p.append(f'  <circle cx="70" cy="{y + 15}" r="4" fill="{AZUL}" opacity="0.6"/>')
+        p.append(f'  <rect x="84" y="{y + 11}" width="{92 - i * 10}" height="7" rx="3.5" fill="{AZUL}" opacity="0.35"/>')
+    p.append(f'  <path d="M222 230 L272 230" stroke="url(#g)" stroke-width="2.4" fill="none"/>')
+    p.append(f'  <path d="M264 223 L274 230 L264 237" stroke="{CLARO}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+    p += painel(300, 96, 362, 268, titulo_larg=90)
+    p += donut(392, 196, 48, 0.92, larg=12)
+    p.append(f'  <text x="392" y="204" fill="{CLARO}" font-family="monospace" font-size="20" text-anchor="middle">92%</text>')
+    p.append(f'  <text x="392" y="262" fill="{AZUL}" opacity="0.65" font-family="monospace" font-size="12" text-anchor="middle">no prazo</text>')
+    p += barras(470, 150, 168, 96, [0.5, 0.64, 0.58, 0.78, 0.7, 0.9], destaque=5)
+    p += serie(470, 272, 168, 60, [0.3, 0.5, 0.42, 0.66, 0.74, 0.9])
+    return '\n'.join(p)
+
+
+def consolidacao():
+    """Três linhas de negócio entrando num painel só."""
+    p = []
+    for i, y in enumerate([118, 198, 278]):
+        p.append(f'  <rect x="48" y="{y - 26}" width="130" height="52" rx="9" fill="#0E1826" stroke="{AZUL}" stroke-width="1.3" opacity="0.88"/>')
+        p.append(f'  <rect x="66" y="{y - 10}" width="{78 - i * 12}" height="7" rx="3.5" fill="url(#g)" opacity="0.8"/>')
+        p.append(f'  <rect x="66" y="{y + 2}" width="52" height="6" rx="3" fill="{AZUL}" opacity="0.3"/>')
+        p.append(curva(178, y, 268, 198))
+    p += painel(268, 92, 394, 276, titulo_larg=104)
+    p += barras(294, 146, 200, 110, [0.4, 0.56, 0.48, 0.7, 0.62, 0.84, 0.92], destaque=6)
+    p += donut(578, 198, 42, 0.68, larg=11)
+    p += serie(294, 282, 342, 66, [0.22, 0.4, 0.34, 0.56, 0.5, 0.72, 0.8, 0.95])
+    return '\n'.join(p)
+
+
+def comercial():
+    """Extração pontual virando camada própria."""
+    p = []
+    p.append(f'  <rect x="54" y="150" width="128" height="94" rx="10" fill="#0E1826" stroke="{AZUL}" stroke-width="1.4" stroke-dasharray="6 5" opacity="0.6"/>')
+    for k in range(3):
+        p.append(f'  <rect x="74" y="{174 + k * 22}" width="{88 - k * 18}" height="8" rx="4" fill="{AZUL}" opacity="{0.35 - k * 0.08}"/>')
+    p.append(f'  <path d="M200 197 L252 197" stroke="url(#g)" stroke-width="2.4" fill="none"/>')
+    p.append(f'  <path d="M244 190 L254 197 L244 204" stroke="{CLARO}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+    for i, y in enumerate([96, 170, 244]):
+        p.append(f'  <rect x="280" y="{y}" width="150" height="58" rx="10" fill="{AZUL}" opacity="0.08"/>')
+        p.append(f'  <rect x="280" y="{y}" width="150" height="58" rx="10" fill="none" stroke="{AZUL}" stroke-width="1.4" opacity="0.7"/>')
+        p.append(f'  <rect x="298" y="{y + 16}" width="70" height="8" rx="4" fill="url(#g)" opacity="0.9"/>')
+        p.append(f'  <rect x="298" y="{y + 32}" width="106" height="6" rx="3" fill="{AZUL}" opacity="0.28"/>')
+    p += painel(458, 96, 206, 206, titulo_larg=70)
+    p += barras(482, 150, 158, 86, [0.46, 0.62, 0.56, 0.8, 0.94], destaque=4)
+    p += serie(482, 250, 158, 40, [0.3, 0.5, 0.44, 0.7, 0.86])
+    return '\n'.join(p)
+
+
+def nps():
+    """Voz do cliente virando indicador vivo."""
+    p = []
+    for i, (x, y) in enumerate([(70, 120), (142, 92), (62, 206), (150, 186), (92, 290)]):
+        p.append(f'  <path d="M{x} {y} h68 a9 9 0 0 1 9 9 v30 a9 9 0 0 1-9 9 h-50 l-14 12 v-12 h-4 a9 9 0 0 1-9-9 v-30 a9 9 0 0 1 9-9Z" '
+                 f'fill="#0E1826" stroke="{AZUL}" stroke-width="1.3" opacity="{0.75 - i * 0.08}"/>')
+        p.append(f'  <rect x="{x + 12}" y="{y + 14}" width="{48 - i * 5}" height="6" rx="3" fill="{AZUL}" opacity="0.4"/>')
+    p.append(f'  <path d="M258 206 L306 206" stroke="url(#g)" stroke-width="2.4" fill="none"/>')
+    p.append(f'  <path d="M298 199 L308 206 L298 213" stroke="{CLARO}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+    p += painel(332, 96, 330, 270, titulo_larg=84)
+    p += donut(422, 198, 46, 0.78, larg=12)
+    p.append(f'  <text x="422" y="206" fill="{CLARO}" font-family="monospace" font-size="19" text-anchor="middle">NPS</text>')
+    p += serie(502, 150, 136, 92, [0.2, 0.35, 0.3, 0.52, 0.64, 0.6, 0.84, 0.94])
+    p += barras(502, 268, 136, 62, [0.44, 0.6, 0.54, 0.78, 0.9], destaque=4)
+    return '\n'.join(p)
+
+
+def difusao():
+    """Um painel que chega a todas as áreas."""
+    p = []
+    p += painel(44, 128, 252, 204, titulo_larg=82)
+    p += barras(68, 180, 142, 92, [0.44, 0.62, 0.54, 0.76, 0.9], destaque=4)
+    p += donut(254, 224, 28, 0.74)
+    for i, y in enumerate([92, 162, 232, 302]):
+        p.append(curva(296, 230, 392, y + 28))
+        p.append(f'  <rect x="392" y="{y}" width="268" height="56" rx="10" fill="#0E1826" stroke="{AZUL}" stroke-width="1.3" opacity="{0.9 - i * 0.07}"/>')
+        p.append(f'  <circle cx="420" cy="{y + 28}" r="9" fill="none" stroke="{CLARO}" stroke-width="1.4" opacity="0.8"/>')
+        p.append(f'  <rect x="440" y="{y + 17}" width="{128 - i * 14}" height="7" rx="3.5" fill="url(#g)" opacity="0.85"/>')
+        p.append(f'  <rect x="440" y="{y + 31}" width="{176 - i * 18}" height="6" rx="3" fill="{AZUL}" opacity="0.26"/>')
+    return '\n'.join(p)
+
+
+def unificacao():
+    """Duas ferramentas de BI virando uma."""
+    p = []
+    for i, y in enumerate([112, 238]):
+        p += painel(48, y, 170, 112, titulo_larg=56)
+        p += barras(68, y + 48, 128, 48, [0.5, 0.7, 0.58, 0.86], destaque=-1)
+        p.append(f'  <path d="M218 {y + 56} C262 {y + 56}, 262 198, 300 198" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.6"/>')
+    p.append(f'  <path d="M300 198 L330 198" stroke="url(#g)" stroke-width="2.4" fill="none"/>')
+    p.append(f'  <path d="M322 191 L332 198 L322 205" stroke="{CLARO}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+    p += painel(354, 92, 308, 276, titulo_larg=96)
+    p += barras(380, 146, 180, 104, [0.42, 0.6, 0.52, 0.74, 0.66, 0.92], destaque=5)
+    p += donut(606, 198, 34, 0.86)
+    p += serie(380, 274, 256, 70, [0.24, 0.42, 0.36, 0.6, 0.72, 0.68, 0.9])
+    return '\n'.join(p)
+
+
+def preditivo():
+    """Histórico virando previsão."""
+    p = []
+    p += painel(52, 100, 610, 262, titulo_larg=104)
+    hist = [0.3, 0.42, 0.36, 0.52, 0.46, 0.6, 0.56]
+    prev = [0.56, 0.66, 0.62, 0.78, 0.88]
+    p += serie(84, 156, 300, 150, hist, larg=2.4)
+    n = len(prev)
+    pts = [(384 + i * (240 / (n - 1)), 156 + 150 - v * 150) for i, v in enumerate(prev)]
+    d = 'M' + ' L'.join(f'{a:.1f} {b:.1f}' for a, b in pts)
+    p.append(f'  <path d="{d}" fill="none" stroke="{AZUL}" stroke-width="2.4" stroke-dasharray="7 6" stroke-linecap="round" opacity="0.9"/>')
+    p.append(f'  <path d="M384 140 v182" stroke="{AZUL}" stroke-width="1.2" stroke-dasharray="4 5" opacity="0.5"/>')
+    p.append(f'  <text x="384" y="336" fill="{AZUL}" opacity="0.6" font-family="monospace" font-size="12" text-anchor="middle">hoje</text>')
+    for x, y in pts[1:]:
+        p.append(f'  <circle cx="{x:.1f}" cy="{y:.1f}" r="3.6" fill="{CLARO}" opacity="0.9"/>')
+    # faixa de incerteza
+    p.append(f'  <path d="M384 {156 + 150 - 0.56 * 150:.0f} L624 {156 + 150 - 0.98 * 150:.0f} L624 {156 + 150 - 0.74 * 150:.0f} Z" fill="{AZUL}" opacity="0.1"/>')
+    return '\n'.join(p)
+
+
+def design():
+    """Protótipo definindo o padrão antes do painel."""
+    p = []
+    p.append(f'  <rect x="48" y="104" width="232" height="206" rx="12" fill="none" stroke="{AZUL}" stroke-width="1.5" stroke-dasharray="7 6" opacity="0.65"/>')
+    p.append(f'  <text x="164" y="92" fill="{AZUL}" opacity="0.6" font-family="monospace" font-size="12" text-anchor="middle">protótipo</text>')
+    for i, (x, y, w, hh) in enumerate([(72, 128, 86, 44), (174, 128, 82, 44), (72, 186, 184, 50), (72, 250, 184, 40)]):
+        p.append(f'  <rect x="{x}" y="{y}" width="{w}" height="{hh}" rx="7" fill="none" stroke="{AZUL}" stroke-width="1.3" stroke-dasharray="4 4" opacity="0.6"/>')
+        p.append(f'  <rect x="{x + 11}" y="{y + 13}" width="{w // 2}" height="6" rx="3" fill="{AZUL}" opacity="0.3"/>')
+    p.append(f'  <path d="M300 206 L348 206" stroke="url(#g)" stroke-width="2.4" fill="none"/>')
+    p.append(f'  <path d="M340 199 L350 206 L340 213" stroke="{CLARO}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+    p += painel(372, 104, 292, 206, titulo_larg=88)
+    p += barras(396, 152, 128, 70, [0.48, 0.66, 0.58, 0.82], destaque=3)
+    p += donut(600, 186, 30, 0.8)
+    for i in range(2):
+        p.append(f'  <rect x="{396 + i * 136}" y="248" width="124" height="44" rx="8" fill="{AZUL}" opacity="0.08"/>')
+        p.append(f'  <rect x="{396 + i * 136}" y="248" width="124" height="44" rx="8" fill="none" stroke="{AZUL}" stroke-width="1.3" opacity="0.6"/>')
+        p.append(f'  <rect x="{408 + i * 136}" y="262" width="58" height="7" rx="3.5" fill="url(#g)" opacity="0.85"/>')
+    return '\n'.join(p)
+
+
+def diario():
+    """Do fechamento mensal ao acompanhamento diário."""
+    p = []
+    p.append(f'  <rect x="48" y="128" width="176" height="156" rx="11" fill="#0E1826" stroke="{AZUL}" stroke-width="1.4" opacity="0.7"/>')
+    p.append(f'  <text x="136" y="116" fill="{AZUL}" opacity="0.6" font-family="monospace" font-size="12" text-anchor="middle">mês</text>')
+    for r in range(4):
+        for c in range(5):
+            on = (r * 5 + c) == 19
+            p.append(f'  <rect x="{66 + c * 30}" y="{146 + r * 32}" width="20" height="20" rx="4" '
+                     f'fill="{AZUL}" opacity="{0.85 if on else 0.16}"/>')
+    p.append(f'  <path d="M244 206 L292 206" stroke="url(#g)" stroke-width="2.4" fill="none"/>')
+    p.append(f'  <path d="M284 199 L294 206 L284 213" stroke="{CLARO}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+    p.append(f'  <text x="476" y="116" fill="{CLARO}" opacity="0.7" font-family="monospace" font-size="12" text-anchor="middle">dia</text>')
+    p += painel(316, 128, 320, 212, titulo_larg=78)
+    p += barras(340, 180, 272, 100, [0.4, 0.58, 0.5, 0.72, 0.64, 0.86, 0.78, 0.94], destaque=7)
+    p += serie(340, 296, 272, 32, [0.3, 0.5, 0.42, 0.68, 0.6, 0.84, 0.76, 0.95], larg=2)
+    return '\n'.join(p)
+
+
+def operacoes():
+    """Três operações numa leitura só."""
+    p = []
+    rot = [(62, 108), (62, 198), (62, 288)]
+    for i, (x, y) in enumerate(rot):
+        p.append(f'  <rect x="{x}" y="{y - 28}" width="138" height="56" rx="10" fill="#0E1826" stroke="{AZUL}" stroke-width="1.3" opacity="0.88"/>')
+        p.append(f'  <circle cx="{x + 26}" cy="{y}" r="10" fill="none" stroke="{CLARO}" stroke-width="1.4" opacity="0.8"/>')
+        p.append(f'  <rect x="{x + 46}" y="{y - 10}" width="{72 - i * 10}" height="7" rx="3.5" fill="url(#g)" opacity="0.85"/>')
+        p.append(f'  <rect x="{x + 46}" y="{y + 2}" width="56" height="6" rx="3" fill="{AZUL}" opacity="0.28"/>')
+        p.append(curva(200, y, 288, 198))
+    p += painel(288, 92, 374, 276, titulo_larg=98)
+    p += barras(314, 146, 184, 108, [0.44, 0.6, 0.52, 0.74, 0.68, 0.9], destaque=5)
+    p += donut(586, 196, 40, 0.82, larg=11)
+    p += serie(314, 280, 324, 68, [0.26, 0.44, 0.38, 0.6, 0.72, 0.66, 0.88, 0.96])
+    return '\n'.join(p)
+
+
 ARTES = [
     ('omnichannel.svg', omnichannel, 'Canais de venda separados convergindo em uma plataforma de dados única'),
     ('legado.svg', legado, 'Um banco de dados legado denso dando lugar a um fluxo de pipelines organizados'),
+    ('nuvem.svg', legado, 'Um banco de dados legado denso dando lugar a pipelines em nuvem'),
     ('governanca.svg', governanca, 'Painéis soltos e desalinhados dando lugar a uma grade padronizada'),
+    ('sla.svg', sla, 'Fila de chamados dando lugar a um medidor de prazo'),
+    ('consolidacao.svg', consolidacao, 'Três linhas de negócio entrando em um painel único'),
+    ('comercial.svg', comercial, 'Extração pontual dando lugar a uma camada de dados própria'),
+    ('nps.svg', nps, 'Mensagens de clientes virando um indicador acompanhado'),
+    ('difusao.svg', difusao, 'Um painel distribuído para todas as áreas da empresa'),
+    ('unificacao.svg', unificacao, 'Duas ferramentas de BI convergindo em uma só'),
+    ('preditivo.svg', preditivo, 'Histórico de dados estendido por uma projeção'),
+    ('design.svg', design, 'Protótipo de interface definindo o padrão do painel final'),
+    ('diario.svg', diario, 'Fechamento mensal dando lugar a acompanhamento diário'),
+    ('operacoes.svg', operacoes, 'Três operações distintas integradas em um painel'),
 ]
 
 
