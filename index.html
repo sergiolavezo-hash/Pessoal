@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formsubmit.co https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://fonts.googleapis.com https://fonts.gstatic.com; form-action 'self' https://formsubmit.co; base-uri 'self'; object-src 'none'; frame-src 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; connect-src 'self' https://formsubmit.co https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://fonts.googleapis.com https://fonts.gstatic.com; form-action 'self' https://formsubmit.co; base-uri 'self'; object-src 'none'; frame-src 'none'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="format-detection" content="telephone=no">
   <meta name="description" content="Consultoria de tecnologia em dados e alocação de especialistas. Business Intelligence, Data Engineering, Inteligência Artificial e Cloud — da arquitetura à decisão, em produção.">
@@ -65,8 +65,25 @@
   <title>Atlas Tec — Transformamos dados complexos em decisões extraordinárias</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="media/fonts/mona-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+
+  /* Mona Sans, variável, hospedada aqui mesmo. É a fonte da referência e
+     está sob SIL OFL (media/fonts/mona-sans-LICENSE.txt). Self-host em vez
+     de CDN porque a CSP não libera fonte de terceiro — e porque dois
+     arquivos de 55 KB no mesmo domínio chegam antes de um handshake novo.
+     Um eixo só, o de peso: o de largura dobraria o download sem uso. */
+  @font-face {
+    font-family: 'Mona Sans'; font-style: normal; font-weight: 200 900; font-display: swap;
+    src: url(media/fonts/mona-sans-latin-wght-normal.woff2) format('woff2-variations');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+  @font-face {
+    font-family: 'Mona Sans'; font-style: normal; font-weight: 200 900; font-display: swap;
+    src: url(media/fonts/mona-sans-latin-ext-wght-normal.woff2) format('woff2-variations');
+    unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+  }
 
   :root {
     --bg0: #05070A;
@@ -88,8 +105,8 @@
     --paper-ink: #131316;
     --paper-muted: #56565E;
     --paper-line: #DCDAD2;
-    --display: 'Manrope', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
-    --body: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --display: 'Mona Sans', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+    --body: 'Mona Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
     --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --grid: rgba(244, 243, 239, 0.05);
@@ -102,10 +119,16 @@
        selos, links e ícones. */
     --btn-fill: #1F6FE0;   /* branco sobre ele: 4,76:1 */
     --accent-quente: #F2A33C;  /* contraponto quente da constelação */
+    --accent-verde: #2FB6A4;
     --sombra: 0 10px 30px -8px rgba(5, 7, 10, 0.55);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* O atributo hidden perde para qualquer display declarado depois — foi o
+     que fez a barra de conversa, o painel de solução e um selo de case
+     aparecerem quando não deviam. Em vez de lembrar da regra em cada
+     componente novo, ela fica aqui uma vez. */
+  [hidden] { display: none !important; }
   html { scroll-behavior: smooth; }
   /* Grade sutil de fundo — a mesma textura usada em todo o conteúdo social
      da Atlas (carrosséis, reels, stories). Reforça a identidade entre o
@@ -258,10 +281,11 @@
      mesmo canto e ruido, e no mobile cobre conteudo — entao a barra desce
      do topo, e so depois que o hero sai da tela. */
   .cbar {
-    /* Abaixo do cabeçalho, nunca por cima. A altura da nav muda com o scroll
-       e arredonda diferente por zoom, então ela é medida em tempo de execução
-       e publicada em --navh — número fixo aqui sempre erra por 1px. */
-    position: fixed; top: var(--navh, 4.25rem); left: 0; right: 0; z-index: 45;
+    /* Filha do cabeçalho, ancorada no rodapé dele: top:100% acompanha a
+       altura real da nav sempre. Medir a altura e publicar em --navh
+       errava justamente quando a nav mudava de tamanho — bastava voltar ao
+       topo com a barra aberta para ela subir por cima do menu. */
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 45;
     display: flex; align-items: center; justify-content: center; gap: 1.2rem;
     padding: 0.6rem 3rem 0.6rem 1.2rem;
     background: var(--veil-forte); border-bottom: 1px solid var(--line);
@@ -269,6 +293,7 @@
     transform: translateY(-100%); transition: transform 0.45s var(--ease);
   }
   .cbar.on { transform: none; }
+  .nav.mega-aberto .cbar { transform: translateY(-100%); }
   .cbar p { font-size: 0.88rem; color: var(--muted); margin: 0; }
   .cbar .btn { padding: 0.5rem 1rem; font-size: 0.82rem; }
   .cbar-x {
@@ -362,6 +387,35 @@
   }
 
   /* ---------- Cases ---------- */
+  /* Carrossel dos cases: trilho com scroll-snap, setas e pontos. O avanço
+     automático existe para mostrar que há mais de um, e para assim que
+     alguém usa as setas ou os pontos — depois disso quem manda é o leitor.
+     Pausa também no hover e no foco do teclado. */
+  .carr { position: relative; margin-top: 1.6rem; }
+  .carr-trilho {
+    display: flex; gap: 1.2rem; overflow-x: auto; scroll-snap-type: x mandatory;
+    scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none;
+    padding-bottom: 0.4rem;
+  }
+  .carr-trilho::-webkit-scrollbar { display: none; }
+  .carr-trilho > .case-card { flex: 0 0 100%; scroll-snap-align: start; margin-top: 0; }
+  .carr-barra { display: flex; align-items: center; gap: 0.9rem; margin-top: 1.4rem; justify-content: flex-end; }
+  .carr-pontos { display: flex; gap: 0.45rem; margin-right: auto; }
+  .carr-ponto {
+    width: 2rem; height: 3px; border-radius: 2px; border: 0; padding: 0; cursor: pointer;
+    background: var(--line-strong); transition: background 0.3s var(--ease);
+  }
+  .carr-ponto[aria-current="true"] { background: var(--accent); }
+  .carr-seta {
+    width: 2.6rem; height: 2.6rem; display: grid; place-items: center; cursor: pointer;
+    border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--muted);
+    transition: all 0.25s var(--ease);
+  }
+  .carr-seta:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .carr-seta:disabled { opacity: 0.35; cursor: default; }
+  .carr-seta svg { width: 1.1rem; height: 1.1rem; stroke: currentColor; fill: none; stroke-width: 2; }
+  @media (prefers-reduced-motion: reduce) { .carr-trilho { scroll-behavior: auto; } }
+
   .case-card { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2.5rem; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 2.2rem; margin-top: 1.6rem; }
   /* A arte atravessa as duas colunas no topo do cartão. É um diagrama do
      que o projeto fez, não enfeite: por isso cada case tem a sua, e o alt
@@ -694,10 +748,12 @@
   .reveal.d2 { transition-delay: 0.16s; }
   .reveal.d3 { transition-delay: 0.24s; }
 
+  /* O trilho de setores e a constelação ficam de fora desta regra por
+     decisão do dono do site: é a deriva lenta que ele quer ver e ele navega
+     com "reduzir movimento" ligado. Tudo o mais continua travado. */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .reveal, .m-step, .sol-item, .hero h1 .w > span { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; opacity: 1 !important; transform: none !important; }
-    .marquee-track { animation: none; }
     .live-line { animation: none; stroke-dashoffset: 0; }
     .live-dot { animation: none; opacity: 1; }
     .mascot-eye, .mascot-dot, .mascot-float { animation: none; }
@@ -833,25 +889,6 @@
   .num b { display: block; font-family: var(--display); font-size: clamp(2rem, 4vw, 2.9rem); font-weight: 800; letter-spacing: -0.04em; color: var(--accent-light); }
   .num span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
 
-  /* ---------- Insight AI (demonstração) ---------- */
-  .demo { border: 1px solid var(--line); border-radius: 16px; background: var(--panel); overflow: hidden; margin-top: 2.4rem; }
-  .demo-bar { display: flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
-  .demo-bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
-  .demo-body { padding: 1.4rem; display: grid; gap: 1rem; }
-  .demo-qs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .demo-q {
-    font-family: var(--mono); font-size: 0.72rem; color: var(--muted); cursor: pointer;
-    background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 0.45rem 0.9rem;
-    transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
-  }
-  .demo-q:hover { border-color: rgba(46,134,255,0.5); color: var(--ink); }
-  .demo-q[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.1); }
-  .demo-a { border-left: 2px solid var(--accent); padding-left: 1rem; min-height: 6rem; }
-  .demo-a p { color: var(--muted); }
-  .demo-a b { color: var(--ink); }
-  .demo-metrics { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-top: 0.8rem; }
-  .demo-metrics div span { display: block; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
-  .demo-metrics div b { font-family: var(--display); font-size: 1.3rem; font-weight: 700; }
 
   /* ---------- CTA final ---------- */
   .final { text-align: center; padding: clamp(4rem, 9vw, 7rem) 0; }
@@ -907,110 +944,6 @@
   @media (max-width: 1080px) { .pilares { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 620px) { .pilares { grid-template-columns: 1fr; } }
 
-  /* ---------- Painel executivo de exemplo ---------- */
-  /* Um painel só, bem resolvido, em vez de um comparativo. A hierarquia
-     é o assunto: um número principal, um gráfico com um único destaque e
-     o apoio embaixo — nada disputando atenção. */
-  .dash {
-    border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
-    background: linear-gradient(180deg, rgba(18,26,36,0.9), rgba(13,17,23,0.9));
-    margin-top: 2.4rem;
-  }
-  .dash-bar {
-    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-    padding: 1rem 1.4rem; border-bottom: 1px solid var(--line);
-    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
-  }
-  .dash-bar { flex-wrap: wrap; }
-  .dash-bar b { color: var(--ink); font-weight: 500; }
-  .dash-bar span { color: var(--dim); }
-
-  .dash-tabs { display: flex; gap: 0.3rem; }
-  .dash-tab {
-    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--dim); background: transparent; border: 1px solid transparent; border-radius: 999px;
-    padding: 0.35rem 0.7rem; cursor: pointer;
-    transition: color 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
-  }
-  .dash-tab:hover { color: var(--ink); }
-  .dash-tab[aria-selected="true"] { color: var(--ink); border-color: rgba(46,134,255,0.45); background: rgba(46,134,255,0.12); }
-  .dash-page[hidden] { display: none; }
-  .dash-body { display: grid; grid-template-columns: 17.5rem 1fr; }
-  .dash-side { padding: 1.6rem 1.4rem; border-right: 1px solid var(--line); display: grid; gap: 1.5rem; align-content: start; }
-  .dash-main { padding: 1.6rem 1.6rem 1.3rem; }
-
-  .kpi-k { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
-  .kpi-v { font-family: var(--display); font-weight: 800; letter-spacing: -0.035em; line-height: 1; font-size: clamp(1.7rem, 2.9vw, 2.2rem); margin-top: 0.4rem; white-space: nowrap; }
-  .kpi-delta { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.5rem; font-family: var(--mono); font-size: 0.72rem; color: var(--accent-light); }
-  .kpi-sub { font-family: var(--mono); font-size: 0.68rem; color: var(--dim); margin-top: 0.15rem; }
-  .kpi-mini { display: grid; gap: 0.25rem; }
-  .kpi-mini b { font-family: var(--display); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
-
-  .dash-title { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
-  .chart { display: flex; align-items: flex-end; gap: 0.55rem; height: 9.5rem; margin: 1.1rem 0 0.5rem; }
-  .chart div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
-  .chart i {
-    display: block; width: 100%; border-radius: 2px 2px 0 0;
-    background: rgba(46,134,255,0.22); transition: background 0.4s var(--ease);
-  }
-  .chart div.hi i { background: var(--accent); box-shadow: 0 0 22px rgba(46,134,255,0.45); }
-  .chart-x { display: flex; gap: 0.55rem; font-family: var(--mono); font-size: 0.6rem; color: var(--dim); }
-  .chart-x span { flex: 1; text-align: center; }
-  .chart-x span.hi { color: var(--accent-light); }
-
-  .dash-title.mt { margin-top: 1.6rem; }
-
-  /* Barra horizontal: a comparação entre poucas categorias com nome longo
-     lê melhor deitada do que em colunas verticais espremidas. */
-  .hbars { display: grid; gap: 0.8rem; margin-top: 1.1rem; }
-  .hbar { display: grid; grid-template-columns: 9.5rem 1fr auto; gap: 0.9rem; align-items: center; font-size: 0.88rem; }
-  .hbar > span { color: var(--muted); }
-  .hbar-track { height: 0.5rem; border-radius: 999px; background: rgba(255,255,255,0.05); overflow: hidden; }
-  .hbar-fill { height: 100%; border-radius: 999px; background: rgba(46,134,255,0.3); }
-  .hbar.hi .hbar-fill { background: var(--accent); box-shadow: 0 0 18px rgba(46,134,255,0.45); }
-  .hbar-track { position: relative; }
-  .hbar-goal { position: absolute; top: -2px; bottom: -2px; width: 1px; background: var(--ink); opacity: 0.55; }
-  .dash-scale { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; color: var(--dim); text-transform: none; margin-left: 0.5rem; }
-  .hbar > b { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--ink); }
-
-  .spark { display: block; width: 100%; height: 8.5rem; margin: 1.1rem 0 0.5rem; }
-
-  .dash-sub { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 0.9rem; }
-  .dash-sub b { font-family: var(--display); font-size: 1.2rem; font-weight: 700; letter-spacing: -0.02em; display: block; margin-top: 0.2rem; }
-
-  .dash-note {
-    display: flex; align-items: center; gap: 0.5rem; margin-top: 1.1rem; padding-top: 1rem;
-    border-top: 1px solid var(--line-soft); font-size: 0.88rem; color: var(--muted);
-  }
-  .dash-note b { color: var(--ink); font-weight: 600; }
-  .dash-note::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; }
-
-  @media (max-width: 780px) {
-    .dash-body { grid-template-columns: 1fr; }
-    .dash-side { border-right: none; border-bottom: 1px solid var(--line); grid-template-columns: repeat(2, 1fr); }
-    .dash-side > :first-child { grid-column: 1 / -1; }
-    .chart { height: 7rem; }
-    .chart-x { font-size: 0.52rem; }
-    .dash-bar { gap: 0.7rem; }
-    .hbar { grid-template-columns: 7rem 1fr auto; gap: 0.6rem; font-size: 0.8rem; }
-    .dash-sub { gap: 0.6rem; }
-    .dash-sub b { font-size: 1rem; }
-  }
-
-  /* ============================================================
-     Arquitetura de blocos no formato da referência — com os
-     tokens, a tipografia e o fundo escuro da Atlas.
-     ============================================================ */
-
-  /* Selo de seção: variante em pílula do .eyebrow */
-  .pill {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
-    letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-light);
-    background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.3);
-    border-radius: 999px; padding: 0.42rem 0.9rem;
-  }
-  .pill svg { width: 0.9rem; height: 0.9rem; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
   /* ---------- Hero centralizado ---------- */
   .hero-c { min-height: 100svh; display: grid; align-items: center; padding: 9rem 0 7rem; }
@@ -1101,7 +1034,6 @@
   .sol-t { font-family: var(--display); font-size: 1.05rem; font-weight: 700; display: block; margin-top: 0.2rem; }
   .sol-arr { width: 2rem; height: 2rem; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); color: var(--dim); font-size: 0.85rem; transition: all 0.3s var(--ease); }
   .sol-item[aria-selected="true"] .sol-arr { background: rgba(46,134,255,0.16); border-color: rgba(46,134,255,0.45); color: var(--accent-light); }
-  .sol-panel[hidden] { display: none; }
   .sol-panel { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem); min-height: 100%; display: flex; flex-direction: column; }
   .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 800; margin: 1.1rem 0 1rem; }
   .sol-panel > p { color: var(--muted); font-size: 1rem; }
@@ -1118,12 +1050,6 @@
   .head2-side .sub { margin: 0; }
 
   /* ---------- Contato: formulário + contatos ---------- */
-  .ct-side { display: grid; gap: 0.8rem; align-content: start; }
-  .ct-card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 1.3rem 1.4rem; text-decoration: none; display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: center; transition: border-color 0.3s var(--ease), transform 0.3s var(--ease); }
-  a.ct-card:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-2px); }
-  .ct-card .tile-ico { flex: none; }
-  .ct-card .k { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); display: block; }
-  .ct-card .v { font-family: var(--display); font-weight: 700; font-size: 0.97rem; display: block; margin-top: 0.15rem; word-break: break-word; }
 
   @media (max-width: 1000px) {
     .ess, .sol, .banner, .head2 { grid-template-columns: 1fr; }
@@ -1182,6 +1108,7 @@
     --sombra: 0 10px 30px -10px rgba(19, 19, 22, 0.18);
     --btn-fill: #0B5ED7;   /* branco sobre ele: 5,84:1 */
     --accent-quente: #D9822B;
+    --accent-verde: #1F8F80;
   }
   /* No claro a seção de papel é a escura, então o selo dela volta
      a ser o azul aberto. */
@@ -1197,7 +1124,6 @@
   :root[data-tema="claro"] .case-mini,
   :root[data-tema="claro"] .pillar,
   :root[data-tema="claro"] .pilar,
-  :root[data-tema="claro"] .ct-card,
   :root[data-tema="claro"] .banner { box-shadow: var(--sombra); }
 
   /* ---------- Alternador de tema ---------- */
@@ -1250,23 +1176,28 @@
     transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
   }
   .lang-btn:hover, .lang-btn[aria-expanded="true"] { border-color: rgba(46,134,255,0.45); color: var(--ink); }
-  .lang-btn svg { width: 0.7rem; height: 0.7rem; stroke: currentColor; fill: none; stroke-width: 2.4; transition: transform 0.25s var(--ease); }
-  .lang-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .lang-btn .lang-seta { width: 0.7rem; height: 0.7rem; stroke: currentColor; fill: none; stroke-width: 2.4; transition: transform 0.25s var(--ease); }
+  /* As bandeiras são SVG desenhado aqui, não emoji: emoji de bandeira não
+     renderiza no Windows, que mostra as duas letras do país no lugar. */
+  .bandeira { width: 1.25rem; height: 0.9rem; border-radius: 2px; flex: none; display: block; box-shadow: 0 0 0 1px rgba(19,19,22,0.12) inset; }
+  .lang-btn #lang-bandeira { display: flex; }
+  .lang-menu button { gap: 0.6rem; }
+  .lang-menu button .bandeira { margin-right: 0.1rem; }
+  .lang-btn[aria-expanded="true"] .lang-seta { transform: rotate(180deg); }
   .lang-menu {
     position: absolute; right: 0; top: calc(100% + 0.5rem); min-width: 11rem;
     background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
     padding: 0.4rem; display: grid; gap: 0.15rem; box-shadow: var(--sombra); z-index: 70;
   }
-  .lang-menu[hidden] { display: none; }
   .lang-menu button {
-    display: flex; align-items: center; justify-content: space-between; gap: 0.8rem;
+    display: flex; align-items: center; gap: 0.8rem;
     width: 100%; text-align: left; cursor: pointer; background: none; border: 0;
     border-radius: 8px; padding: 0.6rem 0.7rem; color: var(--muted); font-size: 0.9rem;
     transition: background 0.2s, color 0.2s;
   }
   .lang-menu button:hover { background: var(--panel-2); color: var(--ink); }
   .lang-menu button[aria-current="true"] { color: var(--accent); font-weight: 700; }
-  .lang-menu button em { font-style: normal; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
+  .lang-menu button em { margin-left: auto; font-style: normal; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
 
   /* Painel */
   .mega {
@@ -1277,7 +1208,6 @@
     border-bottom: 1px solid var(--line); box-shadow: var(--sombra);
     overflow: hidden; max-height: 0; transition: max-height 0.4s var(--ease);
   }
-  .mega[hidden] { display: none; }
   .mega.on { max-height: min(80vh, 46rem); overflow-y: auto; }
   .mega-in { padding: 0 clamp(1.25rem, 4vw, 3rem) 2.2rem; max-width: 1280px; margin: 0 auto; }
 
@@ -1377,6 +1307,13 @@
   @media (max-width: 1000px) { .parc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 440px)  { .parc { grid-template-columns: 1fr; } }
 
+
+  /* A segunda linha do título troca de frase sozinha, como na referência.
+     O h1 tem aria-label fixo, então quem usa leitor de tela ouve a frase
+     canônica uma vez — não a troca a cada três segundos. */
+  .hero h1 .ac { transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); display: inline-block; }
+  .hero h1 .ac.trocando { opacity: 0; transform: translateY(-0.18em); }
+
 </style>
 </head>
 <body>
@@ -1394,13 +1331,14 @@
     <div class="nav-acoes">
       <div class="lang">
         <button class="lang-btn" id="lang-btn" type="button" aria-expanded="false" aria-controls="lang-menu" aria-label="Escolher idioma">
+          <span id="lang-bandeira"><svg class="bandeira" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2.5" fill="#009B3A"/><path d="M14 3 25 10 14 17 3 10Z" fill="#FEDF00"/><circle cx="14" cy="10" r="4.2" fill="#002776"/><path d="M9.9 8.6a9 9 0 0 1 8.1 2.2" stroke="#fff" stroke-width="1.1" fill="none"/></svg></span>
           <span id="lang-atual">PT</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          <svg class="lang-seta" viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </button>
         <div class="lang-menu" id="lang-menu" role="menu" hidden>
-          <button type="button" role="menuitemradio" data-lang="pt" aria-current="true">Português <em>PT</em></button>
-          <button type="button" role="menuitemradio" data-lang="en" aria-current="false">English <em>EN</em></button>
-          <button type="button" role="menuitemradio" data-lang="es" aria-current="false">Español <em>ES</em></button>
+          <button type="button" role="menuitemradio" data-lang="pt" aria-current="true"><svg class="bandeira" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2.5" fill="#009B3A"/><path d="M14 3 25 10 14 17 3 10Z" fill="#FEDF00"/><circle cx="14" cy="10" r="4.2" fill="#002776"/><path d="M9.9 8.6a9 9 0 0 1 8.1 2.2" stroke="#fff" stroke-width="1.1" fill="none"/></svg> Português <em>PT</em></button>
+          <button type="button" role="menuitemradio" data-lang="en" aria-current="false"><svg class="bandeira" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2.5" fill="#fff"/><g fill="#B22234"><rect width="28" height="1.54" y="0"/><rect width="28" height="1.54" y="3.08"/><rect width="28" height="1.54" y="6.15"/><rect width="28" height="1.54" y="9.23"/><rect width="28" height="1.54" y="12.31"/><rect width="28" height="1.54" y="15.38"/><rect width="28" height="1.54" y="18.46"/></g><rect width="12" height="10.77" fill="#3C3B6E"/><g fill="#fff"><circle cx="2.4" cy="2.2" r="0.8"/><circle cx="6" cy="2.2" r="0.8"/><circle cx="9.6" cy="2.2" r="0.8"/><circle cx="4.2" cy="5.4" r="0.8"/><circle cx="7.8" cy="5.4" r="0.8"/><circle cx="2.4" cy="8.6" r="0.8"/><circle cx="6" cy="8.6" r="0.8"/><circle cx="9.6" cy="8.6" r="0.8"/></g></svg> English <em>EN</em></button>
+          <button type="button" role="menuitemradio" data-lang="es" aria-current="false"><svg class="bandeira" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2.5" fill="#AA151B"/><rect y="5" width="28" height="10" fill="#F1BF00"/><rect x="4.4" y="7.6" width="4" height="4.8" rx="0.7" fill="#AD1519"/></svg> Español <em>ES</em></button>
         </div>
       </div>
       <a class="btn btn-accent" href="#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
@@ -1416,7 +1354,7 @@
       <div class="mega-topicos" role="tablist" aria-label="Seções do site">
         <button class="mega-topico" type="button" role="tab" id="mt-1" aria-controls="mp-1" aria-selected="true">Soluções</button>
         <button class="mega-topico" type="button" role="tab" id="mt-2" aria-controls="mp-2" aria-selected="false">Cases</button>
-        <button class="mega-topico" type="button" role="tab" id="mt-3" aria-controls="mp-3" aria-selected="false">Insight AI</button>
+        <button class="mega-topico" type="button" role="tab" id="mt-3" aria-controls="mp-3" aria-selected="false">Inteligência Artificial</button>
         <button class="mega-topico" type="button" role="tab" id="mt-4" aria-controls="mp-4" aria-selected="false">Alocação</button>
         <button class="mega-topico" type="button" role="tab" id="mt-5" aria-controls="mp-5" aria-selected="false">Sobre</button>
       </div>
@@ -1471,10 +1409,6 @@
               <a class="mega-card" href="#ia-capacidades">
                 <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z"/></svg></span>
                 <span><b>O que a IA resolve</b><p>Modelos preditivos, detecção de anomalias, GenAI e Document AI.</p></span>
-              </a>
-              <a class="mega-card" href="#visualizacao">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 14v-3M12 14V8M17 14v-5"/></svg></span>
-                <span><b>Visualização de dados</b><p>O painel que é lido e usado — padrão visual definido antes do desenvolvimento.</p></span>
               </a>
             </div>
           </div>
@@ -1556,23 +1490,22 @@
       </button>
     </div>
   </div>
+
+  <div class="cbar" id="cbar" hidden>
+    <p>Tem um desafio de dados?</p>
+    <a class="btn btn-accent" href="#contato">Falar com um especialista <span class="arr">→</span></a>
+    <button class="cbar-x" id="cbar-x" type="button" aria-label="Dispensar">&times;</button>
+  </div>
 </header>
 
-<div class="cbar" id="cbar" hidden>
-  <p>Tem um desafio de dados?</p>
-  <a class="btn btn-accent" href="#contato">Falar com um especialista <span class="arr">→</span></a>
-  <button class="cbar-x" id="cbar-x" type="button" aria-label="Dispensar">&times;</button>
-</div>
 
 <nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true">
   <a href="#solucoes">Soluções</a>
   <a href="#cases">Cases</a>
   <a href="#sobre">Sobre</a>
-  <a href="#ia-capacidades">Insights</a>
+  <a href="#ia-capacidades">Inteligência Artificial</a>
   <a href="#ia-capacidades">Inteligência Artificial <small>IA ✦</small></a>
   <a href="alocacao.html#talento">Trabalhe com a gente</a>
-  <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram <small>@atlas_tecnologia ✦</small></a>
-  <a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn <small>Atlas Tecnologia ✦</small></a>
   <a class="btn btn-accent" href="#contato">Falar com um especialista <span class="arr">→</span></a>
 </nav>
 
@@ -1583,7 +1516,7 @@
     <canvas id="hero-3d-canvas" aria-hidden="true"></canvas>
     <div class="wrap">
       <div>
-        <h1 id="hero-title" aria-label="A Atlas transforma dados complexos em decisões extraordinárias.">A Atlas transforma dados complexos em <span class="ac">decisões extraordinárias</span></h1>
+        <h1 id="hero-title" aria-label="A Atlas transforma dados complexos em decisões extraordinárias.">A Atlas transforma dados complexos em <span class="ac" id="hero-gira" aria-hidden="true">decisões extraordinárias</span></h1>
         <p class="sub reveal d2 in">
           Dados, BI, engenharia e IA. Da arquitetura à decisão, em produção —
           com os especialistas para tocar o projeto dentro do seu time.
@@ -1860,7 +1793,9 @@
         </div>
       </div>
 
-      <article class="case-card reveal d2">
+      <div class="carr" id="carr-cases">
+        <div class="carr-trilho" id="carr-trilho" tabindex="0" role="group" aria-label="Projetos entregues" aria-live="polite">
+      <article class="case-card">
         <figure class="case-art">
           <img src="media/cases/omnichannel.svg" alt="Canais de venda separados convergindo em uma plataforma de dados única" loading="lazy" decoding="async">
         </figure>
@@ -1889,7 +1824,7 @@
         </div>
       </article>
 
-      <article class="case-card reveal d2">
+      <article class="case-card">
         <figure class="case-art">
           <img src="media/cases/legado.svg" alt="Um banco de dados legado denso dando lugar a um fluxo de pipelines organizados" loading="lazy" decoding="async">
         </figure>
@@ -1918,7 +1853,7 @@
         </div>
       </article>
 
-      <article class="case-card reveal d2">
+      <article class="case-card">
         <figure class="case-art">
           <img src="media/cases/governanca.svg" alt="Painéis soltos e desalinhados dando lugar a uma grade padronizada" loading="lazy" decoding="async">
         </figure>
@@ -1946,6 +1881,18 @@
           <p><b>Crescimento com padrão</b><span>painel novo passa a nascer dentro de um modelo, não ao lado dele</span></p>
         </div>
       </article>
+        </div>
+        <div class="carr-barra">
+          <div class="carr-pontos" id="carr-pontos"></div>
+          <button class="carr-seta" id="carr-ant" type="button" aria-label="Case anterior">
+            <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button class="carr-seta" id="carr-prox" type="button" aria-label="Próximo case">
+            <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
 
       <h3 class="cases-more-head reveal">Mais projetos entregues</h3>
       <div class="case-mini-grid reveal d1">
@@ -1965,184 +1912,6 @@
 
   <div class="divider"></div>
 
-  <!-- ================= DATA VISUALIZATION ================= -->
-  <section class="sec" id="visualizacao">
-    <div class="wrap">
-      <div class="sec-lead">
-        <span class="eyebrow reveal">Data Visualization</span>
-        <h2 class="h-xl reveal d1">Dados também precisam ser compreendidos.</h2>
-        <p class="sub reveal d2">
-          Dashboard não é decoração. Um número principal, um destaque por pergunta,
-          o apoio embaixo. Hierarquia antes de enfeite.
-        </p>
-      </div>
-
-      <div class="dash reveal d2">
-        <div class="dash-bar">
-          <b>Painel executivo · exemplo</b>
-          <div class="dash-tabs" role="tablist" aria-label="Páginas do painel">
-            <button type="button" class="dash-tab" role="tab" id="dt-0" aria-controls="dp-0" aria-selected="true">Visão geral</button>
-            <button type="button" class="dash-tab" role="tab" id="dt-1" aria-controls="dp-1" aria-selected="false" tabindex="-1">Canais</button>
-            <button type="button" class="dash-tab" role="tab" id="dt-2" aria-controls="dp-2" aria-selected="false" tabindex="-1">Operação</button>
-          </div>
-        </div>
-
-        <div class="dash-page" id="dp-0" role="tabpanel" aria-labelledby="dt-0">
-          <div class="dash-body">
-            <div class="dash-side">
-              <div>
-                <p class="kpi-k">Receita no período</p>
-                <p class="kpi-v">R$ 4,82 Mi</p>
-                <p class="kpi-delta">↑ 6,4% vs. período anterior</p>
-                <p class="kpi-sub">Meta do período: R$ 4,60 Mi</p>
-              </div>
-              <div class="kpi-mini"><p class="kpi-k">Margem</p><b>31,2%</b></div>
-              <div class="kpi-mini"><p class="kpi-k">Ticket médio</p><b>R$ 318</b></div>
-              <div class="kpi-mini"><p class="kpi-k">Pedidos</p><b>15,1 mil</b></div>
-            </div>
-            <div class="dash-main">
-              <p class="dash-title">Receita por mês · últimos 12 meses</p>
-              <div class="chart" aria-hidden="true">
-              <div><i style="height:52%"></i></div>
-              <div><i style="height:58%"></i></div>
-              <div><i style="height:49%"></i></div>
-              <div><i style="height:63%"></i></div>
-              <div><i style="height:57%"></i></div>
-              <div><i style="height:68%"></i></div>
-              <div><i style="height:61%"></i></div>
-              <div><i style="height:72%"></i></div>
-              <div><i style="height:66%"></i></div>
-              <div><i style="height:78%"></i></div>
-              <div><i style="height:71%"></i></div>
-              <div class="hi"><i style="height:92%"></i></div>
-              </div>
-              <div class="chart-x" aria-hidden="true">
-              <span>Jan</span>
-              <span>Fev</span>
-              <span>Mar</span>
-              <span>Abr</span>
-              <span>Mai</span>
-              <span>Jun</span>
-              <span>Jul</span>
-              <span>Ago</span>
-              <span>Set</span>
-              <span>Out</span>
-              <span>Nov</span>
-              <span class="hi">Dez</span>
-              </div>
-              <p class="dash-note"><b>Dezembro</b> é o maior mês do período e puxa o resultado acima da meta.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="dash-page" id="dp-1" role="tabpanel" aria-labelledby="dt-1" hidden>
-          <div class="dash-body">
-            <div class="dash-side">
-              <div>
-                <p class="kpi-k">Canal digital</p>
-                <p class="kpi-v">42%</p>
-                <p class="kpi-delta">↑ 9,1 p.p. vs. período anterior</p>
-                <p class="kpi-sub">Meta do período: 38%</p>
-              </div>
-              <div class="kpi-mini"><p class="kpi-k">Loja física</p><b>38%</b></div>
-              <div class="kpi-mini"><p class="kpi-k">Marketplace</p><b>20%</b></div>
-              <div class="kpi-mini"><p class="kpi-k">Margem digital</p><b>34,6%</b></div>
-            </div>
-            <div class="dash-main">
-              <p class="dash-title">Receita por canal · últimos 12 meses</p>
-              <div class="hbars">
-              <div class="hbar hi">
-                <span>E-commerce próprio</span>
-                <div class="hbar-track" aria-hidden="true"><div class="hbar-fill" style="width:100.0%"></div></div>
-                <b>R$ 2,02 Mi</b>
-              </div>
-              <div class="hbar">
-                <span>Loja física</span>
-                <div class="hbar-track" aria-hidden="true"><div class="hbar-fill" style="width:90.6%"></div></div>
-                <b>R$ 1,83 Mi</b>
-              </div>
-              <div class="hbar">
-                <span>Marketplace</span>
-                <div class="hbar-track" aria-hidden="true"><div class="hbar-fill" style="width:48.0%"></div></div>
-                <b>R$ 0,97 Mi</b>
-              </div>
-              </div>
-              <p class="dash-title mt">Margem por canal</p>
-              <div class="dash-sub">
-                <div><p class="kpi-k">E-commerce próprio</p><b>34,6%</b></div>
-                <div><p class="kpi-k">Loja física</p><b>30,1%</b></div>
-                <div><p class="kpi-k">Marketplace</p><b>24,8%</b></div>
-              </div>
-              <p class="dash-note">O <b>digital</b> passa a loja física em receita — e é o canal de maior margem.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="dash-page" id="dp-2" role="tabpanel" aria-labelledby="dt-2" hidden>
-          <div class="dash-body">
-            <div class="dash-side">
-              <div>
-                <p class="kpi-k">Pedidos no prazo</p>
-                <p class="kpi-v">94,3%</p>
-                <p class="kpi-delta">↑ 2,1 p.p. vs. período anterior</p>
-                <p class="kpi-sub">Meta do período: 95,0%</p>
-              </div>
-              <div class="kpi-mini"><p class="kpi-k">Separação</p><b>2,4 h</b></div>
-              <div class="kpi-mini"><p class="kpi-k">Ruptura</p><b>3,1%</b></div>
-              <div class="kpi-mini"><p class="kpi-k">Devolução</p><b>1,8%</b></div>
-            </div>
-            <div class="dash-main">
-              <p class="dash-title">Pedidos no prazo · últimos 12 meses <span class="dash-scale">escala 86&ndash;95%</span></p>
-              <svg class="spark" viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true">
-                <polygon points="0,40 0.0,30.4 10.9,25.9 21.8,32.7 32.7,22.5 43.6,18.0 54.5,21.4 65.5,15.3 76.4,12.3 87.3,15.0 98.2,9.3 109.1,11.6 120.0,6.6 120,40" fill="rgba(46,134,255,0.12)"></polygon>
-                <polyline points="0.0,30.4 10.9,25.9 21.8,32.7 32.7,22.5 43.6,18.0 54.5,21.4 65.5,15.3 76.4,12.3 87.3,15.0 98.2,9.3 109.1,11.6 120.0,6.6" fill="none" stroke="#2E86FF" stroke-width="1.6"
-                  stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polyline>
-                <circle cx="120.0" cy="6.6" r="1.8" fill="#6FD4FF"></circle>
-              </svg>
-              <div class="chart-x" aria-hidden="true">
-              <span>Jan</span>
-              <span>Fev</span>
-              <span>Mar</span>
-              <span>Abr</span>
-              <span>Mai</span>
-              <span>Jun</span>
-              <span>Jul</span>
-              <span>Ago</span>
-              <span>Set</span>
-              <span>Out</span>
-              <span>Nov</span>
-              <span>Dez</span>
-              </div>
-              <p class="dash-title mt">No prazo por região <span class="dash-scale">escala 85&ndash;100%, traço = meta</span></p>
-              <div class="hbars">
-<div class="hbar">
-                <span>Sudeste</span>
-                <div class="hbar-track" aria-hidden="true"><div class="hbar-fill" style="width:74.0%"></div><div class="hbar-goal" style="left:66.7%"></div></div>
-                <b>96,1%</b>
-              </div>
-              <div class="hbar">
-                <span>Sul</span>
-                <div class="hbar-track" aria-hidden="true"><div class="hbar-fill" style="width:56.0%"></div><div class="hbar-goal" style="left:66.7%"></div></div>
-                <b>93,4%</b>
-              </div>
-              <div class="hbar hi">
-                <span>Nordeste</span>
-                <div class="hbar-track" aria-hidden="true"><div class="hbar-fill" style="width:41.3%"></div><div class="hbar-goal" style="left:66.7%"></div></div>
-                <b>91,2%</b>
-              </div>
-              </div>
-              <p class="dash-note"><b>Nordeste</b> concentra o atraso: 91,2% no prazo, contra 96,1% no Sudeste.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="illus-note">Ilustração do método — não representa dados ou resultado de cliente.</p>
-
-      <div class="hero-ctas reveal d3" style="margin-top:2.2rem">
-        <a class="btn btn-accent" href="#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
-      </div>
-    </div>
-  </section>
 
   <div class="divider"></div>
 
@@ -2188,7 +1957,6 @@
     </div>
   </section>
 
-  <!-- ================= INSIGHT AI ================= -->
 
   <div class="divider"></div>
 
@@ -2223,17 +1991,6 @@
           Sem compromisso <i>·</i> Sem apresentação institucional <i>·</i>
           Resposta em 1 dia útil
         </p>
-        <p class="rail-label" style="border:0;padding:0;max-width:none;margin:2.4rem 0 0.9rem">Nossos contatos</p>
-        <div class="ct-side">
-          <a class="ct-card" href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">
-            <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7.5 10.5v6"/><circle cx="7.5" cy="7.4" r="0.9" fill="currentColor" stroke="none"/><path d="M11.4 16.5v-6m0 1.6a2.6 2.6 0 0 1 5.1.9v3.5"/></svg></span>
-            <span><span class="k">LinkedIn</span><span class="v">Atlas Tecnologia</span></span>
-          </a>
-          <a class="ct-card" href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">
-            <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></span>
-            <span><span class="k">Instagram</span><span class="v">@atlas_tecnologia</span></span>
-          </a>
-        </div>
       </div>
       <!-- Formulário enviado via FormSubmit (https://formsubmit.co) para
            sergio.lavezo@atlas-partner.com — o primeiro envio dispara um e-mail
@@ -2855,73 +2612,6 @@
     cbarCheck();
   }
 
-  /* ---------- Painel de exemplo: troca de página ---------- */
-  var dTabs = [].slice.call(document.querySelectorAll('.dash-tab'));
-  if (dTabs.length) {
-    var dPages = dTabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
-    function showPage(i, focus) {
-      dTabs.forEach(function (t, k) {
-        var on = k === i;
-        t.setAttribute('aria-selected', on ? 'true' : 'false');
-        t.tabIndex = on ? 0 : -1;
-        if (dPages[k]) dPages[k].hidden = !on;
-      });
-      if (focus) dTabs[i].focus();
-    }
-    dTabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { showPage(i, false); });
-      // Setas percorrem as abas: é o que um leitor de tela espera de um tablist.
-      t.addEventListener('keydown', function (e) {
-        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-        if (!d) return;
-        e.preventDefault();
-        showPage((i + d + dTabs.length) % dTabs.length, true);
-      });
-    });
-  }
-
-  /* ---------- Insight AI: demonstração ---------- */
-  // Respostas de exemplo, escritas à mão. Nenhuma conexão com dados reais —
-  // e a interface diz isso na própria barra, para ninguém se enganar.
-  var DEMO = [
-    ['Por que minhas vendas caíram?',
-     '<p>A queda de <b>8,2%</b> no mês está concentrada em <b>três lojas da região Sul</b>. Nas demais regiões a receita cresceu 1,4%.</p><p>O recuo acompanha a ruptura de estoque na categoria de maior giro dessas unidades.</p>',
-     [['Impacto', '−8,2%'], ['Origem', '3 lojas · Sul'], ['Causa provável', 'Ruptura de estoque']]],
-    ['Qual canal traz mais margem?',
-     '<p>O <b>canal próprio</b> entrega margem <b>6,1 pontos</b> acima do marketplace, apesar de responder por menos volume.</p><p>Marketplace cresce em receita, mas o custo de comissão consome o ganho.</p>',
-     [['Melhor margem', 'Canal próprio'], ['Diferença', '+6,1 p.p.'], ['Atenção', 'Comissão marketplace']]],
-    ['Onde estou perdendo eficiência?',
-     '<p>O tempo entre o pedido e a separação subiu <b>14%</b> em dois centros de distribuição, enquanto os demais ficaram estáveis.</p><p>O atraso se concentra no turno da noite.</p>',
-     [['Piora', '+14%'], ['Onde', '2 CDs'], ['Quando', 'Turno noite']]],
-    ['O que devo esperar no próximo trimestre?',
-     '<p>Mantido o comportamento atual, a projeção indica receita <b>entre 3% e 5% acima</b> do trimestre anterior, puxada pelo canal digital.</p><p>O cenário é sensível à reposição de estoque nas lojas do Sul.</p>',
-     [['Projeção', '+3% a +5%'], ['Motor', 'Canal digital'], ['Risco', 'Estoque Sul']]]
-  ];
-
-  var qsEl = document.getElementById('demo-qs');
-  if (qsEl) {
-    var aEl = document.getElementById('demo-a');
-    var btns = [];
-    DEMO.forEach(function (d, i) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'demo-q';
-      b.textContent = d[0];
-      b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
-      b.addEventListener('click', function () { answer(i); });
-      qsEl.appendChild(b);
-      btns.push(b);
-    });
-    function answer(i) {
-      var d = DEMO[i];
-      var metrics = d[2].map(function (m) {
-        return '<div><span>' + m[0] + '</span><b>' + m[1] + '</b></div>';
-      }).join('');
-      aEl.innerHTML = d[1] + '<div class="demo-metrics">' + metrics + '</div>';
-      btns.forEach(function (b, k) { b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
-    }
-    answer(0);
-  }
 
   /* ---------- Acende ao entrar na tela: timeline ---------- */
   var tl = document.getElementById('tl');
@@ -2952,6 +2642,88 @@
   window.addEventListener('resize', schedule, { passive: true });
 })();
 </script>
+<script>
+/* ---------- Carrossel dos cases ---------- */
+(function () {
+  var trilho = document.getElementById('carr-trilho');
+  if (!trilho) return;
+  var cards = [].slice.call(trilho.children);
+  if (cards.length < 2) return;
+  var pontos = document.getElementById('carr-pontos');
+  var ant = document.getElementById('carr-ant');
+  var prox = document.getElementById('carr-prox');
+  var i = 0, timer = 0, parado = false;
+  var INTERVALO = 7000;
+
+  cards.forEach(function (c, k) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'carr-ponto';
+    b.setAttribute('aria-label', 'Ver o case ' + (k + 1) + ' de ' + cards.length);
+    b.addEventListener('click', function () { parar(); ir(k); });
+    pontos.appendChild(b);
+  });
+  var bolas = [].slice.call(pontos.children);
+
+  function pintar() {
+    bolas.forEach(function (b, k) { b.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    ant.disabled = i === 0;
+    prox.disabled = i === cards.length - 1;
+  }
+
+  function ir(k) {
+    i = Math.max(0, Math.min(cards.length - 1, k));
+    /* scrollLeft em vez de scrollIntoView: scrollIntoView rola a página
+       inteira até o cartão, e a seção salta embaixo do leitor. */
+    trilho.scrollLeft = cards[i].offsetLeft - cards[0].offsetLeft;
+    pintar();
+  }
+
+  /* quem rolou com o dedo ou com o trackpad também move o indicador */
+  var tRolar;
+  trilho.addEventListener('scroll', function () {
+    clearTimeout(tRolar);
+    tRolar = setTimeout(function () {
+      var base = cards[0].offsetLeft;
+      var perto = 0, melhor = Infinity;
+      cards.forEach(function (c, k) {
+        var d = Math.abs((c.offsetLeft - base) - trilho.scrollLeft);
+        if (d < melhor) { melhor = d; perto = k; }
+      });
+      if (perto !== i) { i = perto; pintar(); }
+    }, 120);
+  }, { passive: true });
+
+  function tique() { ir(i === cards.length - 1 ? 0 : i + 1); }
+  function tocar() { if (!parado && !timer) timer = setInterval(tique, INTERVALO); }
+  function pausar() { if (timer) { clearInterval(timer); timer = 0; } }
+  /* parar é definitivo: depois que alguém usou os controles, o carrossel
+     não volta a andar sozinho por cima da leitura */
+  function parar() { parado = true; pausar(); }
+
+  ant.addEventListener('click', function () { parar(); ir(i - 1); });
+  prox.addEventListener('click', function () { parar(); ir(i + 1); });
+  trilho.addEventListener('pointerdown', parar);
+  ['pointerenter', 'focusin'].forEach(function (e) { trilho.parentNode.addEventListener(e, pausar); });
+  ['pointerleave', 'focusout'].forEach(function (e) { trilho.parentNode.addEventListener(e, tocar); });
+  document.addEventListener('visibilitychange', function () { document.hidden ? pausar() : tocar(); });
+
+  trilho.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); parar(); ir(i + 1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); parar(); ir(i - 1); }
+  });
+
+  window.addEventListener('resize', function () { ir(i); });
+
+  pintar();
+  /* só começa a girar quando a seção aparece */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { e.isIntersecting ? tocar() : pausar(); });
+    }, { threshold: 0.25 }).observe(trilho);
+  } else { tocar(); }
+})();
+</script>
+
 <script>
 /* ---------- Mega-menu ---------- */
 (function () {
@@ -3071,5 +2843,63 @@
 <script src="media/js/i18n-dic.js" defer></script>
 <script src="media/js/i18n.js" defer></script>
 <script src="media/js/constelacao.js" defer></script>
+<script>
+/* ---------- A frase em destaque do hero gira ---------- */
+(function () {
+  var FRASES = [
+    'decisões extraordinárias',
+    'dados e analytics',
+    'engenharia de dados',
+    'inteligência artificial',
+    'times de especialistas'
+  ];
+  var INTERVALO = 3400;
+
+  function iniciar() {
+    var el = document.getElementById('hero-gira');
+    if (!el) return;
+    var i = 0, timer = 0;
+
+    function traduz(f) {
+      var lang = window.AtlasI18n ? window.AtlasI18n.idioma() : 'pt';
+      if (lang === 'pt') return f;
+      var d = window.ATLAS_I18N && window.ATLAS_I18N[lang];
+      return (d && d[f]) || f;
+    }
+
+    function trocar() {
+      i = (i + 1) % FRASES.length;
+      el.classList.add('trocando');
+      setTimeout(function () {
+        el.textContent = traduz(FRASES[i]);
+        el.classList.remove('trocando');
+      }, 400);
+    }
+
+    function tocar() { if (!timer) timer = setInterval(trocar, INTERVALO); }
+    function pausar() { if (timer) { clearInterval(timer); timer = 0; } }
+
+    /* O i18n reescreve o h1 inteiro ao trocar de idioma e leva o span
+       junto; depois disso é preciso reencontrá-lo e recomeçar do zero. */
+    document.addEventListener('atlas:idioma', function () {
+      pausar();
+      var novo = document.querySelector('#hero-title .ac');
+      if (!novo) return;
+      novo.id = 'hero-gira';
+      novo.setAttribute('aria-hidden', 'true');
+      el = novo; i = 0;
+      el.textContent = traduz(FRASES[0]);
+      tocar();
+    });
+
+    document.addEventListener('visibilitychange', function () { document.hidden ? pausar() : tocar(); });
+    el.textContent = traduz(FRASES[0]);
+    tocar();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
+  else iniciar();
+})();
+</script>
 </body>
 </html>

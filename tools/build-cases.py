@@ -37,7 +37,10 @@ def main():
     for chave in ('header', 'menu', 'rodape'):
         comum[chave] = re.sub(r'href="#([a-z0-9-]+)"', r'href="index.html#\1"', comum[chave])
 
-    grandes = re.findall(r'      <article class="case-card reveal d2">.*?\n      </article>\n', html, re.S)
+    # A classe muda quando o cartão entra no carrossel; casar por 'case-card'
+    # com a borda de palavra pega as duas formas e não vai quebrar de novo
+    # na próxima vez que alguém trocar as classes utilitárias.
+    grandes = re.findall(r'      <article class="case-card[^"]*">.*?\n      </article>\n', html, re.S)
     minis = re.findall(r'        <article class="case-mini">.*?</article>\n', html)
     if not RESERVA.exists():
         sys.exit('falta %s — gere-o com os mini cases que saíram da home' % RESERVA)
@@ -47,6 +50,10 @@ def main():
     vistos = set(minis)
     todos_minis = minis + [m for m in reserva if m not in vistos]
     total = len(grandes) + len(todos_minis)
+    # Trava: um seletor que para de casar devolve uma página silenciosamente
+    # incompleta. Melhor o build quebrar do que publicar cases faltando.
+    if len(grandes) < 3:
+        sys.exit('esperava 3 cases detalhados no index.html, achei %d — o seletor parou de casar' % len(grandes))
 
     corpo = '''<main id="inicio">
 

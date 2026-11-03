@@ -13,27 +13,50 @@
   <rect width="720" height="460" fill="#0B1220"/>
   <rect width="720" height="460" fill="url(#grade)"/>
   <rect width="720" height="460" fill="url(#brilho)"/>
-  <rect x="58" y="66" width="132" height="52" rx="10" fill="none" stroke="#2E86FF" stroke-width="1.6" opacity="0.9"/>
-  <circle cx="92" cy="92" r="3.4" fill="#2E86FF" opacity="0.9"/>
-  <path d="M190 92 C260.0 92, 260.0 230, 330 230" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.55"/>
-  <rect x="58" y="142" width="132" height="52" rx="10" fill="none" stroke="#2E86FF" stroke-width="1.6" opacity="0.9"/>
-  <circle cx="92" cy="168" r="3.4" fill="#2E86FF" opacity="0.9"/>
-  <path d="M190 168 C260.0 168, 260.0 230, 330 230" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.55"/>
-  <rect x="58" y="218" width="132" height="52" rx="10" fill="none" stroke="#2E86FF" stroke-width="1.6" opacity="0.9"/>
-  <circle cx="92" cy="244" r="3.4" fill="#2E86FF" opacity="0.9"/>
-  <path d="M190 244 C260.0 244, 260.0 230, 330 230" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.55"/>
-  <rect x="58" y="294" width="132" height="52" rx="10" fill="none" stroke="#2E86FF" stroke-width="1.6" opacity="0.9"/>
-  <circle cx="92" cy="320" r="3.4" fill="#2E86FF" opacity="0.9"/>
-  <path d="M190 320 C260.0 320, 260.0 230, 330 230" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.55"/>
-  <rect x="330" y="168" width="150" height="124" rx="14" fill="none" stroke="#2E86FF" stroke-width="1.6" opacity="1.0"/>
-  <rect x="330" y="168" width="150" height="124" rx="14" fill="#2E86FF" opacity="0.1"/>
-  <rect x="352" y="192" width="106" height="10" rx="5" fill="url(#g)" opacity="0.85"/>
-  <rect x="352" y="222" width="84" height="10" rx="5" fill="url(#g)" opacity="0.6499999999999999"/>
-  <rect x="352" y="252" width="62" height="10" rx="5" fill="url(#g)" opacity="0.44999999999999996"/>
-  <path d="M480 230 C543.0 230, 543.0 150, 606 150" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.55"/>
-  <path d="M480 230 C543.0 230, 543.0 310, 606 310" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.55"/>
-  <rect x="606" y="116" width="60" height="68" rx="10" fill="none" stroke="#2E86FF" stroke-width="1.6" opacity="0.85"/>
-  <circle cx="636" cy="150" r="5" fill="#6FD4FF" opacity="0.95"/>
-  <rect x="606" y="276" width="60" height="68" rx="10" fill="none" stroke="#2E86FF" stroke-width="1.6" opacity="0.85"/>
-  <circle cx="636" cy="310" r="5" fill="#6FD4FF" opacity="0.95"/>
+  <rect x="46" y="72" width="104" height="44" rx="9" fill="#0E1826" stroke="#2E86FF" stroke-width="1.3" opacity="0.9"/>
+  <circle cx="68" cy="94" r="5" fill="#2E86FF" opacity="0.75"/>
+  <rect x="82" y="86" width="52" height="6" rx="3" fill="#2E86FF" opacity="0.5"/>
+  <rect x="82" y="96" width="34" height="6" rx="3" fill="#2E86FF" opacity="0.28"/>
+  <path d="M150 94 C181.0 94, 181.0 190, 212 190" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.55"/>
+  <rect x="46" y="136" width="104" height="44" rx="9" fill="#0E1826" stroke="#2E86FF" stroke-width="1.3" opacity="0.9"/>
+  <circle cx="68" cy="158" r="5" fill="#2E86FF" opacity="0.75"/>
+  <rect x="82" y="150" width="52" height="6" rx="3" fill="#2E86FF" opacity="0.5"/>
+  <rect x="82" y="160" width="34" height="6" rx="3" fill="#2E86FF" opacity="0.28"/>
+  <path d="M150 158 C181.0 158, 181.0 190, 212 190" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.55"/>
+  <rect x="46" y="200" width="104" height="44" rx="9" fill="#0E1826" stroke="#2E86FF" stroke-width="1.3" opacity="0.9"/>
+  <circle cx="68" cy="222" r="5" fill="#2E86FF" opacity="0.75"/>
+  <rect x="82" y="214" width="52" height="6" rx="3" fill="#2E86FF" opacity="0.5"/>
+  <rect x="82" y="224" width="34" height="6" rx="3" fill="#2E86FF" opacity="0.28"/>
+  <path d="M150 222 C181.0 222, 181.0 190, 212 190" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.55"/>
+  <rect x="46" y="264" width="104" height="44" rx="9" fill="#0E1826" stroke="#2E86FF" stroke-width="1.3" opacity="0.9"/>
+  <circle cx="68" cy="286" r="5" fill="#2E86FF" opacity="0.75"/>
+  <rect x="82" y="278" width="52" height="6" rx="3" fill="#2E86FF" opacity="0.5"/>
+  <rect x="82" y="288" width="34" height="6" rx="3" fill="#2E86FF" opacity="0.28"/>
+  <path d="M150 286 C181.0 286, 181.0 190, 212 190" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.55"/>
+  <rect x="212" y="70" width="300" height="250" rx="12" fill="#0E1826" stroke="#2E86FF" stroke-width="1.4" opacity="0.95"/>
+  <path d="M212 100 h300" stroke="#2E86FF" stroke-width="1" opacity="0.35"/>
+  <rect x="226" y="81" width="92" height="8" rx="4" fill="url(#g)" opacity="0.85"/>
+  <circle cx="496" cy="85" r="2.6" fill="#2E86FF" opacity="0.5"/>
+  <circle cx="483" cy="85" r="2.6" fill="#2E86FF" opacity="0.38"/>
+  <circle cx="470" cy="85" r="2.6" fill="#2E86FF" opacity="0.26"/>
+  <rect x="241.9" y="175.4" width="14.9" height="38.6" rx="2.5" fill="#2E86FF" opacity="0.45"/>
+  <rect x="268.5" y="160.6" width="14.9" height="53.4" rx="2.5" fill="#2E86FF" opacity="0.45"/>
+  <rect x="295.2" y="168.0" width="14.9" height="46.0" rx="2.5" fill="#2E86FF" opacity="0.45"/>
+  <rect x="321.9" y="147.8" width="14.9" height="66.2" rx="2.5" fill="#2E86FF" opacity="0.45"/>
+  <rect x="348.5" y="155.1" width="14.9" height="58.9" rx="2.5" fill="#2E86FF" opacity="0.45"/>
+  <rect x="375.2" y="133.0" width="14.9" height="81.0" rx="2.5" fill="url(#g)" opacity="1"/>
+  <circle cx="458" cy="168" r="30" fill="none" stroke="#2E86FF" stroke-width="9" opacity="0.22"/>
+  <circle cx="458" cy="168" r="30" fill="none" stroke="url(#g)" stroke-width="9" stroke-linecap="round" stroke-dasharray="135.7 188.5" transform="rotate(-90 458 168)"/>
+  <path d="M236.0 276.0 L272.0 266.5 L308.0 271.5 L344.0 257.5 L380.0 262.0 L416.0 249.7 L452.0 251.9 L488.0 239.6" fill="none" stroke="#6FD4FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+  <rect x="236" y="300" width="68" height="6" rx="3" fill="#2E86FF" opacity="0.4"/>
+  <rect x="322" y="300" width="68" height="6" rx="3" fill="#2E86FF" opacity="0.30000000000000004"/>
+  <rect x="408" y="300" width="68" height="6" rx="3" fill="#2E86FF" opacity="0.2"/>
+  <path d="M512 190 C546.0 190, 546.0 150, 580 150" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.55"/>
+  <rect x="580" y="126" width="84" height="48" rx="9" fill="#0E1826" stroke="#6FD4FF" stroke-width="1.3" opacity="0.9"/>
+  <rect x="596" y="141" width="44" height="7" rx="3.5" fill="url(#g)"/>
+  <rect x="596" y="153" width="28" height="6" rx="3" fill="#6FD4FF" opacity="0.4"/>
+  <path d="M512 190 C546.0 190, 546.0 262, 580 262" stroke="url(#g)" stroke-width="2" fill="none" opacity="0.55"/>
+  <rect x="580" y="238" width="84" height="48" rx="9" fill="#0E1826" stroke="#6FD4FF" stroke-width="1.3" opacity="0.9"/>
+  <rect x="596" y="253" width="44" height="7" rx="3.5" fill="url(#g)"/>
+  <rect x="596" y="265" width="28" height="6" rx="3" fill="#6FD4FF" opacity="0.4"/>
 </svg>

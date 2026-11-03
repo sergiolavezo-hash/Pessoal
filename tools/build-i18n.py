@@ -26,7 +26,9 @@ SAIDA = RAIZ / 'media' / 'js' / 'i18n-dic.js'
 # O aria-label do botão de tema é reescrito pelo próprio alternador no
 # carregamento, então nunca aparece na extração — é declarado aqui.
 EXTRAS = {'@h1-destaque', 'Alternar entre tema claro e escuro',
-          'Mudar para o tema claro', 'Mudar para o tema escuro'}
+          'Mudar para o tema claro', 'Mudar para o tema escuro',
+          'decisões extraordinárias', 'dados e analytics', 'engenharia de dados',
+          'inteligência artificial', 'times de especialistas'}
 
 # pt: (en, es)
 TRAD = {
@@ -35,7 +37,6 @@ TRAD = {
   'Soluções': ('Solutions', 'Soluciones'),
   'Alocação': ('Staffing', 'Asignación'),
   'Sobre': ('About', 'Acerca de'),
-  'Insights': ('Insights', 'Insights'),
   'Carreiras': ('Careers', 'Carreras'),
   'Contato': ('Contact', 'Contacto'),
   'Falar com um especialista <span class="arr">→</span>':
@@ -97,7 +98,6 @@ TRAD = {
   'Legado Oracle aposentado': ('Oracle legacy retired', 'Legado Oracle jubilado'),
   'Setores atendidos <span class="mega-tag">10+</span>':
     ('Industries served <span class="mega-tag">10+</span>', 'Sectores atendidos <span class="mega-tag">10+</span>'),
-  'Visualização de dados': ('Data visualization', 'Visualización de datos'),
   'Perfis disponíveis': ('Available profiles', 'Perfiles disponibles'),
   'Trabalhe com a gente <span class="mega-tag">Carreiras</span>':
     ('Work with us <span class="mega-tag">Careers</span>', 'Trabaje con nosotros <span class="mega-tag">Carreras</span>'),
@@ -107,27 +107,8 @@ TRAD = {
   'Números <span class="mega-tag">500+ projetos</span>':
     ('Numbers <span class="mega-tag">500+ projects</span>', 'Números <span class="mega-tag">500+ proyectos</span>'),
   'Como funciona': ('How it works', 'Cómo funciona'),
-  'Painel executivo · exemplo': ('Executive dashboard · example', 'Panel ejecutivo · ejemplo'),
 
   # Números do painel: só o inglês muda o separador decimal.
-  'R$ 0,97 Mi': ('R$ 0.97M', 'R$ 0,97 M'),
-  'R$ 1,83 Mi': ('R$ 1.83M', 'R$ 1,83 M'),
-  'R$ 2,02 Mi': ('R$ 2.02M', 'R$ 2,02 M'),
-  'R$ 318': ('R$ 318', 'R$ 318'),
-  '15,1 mil': ('15.1k', '15,1 mil'),
-  '2,4 h': ('2.4 h', '2,4 h'),
-  '1,8%': ('1.8%', '1,8%'),
-  '3,1%': ('3.1%', '3,1%'),
-  '24,8%': ('24.8%', '24,8%'),
-  '30,1%': ('30.1%', '30,1%'),
-  '31,2%': ('31.2%', '31,2%'),
-  '34,6%': ('34.6%', '34,6%'),
-  '91,2%': ('91.2%', '91,2%'),
-  '93,4%': ('93.4%', '93,4%'),
-  '96,1%': ('96.1%', '96,1%'),
-  'O painel que é lido e usado — padrão visual definido antes do desenvolvimento.':
-    ('The dashboard that gets read and used — visual standard set before development.',
-     'El panel que se lee y se usa — estándar visual definido antes del desarrollo.'),
   'Especialistas que entram na sua operação e respondem à sua gestão.':
     ('Specialists who join your operation and report to your management.',
      'Especialistas que entran en su operación y responden a su gestión.'),
@@ -405,61 +386,7 @@ TRAD.update({
 
 TRAD.update({
   # ---------------- painel de visualização ----------------
-  'Dados também precisam ser compreendidos.': ('Data also has to be understood.', 'Los datos también necesitan ser comprendidos.'),
-  'Dashboard não é decoração. Um número principal, um destaque por pergunta, o apoio embaixo. Hierarquia antes de enfeite.':
-    ('A dashboard is not decoration. One headline number, one highlight per question, the support below. Hierarchy before ornament.',
-     'Un dashboard no es decoración. Un número principal, un destaque por pregunta, el apoyo abajo. Jerarquía antes que adorno.'),
-  'Páginas do painel': ('Dashboard pages', 'Páginas del panel'),
-  'Visão geral': ('Overview', 'Visión general'),
-  'Canais': ('Channels', 'Canales'),
   'Operação': ('Operations', 'Operación'),
-  'Receita no período': ('Revenue in the period', 'Ingresos en el período'),
-  'R$ 4,82 Mi': ('R$ 4.82M', 'R$ 4,82 M'),
-  '↑ 6,4% vs. período anterior': ('↑ 6.4% vs. previous period', '↑ 6,4% vs. período anterior'),
-  'Meta do período: R$ 4,60 Mi': ('Target for the period: R$ 4.60M', 'Meta del período: R$ 4,60 M'),
-  'Margem': ('Margin', 'Margen'),
-  'Ticket médio': ('Average ticket', 'Ticket promedio'),
-  'Pedidos': ('Orders', 'Pedidos'),
-  'Receita por mês · últimos 12 meses': ('Revenue by month · last 12 months', 'Ingresos por mes · últimos 12 meses'),
-  '<b>Dezembro</b> é o maior mês do período e puxa o resultado acima da meta.':
-    ('<b>December</b> is the biggest month of the period and pulls the result above target.',
-     '<b>Diciembre</b> es el mayor mes del período y lleva el resultado por encima de la meta.'),
-  'Canal digital': ('Digital channel', 'Canal digital'),
-  '↑ 9,1 p.p. vs. período anterior': ('↑ 9.1 pp vs. previous period', '↑ 9,1 p.p. vs. período anterior'),
-  'Meta do período: 38%': ('Target for the period: 38%', 'Meta del período: 38%'),
-  'Loja física': ('Physical store', 'Tienda física'),
-  'Margem digital': ('Digital margin', 'Margen digital'),
-  'Receita por canal · últimos 12 meses': ('Revenue by channel · last 12 months', 'Ingresos por canal · últimos 12 meses'),
-  'E-commerce próprio': ('Own e-commerce', 'E-commerce propio'),
-  'Margem por canal': ('Margin by channel', 'Margen por canal'),
-  'O <b>digital</b> passa a loja física em receita — e é o canal de maior margem.':
-    ('<b>Digital</b> overtakes the physical store in revenue — and it is the highest-margin channel.',
-     'El <b>digital</b> supera a la tienda física en ingresos — y es el canal de mayor margen.'),
-  'Pedidos no prazo': ('On-time orders', 'Pedidos a tiempo'),
-  '↑ 2,1 p.p. vs. período anterior': ('↑ 2.1 pp vs. previous period', '↑ 2,1 p.p. vs. período anterior'),
-  'Meta do período: 95,0%': ('Target for the period: 95.0%', 'Meta del período: 95,0%'),
-  'Separação': ('Picking', 'Preparación'),
-  'Ruptura': ('Stockout', 'Rotura'),
-  'Devolução': ('Returns', 'Devolución'),
-  'Pedidos no prazo · últimos 12 meses <span class="dash-scale">escala 86–95%</span>':
-    ('On-time orders · last 12 months <span class="dash-scale">scale 86–95%</span>',
-     'Pedidos a tiempo · últimos 12 meses <span class="dash-scale">escala 86–95%</span>'),
-  'No prazo por região <span class="dash-scale">escala 85–100%, traço = meta</span>':
-    ('On time by region <span class="dash-scale">scale 85–100%, line = target</span>',
-     'A tiempo por región <span class="dash-scale">escala 85–100%, línea = meta</span>'),
-  'Sudeste': ('Southeast', 'Sudeste'),
-  'Sul': ('South', 'Sur'),
-  'Nordeste': ('Northeast', 'Nordeste'),
-  '<b>Nordeste</b> concentra o atraso: 91,2% no prazo, contra 96,1% no Sudeste.':
-    ('<b>The Northeast</b> concentrates the delay: 91.2% on time, against 96.1% in the Southeast.',
-     'El <b>Nordeste</b> concentra el retraso: 91,2% a tiempo, contra 96,1% en el Sudeste.'),
-  'Ilustração do método — não representa dados ou resultado de cliente.':
-    ('An illustration of the method — it does not represent client data or results.',
-     'Ilustración del método — no representa datos ni resultados de cliente.'),
-  '<span>Jan</span> <span>Fev</span> <span>Mar</span> <span>Abr</span> <span>Mai</span> <span>Jun</span> <span>Jul</span> <span>Ago</span> <span>Set</span> <span>Out</span> <span>Nov</span> <span>Dez</span>':
-    ('<span>Jan</span> <span>Feb</span> <span>Mar</span> <span>Apr</span> <span>May</span> <span>Jun</span> <span>Jul</span> <span>Aug</span> <span>Sep</span> <span>Oct</span> <span>Nov</span> <span>Dec</span>',
-     '<span>Ene</span> <span>Feb</span> <span>Mar</span> <span>Abr</span> <span>May</span> <span>Jun</span> <span>Jul</span> <span>Ago</span> <span>Sep</span> <span>Oct</span> <span>Nov</span> <span>Dic</span>'),
-  'Data Visualization': ('Data Visualization', 'Data Visualization'),
 
   # ---------------- capacidades de IA ----------------
   'Inteligência Artificial': ('Artificial Intelligence', 'Inteligencia Artificial'),
@@ -510,7 +437,6 @@ TRAD.update({
   'Sem compromisso <i>·</i> Sem apresentação institucional <i>·</i> Resposta em 1 dia útil':
     ('No commitment <i>·</i> No corporate deck <i>·</i> Reply within 1 business day',
      'Sin compromiso <i>·</i> Sin presentación institucional <i>·</i> Respuesta en 1 día hábil'),
-  'Nossos contatos': ('Our contacts', 'Nuestros contactos'),
   'Nome': ('Name', 'Nombre'),
   'Empresa': ('Company', 'Empresa'),
   'Cargo <em>(opcional)</em>': ('Role <em>(optional)</em>', 'Cargo <em>(opcional)</em>'),
@@ -570,9 +496,7 @@ TRAD.update({
   'Mudar para o tema claro': ('Switch to light theme', 'Cambiar al tema claro'),
   'Pular para o conteúdo': ('Skip to content', 'Saltar al contenido'),
   'Navegação mobile': ('Mobile navigation', 'Navegación móvil'),
-  'Instagram <small>@atlas_tecnologia ✦</small>': ('Instagram <small>@atlas_tecnologia ✦</small>', 'Instagram <small>@atlas_tecnologia ✦</small>'),
   'Instagram — @atlas_tecnologia': ('Instagram — @atlas_tecnologia', 'Instagram — @atlas_tecnologia'),
-  'LinkedIn <small>Atlas Tecnologia ✦</small>': ('LinkedIn <small>Atlas Tecnologia ✦</small>', 'LinkedIn <small>Atlas Tecnologia ✦</small>'),
 
   # ---------------- setores do trilho (item a item) ----------------
   'Varejo &amp; Moda': ('Fashion Retail', 'Retail &amp; Moda'),
@@ -586,10 +510,6 @@ TRAD.update({
   'Varejo de Moda': ('Fashion Retail', 'Retail de Moda'),
 
   # ---------------- restos medidos na varredura ----------------
-  '<span>Jan</span> <span>Fev</span> <span>Mar</span> <span>Abr</span> <span>Mai</span> <span>Jun</span> <span>Jul</span> <span>Ago</span> <span>Set</span> <span>Out</span> <span>Nov</span> <span class="hi">Dez</span>':
-    ('<span>Jan</span> <span>Feb</span> <span>Mar</span> <span>Apr</span> <span>May</span> <span>Jun</span> <span>Jul</span> <span>Aug</span> <span>Sep</span> <span>Oct</span> <span>Nov</span> <span class="hi">Dec</span>',
-     '<span>Ene</span> <span>Feb</span> <span>Mar</span> <span>Abr</span> <span>May</span> <span>Jun</span> <span>Jul</span> <span>Ago</span> <span>Sep</span> <span>Oct</span> <span>Nov</span> <span class="hi">Dic</span>'),
-  '94,3%': ('94.3%', '94,3%'),
   'Projetos reais entregues por especialistas Atlas Tec. Nomes de clientes preservados por confidencialidade.':
     ('Real projects delivered by Atlas Tec specialists. Client names withheld for confidentiality.',
      'Proyectos reales entregados por especialistas de Atlas Tec. Nombres de clientes reservados por confidencialidad.'),
@@ -865,6 +785,14 @@ TRAD.update({
     ('When the bottleneck is not the project but who will run it: data specialists who join your operation, report to your management and stay.',
      'Cuando el cuello de botella no es el proyecto sino quién va a llevarlo: especialistas de datos que entran en su operación, responden a su gestión y se quedan.'),
   'O que a IA resolve': ('What AI solves', 'Lo que resuelve la IA'),
+  # Frases que giram na segunda linha do hero. Não saem da extração de
+  # blocos — só uma delas está no HTML a cada momento —, por isso ficam
+  # declaradas em EXTRAS.
+  'decisões extraordinárias': ('extraordinary decisions', 'decisiones extraordinarias'),
+  'dados e analytics': ('data and analytics', 'datos y analytics'),
+  'engenharia de dados': ('data engineering', 'ingeniería de datos'),
+  'inteligência artificial': ('artificial intelligence', 'inteligencia artificial'),
+  'times de especialistas': ('teams of specialists', 'equipos de especialistas'),
   'Inteligência Artificial <small>IA ✦</small>':
     ('Artificial Intelligence <small>AI ✦</small>', 'Inteligencia Artificial <small>IA ✦</small>'),
   # alt das artes dos cases — texto que o leitor de tela lê

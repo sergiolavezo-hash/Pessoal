@@ -71,78 +71,138 @@ def curva(x1, y1, x2, y2, op=0.55):
             f'stroke-width="2" fill="none" opacity="{op}"/>')
 
 
-def omnichannel():
-    """Canais separados convergindo numa plataforma só."""
-    p = []
-    ys = [92, 168, 244, 320]
-    for i, y in enumerate(ys):
-        p.append(caixa(58, y - 26, 132, 52, op=0.9))
-        p.append(ponto(92, y, 3.4, AZUL, 0.9))
-        p.append(curva(190, y, 330, 230))
-    p.append(caixa(330, 168, 150, 124, preenche=False, r=14))
-    p.append(f'  <rect x="330" y="168" width="150" height="124" rx="14" fill="{AZUL}" opacity="0.1"/>')
+def painel(x, y, w, h, titulo_larg=70):
+    """Moldura de dashboard: barra de janela, título e corpo."""
+    p = [f'  <rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="#0E1826" stroke="{AZUL}" stroke-width="1.4" opacity="0.95"/>',
+         f'  <path d="M{x} {y + 30} h{w}" stroke="{AZUL}" stroke-width="1" opacity="0.35"/>',
+         f'  <rect x="{x + 14}" y="{y + 11}" width="{titulo_larg}" height="8" rx="4" fill="url(#g)" opacity="0.85"/>']
     for i in range(3):
-        p.append(f'  <rect x="352" y="{192 + i * 30}" width="{106 - i * 22}" height="10" rx="5" fill="url(#g)" opacity="{0.85 - i * 0.2}"/>')
-    p.append(curva(480, 230, 606, 150))
-    p.append(curva(480, 230, 606, 310))
-    for y in (150, 310):
-        p.append(caixa(606, y - 34, 60, 68, op=0.85))
-        p.append(ponto(636, y, 5, CLARO, 0.95))
+        p.append(f'  <circle cx="{x + w - 16 - i * 13}" cy="{y + 15}" r="2.6" fill="{AZUL}" opacity="{0.5 - i * 0.12}"/>')
+    return p
+
+
+def barras(x, y, w, h, alturas, destaque=-1):
+    p = []
+    n = len(alturas)
+    lg = w / n * 0.56
+    passo = w / n
+    for i, a in enumerate(alturas):
+        bh = h * a
+        cor = 'url(#g)' if i == destaque else AZUL
+        op = 1 if i == destaque else 0.45
+        p.append(f'  <rect x="{x + i * passo + (passo - lg) / 2:.1f}" y="{y + h - bh:.1f}" width="{lg:.1f}" '
+                 f'height="{bh:.1f}" rx="2.5" fill="{cor}" opacity="{op}"/>')
+    return p
+
+
+def serie(x, y, w, h, vals, cor=None, op=0.95, larg=2.2):
+    n = len(vals)
+    pts = [(x + i * (w / (n - 1)), y + h - v * h) for i, v in enumerate(vals)]
+    d = 'M' + ' L'.join(f'{a:.1f} {b:.1f}' for a, b in pts)
+    return [f'  <path d="{d}" fill="none" stroke="{cor or CLARO}" stroke-width="{larg}" '
+            f'stroke-linecap="round" stroke-linejoin="round" opacity="{op}"/>']
+
+
+def donut(cx, cy, r, frac, larg=9):
+    import math
+    c = 2 * math.pi * r
+    return [f'  <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{AZUL}" stroke-width="{larg}" opacity="0.22"/>',
+            f'  <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="url(#g)" stroke-width="{larg}" '
+            f'stroke-linecap="round" stroke-dasharray="{c * frac:.1f} {c:.1f}" transform="rotate(-90 {cx} {cy})"/>']
+
+
+def omnichannel():
+    """Canais separados convergindo num painel único de vendas."""
+    p = []
+    rot = ['Loja', 'App', 'Web', 'Mkt']
+    for i, y in enumerate([94, 158, 222, 286]):
+        p.append(f'  <rect x="46" y="{y - 22}" width="104" height="44" rx="9" fill="#0E1826" stroke="{AZUL}" stroke-width="1.3" opacity="0.9"/>')
+        p.append(f'  <circle cx="68" cy="{y}" r="5" fill="{AZUL}" opacity="0.75"/>')
+        p.append(f'  <rect x="82" y="{y - 8}" width="52" height="6" rx="3" fill="{AZUL}" opacity="0.5"/>')
+        p.append(f'  <rect x="82" y="{y + 2}" width="34" height="6" rx="3" fill="{AZUL}" opacity="0.28"/>')
+        p.append(curva(150, y, 212, 190))
+    p += painel(212, 70, 300, 250, titulo_larg=92)
+    p += barras(236, 122, 160, 92, [0.42, 0.58, 0.5, 0.72, 0.64, 0.88], destaque=5)
+    p += donut(458, 168, 30, 0.72)
+    p += serie(236, 234, 252, 56, [0.25, 0.42, 0.33, 0.58, 0.5, 0.72, 0.68, 0.9])
+    for i, lx in enumerate([236, 322, 408]):
+        p.append(f'  <rect x="{lx}" y="300" width="68" height="6" rx="3" fill="{AZUL}" opacity="{0.4 - i * 0.1}"/>')
+    for y in (150, 262):
+        p.append(curva(512, 190, 580, y))
+        p.append(f'  <rect x="580" y="{y - 24}" width="84" height="48" rx="9" fill="#0E1826" stroke="{CLARO}" stroke-width="1.3" opacity="0.9"/>')
+        p.append(f'  <rect x="596" y="{y - 9}" width="44" height="7" rx="3.5" fill="url(#g)"/>')
+        p.append(f'  <rect x="596" y="{y + 3}" width="28" height="6" rx="3" fill="{CLARO}" opacity="0.4"/>')
     return '\n'.join(p)
 
 
 def legado():
-    """Um bloco denso virando um fluxo organizado."""
+    """Banco legado denso dando lugar a pipelines em nuvem."""
     p = []
-    for c in range(5):
-        for r in range(5):
-            op = 0.22 + ((c + r) % 3) * 0.12
-            p.append(f'  <rect x="{62 + c * 26}" y="{124 + r * 26}" width="18" height="18" rx="3" '
-                     f'fill="{AZUL}" opacity="{op}"/>')
-    p.append(f'  <rect x="52" y="114" width="150" height="150" rx="12" fill="none" stroke="{AZUL}" '
-             f'stroke-width="1.6" stroke-dasharray="5 5" opacity="0.55"/>')
-    p.append(f'  <path d="M222 190 L288 190" stroke="url(#g)" stroke-width="2.4" fill="none"/>')
-    p.append(f'  <path d="M280 183 L290 190 L280 197" stroke="{CLARO}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
-    etapas = [(316, 'Ingestão'), (316, None)]
-    xs = [316, 436, 556]
-    for i, x in enumerate(xs):
-        p.append(caixa(x, 120, 92, 140, op=0.9, r=12))
-        for k in range(4):
-            p.append(f'  <rect x="{x + 16}" y="{146 + k * 26}" width="{60 - k * 8}" height="8" rx="4" '
-                     f'fill="url(#g)" opacity="{0.8 - k * 0.15}"/>')
-        if i < len(xs) - 1:
-            p.append(linha(x + 92, 190, x + 120, 190, op=0.7, larg=2))
-    p.append(ponto(362, 300, 4, CLARO, 0.8))
-    p.append(ponto(482, 318, 3, AZUL, 0.7))
-    p.append(ponto(602, 296, 4, CLARO, 0.75))
-    p.append(linha(362, 300, 482, 318, op=0.3))
-    p.append(linha(482, 318, 602, 296, op=0.3))
+    for i, cy in enumerate([128, 172, 216]):
+        p.append(f'  <ellipse cx="108" cy="{cy}" rx="56" ry="16" fill="none" stroke="{AZUL}" stroke-width="1.5" opacity="{0.6 - i * 0.12}"/>')
+    p.append(f'  <path d="M52 128 v88" stroke="{AZUL}" stroke-width="1.5" opacity="0.45"/>')
+    p.append(f'  <path d="M164 128 v88" stroke="{AZUL}" stroke-width="1.5" opacity="0.45"/>')
+    p.append(f'  <ellipse cx="108" cy="248" rx="56" ry="16" fill="none" stroke="{AZUL}" stroke-width="1.5" opacity="0.4"/>')
+    for k in range(7):
+        p.append(f'  <rect x="{72 + (k % 4) * 20}" y="{142 + (k // 4) * 22}" width="12" height="12" rx="2" fill="{AZUL}" opacity="{0.2 + (k % 3) * 0.1}"/>')
+    p.append(f'  <text x="108" y="298" fill="{AZUL}" opacity="0.6" font-family="monospace" font-size="13" text-anchor="middle">legado</text>')
+
+    p.append(f'  <path d="M186 212 L236 212" stroke="url(#g)" stroke-width="2.4" fill="none"/>')
+    p.append(f'  <path d="M228 205 L238 212 L228 219" stroke="{CLARO}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+
+    # nuvem moderna
+    p.append(f'  <path d="M300 148 a34 34 0 0 1 66-9 26 26 0 0 1 33 25 24 24 0 0 1-24 24h-72a25 25 0 0 1-3-40Z" '
+             f'fill="{AZUL}" opacity="0.1"/>')
+    p.append(f'  <path d="M300 148 a34 34 0 0 1 66-9 26 26 0 0 1 33 25 24 24 0 0 1-24 24h-72a25 25 0 0 1-3-40Z" '
+             f'fill="none" stroke="url(#g)" stroke-width="2"/>')
+    for i, x in enumerate([322, 348, 374]):
+        p.append(f'  <circle cx="{x}" cy="155" r="3.4" fill="{CLARO}" opacity="{0.9 - i * 0.2}"/>')
+    for x in (322, 348, 374):
+        p.append(f'  <path d="M{x} 190 v24" stroke="{AZUL}" stroke-width="1.5" opacity="0.5" stroke-dasharray="3 4"/>')
+
+    # pipelines
+    for i, x in enumerate([288, 384, 480]):
+        p += painel(x, 214, 84, 96, titulo_larg=34)
+        for k in range(3):
+            p.append(f'  <rect x="{x + 14}" y="{254 + k * 18}" width="{56 - k * 12}" height="7" rx="3.5" fill="url(#g)" opacity="{0.85 - k * 0.2}"/>')
+        if i < 2:
+            p.append(linha(x + 84, 262, x + 96, 262, op=0.7, larg=2))
+    p += serie(566, 150, 110, 96, [0.2, 0.36, 0.3, 0.52, 0.62, 0.58, 0.82, 0.95], larg=2.4)
+    p += barras(566, 262, 110, 48, [0.5, 0.68, 0.58, 0.84, 0.94], destaque=4)
     return '\n'.join(p)
 
 
 def governanca():
-    """Muitos quadros soltos virando uma grade alinhada."""
+    """Painéis soltos virando uma grade governada."""
     p = []
-    soltos = [(62, 108, 74, 48, -7), (150, 86, 66, 44, 5), (70, 186, 80, 50, 4),
-              (158, 172, 60, 42, -6), (96, 262, 72, 46, 7), (178, 250, 58, 40, -4)]
+    soltos = [(48, 110, 82, 54, -8), (144, 88, 72, 48, 6), (56, 192, 88, 56, 5),
+              (156, 176, 66, 46, -7), (84, 272, 78, 50, 8)]
     for x, y, w, h, a in soltos:
         cx, cy = x + w / 2, y + h / 2
-        p.append(f'  <g transform="rotate({a} {cx} {cy})"><rect x="{x}" y="{y}" width="{w}" height="{h}" '
-                 f'rx="7" fill="none" stroke="{AZUL}" stroke-width="1.5" opacity="0.5"/>'
-                 f'<rect x="{x + 9}" y="{y + 12}" width="{w - 30}" height="6" rx="3" fill="{AZUL}" opacity="0.4"/>'
-                 f'<rect x="{x + 9}" y="{y + 26}" width="{w - 18}" height="6" rx="3" fill="{AZUL}" opacity="0.25"/></g>')
-    p.append(f'  <path d="M268 200 L330 200" stroke="url(#g)" stroke-width="2.4" fill="none"/>')
-    p.append(f'  <path d="M322 193 L332 200 L322 207" stroke="{CLARO}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
-    for c in range(3):
-        for r in range(3):
-            x, y = 364 + c * 102, 104 + r * 66
-            p.append(f'  <rect x="{x}" y="{y}" width="86" height="50" rx="8" fill="{AZUL}" opacity="0.08"/>')
-            p.append(f'  <rect x="{x}" y="{y}" width="86" height="50" rx="8" fill="none" stroke="{AZUL}" stroke-width="1.5" opacity="0.75"/>')
-            p.append(f'  <rect x="{x + 11}" y="{y + 13}" width="40" height="6" rx="3" fill="url(#g)" opacity="0.9"/>')
-            p.append(f'  <rect x="{x + 11}" y="{y + 28}" width="64" height="6" rx="3" fill="{AZUL}" opacity="0.35"/>')
-    p.append(f'  <rect x="352" y="92" width="314" height="206" rx="14" fill="none" stroke="{CLARO}" '
-             f'stroke-width="1.6" opacity="0.5"/>')
+        p.append(f'  <g transform="rotate({a} {cx} {cy})">'
+                 f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="#0E1826" stroke="{AZUL}" stroke-width="1.4" opacity="0.6"/>'
+                 f'<rect x="{x + 10}" y="{y + 11}" width="{w - 34}" height="6" rx="3" fill="{AZUL}" opacity="0.45"/>'
+                 f'<rect x="{x + 10}" y="{y + 25}" width="{w - 20}" height="5" rx="2.5" fill="{AZUL}" opacity="0.22"/>'
+                 f'<rect x="{x + 10}" y="{y + 36}" width="{w - 40}" height="5" rx="2.5" fill="{AZUL}" opacity="0.18"/></g>')
+    p.append(f'  <text x="112" y="350" fill="{AZUL}" opacity="0.55" font-family="monospace" font-size="12" text-anchor="middle">200+ sem padrão</text>')
+    p.append(f'  <path d="M250 206 L300 206" stroke="url(#g)" stroke-width="2.4" fill="none"/>')
+    p.append(f'  <path d="M292 199 L302 206 L292 213" stroke="{CLARO}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+
+    p += painel(330, 70, 332, 288, titulo_larg=96)
+    p += barras(352, 122, 132, 74, [0.44, 0.62, 0.54, 0.78, 0.9], destaque=4)
+    p += donut(566, 158, 32, 0.84)
+    for r in range(2):
+        for c in range(3):
+            x, y = 352 + c * 102, 220 + r * 66
+            p.append(f'  <rect x="{x}" y="{y}" width="86" height="52" rx="8" fill="{AZUL}" opacity="0.07"/>')
+            p.append(f'  <rect x="{x}" y="{y}" width="86" height="52" rx="8" fill="none" stroke="{AZUL}" stroke-width="1.3" opacity="0.6"/>')
+            p.append(f'  <rect x="{x + 11}" y="{y + 12}" width="38" height="7" rx="3.5" fill="url(#g)" opacity="0.9"/>')
+            p.append(f'  <rect x="{x + 11}" y="{y + 27}" width="62" height="5" rx="2.5" fill="{AZUL}" opacity="0.3"/>')
+            p.append(f'  <rect x="{x + 11}" y="{y + 37}" width="44" height="5" rx="2.5" fill="{AZUL}" opacity="0.2"/>')
+    p.append(f'  <text x="496" y="384" fill="{CLARO}" opacity="0.7" font-family="monospace" font-size="12" text-anchor="middle">1 definição por métrica</text>')
     return '\n'.join(p)
+
+
 
 
 ARTES = [

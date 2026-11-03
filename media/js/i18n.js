@@ -114,21 +114,30 @@
   function trocarH1(lang) {
     var h1 = document.querySelector('h1[aria-label]');
     if (!h1) return;
-    if (h1.__ptLabel === undefined) h1.__ptLabel = norm(h1.getAttribute('aria-label'));
+    if (h1.__ptLabel === undefined) {
+      h1.__ptLabel = norm(h1.getAttribute('aria-label'));
+      /* Guarda a marcação, não só o texto. Voltar ao português escrevendo
+         textContent apagava o <span class="ac"> e o destaque azul da
+         segunda linha do título virava preto. */
+      h1.__ptHTML = h1.innerHTML;
+    }
     var pt = h1.__ptLabel;
-    var t = lang === 'pt' ? pt : ((DIC[lang] && DIC[lang][pt]) || pt);
-    if (lang !== 'pt' || norm(h1.textContent) !== pt) {
-      var destaque = DIC[lang] && DIC[lang]['@h1-destaque'];
-      if (destaque && t.indexOf(destaque) > -1) {
-        var i = t.indexOf(destaque);
-        h1.textContent = '';
-        h1.appendChild(document.createTextNode(t.slice(0, i)));
-        var sp = document.createElement('span'); sp.className = 'ac'; sp.textContent = destaque;
-        h1.appendChild(sp);
-        h1.appendChild(document.createTextNode(t.slice(i + destaque.length)));
-      } else {
-        h1.textContent = t;
-      }
+    if (lang === 'pt') {
+      if (h1.innerHTML !== h1.__ptHTML) h1.innerHTML = h1.__ptHTML;
+      h1.setAttribute('aria-label', pt);
+      return;
+    }
+    var t = (DIC[lang] && DIC[lang][pt]) || pt;
+    var destaque = DIC[lang] && DIC[lang]['@h1-destaque'];
+    var i = destaque ? t.indexOf(destaque) : -1;
+    h1.textContent = '';
+    if (i > -1) {
+      h1.appendChild(document.createTextNode(t.slice(0, i)));
+      var sp = document.createElement('span'); sp.className = 'ac'; sp.textContent = destaque;
+      h1.appendChild(sp);
+      h1.appendChild(document.createTextNode(t.slice(i + destaque.length)));
+    } else {
+      h1.textContent = t;
     }
     h1.setAttribute('aria-label', t);
   }
@@ -215,6 +224,11 @@
     if (guardar) { try { localStorage.setItem('atlas-idioma', lang); } catch (e) {} }
     var bt = document.getElementById('lang-atual');
     if (bt) bt.textContent = lang.toUpperCase();
+    /* a bandeira do botão é clonada da opção escolhida, para não existirem
+       dois desenhos da mesma bandeira que possam divergir */
+    var alvo = document.querySelector('.lang-menu [data-lang="' + lang + '"] .bandeira');
+    var slot = document.getElementById('lang-bandeira');
+    if (alvo && slot) { slot.innerHTML = ''; slot.appendChild(alvo.cloneNode(true)); }
     [].slice.call(document.querySelectorAll('.lang-menu [data-lang]')).forEach(function (b) {
       b.setAttribute('aria-current', b.getAttribute('data-lang') === lang ? 'true' : 'false');
     });

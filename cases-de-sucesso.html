@@ -30,6 +30,22 @@
   </script>
 <style>
 
+  /* Mona Sans, variável, hospedada aqui mesmo. É a fonte da referência e
+     está sob SIL OFL (media/fonts/mona-sans-LICENSE.txt). Self-host em vez
+     de CDN porque a CSP não libera fonte de terceiro — e porque dois
+     arquivos de 55 KB no mesmo domínio chegam antes de um handshake novo.
+     Um eixo só, o de peso: o de largura dobraria o download sem uso. */
+  @font-face {
+    font-family: 'Mona Sans'; font-style: normal; font-weight: 200 900; font-display: swap;
+    src: url(media/fonts/mona-sans-latin-wght-normal.woff2) format('woff2-variations');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+  @font-face {
+    font-family: 'Mona Sans'; font-style: normal; font-weight: 200 900; font-display: swap;
+    src: url(media/fonts/mona-sans-latin-ext-wght-normal.woff2) format('woff2-variations');
+    unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+  }
+
   :root {
     --bg0: #05070A;
     --bg1: #080C12;
@@ -50,8 +66,8 @@
     --paper-ink: #131316;
     --paper-muted: #56565E;
     --paper-line: #DCDAD2;
-    --display: 'Manrope', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
-    --body: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --display: 'Mona Sans', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+    --body: 'Mona Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
     --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --grid: rgba(244, 243, 239, 0.05);
@@ -64,6 +80,7 @@
        selos, links e ícones. */
     --btn-fill: #1F6FE0;   /* branco sobre ele: 4,76:1 */
     --accent-quente: #F2A33C;  /* contraponto quente da constelação */
+    --accent-verde: #2FB6A4;
     --sombra: 0 10px 30px -8px rgba(5, 7, 10, 0.55);
   }
 
@@ -220,10 +237,11 @@
      mesmo canto e ruido, e no mobile cobre conteudo — entao a barra desce
      do topo, e so depois que o hero sai da tela. */
   .cbar {
-    /* Abaixo do cabeçalho, nunca por cima. A altura da nav muda com o scroll
-       e arredonda diferente por zoom, então ela é medida em tempo de execução
-       e publicada em --navh — número fixo aqui sempre erra por 1px. */
-    position: fixed; top: var(--navh, 4.25rem); left: 0; right: 0; z-index: 45;
+    /* Filha do cabeçalho, ancorada no rodapé dele: top:100% acompanha a
+       altura real da nav sempre. Medir a altura e publicar em --navh
+       errava justamente quando a nav mudava de tamanho — bastava voltar ao
+       topo com a barra aberta para ela subir por cima do menu. */
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 45;
     display: flex; align-items: center; justify-content: center; gap: 1.2rem;
     padding: 0.6rem 3rem 0.6rem 1.2rem;
     background: var(--veil-forte); border-bottom: 1px solid var(--line);
@@ -231,6 +249,7 @@
     transform: translateY(-100%); transition: transform 0.45s var(--ease);
   }
   .cbar.on { transform: none; }
+  .nav.mega-aberto .cbar { transform: translateY(-100%); }
   .cbar p { font-size: 0.88rem; color: var(--muted); margin: 0; }
   .cbar .btn { padding: 0.5rem 1rem; font-size: 0.82rem; }
   .cbar-x {
@@ -324,6 +343,35 @@
   }
 
   /* ---------- Cases ---------- */
+  /* Carrossel dos cases: trilho com scroll-snap, setas e pontos. O avanço
+     automático existe para mostrar que há mais de um, e para assim que
+     alguém usa as setas ou os pontos — depois disso quem manda é o leitor.
+     Pausa também no hover e no foco do teclado. */
+  .carr { position: relative; margin-top: 1.6rem; }
+  .carr-trilho {
+    display: flex; gap: 1.2rem; overflow-x: auto; scroll-snap-type: x mandatory;
+    scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none;
+    padding-bottom: 0.4rem;
+  }
+  .carr-trilho::-webkit-scrollbar { display: none; }
+  .carr-trilho > .case-card { flex: 0 0 100%; scroll-snap-align: start; margin-top: 0; }
+  .carr-barra { display: flex; align-items: center; gap: 0.9rem; margin-top: 1.4rem; justify-content: flex-end; }
+  .carr-pontos { display: flex; gap: 0.45rem; margin-right: auto; }
+  .carr-ponto {
+    width: 2rem; height: 3px; border-radius: 2px; border: 0; padding: 0; cursor: pointer;
+    background: var(--line-strong); transition: background 0.3s var(--ease);
+  }
+  .carr-ponto[aria-current="true"] { background: var(--accent); }
+  .carr-seta {
+    width: 2.6rem; height: 2.6rem; display: grid; place-items: center; cursor: pointer;
+    border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--muted);
+    transition: all 0.25s var(--ease);
+  }
+  .carr-seta:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .carr-seta:disabled { opacity: 0.35; cursor: default; }
+  .carr-seta svg { width: 1.1rem; height: 1.1rem; stroke: currentColor; fill: none; stroke-width: 2; }
+  @media (prefers-reduced-motion: reduce) { .carr-trilho { scroll-behavior: auto; } }
+
   .case-card { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2.5rem; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 2.2rem; margin-top: 1.6rem; }
   /* A arte atravessa as duas colunas no topo do cartão. É um diagrama do
      que o projeto fez, não enfeite: por isso cada case tem a sua, e o alt
@@ -656,10 +704,12 @@
   .reveal.d2 { transition-delay: 0.16s; }
   .reveal.d3 { transition-delay: 0.24s; }
 
+  /* O trilho de setores e a constelação ficam de fora desta regra por
+     decisão do dono do site: é a deriva lenta que ele quer ver e ele navega
+     com "reduzir movimento" ligado. Tudo o mais continua travado. */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .reveal, .m-step, .sol-item, .hero h1 .w > span { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; opacity: 1 !important; transform: none !important; }
-    .marquee-track { animation: none; }
     .live-line { animation: none; stroke-dashoffset: 0; }
     .live-dot { animation: none; opacity: 1; }
     .mascot-eye, .mascot-dot, .mascot-float { animation: none; }
@@ -795,25 +845,6 @@
   .num b { display: block; font-family: var(--display); font-size: clamp(2rem, 4vw, 2.9rem); font-weight: 800; letter-spacing: -0.04em; color: var(--accent-light); }
   .num span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
 
-  /* ---------- Insight AI (demonstração) ---------- */
-  .demo { border: 1px solid var(--line); border-radius: 16px; background: var(--panel); overflow: hidden; margin-top: 2.4rem; }
-  .demo-bar { display: flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
-  .demo-bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
-  .demo-body { padding: 1.4rem; display: grid; gap: 1rem; }
-  .demo-qs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .demo-q {
-    font-family: var(--mono); font-size: 0.72rem; color: var(--muted); cursor: pointer;
-    background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 0.45rem 0.9rem;
-    transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
-  }
-  .demo-q:hover { border-color: rgba(46,134,255,0.5); color: var(--ink); }
-  .demo-q[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.1); }
-  .demo-a { border-left: 2px solid var(--accent); padding-left: 1rem; min-height: 6rem; }
-  .demo-a p { color: var(--muted); }
-  .demo-a b { color: var(--ink); }
-  .demo-metrics { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-top: 0.8rem; }
-  .demo-metrics div span { display: block; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
-  .demo-metrics div b { font-family: var(--display); font-size: 1.3rem; font-weight: 700; }
 
   /* ---------- CTA final ---------- */
   .final { text-align: center; padding: clamp(4rem, 9vw, 7rem) 0; }
@@ -869,110 +900,6 @@
   @media (max-width: 1080px) { .pilares { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 620px) { .pilares { grid-template-columns: 1fr; } }
 
-  /* ---------- Painel executivo de exemplo ---------- */
-  /* Um painel só, bem resolvido, em vez de um comparativo. A hierarquia
-     é o assunto: um número principal, um gráfico com um único destaque e
-     o apoio embaixo — nada disputando atenção. */
-  .dash {
-    border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
-    background: linear-gradient(180deg, rgba(18,26,36,0.9), rgba(13,17,23,0.9));
-    margin-top: 2.4rem;
-  }
-  .dash-bar {
-    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-    padding: 1rem 1.4rem; border-bottom: 1px solid var(--line);
-    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
-  }
-  .dash-bar { flex-wrap: wrap; }
-  .dash-bar b { color: var(--ink); font-weight: 500; }
-  .dash-bar span { color: var(--dim); }
-
-  .dash-tabs { display: flex; gap: 0.3rem; }
-  .dash-tab {
-    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--dim); background: transparent; border: 1px solid transparent; border-radius: 999px;
-    padding: 0.35rem 0.7rem; cursor: pointer;
-    transition: color 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
-  }
-  .dash-tab:hover { color: var(--ink); }
-  .dash-tab[aria-selected="true"] { color: var(--ink); border-color: rgba(46,134,255,0.45); background: rgba(46,134,255,0.12); }
-  .dash-page[hidden] { display: none; }
-  .dash-body { display: grid; grid-template-columns: 17.5rem 1fr; }
-  .dash-side { padding: 1.6rem 1.4rem; border-right: 1px solid var(--line); display: grid; gap: 1.5rem; align-content: start; }
-  .dash-main { padding: 1.6rem 1.6rem 1.3rem; }
-
-  .kpi-k { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
-  .kpi-v { font-family: var(--display); font-weight: 800; letter-spacing: -0.035em; line-height: 1; font-size: clamp(1.7rem, 2.9vw, 2.2rem); margin-top: 0.4rem; white-space: nowrap; }
-  .kpi-delta { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.5rem; font-family: var(--mono); font-size: 0.72rem; color: var(--accent-light); }
-  .kpi-sub { font-family: var(--mono); font-size: 0.68rem; color: var(--dim); margin-top: 0.15rem; }
-  .kpi-mini { display: grid; gap: 0.25rem; }
-  .kpi-mini b { font-family: var(--display); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
-
-  .dash-title { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
-  .chart { display: flex; align-items: flex-end; gap: 0.55rem; height: 9.5rem; margin: 1.1rem 0 0.5rem; }
-  .chart div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
-  .chart i {
-    display: block; width: 100%; border-radius: 2px 2px 0 0;
-    background: rgba(46,134,255,0.22); transition: background 0.4s var(--ease);
-  }
-  .chart div.hi i { background: var(--accent); box-shadow: 0 0 22px rgba(46,134,255,0.45); }
-  .chart-x { display: flex; gap: 0.55rem; font-family: var(--mono); font-size: 0.6rem; color: var(--dim); }
-  .chart-x span { flex: 1; text-align: center; }
-  .chart-x span.hi { color: var(--accent-light); }
-
-  .dash-title.mt { margin-top: 1.6rem; }
-
-  /* Barra horizontal: a comparação entre poucas categorias com nome longo
-     lê melhor deitada do que em colunas verticais espremidas. */
-  .hbars { display: grid; gap: 0.8rem; margin-top: 1.1rem; }
-  .hbar { display: grid; grid-template-columns: 9.5rem 1fr auto; gap: 0.9rem; align-items: center; font-size: 0.88rem; }
-  .hbar > span { color: var(--muted); }
-  .hbar-track { height: 0.5rem; border-radius: 999px; background: rgba(255,255,255,0.05); overflow: hidden; }
-  .hbar-fill { height: 100%; border-radius: 999px; background: rgba(46,134,255,0.3); }
-  .hbar.hi .hbar-fill { background: var(--accent); box-shadow: 0 0 18px rgba(46,134,255,0.45); }
-  .hbar-track { position: relative; }
-  .hbar-goal { position: absolute; top: -2px; bottom: -2px; width: 1px; background: var(--ink); opacity: 0.55; }
-  .dash-scale { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; color: var(--dim); text-transform: none; margin-left: 0.5rem; }
-  .hbar > b { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--ink); }
-
-  .spark { display: block; width: 100%; height: 8.5rem; margin: 1.1rem 0 0.5rem; }
-
-  .dash-sub { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 0.9rem; }
-  .dash-sub b { font-family: var(--display); font-size: 1.2rem; font-weight: 700; letter-spacing: -0.02em; display: block; margin-top: 0.2rem; }
-
-  .dash-note {
-    display: flex; align-items: center; gap: 0.5rem; margin-top: 1.1rem; padding-top: 1rem;
-    border-top: 1px solid var(--line-soft); font-size: 0.88rem; color: var(--muted);
-  }
-  .dash-note b { color: var(--ink); font-weight: 600; }
-  .dash-note::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; }
-
-  @media (max-width: 780px) {
-    .dash-body { grid-template-columns: 1fr; }
-    .dash-side { border-right: none; border-bottom: 1px solid var(--line); grid-template-columns: repeat(2, 1fr); }
-    .dash-side > :first-child { grid-column: 1 / -1; }
-    .chart { height: 7rem; }
-    .chart-x { font-size: 0.52rem; }
-    .dash-bar { gap: 0.7rem; }
-    .hbar { grid-template-columns: 7rem 1fr auto; gap: 0.6rem; font-size: 0.8rem; }
-    .dash-sub { gap: 0.6rem; }
-    .dash-sub b { font-size: 1rem; }
-  }
-
-  /* ============================================================
-     Arquitetura de blocos no formato da referência — com os
-     tokens, a tipografia e o fundo escuro da Atlas.
-     ============================================================ */
-
-  /* Selo de seção: variante em pílula do .eyebrow */
-  .pill {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
-    letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-light);
-    background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.3);
-    border-radius: 999px; padding: 0.42rem 0.9rem;
-  }
-  .pill svg { width: 0.9rem; height: 0.9rem; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
   /* ---------- Hero centralizado ---------- */
   .hero-c { min-height: 100svh; display: grid; align-items: center; padding: 9rem 0 7rem; }
@@ -1080,12 +1007,6 @@
   .head2-side .sub { margin: 0; }
 
   /* ---------- Contato: formulário + contatos ---------- */
-  .ct-side { display: grid; gap: 0.8rem; align-content: start; }
-  .ct-card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 1.3rem 1.4rem; text-decoration: none; display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: center; transition: border-color 0.3s var(--ease), transform 0.3s var(--ease); }
-  a.ct-card:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-2px); }
-  .ct-card .tile-ico { flex: none; }
-  .ct-card .k { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); display: block; }
-  .ct-card .v { font-family: var(--display); font-weight: 700; font-size: 0.97rem; display: block; margin-top: 0.15rem; word-break: break-word; }
 
   @media (max-width: 1000px) {
     .ess, .sol, .banner, .head2 { grid-template-columns: 1fr; }
@@ -1144,6 +1065,7 @@
     --sombra: 0 10px 30px -10px rgba(19, 19, 22, 0.18);
     --btn-fill: #0B5ED7;   /* branco sobre ele: 5,84:1 */
     --accent-quente: #D9822B;
+    --accent-verde: #1F8F80;
   }
   /* No claro a seção de papel é a escura, então o selo dela volta
      a ser o azul aberto. */
@@ -1159,7 +1081,6 @@
   :root[data-tema="claro"] .case-mini,
   :root[data-tema="claro"] .pillar,
   :root[data-tema="claro"] .pilar,
-  :root[data-tema="claro"] .ct-card,
   :root[data-tema="claro"] .banner { box-shadow: var(--sombra); }
 
   /* ---------- Alternador de tema ---------- */
@@ -1212,8 +1133,14 @@
     transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
   }
   .lang-btn:hover, .lang-btn[aria-expanded="true"] { border-color: rgba(46,134,255,0.45); color: var(--ink); }
-  .lang-btn svg { width: 0.7rem; height: 0.7rem; stroke: currentColor; fill: none; stroke-width: 2.4; transition: transform 0.25s var(--ease); }
-  .lang-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .lang-btn .lang-seta { width: 0.7rem; height: 0.7rem; stroke: currentColor; fill: none; stroke-width: 2.4; transition: transform 0.25s var(--ease); }
+  /* As bandeiras são SVG desenhado aqui, não emoji: emoji de bandeira não
+     renderiza no Windows, que mostra as duas letras do país no lugar. */
+  .bandeira { width: 1.25rem; height: 0.9rem; border-radius: 2px; flex: none; display: block; box-shadow: 0 0 0 1px rgba(19,19,22,0.12) inset; }
+  .lang-btn #lang-bandeira { display: flex; }
+  .lang-menu button { gap: 0.6rem; }
+  .lang-menu button .bandeira { margin-right: 0.1rem; }
+  .lang-btn[aria-expanded="true"] .lang-seta { transform: rotate(180deg); }
   .lang-menu {
     position: absolute; right: 0; top: calc(100% + 0.5rem); min-width: 11rem;
     background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
@@ -1221,14 +1148,14 @@
   }
   .lang-menu[hidden] { display: none; }
   .lang-menu button {
-    display: flex; align-items: center; justify-content: space-between; gap: 0.8rem;
+    display: flex; align-items: center; gap: 0.8rem;
     width: 100%; text-align: left; cursor: pointer; background: none; border: 0;
     border-radius: 8px; padding: 0.6rem 0.7rem; color: var(--muted); font-size: 0.9rem;
     transition: background 0.2s, color 0.2s;
   }
   .lang-menu button:hover { background: var(--panel-2); color: var(--ink); }
   .lang-menu button[aria-current="true"] { color: var(--accent); font-weight: 700; }
-  .lang-menu button em { font-style: normal; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
+  .lang-menu button em { margin-left: auto; font-style: normal; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
 
   /* Painel */
   .mega {
@@ -1339,6 +1266,13 @@
   @media (max-width: 1000px) { .parc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 440px)  { .parc { grid-template-columns: 1fr; } }
 
+
+  /* A segunda linha do título troca de frase sozinha, como na referência.
+     O h1 tem aria-label fixo, então quem usa leitor de tela ouve a frase
+     canônica uma vez — não a troca a cada três segundos. */
+  .hero h1 .ac { transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); display: inline-block; }
+  .hero h1 .ac.trocando { opacity: 0; transform: translateY(-0.18em); }
+
 </style>
 </head>
 <body>
@@ -1356,13 +1290,14 @@
     <div class="nav-acoes">
       <div class="lang">
         <button class="lang-btn" id="lang-btn" type="button" aria-expanded="false" aria-controls="lang-menu" aria-label="Escolher idioma">
+          <span id="lang-bandeira"><svg class="bandeira" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2.5" fill="#009B3A"/><path d="M14 3 25 10 14 17 3 10Z" fill="#FEDF00"/><circle cx="14" cy="10" r="4.2" fill="#002776"/><path d="M9.9 8.6a9 9 0 0 1 8.1 2.2" stroke="#fff" stroke-width="1.1" fill="none"/></svg></span>
           <span id="lang-atual">PT</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          <svg class="lang-seta" viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </button>
         <div class="lang-menu" id="lang-menu" role="menu" hidden>
-          <button type="button" role="menuitemradio" data-lang="pt" aria-current="true">Português <em>PT</em></button>
-          <button type="button" role="menuitemradio" data-lang="en" aria-current="false">English <em>EN</em></button>
-          <button type="button" role="menuitemradio" data-lang="es" aria-current="false">Español <em>ES</em></button>
+          <button type="button" role="menuitemradio" data-lang="pt" aria-current="true"><svg class="bandeira" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2.5" fill="#009B3A"/><path d="M14 3 25 10 14 17 3 10Z" fill="#FEDF00"/><circle cx="14" cy="10" r="4.2" fill="#002776"/><path d="M9.9 8.6a9 9 0 0 1 8.1 2.2" stroke="#fff" stroke-width="1.1" fill="none"/></svg> Português <em>PT</em></button>
+          <button type="button" role="menuitemradio" data-lang="en" aria-current="false"><svg class="bandeira" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2.5" fill="#fff"/><g fill="#B22234"><rect width="28" height="1.54" y="0"/><rect width="28" height="1.54" y="3.08"/><rect width="28" height="1.54" y="6.15"/><rect width="28" height="1.54" y="9.23"/><rect width="28" height="1.54" y="12.31"/><rect width="28" height="1.54" y="15.38"/><rect width="28" height="1.54" y="18.46"/></g><rect width="12" height="10.77" fill="#3C3B6E"/><g fill="#fff"><circle cx="2.4" cy="2.2" r="0.8"/><circle cx="6" cy="2.2" r="0.8"/><circle cx="9.6" cy="2.2" r="0.8"/><circle cx="4.2" cy="5.4" r="0.8"/><circle cx="7.8" cy="5.4" r="0.8"/><circle cx="2.4" cy="8.6" r="0.8"/><circle cx="6" cy="8.6" r="0.8"/><circle cx="9.6" cy="8.6" r="0.8"/></g></svg> English <em>EN</em></button>
+          <button type="button" role="menuitemradio" data-lang="es" aria-current="false"><svg class="bandeira" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2.5" fill="#AA151B"/><rect y="5" width="28" height="10" fill="#F1BF00"/><rect x="4.4" y="7.6" width="4" height="4.8" rx="0.7" fill="#AD1519"/></svg> Español <em>ES</em></button>
         </div>
       </div>
       <a class="btn btn-accent" href="index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
@@ -1378,7 +1313,7 @@
       <div class="mega-topicos" role="tablist" aria-label="Seções do site">
         <button class="mega-topico" type="button" role="tab" id="mt-1" aria-controls="mp-1" aria-selected="true">Soluções</button>
         <button class="mega-topico" type="button" role="tab" id="mt-2" aria-controls="mp-2" aria-selected="false">Cases</button>
-        <button class="mega-topico" type="button" role="tab" id="mt-3" aria-controls="mp-3" aria-selected="false">Insight AI</button>
+        <button class="mega-topico" type="button" role="tab" id="mt-3" aria-controls="mp-3" aria-selected="false">Inteligência Artificial</button>
         <button class="mega-topico" type="button" role="tab" id="mt-4" aria-controls="mp-4" aria-selected="false">Alocação</button>
         <button class="mega-topico" type="button" role="tab" id="mt-5" aria-controls="mp-5" aria-selected="false">Sobre</button>
       </div>
@@ -1433,10 +1368,6 @@
               <a class="mega-card" href="index.html#ia-capacidades">
                 <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z"/></svg></span>
                 <span><b>O que a IA resolve</b><p>Modelos preditivos, detecção de anomalias, GenAI e Document AI.</p></span>
-              </a>
-              <a class="mega-card" href="index.html#visualizacao">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 14v-3M12 14V8M17 14v-5"/></svg></span>
-                <span><b>Visualização de dados</b><p>O painel que é lido e usado — padrão visual definido antes do desenvolvimento.</p></span>
               </a>
             </div>
           </div>
@@ -1518,17 +1449,21 @@
       </button>
     </div>
   </div>
+
+  <div class="cbar" id="cbar" hidden>
+    <p>Tem um desafio de dados?</p>
+    <a class="btn btn-accent" href="index.html#contato">Falar com um especialista <span class="arr">→</span></a>
+    <button class="cbar-x" id="cbar-x" type="button" aria-label="Dispensar">&times;</button>
+  </div>
 </header>
 
 <nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true">
   <a href="index.html#solucoes">Soluções</a>
   <a href="index.html#cases">Cases</a>
   <a href="index.html#sobre">Sobre</a>
-  <a href="index.html#ia-capacidades">Insights</a>
+  <a href="index.html#ia-capacidades">Inteligência Artificial</a>
   <a href="index.html#ia-capacidades">Inteligência Artificial <small>IA ✦</small></a>
   <a href="alocacao.html#talento">Trabalhe com a gente</a>
-  <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram <small>@atlas_tecnologia ✦</small></a>
-  <a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn <small>Atlas Tecnologia ✦</small></a>
   <a class="btn btn-accent" href="index.html#contato">Falar com um especialista <span class="arr">→</span></a>
 </nav>
 
@@ -1571,7 +1506,7 @@
         </div>
       </div>
 
-      <article class="case-card reveal d2">
+      <article class="case-card">
         <figure class="case-art">
           <img src="media/cases/omnichannel.svg" alt="Canais de venda separados convergindo em uma plataforma de dados única" loading="lazy" decoding="async">
         </figure>
@@ -1599,7 +1534,7 @@
           <p><b>Base reaproveitável</b><span>nova análise parte da plataforma existente, não de uma nova extração</span></p>
         </div>
       </article>
-      <article class="case-card reveal d2">
+      <article class="case-card">
         <figure class="case-art">
           <img src="media/cases/legado.svg" alt="Um banco de dados legado denso dando lugar a um fluxo de pipelines organizados" loading="lazy" decoding="async">
         </figure>
@@ -1627,7 +1562,7 @@
           <p><b>Uma camada só</b><span>Looker passou a ser o único caminho entre o dado e o negócio</span></p>
         </div>
       </article>
-      <article class="case-card reveal d2">
+      <article class="case-card">
         <figure class="case-art">
           <img src="media/cases/governanca.svg" alt="Painéis soltos e desalinhados dando lugar a uma grade padronizada" loading="lazy" decoding="async">
         </figure>

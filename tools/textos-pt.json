@@ -1,5 +1,5 @@
 {
- "total": 523,
+ "total": 462,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -22,18 +22,13 @@
    "cls": ""
   },
   {
-   "chave": "Português <em>PT</em>",
-   "tag": "button",
+   "chave": "EN",
+   "tag": "em",
    "cls": ""
   },
   {
-   "chave": "English <em>EN</em>",
-   "tag": "button",
-   "cls": ""
-  },
-  {
-   "chave": "Español <em>ES</em>",
-   "tag": "button",
+   "chave": "ES",
+   "tag": "em",
    "cls": ""
   },
   {
@@ -57,7 +52,7 @@
    "cls": "mega-topico"
   },
   {
-   "chave": "Insight AI",
+   "chave": "Inteligência Artificial",
    "tag": "button",
    "cls": "mega-topico"
   },
@@ -89,11 +84,6 @@
   {
    "chave": "Ingestão, armazenamento, transformação e governança — a base por onde o dado anda.",
    "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Inteligência Artificial",
-   "tag": "b",
    "cls": ""
   },
   {
@@ -158,16 +148,6 @@
   },
   {
    "chave": "Modelos preditivos, detecção de anomalias, GenAI e Document AI.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Visualização de dados",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "O painel que é lido e usado — padrão visual definido antes do desenvolvimento.",
    "tag": "p",
    "cls": ""
   },
@@ -302,8 +282,18 @@
    "cls": "cbar-x"
   },
   {
-   "chave": "Insights",
-   "tag": "a",
+   "chave": "Português",
+   "tag": "button#texto",
+   "cls": ""
+  },
+  {
+   "chave": "English",
+   "tag": "button#texto",
+   "cls": ""
+  },
+  {
+   "chave": "Español",
+   "tag": "button#texto",
    "cls": ""
   },
   {
@@ -313,16 +303,6 @@
   },
   {
    "chave": "Trabalhe com a gente",
-   "tag": "a",
-   "cls": ""
-  },
-  {
-   "chave": "Instagram <small>@atlas_tecnologia ✦</small>",
-   "tag": "a",
-   "cls": ""
-  },
-  {
-   "chave": "LinkedIn <small>Atlas Tecnologia ✦</small>",
    "tag": "a",
    "cls": ""
   },
@@ -1022,306 +1002,6 @@
    "cls": ""
   },
   {
-   "chave": "Data Visualization",
-   "tag": "span",
-   "cls": "eyebrow reveal"
-  },
-  {
-   "chave": "Dados também precisam ser compreendidos.",
-   "tag": "h2",
-   "cls": "h-xl reveal d1"
-  },
-  {
-   "chave": "Dashboard não é decoração. Um número principal, um destaque por pergunta, o apoio embaixo. Hierarquia antes de enfeite.",
-   "tag": "p",
-   "cls": "sub reveal d2"
-  },
-  {
-   "chave": "Painel executivo · exemplo",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Visão geral",
-   "tag": "button",
-   "cls": "dash-tab"
-  },
-  {
-   "chave": "Canais",
-   "tag": "button",
-   "cls": "dash-tab"
-  },
-  {
-   "chave": "Operação",
-   "tag": "button",
-   "cls": "dash-tab"
-  },
-  {
-   "chave": "Receita no período",
-   "tag": "p",
-   "cls": "kpi-k"
-  },
-  {
-   "chave": "R$ 4,82 Mi",
-   "tag": "p",
-   "cls": "kpi-v"
-  },
-  {
-   "chave": "↑ 6,4% vs. período anterior",
-   "tag": "p",
-   "cls": "kpi-delta"
-  },
-  {
-   "chave": "Meta do período: R$ 4,60 Mi",
-   "tag": "p",
-   "cls": "kpi-sub"
-  },
-  {
-   "chave": "Margem",
-   "tag": "p",
-   "cls": "kpi-k"
-  },
-  {
-   "chave": "31,2%",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Ticket médio",
-   "tag": "p",
-   "cls": "kpi-k"
-  },
-  {
-   "chave": "R$ 318",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Pedidos",
-   "tag": "p",
-   "cls": "kpi-k"
-  },
-  {
-   "chave": "15,1 mil",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Receita por mês · últimos 12 meses",
-   "tag": "p",
-   "cls": "dash-title"
-  },
-  {
-   "chave": "<span>Jan</span> <span>Fev</span> <span>Mar</span> <span>Abr</span> <span>Mai</span> <span>Jun</span> <span>Jul</span> <span>Ago</span> <span>Set</span> <span>Out</span> <span>Nov</span> <span class=\"hi\">Dez</span>",
-   "tag": "div",
-   "cls": "chart-x"
-  },
-  {
-   "chave": "<b>Dezembro</b> é o maior mês do período e puxa o resultado acima da meta.",
-   "tag": "p",
-   "cls": "dash-note"
-  },
-  {
-   "chave": "Canal digital",
-   "tag": "p",
-   "cls": "kpi-k"
-  },
-  {
-   "chave": "42%",
-   "tag": "p",
-   "cls": "kpi-v"
-  },
-  {
-   "chave": "↑ 9,1 p.p. vs. período anterior",
-   "tag": "p",
-   "cls": "kpi-delta"
-  },
-  {
-   "chave": "Meta do período: 38%",
-   "tag": "p",
-   "cls": "kpi-sub"
-  },
-  {
-   "chave": "Loja física",
-   "tag": "p",
-   "cls": "kpi-k"
-  },
-  {
-   "chave": "38%",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Marketplace",
-   "tag": "p",
-   "cls": "kpi-k"
-  },
-  {
-   "chave": "20%",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Margem digital",
-   "tag": "p",
-   "cls": "kpi-k"
-  },
-  {
-   "chave": "34,6%",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Receita por canal · últimos 12 meses",
-   "tag": "p",
-   "cls": "dash-title"
-  },
-  {
-   "chave": "E-commerce próprio",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "R$ 2,02 Mi",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "R$ 1,83 Mi",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "R$ 0,97 Mi",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Margem por canal",
-   "tag": "p",
-   "cls": "dash-title mt"
-  },
-  {
-   "chave": "30,1%",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "24,8%",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "O <b>digital</b> passa a loja física em receita — e é o canal de maior margem.",
-   "tag": "p",
-   "cls": "dash-note"
-  },
-  {
-   "chave": "Pedidos no prazo",
-   "tag": "p",
-   "cls": "kpi-k"
-  },
-  {
-   "chave": "94,3%",
-   "tag": "p",
-   "cls": "kpi-v"
-  },
-  {
-   "chave": "↑ 2,1 p.p. vs. período anterior",
-   "tag": "p",
-   "cls": "kpi-delta"
-  },
-  {
-   "chave": "Meta do período: 95,0%",
-   "tag": "p",
-   "cls": "kpi-sub"
-  },
-  {
-   "chave": "Separação",
-   "tag": "p",
-   "cls": "kpi-k"
-  },
-  {
-   "chave": "2,4 h",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Ruptura",
-   "tag": "p",
-   "cls": "kpi-k"
-  },
-  {
-   "chave": "3,1%",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Devolução",
-   "tag": "p",
-   "cls": "kpi-k"
-  },
-  {
-   "chave": "1,8%",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Pedidos no prazo · últimos 12 meses <span class=\"dash-scale\">escala 86–95%</span>",
-   "tag": "p",
-   "cls": "dash-title"
-  },
-  {
-   "chave": "<span>Jan</span> <span>Fev</span> <span>Mar</span> <span>Abr</span> <span>Mai</span> <span>Jun</span> <span>Jul</span> <span>Ago</span> <span>Set</span> <span>Out</span> <span>Nov</span> <span>Dez</span>",
-   "tag": "div",
-   "cls": "chart-x"
-  },
-  {
-   "chave": "No prazo por região <span class=\"dash-scale\">escala 85–100%, traço = meta</span>",
-   "tag": "p",
-   "cls": "dash-title mt"
-  },
-  {
-   "chave": "Sudeste",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "96,1%",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Sul",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "93,4%",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Nordeste",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "91,2%",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Nordeste</b> concentra o atraso: 91,2% no prazo, contra 96,1% no Sudeste.",
-   "tag": "p",
-   "cls": "dash-note"
-  },
-  {
-   "chave": "Ilustração do método — não representa dados ou resultado de cliente.",
-   "tag": "p",
-   "cls": "illus-note"
-  },
-  {
    "chave": "A próxima vantagem competitiva já está nos seus dados.",
    "tag": "h2",
    "cls": "h-xl reveal d1"
@@ -1435,21 +1115,6 @@
    "chave": "Sem compromisso <i>·</i> Sem apresentação institucional <i>·</i> Resposta em 1 dia útil",
    "tag": "p",
    "cls": "depois-nao"
-  },
-  {
-   "chave": "Nossos contatos",
-   "tag": "p",
-   "cls": "rail-label"
-  },
-  {
-   "chave": "<span class=\"k\">LinkedIn</span><span class=\"v\">Atlas Tecnologia</span>",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"k\">Instagram</span><span class=\"v\">@atlas_tecnologia</span>",
-   "tag": "span",
-   "cls": ""
   },
   {
    "chave": "Nome",
@@ -1742,6 +1407,11 @@
    "cls": ""
   },
   {
+   "chave": "Projetos entregues",
+   "tag": "@aria-label",
+   "cls": "carr-trilho"
+  },
+  {
    "chave": "Canais de venda separados convergindo em uma plataforma de dados única",
    "tag": "@alt",
    "cls": ""
@@ -1762,9 +1432,29 @@
    "cls": ""
   },
   {
-   "chave": "Páginas do painel",
+   "chave": "Ver o case 1 de 3",
    "tag": "@aria-label",
-   "cls": "dash-tabs"
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 2 de 3",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 3 de 3",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Case anterior",
+   "tag": "@aria-label",
+   "cls": "carr-seta"
+  },
+  {
+   "chave": "Próximo case",
+   "tag": "@aria-label",
+   "cls": "carr-seta"
   },
   {
    "chave": "Em duas linhas: o que você precisa que passe a funcionar.",
@@ -2570,6 +2260,11 @@
    "chave": "Pipelines com teste e orquestração desde o primeiro dia.",
    "tag": "p",
    "cls": "tl-d"
+  },
+  {
+   "chave": "Operação",
+   "tag": "h3",
+   "cls": "tl-t"
   },
   {
    "chave": "Em produção, com falha visível antes de chegar ao usuário.",
