@@ -26,6 +26,7 @@ SAIDA = RAIZ / 'media' / 'js' / 'i18n-dic.js'
 # O aria-label do botão de tema é reescrito pelo próprio alternador no
 # carregamento, então nunca aparece na extração — é declarado aqui.
 EXTRAS = {'@h1-destaque', 'Alternar entre tema claro e escuro',
+          'Essa página não existe.',
           'Mudar para o tema claro', 'Mudar para o tema escuro',
           'decisões extraordinárias', 'dados e analytics', 'engenharia de dados',
           'inteligência artificial', 'times de especialistas',
@@ -52,6 +53,17 @@ TRAD = {
     ('Explore our solutions <span class="arr">→</span>', 'Conocer nuestras soluciones <span class="arr">→</span>'),
   'Ver todos os cases <span class="arr">→</span>':
     ('See all case studies <span class="arr">→</span>', 'Ver todos los casos <span class="arr">→</span>'),
+
+  # Página 404
+  '<i></i> Erro 404': ('<i></i> Error 404', '<i></i> Error 404'),
+  'Essa página não existe.': ('This page does not exist.', 'Esta página no existe.'),
+  'O endereço pode ter mudado de lugar ou vindo com algum caractere a mais. Os caminhos abaixo continuam valendo.':
+    ('The address may have moved or picked up an extra character along the way. The links below still work.',
+     'La dirección puede haber cambiado de lugar o traer algún carácter de más. Los caminos de abajo siguen valiendo.'),
+  'Voltar para a home <span class="arr">→</span>':
+    ('Back to the homepage <span class="arr">→</span>', 'Volver al inicio <span class="arr">→</span>'),
+  'Ver os cases <span class="arr">→</span>':
+    ('See the case studies <span class="arr">→</span>', 'Ver los casos <span class="arr">→</span>'),
   'Conhecer alocação <span class="arr">→</span>':
     ('Explore staffing <span class="arr">→</span>', 'Conocer la asignación <span class="arr">→</span>'),
   'Conhecer BI &amp; Analytics <span class="arr">→</span>':
