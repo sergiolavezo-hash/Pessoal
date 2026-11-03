@@ -1,5 +1,5 @@
 {
- "total": 604,
+ "total": 631,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -102,7 +102,7 @@
    "cls": ""
   },
   {
-   "chave": "Todos os cases <span class=\"mega-tag\">13 projetos</span>",
+   "chave": "Todos os cases <span class=\"mega-tag\">15 projetos</span>",
    "tag": "b",
    "cls": ""
   },
@@ -732,6 +732,46 @@
    "cls": "cc-chips"
   },
   {
+   "chave": "Instituição Financeira",
+   "tag": "p",
+   "cls": "cc-setor"
+  },
+  {
+   "chave": "Os acessos da holding inteira sob auditoria",
+   "tag": "h3",
+   "cls": "cc-t"
+  },
+  {
+   "chave": "Central de gerenciamento de acessos em Java e auditoria de acessos de toda a holding.",
+   "tag": "p",
+   "cls": "cc-cap"
+  },
+  {
+   "chave": "<span>Java</span><span>MicroStrategy</span>",
+   "tag": "div",
+   "cls": "cc-chips"
+  },
+  {
+   "chave": "Corretagem de Seguros",
+   "tag": "p",
+   "cls": "cc-setor"
+  },
+  {
+   "chave": "Faturamento, endossos e comissões num sistema só",
+   "tag": "h3",
+   "cls": "cc-t"
+  },
+  {
+   "chave": "Faturamento, lançamento de endossos e pagamento de comissões num sistema único.",
+   "tag": "p",
+   "cls": "cc-cap"
+  },
+  {
+   "chave": "<span>Desenvolvimento de sistemas</span><span>Automação</span>",
+   "tag": "div",
+   "cls": "cc-chips"
+  },
+  {
    "chave": "Chamados viraram indicador de SLA",
    "tag": "h3",
    "cls": "cc-t"
@@ -1352,67 +1392,77 @@
    "cls": "carr-trilho"
   },
   {
-   "chave": "Ver o case 1 de 13",
+   "chave": "Ver o case 1 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 2 de 13",
+   "chave": "Ver o case 2 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 3 de 13",
+   "chave": "Ver o case 3 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 4 de 13",
+   "chave": "Ver o case 4 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 5 de 13",
+   "chave": "Ver o case 5 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 6 de 13",
+   "chave": "Ver o case 6 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 7 de 13",
+   "chave": "Ver o case 7 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 8 de 13",
+   "chave": "Ver o case 8 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 9 de 13",
+   "chave": "Ver o case 9 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 10 de 13",
+   "chave": "Ver o case 10 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 11 de 13",
+   "chave": "Ver o case 11 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 12 de 13",
+   "chave": "Ver o case 12 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
   {
-   "chave": "Ver o case 13 de 13",
+   "chave": "Ver o case 13 de 15",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 14 de 15",
+   "tag": "@aria-label",
+   "cls": "carr-ponto"
+  },
+  {
+   "chave": "Ver o case 15 de 15",
    "tag": "@aria-label",
    "cls": "carr-ponto"
   },
@@ -1488,6 +1538,16 @@
   },
   {
    "chave": "<b>De 200+ painéis sem padrão a um ambiente só</b><small>BI Governance</small>",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Os acessos da holding inteira sob auditoria</b><small>Instituição Financeira</small>",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Faturamento, endossos e comissões num sistema só</b><small>Corretagem de Seguros</small>",
    "tag": "span",
    "cls": ""
   },
@@ -2527,6 +2587,46 @@
    "cls": ""
   },
   {
+   "chave": "Os acessos a sistemas eram concedidos e revistos empresa a empresa, sem uma central que respondesse pela holding inteira.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A segurança da informação não tinha relatório de auditoria que cruzasse os acessos de todas as empresas do grupo.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Sistema IDM de gerenciamento de acessos desenvolvido em Java, servindo de central para a concessão e a revisão de acessos. Sobre ele, integração em Informatica PowerCenter e relatórios de auditoria em MicroStrategy e Power BI para a área de segurança da informação.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "A concessão e a revisão de acessos passaram a sair de uma central única, não de cada empresa em separado.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A segurança da informação passou a ter relatório de auditoria cobrindo os acessos de toda a holding.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Java</span><span>MicroStrategy</span><span>Power BI</span><span>Informatica PowerCenter</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Desenvolvimento de sistemas</span><span>Segurança da Informação</span><span>Business Intelligence</span><span>Data Integration</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Instituição Financeira</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
    "chave": "Chamados",
    "tag": "p",
    "cls": "ad-n"
@@ -2888,6 +2988,41 @@
   },
   {
    "chave": "<span>Saúde Hospitalar</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Faturamento, endossos e comissões eram controlados em rotinas separadas, cada uma com a sua própria planilha.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "O pagamento de comissão dependia de conferência manual contra o que havia sido faturado.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Sistema próprio da corretora reunindo o faturamento, o lançamento de endossos e o pagamento de comissões no mesmo fluxo, com cada etapa alimentando a seguinte.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "As três rotinas passaram a viver no mesmo sistema, em vez de em planilhas separadas.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "O pagamento de comissão passa a derivar do que foi faturado, sem conferência manual entre os dois.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Desenvolvimento de sistemas</span><span>Automação de processos</span><span>Faturamento</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Corretagem de Seguros</span>",
    "tag": "dd",
    "cls": ""
   },

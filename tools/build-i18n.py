@@ -98,9 +98,9 @@ TRAD = {
   'Alocação de especialistas <span class="mega-tag">150+ alocados</span>':
     ('Specialist staffing <span class="mega-tag">150+ placed</span>',
      'Asignación de especialistas <span class="mega-tag">150+ asignados</span>'),
-  'Todos os cases <span class="mega-tag">13 projetos</span>':
-    ('All case studies <span class="mega-tag">13 projects</span>',
-     'Todos los casos <span class="mega-tag">13 proyectos</span>'),
+  'Todos os cases <span class="mega-tag">15 projetos</span>':
+    ('All case studies <span class="mega-tag">15 projects</span>',
+     'Todos los casos <span class="mega-tag">15 proyectos</span>'),
   'De 200+ painéis a um ambiente': ('From 200+ dashboards to one environment', 'De 200+ paneles a un solo entorno'),
   'Legado Oracle aposentado': ('Oracle legacy retired', 'Legado Oracle jubilado'),
   'Setores atendidos <span class="mega-tag">10+</span>':
@@ -940,6 +940,58 @@ TRAD.update({
   'painéis crescendo sem padrão nem fonte única': ('dashboards growing with no standard and no single source', 'paneles creciendo sin estándar ni fuente única'),
   'ambiente, com uma definição por métrica': ('environment, with one definition per metric', 'entorno, con una definición por métrica'),
   'GCP, BigQuery, dbt, Airflow, Looker': ('GCP, BigQuery, dbt, Airflow, Looker', 'GCP, BigQuery, dbt, Airflow, Looker'),
+})
+
+TRAD.update({
+  # ---------------- os dois cases novos ----------------
+  'Os acessos da holding inteira sob auditoria':
+    ('The whole holding’s access under audit', 'Los accesos de todo el holding bajo auditoría'),
+  'Central de gerenciamento de acessos em Java e auditoria de acessos de toda a holding.':
+    ('A Java access management hub and access auditing across the entire holding.',
+     'Central de gestión de accesos en Java y auditoría de accesos de todo el holding.'),
+  'Os acessos a sistemas eram concedidos e revistos empresa a empresa, sem uma central que respondesse pela holding inteira.':
+    ('System access was granted and reviewed company by company, with no hub answering for the holding as a whole.',
+     'Los accesos a sistemas se concedían y revisaban empresa por empresa, sin una central que respondiera por todo el holding.'),
+  'A segurança da informação não tinha relatório de auditoria que cruzasse os acessos de todas as empresas do grupo.':
+    ('Information security had no audit report crossing the access records of every company in the group.',
+     'La seguridad de la información no tenía informe de auditoría que cruzara los accesos de todas las empresas del grupo.'),
+  'Sistema IDM de gerenciamento de acessos desenvolvido em Java, servindo de central para a concessão e a revisão de acessos. Sobre ele, integração em Informatica PowerCenter e relatórios de auditoria em MicroStrategy e Power BI para a área de segurança da informação.':
+    ('An IDM access management system built in Java, serving as the hub for granting and reviewing access. On top of it, integration on Informatica PowerCenter and audit reports in MicroStrategy and Power BI for the information security team.',
+     'Sistema IDM de gestión de accesos desarrollado en Java, que sirve de central para la concesión y la revisión de accesos. Sobre él, integración en Informatica PowerCenter e informes de auditoría en MicroStrategy y Power BI para el área de seguridad de la información.'),
+  'A concessão e a revisão de acessos passaram a sair de uma central única, não de cada empresa em separado.':
+    ('Granting and reviewing access came to run from a single hub, not from each company separately.',
+     'La concesión y la revisión de accesos pasaron a salir de una central única, no de cada empresa por separado.'),
+  'A segurança da informação passou a ter relatório de auditoria cobrindo os acessos de toda a holding.':
+    ('Information security came to have an audit report covering access across the entire holding.',
+     'La seguridad de la información pasó a tener un informe de auditoría que cubre los accesos de todo el holding.'),
+  'Instituição Financeira': ('Financial Institution', 'Institución Financiera'),
+  'Segurança da Informação': ('Information Security', 'Seguridad de la Información'),
+  'Desenvolvimento de sistemas': ('Systems development', 'Desarrollo de sistemas'),
+
+  'Faturamento, endossos e comissões num sistema só':
+    ('Billing, endorsements and commissions in a single system',
+     'Facturación, endosos y comisiones en un solo sistema'),
+  'Faturamento, lançamento de endossos e pagamento de comissões num sistema único.':
+    ('Billing, endorsement entry and commission payments in one single system.',
+     'Facturación, registro de endosos y pago de comisiones en un sistema único.'),
+  'Faturamento, endossos e comissões eram controlados em rotinas separadas, cada uma com a sua própria planilha.':
+    ('Billing, endorsements and commissions were handled in separate routines, each with its own spreadsheet.',
+     'Facturación, endosos y comisiones se controlaban en rutinas separadas, cada una con su propia planilla.'),
+  'O pagamento de comissão dependia de conferência manual contra o que havia sido faturado.':
+    ('Commission payment depended on a manual check against what had been billed.',
+     'El pago de comisión dependía de una verificación manual contra lo facturado.'),
+  'Sistema próprio da corretora reunindo o faturamento, o lançamento de endossos e o pagamento de comissões no mesmo fluxo, com cada etapa alimentando a seguinte.':
+    ('A system of the brokerage’s own bringing billing, endorsement entry and commission payment into the same flow, with each step feeding the next.',
+     'Sistema propio de la correduría que reúne la facturación, el registro de endosos y el pago de comisiones en el mismo flujo, con cada etapa alimentando la siguiente.'),
+  'As três rotinas passaram a viver no mesmo sistema, em vez de em planilhas separadas.':
+    ('The three routines came to live in the same system, instead of in separate spreadsheets.',
+     'Las tres rutinas pasaron a vivir en el mismo sistema, en vez de en planillas separadas.'),
+  'O pagamento de comissão passa a derivar do que foi faturado, sem conferência manual entre os dois.':
+    ('Commission payment now derives from what was billed, with no manual check between the two.',
+     'El pago de comisión pasa a derivar de lo facturado, sin verificación manual entre ambos.'),
+  'Corretagem de Seguros': ('Insurance Brokerage', 'Correduría de Seguros'),
+  'Automação de processos': ('Process automation', 'Automatización de procesos'),
+  'Faturamento': ('Billing', 'Facturación'),
 })
 
 

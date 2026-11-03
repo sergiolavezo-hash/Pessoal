@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 460" role="img" aria-label="Faturamento, endossos e comissões encadeados dentro de um sistema só">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6FD4FF"/><stop offset="0.55" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/>
+    </linearGradient>
+    <radialGradient id="brilho" cx="78%" cy="18%" r="68%">
+      <stop offset="0" stop-color="#2E86FF" stop-opacity="0.26"/><stop offset="1" stop-color="#2E86FF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grade" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0v36" fill="none" stroke="rgba(244,243,239,0.07)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="720" height="460" fill="#0B1220"/>
+  <rect width="720" height="460" fill="url(#grade)"/>
+  <rect width="720" height="460" fill="url(#brilho)"/>
+  <rect x="60" y="118" width="172" height="180" rx="12" fill="#0E1826" stroke="#2E86FF" stroke-width="1.4" opacity="0.95"/>
+  <path d="M60 148 h172" stroke="#2E86FF" stroke-width="1" opacity="0.35"/>
+  <rect x="74" y="129" width="62" height="8" rx="4" fill="url(#g)" opacity="0.85"/>
+  <circle cx="216" cy="133" r="2.6" fill="#2E86FF" opacity="0.5"/>
+  <circle cx="203" cy="133" r="2.6" fill="#2E86FF" opacity="0.38"/>
+  <circle cx="190" cy="133" r="2.6" fill="#2E86FF" opacity="0.26"/>
+  <rect x="78" y="162" width="128" height="8" rx="4" fill="url(#g)" opacity="0.85"/>
+  <rect x="78" y="188" width="108" height="8" rx="4" fill="url(#g)" opacity="0.69"/>
+  <rect x="78" y="214" width="88" height="8" rx="4" fill="url(#g)" opacity="0.53"/>
+  <rect x="78" y="240" width="68" height="8" rx="4" fill="url(#g)" opacity="0.37"/>
+  <text x="146" y="330" fill="#2E86FF" opacity="0.6" font-family="monospace" font-size="12" text-anchor="middle">faturamento</text>
+  <path d="M240 208 L262 208" stroke="url(#g)" stroke-width="2.4" fill="none"/>
+  <path d="M254 201 L264 208 L254 215" stroke="#6FD4FF" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="270" y="118" width="172" height="180" rx="12" fill="#0E1826" stroke="#2E86FF" stroke-width="1.4" opacity="0.95"/>
+  <path d="M270 148 h172" stroke="#2E86FF" stroke-width="1" opacity="0.35"/>
+  <rect x="284" y="129" width="62" height="8" rx="4" fill="url(#g)" opacity="0.85"/>
+  <circle cx="426" cy="133" r="2.6" fill="#2E86FF" opacity="0.5"/>
+  <circle cx="413" cy="133" r="2.6" fill="#2E86FF" opacity="0.38"/>
+  <circle cx="400" cy="133" r="2.6" fill="#2E86FF" opacity="0.26"/>
+  <rect x="288" y="162" width="128" height="8" rx="4" fill="url(#g)" opacity="0.85"/>
+  <rect x="288" y="188" width="108" height="8" rx="4" fill="url(#g)" opacity="0.69"/>
+  <rect x="288" y="214" width="88" height="8" rx="4" fill="url(#g)" opacity="0.53"/>
+  <rect x="288" y="240" width="68" height="8" rx="4" fill="url(#g)" opacity="0.37"/>
+  <text x="356" y="330" fill="#2E86FF" opacity="0.6" font-family="monospace" font-size="12" text-anchor="middle">endossos</text>
+  <path d="M450 208 L472 208" stroke="url(#g)" stroke-width="2.4" fill="none"/>
+  <path d="M464 201 L474 208 L464 215" stroke="#6FD4FF" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="480" y="118" width="172" height="180" rx="12" fill="#0E1826" stroke="#2E86FF" stroke-width="1.4" opacity="0.95"/>
+  <path d="M480 148 h172" stroke="#2E86FF" stroke-width="1" opacity="0.35"/>
+  <rect x="494" y="129" width="62" height="8" rx="4" fill="url(#g)" opacity="0.85"/>
+  <circle cx="636" cy="133" r="2.6" fill="#2E86FF" opacity="0.5"/>
+  <circle cx="623" cy="133" r="2.6" fill="#2E86FF" opacity="0.38"/>
+  <circle cx="610" cy="133" r="2.6" fill="#2E86FF" opacity="0.26"/>
+  <rect x="498" y="162" width="128" height="8" rx="4" fill="url(#g)" opacity="0.85"/>
+  <rect x="498" y="188" width="108" height="8" rx="4" fill="url(#g)" opacity="0.69"/>
+  <rect x="498" y="214" width="88" height="8" rx="4" fill="url(#g)" opacity="0.53"/>
+  <rect x="498" y="240" width="68" height="8" rx="4" fill="url(#g)" opacity="0.37"/>
+  <text x="566" y="330" fill="#2E86FF" opacity="0.6" font-family="monospace" font-size="12" text-anchor="middle">comissões</text>
+  <rect x="40" y="94" width="632" height="228" rx="16" fill="none" stroke="#6FD4FF" stroke-width="1.6" opacity="0.45" stroke-dasharray="9 7"/>
+  <text x="356" y="372" fill="#6FD4FF" opacity="0.7" font-family="monospace" font-size="12" text-anchor="middle">um sistema, três rotinas</text>
+</svg>

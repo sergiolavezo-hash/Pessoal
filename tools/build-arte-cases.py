@@ -382,6 +382,55 @@ def operacoes():
     return '\n'.join(p)
 
 
+
+def acessos():
+    """Acessos espalhados convergindo numa central, e dela para a auditoria."""
+    p = []
+    # usuários e sistemas soltos à esquerda
+    for i, (x, y) in enumerate([(56, 108), (56, 176), (56, 244), (56, 312)]):
+        p.append(f'  <rect x="{x}" y="{y - 24}" width="118" height="48" rx="9" fill="#0E1826" stroke="{AZUL}" stroke-width="1.3" opacity="{0.85 - i * 0.06}"/>')
+        p.append(f'  <circle cx="{x + 24}" cy="{y - 4}" r="6" fill="none" stroke="{CLARO}" stroke-width="1.3" opacity="0.8"/>')
+        p.append(f'  <path d="M{x + 16} {y + 12} a8 8 0 0 1 16 0" fill="none" stroke="{CLARO}" stroke-width="1.3" opacity="0.8"/>')
+        p.append(f'  <rect x="{x + 42}" y="{y - 10}" width="{58 - i * 6}" height="6" rx="3" fill="{AZUL}" opacity="0.4"/>')
+        p.append(f'  <rect x="{x + 42}" y="{y + 2}" width="40" height="5" rx="2.5" fill="{AZUL}" opacity="0.22"/>')
+        p.append(curva(174, y, 252, 212))
+    # a central: um escudo com chave
+    p.append(f'  <path d="M310 108 l48 18 v38 c0 30-20 48-48 56-28-8-48-26-48-56v-38Z" fill="{AZUL}" opacity="0.1"/>')
+    p.append(f'  <path d="M310 108 l48 18 v38 c0 30-20 48-48 56-28-8-48-26-48-56v-38Z" fill="none" stroke="url(#g)" stroke-width="2"/>')
+    p.append(f'  <circle cx="310" cy="168" r="11" fill="none" stroke="{CLARO}" stroke-width="2"/>')
+    p.append(f'  <path d="M310 179 v22 M310 192 h9" stroke="{CLARO}" stroke-width="2" stroke-linecap="round"/>')
+    p.append(f'  <text x="310" y="252" fill="{AZUL}" opacity="0.65" font-family="monospace" font-size="12" text-anchor="middle">central de acessos</text>')
+    p.append(f'  <path d="M370 212 L412 212" stroke="url(#g)" stroke-width="2.4" fill="none"/>')
+    p.append(f'  <path d="M404 205 L414 212 L404 219" stroke="{CLARO}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+    # painel de auditoria
+    p += painel(430, 92, 232, 276, titulo_larg=76)
+    p += barras(452, 146, 188, 92, [0.46, 0.64, 0.56, 0.8, 0.9], destaque=4)
+    for k in range(4):
+        y = 262 + k * 26
+        p.append(f'  <rect x="452" y="{y}" width="{150 - k * 16}" height="7" rx="3.5" fill="{AZUL}" opacity="{0.45 - k * 0.08}"/>')
+        p.append(f'  <path d="M624 {y + 3.5} m-5 0 l4 4 7-8" stroke="{CLARO}" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>')
+    return '\n'.join(p)
+
+
+def corretora():
+    """Faturamento, endossos e comissões num fluxo só."""
+    p = []
+    etapas = [('faturamento', 60), ('endossos', 270), ('comissões', 480)]
+    for i, (rot, x) in enumerate(etapas):
+        p += painel(x, 118, 172, 180, titulo_larg=62)
+        for k in range(4):
+            p.append(f'  <rect x="{x + 18}" y="{162 + k * 26}" width="{128 - k * 20}" height="8" rx="4" '
+                     f'fill="url(#g)" opacity="{0.85 - k * 0.16}"/>')
+        p.append(f'  <text x="{x + 86}" y="330" fill="{AZUL}" opacity="0.6" font-family="monospace" font-size="12" text-anchor="middle">{rot}</text>')
+        if i < 2:
+            p.append(f'  <path d="M{x + 180} 208 L{x + 202} 208" stroke="url(#g)" stroke-width="2.4" fill="none"/>')
+            p.append(f'  <path d="M{x + 194} 201 L{x + 204} 208 L{x + 194} 215" stroke="{CLARO}" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+    # moldura: um sistema só em volta das três etapas
+    p.append(f'  <rect x="40" y="94" width="632" height="228" rx="16" fill="none" stroke="{CLARO}" stroke-width="1.6" opacity="0.45" stroke-dasharray="9 7"/>')
+    p.append(f'  <text x="356" y="372" fill="{CLARO}" opacity="0.7" font-family="monospace" font-size="12" text-anchor="middle">um sistema, três rotinas</text>')
+    return '\n'.join(p)
+
+
 ARTES = [
     ('omnichannel.svg', omnichannel, 'Canais de venda separados convergindo em uma plataforma de dados única'),
     ('legado.svg', legado, 'Um banco de dados legado denso dando lugar a um fluxo de pipelines organizados'),
@@ -397,6 +446,8 @@ ARTES = [
     ('design.svg', design, 'Protótipo de interface definindo o padrão do painel final'),
     ('diario.svg', diario, 'Fechamento mensal dando lugar a acompanhamento diário'),
     ('operacoes.svg', operacoes, 'Três operações distintas integradas em um painel'),
+    ('acessos.svg', acessos, 'Acessos de várias empresas convergindo para uma central e dela para a auditoria'),
+    ('corretora.svg', corretora, 'Faturamento, endossos e comissões encadeados dentro de um sistema só'),
 ]
 
 

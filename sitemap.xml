@@ -41,6 +41,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://atlas-partner.com/cases/central-de-acessos-e-auditoria-da-holding.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://atlas-partner.com/cases/sistema-de-faturamento-para-corretora-de-seguros.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://atlas-partner.com/cases/chamados-viraram-indicador-de-sla.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
