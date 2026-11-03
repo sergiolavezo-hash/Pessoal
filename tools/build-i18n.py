@@ -56,8 +56,6 @@ TRAD = {
   'Fechar o menu': ('Close menu', 'Cerrar el menú'),
   'Dispensar': ('Dismiss', 'Descartar'),
   'Tem um desafio de dados?': ('Got a data challenge?', '¿Tiene un desafío de datos?'),
-  'Atlas Insight AI <small>PRODUTO ✦</small>':
-    ('Atlas Insight AI <small>PRODUCT ✦</small>', 'Atlas Insight AI <small>PRODUCTO ✦</small>'),
   'Trabalhe com a gente': ('Work with us', 'Trabaje con nosotros'),
 
   # ---------------- cartões do mega-menu ----------------
@@ -85,9 +83,6 @@ TRAD = {
   'Do bancário ao food service, passando por saúde, educação e varejo.':
     ('From banking to food service, by way of healthcare, education and retail.',
      'De la banca al food service, pasando por salud, educación y retail.'),
-  'Pergunta em linguagem de negócio, resposta com o número e a origem dele.':
-    ('Ask in business language, get the number and where it came from.',
-     'Pregunta en lenguaje de negocio, respuesta con el número y su origen.'),
   'Modelos preditivos, detecção de anomalias, GenAI e Document AI.':
     ('Predictive models, anomaly detection, GenAI and Document AI.',
      'Modelos predictivos, detección de anomalías, GenAI y Document AI.'),
@@ -102,8 +97,6 @@ TRAD = {
   'Legado Oracle aposentado': ('Oracle legacy retired', 'Legado Oracle jubilado'),
   'Setores atendidos <span class="mega-tag">10+</span>':
     ('Industries served <span class="mega-tag">10+</span>', 'Sectores atendidos <span class="mega-tag">10+</span>'),
-  'Pergunte ao dado <span class="mega-tag">Demonstração</span>':
-    ('Ask the data <span class="mega-tag">Demo</span>', 'Pregúntele al dato <span class="mega-tag">Demostración</span>'),
   'Visualização de dados': ('Data visualization', 'Visualización de datos'),
   'Perfis disponíveis': ('Available profiles', 'Perfiles disponibles'),
   'Trabalhe com a gente <span class="mega-tag">Carreiras</span>':
@@ -184,32 +177,10 @@ TRAD = {
   'Descubra mais da Atlas': ('Discover more about Atlas', 'Descubra más de Atlas'),
 
   # ---------------- Insight AI ----------------
-  'Insight AI · produto Atlas': ('Insight AI · an Atlas product', 'Insight AI · producto Atlas'),
-  'Pergunte ao dado.': ('Ask the data.', 'Pregúntele al dato.'),
-  'Você pergunta em linguagem de negócio. Ele responde com o número e a origem dele.':
-    ('You ask in business language. It answers with the number and where it came from.',
-     'Usted pregunta en lenguaje de negocio. Él responde con el número y su origen.'),
-  '<i></i> Demonstração interativa · respostas de exemplo, não conectadas a dados reais':
-    ('<i></i> Interactive demo · sample answers, not connected to real data',
-     '<i></i> Demostración interactiva · respuestas de ejemplo, no conectadas a datos reales'),
-  'Perguntas de exemplo': ('Sample questions', 'Preguntas de ejemplo'),
-  'Por que minhas vendas caíram?': ('Why did my sales drop?', '¿Por qué cayeron mis ventas?'),
-  'Qual canal traz mais margem?': ('Which channel brings the most margin?', '¿Qué canal trae más margen?'),
-  'Onde estou perdendo eficiência?': ('Where am I losing efficiency?', '¿Dónde estoy perdiendo eficiencia?'),
-  'O que devo esperar no próximo trimestre?': ('What should I expect next quarter?', '¿Qué debo esperar el próximo trimestre?'),
 }
 
 TRAD.update({
   # ---------------- respostas da demonstração ----------------
-  'A queda de <b>8,2%</b> no mês está concentrada em <b>três lojas da região Sul</b>. Nas demais regiões a receita cresceu 1,4%.':
-    ('The <b>8.2%</b> drop this month is concentrated in <b>three stores in the South</b>. Revenue grew 1.4% in every other region.',
-     'La caída del <b>8,2%</b> del mes se concentra en <b>tres tiendas de la región Sur</b>. En las demás regiones los ingresos crecieron 1,4%.'),
-  'O recuo acompanha a ruptura de estoque na categoria de maior giro dessas unidades.':
-    ('The decline tracks the stockout in those stores’ fastest-moving category.',
-     'El retroceso acompaña la rotura de stock en la categoría de mayor rotación de esas unidades.'),
-  '<span>Impacto</span><b>−8,2%</b>': ('<span>Impact</span><b>−8.2%</b>', '<span>Impacto</span><b>−8,2%</b>'),
-  '<span>Origem</span><b>3 lojas · Sul</b>': ('<span>Source</span><b>3 stores · South</b>', '<span>Origen</span><b>3 tiendas · Sur</b>'),
-  '<span>Causa provável</span><b>Ruptura de estoque</b>': ('<span>Likely cause</span><b>Stockout</b>', '<span>Causa probable</span><b>Rotura de stock</b>'),
 
   # ---------------- trilho de setores ----------------
   'Setores onde já transformamos dados em decisão':
@@ -223,35 +194,6 @@ TRAD.update({
   'A Atlas é uma consultoria de tecnologia em dados e alocação de especialistas. Da engenharia à decisão, em produção.':
     ('Atlas is a technology consultancy in data and specialist staffing. From engineering to decision, in production.',
      'Atlas es una consultoría de tecnología en datos y asignación de especialistas. De la ingeniería a la decisión, en producción.'),
-  'Nossos valores orientam como escolhemos o problema, como montamos o time e onde o projeto termina. Somos parte estratégia, parte engenharia: o stack sai do problema, nunca o contrário.':
-    ('Our values guide how we choose the problem, how we build the team and where the project ends. We are part strategy, part engineering: the stack follows the problem, never the other way round.',
-     'Nuestros valores orientan cómo elegimos el problema, cómo armamos el equipo y dónde termina el proyecto. Somos parte estrategia, parte ingeniería: el stack sale del problema, nunca al revés.'),
-  'Tecnologia com profundidade. Negócio com clareza.':
-    ('Technology with depth. Business with clarity.', 'Tecnología con profundidad. Negocio con claridad.'),
-  '<span>Clareza</span> <span>Resultado</span> <span>Profundidade</span> <span>Parceria</span>':
-    ('<span>Clarity</span> <span>Results</span> <span>Depth</span> <span>Partnership</span>',
-     '<span>Claridad</span> <span>Resultado</span> <span>Profundidad</span> <span>Alianza</span>'),
-  'Como trabalhamos': ('How we work', 'Cómo trabajamos'),
-  'Não entregamos tecnologia. Entregamos impacto.':
-    ('We don’t deliver technology. We deliver impact.', 'No entregamos tecnología. Entregamos impacto.'),
-  '<b>Visão estratégica</b>Começamos pela decisão que precisa ser tomada, não pela ferramenta que queremos vender.':
-    ('<b>Strategic view</b>We start from the decision that has to be made, not from the tool we want to sell.',
-     '<b>Visión estratégica</b>Empezamos por la decisión que hay que tomar, no por la herramienta que queremos vender.'),
-  '<b>Profundidade técnica</b>Da engenharia à modelagem: do Oracle ao BigQuery, em stacks modernas ou legadas.':
-    ('<b>Technical depth</b>From engineering to modelling: from Oracle to BigQuery, on modern or legacy stacks.',
-     '<b>Profundidad técnica</b>De la ingeniería al modelado: de Oracle a BigQuery, en stacks modernos o heredados.'),
-  '<b>Design antes do desenvolvimento</b>O padrão visual é definido antes do primeiro painel, para o dashboard ser lido e usado.':
-    ('<b>Design before development</b>The visual standard is set before the first dashboard, so the dashboard gets read and used.',
-     '<b>Diseño antes del desarrollo</b>El estándar visual se define antes del primer panel, para que el dashboard se lea y se use.'),
-  '<b>Velocidade de execução</b>Soluções que chegam à produção — não provas de conceito que morrem na apresentação.':
-    ('<b>Speed of execution</b>Solutions that reach production — not proofs of concept that die in the presentation.',
-     '<b>Velocidad de ejecución</b>Soluciones que llegan a producción — no pruebas de concepto que mueren en la presentación.'),
-  '<b>Governança e segurança</b>Padronização, fonte única da verdade e controle de acesso desde o primeiro pipeline.':
-    ('<b>Governance and security</b>Standardization, a single source of truth and access control from the first pipeline on.',
-     '<b>Gobernanza y seguridad</b>Estandarización, fuente única de la verdad y control de acceso desde el primer pipeline.'),
-  'Resultado acima de entregável. O projeto termina quando o negócio decide melhor.':
-    ('Results over deliverables. The project ends when the business decides better.',
-     'Resultado por encima del entregable. El proyecto termina cuando el negocio decide mejor.'),
 
   # ---------------- ladrilhos de números ----------------
   'Entrega': ('Delivery', 'Entrega'),
@@ -270,10 +212,6 @@ TRAD.update({
 
   # ---------------- faixa de alocação ----------------
   'Alocação de especialistas': ('Specialist staffing', 'Asignación de especialistas'),
-  'Nem todo projeto precisa de um projeto.': ('Not every project needs a project.', 'No todo proyecto necesita un proyecto.'),
-  'Às vezes o que falta é gente de dados dentro do time. A Atlas aloca especialistas que entram na sua operação e respondem à sua gestão — em contratos de no mínimo 6 meses, muitos por tempo indeterminado.':
-    ('Sometimes what is missing is data people inside the team. Atlas places specialists who join your operation and report to your management — on contracts of at least 6 months, many of them open-ended.',
-     'A veces lo que falta es gente de datos dentro del equipo. Atlas asigna especialistas que entran en su operación y responden a su gestión — en contratos de 6 meses como mínimo, muchos por tiempo indefinido.'),
 
   # ---------------- soluções ----------------
   'Da informação à ação.': ('From information to action.', 'De la información a la acción.'),
@@ -312,9 +250,6 @@ TRAD.update({
   'Em produção, não em prova de conceito': ('In production, not in proof of concept', 'En producción, no en prueba de concepto'),
   'Pessoas &amp; Alocação': ('People &amp; Staffing', 'Personas &amp; Asignación'),
   'Especialistas no seu time': ('Specialists in your team', 'Especialistas en su equipo'),
-  'Nem todo projeto precisa de um projeto. Às vezes o que falta é gente de dados dentro do time — especialistas que entram na sua operação e respondem à sua gestão.':
-    ('Not every project needs a project. Sometimes what is missing is data people inside the team — specialists who join your operation and report to your management.',
-     'No todo proyecto necesita un proyecto. A veces lo que falta es gente de datos dentro del equipo — especialistas que entran en su operación y responden a su gestión.'),
   '150+ profissionais alocados, muitos por tempo indeterminado':
     ('150+ professionals placed, many of them open-ended', '150+ profesionales asignados, muchos por tiempo indefinido'),
   '<span>Data &amp; Analytics</span><span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Governança de métricas</span>':
@@ -576,9 +511,6 @@ TRAD.update({
     ('No commitment <i>·</i> No corporate deck <i>·</i> Reply within 1 business day',
      'Sin compromiso <i>·</i> Sin presentación institucional <i>·</i> Respuesta en 1 día hábil'),
   'Nossos contatos': ('Our contacts', 'Nuestros contactos'),
-  '<span class="k">E-mail</span><span class="v">contato@atlas-partner.com</span>':
-    ('<span class="k">E-mail</span><span class="v">contato@atlas-partner.com</span>',
-     '<span class="k">Correo</span><span class="v">contato@atlas-partner.com</span>'),
   'Nome': ('Name', 'Nombre'),
   'Empresa': ('Company', 'Empresa'),
   'Cargo <em>(opcional)</em>': ('Role <em>(optional)</em>', 'Cargo <em>(opcional)</em>'),
@@ -916,6 +848,35 @@ TRAD.update({
   'Marcas e nomes de programa pertencem aos respectivos fabricantes.':
     ('Trademarks and program names belong to their respective vendors.',
      'Marcas y nombres de programa pertenecen a sus respectivos fabricantes.'),
+})
+
+
+TRAD.update({
+  # ---------------- ajustes desta rodada ----------------
+  '<span>Clareza</span> <span>Resultado</span> <span>Parceria</span>':
+    ('<span>Clarity</span> <span>Results</span> <span>Partnership</span>',
+     '<span>Claridad</span> <span>Resultado</span> <span>Alianza</span>'),
+  'Especialistas de dados dentro do seu time.':
+    ('Data specialists inside your team.', 'Especialistas de datos dentro de su equipo.'),
+  'Quando o gargalo não é o projeto e sim quem vai tocá-lo, a Atlas aloca especialistas que entram na sua operação e respondem à sua gestão — em contratos de no mínimo 6 meses, muitos por tempo indeterminado.':
+    ('When the bottleneck is not the project but who will run it, Atlas places specialists who join your operation and report to your management — on contracts of at least 6 months, many of them open-ended.',
+     'Cuando el cuello de botella no es el proyecto sino quién va a llevarlo, Atlas asigna especialistas que entran en su operación y responden a su gestión — en contratos de 6 meses como mínimo, muchos por tiempo indefinido.'),
+  'Quando o gargalo não é o projeto e sim quem vai tocá-lo: especialistas de dados que entram na sua operação, respondem à sua gestão e ficam.':
+    ('When the bottleneck is not the project but who will run it: data specialists who join your operation, report to your management and stay.',
+     'Cuando el cuello de botella no es el proyecto sino quién va a llevarlo: especialistas de datos que entran en su operación, responden a su gestión y se quedan.'),
+  'O que a IA resolve': ('What AI solves', 'Lo que resuelve la IA'),
+  'Inteligência Artificial <small>IA ✦</small>':
+    ('Artificial Intelligence <small>AI ✦</small>', 'Inteligencia Artificial <small>IA ✦</small>'),
+  # alt das artes dos cases — texto que o leitor de tela lê
+  'Canais de venda separados convergindo em uma plataforma de dados única':
+    ('Separate sales channels converging into a single data platform',
+     'Canales de venta separados convergiendo en una plataforma de datos única'),
+  'Um banco de dados legado denso dando lugar a um fluxo de pipelines organizados':
+    ('A dense legacy database giving way to an organized flow of pipelines',
+     'Una base de datos heredada densa dando lugar a un flujo de pipelines organizados'),
+  'Painéis soltos e desalinhados dando lugar a uma grade padronizada':
+    ('Loose, misaligned dashboards giving way to a standardized grid',
+     'Paneles sueltos y desalineados dando lugar a una cuadrícula estandarizada'),
 })
 
 

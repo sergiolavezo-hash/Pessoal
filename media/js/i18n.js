@@ -36,7 +36,8 @@
      porque a subida pelos pais encontra o parágrafo primeiro. */
   var BLOCO  = { P:1, H1:1, H2:1, H3:1, H4:1, H5:1, LI:1, DT:1, DD:1, LABEL:1, BUTTON:1, FIGCAPTION:1, TH:1, TD:1, OPTION:1, SUMMARY:1, A:1, SPAN:1, DIV:1, B:1, STRONG:1, EM:1, SMALL:1 };
   var FORA   = { SCRIPT:1, STYLE:1, SVG:1, CANVAS:1, NOSCRIPT:1, TEMPLATE:1 };
-  var ATRIBS = ['placeholder', 'aria-label', 'title'];
+  /* alt entra aqui: a descrição de uma imagem é texto que alguém lê. */
+  var ATRIBS = ['placeholder', 'aria-label', 'title', 'alt'];
   var ESCOPO = 'header, main, footer, nav, .mega, .chat-panel, .chat-teaser, .cbar, .skip-link';
 
   function norm(s) { return (s || '').replace(/\s+/g, ' ').trim(); }
@@ -175,13 +176,13 @@
     escopo.forEach(function (r) {
       blocos(r).forEach(function (el) { tot++; feitos += trocar(el, lang); });
       [r].concat([].slice.call(r.querySelectorAll('*'))).forEach(function (el) { trocarTexto(el, lang); });
-      [].slice.call(r.querySelectorAll('[placeholder],[aria-label],[title]')).forEach(function (el) { trocarAtribs(el, lang); });
+      [].slice.call(r.querySelectorAll('[placeholder],[aria-label],[title],img[alt]')).forEach(function (el) { trocarAtribs(el, lang); });
       trocarAtribs(r, lang);
     });
     if (!raizEl) {
       /* skip-link, botão de tema e botão do chat ficam fora do escopo de
          conteúdo, mas os rótulos deles são lidos em voz alta. */
-      [].slice.call(document.querySelectorAll('[placeholder],[aria-label],[title]')).forEach(function (el) { trocarAtribs(el, lang); });
+      [].slice.call(document.querySelectorAll('[placeholder],[aria-label],[title],img[alt]')).forEach(function (el) { trocarAtribs(el, lang); });
       trocarH1(lang);
       raiz.setAttribute('lang', IDIOMAS[lang] || 'pt-BR');
       atual = lang;

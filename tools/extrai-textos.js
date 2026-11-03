@@ -89,8 +89,8 @@ const ARQS = process.argv.slice(2).length ? process.argv.slice(2) : ['index.html
       /* Os atributos lidos em voz alta ficam também fora do escopo de
          conteúdo — skip-link, botão de tema, botão do chat —, então esta
          varredura cobre o documento inteiro. */
-      document.querySelectorAll('[placeholder],[aria-label],[title]').forEach(el => {
-        ['placeholder','aria-label','title'].forEach(a => {
+      document.querySelectorAll('[placeholder],[aria-label],[title],img[alt]').forEach(el => {
+        ['placeholder','aria-label','title','alt'].forEach(a => {
           const v = el.getAttribute(a); if (!v) return;
           const k = 'attr:' + norm(v);
           if (vistos.has(k)) return; vistos.add(k);

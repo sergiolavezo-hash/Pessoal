@@ -101,6 +101,7 @@
        preenchimento do botão fecha um tom; o accent segue o mesmo em
        selos, links e ícones. */
     --btn-fill: #1F6FE0;   /* branco sobre ele: 4,76:1 */
+    --accent-quente: #F2A33C;  /* contraponto quente da constelação */
     --sombra: 0 10px 30px -8px rgba(5, 7, 10, 0.55);
   }
 
@@ -180,8 +181,12 @@
   .scroll-progress i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); transform-origin: left; transform: scaleX(0); }
 
   /* ---------- Header ---------- */
-  .nav { position: sticky; top: 0; z-index: 50; background: var(--veil); backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
-  .nav.is-scrolled { background: var(--veil-forte); border-bottom-color: var(--line-soft); }
+  /* No topo o cabeçalho não tem barra: marca, "Menu" e CTA flutuam sobre
+     a página, e a constelação passa por trás deles. A barra só aparece
+     quando a página rola, que é quando ela precisa separar o conteúdo. */
+  .nav { position: sticky; top: 0; z-index: 50; background: transparent; border-bottom: 1px solid transparent;
+    transition: border-color 0.35s var(--ease), background 0.35s var(--ease), backdrop-filter 0.35s var(--ease); }
+  .nav.is-scrolled { background: var(--veil-forte); backdrop-filter: blur(14px); border-bottom-color: var(--line-soft); }
   .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 5rem; transition: height 0.3s var(--ease); }
   .nav.is-scrolled .wrap { height: 4.25rem; }
 
@@ -358,6 +363,11 @@
 
   /* ---------- Cases ---------- */
   .case-card { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2.5rem; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 2.2rem; margin-top: 1.6rem; }
+  /* A arte atravessa as duas colunas no topo do cartão. É um diagrama do
+     que o projeto fez, não enfeite: por isso cada case tem a sua, e o alt
+     descreve a transformação. */
+  .case-art { grid-column: 1 / -1; margin: -2.2rem -2.2rem 0; border-radius: 16px 16px 0 0; overflow: hidden; line-height: 0; }
+  .case-art img { width: 100%; height: clamp(170px, 20vw, 250px); object-fit: cover; display: block; }
   .case-sub {
     font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em;
     color: var(--dim); margin-top: 0.4rem;
@@ -1000,7 +1010,7 @@
     background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.3);
     border-radius: 999px; padding: 0.42rem 0.9rem;
   }
-  .pill svg { width: 0.85rem; height: 0.85rem; stroke: currentColor; fill: none; stroke-width: 2; }
+  .pill svg { width: 0.9rem; height: 0.9rem; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
   /* ---------- Hero centralizado ---------- */
   .hero-c { min-height: 100svh; display: grid; align-items: center; padding: 9rem 0 7rem; }
@@ -1033,7 +1043,7 @@
   /* align-items:start porque os dois cartões não têm o mesmo tanto de
      texto: esticados até a altura do vizinho, o mais curto ficava com um
      vão de quase 300px entre o parágrafo e os chips. */
-  .ess { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 1.2rem; align-items: start; }
+  .ess { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 1.2rem; align-items: start; }
   .ess-card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem); display: flex; flex-direction: column; }
   .ess-card h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 800; margin: 1.1rem 0 0.9rem; }
   .ess-card > p { color: var(--muted); font-size: 0.99rem; }
@@ -1044,19 +1054,17 @@
     font-size: 0.92rem; transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
   }
   .ess-chips span:hover { border-color: rgba(46,134,255,0.45); color: var(--accent-light); }
-  .ess-list { list-style: none; display: grid; gap: 0.9rem; margin-top: 1.4rem; }
-  .ess-list li { display: grid; grid-template-columns: auto 1fr; gap: 0.8rem; align-items: start; color: var(--muted); font-size: 0.95rem; }
-  .ess-list svg { width: 1.1rem; height: 1.1rem; stroke: var(--accent); fill: none; stroke-width: 2.2; margin-top: 0.3rem; }
-  .ess-list b { color: var(--ink); font-weight: 700; display: block; font-family: var(--display); }
   .ess-foot { border-top: 1px solid var(--line-soft); margin-top: 1.6rem; padding-top: 1.2rem; color: var(--dim); font-size: 0.88rem; }
 
   /* ---------- Ladrilhos de números ---------- */
-  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1.2rem; }
+  /* 2x2 ao lado dos valores, não mais uma faixa de quatro: é a coluna
+     direita da linha de essência. */
+  .tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
   .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem; transition: border-color 0.35s var(--ease), transform 0.35s var(--ease); }
   .tile:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
   .tile-top { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 1.5rem; }
-  .tile-ico { width: 2.3rem; height: 2.3rem; display: grid; place-items: center; border-radius: 9px; background: rgba(46,134,255,0.12); border: 1px solid rgba(46,134,255,0.26); }
-  .tile-ico svg { width: 1.1rem; height: 1.1rem; stroke: var(--accent-light); fill: none; stroke-width: 2; }
+  .tile-ico { width: 2.7rem; height: 2.7rem; display: grid; place-items: center; border-radius: 11px; background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.24); }
+  .tile-ico svg { width: 1.35rem; height: 1.35rem; stroke: var(--accent); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
   .tile-cat { font-family: var(--mono); font-size: 0.64rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); text-align: right; }
   .tile b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.4vw, 2.7rem); font-weight: 800; letter-spacing: -0.04em; color: var(--ink); line-height: 1; }
   .tile span { display: block; color: var(--muted); font-size: 0.89rem; margin-top: 0.6rem; }
@@ -1085,8 +1093,8 @@
   }
   .sol-item:hover { border-color: rgba(46,134,255,0.4); transform: translateX(3px); }
   .sol-item[aria-selected="true"] { border-color: var(--accent); background: var(--panel-2); }
-  .sol-ico { width: 2.3rem; height: 2.3rem; display: grid; place-items: center; border-radius: 9px; background: rgba(46,134,255,0.12); border: 1px solid rgba(46,134,255,0.26); }
-  .sol-ico svg { width: 1.1rem; height: 1.1rem; stroke: var(--accent-light); fill: none; stroke-width: 2; }
+  .sol-ico { width: 2.7rem; height: 2.7rem; display: grid; place-items: center; border-radius: 11px; background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.24); }
+  .sol-ico svg { width: 1.35rem; height: 1.35rem; stroke: var(--accent); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
   .sol-item[aria-selected="true"] .sol-ico { background: var(--accent); border-color: var(--accent); }
   .sol-item[aria-selected="true"] .sol-ico svg { stroke: #fff; }
   .sol-k { font-family: var(--mono); font-size: 0.64rem; font-weight: 500; letter-spacing: 0.17em; text-transform: uppercase; color: var(--accent); display: block; }
@@ -1121,7 +1129,7 @@
     .ess, .sol, .banner, .head2 { grid-template-columns: 1fr; }
     .banner-cta { justify-content: flex-start; }
     .head2 { align-items: start; }
-    .tiles { grid-template-columns: repeat(2, 1fr); }
+
   }
   @media (max-width: 760px) {
     .rail-grid { grid-template-columns: 1fr; gap: 1.2rem; }
@@ -1173,6 +1181,7 @@
     --veil-fundo: rgba(255, 255, 255, 0.62);
     --sombra: 0 10px 30px -10px rgba(19, 19, 22, 0.18);
     --btn-fill: #0B5ED7;   /* branco sobre ele: 5,84:1 */
+    --accent-quente: #D9822B;
   }
   /* No claro a seção de papel é a escura, então o selo dela volta
      a ser o azul aberto. */
@@ -1291,7 +1300,8 @@
     transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
   }
   .mega-card:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-2px); }
-  .mega-card .tile-ico { width: 2.1rem; height: 2.1rem; }
+  .mega-card .tile-ico { width: 2.4rem; height: 2.4rem; }
+  .mega-card .tile-ico svg { width: 1.2rem; height: 1.2rem; }
   .mega-card b { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-family: var(--display); font-size: 0.97rem; font-weight: 700; }
   .mega-card p { color: var(--muted); font-size: 0.86rem; margin-top: 0.3rem; line-height: 1.5; }
   .mega-tag { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.3); border-radius: 999px; padding: 0.14rem 0.5rem; }
@@ -1342,24 +1352,26 @@
   }
 
   /* ---------- Parceiros ---------- */
-  /* Em tipografia, não em logos: dois dos oito (Microsoft e IBM) não existem
-     no conjunto CC0 de onde vêm os ícones do resto do site — foram retirados
-     de lá por marca registrada. Com seis marcas reais e duas faltando, a
-     grade ficaria visivelmente torta; e a arte oficial de cada programa de
-     parceria vem do portal do próprio programa, não de um pacote de ícones.
-     Quando as artes chegarem, elas entram no lugar do nome. */
+  /* O ladrilho é branco nos dois temas. Logo de fabricante vem com cor
+     fixa — o cinza da Microsoft, o preto da Databricks, o azul-marinho do
+     Tableau — e sobre o fundo escuro metade deles sumiria. Trocar a cor da
+     marca não é opção, então o fundo é que se mantém. */
   .parc { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; margin-top: 2.4rem; }
   .parc-card {
-    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
-    padding: 1.3rem 1.2rem; text-align: center;
-    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+    background: #FFFFFF; border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.5rem 1.1rem 1.1rem; text-align: center;
+    display: grid; grid-template-rows: 1fr auto; gap: 1rem; align-items: center;
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
   }
-  .parc-card:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
-  .parc-card b {
-    display: block; font-family: var(--display); font-weight: 800;
-    font-size: clamp(1.05rem, 1.7vw, 1.3rem); letter-spacing: -0.03em; color: var(--ink);
+  .parc-card:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); box-shadow: 0 12px 28px -14px rgba(19,19,22,0.35); }
+  .parc-card img {
+    display: block; margin: 0 auto; max-width: 100%; width: auto;
+    max-height: 2.4rem; object-fit: contain;
   }
-  .parc-card span { display: block; color: var(--dim); font-size: 0.78rem; margin-top: 0.45rem; line-height: 1.45; }
+  .parc-card span {
+    display: block; color: #56565E; font-size: 0.74rem; line-height: 1.45;
+    border-top: 1px solid rgba(19,19,22,0.09); padding-top: 0.8rem;
+  }
   .parc-nota { margin-top: 1.4rem; color: var(--dim); font-size: 0.84rem; }
 
   @media (max-width: 1000px) { .parc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -1448,7 +1460,7 @@
                 <span><b>Legado Oracle aposentado</b><p>Modernização para Google Cloud sem interromper a operação.</p></span>
               </a>
               <a class="mega-card" href="#setores">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span>
+                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.2 9h17.6M3.2 15h17.6"/><path d="M12 3a16 16 0 0 1 0 18M12 3a16 16 0 0 0 0 18"/></svg></span>
                 <span><b>Setores atendidos <span class="mega-tag">10+</span></b><p>Do bancário ao food service, passando por saúde, educação e varejo.</p></span>
               </a>
             </div>
@@ -1456,10 +1468,6 @@
 
           <div id="mp-3" role="tabpanel" aria-labelledby="mt-3" hidden>
             <div class="mega-cards">
-              <a class="mega-card" href="#ia">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19h8M4 19h4"/><circle cx="12" cy="12" r="3"/><path d="M12 5v4"/></svg></span>
-                <span><b>Pergunte ao dado <span class="mega-tag">Demonstração</span></b><p>Pergunta em linguagem de negócio, resposta com o número e a origem dele.</p></span>
-              </a>
               <a class="mega-card" href="#ia-capacidades">
                 <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z"/></svg></span>
                 <span><b>O que a IA resolve</b><p>Modelos preditivos, detecção de anomalias, GenAI e Document AI.</p></span>
@@ -1478,11 +1486,11 @@
                 <span><b>Como funciona</b><p>Especialistas que entram na sua operação e respondem à sua gestão.</p></span>
               </a>
               <a class="mega-card" href="alocacao.html#perfis">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span>
+                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><path d="M3 19a5 5 0 0 1 10 0"/><path d="M16 9h5M16 13h5M16 17h3"/></svg></span>
                 <span><b>Perfis disponíveis</b><p>Engenheiros, analistas, cientistas de dados e squads completos.</p></span>
               </a>
               <a class="mega-card" href="alocacao.html#talento">
-                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M19 8v6M16 11h6"/></svg></span>
                 <span><b>Trabalhe com a gente <span class="mega-tag">Carreiras</span></b><p>Banco de talentos da Atlas: envie seu perfil e seu currículo.</p></span>
               </a>
               <a class="mega-card" href="#sobre">
@@ -1560,8 +1568,8 @@
   <a href="#solucoes">Soluções</a>
   <a href="#cases">Cases</a>
   <a href="#sobre">Sobre</a>
-  <a href="#insight-ai">Insights</a>
-  <a href="#ia">Atlas Insight AI <small>PRODUTO ✦</small></a>
+  <a href="#ia-capacidades">Insights</a>
+  <a href="#ia-capacidades">Inteligência Artificial <small>IA ✦</small></a>
   <a href="alocacao.html#talento">Trabalhe com a gente</a>
   <a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram <small>@atlas_tecnologia ✦</small></a>
   <a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn <small>Atlas Tecnologia ✦</small></a>
@@ -1584,35 +1592,10 @@
           <a class="btn btn-accent" href="#contato" data-magnetic>Falar com um especialista <span class="arr">→</span></a>
           <a class="btn btn-line" href="#solucoes" data-magnetic>Conhecer nossas soluções <span class="arr">→</span></a>
         </div>
-        <a class="hero-cue reveal d3 in" href="#ia">
+        <a class="hero-cue reveal d3 in" href="#setores">
           Descubra mais da Atlas
           <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= INSIGHT AI — DEMONSTRAÇÃO ================= -->
-  <section class="sec" id="ia" style="padding-top:4.5rem">
-    <div class="wrap">
-      <div class="sec-lead" style="margin:0 auto;text-align:center">
-        <span class="pill reveal" id="insight-ai">
-          <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z"/></svg>
-          Insight AI · produto Atlas
-        </span>
-        <h2 class="h-xl reveal d1" style="margin-left:auto;margin-right:auto">Pergunte ao dado.</h2>
-        <p class="sub reveal d2" style="margin-left:auto;margin-right:auto">
-          Você pergunta em linguagem de negócio. Ele responde com o número
-          e a origem dele.
-        </p>
-      </div>
-
-      <div class="demo reveal d2" style="margin-top:2.2rem">
-        <div class="demo-bar"><i></i> Demonstração interativa · respostas de exemplo, não conectadas a dados reais</div>
-        <div class="demo-body">
-          <div class="demo-qs" id="demo-qs" role="group" aria-label="Perguntas de exemplo"></div>
-          <div class="demo-a" id="demo-a" aria-live="polite"></div>
-        </div>
       </div>
     </div>
   </section>
@@ -1643,48 +1626,24 @@
             A Atlas é uma consultoria de tecnologia em dados e alocação de
             especialistas. Da engenharia à decisão, em produção.
           </p>
-          <p style="margin-top:1rem">
-            Nossos valores orientam como escolhemos o problema, como montamos o
-            time e onde o projeto termina. Somos parte estratégia, parte
-            engenharia: o stack sai do problema, nunca o contrário.
-          </p>
-          <p class="ess-foot">Tecnologia com profundidade. Negócio com clareza.</p>
           <div class="ess-chips">
             <span>Clareza</span>
             <span>Resultado</span>
-            <span>Profundidade</span>
             <span>Parceria</span>
           </div>
         </article>
 
-        <article class="ess-card">
-          <span class="pill">
-            <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 8-8"/><path d="M16 7h5v5"/></svg>
-            Como trabalhamos
-          </span>
-          <h2>Não entregamos tecnologia. Entregamos impacto.</h2>
-          <ul class="ess-list">
-            <li><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg><span><b>Visão estratégica</b>Começamos pela decisão que precisa ser tomada, não pela ferramenta que queremos vender.</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg><span><b>Profundidade técnica</b>Da engenharia à modelagem: do Oracle ao BigQuery, em stacks modernas ou legadas.</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg><span><b>Design antes do desenvolvimento</b>O padrão visual é definido antes do primeiro painel, para o dashboard ser lido e usado.</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg><span><b>Velocidade de execução</b>Soluções que chegam à produção — não provas de conceito que morrem na apresentação.</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg><span><b>Governança e segurança</b>Padronização, fonte única da verdade e controle de acesso desde o primeiro pipeline.</span></li>
-          </ul>
-          <p class="ess-foot">Resultado acima de entregável. O projeto termina quando o negócio decide melhor.</p>
-        </article>
-      </div>
-
-      <div class="tiles reveal d2">
+        <div class="tiles">
         <div class="tile">
           <div class="tile-top">
-            <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8.5v7a2 2 0 0 1-1.1 1.8l-7 3.4a2 2 0 0 1-1.8 0l-7-3.4A2 2 0 0 1 3 15.5v-7a2 2 0 0 1 1.1-1.8l7-3.4a2 2 0 0 1 1.8 0l7 3.4A2 2 0 0 1 21 8.5Z"/><path d="m3.4 7.6 8.6 4.2 8.6-4.2M12 21v-9.2"/></svg></span>
             <span class="tile-cat">Entrega</span>
           </div>
           <b>500+</b><span>projetos entregues em dados, BI e inteligência</span>
         </div>
         <div class="tile">
           <div class="tile-top">
-            <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l9-7 9 7v11"/><path d="M9 21v-6h6v6"/></svg></span>
+            <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.2 9h17.6M3.2 15h17.6"/><path d="M12 3a16 16 0 0 1 0 18M12 3a16 16 0 0 0 0 18"/></svg></span>
             <span class="tile-cat">Alcance</span>
           </div>
           <b>10+</b><span>setores atendidos — do bancário ao food service</span>
@@ -1703,6 +1662,7 @@
           </div>
           <b>150.000+</b><span>horas em alocação — contratos de no mínimo 6 meses, muitos por tempo indeterminado</span>
         </div>
+        </div>
       </div>
 
       <div class="banner reveal d3" style="margin-top:1.2rem">
@@ -1711,11 +1671,12 @@
             <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/></svg>
             Alocação de especialistas
           </span>
-          <h2>Nem todo projeto precisa de um projeto.</h2>
+          <h2>Especialistas de dados dentro do seu time.</h2>
           <p>
-            Às vezes o que falta é gente de dados dentro do time. A Atlas aloca
-            especialistas que entram na sua operação e respondem à sua gestão —
-            em contratos de no mínimo 6 meses, muitos por tempo indeterminado.
+            Quando o gargalo não é o projeto e sim quem vai tocá-lo, a Atlas
+            aloca especialistas que entram na sua operação e respondem à sua
+            gestão — em contratos de no mínimo 6 meses, muitos por tempo
+            indeterminado.
           </p>
         </div>
         <div class="banner-cta">
@@ -1804,7 +1765,7 @@
           <article class="sol-panel" id="sol-p4" role="tabpanel" aria-labelledby="sol-t4" tabindex="0" hidden>
             <span class="pill">Pessoas &amp; Alocação</span>
             <h3>Especialistas no seu time</h3>
-            <p>Nem todo projeto precisa de um projeto. Às vezes o que falta é gente de dados dentro do time — especialistas que entram na sua operação e respondem à sua gestão.</p>
+            <p>Quando o gargalo não é o projeto e sim quem vai tocá-lo: especialistas de dados que entram na sua operação, respondem à sua gestão e ficam.</p>
             <div class="sol-tags"><span>Alocação de especialistas</span><span>Squads de dados</span><span>Engenheiros e analistas</span><span>Contratos de no mínimo 6 meses</span></div>
             <div class="sol-foot">
               <span class="sol-sig"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg> 150+ profissionais alocados, muitos por tempo indeterminado</span>
@@ -1839,14 +1800,38 @@
       </div>
 
       <div class="parc reveal d2">
-        <article class="parc-card"><b>Microsoft</b><span>Microsoft AI Cloud Partner Program</span></article>
-        <article class="parc-card"><b>Google</b><span>Google Cloud Partner Network</span></article>
-        <article class="parc-card"><b>AWS</b><span>Amazon Web Services Partner Network</span></article>
-        <article class="parc-card"><b>IBM</b><span>IBM Partner Plus</span></article>
-        <article class="parc-card"><b>Databricks</b><span>Databricks Partner Program</span></article>
-        <article class="parc-card"><b>Tableau</b><span>Tableau Partner Program &middot; Salesforce</span></article>
-        <article class="parc-card"><b>Snowflake</b><span>Snowflake Partner Network</span></article>
-        <article class="parc-card"><b>Oracle</b><span>Oracle PartnerNetwork</span></article>
+        <article class="parc-card">
+          <img src="media/logos/parceiros/microsoft.svg" alt="Microsoft" loading="lazy" decoding="async">
+          <span>Microsoft AI Cloud Partner Program</span>
+        </article>
+        <article class="parc-card">
+          <img src="media/logos/parceiros/google.svg" alt="Google Cloud" loading="lazy" decoding="async">
+          <span>Google Cloud Partner Network</span>
+        </article>
+        <article class="parc-card">
+          <img src="media/logos/parceiros/aws.svg" alt="Amazon Web Services" loading="lazy" decoding="async">
+          <span>Amazon Web Services Partner Network</span>
+        </article>
+        <article class="parc-card">
+          <img src="media/logos/parceiros/ibm.svg" alt="IBM" loading="lazy" decoding="async">
+          <span>IBM Partner Plus</span>
+        </article>
+        <article class="parc-card">
+          <img src="media/logos/parceiros/databricks.png" alt="Databricks" loading="lazy" decoding="async">
+          <span>Databricks Partner Program</span>
+        </article>
+        <article class="parc-card">
+          <img src="media/logos/parceiros/tableau.png" alt="Tableau" loading="lazy" decoding="async">
+          <span>Tableau Partner Program &middot; Salesforce</span>
+        </article>
+        <article class="parc-card">
+          <img src="media/logos/parceiros/snowflake.svg" alt="Snowflake" loading="lazy" decoding="async">
+          <span>Snowflake Partner Network</span>
+        </article>
+        <article class="parc-card">
+          <img src="media/logos/parceiros/oracle.svg" alt="Oracle" loading="lazy" decoding="async">
+          <span>Oracle PartnerNetwork</span>
+        </article>
       </div>
 
       <p class="parc-nota reveal d3" style="text-align:center">
@@ -1876,6 +1861,9 @@
       </div>
 
       <article class="case-card reveal d2">
+        <figure class="case-art">
+          <img src="media/cases/omnichannel.svg" alt="Canais de venda separados convergindo em uma plataforma de dados única" loading="lazy" decoding="async">
+        </figure>
         <div>
           <span class="case-conf">Cliente confidencial</span>
           <div class="case-meta"><span>Varejo Multimarca</span><span>Data &amp; Analytics</span><span>Cloud Azure</span></div>
@@ -1902,6 +1890,9 @@
       </article>
 
       <article class="case-card reveal d2">
+        <figure class="case-art">
+          <img src="media/cases/legado.svg" alt="Um banco de dados legado denso dando lugar a um fluxo de pipelines organizados" loading="lazy" decoding="async">
+        </figure>
         <div>
           <span class="case-conf">Cliente confidencial</span>
           <div class="case-meta"><span>Serviços Financeiros</span><span>Data Engineering</span><span>Cloud GCP</span></div>
@@ -1928,6 +1919,9 @@
       </article>
 
       <article class="case-card reveal d2">
+        <figure class="case-art">
+          <img src="media/cases/governanca.svg" alt="Painéis soltos e desalinhados dando lugar a uma grade padronizada" loading="lazy" decoding="async">
+        </figure>
         <div>
           <span class="case-conf">Cliente confidencial</span>
           <div class="case-meta"><span>BI Governance</span><span>Migração</span><span>Self-Service BI</span></div>
@@ -2231,10 +2225,6 @@
         </p>
         <p class="rail-label" style="border:0;padding:0;max-width:none;margin:2.4rem 0 0.9rem">Nossos contatos</p>
         <div class="ct-side">
-          <a class="ct-card" href="mailto:contato@atlas-partner.com">
-            <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></span>
-            <span><span class="k">E-mail</span><span class="v">contato@atlas-partner.com</span></span>
-          </a>
           <a class="ct-card" href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">
             <span class="tile-ico"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7.5 10.5v6"/><circle cx="7.5" cy="7.4" r="0.9" fill="currentColor" stroke="none"/><path d="M11.4 16.5v-6m0 1.6a2.6 2.6 0 0 1 5.1.9v3.5"/></svg></span>
             <span><span class="k">LinkedIn</span><span class="v">Atlas Tecnologia</span></span>
@@ -2313,14 +2303,13 @@
         <li><a href="#setores">Setores</a></li>
         <li><a href="cases-de-sucesso.html">Cases de sucesso</a></li>
         <li><a href="#parceiros">Parceiros</a></li>
-        <li><a href="#ia">Insight AI</a></li>
+        <li><a href="#ia-capacidades">Inteligência Artificial</a></li>
         <li><a href="alocacao.html#talento">Carreiras</a></li>
       </ul>
     </nav>
     <div>
       <h4>Fale conosco</h4>
       <ul>
-        <li><a href="mailto:contato@atlas-partner.com">contato@atlas-partner.com</a></li>
         <li><a href="#contato">Solicitar um diagnóstico</a></li>
         <li><a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn</a></li>
         <li><a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram — @atlas_tecnologia</a></li>

@@ -1,5 +1,5 @@
 {
- "total": 548,
+ "total": 523,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -148,16 +148,6 @@
   },
   {
    "chave": "Do bancário ao food service, passando por saúde, educação e varejo.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Pergunte ao dado <span class=\"mega-tag\">Demonstração</span>",
-   "tag": "b",
-   "cls": ""
-  },
-  {
-   "chave": "Pergunta em linguagem de negócio, resposta com o número e a origem dele.",
    "tag": "p",
    "cls": ""
   },
@@ -317,7 +307,7 @@
    "cls": ""
   },
   {
-   "chave": "Atlas Insight AI <small>PRODUTO ✦</small>",
+   "chave": "Inteligência Artificial <small>IA ✦</small>",
    "tag": "a",
    "cls": ""
   },
@@ -345,66 +335,6 @@
    "chave": "Conhecer nossas soluções <span class=\"arr\">→</span>",
    "tag": "a",
    "cls": "btn btn-line"
-  },
-  {
-   "chave": "Pergunte ao dado.",
-   "tag": "h2",
-   "cls": "h-xl reveal d1"
-  },
-  {
-   "chave": "Você pergunta em linguagem de negócio. Ele responde com o número e a origem dele.",
-   "tag": "p",
-   "cls": "sub reveal d2"
-  },
-  {
-   "chave": "<i></i> Demonstração interativa · respostas de exemplo, não conectadas a dados reais",
-   "tag": "div",
-   "cls": "demo-bar"
-  },
-  {
-   "chave": "Por que minhas vendas caíram?",
-   "tag": "button",
-   "cls": "demo-q"
-  },
-  {
-   "chave": "Qual canal traz mais margem?",
-   "tag": "button",
-   "cls": "demo-q"
-  },
-  {
-   "chave": "Onde estou perdendo eficiência?",
-   "tag": "button",
-   "cls": "demo-q"
-  },
-  {
-   "chave": "O que devo esperar no próximo trimestre?",
-   "tag": "button",
-   "cls": "demo-q"
-  },
-  {
-   "chave": "A queda de <b>8,2%</b> no mês está concentrada em <b>três lojas da região Sul</b>. Nas demais regiões a receita cresceu 1,4%.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "O recuo acompanha a ruptura de estoque na categoria de maior giro dessas unidades.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Impacto</span><b>−8,2%</b>",
-   "tag": "div",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Origem</span><b>3 lojas · Sul</b>",
-   "tag": "div",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Causa provável</span><b>Ruptura de estoque</b>",
-   "tag": "div",
-   "cls": ""
   },
   {
    "chave": "Setores onde já transformamos dados em decisão",
@@ -472,54 +402,9 @@
    "cls": ""
   },
   {
-   "chave": "Nossos valores orientam como escolhemos o problema, como montamos o time e onde o projeto termina. Somos parte estratégia, parte engenharia: o stack sai do problema, nunca o contrário.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Tecnologia com profundidade. Negócio com clareza.",
-   "tag": "p",
-   "cls": "ess-foot"
-  },
-  {
-   "chave": "<span>Clareza</span> <span>Resultado</span> <span>Profundidade</span> <span>Parceria</span>",
+   "chave": "<span>Clareza</span> <span>Resultado</span> <span>Parceria</span>",
    "tag": "div",
    "cls": "ess-chips"
-  },
-  {
-   "chave": "Não entregamos tecnologia. Entregamos impacto.",
-   "tag": "h2",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Visão estratégica</b>Começamos pela decisão que precisa ser tomada, não pela ferramenta que queremos vender.",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Profundidade técnica</b>Da engenharia à modelagem: do Oracle ao BigQuery, em stacks modernas ou legadas.",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Design antes do desenvolvimento</b>O padrão visual é definido antes do primeiro painel, para o dashboard ser lido e usado.",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Velocidade de execução</b>Soluções que chegam à produção — não provas de conceito que morrem na apresentação.",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Governança e segurança</b>Padronização, fonte única da verdade e controle de acesso desde o primeiro pipeline.",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "Resultado acima de entregável. O projeto termina quando o negócio decide melhor.",
-   "tag": "p",
-   "cls": "ess-foot"
   },
   {
    "chave": "Entrega",
@@ -582,12 +467,12 @@
    "cls": ""
   },
   {
-   "chave": "Nem todo projeto precisa de um projeto.",
+   "chave": "Especialistas de dados dentro do seu time.",
    "tag": "h2",
    "cls": ""
   },
   {
-   "chave": "Às vezes o que falta é gente de dados dentro do time. A Atlas aloca especialistas que entram na sua operação e respondem à sua gestão — em contratos de no mínimo 6 meses, muitos por tempo indeterminado.",
+   "chave": "Quando o gargalo não é o projeto e sim quem vai tocá-lo, a Atlas aloca especialistas que entram na sua operação e respondem à sua gestão — em contratos de no mínimo 6 meses, muitos por tempo indeterminado.",
    "tag": "p",
    "cls": ""
   },
@@ -717,7 +602,7 @@
    "cls": ""
   },
   {
-   "chave": "Nem todo projeto precisa de um projeto. Às vezes o que falta é gente de dados dentro do time — especialistas que entram na sua operação e respondem à sua gestão.",
+   "chave": "Quando o gargalo não é o projeto e sim quem vai tocá-lo: especialistas de dados que entram na sua operação, respondem à sua gestão e ficam.",
    "tag": "p",
    "cls": ""
   },
@@ -737,18 +622,8 @@
    "cls": "sub reveal d2"
   },
   {
-   "chave": "Microsoft",
-   "tag": "b",
-   "cls": ""
-  },
-  {
    "chave": "Microsoft AI Cloud Partner Program",
    "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "Google",
-   "tag": "b",
    "cls": ""
   },
   {
@@ -757,18 +632,8 @@
    "cls": ""
   },
   {
-   "chave": "AWS",
-   "tag": "b",
-   "cls": ""
-  },
-  {
    "chave": "Amazon Web Services Partner Network",
    "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "IBM",
-   "tag": "b",
    "cls": ""
   },
   {
@@ -777,18 +642,8 @@
    "cls": ""
   },
   {
-   "chave": "Databricks",
-   "tag": "b",
-   "cls": ""
-  },
-  {
    "chave": "Databricks Partner Program",
    "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "Tableau",
-   "tag": "b",
    "cls": ""
   },
   {
@@ -797,18 +652,8 @@
    "cls": ""
   },
   {
-   "chave": "Snowflake",
-   "tag": "b",
-   "cls": ""
-  },
-  {
    "chave": "Snowflake Partner Network",
    "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "Oracle",
-   "tag": "b",
    "cls": ""
   },
   {
@@ -955,6 +800,11 @@
    "chave": "Modernização para Google Cloud",
    "tag": "p",
    "cls": "case-sub"
+  },
+  {
+   "chave": "Oracle",
+   "tag": "p",
+   "cls": "ad-n"
   },
   {
    "chave": "legado caro de manter, distante da análise",
@@ -1592,11 +1442,6 @@
    "cls": "rail-label"
   },
   {
-   "chave": "<span class=\"k\">E-mail</span><span class=\"v\">contato@atlas-partner.com</span>",
-   "tag": "span",
-   "cls": ""
-  },
-  {
    "chave": "<span class=\"k\">LinkedIn</span><span class=\"v\">Atlas Tecnologia</span>",
    "tag": "span",
    "cls": ""
@@ -1702,17 +1547,7 @@
    "cls": "hero-cue reveal d3 in"
   },
   {
-   "chave": "Insight AI · produto Atlas",
-   "tag": "span#texto",
-   "cls": "pill reveal"
-  },
-  {
    "chave": "Nossa essência",
-   "tag": "span#texto",
-   "cls": "pill"
-  },
-  {
-   "chave": "Como trabalhamos",
    "tag": "span#texto",
    "cls": "pill"
   },
@@ -1779,11 +1614,6 @@
   {
    "chave": "Fale conosco",
    "tag": "h4",
-   "cls": ""
-  },
-  {
-   "chave": "contato@atlas-partner.com",
-   "tag": "a",
    "cls": ""
   },
   {
@@ -1867,11 +1697,6 @@
    "cls": ""
   },
   {
-   "chave": "Perguntas de exemplo",
-   "tag": "@aria-label",
-   "cls": "demo-qs"
-  },
-  {
    "chave": "Setores atendidos",
    "tag": "@aria-label",
    "cls": "rail"
@@ -1882,9 +1707,59 @@
    "cls": "sol-list"
   },
   {
+   "chave": "Microsoft",
+   "tag": "@alt",
+   "cls": ""
+  },
+  {
+   "chave": "Google Cloud",
+   "tag": "@alt",
+   "cls": ""
+  },
+  {
+   "chave": "Amazon Web Services",
+   "tag": "@alt",
+   "cls": ""
+  },
+  {
+   "chave": "IBM",
+   "tag": "@alt",
+   "cls": ""
+  },
+  {
+   "chave": "Databricks",
+   "tag": "@alt",
+   "cls": ""
+  },
+  {
+   "chave": "Tableau",
+   "tag": "@alt",
+   "cls": ""
+  },
+  {
+   "chave": "Snowflake",
+   "tag": "@alt",
+   "cls": ""
+  },
+  {
+   "chave": "Canais de venda separados convergindo em uma plataforma de dados única",
+   "tag": "@alt",
+   "cls": ""
+  },
+  {
    "chave": "Antes e depois",
    "tag": "@aria-label",
    "cls": "ad"
+  },
+  {
+   "chave": "Um banco de dados legado denso dando lugar a um fluxo de pipelines organizados",
+   "tag": "@alt",
+   "cls": ""
+  },
+  {
+   "chave": "Painéis soltos e desalinhados dando lugar a uma grade padronizada",
+   "tag": "@alt",
+   "cls": ""
   },
   {
    "chave": "Páginas do painel",
