@@ -7,8 +7,42 @@
 <title>Modelo — Arquitetura Atlas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="media/fonts/mona-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+
+  /* Mona Sans, variável, hospedada aqui mesmo. É a fonte da referência e
+     está sob SIL OFL (media/fonts/mona-sans-LICENSE.txt). Self-host em vez
+     de CDN porque a CSP não libera fonte de terceiro — e porque dois
+     arquivos de 55 KB no mesmo domínio chegam antes de um handshake novo.
+     Um eixo só, o de peso: o de largura dobraria o download sem uso. */
+  @font-face {
+    font-family: 'Mona Sans'; font-style: normal; font-weight: 200 900; font-display: swap;
+    src: url(media/fonts/mona-sans-latin-wght-normal.woff2) format('woff2-variations');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+  @font-face {
+    font-family: 'Mona Sans'; font-style: normal; font-weight: 200 900; font-display: swap;
+    src: url(media/fonts/mona-sans-latin-ext-wght-normal.woff2) format('woff2-variations');
+    unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+  }
+
+  /* Fallback com métricas corrigidas. Enquanto a Mona Sans não chega, o texto
+     sai numa fonte local esticada para a largura média dela — a troca não
+     re-quebra linha nem muda a altura dos blocos. Os números saem da medição
+     dos dois arquivos, não de estimativa: largura média ponderada por
+     frequência de letra 0,4927 na Mona Sans contra 0,4683 na métrica do Arial
+     = 105,22%; ascent 1,090 e descent 0,320 divididos por esse mesmo fator.
+     Sem url: só fonte já instalada, nada de rede, nada que a CSP barre. */
+  @font-face {
+    font-family: 'Mona Sans Fallback';
+    src: local('Arial'), local('Liberation Sans'), local('Helvetica');
+    size-adjust: 105.22%;
+    ascent-override: 103.59%;
+    descent-override: 30.41%;
+    line-gap-override: 0%;
+  }
+
   /* ===========================================================
      Direção de arte: planta técnica. Cantoneiras, grade fina e
      marcas de medição — a Atlas é cartografia de dados, e um
@@ -22,8 +56,8 @@
     --ink: #F4F3EF; --muted: #9BA3AE; --dim: #5B6270;
     --accent: #2E86FF; --accent-light: #6FD4FF; --accent-deep: #0A2EE0;
     --line: rgba(255,255,255,0.10); --line-soft: rgba(255,255,255,0.05);
-    --display: 'Manrope', system-ui, sans-serif;
-    --body: 'Inter', system-ui, sans-serif;
+    --display: 'Mona Sans', 'Mona Sans Fallback', ui-sans-serif, system-ui, sans-serif;
+    --body: 'Mona Sans', 'Mona Sans Fallback', ui-sans-serif, system-ui, sans-serif;
     --mono: 'IBM Plex Mono', ui-monospace, monospace;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
   }

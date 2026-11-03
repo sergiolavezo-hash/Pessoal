@@ -13,7 +13,8 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="media/fonts/mona-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#F2F1ED">
   <script>
   /* Antes da primeira pintura: sem isto a página aparece no tema errado
@@ -58,6 +59,22 @@
     unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
   }
 
+  /* Fallback com métricas corrigidas. Enquanto a Mona Sans não chega, o texto
+     sai numa fonte local esticada para a largura média dela — a troca não
+     re-quebra linha nem muda a altura dos blocos. Os números saem da medição
+     dos dois arquivos, não de estimativa: largura média ponderada por
+     frequência de letra 0,4927 na Mona Sans contra 0,4683 na métrica do Arial
+     = 105,22%; ascent 1,090 e descent 0,320 divididos por esse mesmo fator.
+     Sem url: só fonte já instalada, nada de rede, nada que a CSP barre. */
+  @font-face {
+    font-family: 'Mona Sans Fallback';
+    src: local('Arial'), local('Liberation Sans'), local('Helvetica');
+    size-adjust: 105.22%;
+    ascent-override: 103.59%;
+    descent-override: 30.41%;
+    line-gap-override: 0%;
+  }
+
   :root {
     --bg0: #05070A;
     --bg1: #080C12;
@@ -78,8 +95,8 @@
     --paper-ink: #131316;
     --paper-muted: #56565E;
     --paper-line: #DCDAD2;
-    --display: 'Mona Sans', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
-    --body: 'Mona Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --display: 'Mona Sans', 'Mona Sans Fallback', ui-sans-serif, system-ui, sans-serif;
+    --body: 'Mona Sans', 'Mona Sans Fallback', ui-sans-serif, system-ui, sans-serif;
     --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --grid: rgba(244, 243, 239, 0.05);
