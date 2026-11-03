@@ -770,6 +770,331 @@ TRAD.update({
   'soluções que simplificam operações e potencializam resultados':
     ('solutions that simplify operations and amplify results', 'soluciones que simplifican operaciones y potencian resultados'),
 })
+TRAD.update({
+  # ---------------- desafios dos cases ----------------
+  'Dados de lojas físicas e de canais digitais espalhados em sistemas diferentes, sem visão única de performance.':
+    ('Data from physical stores and digital channels scattered across different systems, with no single view of performance.',
+     'Datos de tiendas físicas y canales digitales dispersos en sistemas distintos, sin visión única de desempeño.'),
+  'Cada canal media a própria venda com sua própria régua, o que impedia comparar um com o outro.':
+    ('Each channel measured its own sales by its own yardstick, which made comparing them impossible.',
+     'Cada canal medía su propia venta con su propia vara, lo que impedía compararlos entre sí.'),
+  'A consolidação para qualquer leitura conjunta era manual e refeita a cada pergunta.':
+    ('Consolidating anything into a joint view was manual and redone for every question.',
+     'La consolidación para cualquier lectura conjunta era manual y se rehacía con cada pregunta.'),
+  'Dados presos em um legado Oracle, caro de manter e distante das necessidades analíticas do negócio.':
+    ('Data locked in an Oracle legacy, expensive to maintain and far from the analytical needs of the business.',
+     'Datos atrapados en un legado Oracle, caro de mantener y lejos de las necesidades analíticas del negocio.'),
+  'As transformações viviam em scripts avulsos, sem teste nem versionamento.':
+    ('Transformations lived in loose scripts, with no tests and no versioning.',
+     'Las transformaciones vivían en scripts sueltos, sin pruebas ni versionado.'),
+  'A migração precisava acontecer sem nenhuma parada da operação.':
+    ('The migration had to happen without a single stop in operations.',
+     'La migración tenía que ocurrir sin ninguna parada de la operación.'),
+  'A mesma métrica tinha contas diferentes dependendo de qual painel se abrisse.':
+    ('The same metric had different calculations depending on which dashboard you opened.',
+     'La misma métrica tenía cálculos distintos según el panel que se abriera.'),
+  'Toda pergunta nova das áreas entrava numa fila e dependia do time de dados.':
+    ('Every new question from the business joined a queue and depended on the data team.',
+     'Cada pregunta nueva de las áreas entraba en una fila y dependía del equipo de datos.'),
+  'O sistema de incidentes acumulava chamados, mas nenhum indicador saía deles.':
+    ('The incident system piled up tickets, but no indicator came out of them.',
+     'El sistema de incidencias acumulaba tickets, pero ningún indicador salía de ellos.'),
+  'Sem SLA medido, prazo e desempenho operacional eram discutidos por impressão.':
+    ('With no SLA measured, deadlines and operational performance were argued by impression.',
+     'Sin SLA medido, plazo y desempeño operativo se discutían por impresión.'),
+  'Viagens, hospedagens e locações eram medidas em três linhas separadas.':
+    ('Flights, lodging and rentals were measured in three separate lines.',
+     'Viajes, alojamientos y alquileres se medían en tres líneas separadas.'),
+  'Não existia leitura conjunta do negócio: cada linha tinha seu próprio número.':
+    ('There was no joint reading of the business: each line had its own number.',
+     'No existía lectura conjunta del negocio: cada línea tenía su propio número.'),
+  'Toda análise comercial dependia de uma extração pontual, refeita a cada pedido.':
+    ('Every sales analysis depended on a one-off extraction, redone for each request.',
+     'Cada análisis comercial dependía de una extracción puntual, rehecha con cada pedido.'),
+  'O departamento não tinha camada de dados própria: dependia do que outras áreas haviam modelado.':
+    ('The department had no data layer of its own: it depended on what other areas had modelled.',
+     'El departamento no tenía capa de datos propia: dependía de lo que otras áreas habían modelado.'),
+  'O NPS saía como relatório avulso, lido uma vez e arquivado.':
+    ('NPS came out as a standalone report, read once and filed away.',
+     'El NPS salía como informe suelto, leído una vez y archivado.'),
+  'A voz do cliente não chegava às áreas que podiam agir sobre ela.':
+    ('The voice of the customer never reached the teams that could act on it.',
+     'La voz del cliente no llegaba a las áreas que podían actuar sobre ella.'),
+  'Cada área enxergava apenas o próprio recorte de vendas, logística ou operação.':
+    ('Each team saw only its own slice of sales, logistics or operations.',
+     'Cada área veía solo su propio recorte de ventas, logística u operación.'),
+  'Sem acesso comum aos indicadores, decisões de uma área ignoravam o efeito nas outras.':
+    ('With no shared access to the indicators, one team\\u2019s decisions ignored the effect on the others.',
+     'Sin acceso común a los indicadores, las decisiones de un área ignoraban el efecto en las demás.'),
+  'A rede de diagnóstico mantinha duas ferramentas de BI em paralelo, com custo e treinamento dobrados.':
+    ('The diagnostics network kept two BI tools running in parallel, with doubled cost and training.',
+     'La red de diagnóstico mantenía dos herramientas de BI en paralelo, con costo y capacitación duplicados.'),
+  'A mesma leitura podia divergir dependendo de qual das duas se abrisse.':
+    ('The same reading could diverge depending on which of the two you opened.',
+     'La misma lectura podía diverger según cuál de las dos se abriera.'),
+  'A evasão só era constatada depois de acontecer, quando já não havia ação possível.':
+    ('Dropout was only observed after the fact, when no action was possible any more.',
+     'La deserción solo se constataba después de ocurrir, cuando ya no había acción posible.'),
+  'Os dados educacionais existiam, mas descreviam o passado em vez de apontar risco.':
+    ('The education data existed, but it described the past instead of pointing at risk.',
+     'Los datos educativos existían, pero describían el pasado en vez de señalar riesgo.'),
+  'O padrão visual era definido depois, painel a painel, quando já havia centenas deles.':
+    ('The visual standard was set afterwards, dashboard by dashboard, once there were already hundreds.',
+     'El estándar visual se definía después, panel a panel, cuando ya había cientos de ellos.'),
+  'Cada dashboard novo nascia com uma leitura diferente da anterior.':
+    ('Every new dashboard was born reading differently from the last.',
+     'Cada dashboard nuevo nacía con una lectura distinta del anterior.'),
+  'O desempenho das unidades só aparecia no fechamento do mês.':
+    ('The sites\\u2019 performance only showed up at month-end close.',
+     'El desempeño de las unidades solo aparecía en el cierre del mes.'),
+  'Quando o desvio era visto, o mês já tinha acabado e não dava para corrigir.':
+    ('By the time the deviation was seen, the month was over and there was no fixing it.',
+     'Cuando se veía la desviación, el mes ya había terminado y no se podía corregir.'),
+  'Gestão de acidentes, arrecadação de pedágios e operação aeroportuária eram acompanhadas em três lugares.':
+    ('Accident management, toll collection and airport operations were tracked in three different places.',
+     'Gestión de accidentes, recaudación de peajes y operación aeroportuaria se seguían en tres lugares.'),
+  'Não havia leitura integrada das três operações, que dividem a mesma estrutura.':
+    ('There was no integrated reading of the three operations, which share the same structure.',
+     'No había lectura integrada de las tres operaciones, que comparten la misma estructura.'),
+})
+
+TRAD.update({
+  # ---------------- soluções dos cases ----------------
+  'Plataforma de dados em Azure integrando todos os canais de venda, com pipelines em Synapse, Data Factory e Databricks. Sobre ela, dashboards Power BI de vendas, operação e performance por canal, lendo as mesmas definições.':
+    ('A data platform on Azure integrating every sales channel, with pipelines on Synapse, Data Factory and Databricks. On top of it, Power BI dashboards for sales, operations and performance by channel, all reading the same definitions.',
+     'Plataforma de datos en Azure integrando todos los canales de venta, con pipelines en Synapse, Data Factory y Databricks. Sobre ella, dashboards Power BI de ventas, operación y desempeño por canal, leyendo las mismas definiciones.'),
+  'Data Lake em Google Cloud com processamento em BigQuery, transformações em dbt, orquestração em Airflow e BI unificado em Looker. A virada foi feita em paralelo ao legado, que só foi desligado depois de a nova base responder igual.':
+    ('A data lake on Google Cloud with processing on BigQuery, transformations in dbt, orchestration in Airflow and unified BI in Looker. The switch ran in parallel with the legacy, which was only shut down once the new base answered identically.',
+     'Data Lake en Google Cloud con procesamiento en BigQuery, transformaciones en dbt, orquestación en Airflow y BI unificado en Looker. El cambio se hizo en paralelo al legado, que solo se apagó cuando la nueva base respondió igual.'),
+  'Ambiente centralizado em Looker, com dados e definições unificados. A migração veio junto com padronização de nomenclatura e layout e com um modelo de self-service BI para as áreas de negócio.':
+    ('A centralized environment on Looker, with unified data and definitions. The migration came together with naming and layout standards and a self-service BI model for the business teams.',
+     'Entorno centralizado en Looker, con datos y definiciones unificados. La migración vino junto con estandarización de nomenclatura y layout y un modelo de BI de autoservicio para las áreas de negocio.'),
+  'BI sobre a base de incidentes, transformando cada chamado em indicador de SLA, prazo e desempenho operacional, com histórico em Data Warehouse.':
+    ('BI over the incident base, turning every ticket into an indicator of SLA, deadline and operational performance, with history in a data warehouse.',
+     'BI sobre la base de incidencias, transformando cada ticket en indicador de SLA, plazo y desempeño operativo, con histórico en Data Warehouse.'),
+  'Arquitetura completa ETL → DW → BI consolidando as três linhas em um modelo único, com a visão do negócio inteiro em MicroStrategy.':
+    ('A complete ETL → DW → BI architecture consolidating the three lines into a single model, with the whole business in view on MicroStrategy.',
+     'Arquitectura completa ETL → DW → BI consolidando las tres líneas en un modelo único, con la visión del negocio entero en MicroStrategy.'),
+  'Estrutura de dados e indicadores própria do comercial, consolidando as informações do departamento para análise e decisão.':
+    ('A data and indicator structure belonging to sales, consolidating the department\\u2019s information for analysis and decision.',
+     'Estructura de datos e indicadores propia del área comercial, consolidando la información del departamento para análisis y decisión.'),
+  'Acompanhamento contínuo de NPS, transformando as respostas em indicadores de experiência e em oportunidades de melhoria distribuídas às áreas.':
+    ('Continuous NPS tracking, turning the responses into experience indicators and into improvement opportunities distributed to the teams.',
+     'Seguimiento continuo de NPS, transformando las respuestas en indicadores de experiencia y en oportunidades de mejora distribuidas a las áreas.'),
+  'Dashboards de vendas, logística e operações com acesso aberto a todas as áreas da organização, sobre o mesmo Data Warehouse.':
+    ('Sales, logistics and operations dashboards open to every area of the organization, over the same data warehouse.',
+     'Dashboards de ventas, logística y operaciones con acceso abierto a todas las áreas de la organización, sobre el mismo Data Warehouse.'),
+  'Pipelines em BigQuery e Airflow alimentando uma camada única, com a visualização migrada de Tableau para Power BI.':
+    ('BigQuery and Airflow pipelines feeding a single layer, with visualization migrated from Tableau to Power BI.',
+     'Pipelines en BigQuery y Airflow alimentando una capa única, con la visualización migrada de Tableau a Power BI.'),
+  'Centenas de dashboards educacionais somados a modelos preditivos que estimam risco de evasão a tempo de apoiar ações preventivas.':
+    ('Hundreds of education dashboards plus predictive models that estimate dropout risk in time to support preventive action.',
+     'Cientos de dashboards educativos sumados a modelos predictivos que estiman riesgo de deserción a tiempo de apoyar acciones preventivas.'),
+  'Protótipos em Figma fixando o padrão visual antes do desenvolvimento, e centenas de dashboards Power BI construídos já dentro dele.':
+    ('Figma prototypes fixing the visual standard before development, and hundreds of Power BI dashboards built inside it from the start.',
+     'Prototipos en Figma fijando el estándar visual antes del desarrollo, y cientos de dashboards Power BI construidos ya dentro de él.'),
+  'Painéis de acompanhamento diário das unidades do grupo, com os desvios visíveis em tempo de agir sobre eles.':
+    ('Daily tracking dashboards for the group\\u2019s sites, with deviations visible in time to act on them.',
+     'Paneles de seguimiento diario de las unidades del grupo, con los desvíos visibles a tiempo de actuar sobre ellos.'),
+  'Painéis integrando as três operações em uma visão única, sobre a mesma base de dados e indicadores.':
+    ('Dashboards integrating the three operations into a single view, over the same data and indicators.',
+     'Paneles integrando las tres operaciones en una visión única, sobre la misma base de datos e indicadores.'),
+  'Data Lake em Google Cloud, com processamento em BigQuery.':
+    ('A data lake on Google Cloud, with processing on BigQuery.',
+     'Data Lake en Google Cloud, con procesamiento en BigQuery.'),
+
+  # ---------------- resultados ----------------
+  '<b>Canais comparáveis</b> loja física e digital deixaram de ser medidos em sistemas separados':
+    ('<b>Comparable channels</b> physical and digital stores stopped being measured in separate systems',
+     '<b>Canales comparables</b> tienda física y digital dejaron de medirse en sistemas separados'),
+  '<b>Fim da consolidação manual</b> venda e operação passaram a ser lidas no mesmo painel':
+    ('<b>No more manual consolidation</b> sales and operations came to be read on the same dashboard',
+     '<b>Fin de la consolidación manual</b> venta y operación pasaron a leerse en el mismo panel'),
+  '<b>Base reaproveitável</b> nova análise parte da plataforma existente, não de uma nova extração':
+    ('<b>Reusable foundation</b> a new analysis starts from the existing platform, not from a new extraction',
+     '<b>Base reutilizable</b> un nuevo análisis parte de la plataforma existente, no de una nueva extracción'),
+  '<b>Legado fora da conta</b> o custo de manter o ambiente Oracle deixou de existir':
+    ('<b>Legacy off the bill</b> the cost of keeping the Oracle environment stopped existing',
+     '<b>Legado fuera de la cuenta</b> el costo de mantener el entorno Oracle dejó de existir'),
+  '<b>Regra em código</b> as transformações saíram de scripts avulsos para dbt, testado e versionado':
+    ('<b>Rules as code</b> transformations moved from loose scripts to dbt, tested and versioned',
+     '<b>Regla en código</b> las transformaciones salieron de scripts sueltos a dbt, probado y versionado'),
+  '<b>Uma camada só</b> Looker passou a ser o único caminho entre o dado e o negócio':
+    ('<b>A single layer</b> Looker became the only path between the data and the business',
+     '<b>Una sola capa</b> Looker pasó a ser el único camino entre el dato y el negocio'),
+  '<b>Uma definição por métrica</b> a mesma conta deixou de ter versões diferentes em mais de 200 painéis':
+    ('<b>One definition per metric</b> the same calculation stopped having different versions across 200+ dashboards',
+     '<b>Una definición por métrica</b> el mismo cálculo dejó de tener versiones distintas en más de 200 paneles'),
+  '<b>Pergunta sem fila</b> o self-service tirou o intervalo entre a dúvida da área e a resposta':
+    ('<b>Questions without a queue</b> self-service removed the gap between the team\\u2019s question and the answer',
+     '<b>Preguntas sin fila</b> el autoservicio quitó el intervalo entre la duda del área y la respuesta'),
+  '<b>Crescimento com padrão</b> painel novo passa a nascer dentro de um modelo, não ao lado dele':
+    ('<b>Growth with a standard</b> a new dashboard now starts inside a model, not alongside it',
+     '<b>Crecimiento con estándar</b> un panel nuevo pasa a nacer dentro de un modelo, no al lado de él'),
+
+  # ---------------- eixos antes/depois dos cases abertos ----------------
+  'sistemas medindo os canais em separado': ('systems measuring the channels separately', 'sistemas midiendo los canales por separado'),
+  'plataforma com venda e operação lado a lado': ('platform with sales and operations side by side', 'plataforma con venta y operación lado a lado'),
+  'legado caro de manter, distante da análise': ('legacy expensive to maintain, far from analysis', 'legado caro de mantener, lejos del análisis'),
+  'legado aposentado, sem interromper a operação': ('legacy retired, without interrupting operations', 'legado jubilado, sin interrumpir la operación'),
+  'painéis crescendo sem padrão nem fonte única': ('dashboards growing with no standard and no single source', 'paneles creciendo sin estándar ni fuente única'),
+  'ambiente, com uma definição por métrica': ('environment, with one definition per metric', 'entorno, con una definición por métrica'),
+  'GCP, BigQuery, dbt, Airflow, Looker': ('GCP, BigQuery, dbt, Airflow, Looker', 'GCP, BigQuery, dbt, Airflow, Looker'),
+})
+
+
+# ============================================================
+# Glossário de termos curtos.
+#
+# Existe para não ter que escrever à mão cada combinação de etiquetas.
+# Uma linha de chips como <span>A</span><span>B</span> aparece em dezenas
+# de variações pelos treze cases; compor a tradução a partir dos termos
+# cobre todas, inclusive as que ainda não existem.
+#
+# Nome de produto não entra aqui: Power BI, BigQuery e Airflow são os
+# mesmos nas três línguas e o composto resolve sozinho quando o termo
+# não está no glossário.
+# ============================================================
+TERMOS = {
+  # setores
+  'Bancário': ('Banking', 'Banca'),
+  'Educação': ('Education', 'Educación'),
+  'Food Service': ('Food Service', 'Food Service'),
+  'Infraestrutura &amp; Mobilidade': ('Infrastructure &amp; Mobility', 'Infraestructura &amp; Movilidad'),
+  'Saúde &amp; Diagnóstico': ('Healthcare &amp; Diagnostics', 'Salud &amp; Diagnóstico'),
+  'Saúde Hospitalar': ('Hospital Healthcare', 'Salud Hospitalaria'),
+  'Serviços Financeiros': ('Financial Services', 'Servicios Financieros'),
+  'Software &amp; Tecnologia': ('Software &amp; Technology', 'Software &amp; Tecnología'),
+  'Turismo &amp; Viagens': ('Travel &amp; Tourism', 'Turismo &amp; Viajes'),
+  'Varejo Multimarca': ('Multi-brand Retail', 'Retail Multimarca'),
+  'Varejo de Moda': ('Fashion Retail', 'Retail de Moda'),
+  'Varejo &amp; Moda': ('Fashion Retail', 'Retail &amp; Moda'),
+  'Varejo Omnichannel': ('Omnichannel Retail', 'Retail Omnicanal'),
+  'BI Governance': ('BI Governance', 'BI Governance'),
+
+  # áreas e disciplinas
+  'Governança de Dados': ('Data Governance', 'Gobernanza de Datos'),
+  'Governança de dados': ('Data governance', 'Gobernanza de datos'),
+  'Indicadores operacionais': ('Operational indicators', 'Indicadores operativos'),
+  'Indicadores comerciais': ('Sales indicators', 'Indicadores comerciales'),
+  'Indicadores de experiência': ('Experience indicators', 'Indicadores de experiencia'),
+  'Indicadores de SLA': ('SLA indicators', 'Indicadores de SLA'),
+  'Modelos preditivos': ('Predictive models', 'Modelos predictivos'),
+  'Modernização de legado': ('Legacy modernization', 'Modernización de legado'),
+  'Design de dados': ('Data design', 'Diseño de datos'),
+  'Migração': ('Migration', 'Migración'),
+  'Automação': ('Automation', 'Automatización'),
+  'Cloud Data Platform': ('Cloud Data Platform', 'Cloud Data Platform'),
+  'Customer Experience': ('Customer Experience', 'Customer Experience'),
+  'Self-service BI': ('Self-service BI', 'BI de autoservicio'),
+  'Dashboards': ('Dashboards', 'Dashboards'),
+  'Operações': ('Operations', 'Operaciones'),
+  'Cloud Azure': ('Azure Cloud', 'Cloud Azure'),
+  'Cloud GCP': ('GCP Cloud', 'Cloud GCP'),
+
+  # antes e depois
+  'Vários': ('Several', 'Varios'),
+  'Uma': ('One', 'Una'),
+  'Chamados': ('Tickets', 'Tickets'),
+  '3 linhas': ('3 lines', '3 líneas'),
+  '1 visão': ('1 view', '1 visión'),
+  'Extração pontual': ('One-off extraction', 'Extracción puntual'),
+  'Camada própria': ('A layer of its own', 'Capa propia'),
+  'Relatório avulso': ('Standalone report', 'Informe suelto'),
+  'Indicador vivo': ('Live indicator', 'Indicador vivo'),
+  'Por área': ('Per team', 'Por área'),
+  'Toda a empresa': ('The whole company', 'Toda la empresa'),
+  '2 ferramentas': ('2 tools', '2 herramientas'),
+  '1 ferramenta': ('1 tool', '1 herramienta'),
+  'Constatada': ('Observed', 'Constatada'),
+  'Antecipada': ('Anticipated', 'Anticipada'),
+  'Padrão depois': ('Standard after', 'Estándar después'),
+  'Padrão antes': ('Standard first', 'Estándar antes'),
+  'Mês': ('Month', 'Mes'),
+  'Dia': ('Day', 'Día'),
+  '3 operações': ('3 operations', '3 operaciones'),
+  '1 leitura': ('1 read', '1 lectura'),
+  '200+': ('200+', '200+'),
+  'Oracle': ('Oracle', 'Oracle'),
+  'GCP': ('GCP', 'GCP'),
+
+  # rótulos dos resultados
+  'Canais comparáveis': ('Comparable channels', 'Canales comparables'),
+  'Fim da consolidação manual': ('No more manual consolidation', 'Fin de la consolidación manual'),
+  'Base reaproveitável': ('Reusable foundation', 'Base reutilizable'),
+  'Legado fora da conta': ('Legacy off the bill', 'Legado fuera de la cuenta'),
+  'Regra em código': ('Rules as code', 'Regla en código'),
+  'Uma camada só': ('A single layer', 'Una sola capa'),
+  'Uma definição por métrica': ('One definition per metric', 'Una definición por métrica'),
+  'Pergunta sem fila': ('Questions without a queue', 'Preguntas sin fila'),
+  'Crescimento com padrão': ('Growth with a standard', 'Crecimiento con estándar'),
+
+  # navegação do carrossel
+  'Case anterior': ('Previous case', 'Caso anterior'),
+  'Próximo case': ('Next case', 'Próximo caso'),
+  'Projetos entregues': ('Delivered projects', 'Proyectos entregados'),
+}
+
+def compor(extraidas):
+    """Monta a tradução das chaves compostas a partir de TERMOS.
+
+    Uma linha de etiquetas é só uma sequência de termos curtos dentro de
+    tags. Traduzindo termo a termo e recolando, as dezenas de combinações
+    que aparecem pelos treze cases saem de graça — e a próxima também.
+
+    Só entra no dicionário a chave em que ao menos um pedaço realmente
+    mudou: se todos os pedaços são nome de produto, a tradução seria
+    idêntica ao português e ocuparia espaço à toa.
+    """
+    import re
+    feitas = {}
+    pedaco = re.compile(r'(>)([^<>]+)(<)')
+
+    for chave in extraidas:
+        if chave in TRAD:
+            continue
+        # "Ver o case 7 de 13" — o rótulo que o script do carrossel monta
+        m = re.fullmatch(r'Ver o case (\d+) de (\d+)', chave)
+        if m:
+            feitas[chave] = ('View case %s of %s' % m.groups(), 'Ver el caso %s de %s' % m.groups())
+            continue
+        # "Antes → Depois", com os dois lados no glossário
+        m = re.fullmatch(r'(.+?)\s*→\s*(.+)', chave)
+        if m and m.group(1).strip() in TERMOS and m.group(2).strip() in TERMOS:
+            a_, b_ = TERMOS[m.group(1).strip()], TERMOS[m.group(2).strip()]
+            feitas[chave] = ('%s → %s' % (a_[0], b_[0]), '%s → %s' % (a_[1], b_[1]))
+            continue
+        if '<' not in chave:
+            # termo solto que o glossário conhece
+            if chave in TERMOS:
+                feitas[chave] = TERMOS[chave]
+            continue
+        # só composições de etiquetas: nada de frase com marcação no meio
+        if not re.fullmatch(r'(?:<(?:span|small|b|i)(?: [^>]*)?>[^<>]*</(?:span|small|b|i)>\s*)+', chave):
+            continue
+        saidas = {}
+        for lang, idx in (('en', 0), ('es', 1)):
+            mudou = [False]
+
+            def troca(m):
+                t = m.group(2).strip()
+                if t in TERMOS:
+                    novo = TERMOS[t][idx]
+                elif t in TRAD:
+                    novo = TRAD[t][idx]
+                else:
+                    return m.group(0)
+                if novo != t:
+                    mudou[0] = True
+                return m.group(1) + m.group(2).replace(t, novo) + m.group(3)
+
+            saida = pedaco.sub(troca, chave)
+            if mudou[0]:
+                saidas[lang] = saida
+        if saidas:
+            feitas[chave] = (saidas.get('en', chave), saidas.get('es', chave))
+    return feitas
+
 
 
 def main():
@@ -778,11 +1103,14 @@ def main():
     extraidas = {i['chave'] for i in json.load(FONTE.open())['itens']}
 
     orfas = [k for k in TRAD if k not in extraidas and k not in EXTRAS]
+    # termos do glossário não são chaves por si: só alimentam as compostas
     if orfas:
         print('AVISO: %d chave(s) não batem com a extração — não vão traduzir nada:' % len(orfas))
         for k in orfas:
             print('   ', k[:110])
 
+    compostas = compor(extraidas)
+    TRAD.update(compostas)
     en = {k: v[0] for k, v in TRAD.items()}
     es = {k: v[1] for k, v in TRAD.items()}
     corpo = ('/* Gerado por tools/build-i18n.py — não editar à mão.\n'
@@ -794,8 +1122,9 @@ def main():
     traduziveis = {k for k in extraidas if k.strip()}
     cobertas = len([k for k in traduziveis if k in TRAD])
     print('%s  %.1f KB' % (SAIDA.relative_to(RAIZ), SAIDA.stat().st_size / 1024))
-    print('%d chaves traduzidas · %d dos %d blocos extraídos cobertos (%.0f%%)'
-          % (len(TRAD), cobertas, len(traduziveis), 100.0 * cobertas / max(1, len(traduziveis))))
+    print('%d chaves traduzidas (%d compostas de %d termos) · %d dos %d blocos cobertos (%.0f%%)'
+          % (len(TRAD), len(compostas), len(TERMOS), cobertas, len(traduziveis),
+             100.0 * cobertas / max(1, len(traduziveis))))
     return 1 if orfas else 0
 
 

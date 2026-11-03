@@ -1,5 +1,5 @@
 {
- "total": 494,
+ "total": 604,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -2307,14 +2307,9 @@
    "cls": "ad-k"
   },
   {
-   "chave": "200+",
+   "chave": "Constatada",
    "tag": "p",
    "cls": "ad-n"
-  },
-  {
-   "chave": "painéis crescendo sem padrão nem fonte única",
-   "tag": "p",
-   "cls": "ad-d"
   },
   {
    "chave": "Depois",
@@ -2322,14 +2317,9 @@
    "cls": "ad-k"
   },
   {
-   "chave": "1",
+   "chave": "Antecipada",
    "tag": "p",
    "cls": "ad-n"
-  },
-  {
-   "chave": "ambiente, com uma definição por métrica",
-   "tag": "p",
-   "cls": "ad-d"
   },
   {
    "chave": "Desafios",
@@ -2337,17 +2327,17 @@
    "cls": ""
   },
   {
-   "chave": "A mesma métrica tinha contas diferentes dependendo de qual painel se abrisse.",
+   "chave": "A evasão só era constatada depois de acontecer, quando já não havia ação possível.",
    "tag": "li",
    "cls": ""
   },
   {
-   "chave": "Toda pergunta nova das áreas entrava numa fila e dependia do time de dados.",
+   "chave": "Os dados educacionais existiam, mas descreviam o passado em vez de apontar risco.",
    "tag": "li",
    "cls": ""
   },
   {
-   "chave": "Ambiente centralizado em Looker, com dados e definições unificados. A migração veio junto com padronização de nomenclatura e layout e com um modelo de self-service BI para as áreas de negócio.",
+   "chave": "Centenas de dashboards educacionais somados a modelos preditivos que estimam risco de evasão a tempo de apoiar ações preventivas.",
    "tag": "p",
    "cls": ""
   },
@@ -2357,17 +2347,7 @@
    "cls": ""
   },
   {
-   "chave": "<b>Uma definição por métrica</b> a mesma conta deixou de ter versões diferentes em mais de 200 painéis",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Pergunta sem fila</b> o self-service tirou o intervalo entre a dúvida da área e a resposta",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Crescimento com padrão</b> painel novo passa a nascer dentro de um modelo, não ao lado dele",
+   "chave": "Constatada → Antecipada",
    "tag": "li",
    "cls": ""
   },
@@ -2377,12 +2357,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Google Cloud</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Power BI</span><span>Looker</span><span>Governança de dados</span>",
+   "chave": "<span>Analytics</span><span>Machine Learning</span><span>BI</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -2392,7 +2367,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Governança de Dados</span><span>Business Intelligence</span><span>Self-service BI</span><span>Migração</span>",
+   "chave": "<span>Analytics</span><span>Machine Learning</span><span>Modelos preditivos</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -2402,7 +2377,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>BI Governance</span>",
+   "chave": "<span>Educação</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -2430,6 +2405,241 @@
    "chave": "Antes e depois",
    "tag": "@aria-label",
    "cls": "ad"
+  },
+  {
+   "chave": "Relatório avulso",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Indicador vivo",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "O NPS saía como relatório avulso, lido uma vez e arquivado.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A voz do cliente não chegava às áreas que podiam agir sobre ela.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Acompanhamento contínuo de NPS, transformando as respostas em indicadores de experiência e em oportunidades de melhoria distribuídas às áreas.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Relatório avulso → Indicador vivo",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>NPS</span><span>Analytics</span><span>CX</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Analytics</span><span>Customer Experience</span><span>Indicadores de experiência</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Bancário</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Vários",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "sistemas medindo os canais em separado",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "Uma",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "plataforma com venda e operação lado a lado",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "Dados de lojas físicas e de canais digitais espalhados em sistemas diferentes, sem visão única de performance.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Cada canal media a própria venda com sua própria régua, o que impedia comparar um com o outro.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A consolidação para qualquer leitura conjunta era manual e refeita a cada pergunta.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Plataforma de dados em Azure integrando todos os canais de venda, com pipelines em Synapse, Data Factory e Databricks. Sobre ela, dashboards Power BI de vendas, operação e performance por canal, lendo as mesmas definições.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Canais comparáveis</b> loja física e digital deixaram de ser medidos em sistemas separados",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Fim da consolidação manual</b> venda e operação passaram a ser lidas no mesmo painel",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Base reaproveitável</b> nova análise parte da plataforma existente, não de uma nova extração",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Microsoft</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Azure Synapse</span><span>Data Factory</span><span>Databricks</span><span>Power BI</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data &amp; Analytics</span><span>Cloud Data Platform</span><span>Data Integration</span><span>Business Intelligence</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Varejo Multimarca</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Chamados",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Indicadores de SLA",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "O sistema de incidentes acumulava chamados, mas nenhum indicador saía deles.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Sem SLA medido, prazo e desempenho operacional eram discutidos por impressão.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "BI sobre a base de incidentes, transformando cada chamado em indicador de SLA, prazo e desempenho operacional, com histórico em Data Warehouse.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Chamados → Indicadores de SLA",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Pentaho</span><span>SQL Server</span><span>Data Warehouse</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Business Intelligence</span><span>Data Warehouse</span><span>Indicadores operacionais</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Software &amp; Tecnologia</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "200+",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "painéis crescendo sem padrão nem fonte única",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "1",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "ambiente, com uma definição por métrica",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "A mesma métrica tinha contas diferentes dependendo de qual painel se abrisse.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Toda pergunta nova das áreas entrava numa fila e dependia do time de dados.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Ambiente centralizado em Looker, com dados e definições unificados. A migração veio junto com padronização de nomenclatura e layout e com um modelo de self-service BI para as áreas de negócio.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Uma definição por métrica</b> a mesma conta deixou de ter versões diferentes em mais de 200 painéis",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Pergunta sem fila</b> o self-service tirou o intervalo entre a dúvida da área e a resposta",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Crescimento com padrão</b> painel novo passa a nascer dentro de um modelo, não ao lado dele",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Google Cloud</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Power BI</span><span>Looker</span><span>Governança de dados</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Governança de Dados</span><span>Business Intelligence</span><span>Self-service BI</span><span>Migração</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>BI Governance</span>",
+   "tag": "dd",
+   "cls": ""
   },
   {
    "chave": "Mês",
@@ -2468,6 +2678,346 @@
   },
   {
    "chave": "<span>Food Service</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "2 ferramentas",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "1 ferramenta",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "A rede de diagnóstico mantinha duas ferramentas de BI em paralelo, com custo e treinamento dobrados.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A mesma leitura podia divergir dependendo de qual das duas se abrisse.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Pipelines em BigQuery e Airflow alimentando uma camada única, com a visualização migrada de Tableau para Power BI.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "2 ferramentas → 1 ferramenta",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Google Cloud</span><span>Microsoft</span><span>Tableau</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>GCP</span><span>BigQuery</span><span>Airflow</span><span>Power BI</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data Engineering</span><span>Cloud Data Platform</span><span>Business Intelligence</span><span>Migração</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Saúde &amp; Diagnóstico</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "legado caro de manter, distante da análise",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "GCP",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "legado aposentado, sem interromper a operação",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "Dados presos em um legado Oracle, caro de manter e distante das necessidades analíticas do negócio.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "As transformações viviam em scripts avulsos, sem teste nem versionamento.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A migração precisava acontecer sem nenhuma parada da operação.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Data Lake em Google Cloud com processamento em BigQuery, transformações em dbt, orquestração em Airflow e BI unificado em Looker. A virada foi feita em paralelo ao legado, que só foi desligado depois de a nova base responder igual.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Data Lake em Google Cloud, com processamento em BigQuery.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Legado fora da conta</b> o custo de manter o ambiente Oracle deixou de existir",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Regra em código</b> as transformações saíram de scripts avulsos para dbt, testado e versionado",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Uma camada só</b> Looker passou a ser o único caminho entre o dado e o negócio",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Google Cloud</span><span>Oracle</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>GCP</span><span>BigQuery</span><span>dbt</span><span>Airflow</span><span>Looker</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data Engineering</span><span>Cloud Data Platform</span><span>Modernização de legado</span><span>Business Intelligence</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Serviços Financeiros</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Extração pontual",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Camada própria",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Toda análise comercial dependia de uma extração pontual, refeita a cada pedido.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "O departamento não tinha camada de dados própria: dependia do que outras áreas haviam modelado.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Estrutura de dados e indicadores própria do comercial, consolidando as informações do departamento para análise e decisão.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Extração pontual → Camada própria",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>SSIS</span><span>Data Warehouse</span><span>MicroStrategy</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data Engineering</span><span>Data Warehouse</span><span>Indicadores comerciais</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Padrão depois",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Padrão antes",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "O padrão visual era definido depois, painel a painel, quando já havia centenas deles.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Cada dashboard novo nascia com uma leitura diferente da anterior.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Protótipos em Figma fixando o padrão visual antes do desenvolvimento, e centenas de dashboards Power BI construídos já dentro dele.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Padrão depois → Padrão antes",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Figma</span><span>Power BI</span><span>Data Design</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data Visualization</span><span>Design de dados</span><span>Business Intelligence</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Saúde Hospitalar</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Por área",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Toda a empresa",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Cada área enxergava apenas o próprio recorte de vendas, logística ou operação.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Sem acesso comum aos indicadores, decisões de uma área ignoravam o efeito nas outras.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Dashboards de vendas, logística e operações com acesso aberto a todas as áreas da organização, sobre o mesmo Data Warehouse.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Por área → Toda a empresa",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Pentaho</span><span>MicroStrategy</span><span>DW</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Business Intelligence</span><span>Data Warehouse</span><span>Self-service BI</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Varejo de Moda</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "3 linhas",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "1 visão",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Viagens, hospedagens e locações eram medidas em três linhas separadas.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Não existia leitura conjunta do negócio: cada linha tinha seu próprio número.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Arquitetura completa ETL → DW → BI consolidando as três linhas em um modelo único, com a visão do negócio inteiro em MicroStrategy.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "3 linhas → 1 visão",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Pentaho</span><span>SQL Server</span><span>MicroStrategy</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data Engineering</span><span>Data Warehouse</span><span>Business Intelligence</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Turismo &amp; Viagens</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "3 operações",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "1 leitura",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Gestão de acidentes, arrecadação de pedágios e operação aeroportuária eram acompanhadas em três lugares.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Não havia leitura integrada das três operações, que dividem a mesma estrutura.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Painéis integrando as três operações em uma visão única, sobre a mesma base de dados e indicadores.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "3 operações → 1 leitura",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Business Intelligence</span><span>Data Integration</span><span>Indicadores operacionais</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Infraestrutura &amp; Mobilidade</span>",
    "tag": "dd",
    "cls": ""
   }
