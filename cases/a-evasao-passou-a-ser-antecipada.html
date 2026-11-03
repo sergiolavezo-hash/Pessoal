@@ -1340,24 +1340,51 @@
 
 </style>
 <style>
-  .caso-hero { padding-top: 7rem; padding-bottom: 2rem; }
+  /* Página de case no modelo da referência: capa larga, corpo em duas
+     colunas e a ficha do projeto na lateral, grudada no scroll. */
+  .caso-topo { padding-top: 6.5rem; }
   .voltar { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--dim); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1.6rem; transition: color 0.25s var(--ease); }
   .voltar:hover { color: var(--accent); }
-  .caso-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.4rem; }
-  .caso-chips span { font-size: 0.76rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0.34rem 0.8rem; }
-  .caso-arte { padding-top: 0; padding-bottom: 2rem; }
-  .caso-capa { margin: 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); line-height: 0; }
-  .caso-capa img { width: 100%; display: block; }
-  .caso-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: start; }
-  .caso-texto { color: var(--muted); font-size: 1.02rem; }
+  .caso-capa { margin: 0 0 2.4rem; line-height: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .caso-capa img { width: 100%; height: clamp(220px, 32vw, 400px); object-fit: cover; display: block; }
+  .caso-eyebrow { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  .caso-topo .h-xl { max-width: 24ch; }
+  .caso-lead { max-width: 54ch; }
+  .caso-corpo { padding-top: 3rem; }
+  .caso-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.9fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .caso-bloco + .caso-bloco { margin-top: 2.6rem; }
+  .caso-bloco h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); font-weight: 600; margin-bottom: 1rem; }
+  .caso-bloco p { color: var(--muted); font-size: 1.02rem; }
+  .caso-lista { list-style: none; display: grid; gap: 0.9rem; }
+  .caso-lista li { position: relative; padding-left: 1.6rem; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+  .caso-lista li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); }
+  .caso-lista b { color: var(--ink); font-weight: 600; }
+  .caso-main .ad { margin-bottom: 2.6rem; }
+  /* O CTA de rodapé não pode gritar mais que o h1 da própria página. */
+  .caso-topo ~ .final h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
+
+  /* Ficha do projeto */
+  .caso-info { position: sticky; top: 6rem; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.4rem, 3vw, 1.9rem); }
+  .caso-info > h2 { font-family: var(--mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.4rem; }
+  .caso-info dl { display: grid; gap: 1.3rem; }
+  .inf-campo dt { font-family: var(--display); font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 0.6rem; }
+  .inf-campo dd { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0; }
+  .inf-campo dd span { font-size: 0.78rem; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 0.28rem 0.7rem; }
+  .inf-nota { border-top: 1px solid var(--line-soft); margin-top: 1.5rem; padding-top: 1rem; color: var(--dim); font-size: 0.8rem; }
+
   .rels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1.4rem; }
-  .rel { display: grid; gap: 0.9rem; text-decoration: none; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; transition: border-color 0.3s var(--ease), transform 0.3s var(--ease); }
+  .rel { display: grid; gap: 0.9rem; text-decoration: none; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; align-content: start; transition: border-color 0.3s var(--ease), transform 0.3s var(--ease); }
   .rel:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
   .rel img { width: 100%; height: 118px; object-fit: cover; display: block; }
   .rel span { display: block; padding: 0 1.1rem 1.2rem; }
-  .rel b { display: block; font-family: var(--display); font-size: 0.98rem; font-weight: 600; }
+  .rel b { display: block; font-family: var(--display); font-size: 0.98rem; font-weight: 600; line-height: 1.3; }
   .rel small { display: block; color: var(--dim); font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 0.4rem; }
-  @media (max-width: 1000px) { .caso-grid { grid-template-columns: 1fr; gap: 2rem; } .rels { grid-template-columns: 1fr; } }
+
+  @media (max-width: 1000px) {
+    .caso-grid { grid-template-columns: 1fr; gap: 2.4rem; }
+    .caso-info { position: static; }
+    .rels { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -1553,33 +1580,78 @@
 
 <main id="inicio">
 
-  <section class="sec caso-hero">
+  <section class="caso-topo">
     <div class="wrap">
-      <a class="voltar" href="../cases-de-sucesso.html"><span aria-hidden="true">&larr;</span> Todos os cases</a>
-      <span class="case-conf">Cliente confidencial</span>
+      <a class="voltar" href="../cases-de-sucesso.html"><span aria-hidden="true">&larr;</span> Voltar para cases</a>
+    </div>
+    <figure class="caso-capa">
+      <img src="../media/cases/preditivo.svg" alt="Modelos preditivos anteciparam a evasão escolar para apoiar ações preventivas.">
+    </figure>
+    <div class="wrap">
+      <p class="caso-eyebrow">Case de sucesso &mdash; cliente confidencial</p>
       <h1 class="h-xl">A evasão passou a ser antecipada</h1>
-      <p class="sub">Modelos preditivos anteciparam a evasão escolar para apoiar ações preventivas.</p>
-      <div class="caso-chips"><span>Analytics</span><span>Machine Learning</span><span>BI</span></div>
+      <p class="sub caso-lead">Modelos preditivos anteciparam a evasão escolar para apoiar ações preventivas.</p>
     </div>
   </section>
 
-  <section class="sec caso-arte">
-    <div class="wrap">
-      <figure class="caso-capa"><img src="../media/cases/preditivo.svg" alt="Modelos preditivos anteciparam a evasão escolar para apoiar ações preventivas."></figure>
-    </div>
-  </section>
-
-  <section class="sec">
+  <section class="sec caso-corpo">
     <div class="wrap caso-grid">
-      <div>
+      <div class="caso-main">
       <div class="ad" aria-label="Antes e depois">
         <div class="ad-lado"><p class="ad-k">Antes</p><p class="ad-n">Constatada</p><p class="ad-d"></p></div>
         <span class="ad-seta" aria-hidden="true">&rarr;</span>
         <div class="ad-lado ad-pos"><p class="ad-k">Depois</p><p class="ad-n">Antecipada</p><p class="ad-d"></p></div>
       </div>
-        <p class="caso-texto">Centenas de dashboards educacionais e modelos preditivos que anteciparam a evasão para apoiar ações preventivas.</p>
+      <section class="caso-bloco">
+        <h2>Desafios</h2>
+        <ul class="caso-lista">
+            <li>A evasão só era constatada depois de acontecer, quando já não havia ação possível.</li>
+            <li>Os dados educacionais existiam, mas descreviam o passado em vez de apontar risco.</li>
+        </ul>
+      </section>
+      <section class="caso-bloco">
+        <h2>Solução</h2>
+        <p>Centenas de dashboards educacionais somados a modelos preditivos que estimam risco de evasão a tempo de apoiar ações preventivas.</p>
+      </section>
+      <section class="caso-bloco">
+        <h2>Resultados</h2>
+        <ul class="caso-lista">
+            <li>Constatada → Antecipada</li>
+        </ul>
+      </section>
       </div>
 
+      <aside class="caso-info">
+        <h2>Informações do projeto</h2>
+        <dl>
+          <div class="inf-campo">
+            <dt>Tecnologias</dt>
+            <dd><span>Analytics</span><span>Machine Learning</span><span>BI</span></dd>
+          </div>
+          <div class="inf-campo">
+            <dt>Áreas de atuação</dt>
+            <dd><span>Analytics</span><span>Machine Learning</span><span>Modelos preditivos</span></dd>
+          </div>
+          <div class="inf-campo">
+            <dt>Setor</dt>
+            <dd><span>Educação</span></dd>
+          </div>
+        </dl>
+        <p class="inf-nota">Nome do cliente preservado por confidencialidade.</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="sec final">
+    <div class="wrap">
+      <h2>Entre em contato</h2>
+      <p class="sub">Conte o seu cenário para quem vai executar. Em 30 minutos mapeamos o caminho &mdash; mesmo que ele não passe pela gente.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-accent" href="../index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
+        <a class="btn btn-line" href="../cases-de-sucesso.html" data-magnetic>Ver todos os cases <span class="arr">&rarr;</span></a>
+      </div>
     </div>
   </section>
 
@@ -1601,10 +1673,6 @@
           <img src="../media/cases/governanca.svg" alt="" loading="lazy" decoding="async">
           <span><b>De 200+ painéis sem padrão a um ambiente só</b><small>BI Governance</small></span>
         </a>
-      </div>
-      <div class="hero-ctas" style="margin-top:2.4rem">
-        <a class="btn btn-accent" href="../index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
-        <a class="btn btn-line" href="../cases-de-sucesso.html" data-magnetic>Ver todos os cases <span class="arr">&rarr;</span></a>
       </div>
     </div>
   </section>

@@ -40,7 +40,33 @@
    ]
   ],
   "arte": "omnichannel",
-  "capa": "Loja física e canais digitais passaram a ser medidos na mesma plataforma, em Azure."
+  "capa": "Loja física e canais digitais passaram a ser medidos na mesma plataforma, em Azure.",
+  "parceiros": [
+   "Microsoft"
+  ],
+  "areas": [
+   "Data & Analytics",
+   "Cloud Data Platform",
+   "Data Integration",
+   "Business Intelligence"
+  ],
+  "tecnologias": [
+   "Azure Synapse",
+   "Data Factory",
+   "Databricks",
+   "Power BI"
+  ],
+  "desafios": [
+   "Dados de lojas físicas e de canais digitais espalhados em sistemas diferentes, sem visão única de performance.",
+   "Cada canal media a própria venda com sua própria régua, o que impedia comparar um com o outro.",
+   "A consolidação para qualquer leitura conjunta era manual e refeita a cada pergunta."
+  ],
+  "solucao": "Plataforma de dados em Azure integrando todos os canais de venda, com pipelines em Synapse, Data Factory e Databricks. Sobre ela, dashboards Power BI de vendas, operação e performance por canal, lendo as mesmas definições.",
+  "resultados": [
+   "Loja física e digital deixaram de ser medidos em sistemas separados e passaram a ser comparáveis.",
+   "Venda e operação passaram a ser lidas no mesmo painel, sem consolidação manual.",
+   "Cada nova análise parte da plataforma existente, não de uma nova extração."
+  ]
  },
  {
   "tipo": "grande",
@@ -83,7 +109,35 @@
    ]
   ],
   "arte": "nuvem",
-  "capa": "Data Lake em Google Cloud com BigQuery, dbt e Airflow — e o legado fora da conta."
+  "capa": "Data Lake em Google Cloud com BigQuery, dbt e Airflow — e o legado fora da conta.",
+  "parceiros": [
+   "Google Cloud",
+   "Oracle"
+  ],
+  "areas": [
+   "Data Engineering",
+   "Cloud Data Platform",
+   "Modernização de legado",
+   "Business Intelligence"
+  ],
+  "tecnologias": [
+   "GCP",
+   "BigQuery",
+   "dbt",
+   "Airflow",
+   "Looker"
+  ],
+  "desafios": [
+   "Dados presos em um legado Oracle, caro de manter e distante das necessidades analíticas do negócio.",
+   "As transformações viviam em scripts avulsos, sem teste nem versionamento.",
+   "A migração precisava acontecer sem nenhuma parada da operação."
+  ],
+  "solucao": "Data Lake em Google Cloud com processamento em BigQuery, transformações em dbt, orquestração em Airflow e BI unificado em Looker. A virada foi feita em paralelo ao legado, que só foi desligado depois de a nova base responder igual.",
+  "resultados": [
+   "O custo de manter o ambiente Oracle deixou de existir.",
+   "As transformações saíram de scripts avulsos para dbt, testado e versionado.",
+   "Looker passou a ser o único caminho entre o dado e o negócio."
+  ]
  },
  {
   "tipo": "grande",
@@ -126,7 +180,32 @@
    ]
   ],
   "arte": "governanca",
-  "capa": "Mais de 200 dashboards com definições divergentes viraram um ambiente governado."
+  "capa": "Mais de 200 dashboards com definições divergentes viraram um ambiente governado.",
+  "parceiros": [
+   "Google Cloud"
+  ],
+  "areas": [
+   "Governança de Dados",
+   "Business Intelligence",
+   "Self-service BI",
+   "Migração"
+  ],
+  "tecnologias": [
+   "Power BI",
+   "Looker",
+   "Governança de dados"
+  ],
+  "desafios": [
+   "Mais de 200 dashboards Power BI crescendo sem padrão, sem governança e sem fonte única da verdade.",
+   "A mesma métrica tinha contas diferentes dependendo de qual painel se abrisse.",
+   "Toda pergunta nova das áreas entrava numa fila e dependia do time de dados."
+  ],
+  "solucao": "Ambiente centralizado em Looker, com dados e definições unificados. A migração veio junto com padronização de nomenclatura e layout e com um modelo de self-service BI para as áreas de negócio.",
+  "resultados": [
+   "A mesma conta deixou de ter versões diferentes em mais de 200 painéis.",
+   "O self-service tirou o intervalo entre a dúvida da área e a resposta.",
+   "Painel novo passa a nascer dentro de um modelo, não ao lado dele."
+  ]
  },
  {
   "tipo": "mini",
@@ -142,7 +221,26 @@
    "Data Warehouse"
   ],
   "arte": "sla",
-  "capa": "Os chamados do sistema de incidentes viraram indicadores de SLA, prazo e desempenho."
+  "capa": "Os chamados do sistema de incidentes viraram indicadores de SLA, prazo e desempenho.",
+  "parceiros": [],
+  "areas": [
+   "Business Intelligence",
+   "Data Warehouse",
+   "Indicadores operacionais"
+  ],
+  "tecnologias": [
+   "Pentaho",
+   "SQL Server",
+   "Data Warehouse"
+  ],
+  "desafios": [
+   "O sistema de incidentes acumulava chamados, mas nenhum indicador saía deles.",
+   "Sem SLA medido, prazo e desempenho operacional eram discutidos por impressão."
+  ],
+  "solucao": "BI sobre a base de incidentes, transformando cada chamado em indicador de SLA, prazo e desempenho operacional, com histórico em Data Warehouse.",
+  "resultados": [
+   "Chamados → Indicadores de SLA"
+  ]
  },
  {
   "tipo": "mini",
@@ -158,7 +256,26 @@
    "MicroStrategy"
   ],
   "arte": "consolidacao",
-  "capa": "Viagens, hospedagens e locações consolidadas numa arquitetura ETL → DW → BI."
+  "capa": "Viagens, hospedagens e locações consolidadas numa arquitetura ETL → DW → BI.",
+  "parceiros": [],
+  "areas": [
+   "Data Engineering",
+   "Data Warehouse",
+   "Business Intelligence"
+  ],
+  "tecnologias": [
+   "Pentaho",
+   "SQL Server",
+   "MicroStrategy"
+  ],
+  "desafios": [
+   "Viagens, hospedagens e locações eram medidas em três linhas separadas.",
+   "Não existia leitura conjunta do negócio: cada linha tinha seu próprio número."
+  ],
+  "solucao": "Arquitetura completa ETL → DW → BI consolidando as três linhas em um modelo único, com a visão do negócio inteiro em MicroStrategy.",
+  "resultados": [
+   "3 linhas → 1 visão"
+  ]
  },
  {
   "tipo": "mini",
@@ -174,7 +291,26 @@
    "MicroStrategy"
   ],
   "arte": "comercial",
-  "capa": "O departamento comercial saiu da extração pontual para uma camada de dados própria."
+  "capa": "O departamento comercial saiu da extração pontual para uma camada de dados própria.",
+  "parceiros": [],
+  "areas": [
+   "Data Engineering",
+   "Data Warehouse",
+   "Indicadores comerciais"
+  ],
+  "tecnologias": [
+   "SSIS",
+   "Data Warehouse",
+   "MicroStrategy"
+  ],
+  "desafios": [
+   "Toda análise comercial dependia de uma extração pontual, refeita a cada pedido.",
+   "O departamento não tinha camada de dados própria: dependia do que outras áreas haviam modelado."
+  ],
+  "solucao": "Estrutura de dados e indicadores própria do comercial, consolidando as informações do departamento para análise e decisão.",
+  "resultados": [
+   "Extração pontual → Camada própria"
+  ]
  },
  {
   "tipo": "mini",
@@ -190,7 +326,26 @@
    "CX"
   ],
   "arte": "nps",
-  "capa": "O NPS deixou de ser relatório avulso e virou indicador de experiência acompanhado."
+  "capa": "O NPS deixou de ser relatório avulso e virou indicador de experiência acompanhado.",
+  "parceiros": [],
+  "areas": [
+   "Analytics",
+   "Customer Experience",
+   "Indicadores de experiência"
+  ],
+  "tecnologias": [
+   "NPS",
+   "Analytics",
+   "CX"
+  ],
+  "desafios": [
+   "O NPS saía como relatório avulso, lido uma vez e arquivado.",
+   "A voz do cliente não chegava às áreas que podiam agir sobre ela."
+  ],
+  "solucao": "Acompanhamento contínuo de NPS, transformando as respostas em indicadores de experiência e em oportunidades de melhoria distribuídas às áreas.",
+  "resultados": [
+   "Relatório avulso → Indicador vivo"
+  ]
  },
  {
   "tipo": "mini",
@@ -206,7 +361,26 @@
    "DW"
   ],
   "arte": "difusao",
-  "capa": "Vendas, logística e operações com acesso aos mesmos indicadores, em toda a empresa."
+  "capa": "Vendas, logística e operações com acesso aos mesmos indicadores, em toda a empresa.",
+  "parceiros": [],
+  "areas": [
+   "Business Intelligence",
+   "Data Warehouse",
+   "Self-service BI"
+  ],
+  "tecnologias": [
+   "Pentaho",
+   "MicroStrategy",
+   "DW"
+  ],
+  "desafios": [
+   "Cada área enxergava apenas o próprio recorte de vendas, logística ou operação.",
+   "Sem acesso comum aos indicadores, decisões de uma área ignoravam o efeito nas outras."
+  ],
+  "solucao": "Dashboards de vendas, logística e operações com acesso aberto a todas as áreas da organização, sobre o mesmo Data Warehouse.",
+  "resultados": [
+   "Por área → Toda a empresa"
+  ]
  },
  {
   "tipo": "mini",
@@ -223,7 +397,32 @@
    "Power BI"
   ],
   "arte": "unificacao",
-  "capa": "Pipelines em BigQuery e Airflow, com a visualização migrada de Tableau para Power BI."
+  "capa": "Pipelines em BigQuery e Airflow, com a visualização migrada de Tableau para Power BI.",
+  "parceiros": [
+   "Google Cloud",
+   "Microsoft",
+   "Tableau"
+  ],
+  "areas": [
+   "Data Engineering",
+   "Cloud Data Platform",
+   "Business Intelligence",
+   "Migração"
+  ],
+  "tecnologias": [
+   "GCP",
+   "BigQuery",
+   "Airflow",
+   "Power BI"
+  ],
+  "desafios": [
+   "A rede de diagnóstico mantinha duas ferramentas de BI em paralelo, com custo e treinamento dobrados.",
+   "A mesma leitura podia divergir dependendo de qual das duas se abrisse."
+  ],
+  "solucao": "Pipelines em BigQuery e Airflow alimentando uma camada única, com a visualização migrada de Tableau para Power BI.",
+  "resultados": [
+   "2 ferramentas → 1 ferramenta"
+  ]
  },
  {
   "tipo": "mini",
@@ -239,7 +438,26 @@
    "BI"
   ],
   "arte": "preditivo",
-  "capa": "Modelos preditivos anteciparam a evasão escolar para apoiar ações preventivas."
+  "capa": "Modelos preditivos anteciparam a evasão escolar para apoiar ações preventivas.",
+  "parceiros": [],
+  "areas": [
+   "Analytics",
+   "Machine Learning",
+   "Modelos preditivos"
+  ],
+  "tecnologias": [
+   "Analytics",
+   "Machine Learning",
+   "BI"
+  ],
+  "desafios": [
+   "A evasão só era constatada depois de acontecer, quando já não havia ação possível.",
+   "Os dados educacionais existiam, mas descreviam o passado em vez de apontar risco."
+  ],
+  "solucao": "Centenas de dashboards educacionais somados a modelos preditivos que estimam risco de evasão a tempo de apoiar ações preventivas.",
+  "resultados": [
+   "Constatada → Antecipada"
+  ]
  },
  {
   "tipo": "mini",
@@ -255,7 +473,28 @@
    "Data Design"
   ],
   "arte": "design",
-  "capa": "Protótipos em Figma fixaram o padrão antes do desenvolvimento dos painéis."
+  "capa": "Protótipos em Figma fixaram o padrão antes do desenvolvimento dos painéis.",
+  "parceiros": [
+   "Microsoft"
+  ],
+  "areas": [
+   "Data Visualization",
+   "Design de dados",
+   "Business Intelligence"
+  ],
+  "tecnologias": [
+   "Figma",
+   "Power BI",
+   "Data Design"
+  ],
+  "desafios": [
+   "O padrão visual era definido depois, painel a painel, quando já havia centenas deles.",
+   "Cada dashboard novo nascia com uma leitura diferente da anterior."
+  ],
+  "solucao": "Protótipos em Figma fixando o padrão visual antes do desenvolvimento, e centenas de dashboards Power BI construídos já dentro dele.",
+  "resultados": [
+   "Padrão depois → Padrão antes"
+  ]
  },
  {
   "tipo": "mini",
@@ -270,7 +509,24 @@
    "Operações"
   ],
   "arte": "diario",
-  "capa": "Acompanhamento diário das unidades de um grande grupo de restaurantes."
+  "capa": "Acompanhamento diário das unidades de um grande grupo de restaurantes.",
+  "parceiros": [],
+  "areas": [
+   "Business Intelligence",
+   "Indicadores operacionais"
+  ],
+  "tecnologias": [
+   "Dashboards",
+   "Operações"
+  ],
+  "desafios": [
+   "O desempenho das unidades só aparecia no fechamento do mês.",
+   "Quando o desvio era visto, o mês já tinha acabado e não dava para corrigir."
+  ],
+  "solucao": "Painéis de acompanhamento diário das unidades do grupo, com os desvios visíveis em tempo de agir sobre eles.",
+  "resultados": [
+   "Mês → Dia"
+  ]
  },
  {
   "tipo": "mini",
@@ -285,6 +541,24 @@
    "Operações"
   ],
   "arte": "operacoes",
-  "capa": "Acidentes, pedágios e operação aeroportuária integrados numa visão única."
+  "capa": "Acidentes, pedágios e operação aeroportuária integrados numa visão única.",
+  "parceiros": [],
+  "areas": [
+   "Business Intelligence",
+   "Data Integration",
+   "Indicadores operacionais"
+  ],
+  "tecnologias": [
+   "Data & BI",
+   "Operações"
+  ],
+  "desafios": [
+   "Gestão de acidentes, arrecadação de pedágios e operação aeroportuária eram acompanhadas em três lugares.",
+   "Não havia leitura integrada das três operações, que dividem a mesma estrutura."
+  ],
+  "solucao": "Painéis integrando as três operações em uma visão única, sobre a mesma base de dados e indicadores.",
+  "resultados": [
+   "3 operações → 1 leitura"
+  ]
  }
 ]

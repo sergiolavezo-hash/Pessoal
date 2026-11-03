@@ -269,32 +269,7 @@ TRAD.update({
   'O que mudou': ('What changed', 'Qué cambió'),
 
   # case 1
-  '<span>Varejo Multimarca</span><span>Data &amp; Analytics</span><span>Cloud Azure</span>':
-    ('<span>Multi-brand Retail</span><span>Data &amp; Analytics</span><span>Azure Cloud</span>',
-     '<span>Retail Multimarca</span><span>Data &amp; Analytics</span><span>Cloud Azure</span>'),
   'Canais separados viraram uma plataforma só': ('Separate channels became a single platform', 'Canales separados se volvieron una sola plataforma'),
-  'Vários': ('Several', 'Varios'),
-  'sistemas medindo os canais em separado': ('systems measuring the channels separately', 'sistemas midiendo los canales por separado'),
-  'Uma': ('One', 'Una'),
-  'plataforma com venda e operação lado a lado': ('platform with sales and operations side by side', 'plataforma con venta y operación lado a lado'),
-  'Dados de lojas físicas e canais digitais espalhados em sistemas diferentes, sem visão única de performance.':
-    ('Data from physical stores and digital channels scattered across different systems, with no single view of performance.',
-     'Datos de tiendas físicas y canales digitales dispersos en sistemas distintos, sin visión única de desempeño.'),
-  'Plataforma de dados em Azure integrando todos os canais de venda.':
-    ('A data platform on Azure integrating every sales channel.',
-     'Plataforma de datos en Azure integrando todos los canales de venta.'),
-  'Pipelines em Synapse, Data Factory e Databricks, com dashboards Power BI de vendas, operação e performance por canal.':
-    ('Pipelines on Synapse, Data Factory and Databricks, with Power BI dashboards for sales, operations and performance by channel.',
-     'Pipelines en Synapse, Data Factory y Databricks, con dashboards Power BI de ventas, operación y desempeño por canal.'),
-  '<b>Canais comparáveis</b><span>loja física e digital deixaram de ser medidos em sistemas separados</span>':
-    ('<b>Comparable channels</b><span>physical and digital stores stopped being measured in separate systems</span>',
-     '<b>Canales comparables</b><span>tienda física y digital dejaron de medirse en sistemas separados</span>'),
-  '<b>Fim da consolidação manual</b><span>venda e operação passaram a ser lidas no mesmo painel</span>':
-    ('<b>No more manual consolidation</b><span>sales and operations came to be read on the same dashboard</span>',
-     '<b>Fin de la consolidación manual</b><span>venta y operación pasaron a leerse en el mismo panel</span>'),
-  '<b>Base reaproveitável</b><span>nova análise parte da plataforma existente, não de uma nova extração</span>':
-    ('<b>Reusable foundation</b><span>a new analysis starts from the existing platform, not from a new extraction</span>',
-     '<b>Base reutilizable</b><span>un nuevo análisis parte de la plataforma existente, no de una nueva extracción</span>'),
 
   # case 2
   '<span>Serviços Financeiros</span><span>Data Engineering</span><span>Cloud GCP</span>':
@@ -720,8 +695,23 @@ TRAD.update({
     ('Our portfolio reflects focus and excellence in data architecture, cloud and artificial intelligence, turning strategic vision into long-term value.',
      'Nuestro portafolio refleja foco y excelencia en arquitectura de datos, nube e inteligencia artificial, transformando la visión estratégica en valor de largo plazo.'),
   'Ver case <span class="arr">→</span>': ('View case <span class="arr">→</span>', 'Ver caso <span class="arr">→</span>'),
-  '<span aria-hidden="true">←</span> Todos os cases':
-    ('<span aria-hidden="true">←</span> All case studies', '<span aria-hidden="true">←</span> Todos los casos'),
+  '<span aria-hidden="true">←</span> Voltar para cases':
+    ('<span aria-hidden="true">←</span> Back to case studies', '<span aria-hidden="true">←</span> Volver a los casos'),
+  'Case de sucesso — cliente confidencial':
+    ('Success story — confidential client', 'Historia de éxito — cliente confidencial'),
+  'Informações do projeto': ('Project information', 'Información del proyecto'),
+  'Parceiros': ('Partners', 'Socios'),
+  'Tecnologias': ('Technologies', 'Tecnologías'),
+  'Áreas de atuação': ('Areas of work', 'Áreas de actuación'),
+  'Setor': ('Industry', 'Sector'),
+  'Nome do cliente preservado por confidencialidade.':
+    ('Client name withheld for confidentiality.', 'Nombre del cliente reservado por confidencialidad.'),
+  'Desafios': ('Challenges', 'Desafíos'),
+  'Resultados': ('Results', 'Resultados'),
+  'Entre em contato': ('Get in touch', 'Póngase en contacto'),
+  'Conte o seu cenário para quem vai executar. Em 30 minutos mapeamos o caminho — mesmo que ele não passe pela gente.':
+    ('Tell your situation to the people who will do the work. In 30 minutes we map the path — even if it does not run through us.',
+     'Cuente su escenario a quien va a ejecutar. En 30 minutos mapeamos el camino — incluso si no pasa por nosotros.'),
   'Outros projetos': ('Other projects', 'Otros proyectos'),
 
   'Loja física e canais digitais passaram a ser medidos na mesma plataforma, em Azure.':

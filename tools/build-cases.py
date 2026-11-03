@@ -91,110 +91,171 @@ def carrossel(cases):
 
 
 # ------------------------------------------------- página de um case
+def lista(itens):
+    return '\n'.join('            <li>%s</li>' % e(i) for i in itens)
+
+
+def campo(rotulo, itens):
+    """Uma linha da ficha do projeto: rótulo e as etiquetas do valor."""
+    if not itens:
+        return ''
+    chips = ''.join('<span>%s</span>' % e(i) for i in itens)
+    return ('          <div class="inf-campo">\n'
+            '            <dt>%s</dt>\n'
+            '            <dd>%s</dd>\n'
+            '          </div>\n' % (e(rotulo), chips))
+
+
 def corpo_case(c, cases):
+    """Segue o modelo da referência: desafios, solução e resultados na coluna
+    principal; parceiros, tecnologias e áreas de atuação na ficha lateral."""
     outros = [o for o in cases if o['slug'] != c['slug']][:3]
     setor = c.get('setor') or (c['meta'][0] if c.get('meta') else 'Projeto entregue')
-    chips = ''.join('<span>%s</span>' % e(t) for t in (c.get('meta') or c.get('stack') or []))
 
-    blocos = ''
-    if c.get('campos'):
-        blocos = '\n'.join(
-            '          <div><dt>%s</dt><dd>%s</dd></div>' % (e(k), e(v))
-            for k, v in c['campos'].items())
-        blocos = '        <dl class="case-fields">\n%s\n        </dl>' % blocos
-    elif c.get('resumo'):
-        blocos = '        <p class="caso-texto">%s</p>' % e(c['resumo'])
+    def bloco(titulo, miolo):
+        return ('      <section class="caso-bloco">\n        <h2>%s</h2>\n%s\n      </section>\n'
+                % (titulo, miolo))
 
-    mudou = ''
-    if c.get('mudou'):
-        mudou = '\n'.join('          <p><b>%s</b><span>%s</span></p>' % (e(a), e(b)) for a, b in c['mudou'])
-        mudou = '      <div class="case-metrics">\n        <p class="cm-k">O que mudou</p>\n%s\n      </div>' % mudou
+    partes = []
 
-    ad = ''
     if c.get('antes') and c.get('depois'):
         if isinstance(c['antes'], (list, tuple)):
-            _, an, ad_txt = c['antes']
-            _, dn, dd_txt = c['depois']
+            an, atx = c['antes'][1], c['antes'][2]
+            dn, dtx = c['depois'][1], c['depois'][2]
         else:
-            an, ad_txt, dn, dd_txt = c['antes'], '', c['depois'], ''
-        ad = ('''      <div class="ad" aria-label="Antes e depois">
-        <div class="ad-lado"><p class="ad-k">Antes</p><p class="ad-n">%s</p><p class="ad-d">%s</p></div>
-        <span class="ad-seta" aria-hidden="true">&rarr;</span>
-        <div class="ad-lado ad-pos"><p class="ad-k">Depois</p><p class="ad-n">%s</p><p class="ad-d">%s</p></div>
-      </div>''' % (e(an), e(ad_txt), e(dn), e(dd_txt)))
+            an, atx, dn, dtx = c['antes'], '', c['depois'], ''
+        partes.append(
+            '      <div class="ad" aria-label="Antes e depois">\n'
+            '        <div class="ad-lado"><p class="ad-k">Antes</p><p class="ad-n">%s</p><p class="ad-d">%s</p></div>\n'
+            '        <span class="ad-seta" aria-hidden="true">&rarr;</span>\n'
+            '        <div class="ad-lado ad-pos"><p class="ad-k">Depois</p><p class="ad-n">%s</p><p class="ad-d">%s</p></div>\n'
+            '      </div>\n' % (e(an), e(atx), e(dn), e(dtx)))
 
-    relacionados = '\n'.join('''        <a class="rel" href="%s.html">
-          <img src="../media/cases/%s.svg" alt="" loading="lazy" decoding="async">
-          <span><b>%s</b><small>%s</small></span>
-        </a>''' % (o['slug'], o['arte'], e(o['titulo']), e(o.get('setor') or (o['meta'][0] if o.get('meta') else '')))
+    if c.get('desafios'):
+        partes.append(bloco('Desafios', '        <ul class="caso-lista">\n%s\n        </ul>' % lista(c['desafios'])))
+    if c.get('solucao'):
+        partes.append(bloco('Solução', '        <p>%s</p>' % e(c['solucao'])))
+    # A arquitetura só vira bloco quando diz algo além da solução: em vários
+    # cases os dois campos foram escritos com a mesma frase, e repetir o
+    # parágrafo com outro título não informa nada.
+    arq = c.get('campos', {}).get('Arquitetura', '')
+    if arq and arq.rstrip('.').lower() not in c.get('solucao', '').lower():
+        partes.append(bloco('Arquitetura', '        <p>%s</p>' % e(arq)))
+
+    if c.get('mudou'):
+        itens = '\n'.join('            <li><b>%s</b> %s</li>' % (e(a), e(b)) for a, b in c['mudou'])
+    else:
+        itens = lista(c.get('resultados', []))
+    if itens.strip():
+        partes.append(bloco('Resultados', '        <ul class="caso-lista">\n%s\n        </ul>' % itens))
+
+    info = (campo('Parceiros', c.get('parceiros'))
+            + campo('Tecnologias', c.get('tecnologias'))
+            + campo('Áreas de atuação', c.get('areas'))
+            + campo('Setor', [setor]))
+
+    relacionados = '\n'.join(
+        '        <a class="rel" href="%s.html">\n'
+        '          <img src="../media/cases/%s.svg" alt="" loading="lazy" decoding="async">\n'
+        '          <span><b>%s</b><small>%s</small></span>\n'
+        '        </a>' % (o['slug'], o['arte'], e(o['titulo']),
+                          e(o.get('setor') or (o['meta'][0] if o.get('meta') else '')))
         for o in outros)
 
-    return '''<main id="inicio">
-
-  <section class="sec caso-hero">
-    <div class="wrap">
-      <a class="voltar" href="../%(indice)s"><span aria-hidden="true">&larr;</span> Todos os cases</a>
-      <span class="case-conf">Cliente confidencial</span>
-      <h1 class="h-xl">%(titulo)s</h1>
-      <p class="sub">%(capa)s</p>
-      <div class="caso-chips">%(chips)s</div>
-    </div>
-  </section>
-
-  <section class="sec caso-arte">
-    <div class="wrap">
-      <figure class="caso-capa"><img src="../media/cases/%(arte)s.svg" alt="%(alt)s"></figure>
-    </div>
-  </section>
-
-  <section class="sec">
-    <div class="wrap caso-grid">
-      <div>
-%(ad)s
-%(blocos)s
-      </div>
-%(mudou)s
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <section class="sec">
-    <div class="wrap">
-      <h2 class="cases-more-head">Outros projetos</h2>
-      <div class="rels">
-%(rel)s
-      </div>
-      <div class="hero-ctas" style="margin-top:2.4rem">
-        <a class="btn btn-accent" href="../index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
-        <a class="btn btn-line" href="../%(indice)s" data-magnetic>Ver todos os cases <span class="arr">&rarr;</span></a>
-      </div>
-    </div>
-  </section>
-</main>''' % dict(indice=INDICE, titulo=e(c['titulo']), capa=e(c['capa']), chips=chips,
-                  arte=c['arte'], alt=e(c['capa']), ad=ad, blocos=blocos, mudou=mudou,
-                  rel=relacionados, setor=e(setor))
+    return (
+        '<main id="inicio">\n\n'
+        '  <section class="caso-topo">\n'
+        '    <div class="wrap">\n'
+        '      <a class="voltar" href="../%(indice)s"><span aria-hidden="true">&larr;</span> Voltar para cases</a>\n'
+        '    </div>\n'
+        '    <figure class="caso-capa">\n'
+        '      <img src="../media/cases/%(arte)s.svg" alt="%(alt)s">\n'
+        '    </figure>\n'
+        '    <div class="wrap">\n'
+        '      <p class="caso-eyebrow">Case de sucesso &mdash; cliente confidencial</p>\n'
+        '      <h1 class="h-xl">%(titulo)s</h1>\n'
+        '      <p class="sub caso-lead">%(capa)s</p>\n'
+        '    </div>\n'
+        '  </section>\n\n'
+        '  <section class="sec caso-corpo">\n'
+        '    <div class="wrap caso-grid">\n'
+        '      <div class="caso-main">\n%(partes)s      </div>\n\n'
+        '      <aside class="caso-info">\n'
+        '        <h2>Informações do projeto</h2>\n'
+        '        <dl>\n%(info)s        </dl>\n'
+        '        <p class="inf-nota">Nome do cliente preservado por confidencialidade.</p>\n'
+        '      </aside>\n'
+        '    </div>\n'
+        '  </section>\n\n'
+        '  <div class="divider"></div>\n\n'
+        '  <section class="sec final">\n'
+        '    <div class="wrap">\n'
+        '      <h2>Entre em contato</h2>\n'
+        '      <p class="sub">Conte o seu cenário para quem vai executar. Em 30 minutos mapeamos o caminho &mdash; mesmo que ele não passe pela gente.</p>\n'
+        '      <div class="hero-ctas">\n'
+        '        <a class="btn btn-accent" href="../index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>\n'
+        '        <a class="btn btn-line" href="../%(indice)s" data-magnetic>Ver todos os cases <span class="arr">&rarr;</span></a>\n'
+        '      </div>\n'
+        '    </div>\n'
+        '  </section>\n\n'
+        '  <div class="divider"></div>\n\n'
+        '  <section class="sec">\n'
+        '    <div class="wrap">\n'
+        '      <h2 class="cases-more-head">Outros projetos</h2>\n'
+        '      <div class="rels">\n%(rel)s\n      </div>\n'
+        '    </div>\n'
+        '  </section>\n'
+        '</main>'
+        % dict(indice=INDICE, titulo=e(c['titulo']), capa=e(c['capa']), arte=c['arte'],
+               alt=e(c['capa']), partes=''.join(partes), info=info, rel=relacionados))
 
 
 CSS_CASO = '''<style>
-  .caso-hero { padding-top: 7rem; padding-bottom: 2rem; }
+  /* Página de case no modelo da referência: capa larga, corpo em duas
+     colunas e a ficha do projeto na lateral, grudada no scroll. */
+  .caso-topo { padding-top: 6.5rem; }
   .voltar { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--dim); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1.6rem; transition: color 0.25s var(--ease); }
   .voltar:hover { color: var(--accent); }
-  .caso-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.4rem; }
-  .caso-chips span { font-size: 0.76rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0.34rem 0.8rem; }
-  .caso-arte { padding-top: 0; padding-bottom: 2rem; }
-  .caso-capa { margin: 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); line-height: 0; }
-  .caso-capa img { width: 100%; display: block; }
-  .caso-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: start; }
-  .caso-texto { color: var(--muted); font-size: 1.02rem; }
+  .caso-capa { margin: 0 0 2.4rem; line-height: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .caso-capa img { width: 100%; height: clamp(220px, 32vw, 400px); object-fit: cover; display: block; }
+  .caso-eyebrow { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  .caso-topo .h-xl { max-width: 24ch; }
+  .caso-lead { max-width: 54ch; }
+  .caso-corpo { padding-top: 3rem; }
+  .caso-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.9fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .caso-bloco + .caso-bloco { margin-top: 2.6rem; }
+  .caso-bloco h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); font-weight: 600; margin-bottom: 1rem; }
+  .caso-bloco p { color: var(--muted); font-size: 1.02rem; }
+  .caso-lista { list-style: none; display: grid; gap: 0.9rem; }
+  .caso-lista li { position: relative; padding-left: 1.6rem; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+  .caso-lista li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); }
+  .caso-lista b { color: var(--ink); font-weight: 600; }
+  .caso-main .ad { margin-bottom: 2.6rem; }
+  /* O CTA de rodapé não pode gritar mais que o h1 da própria página. */
+  .caso-topo ~ .final h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
+
+  /* Ficha do projeto */
+  .caso-info { position: sticky; top: 6rem; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.4rem, 3vw, 1.9rem); }
+  .caso-info > h2 { font-family: var(--mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.4rem; }
+  .caso-info dl { display: grid; gap: 1.3rem; }
+  .inf-campo dt { font-family: var(--display); font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 0.6rem; }
+  .inf-campo dd { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0; }
+  .inf-campo dd span { font-size: 0.78rem; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 0.28rem 0.7rem; }
+  .inf-nota { border-top: 1px solid var(--line-soft); margin-top: 1.5rem; padding-top: 1rem; color: var(--dim); font-size: 0.8rem; }
+
   .rels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1.4rem; }
-  .rel { display: grid; gap: 0.9rem; text-decoration: none; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; transition: border-color 0.3s var(--ease), transform 0.3s var(--ease); }
+  .rel { display: grid; gap: 0.9rem; text-decoration: none; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; align-content: start; transition: border-color 0.3s var(--ease), transform 0.3s var(--ease); }
   .rel:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
   .rel img { width: 100%; height: 118px; object-fit: cover; display: block; }
   .rel span { display: block; padding: 0 1.1rem 1.2rem; }
-  .rel b { display: block; font-family: var(--display); font-size: 0.98rem; font-weight: 600; }
+  .rel b { display: block; font-family: var(--display); font-size: 0.98rem; font-weight: 600; line-height: 1.3; }
   .rel small { display: block; color: var(--dim); font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 0.4rem; }
-  @media (max-width: 1000px) { .caso-grid { grid-template-columns: 1fr; gap: 2rem; } .rels { grid-template-columns: 1fr; } }
+
+  @media (max-width: 1000px) {
+    .caso-grid { grid-template-columns: 1fr; gap: 2.4rem; }
+    .caso-info { position: static; }
+    .rels { grid-template-columns: 1fr; }
+  }
 </style>'''
 
 

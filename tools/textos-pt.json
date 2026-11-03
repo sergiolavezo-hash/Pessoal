@@ -1,5 +1,5 @@
 {
- "total": 475,
+ "total": 494,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -2292,14 +2292,14 @@
    "cls": "pag-tec"
   },
   {
-   "chave": "<span aria-hidden=\"true\">←</span> Todos os cases",
+   "chave": "<span aria-hidden=\"true\">←</span> Voltar para cases",
    "tag": "a",
    "cls": "voltar"
   },
   {
-   "chave": "<span>Varejo Multimarca</span><span>Data &amp; Analytics</span><span>Cloud Azure</span>",
-   "tag": "div",
-   "cls": "caso-chips"
+   "chave": "Case de sucesso — cliente confidencial",
+   "tag": "p",
+   "cls": "caso-eyebrow"
   },
   {
    "chave": "Antes",
@@ -2307,12 +2307,12 @@
    "cls": "ad-k"
   },
   {
-   "chave": "Vários",
+   "chave": "200+",
    "tag": "p",
    "cls": "ad-n"
   },
   {
-   "chave": "sistemas medindo os canais em separado",
+   "chave": "painéis crescendo sem padrão nem fonte única",
    "tag": "p",
    "cls": "ad-d"
   },
@@ -2322,49 +2322,104 @@
    "cls": "ad-k"
   },
   {
-   "chave": "Uma",
+   "chave": "1",
    "tag": "p",
    "cls": "ad-n"
   },
   {
-   "chave": "plataforma com venda e operação lado a lado",
+   "chave": "ambiente, com uma definição por métrica",
    "tag": "p",
    "cls": "ad-d"
   },
   {
-   "chave": "Dados de lojas físicas e canais digitais espalhados em sistemas diferentes, sem visão única de performance.",
-   "tag": "dd",
+   "chave": "Desafios",
+   "tag": "h2",
    "cls": ""
   },
   {
-   "chave": "Plataforma de dados em Azure integrando todos os canais de venda.",
-   "tag": "dd",
+   "chave": "A mesma métrica tinha contas diferentes dependendo de qual painel se abrisse.",
+   "tag": "li",
    "cls": ""
   },
   {
-   "chave": "Pipelines em Synapse, Data Factory e Databricks, com dashboards Power BI de vendas, operação e performance por canal.",
-   "tag": "dd",
+   "chave": "Toda pergunta nova das áreas entrava numa fila e dependia do time de dados.",
+   "tag": "li",
    "cls": ""
   },
   {
-   "chave": "Azure Synapse, Data Factory, Databricks, Power BI",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Canais comparáveis</b><span>loja física e digital deixaram de ser medidos em sistemas separados</span>",
+   "chave": "Ambiente centralizado em Looker, com dados e definições unificados. A migração veio junto com padronização de nomenclatura e layout e com um modelo de self-service BI para as áreas de negócio.",
    "tag": "p",
    "cls": ""
   },
   {
-   "chave": "<b>Fim da consolidação manual</b><span>venda e operação passaram a ser lidas no mesmo painel</span>",
-   "tag": "p",
+   "chave": "Resultados",
+   "tag": "h2",
    "cls": ""
   },
   {
-   "chave": "<b>Base reaproveitável</b><span>nova análise parte da plataforma existente, não de uma nova extração</span>",
-   "tag": "p",
+   "chave": "<b>Uma definição por métrica</b> a mesma conta deixou de ter versões diferentes em mais de 200 painéis",
+   "tag": "li",
    "cls": ""
+  },
+  {
+   "chave": "<b>Pergunta sem fila</b> o self-service tirou o intervalo entre a dúvida da área e a resposta",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Crescimento com padrão</b> painel novo passa a nascer dentro de um modelo, não ao lado dele",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Informações do projeto",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Google Cloud</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Power BI</span><span>Looker</span><span>Governança de dados</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Áreas de atuação",
+   "tag": "dt",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Governança de Dados</span><span>Business Intelligence</span><span>Self-service BI</span><span>Migração</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Setor",
+   "tag": "dt",
+   "cls": ""
+  },
+  {
+   "chave": "<span>BI Governance</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Nome do cliente preservado por confidencialidade.",
+   "tag": "p",
+   "cls": "inf-nota"
+  },
+  {
+   "chave": "Entre em contato",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "Conte o seu cenário para quem vai executar. Em 30 minutos mapeamos o caminho — mesmo que ele não passe pela gente.",
+   "tag": "p",
+   "cls": "sub"
   },
   {
    "chave": "Outros projetos",
@@ -2375,6 +2430,46 @@
    "chave": "Antes e depois",
    "tag": "@aria-label",
    "cls": "ad"
+  },
+  {
+   "chave": "Mês",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Dia",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "O desempenho das unidades só aparecia no fechamento do mês.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Quando o desvio era visto, o mês já tinha acabado e não dava para corrigir.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Painéis de acompanhamento diário das unidades do grupo, com os desvios visíveis em tempo de agir sobre eles.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Mês → Dia",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Business Intelligence</span><span>Indicadores operacionais</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Food Service</span>",
+   "tag": "dd",
+   "cls": ""
   }
  ]
 }
