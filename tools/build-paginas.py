@@ -592,6 +592,179 @@ def montar_404(comum):
                             rodape=c['rodape'], chat=c['chat'], script=c['script'])
 
 
+CASCA_PRIVACIDADE = '''<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacidade &mdash; Atlas Tec</title>
+<meta name="description" content="Quais dados o site da Atlas coleta, por que coleta, com quem compartilha e o que você pode pedir sobre eles.">
+<link rel="canonical" href="https://atlas-partner.com/privacidade.html">
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Privacidade &mdash; Atlas Tec">
+<meta property="og:url" content="https://atlas-partner.com/privacidade.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="media/fonts/mona-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#F2F1ED">
+%(boot)s
+%(estilo)s
+%(extra)s
+</head>
+<body>
+%(topo)s
+
+%(header)s
+
+%(menu)s
+
+%(corpo)s
+
+%(rodape)s
+%(chat)s
+%(script)s
+</body>
+</html>
+'''
+
+
+CSS_PRIVACIDADE = '''<style>
+  /* Página de texto corrido: a única do site que é leitura longa. Usa os
+     mesmos tokens, só define a medida de linha e o ritmo vertical. */
+  .doc { max-width: 68ch; }
+  .doc h2 { font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 600; margin: 2.6rem 0 0.9rem; letter-spacing: -0.018em; }
+  .doc h3 { font-size: 1.02rem; font-weight: 600; margin: 1.6rem 0 0.5rem; }
+  .doc p { color: var(--muted); margin-bottom: 1rem; }
+  .doc ul { color: var(--muted); margin: 0 0 1.1rem 1.1rem; }
+  .doc li { margin-bottom: 0.45rem; }
+  .doc strong { color: var(--ink); font-weight: 600; }
+  .doc table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.4rem; font-size: 0.92rem; }
+  .doc th, .doc td { text-align: left; padding: 0.7rem 0.8rem; border-bottom: 1px solid var(--line-soft); color: var(--muted); vertical-align: top; }
+  .doc th { color: var(--ink); font-weight: 600; font-size: 0.86rem; }
+  .doc code { font-family: var(--mono); font-size: 0.86em; color: var(--accent); }
+  .doc-pendente { border: 1px dashed var(--line-strong); border-radius: 12px; padding: 1.1rem 1.2rem; margin: 1.2rem 0; }
+  .doc-pendente p { margin: 0; color: var(--dim); font-size: 0.92rem; }
+  .doc-data { color: var(--dim); font-size: 0.88rem; margin-top: 2.6rem; padding-top: 1.2rem; border-top: 1px solid var(--line-soft); }
+</style>'''
+
+
+def montar_privacidade(comum):
+    """Política de privacidade.
+
+    Só afirma o que o site de fato faz: os campos que o formulário coleta,
+    os cookies que o Analytics grava, o que o FormSubmit recebe e o que é
+    guardado no navegador. Nada de declaração genérica de conformidade —
+    isso depende de avaliação jurídica, não de configuração técnica.
+    """
+    corpo = '''<main id="conteudo">
+  <section class="sec">
+    <div class="wrap">
+      <span class="eyebrow">Privacidade</span>
+      <h1 class="h-xl">Como a Atlas trata os seus dados.</h1>
+      <div class="doc">
+        <p>Esta página descreve quais dados o site <strong>atlas-partner.com</strong>
+          coleta, por que coleta, com quem compartilha e o que você pode pedir
+          sobre eles. Ela cobre apenas este site.</p>
+
+        <div class="doc-pendente">
+          <p><strong>Rascunho.</strong> Faltam a identificação da controladora
+            (razão social e CNPJ), o contato do encarregado de dados e o prazo
+            de retenção para publicar esta página.</p>
+        </div>
+
+        <h2>O que o site coleta</h2>
+
+        <h3>Formulário de contato</h3>
+        <p>Quando você preenche o formulário, a Atlas recebe:</p>
+        <ul>
+          <li><strong>Nome</strong> e <strong>empresa</strong> — obrigatórios.</li>
+          <li><strong>E-mail corporativo</strong> — obrigatório, é por onde respondemos.</li>
+          <li><strong>Cargo</strong> e <strong>telefone/WhatsApp</strong> — opcionais.</li>
+          <li><strong>Assunto</strong> e <strong>a descrição do seu desafio</strong> — o que você escrever.</li>
+        </ul>
+        <p>O envio vai para o <strong>FormSubmit</strong>, serviço de terceiro que
+          encaminha o conteúdo por e-mail para a Atlas. Como ele opera fora do
+          Brasil, isso configura <strong>transferência internacional de dados</strong>.
+          O site não guarda nada do que você escreve: não há banco de dados aqui.</p>
+
+        <h3>Chat do site</h3>
+        <p>O assistente do site envia o que você digita e o contato que você
+          deixar pelo mesmo caminho do formulário, para o FormSubmit. A conversa
+          não fica salva no navegador nem em servidor da Atlas.</p>
+
+        <h3>Medição de audiência</h3>
+        <p>O site usa <strong>Google Analytics 4</strong> para entender quantas
+          pessoas o visitam e por quais páginas passam. Ele grava dois cookies no
+          seu navegador:</p>
+        <table>
+          <tr><th>Cookie</th><th>Para quê</th></tr>
+          <tr><td><code>_ga</code></td><td>Distingue visitantes entre si, sem identificar quem são.</td></tr>
+          <tr><td><code>_ga_B0QFW3ZH7K</code></td><td>Mantém o estado da sessão de medição.</td></tr>
+        </table>
+        <p>O Google também recebe o seu endereço de IP ao carregar a fonte
+          <code>IBM Plex Mono</code> usada no site.</p>
+
+        <h3>O que fica no seu navegador e não sai dele</h3>
+        <p>Três preferências ficam guardadas só no seu aparelho, não são enviadas
+          a lugar nenhum e não servem para rastrear:</p>
+        <ul>
+          <li><code>atlas-tema</code> — se você escolheu o tema claro ou escuro.</li>
+          <li><code>atlas-chat-seen</code> — se o chat já te cumprimentou nesta visita.</li>
+          <li><code>cbar-off</code> — se você fechou a barra de conversa.</li>
+        </ul>
+
+        <h2>Para que a Atlas usa esses dados</h2>
+        <ul>
+          <li><strong>Responder ao seu contato.</strong> É a única finalidade do que
+            chega pelo formulário e pelo chat.</li>
+          <li><strong>Entender o uso do site</strong> de forma agregada, para
+            melhorá-lo.</li>
+        </ul>
+        <p>A Atlas <strong>não vende</strong> os seus dados, <strong>não os usa para
+          publicidade</strong> e <strong>não os repassa</strong> a terceiros além dos
+          serviços descritos acima.</p>
+
+        <h2>Seus direitos</h2>
+        <p>A Lei Geral de Proteção de Dados (Lei 13.709/2018) garante que você
+          peça, a qualquer momento:</p>
+        <ul>
+          <li>confirmação de que existe tratamento dos seus dados;</li>
+          <li>acesso aos dados que a Atlas tem sobre você;</li>
+          <li>correção de dado incompleto ou desatualizado;</li>
+          <li>anonimização, bloqueio ou eliminação de dado desnecessário;</li>
+          <li>portabilidade;</li>
+          <li>informação sobre com quem a Atlas compartilhou os seus dados;</li>
+          <li>revogação do consentimento.</li>
+        </ul>
+
+        <div class="doc-pendente">
+          <p>O canal para exercer esses direitos entra aqui junto com o contato
+            do encarregado de dados.</p>
+        </div>
+
+        <h2>Segurança</h2>
+        <p>O site é servido por HTTPS e não armazena dados de visitantes. As
+          medidas técnicas aplicadas e as pendências conhecidas estão registradas
+          no repositório do projeto, em <code>SECURITY.md</code>.</p>
+
+        <h2>Mudanças nesta página</h2>
+        <p>Alterações relevantes passam a valer na data indicada abaixo.</p>
+
+        <p class="doc-data">Última atualização: <strong>a definir na publicação</strong>.</p>
+      </div>
+    </div>
+  </section>
+</main>'''
+
+    return CASCA_PRIVACIDADE % dict(
+        boot=comum['boot'], estilo=comum['estilo'], extra=CSS_PRIVACIDADE,
+        topo=comum['topo'], header=comum['header'], menu=comum['menu'],
+        corpo=corpo, rodape=comum['rodape'], chat=comum['chat'], script=comum['script'])
+
+
 def main():
     html = BASE.read_text()
     comum = extrair(html)
@@ -606,6 +779,10 @@ def main():
     erro = RAIZ / '404.html'
     erro.write_text(montar_404(comum))
     print('%-24s %6.1f KB' % ('404.html', erro.stat().st_size / 1024))
+
+    priv = RAIZ / 'privacidade.html'
+    priv.write_text(montar_privacidade(comum))
+    print('%-24s %6.1f KB' % ('privacidade.html', priv.stat().st_size / 1024))
 
 
 if __name__ == '__main__':
