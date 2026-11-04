@@ -10,6 +10,7 @@ on:
     paths:
       - index.html
       - 404.html
+      - privacidade.html
       - .well-known/**
       - atlas.html
       - robots.txt
@@ -48,7 +49,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p /tmp/site/media
-          cp index.html 404.html atlas.html bi-analytics.html data-engineering.html alocacao.html cases-de-sucesso.html robots.txt sitemap.xml llms.txt favicon.svg favicon.ico favicon-32.png apple-touch-icon.png /tmp/site/
+          cp index.html 404.html privacidade.html atlas.html bi-analytics.html data-engineering.html alocacao.html cases-de-sucesso.html robots.txt sitemap.xml llms.txt favicon.svg favicon.ico favicon-32.png apple-touch-icon.png /tmp/site/
           mkdir -p /tmp/site/.well-known && cp .well-known/security.txt /tmp/site/.well-known/
           mkdir -p /tmp/site/cases && cp cases/*.html /tmp/site/cases/
           cp -r media/. /tmp/site/media/

@@ -600,7 +600,6 @@ CASCA_PRIVACIDADE = '''<!doctype html>
 <title>Privacidade &mdash; Atlas Tec</title>
 <meta name="description" content="Quais dados o site da Atlas coleta, por que coleta, com quem compartilha e o que você pode pedir sobre eles.">
 <link rel="canonical" href="https://atlas-partner.com/privacidade.html">
-<meta name="robots" content="noindex, follow">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Privacidade &mdash; Atlas Tec">
 <meta property="og:url" content="https://atlas-partner.com/privacidade.html">
@@ -674,10 +673,6 @@ def montar_privacidade(comum):
           CNPJ sob o nº <strong>36.047.604/0001-30</strong>, com sede em São Paulo/SP,
           que atua sob a marca <strong>Atlas Tecnologia</strong>.</p>
 
-        <div class="doc-pendente">
-          <p><strong>Rascunho.</strong> Ainda faltam o contato do encarregado de
-            dados e o prazo de retenção do que chega pelo formulário.</p>
-        </div>
 
         <h2>O que o site coleta</h2>
 
@@ -693,6 +688,10 @@ def montar_privacidade(comum):
           encaminha o conteúdo por e-mail para a Atlas. Como ele opera fora do
           Brasil, isso configura <strong>transferência internacional de dados</strong>.
           O site não guarda nada do que você escreve: não há banco de dados aqui.</p>
+        <p><strong>Por quanto tempo:</strong> o conteúdo recebido é apagado em até
+          <strong>2 meses</strong> contados do envio, salvo se nesse período a
+          conversa evoluir para uma relação contratual — caso em que passa a valer
+          o prazo do contrato e as obrigações legais de guarda.</p>
 
         <h3>Chat do site</h3>
         <p>O assistente do site envia o que você digita e o contato que você
@@ -744,10 +743,11 @@ def montar_privacidade(comum):
           <li>revogação do consentimento.</li>
         </ul>
 
-        <div class="doc-pendente">
-          <p>O canal para exercer esses direitos entra aqui junto com o contato
-            do encarregado de dados.</p>
-        </div>
+        <p>Para exercer qualquer um deles, use o
+          <a href="index.html#contato">formulário de contato</a> marcando a opção
+          <strong>Privacidade</strong>. É o canal de comunicação com o encarregado
+          pelo tratamento de dados da Atlas, e o pedido é respondido no mesmo
+          e-mail que você informar.</p>
 
         <h2>Segurança</h2>
         <p>O site é servido por HTTPS e não armazena dados de visitantes. As
@@ -757,7 +757,7 @@ def montar_privacidade(comum):
         <h2>Mudanças nesta página</h2>
         <p>Alterações relevantes passam a valer na data indicada abaixo.</p>
 
-        <p class="doc-data">Última atualização: <strong>a definir na publicação</strong>.</p>
+        <p class="doc-data">Última atualização: <strong>4 de novembro de 2026</strong>.</p>
       </div>
     </div>
   </section>

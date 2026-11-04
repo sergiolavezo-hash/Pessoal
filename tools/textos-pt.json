@@ -1,5 +1,5 @@
 {
- "total": 648,
+ "total": 698,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -1167,6 +1167,11 @@
    "cls": ""
   },
   {
+   "chave": "Privacidade",
+   "tag": "span",
+   "cls": ""
+  },
+  {
    "chave": "Outro",
    "tag": "span",
    "cls": ""
@@ -1258,6 +1263,11 @@
   },
   {
    "chave": "Solicitar um diagnóstico",
+   "tag": "a",
+   "cls": ""
+  },
+  {
+   "chave": "Política de privacidade",
    "tag": "a",
    "cls": ""
   },
@@ -2415,6 +2425,246 @@
    "chave": "Essa página não existe.",
    "tag": "@aria-label",
    "cls": "h-xl"
+  },
+  {
+   "chave": "Esta página descreve quais dados o site <strong>atlas-partner.com</strong> coleta, por que coleta, com quem compartilha e o que você pode pedir sobre eles. Ela cobre apenas este site.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Quem é a controladora",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "Os dados coletados neste site são tratados pela empresa inscrita no CNPJ sob o nº <strong>36.047.604/0001-30</strong>, com sede em São Paulo/SP, que atua sob a marca <strong>Atlas Tecnologia</strong>.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "O que o site coleta",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "Formulário de contato",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Quando você preenche o formulário, a Atlas recebe:",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>Nome</strong> e <strong>empresa</strong> — obrigatórios.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>E-mail corporativo</strong> — obrigatório, é por onde respondemos.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>Cargo</strong> e <strong>telefone/WhatsApp</strong> — opcionais.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>Assunto</strong> e <strong>a descrição do seu desafio</strong> — o que você escrever.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "O envio vai para o <strong>FormSubmit</strong>, serviço de terceiro que encaminha o conteúdo por e-mail para a Atlas. Como ele opera fora do Brasil, isso configura <strong>transferência internacional de dados</strong>. O site não guarda nada do que você escreve: não há banco de dados aqui.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>Por quanto tempo:</strong> o conteúdo recebido é apagado em até <strong>2 meses</strong> contados do envio, salvo se nesse período a conversa evoluir para uma relação contratual — caso em que passa a valer o prazo do contrato e as obrigações legais de guarda.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Chat do site",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "O assistente do site envia o que você digita e o contato que você deixar pelo mesmo caminho do formulário, para o FormSubmit. A conversa não fica salva no navegador nem em servidor da Atlas.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Medição de audiência",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "O site usa <strong>Google Analytics 4</strong> para entender quantas pessoas o visitam e por quais páginas passam. Ele grava dois cookies no seu navegador:",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Cookie",
+   "tag": "th",
+   "cls": ""
+  },
+  {
+   "chave": "Para quê",
+   "tag": "th",
+   "cls": ""
+  },
+  {
+   "chave": "<code>_ga</code>",
+   "tag": "td",
+   "cls": ""
+  },
+  {
+   "chave": "Distingue visitantes entre si, sem identificar quem são.",
+   "tag": "td",
+   "cls": ""
+  },
+  {
+   "chave": "<code>_ga_B0QFW3ZH7K</code>",
+   "tag": "td",
+   "cls": ""
+  },
+  {
+   "chave": "Mantém o estado da sessão de medição.",
+   "tag": "td",
+   "cls": ""
+  },
+  {
+   "chave": "O Google também recebe o seu endereço de IP ao carregar a fonte <code>IBM Plex Mono</code> usada no site.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "O que fica no seu navegador e não sai dele",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Três preferências ficam guardadas só no seu aparelho, não são enviadas a lugar nenhum e não servem para rastrear:",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<code>atlas-tema</code> — se você escolheu o tema claro ou escuro.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<code>atlas-chat-seen</code> — se o chat já te cumprimentou nesta visita.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<code>cbar-off</code> — se você fechou a barra de conversa.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Para que a Atlas usa esses dados",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>Responder ao seu contato.</strong> É a única finalidade do que chega pelo formulário e pelo chat.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>Entender o uso do site</strong> de forma agregada, para melhorá-lo.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A Atlas <strong>não vende</strong> os seus dados, <strong>não os usa para publicidade</strong> e <strong>não os repassa</strong> a terceiros além dos serviços descritos acima.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Seus direitos",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "A Lei Geral de Proteção de Dados (Lei 13.709/2018) garante que você peça, a qualquer momento:",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "confirmação de que existe tratamento dos seus dados;",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "acesso aos dados que a Atlas tem sobre você;",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "correção de dado incompleto ou desatualizado;",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "anonimização, bloqueio ou eliminação de dado desnecessário;",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "portabilidade;",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "informação sobre com quem a Atlas compartilhou os seus dados;",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "revogação do consentimento.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "formulário de contato",
+   "tag": "a",
+   "cls": ""
+  },
+  {
+   "chave": "Segurança",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "O site é servido por HTTPS e não armazena dados de visitantes. As medidas técnicas aplicadas e as pendências conhecidas estão registradas no repositório do projeto, em <code>SECURITY.md</code>.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Mudanças nesta página",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "Alterações relevantes passam a valer na data indicada abaixo.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Última atualização: <strong>4 de novembro de 2026</strong>.",
+   "tag": "p",
+   "cls": "doc-data"
+  },
+  {
+   "chave": "Para exercer qualquer um deles, use o marcando a opção . É o canal de comunicação com o encarregado pelo tratamento de dados da Atlas, e o pedido é respondido no mesmo e-mail que você informar.",
+   "tag": "p#texto",
+   "cls": ""
   },
   {
    "chave": "<span aria-hidden=\"true\">←</span> Voltar para cases",

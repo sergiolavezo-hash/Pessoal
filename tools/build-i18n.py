@@ -450,6 +450,8 @@ TRAD.update({
   'Turismo': ('Tourism', 'Turismo'),
   'Seguradoras': ('Insurance carriers', 'Aseguradoras'),
   'Holding': ('Holding companies', 'Holdings'),
+  'Privacidade': ('Privacy', 'Privacidad'),
+  'Política de privacidade': ('Privacy policy', 'Política de privacidad'),
   'Food Service': ('Food Service', 'Food Service'),
   'Infraestrutura &amp; Mobilidade': ('Infrastructure &amp; Mobility', 'Infraestructura &amp; Movilidad'),
   'Saúde Hospitalar': ('Hospital Healthcare', 'Salud Hospitalaria'),
