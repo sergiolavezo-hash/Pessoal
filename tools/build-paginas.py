@@ -670,10 +670,9 @@ def montar_privacidade(comum):
           sobre eles. Ela cobre apenas este site.</p>
 
         <h2>Quem é a controladora</h2>
-        <p>Os dados coletados neste site são tratados por
-          <strong>Sergio Vinicius Pereira Serviços de Informática &mdash; ME</strong>,
-          inscrita no CNPJ sob o nº <strong>36.047.604/0001-30</strong>, com sede em
-          São Paulo/SP, que atua no mercado sob a marca <strong>Atlas Tecnologia</strong>.</p>
+        <p>Os dados coletados neste site são tratados pela empresa inscrita no
+          CNPJ sob o nº <strong>36.047.604/0001-30</strong>, com sede em São Paulo/SP,
+          que atua sob a marca <strong>Atlas Tecnologia</strong>.</p>
 
         <div class="doc-pendente">
           <p><strong>Rascunho.</strong> Ainda faltam o contato do encarregado de
