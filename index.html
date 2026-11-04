@@ -236,7 +236,13 @@
   .h-xl { font-size: clamp(2.2rem, 4.6vw, 3.4rem); font-weight: 400; color: var(--ink); margin: 1.1rem 0 1.1rem; max-width: 22ch; }
   .sub { color: var(--muted); font-size: 1.06rem; max-width: 42rem; margin-bottom: 0.5rem; }
   .sec { padding: 4.5rem 0; }
-  .sec + .sec { border-top: 1px solid var(--line-soft); }
+  /* Sem régua entre seções. A grade do fundo é rgba(19,19,22,0.045) e
+     esta borda era rgba(19,19,22,0.07): mesma cor, só 1,5x mais forte,
+     atravessando a tela inteira em fundo vazio. Lia como linha da grade,
+     mas caía em fase arbitraria (25 e 24 no index), então partia a célula
+     ao meio e dava a impressão de que algumas quadriculas tinham
+     encolhido. Quem separa as seções agora é o respiro, que já é de
+     4,5rem de cada lado. */
 
   .btn {
     display: inline-flex; align-items: center; gap: 0.6rem;
@@ -667,8 +673,13 @@
 
   /* ---------- Footer ---------- */
   /* Mesmo caso do hero: cor idêntica à do body, grade redesenhada fora
-     de fase. Sem fundo próprio, a grade do body atravessa o rodapé. */
-  .footer { border-top: 1px solid var(--line-soft); padding: 4rem 0 2rem; }
+     de fase. Sem fundo próprio, a grade do body atravessa o rodapé.
+     A régua de cima também saiu, pela mesma razão das seções e do
+     trilho: era um fio de tela cheia na mesma cor da grade, e sua
+     posição depende da altura do conteúdo, então nunca ia cair em
+     múltiplo de 56. O rodapé se distingue pelo próprio conteúdo e
+     pelos 4rem de respiro acima dele. */
+  .footer { padding: 4rem 0 2rem; }
   .footer-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
   .footer .brand svg { width: 2.4rem; height: 2.4rem; }
   .footer .brand .wordmark b { font-size: 1.15rem; }
@@ -1064,7 +1075,9 @@
   .hero-cue:hover svg { transform: translateY(3px); }
 
   /* ---------- Trilho de setores com rótulo à esquerda ---------- */
-  .rail { padding: 2.4rem 0; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+  /* Mesmo motivo: as duas bordas do trilho atravessavam a tela em fundo
+     vazio, em fase 35 e 51, e encolhiam a célula da grade. */
+  .rail { padding: 2.4rem 0; }
   .rail-grid { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center; }
   .rail-label {
     font-family: var(--mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em;
