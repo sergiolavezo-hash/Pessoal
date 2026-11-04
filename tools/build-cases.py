@@ -319,7 +319,7 @@ CSS_CASO = '''<style>
   .caso-corpo { padding-top: 3rem; }
   .caso-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.9fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   .caso-bloco + .caso-bloco { margin-top: 2.6rem; }
-  .caso-bloco h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); font-weight: 600; margin-bottom: 1rem; }
+  .caso-bloco h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); font-weight: 500; margin-bottom: 1rem; }
   .caso-bloco p { color: var(--muted); font-size: 1.02rem; }
   .caso-lista { list-style: none; display: grid; gap: 0.9rem; }
   .caso-lista li { position: relative; padding-left: 1.6rem; color: var(--muted); font-size: 1rem; line-height: 1.6; }
@@ -366,7 +366,7 @@ CSS_INDICE = '''<style>
   }
   .dest-txt { padding: clamp(1.6rem, 3.4vw, 2.8rem); display: flex; flex-direction: column; justify-content: center; gap: 0.9rem; }
   .dest-setor { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
-  .dest-t { font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-weight: 600; line-height: 1.18; }
+  .dest-t { font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-weight: 500; line-height: 1.18; }
   .dest-cap { color: var(--muted); font-size: 1rem; line-height: 1.6; max-width: 46ch; }
   .dest-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
   .dest-chips span { font-size: 0.72rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.24rem 0.68rem; }
@@ -397,7 +397,7 @@ CSS_INDICE = '''<style>
   .gc > img { width: 100%; height: 160px; object-fit: cover; display: block; }
   .gc-corpo { padding: 1.3rem 1.3rem 1.2rem; display: grid; grid-template-rows: auto auto 1fr auto auto; gap: 0.55rem; }
   .gc-setor { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
-  .gc-t { font-size: 1.08rem; font-weight: 600; line-height: 1.28; }
+  .gc-t { font-size: 1.08rem; font-weight: 550; line-height: 1.28; }
   .gc-cap { color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
   .gc-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
   .gc-chips span { font-size: 0.68rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.18rem 0.55rem; }

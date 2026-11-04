@@ -421,7 +421,7 @@ def montar(pag, comum):
     extra = '''<style>
   /* Ajustes próprios das páginas de serviço. O resto vem do index.html. */
   .pag-hero { padding-top: 3.5rem; }
-  .pag-hero h1 { font-family: var(--display); font-weight: 800; letter-spacing: -0.042em;
+  .pag-hero h1 { font-family: var(--display); font-weight: 400; letter-spacing: -0.042em;
     font-size: clamp(2rem, 4.6vw, 3.1rem); line-height: 1.04; margin-top: 1.1rem; }
   .pag-tecs { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2.4rem; }
   .pag-tec { display: inline-flex; align-items: center; gap: 0.6rem;
@@ -439,7 +439,7 @@ def montar(pag, comum):
   .tal-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2.5rem; align-items: start; margin-top: 2.6rem; }
   .tal-pontos { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.2rem; }
   .tal-pontos li { display: flex; flex-direction: column; gap: 0.2rem; border-left: 2px solid var(--accent); padding-left: 1rem; }
-  .tal-pontos b { font-size: 1rem; font-weight: 700; }
+  .tal-pontos b { font-size: 1rem; font-weight: 600; }
   .tal-pontos span { color: var(--muted); font-size: 0.9rem; }
   .tal-form select {
     width: 100%%; background: var(--bg0); border: 1px solid var(--line); border-radius: 10px;
@@ -457,7 +457,7 @@ def montar(pag, comum):
     padding: 1.4rem 1.5rem; background: rgba(46,134,255,0.08); margin-top: 2.6rem;
   }
   .tal-ok.on { display: block; }
-  .tal-ok b { display: block; font-family: var(--display); font-size: 1.15rem; font-weight: 700; }
+  .tal-ok b { display: block; font-family: var(--display); font-size: 1.15rem; font-weight: 600; }
   .tal-ok span { display: block; color: var(--muted); margin-top: 0.3rem; }
 
   @media (max-width: 1000px) {
@@ -634,8 +634,8 @@ CSS_PRIVACIDADE = '''<style>
   /* Página de texto corrido: a única do site que é leitura longa. Usa os
      mesmos tokens, só define a medida de linha e o ritmo vertical. */
   .doc { max-width: 68ch; }
-  .doc h2 { font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 600; margin: 2.6rem 0 0.9rem; letter-spacing: -0.018em; }
-  .doc h3 { font-size: 1.02rem; font-weight: 600; margin: 1.6rem 0 0.5rem; }
+  .doc h2 { font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 500; margin: 2.6rem 0 0.9rem; letter-spacing: -0.018em; }
+  .doc h3 { font-size: 1.02rem; font-weight: 550; margin: 1.6rem 0 0.5rem; }
   .doc p { color: var(--muted); margin-bottom: 1rem; }
   .doc ul { color: var(--muted); margin: 0 0 1.1rem 1.1rem; }
   .doc li { margin-bottom: 0.45rem; }

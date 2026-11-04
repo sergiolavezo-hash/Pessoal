@@ -132,7 +132,10 @@
      então 600 é um peso desenhado, não uma simulação. O letter-spacing
      afrouxa junto — o -0,03em foi calibrado para o peso cheio e, mais
      leve, fechava as letras. */
-  h1, h2, h3 { font-family: var(--display); letter-spacing: -0.022em; line-height: 1.08; text-wrap: balance; }
+  /* Peso padrão dos títulos. Sem isto eles caem no 'bold' do navegador,
+     que é 700 — pesado demais num display grande, e era a origem dos
+     títulos grossos que sobraram depois do primeiro ajuste. */
+  h1, h2, h3, h4 { font-family: var(--display); font-weight: 500; letter-spacing: -0.022em; line-height: 1.08; text-wrap: balance; }
   a { color: inherit; }
   button { font-family: inherit; }
   img, canvas, svg { max-width: 100%; }
@@ -143,7 +146,7 @@
   .skip-link {
     position: absolute; left: -999px; top: 0; z-index: 100;
     background: var(--btn-fill); color: #fff; padding: 0.7rem 1.2rem; border-radius: 0 0 8px 0;
-    font-weight: 700; text-decoration: none;
+    font-weight: 600; text-decoration: none;
   }
   .skip-link:focus { left: 0; }
 
@@ -210,7 +213,7 @@
   .brand { display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; }
   .brand svg { width: 2.1rem; height: 2.1rem; flex: none; }
   .brand .wordmark { display: flex; flex-direction: column; line-height: 1; }
-  .brand .wordmark b { font-family: var(--display); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--ink); }
+  .brand .wordmark b { font-family: var(--display); font-weight: 650; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--ink); }
   .brand .wordmark small { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.24em; color: var(--dim); margin-top: 0.15rem; }
 
   .nav-links { display: flex; align-items: center; gap: 1.9rem; }
@@ -1442,8 +1445,8 @@
   /* Página de texto corrido: a única do site que é leitura longa. Usa os
      mesmos tokens, só define a medida de linha e o ritmo vertical. */
   .doc { max-width: 68ch; }
-  .doc h2 { font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 600; margin: 2.6rem 0 0.9rem; letter-spacing: -0.018em; }
-  .doc h3 { font-size: 1.02rem; font-weight: 600; margin: 1.6rem 0 0.5rem; }
+  .doc h2 { font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 500; margin: 2.6rem 0 0.9rem; letter-spacing: -0.018em; }
+  .doc h3 { font-size: 1.02rem; font-weight: 550; margin: 1.6rem 0 0.5rem; }
   .doc p { color: var(--muted); margin-bottom: 1rem; }
   .doc ul { color: var(--muted); margin: 0 0 1.1rem 1.1rem; }
   .doc li { margin-bottom: 0.45rem; }
