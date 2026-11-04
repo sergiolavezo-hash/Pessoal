@@ -2175,14 +2175,14 @@
         <input type="text" name="_honey" tabindex="-1" autocomplete="off"
                aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <div class="form-row">
-          <div class="field"><label for="c-nome">Nome</label><input id="c-nome" name="nome" type="text" autocomplete="name" required></div>
-          <div class="field"><label for="c-empresa">Empresa</label><input id="c-empresa" name="empresa" type="text" autocomplete="organization" required></div>
+          <div class="field"><label for="c-nome">Nome</label><input id="c-nome" name="nome" type="text" autocomplete="name" maxlength="80" required></div>
+          <div class="field"><label for="c-empresa">Empresa</label><input id="c-empresa" name="empresa" type="text" autocomplete="organization" maxlength="100" required></div>
         </div>
         <div class="form-row">
-          <div class="field"><label for="c-cargo">Cargo <em>(opcional)</em></label><input id="c-cargo" name="cargo" type="text" autocomplete="organization-title"></div>
-          <div class="field"><label for="c-email">E-mail corporativo</label><input id="c-email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="c-cargo">Cargo <em>(opcional)</em></label><input id="c-cargo" name="cargo" type="text" autocomplete="organization-title" maxlength="80"></div>
+          <div class="field"><label for="c-email">E-mail corporativo</label><input id="c-email" name="email" type="email" autocomplete="email" maxlength="120" required></div>
         </div>
-        <div class="field"><label for="c-tel">Telefone / WhatsApp <em>(opcional)</em></label><input id="c-tel" name="telefone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="c-tel">Telefone / WhatsApp <em>(opcional)</em></label><input id="c-tel" name="telefone" type="tel" autocomplete="tel" maxlength="25"></div>
         <fieldset class="chips-field">
           <legend>Sobre o que você quer falar?</legend>
           <div class="chips">
@@ -2197,7 +2197,7 @@
             <label><input type="checkbox" name="assunto" value="Outro"><span>Outro</span></label>
           </div>
         </fieldset>
-        <div class="field"><label for="c-desafio">Conte brevemente o que gostaria de resolver</label><textarea id="c-desafio" name="desafio" required placeholder="Em duas linhas: o que você precisa que passe a funcionar."></textarea></div>
+        <div class="field"><label for="c-desafio">Conte brevemente o que gostaria de resolver</label><textarea id="c-desafio" name="desafio" maxlength="2000" required placeholder="Em duas linhas: o que você precisa que passe a funcionar."></textarea></div>
         <button class="btn btn-accent" type="submit" data-magnetic style="justify-content:center;">Quero conversar com a Atlas → </button>
         <p class="form-error" id="form-error" role="alert">
           Não foi possível enviar agora. Tente novamente em instantes ou fale
