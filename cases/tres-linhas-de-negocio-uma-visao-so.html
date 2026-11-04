@@ -162,7 +162,7 @@
 
   .h-xl { font-size: clamp(2.2rem, 4.6vw, 3.4rem); font-weight: 400; color: var(--ink); margin: 1.1rem 0 1.1rem; max-width: 22ch; }
   .sub { color: var(--muted); font-size: 1.06rem; max-width: 42rem; margin-bottom: 0.5rem; }
-  .sec { padding: 6rem 0; }
+  .sec { padding: 4.5rem 0; }
   .sec + .sec { border-top: 1px solid var(--line-soft); }
 
   .btn {
@@ -958,8 +958,14 @@
   /* O bloco é centrado dentro da área com respiro, então a diferença
      entre o respiro de cima e o de baixo desloca o texto por metade
      dela. Com o botão fora do hero, mais respiro embaixo que em cima
-     puxa a chamada para cima sem mexer no tamanho de nada. */
-  .hero-c { min-height: 100svh; display: grid; align-items: center; padding: 7rem 0 11rem; }
+     puxa a chamada para cima sem mexer no tamanho de nada.
+     A altura é 82svh e não 100svh de propósito: o hero deixa de ocupar
+     a tela inteira para que o trilho de setores entre na primeira dobra
+     já aparecendo de verdade (uns dois terços dele a 900px de altura),
+     e não como uma fresta que parece corte acidental. Abaixo de ~760px
+     de altura o respiro vira o piso e o hero ignora o svh, que é o que
+     evita a chamada apertada em telas baixas. */
+  .hero-c { min-height: 82svh; display: grid; align-items: center; padding: 6rem 0 9rem; }
   .hero-c .wrap > div { max-width: 56rem; margin: 0 auto; text-align: center; }
   .hero-c h1 { max-width: 20ch; margin-left: auto; margin-right: auto; }
   .hero-c h1 .ac { color: var(--accent-light); }
@@ -976,7 +982,7 @@
   .hero-cue:hover svg { transform: translateY(3px); }
 
   /* ---------- Trilho de setores com rótulo à esquerda ---------- */
-  .rail { padding: 3.2rem 0; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+  .rail { padding: 2.4rem 0; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
   .rail-grid { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center; }
   .rail-label {
     font-family: var(--mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em;
