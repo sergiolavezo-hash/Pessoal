@@ -48,7 +48,7 @@ const ARQS = process.argv.slice(2).length ? process.argv.slice(2) : ['index.html
       }
       function norm(s) { return s.replace(/\s+/g, ' ').trim(); }
 
-      document.querySelectorAll('header, main, footer, nav, .mega, .chat-panel, .chat-teaser, .cbar, .skip-link').forEach(raiz => {
+      document.querySelectorAll('header, main, footer, nav, .mega, .chat-panel, .chat-teaser, .cbar, .skip-link, .cookies').forEach(raiz => {
         /* a própria raiz pode ser o bloco de texto — é o caso do skip-link */
         [raiz].concat([...raiz.querySelectorAll('*')]).forEach(el => {
           if (FORA.has(el.tagName) || !BLOCO.has(el.tagName)) return;

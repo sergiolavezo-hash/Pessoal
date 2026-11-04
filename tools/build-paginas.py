@@ -700,8 +700,9 @@ def montar_privacidade(comum):
 
         <h3>Medição de audiência</h3>
         <p>O site usa <strong>Google Analytics 4</strong> para entender quantas
-          pessoas o visitam e por quais páginas passam. Ele grava dois cookies no
-          seu navegador:</p>
+          pessoas o visitam e por quais páginas passam — <strong>e só com a sua
+          permissão</strong>. Enquanto você não aceitar, nada é baixado do Google e
+          nenhum cookie de medição é gravado. Aceitando, entram dois cookies:</p>
         <table>
           <tr><th>Cookie</th><th>Para quê</th></tr>
           <tr><td><code>_ga</code></td><td>Distingue visitantes entre si, sem identificar quem são.</td></tr>
@@ -748,6 +749,12 @@ def montar_privacidade(comum):
           <strong>Privacidade</strong>. É o canal de comunicação com o encarregado
           pelo tratamento de dados da Atlas, e o pedido é respondido no mesmo
           e-mail que você informar.</p>
+
+        <h2>Como mudar sua escolha sobre cookies</h2>
+        <p>A escolha fica guardada no seu próprio navegador e vale só para ele.
+          Para rever, use o botão abaixo: o aviso reaparece e você decide de novo.
+          Recusar também apaga os cookies de medição que já existirem.</p>
+        <p><button class="btn btn-line" type="button" id="cookies-rever">Rever escolha de cookies</button></p>
 
         <h2>Segurança</h2>
         <p>O site é servido por HTTPS e não armazena dados de visitantes. As

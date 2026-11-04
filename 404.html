@@ -153,19 +153,19 @@
   .eyebrow.on-paper { color: var(--accent-deep); }
   .eyebrow.on-paper::before { background: var(--accent-deep); }
 
-  .h-xl { font-size: clamp(2.2rem, 4.6vw, 3.4rem); font-weight: 600; color: var(--ink); margin: 1.1rem 0 1.1rem; max-width: 22ch; }
+  .h-xl { font-size: clamp(2.2rem, 4.6vw, 3.4rem); font-weight: 400; color: var(--ink); margin: 1.1rem 0 1.1rem; max-width: 22ch; }
   .sub { color: var(--muted); font-size: 1.06rem; max-width: 42rem; margin-bottom: 0.5rem; }
   .sec { padding: 6rem 0; }
   .sec + .sec { border-top: 1px solid var(--line-soft); }
 
   .btn {
     display: inline-flex; align-items: center; gap: 0.6rem;
-    font-family: var(--display); font-weight: 700; font-size: 0.95rem;
-    padding: 0.9rem 1.7rem; border-radius: 999px; text-decoration: none;
+    font-family: var(--display); font-weight: 600; font-size: 0.95rem;
+    padding: 0.85rem 1.6rem; border-radius: 10px; text-decoration: none;
     border: 1px solid transparent; cursor: pointer; transition: all 0.25s var(--ease);
   }
   .btn-accent { background: var(--btn-fill); color: #fff; }
-  .btn-accent:hover { background: var(--accent-light); color: var(--accent-ink); transform: translateY(-1px); box-shadow: 0 10px 30px -8px rgba(46,134,255,0.5); }
+  .btn-accent:hover { background: var(--accent-light); color: var(--accent-ink); box-shadow: 0 4px 14px -6px rgba(46,134,255,0.45); }
   .btn-line { background: none; color: var(--ink); border-color: var(--line-strong); }
   .btn-line:hover { border-color: var(--accent); color: var(--accent-light); }
   .btn .arr { transition: transform 0.25s var(--ease); }
@@ -192,13 +192,22 @@
   .nav { position: sticky; top: 0; z-index: 50; background: transparent; border-bottom: 1px solid transparent;
     transition: border-color 0.35s var(--ease), background 0.35s var(--ease), backdrop-filter 0.35s var(--ease); }
   .nav.is-scrolled { background: var(--veil-forte); backdrop-filter: blur(14px); border-bottom-color: var(--line-soft); }
-  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 5rem; transition: height 0.3s var(--ease); }
+  /* Grade de três colunas em vez de espaço distribuído: com space-between o
+     "Menu" se posiciona pela largura do logo e dos controles ao lado, então
+     ele se desloca a cada mudança de largura e nunca fica no centro de
+     verdade. Com 1fr auto 1fr a coluna do meio é o centro da faixa, não
+     importa o que exista nos lados. */
+  .nav .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 5rem; transition: height 0.3s var(--ease); }
+  .nav .wrap > .brand { grid-column: 1; justify-self: start; }
+  /* Os dois ocupam a mesma célula: só um deles aparece por vez. */
+  .nav-toggle, .nav-burger { grid-column: 2; justify-self: center; }
+  .nav-acoes { grid-column: 3; justify-self: end; }
   .nav.is-scrolled .wrap { height: 4.25rem; }
 
   .brand { display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; }
   .brand svg { width: 2.1rem; height: 2.1rem; flex: none; }
   .brand .wordmark { display: flex; flex-direction: column; line-height: 1; }
-  .brand .wordmark b { font-family: var(--display); font-weight: 800; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--ink); }
+  .brand .wordmark b { font-family: var(--display); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--ink); }
   .brand .wordmark small { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.24em; color: var(--dim); margin-top: 0.15rem; }
 
   .nav-links { display: flex; align-items: center; gap: 1.9rem; }
@@ -215,7 +224,7 @@
     opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease);
   }
   .mobile-menu.open { opacity: 1; pointer-events: auto; }
-  .mobile-menu a { text-decoration: none; font-family: var(--display); font-size: 1.5rem; font-weight: 700; color: var(--ink); padding: 0.7rem 0; border-bottom: 1px solid var(--line-soft); opacity: 0; transform: translateY(18px); transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); }
+  .mobile-menu a { text-decoration: none; font-family: var(--display); font-size: 1.5rem; font-weight: 550; color: var(--ink); padding: 0.7rem 0; border-bottom: 1px solid var(--line-soft); opacity: 0; transform: translateY(18px); transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); }
   .mobile-menu.open a { opacity: 1; transform: none; }
   .mobile-menu.open a:nth-child(1) { transition-delay: 0.05s; }
   .mobile-menu.open a:nth-child(2) { transition-delay: 0.1s; }
@@ -239,7 +248,7 @@
      serviços logo abaixo. O território 3D fica com aquele espaço. */
   .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; align-items: center; }
   .hero .wrap > div { max-width: 44rem; }
-  .hero h1 { font-size: clamp(2.4rem, 5vw, 3.9rem); font-weight: 600; margin: 1.1rem 0 1.2rem; max-width: 16ch; }
+  .hero h1 { font-size: clamp(2.4rem, 5vw, 3.9rem); font-weight: 400; margin: 1.1rem 0 1.2rem; max-width: 16ch; }
   .hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; }
   .hero h1 .w > span { display: inline-block; opacity: 0; transform: translateY(0.65em); animation: word-in 0.7s var(--ease) forwards; }
   @keyframes word-in { to { opacity: 1; transform: none; } }
@@ -311,7 +320,7 @@
   .sol-head:focus-visible { outline-offset: -4px; }
   .sol-head { width: 100%; display: grid; grid-template-columns: 3.2rem 1fr auto; align-items: center; gap: 1.2rem; background: none; border: none; color: var(--ink); cursor: pointer; padding: 1.5rem 0; text-align: left; }
   .sol-idx { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); }
-  .sol-name { font-family: var(--display); font-size: clamp(1.25rem, 2.4vw, 1.7rem); font-weight: 700; }
+  .sol-name { font-family: var(--display); font-size: clamp(1.25rem, 2.4vw, 1.7rem); font-weight: 550; }
   .sol-plus { font-size: 1.6rem; font-weight: 300; color: var(--dim); transition: transform 0.3s var(--ease), color 0.3s; }
   .sol-item.open .sol-plus { transform: rotate(45deg); color: var(--accent); }
   .sol-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s var(--ease); }
@@ -343,7 +352,7 @@
     color: var(--accent-light); border: 1px solid rgba(46,134,255,0.35);
     border-radius: 5px; padding: 0.15rem 0.3rem; background: rgba(46,134,255,0.08);
   }
-  .depois b { font-size: 0.95rem; font-weight: 600; }
+  .depois b { font-size: 0.95rem; font-weight: 550; }
   .depois span { color: var(--muted); font-size: 0.87rem; }
 
   .depois-nao {
@@ -423,25 +432,25 @@
   .case-conf { display: inline-block; font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.7rem; margin-bottom: 0.9rem; }
   .case-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.9rem; }
   .case-meta span { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; color: var(--muted); background: var(--panel-2); border-radius: 999px; padding: 0.28rem 0.75rem; }
-  .case-card h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1.1rem; }
+  .case-card h3 { font-size: 1.5rem; font-weight: 550; margin-bottom: 1.1rem; }
   .case-fields { display: grid; gap: 0.8rem; margin-bottom: 1.1rem; }
   .case-fields div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.8rem; font-size: 0.92rem; }
   .case-fields dt { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); padding-top: 0.15rem; }
   .case-fields dd { color: var(--muted); }
   .case-metrics { display: grid; gap: 1rem; align-content: start; }
   /* Sem isto o rótulo e a descrição colam: "Canais comparáveisloja física". */
-  .case-metrics p b { display: block; font-weight: 700; color: var(--ink); }
+  .case-metrics p b { display: block; font-weight: 600; color: var(--ink); }
   .case-metrics p span { display: block; color: var(--muted); font-size: 0.88rem; margin-top: 0.2rem; }
   .case-metrics > p:not(.cm-k) { border-left: 2px solid var(--accent); padding-left: 0.9rem; }
   .metric { border-left: 2px solid var(--accent); padding-left: 1rem; }
-  .metric .num { font-family: var(--display); font-size: 2.1rem; font-weight: 800; color: var(--ink); line-height: 1; }
-  .metric .num-sm { font-family: var(--display); font-size: 1.15rem; font-weight: 800; color: var(--ink); }
+  .metric .num { font-family: var(--display); font-size: 2.1rem; font-weight: 500; color: var(--ink); line-height: 1; }
+  .metric .num-sm { font-family: var(--display); font-size: 1.15rem; font-weight: 550; color: var(--ink); }
   .metric .lbl { font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; }
-  .cases-more-head { font-size: 1.2rem; font-weight: 700; margin: 3rem 0 1.2rem; }
+  .cases-more-head { font-size: 1.2rem; font-weight: 500; margin: 3rem 0 1.2rem; }
   .case-mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
   .case-mini { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1.3rem; }
   .case-mini .sector { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-light); }
-  .case-mini h4 { font-size: 1.02rem; font-weight: 700; margin: 0.5rem 0 0.5rem; }
+  .case-mini h4 { font-size: 1.02rem; font-weight: 550; margin: 0.5rem 0 0.5rem; }
   .case-mini p { color: var(--muted); font-size: 0.87rem; margin-bottom: 0.8rem; }
   .case-mini .stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
   .case-mini .stack span { font-size: 0.68rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.55rem; }
@@ -468,7 +477,7 @@
   }
   .ad-lado { display: flex; flex-direction: column; gap: 0.15rem; }
   .ad-k { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
-  .ad-n { font-family: var(--display); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-top: 0.15rem; }
+  .ad-n { font-family: var(--display); font-size: 1.5rem; font-weight: 550; letter-spacing: -0.03em; line-height: 1.05; margin-top: 0.15rem; }
   .ad-d { font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-top: 0.15rem; }
   .ad-pos .ad-k { color: var(--accent-light); }
   .ad-pos .ad-n { color: var(--accent-light); }
@@ -492,7 +501,7 @@
   .m-step { padding: 1.6rem 1.2rem 0.4rem 1.2rem; border-right: 1px solid var(--paper-line); position: relative; }
   .m-step:last-child { border-right: none; }
   .m-step .n { font-family: var(--mono); font-size: 0.78rem; color: var(--accent-deep); }
-  .m-step h3 { font-size: 1.05rem; font-weight: 800; margin: 0.6rem 0 0.4rem; color: var(--paper-ink); }
+  .m-step h3 { font-size: 1.05rem; font-weight: 550; margin: 0.6rem 0 0.4rem; color: var(--paper-ink); }
   .m-step p { color: var(--paper-muted); font-size: 0.88rem; }
 
   /* ---------- Tecnologias ---------- */
@@ -506,15 +515,15 @@
   .clients p { text-align: center; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.6rem; }
   .marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
   .marquee-track { display: flex; gap: 3.2rem; width: max-content; animation: marquee 32s linear infinite; }
-  .marquee-track span { font-family: var(--display); font-weight: 700; font-size: 1.15rem; color: var(--dim); white-space: nowrap; }
+  .marquee-track span { font-family: var(--display); font-weight: 500; font-size: 1.15rem; color: var(--dim); white-space: nowrap; }
   @keyframes marquee { to { transform: translateX(-50%); } }
 
   /* ---------- Sobre ---------- */
   .about-grid { display: grid; grid-template-columns: 1fr 0.85fr; gap: 3.5rem; align-items: center; }
-  .about-lede { font-family: var(--display); font-size: 1.5rem; font-weight: 700; line-height: 1.35; margin-bottom: 1.2rem; max-width: 30ch; }
+  .about-lede { font-family: var(--display); font-size: 1.5rem; font-weight: 400; line-height: 1.35; margin-bottom: 1.2rem; max-width: 30ch; }
   .about-grid > div > p:not(.about-lede) { color: var(--muted); margin-bottom: 1rem; }
   .about-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin: 1.6rem 0; }
-  .about-stats .num { font-family: var(--display); font-size: 1.9rem; font-weight: 800; color: var(--ink); }
+  .about-stats .num { font-family: var(--display); font-size: 1.9rem; font-weight: 500; color: var(--ink); }
   .about-stats .lbl { font-size: 0.78rem; color: var(--dim); margin-top: 0.15rem; }
   .values { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-top: 1.4rem; }
   .values li span { font-size: 0.9rem; color: var(--muted); }
@@ -539,7 +548,7 @@
   .cta-final .wrap { position: relative; }
   .cta-final .eyebrow { justify-content: center; }
   .cta-final .eyebrow::before { display: none; }
-  .cta-final h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.9rem, 4vw, 2.8rem); margin: 1rem auto 0.8rem; max-width: 24ch; }
+  .cta-final h2 { font-family: var(--display); font-weight: 450; font-size: clamp(1.9rem, 4vw, 2.8rem); margin: 1rem auto 0.8rem; max-width: 24ch; }
   .cta-final .sub { margin: 0 auto 2rem; text-align: center; }
 
   /* ---------- Contato ---------- */
@@ -562,7 +571,7 @@
   .form.sent .form-success { display: grid; }
   .form.sent > *:not(.form-success) { visibility: hidden; }
   .form-success .ok { width: 52px; height: 52px; border-radius: 50%; background: rgba(46,134,255,0.15); color: var(--accent-light); display: grid; place-items: center; margin: 0 auto 1rem; }
-  .form-success h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .form-success h3 { font-size: 1.4rem; font-weight: 550; margin-bottom: 0.5rem; }
   .form-success p { color: var(--muted); font-size: 0.95rem; max-width: 24rem; }
 
   /* ---------- Footer ---------- */
@@ -826,7 +835,7 @@
   .sol:hover, .sol:focus-within { border-color: rgba(46,134,255,0.5); transform: translateY(-3px); }
   .sol:hover::after, .sol:focus-within::after { opacity: 1; }
   .sol-n { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--accent); }
-  .sol-t { font-family: var(--display); font-size: clamp(1.15rem, 2.1vw, 1.45rem); font-weight: 700; margin: 0.5rem 0 0.5rem; }
+  .sol-t { font-family: var(--display); font-size: clamp(1.15rem, 2.1vw, 1.45rem); font-weight: 550; margin: 0.5rem 0 0.5rem; }
   .sol-d { color: var(--muted); font-size: 0.94rem; }
   /* O detalhe abre no hover no desktop; no toque fica sempre visível,
      porque lá não existe hover para revelar nada. */
@@ -864,7 +873,7 @@
   .tl-step.on::before { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 4px rgba(46,134,255,0.16); }
   .tl-n { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.18em; color: var(--dim); transition: color 0.4s var(--ease); }
   .tl-step.on .tl-n { color: var(--accent-light); }
-  .tl-t { font-family: var(--display); font-size: clamp(1.2rem, 2.2vw, 1.6rem); font-weight: 700; margin: 0.3rem 0 0.4rem; }
+  .tl-t { font-family: var(--display); font-size: clamp(1.2rem, 2.2vw, 1.6rem); font-weight: 550; margin: 0.3rem 0 0.4rem; }
   .tl-d { color: var(--muted); max-width: 40rem; }
 
   /* ---------- Diferenciais ---------- */
@@ -873,13 +882,13 @@
   .pillar { border: 1px solid var(--line); border-radius: 14px; padding: 1.5rem; background: var(--panel); transition: border-color 0.4s var(--ease), transform 0.4s var(--ease); }
   .pillar:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
   .pillar-k { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; color: var(--accent); }
-  .pillar h3 { font-size: 1.15rem; font-weight: 700; margin: 0.55rem 0 0.45rem; }
+  .pillar h3 { font-size: 1.15rem; font-weight: 550; margin: 0.55rem 0 0.45rem; }
   .pillar p { color: var(--muted); font-size: 0.93rem; }
 
   /* ---------- Números reais ---------- */
   .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.4rem; }
   .num { border-top: 2px solid var(--line); padding-top: 1.1rem; }
-  .num b { display: block; font-family: var(--display); font-size: clamp(2rem, 4vw, 2.9rem); font-weight: 800; letter-spacing: -0.04em; color: var(--accent-light); }
+  .num b { display: block; font-family: var(--display); font-size: clamp(2rem, 4vw, 2.9rem); font-weight: 500; letter-spacing: -0.04em; color: var(--accent-light); }
   .num span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
 
 
@@ -919,7 +928,7 @@
     width: 1.7rem; height: 1.7rem; display: grid; place-items: center; border-radius: 6px;
     border: 1px solid rgba(46,134,255,0.35); background: rgba(46,134,255,0.08);
   }
-  .pilar-t { font-family: var(--display); font-size: 1.12rem; font-weight: 700; letter-spacing: -0.024em; margin-top: 0.35rem; }
+  .pilar-t { font-family: var(--display); font-size: 1.12rem; font-weight: 550; letter-spacing: -0.024em; margin-top: 0.35rem; }
   .pilar-d { color: var(--muted); font-size: 0.88rem; }
   .pilar-list { list-style: none; padding: 0; margin: 0.4rem 0 0; display: grid; gap: 0.4rem; }
   .pilar-list li {
@@ -979,14 +988,14 @@
   }
   .ess-texto { display: flex; flex-direction: column; align-items: flex-start; }
   .ess-texto h2 {
-    font-size: clamp(1.75rem, 3.1vw, 2.55rem); font-weight: 600;
+    font-size: clamp(1.75rem, 3.1vw, 2.55rem); font-weight: 450;
     letter-spacing: -0.024em; line-height: 1.12; margin: 1.1rem 0 1rem; max-width: 20ch;
   }
   .ess-texto > p { color: var(--muted); font-size: 1rem; max-width: 46ch; }
   .ess-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; padding-top: 1.8rem; }
   .ess-chips span {
     background: var(--panel-2); border: 1px solid var(--line);
-    border-radius: 10px; padding: 0.7rem 1.1rem; font-family: var(--display); font-weight: 600;
+    border-radius: 10px; padding: 0.7rem 1.1rem; font-family: var(--display); font-weight: 550;
     font-size: 0.92rem; transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
   }
   .ess-chips span:hover { border-color: rgba(46,134,255,0.45); color: var(--accent-light); }
@@ -1008,7 +1017,7 @@
   .tile-cat { font-family: var(--mono); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-align: right; }
   /* 600, o mesmo peso das chamadas do site. Em 800 o número ficava pesado
      demais ao lado de um h2 mais leve que ele. */
-  .tile b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.3vw, 2.6rem); font-weight: 600; letter-spacing: -0.035em; color: var(--ink); line-height: 1; }
+  .tile b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.3vw, 2.6rem); font-weight: 500; letter-spacing: -0.035em; color: var(--ink); line-height: 1; }
   .tile > span { display: block; color: var(--muted); font-size: 0.89rem; margin-top: 0.65rem; }
 
   /* ---------- Faixa de destaque ---------- */
@@ -1020,7 +1029,7 @@
     padding: clamp(1.8rem, 4vw, 3.2rem);
     display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 2rem; align-items: center;
   }
-  .banner h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 600; margin: 1.1rem 0 1rem; max-width: 24ch; }
+  .banner h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 450; margin: 1.1rem 0 1rem; max-width: 24ch; }
   .banner p { color: var(--muted); font-size: 0.99rem; max-width: 46ch; }
   .banner-cta { display: flex; justify-content: flex-end; }
 
@@ -1042,7 +1051,7 @@
   .sol-item[aria-selected="true"] .sol-ico { background: var(--accent); border-color: var(--accent); }
   .sol-item[aria-selected="true"] .sol-ico svg { stroke: #fff; }
   .sol-k { font-family: var(--mono); font-size: 0.64rem; font-weight: 500; letter-spacing: 0.17em; text-transform: uppercase; color: var(--accent); display: block; }
-  .sol-t { font-family: var(--display); font-size: 1.05rem; font-weight: 700; display: block; margin-top: 0.2rem; }
+  .sol-t { font-family: var(--display); font-size: 1.05rem; font-weight: 550; display: block; margin-top: 0.2rem; }
   .sol-arr { width: 2rem; height: 2rem; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); color: var(--dim); font-size: 0.85rem; transition: all 0.3s var(--ease); }
   .sol-item[aria-selected="true"] .sol-arr { background: rgba(46,134,255,0.16); border-color: rgba(46,134,255,0.45); color: var(--accent-light); }
   .sol-panel {
@@ -1063,7 +1072,7 @@
     opacity: 0.12; pointer-events: none; z-index: 0;
   }
   .sol-panel > * { position: relative; z-index: 1; }
-  .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 600; margin: 1.1rem 0 1rem; }
+  .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 500; margin: 1.1rem 0 1rem; }
   .sol-panel > p { color: var(--muted); font-size: 1rem; }
   .sol-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.3rem; }
   .sol-tags span { font-size: 0.74rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0.32rem 0.75rem; }
@@ -1154,6 +1163,27 @@
   :root[data-tema="claro"] .pillar,
   :root[data-tema="claro"] .pilar,
   :root[data-tema="claro"] .banner { box-shadow: var(--sombra); }
+
+  /* ---------- Aviso de cookies ---------- */
+  /* Canto inferior esquerdo: o direito é do Átis. Não bloqueia a página —
+     quem quiser ler antes de escolher, lê. */
+  .cookies {
+    position: fixed; left: 1.3rem; bottom: 1.3rem; z-index: 151;
+    width: min(26rem, calc(100vw - 2.6rem));
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    box-shadow: 0 18px 50px -20px rgba(0,0,0,0.45);
+    padding: 1.15rem 1.25rem;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .cookies.on { opacity: 1; transform: none; }
+  .cookies-t { display: flex; align-items: center; gap: 0.5rem; font-family: var(--display); font-weight: 600; font-size: 0.95rem; color: var(--ink); margin-bottom: 0.5rem; }
+  .cookies-t svg { width: 1.05rem; height: 1.05rem; stroke: var(--accent); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .cookies-d { color: var(--muted); font-size: 0.87rem; line-height: 1.55; }
+  .cookies-d a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  .cookies-acoes { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1rem; }
+  .cookies-acoes .btn { font-size: 0.85rem; padding: 0.6rem 1.1rem; }
+  @media (max-width: 520px) { .cookies { left: 0.9rem; right: 0.9rem; bottom: 0.9rem; width: auto; } }
 
   /* ---------- Alternador de tema ---------- */
   /* Vive no cabeçalho, ao lado do idioma. Antes flutuava no canto inferior
@@ -1274,7 +1304,7 @@
   .mega-card:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-2px); }
   .mega-card .tile-ico { width: 2.4rem; height: 2.4rem; }
   .mega-card .tile-ico svg { width: 1.2rem; height: 1.2rem; }
-  .mega-card b { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-family: var(--display); font-size: 0.97rem; font-weight: 700; }
+  .mega-card b { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-family: var(--display); font-size: 0.97rem; font-weight: 600; }
   .mega-card p { color: var(--muted); font-size: 0.86rem; margin-top: 0.3rem; line-height: 1.5; }
   .mega-tag { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.3); border-radius: 999px; padding: 0.14rem 0.5rem; }
 
@@ -1289,13 +1319,13 @@
     transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
   }
   .mega-cam a:hover { border-color: rgba(46,134,255,0.45); transform: translateX(2px); }
-  .mega-cam b { display: block; font-family: var(--display); font-size: 0.9rem; font-weight: 700; }
+  .mega-cam b { display: block; font-family: var(--display); font-size: 0.9rem; font-weight: 600; }
   .mega-cam span { display: block; color: var(--muted); font-size: 0.8rem; margin-top: 0.1rem; line-height: 1.45; }
   .mega-cam i { font-style: normal; color: var(--dim); }
   .mega-side .btn { width: 100%; justify-content: center; }
   .mega-side .btn + .btn { margin-top: 0.5rem; }
   .mega-prova { margin-top: 1rem; color: var(--dim); font-size: 0.78rem; line-height: 1.7; text-align: center; }
-  .mega-prova b { color: var(--ink); font-weight: 700; }
+  .mega-prova b { color: var(--ink); font-weight: 600; }
   .mega-prova i { font-style: normal; opacity: 0.5; margin: 0 0.25rem; }
 
   .mega-fechar {
@@ -1387,7 +1417,7 @@
   .cc-art img { width: 100%; height: 190px; object-fit: cover; display: block; }
   .cc-corpo { padding: 1.4rem 1.4rem 1.3rem; display: grid; grid-template-rows: auto auto 1fr auto auto auto; gap: 0.6rem; }
   .cc-setor { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
-  .cc-t { font-size: 1.16rem; font-weight: 600; line-height: 1.25; }
+  .cc-t { font-size: 1.16rem; font-weight: 550; line-height: 1.25; }
   .cc-cap { color: var(--muted); font-size: 0.91rem; line-height: 1.55; }
   .cc-ad { display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.7rem; }
   .cc-ad .cc-a { color: var(--dim); }
@@ -1717,6 +1747,19 @@
     </button>
   </div>
 </div>
+<div class="cookies" id="cookies" role="dialog" aria-labelledby="cookies-t" hidden>
+  <p class="cookies-t" id="cookies-t">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="9.5" cy="10" r="1.1" fill="currentColor" stroke="none"/><circle cx="14.5" cy="13.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="10" cy="15.5" r="1.1" fill="currentColor" stroke="none"/></svg>
+    Cookies
+  </p>
+  <p class="cookies-d">Este site funciona sem cookies de rastreamento. Com a sua permissão, usamos o Google Analytics para medir visitas de forma agregada. Você escolhe, e pode mudar depois.</p>
+  <p class="cookies-d"><a href="/privacidade.html">Saiba mais</a></p>
+  <div class="cookies-acoes">
+    <button class="btn btn-accent" type="button" id="cookies-sim">Aceitar</button>
+    <button class="btn btn-line" type="button" id="cookies-nao">Recusar</button>
+  </div>
+</div>
+
 <!-- /chat -->
 <script>
 (function () {
@@ -2345,6 +2388,37 @@
       es.forEach(function (e) { e.isIntersecting ? tocar() : pausar(); });
     }, { threshold: 0.25 }).observe(trilho);
   } else { tocar(); }
+})();
+</script>
+
+<script>
+/* ---------- Aviso de cookies ---------- */
+(function () {
+  var caixa = document.getElementById('cookies');
+  if (!caixa || !window.AtlasCookies) return;
+  var sim = document.getElementById('cookies-sim');
+  var nao = document.getElementById('cookies-nao');
+
+  function mostrar() {
+    caixa.hidden = false;
+    /* um quadro entre revelar e animar, senão a transição não roda */
+    requestAnimationFrame(function () { caixa.classList.add('on'); });
+  }
+  function esconder() {
+    caixa.classList.remove('on');
+    setTimeout(function () { caixa.hidden = true; }, 420);
+  }
+
+  /* Só aparece para quem ainda não escolheu. Com um respiro, para não
+     disputar a atenção com o primeiro quadro da página. */
+  if (!AtlasCookies.estado()) setTimeout(mostrar, 1200);
+
+  sim.addEventListener('click', function () { AtlasCookies.aceitar(); esconder(); });
+  nao.addEventListener('click', function () { AtlasCookies.recusar(); esconder(); });
+
+  /* A política de privacidade traz um botão para rever a escolha. */
+  var rever = document.getElementById('cookies-rever');
+  if (rever) rever.addEventListener('click', function () { AtlasCookies.reabrir(); mostrar(); });
 })();
 </script>
 

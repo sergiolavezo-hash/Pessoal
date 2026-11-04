@@ -38,7 +38,7 @@
   var FORA   = { SCRIPT:1, STYLE:1, SVG:1, CANVAS:1, NOSCRIPT:1, TEMPLATE:1 };
   /* alt entra aqui: a descrição de uma imagem é texto que alguém lê. */
   var ATRIBS = ['placeholder', 'aria-label', 'title', 'alt'];
-  var ESCOPO = 'header, main, footer, nav, .mega, .chat-panel, .chat-teaser, .cbar, .skip-link';
+  var ESCOPO = 'header, main, footer, nav, .mega, .chat-panel, .chat-teaser, .cbar, .skip-link, .cookies';
 
   function norm(s) { return (s || '').replace(/\s+/g, ' ').trim(); }
 
