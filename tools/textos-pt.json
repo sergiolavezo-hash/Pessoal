@@ -1,5 +1,5 @@
 {
- "total": 706,
+ "total": 705,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -305,11 +305,6 @@
    "chave": "Dados, BI, engenharia e IA. Da arquitetura à decisão, em produção — com os especialistas para tocar o projeto dentro do seu time.",
    "tag": "p",
    "cls": "sub reveal d2 in"
-  },
-  {
-   "chave": "Conhecer nossas soluções <span class=\"arr\">→</span>",
-   "tag": "a",
-   "cls": "btn btn-line"
   },
   {
    "chave": "Setores onde já transformamos dados em decisão",
@@ -655,11 +650,6 @@
    "chave": "Marcas e nomes de programa pertencem aos respectivos fabricantes.",
    "tag": "p",
    "cls": "parc-nota reveal d3"
-  },
-  {
-   "chave": "Histórias de sucesso",
-   "tag": "span",
-   "cls": "pill"
   },
   {
    "chave": "Investindo no sucesso dos nossos clientes",
@@ -1235,6 +1225,11 @@
    "chave": "Parceiros",
    "tag": "span#texto",
    "cls": "pill reveal"
+  },
+  {
+   "chave": "Histórias de sucesso",
+   "tag": "span#texto",
+   "cls": "pill"
   },
   {
    "chave": "Data · AI · Cloud",

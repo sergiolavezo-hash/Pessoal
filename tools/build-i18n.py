@@ -49,8 +49,6 @@ TRAD = {
   'Contato': ('Contact', 'Contacto'),
   'Falar com um especialista <span class="arr">→</span>':
     ('Talk to a specialist <span class="arr">→</span>', 'Hablar con un especialista <span class="arr">→</span>'),
-  'Conhecer nossas soluções <span class="arr">→</span>':
-    ('Explore our solutions <span class="arr">→</span>', 'Conocer nuestras soluciones <span class="arr">→</span>'),
   'Ver todos os cases <span class="arr">→</span>':
     ('See all case studies <span class="arr">→</span>', 'Ver todos los casos <span class="arr">→</span>'),
 
