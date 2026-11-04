@@ -466,7 +466,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     ant.addEventListener('click', function () { parar(); ir(i - 1); });
     prox.addEventListener('click', function () { parar(); ir(i + 1); });
-    trilho.addEventListener('pointerdown', parar);
+    /* Mesmo motivo do carrossel da home: no celular o dedo encosta aqui
+       toda vez que alguém rola a página, e tratar isso como comando matava
+       o giro automático. Só arrasto horizontal de verdade para o carrossel.
+       A distância vem do pointermove porque o pointercancel costuma trazer
+       a coordenada de onde o dedo começou. */
+    var ARRASTO = 30, tx = 0, ty = 0, dedoNoTrilho = false, dx = 0, dy = 0;
+    trilho.addEventListener('pointerdown', function (e) {
+      tx = e.clientX; ty = e.clientY; dx = dy = 0; dedoNoTrilho = true; pausar();
+    });
+    trilho.addEventListener('pointermove', function (e) {
+      if (!dedoNoTrilho) return;
+      dx = Math.max(dx, Math.abs(e.clientX - tx));
+      dy = Math.max(dy, Math.abs(e.clientY - ty));
+    }, { passive: true });
+    ['pointerup', 'pointercancel'].forEach(function (ev) {
+      trilho.addEventListener(ev, function () {
+        if (!dedoNoTrilho) return;
+        dedoNoTrilho = false;
+        if (dx > ARRASTO && dx > dy) parar(); else tocar();
+      });
+    });
     ['pointerenter', 'focusin'].forEach(function (ev) { trilho.parentNode.addEventListener(ev, pausar); });
     ['pointerleave', 'focusout'].forEach(function (ev) { trilho.parentNode.addEventListener(ev, tocar); });
     document.addEventListener('visibilitychange', function () { document.hidden ? pausar() : tocar(); });

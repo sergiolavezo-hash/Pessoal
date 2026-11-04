@@ -2372,7 +2372,35 @@
 
   ant.addEventListener('click', function () { parar(); ir(i - 1); });
   prox.addEventListener('click', function () { parar(); ir(i + 1); });
-  trilho.addEventListener('pointerdown', parar);
+  /* Encostar não é comandar. No celular o carrossel ocupa quase 60% da
+     altura da tela, então o dedo passa por cima dele toda vez que alguém
+     rola a página — e tratar isso como "assumi o controle" matava o avanço
+     automático antes de o visitante ver o primeiro giro. Só arrasto
+     horizontal de verdade conta como comando: o resto pausa e volta.
+     A maior distância percorrida é medida no pointermove porque o
+     pointercancel (que é o que chega quando o navegador assume a rolagem)
+     costuma trazer a coordenada de onde o dedo começou, não de onde parou. */
+  var ARRASTO = 30;
+  var tx = 0, ty = 0, dedoNoTrilho = false, dx = 0, dy = 0;
+
+  trilho.addEventListener('pointerdown', function (e) {
+    tx = e.clientX; ty = e.clientY; dx = dy = 0;
+    dedoNoTrilho = true;
+    pausar();
+  });
+  trilho.addEventListener('pointermove', function (e) {
+    if (!dedoNoTrilho) return;
+    dx = Math.max(dx, Math.abs(e.clientX - tx));
+    dy = Math.max(dy, Math.abs(e.clientY - ty));
+  }, { passive: true });
+  ['pointerup', 'pointercancel'].forEach(function (ev) {
+    trilho.addEventListener(ev, function () {
+      if (!dedoNoTrilho) return;
+      dedoNoTrilho = false;
+      if (dx > ARRASTO && dx > dy) parar();   /* arrastou o carrossel de lado */
+      else tocar();                            /* só encostou, ou rolou a página */
+    });
+  });
   ['pointerenter', 'focusin'].forEach(function (e) { trilho.parentNode.addEventListener(e, pausar); });
   ['pointerleave', 'focusout'].forEach(function (e) { trilho.parentNode.addEventListener(e, tocar); });
   document.addEventListener('visibilitychange', function () { document.hidden ? pausar() : tocar(); });
