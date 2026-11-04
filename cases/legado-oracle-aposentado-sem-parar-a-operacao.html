@@ -993,7 +993,7 @@
   }
   /* Sem fundo e sem salto no hover: era o que fazia cada número parecer um
      cartão independente em vez de uma coluna de quatro leituras. */
-  .tile { border: 1px solid var(--line-soft); border-radius: 14px; padding: 1.4rem 1.45rem; transition: border-color 0.35s var(--ease); }
+  .tile { background: var(--panel); border: 1px solid var(--line-soft); border-radius: 14px; padding: 1.4rem 1.45rem; transition: border-color 0.35s var(--ease); }
   .tile:hover { border-color: rgba(46,134,255,0.32); }
   .tile-top { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 1.35rem; }
   .tile-ico { width: 2.5rem; height: 2.5rem; display: grid; place-items: center; border-radius: 11px; background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.2); }
@@ -1002,7 +1002,7 @@
   /* 600, o mesmo peso das chamadas do site. Em 800 o número ficava pesado
      demais ao lado de um h2 mais leve que ele. */
   .tile b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.3vw, 2.6rem); font-weight: 600; letter-spacing: -0.035em; color: var(--ink); line-height: 1; }
-  .tile span { display: block; color: var(--muted); font-size: 0.89rem; margin-top: 0.65rem; }
+  .tile > span { display: block; color: var(--muted); font-size: 0.89rem; margin-top: 0.65rem; }
 
   /* ---------- Faixa de destaque ---------- */
   .banner {
@@ -1018,8 +1018,10 @@
   .banner-cta { display: flex; justify-content: flex-end; }
 
   /* ---------- Soluções: lista 01–04 + painel ---------- */
-  .sol { display: grid; grid-template-columns: 0.88fr 1.12fr; gap: 1.2rem; margin-top: 2.6rem; align-items: start; }
-  .sol-list { display: grid; gap: 0.7rem; }
+  /* stretch, não start: a lista parava 98px antes do fim do painel e
+     sobrava um rodapé vazio embaixo do quarto item. */
+  .sol { display: grid; grid-template-columns: 0.88fr 1.12fr; gap: 1.2rem; margin-top: 2.6rem; align-items: stretch; }
+  .sol-list { display: grid; gap: 0.7rem; grid-auto-rows: 1fr; }
   .sol-item {
     display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; width: 100%;
     text-align: left; background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
@@ -1036,7 +1038,24 @@
   .sol-t { font-family: var(--display); font-size: 1.05rem; font-weight: 700; display: block; margin-top: 0.2rem; }
   .sol-arr { width: 2rem; height: 2rem; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); color: var(--dim); font-size: 0.85rem; transition: all 0.3s var(--ease); }
   .sol-item[aria-selected="true"] .sol-arr { background: rgba(46,134,255,0.16); border-color: rgba(46,134,255,0.45); color: var(--accent-light); }
-  .sol-panel { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem); min-height: 100%; display: flex; flex-direction: column; }
+  .sol-panel {
+    position: relative; overflow: hidden;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 18px;
+    padding: clamp(1.6rem, 3vw, 2.4rem); min-height: 100%; display: flex; flex-direction: column;
+  }
+  /* A pílula abraça o próprio texto. Num flex em coluna o filho ocupa a
+     largura inteira se ninguém disser o contrário — e ela virava uma faixa
+     atravessando o painel de ponta a ponta. */
+  .sol-panel > .pill { align-self: flex-start; }
+  /* Grafismo no canto que sobrava, na gramática dos ícones da casa: traço
+     1,6 e ponta redonda. Fica atrás do conteúdo e não recebe clique. */
+  .sol-panel::after {
+    content: ''; position: absolute; right: -0.5rem; bottom: -0.7rem;
+    width: clamp(9rem, 16vw, 13.5rem); aspect-ratio: 240 / 150;
+    background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><rect x=%2218%22 y=%22104%22 width=%2226%22 height=%2234%22 rx=%223%22/><rect x=%2258%22 y=%2286%22 width=%2226%22 height=%2252%22 rx=%223%22/><rect x=%2298%22 y=%2262%22 width=%2226%22 height=%2276%22 rx=%223%22/><rect x=%22138%22 y=%2238%22 width=%2226%22 height=%22100%22 rx=%223%22/><path d=%22M18 92 71 70l40-26 44-22 40-10%22/><circle cx=%2218%22 cy=%2292%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/><circle cx=%2271%22 cy=%2270%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/><circle cx=%22111%22 cy=%2244%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/><circle cx=%22155%22 cy=%2222%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/><circle cx=%22195%22 cy=%2212%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/></svg>") no-repeat right bottom / contain;
+    opacity: 0.12; pointer-events: none; z-index: 0;
+  }
+  .sol-panel > * { position: relative; z-index: 1; }
   .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 600; margin: 1.1rem 0 1rem; }
   .sol-panel > p { color: var(--muted); font-size: 1rem; }
   .sol-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.3rem; }
@@ -1120,6 +1139,7 @@
   :root[data-tema="claro"] .eyebrow.on-paper::before { background: var(--accent-deep); }
   /* O branco puro dos cartões pede uma sombra no lugar do contorno
      que no escuro vinha do próprio fundo. */
+  :root[data-tema="claro"] .tile,
   :root[data-tema="claro"] .sol-panel,
   :root[data-tema="claro"] .sol-item,
   :root[data-tema="claro"] .case-card,
