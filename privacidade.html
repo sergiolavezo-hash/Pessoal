@@ -954,7 +954,11 @@
 
 
   /* ---------- Hero centralizado ---------- */
-  .hero-c { min-height: 100svh; display: grid; align-items: center; padding: 9rem 0 7rem; }
+  /* O bloco é centrado dentro da área com respiro, então a diferença
+     entre o respiro de cima e o de baixo desloca o texto por metade
+     dela. Com o botão fora do hero, mais respiro embaixo que em cima
+     puxa a chamada para cima sem mexer no tamanho de nada. */
+  .hero-c { min-height: 100svh; display: grid; align-items: center; padding: 7rem 0 11rem; }
   .hero-c .wrap > div { max-width: 56rem; margin: 0 auto; text-align: center; }
   .hero-c h1 { max-width: 20ch; margin-left: auto; margin-right: auto; }
   .hero-c h1 .ac { color: var(--accent-light); }
