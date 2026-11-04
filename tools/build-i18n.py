@@ -189,8 +189,10 @@ TRAD.update({
   'Setores atendidos': ('Industries served', 'Sectores atendidos'),
 
   # ---------------- essência e valores ----------------
-  'Nossa essência': ('Our essence', 'Nuestra esencia'),
-  'Nossos valores': ('Our values', 'Nuestros valores'),
+  'Atlas em números': ('Atlas by the numbers', 'Atlas en números'),
+  'Não é promessa. É o que já foi entregue.':
+    ('Not a promise. It is what has already been delivered.',
+     'No es promesa. Es lo que ya fue entregado.'),
   'A Atlas é uma consultoria de tecnologia em dados e alocação de especialistas. Da engenharia à decisão, em produção.':
     ('Atlas is a technology consultancy in data and specialist staffing. From engineering to decision, in production.',
      'Atlas es una consultoría de tecnología en datos y asignación de especialistas. De la ingeniería a la decisión, en producción.'),

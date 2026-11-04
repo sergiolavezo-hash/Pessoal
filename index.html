@@ -1003,35 +1003,44 @@
   }
   .rail .marquee { min-width: 0; mask-image: linear-gradient(90deg, #000 0, #000 94%, transparent); }
 
-  /* ---------- Essência: duas colunas desiguais ---------- */
-  /* align-items:start porque os dois cartões não têm o mesmo tanto de
-     texto: esticados até a altura do vizinho, o mais curto ficava com um
-     vão de quase 300px entre o parágrafo e os chips. */
-  .ess { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 1.2rem; align-items: start; }
-  .ess-card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.6rem, 3vw, 2.4rem); display: flex; flex-direction: column; }
-  .ess-card h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 600; margin: 1.1rem 0 0.9rem; }
-  .ess-card > p { color: var(--muted); font-size: 0.99rem; }
-  .ess-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; padding-top: 1.6rem; }
+  /* ---------- Essência: um bloco só, não dois ---------- */
+  /* O cartão branco à esquerda tinha contorno próprio e por isso lia como
+     peça de outra seção; os quatro ladrilhos ao lado, cada um com fundo e
+     salto no hover, liam como quatro coisas soltas. Agora a esquerda é
+     texto corrido e a direita é um bloco só: uma régua fina separa as duas,
+     em vez de duas molduras disputando. */
+  .ess { display: grid; grid-template-columns: 0.88fr 1.12fr; gap: clamp(1.6rem, 3.6vw, 2.9rem); align-items: center; }
+  .ess-texto { display: flex; flex-direction: column; align-items: flex-start; }
+  .ess-texto h2 {
+    font-size: clamp(1.75rem, 3.1vw, 2.55rem); font-weight: 600;
+    letter-spacing: -0.024em; line-height: 1.12; margin: 1.1rem 0 1rem; max-width: 20ch;
+  }
+  .ess-texto > p { color: var(--muted); font-size: 1rem; max-width: 46ch; }
+  .ess-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; padding-top: 1.8rem; }
   .ess-chips span {
-    flex: 1 1 auto; text-align: center; background: var(--panel-2); border: 1px solid var(--line);
-    border-radius: 10px; padding: 0.7rem 0.9rem; font-family: var(--display); font-weight: 700;
+    background: var(--panel-2); border: 1px solid var(--line);
+    border-radius: 10px; padding: 0.7rem 1.1rem; font-family: var(--display); font-weight: 600;
     font-size: 0.92rem; transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
   }
   .ess-chips span:hover { border-color: rgba(46,134,255,0.45); color: var(--accent-light); }
-  .ess-foot { border-top: 1px solid var(--line-soft); margin-top: 1.6rem; padding-top: 1.2rem; color: var(--dim); font-size: 0.88rem; }
 
-  /* ---------- Ladrilhos de números ---------- */
-  /* 2x2 ao lado dos valores, não mais uma faixa de quatro: é a coluna
-     direita da linha de essência. */
-  .tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
-  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem; transition: border-color 0.35s var(--ease), transform 0.35s var(--ease); }
-  .tile:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
-  .tile-top { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 1.5rem; }
-  .tile-ico { width: 2.7rem; height: 2.7rem; display: grid; place-items: center; border-radius: 11px; background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.24); }
-  .tile-ico svg { width: 1.35rem; height: 1.35rem; stroke: var(--accent); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-  .tile-cat { font-family: var(--mono); font-size: 0.64rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); text-align: right; }
-  .tile b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.4vw, 2.7rem); font-weight: 800; letter-spacing: -0.04em; color: var(--ink); line-height: 1; }
-  .tile span { display: block; color: var(--muted); font-size: 0.89rem; margin-top: 0.6rem; }
+  /* ---------- Os números, como um bloco só ---------- */
+  .tiles {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem;
+    border-left: 1px solid var(--line); padding-left: clamp(1.6rem, 3.6vw, 2.9rem);
+  }
+  /* Sem fundo e sem salto no hover: era o que fazia cada número parecer um
+     cartão independente em vez de uma coluna de quatro leituras. */
+  .tile { border: 1px solid var(--line-soft); border-radius: 14px; padding: 1.4rem 1.45rem; transition: border-color 0.35s var(--ease); }
+  .tile:hover { border-color: rgba(46,134,255,0.32); }
+  .tile-top { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 1.35rem; }
+  .tile-ico { width: 2.5rem; height: 2.5rem; display: grid; place-items: center; border-radius: 11px; background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.2); }
+  .tile-ico svg { width: 1.25rem; height: 1.25rem; stroke: var(--accent); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .tile-cat { font-family: var(--mono); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); text-align: right; }
+  /* 600, o mesmo peso das chamadas do site. Em 800 o número ficava pesado
+     demais ao lado de um h2 mais leve que ele. */
+  .tile b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.3vw, 2.6rem); font-weight: 600; letter-spacing: -0.035em; color: var(--ink); line-height: 1; }
+  .tile span { display: block; color: var(--muted); font-size: 0.89rem; margin-top: 0.65rem; }
 
   /* ---------- Faixa de destaque ---------- */
   .banner {
@@ -1084,6 +1093,8 @@
 
   @media (max-width: 1000px) {
     .ess, .sol, .banner, .head2 { grid-template-columns: 1fr; }
+    /* empilhado, a régua que separava as colunas passa a separar as linhas */
+    .tiles { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 1.8rem; }
     .banner-cta { justify-content: flex-start; }
     .head2 { align-items: start; }
 
@@ -1147,8 +1158,6 @@
   :root[data-tema="claro"] .eyebrow.on-paper::before { background: var(--accent-deep); }
   /* O branco puro dos cartões pede uma sombra no lugar do contorno
      que no escuro vinha do próprio fundo. */
-  :root[data-tema="claro"] .tile,
-  :root[data-tema="claro"] .ess-card,
   :root[data-tema="claro"] .sol-panel,
   :root[data-tema="claro"] .sol-item,
   :root[data-tema="claro"] .case-card,
@@ -1630,12 +1639,9 @@
     <div class="wrap">
 
       <div class="ess reveal">
-        <article class="ess-card">
-          <span class="pill">
-            <span data-ico="essencia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-6.5-4.4-6.5-9.5a6.5 6.5 0 0 1 13 0c0 5.1-6.5 9.5-6.5 9.5Z"/><circle cx="12" cy="11" r="2.2"/></svg></span>
-            Nossa essência
-          </span>
-          <h2>Nossos valores</h2>
+        <div class="ess-texto">
+          <span class="eyebrow">Atlas em números</span>
+          <h2>Não é promessa. É o que já foi entregue.</h2>
           <p>
             A Atlas é uma consultoria de tecnologia em dados e alocação de
             especialistas. Da engenharia à decisão, em produção.
@@ -1645,7 +1651,7 @@
             <span>Resultado</span>
             <span>Parceria</span>
           </div>
-        </article>
+        </div>
 
         <div class="tiles">
         <div class="tile">
