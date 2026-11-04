@@ -1,5 +1,5 @@
 {
- "total": 646,
+ "total": 648,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -363,6 +363,16 @@
   },
   {
    "chave": "Infraestrutura &amp; Mobilidade",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Seguros",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Holding",
    "tag": "span",
    "cls": ""
   },

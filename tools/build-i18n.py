@@ -448,6 +448,8 @@ TRAD.update({
   'Saúde &amp; Diagnóstico': ('Healthcare &amp; Diagnostics', 'Salud &amp; Diagnóstico'),
   'Educação': ('Education', 'Educación'),
   'Turismo': ('Tourism', 'Turismo'),
+  'Seguros': ('Insurance', 'Seguros'),
+  'Holding': ('Holding companies', 'Holdings'),
   'Food Service': ('Food Service', 'Food Service'),
   'Infraestrutura &amp; Mobilidade': ('Infrastructure &amp; Mobility', 'Infraestructura &amp; Movilidad'),
   'Saúde Hospitalar': ('Hospital Healthcare', 'Salud Hospitalaria'),
