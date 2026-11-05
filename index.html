@@ -1058,7 +1058,20 @@
      e não como uma fresta que parece corte acidental. Abaixo de ~760px
      de altura o respiro vira o piso e o hero ignora o svh, que é o que
      evita a chamada apertada em telas baixas. */
-  .hero-c { min-height: 82svh; display: grid; align-items: center; padding: 6rem 0 9rem; }
+  /* A altura reserva espaco para o trilho de setores em vez de empurra-lo
+     para fora. Com uma fracao fixa de svh o hero crescia junto com a tela
+     e o trilho ficava sempre cortado: media -12px a 1080 de altura, -35 a
+     955, -45 a 900 e -104 a 768. Descontando o cabecalho (5rem), o trilho
+     (126px, 8rem com folga) e 2rem de respiro, sobra a mesma margem em
+     qualquer altura. O piso continua sendo o conteudo: 425px mais o
+     respiro, e abaixo de 820px de altura o respiro encolhe para o piso
+     nao estourar a dobra em notebook de 768. */
+  .hero-c { min-height: calc(100svh - 5rem - 8rem - 2rem); display: grid; align-items: center; padding: 4rem 0 5rem; }
+  @media (max-height: 820px) { .hero-c { padding: 3rem 0 4rem; } }
+  /* Em 720 de altura nem esse respiro cabe: 425 de conteudo mais 112 dao
+     537, e so ha 514 depois do cabecalho e do trilho. Encolhe mais um
+     degrau para o trilho continuar inteiro no notebook antigo. */
+  @media (max-height: 740px) { .hero-c { padding: 2rem 0 2.5rem; } }
   .hero-c .wrap > div { max-width: 56rem; margin: 0 auto; text-align: center; }
   .hero-c h1 { max-width: 20ch; margin-left: auto; margin-right: auto; }
   .hero-c h1 .ac { color: var(--accent-light); }
@@ -1756,7 +1769,7 @@
           Dados, BI, engenharia e IA. Da arquitetura à decisão, em produção —
           com os especialistas para tocar o projeto dentro do seu time.
         </p>
-        <a class="hero-cue reveal d3 in" href="#setores">
+        <a class="hero-cue reveal d3 in" href="#sobre">
           Descubra mais da Atlas
           <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </a>
