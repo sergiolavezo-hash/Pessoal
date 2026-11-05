@@ -615,7 +615,11 @@
   .footer ul { list-style: none; display: grid; gap: 0.55rem; }
   .footer ul a { color: var(--muted); text-decoration: none; font-size: 0.92rem; transition: color 0.2s; }
   .footer ul a:hover { color: var(--accent-light); }
-  .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.8rem; margin-top: 3rem; padding-top: 1.6rem; border-top: 1px solid var(--line-soft); font-size: 0.8rem; color: var(--dim); }
+  /* Sem o fio de cima: ele e var(--line-soft), a mesma familia de cor da
+     grade do fundo, sem fundo proprio nem canto arredondado para o
+     distinguir, e caia fora de fase (30 no index, 13,6 nos cases). A
+     separacao fica por conta dos 3rem de margem e 1,6rem de respiro. */
+  .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.8rem; margin-top: 3rem; padding-top: 1.6rem; font-size: 0.8rem; color: var(--dim); }
 
   @keyframes soft-pulse {
     0%, 100% { opacity: 0.55; transform: scale(1); }
@@ -844,7 +848,14 @@
 
   .sec-lead { max-width: 46rem; }
   .sec-lead .sub { margin-top: 1.1rem; }
-  .divider { height: 1px; background: var(--line-soft); margin: 0; }
+  /* Este divisor era um fio de 1px com fundo var(--line-soft), que no
+     tema escuro e rgba(244,243,239,0.055) — a grade do fundo e
+     rgba(244,243,239,0.05). Mesma cor, atravessando a tela inteira, e em
+     fase arbitraria: medido em y=2031 (fase 15), 2916 (4,5), 4527 (47,5)
+     e 5217 (9). Cada um partia uma celula de 56px em duas. Pela mesma
+     razao das reguas de secao, deixa de pintar. O elemento continua no
+     HTML porque tools/build-painel.py o usa como marcador de posicao. */
+  .divider { display: none; }
 
 
   /* ---------- Soluções (8) ---------- */
@@ -1493,7 +1504,10 @@
   .caso-topo { padding-top: 6.5rem; }
   .voltar { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--dim); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1.6rem; transition: color 0.25s var(--ease); }
   .voltar:hover { color: var(--accent); }
-  .caso-capa { margin: 0 0 2.4rem; line-height: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  /* Sem fio em cima e embaixo: eram duas reguas de tela cheia na familia
+     de cor da grade do fundo, em fase 12,6 e 22,6, e cortavam a celula do
+     lado de fora da imagem. A propria foto ja e a fronteira visual. */
+  .caso-capa { margin: 0 0 2.4rem; line-height: 0; }
   .caso-capa img { width: 100%; height: clamp(220px, 32vw, 400px); object-fit: cover; display: block; }
   .caso-eyebrow { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
   .caso-topo .h-xl { max-width: 24ch; }

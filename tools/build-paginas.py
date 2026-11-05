@@ -646,7 +646,7 @@ CSS_PRIVACIDADE = '''<style>
   .doc code { font-family: var(--mono); font-size: 0.86em; color: var(--accent); }
   .doc-pendente { border: 1px dashed var(--line-strong); border-radius: 12px; padding: 1.1rem 1.2rem; margin: 1.2rem 0; }
   .doc-pendente p { margin: 0; color: var(--dim); font-size: 0.92rem; }
-  .doc-data { color: var(--dim); font-size: 0.88rem; margin-top: 2.6rem; padding-top: 1.2rem; border-top: 1px solid var(--line-soft); }
+  .doc-data { color: var(--dim); font-size: 0.88rem; margin-top: 2.6rem; padding-top: 1.2rem; }
 </style>'''
 
 

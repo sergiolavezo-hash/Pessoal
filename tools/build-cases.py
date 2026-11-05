@@ -311,7 +311,10 @@ CSS_CASO = '''<style>
   .caso-topo { padding-top: 6.5rem; }
   .voltar { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--dim); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1.6rem; transition: color 0.25s var(--ease); }
   .voltar:hover { color: var(--accent); }
-  .caso-capa { margin: 0 0 2.4rem; line-height: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  /* Sem fio em cima e embaixo: eram duas reguas de tela cheia na familia
+     de cor da grade do fundo, em fase 12,6 e 22,6, e cortavam a celula do
+     lado de fora da imagem. A propria foto ja e a fronteira visual. */
+  .caso-capa { margin: 0 0 2.4rem; line-height: 0; }
   .caso-capa img { width: 100%; height: clamp(220px, 32vw, 400px); object-fit: cover; display: block; }
   .caso-eyebrow { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
   .caso-topo .h-xl { max-width: 24ch; }
