@@ -59,15 +59,18 @@
 
 Rosca martelo saiu da segunda (continua na quinta, martelo na corda).
 
+**Ativação antes do exercício 1 (05/11):** 2×15 pulldown braço estendido leve (1s embaixo) + 1×10 depressão de escápula pendurado na barra. Não conta como série. Motivo: usuário não sente pump nem dor na costas.
+
 ## TER — PEITO + TRÍCEPS
 | # | Exercício | Séries | Foco |
 |---|---|---|---|
 | 1 | Supino inclinado Hammer | aquec 15/10 + aprox 1×5 · 4×6-8 | clavicular · RIR 2/1/0-1/0-1 |
 | 2 | Supino declinado na máquina | aprox 1×6 · 3×8-10 | inferior · **última série rest-pause** (nunca na barra sem ajudante) |
 | 3 | Crucifixo no cabo, baixo → alto | 3×12-15 | clavicular · 2s no alongamento · **drop set duplo na última** |
-| 4 | Crossover alto → baixo | 3×12-15 | inferior · 1s na contração |
-| 5 | Tríceps francês no cabo (corda, acima da cabeça) | 3×10-12 | cabeça longa |
-| 6 | Tríceps corda | 3×12-15 | drop na última |
+| 4 | Crossover alto → baixo | 2×12-15 | inferior · 1s na contração |
+| 5 | Supino reto pegada fechada | aprox 1×6 · 3×10 | tríceps + peito · incluído pelo usuário em 05/11 (movido para abrir o bloco de tríceps) |
+| 6 | Tríceps francês no cabo (corda, acima da cabeça) | 3×10-12 | cabeça longa |
+| 7 | Tríceps corda | 2×12-15 | drop na última |
 
 ## QUA — PERNAS + PANTURRILHA (descanso 60-90s)
 | # | Exercício | Séries | Execução |
@@ -113,14 +116,14 @@ Braços — bi-sets (sem pausa entre os dois; 60s após o par):
 ## Volume semanal
 | Grupo | Antes (v2) | v3.1 |
 |---|---|---|
-| Peito | 20 | 19 |
+| Peito | 20 | 21 |
 | Costas | 19 | 21 |
 | Deltoide lateral | 16 | 12 (9 em 30-50) |
 | Bíceps | 9 | 14 |
-| Tríceps | 10 | 14 |
+| Tríceps | 10 | 16 |
 | Quadríceps / Posterior | 9 / 8 | 10 / 7 |
 | Panturrilha | 10 | 9 |
-| Total | ~124 | ~121 |
+| Total | ~124 | ~123 |
 
 ## Técnicas avançadas (v3.1)
 - **Rest-pause:** carga de 8–10 reps; até 1 rep da falha, 15s, repete até falhar, 15s, mais uma vez.
@@ -129,7 +132,7 @@ Braços — bi-sets (sem pausa entre os dois; 60s após o par):
 - Só na última série do exercício marcado, em máquina/cabo/halter. Sem técnicas na semana leve (16–22/11). Força caindo 2 treinos: tirar técnicas antes de tirar a sexta.
 
 ## Execução
-- **Costas:** começar cada repetição pela escápula (ombro longe da orelha); cotovelo vai ao bolso de trás, a mão é só gancho; 1s esticado no alongamento; descida 2–3s; strap nos exercícios pesados. Anotar carga × reps dos exercícios 1–4. A densidade aparece com a perda de gordura da lombar e dos flancos; mudança de treino aparece em 6–8 semanas.
+- **Costas:** começar cada repetição pela escápula (ombro longe da orelha); cotovelo vai ao bolso de trás, a mão é só gancho; 1s esticado no alongamento; descida 2–3s; strap nos exercícios pesados. Anotar carga × reps dos exercícios 1–4. Pump e dor muscular não medem hipertrofia: o indicador é a carga subindo no caderno. Se bíceps/antebraço queimam antes, carga 10–20% menor com foco em sentir a dorsal. A densidade aparece com a perda de gordura da lombar e dos flancos; mudança de treino aparece em 6–8 semanas.
 - **30-50 reps:** ~20-30% da carga de 10 reps, tensão contínua, terminar perto da falha; >50 fácil → sobe carga; <30 → baixa. Descanso 60-90s.
 - **Braço:** tríceps ≈ 2/3 do braço; cabeça longa precisa de exercício acima da cabeça. Bíceps responde a alongamento (inclinada, Bayesian); martelo trabalha o braquial. Glicogênio = músculo cheio → carbo concentrado no pré/pós e refeed na quinta. Cadência 2s/2s, 1s de pico, sem embalo.
 - **Pernas:** definição vem do % de gordura; hack mantido em carga moderada para preservar massa no déficit.
