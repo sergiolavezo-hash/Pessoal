@@ -48,8 +48,8 @@
 | # | Exercício | Séries | Foco |
 |---|---|---|---|
 | 1 | Remada T (cavalinho) com apoio no peito, pegada aberta | aquec + aprox · 3×6-8 | espessura · aperta escápulas 1s |
-| 2 | Puxada unilateral no cabo, ajoelhado | 3×10-12/lado | dorsal · cotovelo ao quadril, alongamento total · direito primeiro |
-| 3 | Remada unilateral com halter, apoio no banco | 3×8-10/lado | dorsal baixa · **última série + 4–6 parciais alongadas** |
+| 2 | Puxada unilateral no cabo, ajoelhado (polia no alto, pegador simples) | 3×10-12/lado | dorsal · cotovelo ao quadril, alongamento total · direito primeiro |
+| 3 | Remada unilateral com halter, apoio no banco (ou máquina articulada unilateral com apoio no peito) | 3×8-10/lado | dorsal baixa · **última série + 4–6 parciais alongadas** |
 | 4 | Puxada alta aberta (pronada) | 3×8-10 | largura · **última série rest-pause** |
 | 5 | Remada baixa, triângulo | 2×10-12 | espessura · 2s na contração |
 | 6 | Pullover no cabo (corda) | 2×12-15 | finalizador · **drop set na última** |
