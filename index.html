@@ -278,22 +278,46 @@
   .nav { position: sticky; top: 0; z-index: 50; background: transparent; border-bottom: 1px solid transparent;
     transition: border-color 0.35s var(--ease), background 0.35s var(--ease), backdrop-filter 0.35s var(--ease); }
   .nav.is-scrolled { background: var(--veil-forte); backdrop-filter: blur(14px); border-bottom-color: var(--line-soft); }
-  /* Grade de três colunas em vez de espaço distribuído: com space-between o
-     "Menu" se posiciona pela largura do logo e dos controles ao lado, então
-     ele se desloca a cada mudança de largura e nunca fica no centro de
-     verdade. Com 1fr auto 1fr a coluna do meio é o centro da faixa, não
-     importa o que exista nos lados. */
-  .nav .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 5rem; transition: height 0.3s var(--ease); }
-  /* A linha 1 é explícita em todos. Sem isso o grid coloca sozinho, e
-     como o burger vem depois do bloco de ações no HTML mas pede a coluna
-     2, a auto-colocação (que nunca volta atrás) o jogava para uma segunda
-     linha: no mobile o "Menu" aparecia abaixo do logo em vez de ao lado.
-     A altura fixa de 5rem escondia o defeito, porque as duas linhas só
-     dividiam esses 80px em vez de esticar o cabeçalho. */
-  .nav .wrap > .brand { grid-row: 1; grid-column: 1; justify-self: start; }
-  /* Os dois ocupam a mesma célula: só um deles aparece por vez. */
-  .nav-toggle, .nav-burger { grid-row: 1; grid-column: 2; justify-self: center; }
-  .nav-acoes { grid-row: 1; grid-column: 3; justify-self: end; }
+  /* O "Menu" precisa ficar no centro da faixa sem depender do que existe
+     nos lados — com space-between ele se desloca a cada mudança de
+     largura. A grade 1fr auto 1fr resolvia isso, mas cobrava um preço:
+     obrigava a lateral direita a ter a mesma largura da esquerda, e a
+     direita carrega idioma, CTA e tema enquanto a esquerda carrega só o
+     logo. Em tablet em retrato a coluna espremia o CTA, que quebrava em
+     duas ou três linhas e ficava mais alto que a barra de 5rem: media
+     79px a 768, 820 e 834 de largura, e 104px a 744, invadindo o hero.
+     Agora o "Menu" é centrado por posicionamento absoluto dentro da .nav,
+     que ocupa a largura toda, entao o centro e o da tela de verdade e os
+     lados ficam livres para ter a largura que precisam. */
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 5rem; transition: height 0.3s var(--ease); }
+  /* A ordem visual e logo, Menu, controles — mas no HTML o burger vem
+     depois do bloco de acoes. Em flex quem manda e a ordem do documento,
+     entao ela e declarada aqui; sem isso o "Menu" ia parar na direita
+     quando ele volta ao fluxo em tela estreita. */
+  .nav .wrap > .brand { flex: none; order: 1; }
+  /* Os dois ocupam o mesmo lugar: só um deles aparece por vez. */
+  .nav-toggle, .nav-burger { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); order: 2; }
+  /* Em telefone estreito nao ha largura para o centro absoluto: a 360 a
+     folga ate o idioma cai para 1px e a 320 vira sobreposicao de 19px.
+     Ali o "Menu" volta ao fluxo e os tres se distribuem. Nao fica no
+     centro exato, mas logo e controles tem larguras parecidas, entao a
+     diferenca e pequena — e nada se sobrepoe, que importa mais. */
+  @media (max-width: 384px) {
+    .nav-toggle, .nav-burger { position: static; transform: none; }
+    /* O layout antigo cabia em 320px porque o grid espremia tudo ate folga
+       zero e comprimia o botao de idioma de 127 para 116px. Em flex os
+       lados ficaram rigidos e a barra passou a transbordar 21px a 320 e
+       41px a 300. Aqui o respiro e o vao encolhem e o bloco da direita
+       volta a poder ceder. */
+    .nav .wrap { gap: 0.25rem; padding-left: 0.9rem; padding-right: 0.9rem; }
+    .nav-acoes { flex: 0 1 auto; min-width: 0; }
+    /* Os filhos tambem precisam poder ceder: no grid antigo o botao de
+       idioma encolhia de 81 para 70px sob pressao, e era isso que fazia a
+       barra caber em 300px. Sem min-width: 0 neles o bloco da direita
+       fica travado em 127px e a barra transborda. */
+    .nav-acoes > * { min-width: 0; }
+  }
+  .nav-acoes { flex: none; order: 3; }
   .nav.is-scrolled .wrap { height: 4.25rem; }
 
   .brand { display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; }
@@ -1373,6 +1397,9 @@
   /* Altura comum do alternador de tema e do seletor de idioma: lado a
      lado, 1px de diferenca aparece como degrau entre as bordas. */
   .nav-acoes { display: flex; align-items: center; gap: 0.7rem; --h-ctrl: 2.16rem; }
+  /* Uma linha so: o rotulo quebrado e o que deixava o botao mais alto que
+     a barra. Com a lateral livre ele cabe em 272px de largura. */
+  .nav-acoes .btn { white-space: nowrap; }
 
   /* Seletor de idioma */
   .lang { position: relative; }
@@ -1480,13 +1507,25 @@
   @media (max-width: 1180px) {
     .nav-toggle, .mega { display: none !important; }
   }
-  /* Mais estreito, o CTA do cabeçalho não cabe ao lado do idioma e do
-     burger — ele continua no menu mobile e na barra de conversa. */
-  @media (max-width: 680px) {
+  /* Mais estreito, o CTA do cabecalho nao cabe ao lado do idioma e do
+     tema sem encostar no "Menu" centrado — ele continua no menu lateral e
+     na barra de conversa. O limite e 1024 e nao 680 porque o bloco da
+     direita mede 415px fixos: a folga ate o "Menu" so chega a 24px por
+     volta dessa largura (era -33px a 900 e -5px a 960). Mante-lo em
+     tablet em retrato exigiria cortar 94px de um botao de 272px, o que
+     deixaria o rotulo ilegivel. */
+  @media (max-width: 1023px) {
     .nav-acoes .btn { display: none; }
   }
   @media (max-width: 400px) {
     .lang-btn { padding: 0.5rem 0.55rem; }
+  }
+  /* Abaixo de 330 a barra ainda nao fecha: o botao de idioma mede 81px
+     (17,6 de respiro, 47 de conteudo e dois vaos de 7,2) e os filhos tem
+     tamanho fixo, entao ele nao cede sozinho como cedia sob a pressao do
+     grid antigo. Apertar o vao e o respiro devolve os 14px que faltam. */
+  @media (max-width: 330px) {
+    .lang-btn { padding: 0.5rem 0.35rem; gap: 0.2rem; }
   }
 
   /* ---------- Parceiros ---------- */
