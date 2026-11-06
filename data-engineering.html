@@ -1473,7 +1473,14 @@
      Tableau — e sobre o fundo escuro metade deles sumiria. Trocar a cor da
      marca não é opção, então o fundo é que se mantém. */
   .parc { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; margin-top: 2.4rem; }
+  /* Virou <a>: cada logo leva para a pagina do fornecedor. Sem
+     text-decoration e color o link pegaria o azul e o sublinhado
+     padrao do navegador dentro de um card branco. A cor e fixa e nao
+     herdada: o card tem fundo branco nos dois temas, entao herdar a
+     tinta do tema escuro daria texto quase branco sobre branco —
+     razao de contraste 1,11 contra o minimo de 4,5. */
   .parc-card {
+    text-decoration: none; color: #56565E;
     background: #FFFFFF; border: 1px solid var(--line); border-radius: 14px;
     padding: 1.5rem 1.1rem 1.1rem; text-align: center;
     display: grid; grid-template-rows: 1fr auto; gap: 1rem; align-items: center;

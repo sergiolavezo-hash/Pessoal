@@ -19,6 +19,7 @@ on:
       - alocacao.html
       - cases-de-sucesso.html
       - cases/**
+      - parceiros/**
       - tools/cases.json
       - sitemap.xml
       - llms.txt
@@ -52,6 +53,7 @@ jobs:
           cp index.html 404.html privacidade.html atlas.html bi-analytics.html data-engineering.html alocacao.html cases-de-sucesso.html robots.txt sitemap.xml llms.txt favicon.svg favicon.ico favicon-32.png apple-touch-icon.png /tmp/site/
           mkdir -p /tmp/site/.well-known && cp .well-known/security.txt /tmp/site/.well-known/
           mkdir -p /tmp/site/cases && cp cases/*.html /tmp/site/cases/
+          mkdir -p /tmp/site/parceiros && cp parceiros/*.html /tmp/site/parceiros/
           cp -r media/. /tmp/site/media/
           # O arquivo CNAME é adicionado ao gh-pages apenas quando o DNS do
           # domínio estiver apontado (ele define o custom domain no Pages).

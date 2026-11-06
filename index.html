@@ -1534,7 +1534,14 @@
      Tableau — e sobre o fundo escuro metade deles sumiria. Trocar a cor da
      marca não é opção, então o fundo é que se mantém. */
   .parc { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; margin-top: 2.4rem; }
+  /* Virou <a>: cada logo leva para a pagina do fornecedor. Sem
+     text-decoration e color o link pegaria o azul e o sublinhado
+     padrao do navegador dentro de um card branco. A cor e fixa e nao
+     herdada: o card tem fundo branco nos dois temas, entao herdar a
+     tinta do tema escuro daria texto quase branco sobre branco —
+     razao de contraste 1,11 contra o minimo de 4,5. */
   .parc-card {
+    text-decoration: none; color: #56565E;
     background: #FFFFFF; border: 1px solid var(--line); border-radius: 14px;
     padding: 1.5rem 1.1rem 1.1rem; text-align: center;
     display: grid; grid-template-rows: 1fr auto; gap: 1rem; align-items: center;
@@ -1919,7 +1926,7 @@
         <span class="eyebrow reveal">Soluções</span>
         <h2 class="h-xl reveal d1">Da informação à ação.</h2>
         <p class="sub reveal d2">
-          Quatro frentes. E, quando o que falta é time, os especialistas para tocá-las.
+          Cinco frentes. E, quando o que falta é time, os especialistas para tocá-las.
           Não vendemos ferramenta: resolvemos o problema por trás dela.
         </p>
       </div>
@@ -1947,6 +1954,11 @@
           <button class="sol-item" type="button" role="tab" id="sol-t4" aria-controls="sol-p4" aria-selected="false">
             <span class="sol-ico" data-ico="pessoas"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.3"/><path d="M5.5 20.5a6.5 6.5 0 0 1 13 0"/></svg></span>
             <span><span class="sol-k">04 · Pessoas &amp; Alocação</span><span class="sol-t">Especialistas no seu time</span></span>
+            <span class="sol-arr" aria-hidden="true">&rarr;</span>
+          </button>
+          <button class="sol-item" type="button" role="tab" id="sol-t5" aria-controls="sol-p5" aria-selected="false">
+            <span class="sol-ico" data-ico="nuvem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9.5 4.3 4.3 0 0 0 7 18Z"/></svg></span>
+            <span><span class="sol-k">05 · Licenciamento Google Cloud</span><span class="sol-t">A licença e quem implanta, juntos</span></span>
             <span class="sol-arr" aria-hidden="true">&rarr;</span>
           </button>
         </div>
@@ -1995,6 +2007,16 @@
               <a class="btn btn-accent" href="alocacao.html" data-magnetic>Conhecer alocação <span class="arr">&rarr;</span></a>
             </div>
           </article>
+          <article class="sol-panel" id="sol-p5" role="tabpanel" aria-labelledby="sol-t5" tabindex="0" hidden>
+            <span class="pill">Licenciamento Google Cloud</span>
+            <h3>A licença e quem implanta, juntos</h3>
+            <p>A Atlas faz parte do Google Cloud Partner Advantage e comercializa produtos Google Cloud. Em vez de comprar a licença com um fornecedor e a implantação com outro, os dois vêm da mesma empresa: um contrato, um interlocutor, e quem vende é quem coloca em produção.</p>
+            <div class="sol-tags"><span>Google Cloud</span><span>Licenciamento</span><span>Implantação</span><span>Contrato único</span></div>
+            <div class="sol-foot">
+              <span class="sol-sig"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg> Google Cloud Partner Advantage</span>
+              <a class="btn btn-accent" href="parceiros/google-cloud.html" data-magnetic>Ver produtos Google <span class="arr">&rarr;</span></a>
+            </div>
+          </article>
         </div>
       </div>
     </div>
@@ -2023,38 +2045,38 @@
       </div>
 
       <div class="parc reveal d2">
-        <article class="parc-card">
+        <a class="parc-card" href="parceiros/microsoft.html">
           <img src="media/logos/parceiros/microsoft.svg" alt="Microsoft" loading="lazy" decoding="async">
           <span>Microsoft AI Cloud Partner Program</span>
-        </article>
-        <article class="parc-card">
+        </a>
+        <a class="parc-card" href="parceiros/google-cloud.html">
           <img src="media/logos/parceiros/google.svg" alt="Google Cloud" loading="lazy" decoding="async">
-          <span>Google Cloud Partner Network</span>
-        </article>
-        <article class="parc-card">
+          <span>Google Cloud Partner Advantage</span>
+        </a>
+        <a class="parc-card" href="parceiros/aws.html">
           <img src="media/logos/parceiros/aws.svg" alt="Amazon Web Services" loading="lazy" decoding="async">
           <span>Amazon Web Services Partner Network</span>
-        </article>
-        <article class="parc-card">
+        </a>
+        <a class="parc-card" href="parceiros/ibm.html">
           <img src="media/logos/parceiros/ibm.svg" alt="IBM" loading="lazy" decoding="async">
           <span>IBM Partner Plus</span>
-        </article>
-        <article class="parc-card">
+        </a>
+        <a class="parc-card" href="parceiros/databricks.html">
           <img src="media/logos/parceiros/databricks.png" alt="Databricks" loading="lazy" decoding="async">
           <span>Databricks Partner Program</span>
-        </article>
-        <article class="parc-card">
+        </a>
+        <a class="parc-card" href="parceiros/tableau.html">
           <img src="media/logos/parceiros/tableau.png" alt="Tableau" loading="lazy" decoding="async">
           <span>Tableau Partner Program &middot; Salesforce</span>
-        </article>
-        <article class="parc-card">
+        </a>
+        <a class="parc-card" href="parceiros/snowflake.html">
           <img src="media/logos/parceiros/snowflake.svg" alt="Snowflake" loading="lazy" decoding="async">
           <span>Snowflake Partner Network</span>
-        </article>
-        <article class="parc-card">
+        </a>
+        <a class="parc-card" href="parceiros/oracle.html">
           <img src="media/logos/parceiros/oracle.svg" alt="Oracle" loading="lazy" decoding="async">
           <span>Oracle PartnerNetwork</span>
-        </article>
+        </a>
       </div>
 
       <p class="parc-nota reveal d3" style="text-align:center">

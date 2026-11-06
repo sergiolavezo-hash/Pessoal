@@ -1,5 +1,5 @@
 {
- "total": 705,
+ "total": 761,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -472,7 +472,7 @@
    "cls": "h-xl reveal d1"
   },
   {
-   "chave": "Quatro frentes. E, quando o que falta é time, os especialistas para tocá-las. Não vendemos ferramenta: resolvemos o problema por trás dela.",
+   "chave": "Cinco frentes. E, quando o que falta é time, os especialistas para tocá-las. Não vendemos ferramenta: resolvemos o problema por trás dela.",
    "tag": "p",
    "cls": "sub reveal d2"
   },
@@ -498,6 +498,11 @@
   },
   {
    "chave": "<span class=\"sol-k\">04 · Pessoas &amp; Alocação</span><span class=\"sol-t\">Especialistas no seu time</span>",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"sol-k\">05 · Licenciamento Google Cloud</span><span class=\"sol-t\">A licença e quem implanta, juntos</span>",
    "tag": "span",
    "cls": ""
   },
@@ -597,6 +602,31 @@
    "cls": "sol-tags"
   },
   {
+   "chave": "Licenciamento Google Cloud",
+   "tag": "span",
+   "cls": "pill"
+  },
+  {
+   "chave": "A licença e quem implanta, juntos",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "A Atlas faz parte do Google Cloud Partner Advantage e comercializa produtos Google Cloud. Em vez de comprar a licença com um fornecedor e a implantação com outro, os dois vêm da mesma empresa: um contrato, um interlocutor, e quem vende é quem coloca em produção.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Google Cloud</span><span>Licenciamento</span><span>Implantação</span><span>Contrato único</span>",
+   "tag": "div",
+   "cls": "sol-tags"
+  },
+  {
+   "chave": "Ver produtos Google <span class=\"arr\">→</span>",
+   "tag": "a",
+   "cls": "btn btn-accent"
+  },
+  {
    "chave": "Programas de parceria.",
    "tag": "h2",
    "cls": "h-xl reveal d1"
@@ -612,7 +642,7 @@
    "cls": ""
   },
   {
-   "chave": "Google Cloud Partner Network",
+   "chave": "Google Cloud Partner Advantage",
    "tag": "span",
    "cls": ""
   },
@@ -1694,7 +1724,7 @@
   {
    "chave": "As frentes que entregamos.",
    "tag": "h2",
-   "cls": "h-xl reveal d1"
+   "cls": "h-xl reveal d1 in"
   },
   {
    "chave": "Camada semântica",
@@ -2422,31 +2452,6 @@
    "cls": ""
   },
   {
-   "chave": "<i></i> Erro 404",
-   "tag": "p",
-   "cls": "eyebrow"
-  },
-  {
-   "chave": "O endereço pode ter mudado de lugar ou vindo com algum caractere a mais. Os caminhos abaixo continuam valendo.",
-   "tag": "p",
-   "cls": "lead"
-  },
-  {
-   "chave": "Voltar para a home <span class=\"arr\">→</span>",
-   "tag": "a",
-   "cls": "btn btn-accent"
-  },
-  {
-   "chave": "Ver os cases <span class=\"arr\">→</span>",
-   "tag": "a",
-   "cls": "btn btn-ghost"
-  },
-  {
-   "chave": "Essa página não existe.",
-   "tag": "@aria-label",
-   "cls": "h-xl"
-  },
-  {
    "chave": "Esta página descreve quais dados o site <strong>atlas-partner.com</strong> coleta, por que coleta, com quem compartilha e o que você pode pedir sobre eles. Ela cobre apenas este site.",
    "tag": "p",
    "cls": ""
@@ -2700,6 +2705,281 @@
    "chave": "Para exercer qualquer um deles, use o marcando a opção . É o canal de comunicação com o encarregado pelo tratamento de dados da Atlas, e o pedido é respondido no mesmo e-mail que você informar.",
    "tag": "p#texto",
    "cls": ""
+  },
+  {
+   "chave": "<span aria-hidden=\"true\">←</span> Voltar para parceiros",
+   "tag": "a",
+   "cls": "voltar"
+  },
+  {
+   "chave": "Produtos com que a Atlas trabalha",
+   "tag": "h2",
+   "cls": "h-xl"
+  },
+  {
+   "chave": "AWS",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Nuvem com o portfólio mais amplo de serviços.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>Nuvem</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Data warehouse da AWS.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>SaaS</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Lakehouse e processamento de dados em escala.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Projeto entregue pela Atlas",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Pipelines da plataforma omnichannel em Azure.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Unity Catalog",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Catálogo e permissão no Databricks.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Open source</span><span>Gerenciado</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "✦ marca os produtos com projeto entregue pela Atlas",
+   "tag": "p",
+   "cls": "parc-nota"
+  },
+  {
+   "chave": "Licença e implantação na mesma empresa",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "Nuvem Google, forte em analytics e IA.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Data Lake em GCP e migração de legado Oracle.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Data warehouse analítico gerenciado do Google.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Data Lake em GCP para serviços financeiros e pipelines em saúde.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Camada semântica única sobre o dado.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Mais de 200 dashboards migrados num projeto de governança de BI.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Gemini",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Modelos multimodais do Google, integrados ao Cloud.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>API</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Cases entregues com Google Cloud",
+   "tag": "h2",
+   "cls": "h-xl"
+  },
+  {
+   "chave": "<strong>Legado Oracle aposentado sem parar a operação</strong><span>Modernização para Google Cloud</span>",
+   "tag": "a",
+   "cls": "pf-caso"
+  },
+  {
+   "chave": "<strong>De 200+ painéis sem padrão a um ambiente só</strong><span>Migração e governança de BI em escala</span>",
+   "tag": "a",
+   "cls": "pf-caso"
+  },
+  {
+   "chave": "<strong>Duas ferramentas de BI viraram uma</strong><span></span>",
+   "tag": "a",
+   "cls": "pf-caso"
+  },
+  {
+   "chave": "Esta página lista o programa de parceria. Os produtos IBM ainda não estão no catálogo de tecnologia da Atlas, e nada aqui é escrito sem essa fonte.",
+   "tag": "p",
+   "cls": "pf-vazio"
+  },
+  {
+   "chave": "Dashboards executivos e self-service BI para as áreas.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>SaaS + desktop</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Microsoft Fabric",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Plataforma unificada de dados e BI da Microsoft.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Azure",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Nuvem Microsoft para dados e analytics.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Synapse e Data Factory na plataforma omnichannel.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "SQL Server",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Banco relacional corporativo da Microsoft.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>Self-hosted ou gerenciado</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Purview",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Governança e linhagem de dados na Azure.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Cases entregues com Microsoft",
+   "tag": "h2",
+   "cls": "h-xl"
+  },
+  {
+   "chave": "<strong>Canais separados viraram uma plataforma só</strong><span>Plataforma omnichannel de dados em Azure</span>",
+   "tag": "a",
+   "cls": "pf-caso"
+  },
+  {
+   "chave": "<strong>Os acessos da holding inteira sob auditoria</strong><span></span>",
+   "tag": "a",
+   "cls": "pf-caso"
+  },
+  {
+   "chave": "<strong>O padrão visual antes do primeiro painel</strong><span></span>",
+   "tag": "a",
+   "cls": "pf-caso"
+  },
+  {
+   "chave": "Banco de missão crítica.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>Self-hosted ou nuvem</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Migração de legado Oracle em projeto de nuvem.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Cases entregues com Oracle",
+   "tag": "h2",
+   "cls": "h-xl"
+  },
+  {
+   "chave": "Data warehouse em nuvem com escala elástica.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Exploração visual de grandes volumes de dados.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>SaaS ou self-hosted</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Rede de diagnóstico, na migração da visualização para Power BI.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Cases entregues com Tableau",
+   "tag": "h2",
+   "cls": "h-xl"
   },
   {
    "chave": "<span aria-hidden=\"true\">←</span> Voltar para cases",

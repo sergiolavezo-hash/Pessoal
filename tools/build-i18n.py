@@ -215,9 +215,38 @@ TRAD.update({
 
   # ---------------- soluções ----------------
   'Da informação à ação.': ('From information to action.', 'De la información a la acción.'),
-  'Quatro frentes. E, quando o que falta é time, os especialistas para tocá-las. Não vendemos ferramenta: resolvemos o problema por trás dela.':
-    ('Four fronts. And, when what is missing is the team, the specialists to run them. We don’t sell tools: we solve the problem behind them.',
-     'Cuatro frentes. Y, cuando lo que falta es equipo, los especialistas para llevarlos. No vendemos herramienta: resolvemos el problema detrás de ella.'),
+  'Cinco frentes. E, quando o que falta é time, os especialistas para tocá-las. Não vendemos ferramenta: resolvemos o problema por trás dela.':
+    ('Five fronts. And, when what is missing is the team, the specialists to run them. We don’t sell tools: we solve the problem behind them.',
+     'Cinco frentes. Y, cuando lo que falta es equipo, los especialistas para llevarlos. No vendemos herramienta: resolvemos el problema detrás de ella.'),
+  # ---------------- licenciamento e parceiros ----------------
+  '<span class="sol-k">05 · Licenciamento Google Cloud</span><span class="sol-t">A licença e quem implanta, juntos</span>':
+    ('<span class="sol-k">05 · Google Cloud licensing</span><span class="sol-t">The licence and the team that deploys it</span>',
+     '<span class="sol-k">05 · Licenciamiento Google Cloud</span><span class="sol-t">La licencia y quien implementa, juntos</span>'),
+  'Licenciamento Google Cloud': ('Google Cloud licensing', 'Licenciamiento Google Cloud'),
+  'A licença e quem implanta, juntos':
+    ('The licence and the team that deploys it', 'La licencia y quien implementa, juntos'),
+  'A Atlas faz parte do Google Cloud Partner Advantage e comercializa produtos Google Cloud. Em vez de comprar a licença com um fornecedor e a implantação com outro, os dois vêm da mesma empresa: um contrato, um interlocutor, e quem vende é quem coloca em produção.':
+    ('Atlas is part of Google Cloud Partner Advantage and sells Google Cloud products. Instead of buying the licence from one supplier and the deployment from another, both come from the same company: one contract, one point of contact, and whoever sells is who puts it in production.',
+     'Atlas forma parte de Google Cloud Partner Advantage y comercializa productos Google Cloud. En lugar de comprar la licencia a un proveedor y la implementación a otro, ambos vienen de la misma empresa: un contrato, un interlocutor, y quien vende es quien lo pone en producción.'),
+  'Implantação': ('Deployment', 'Implementación'),
+  'Contrato único': ('Single contract', 'Contrato único'),
+  'Ver produtos Google <span class="arr">&rarr;</span>':
+    ('See Google products <span class="arr">&rarr;</span>', 'Ver productos Google <span class="arr">&rarr;</span>'),
+  '<span aria-hidden="true">←</span> Voltar para parceiros':
+    ('<span aria-hidden="true">←</span> Back to partners',
+     '<span aria-hidden="true">←</span> Volver a socios'),
+  'Produtos com que a Atlas trabalha':
+    ('Products Atlas works with', 'Productos con los que Atlas trabaja'),
+  'Projeto entregue pela Atlas': ('Project delivered by Atlas', 'Proyecto entregado por Atlas'),
+  '✦ marca os produtos com projeto entregue pela Atlas':
+    ('✦ marks the products with a project delivered by Atlas',
+     '✦ marca los productos con proyecto entregado por Atlas'),
+  'Cases entregues com Microsoft': ('Projects delivered with Microsoft', 'Casos entregados con Microsoft'),
+  'Cases entregues com Google Cloud': ('Projects delivered with Google Cloud', 'Casos entregados con Google Cloud'),
+  'Cases entregues com Tableau': ('Projects delivered with Tableau', 'Casos entregados con Tableau'),
+  'Cases entregues com Oracle': ('Projects delivered with Oracle', 'Casos entregados con Oracle'),
+  'Licença e implantação na mesma empresa':
+    ('Licence and deployment from the same company', 'Licencia e implementación en la misma empresa'),
   'Frentes de atuação': ('Areas of work', 'Frentes de actuación'),
   '<span class="sol-k">01 · Data &amp; Analytics</span><span class="sol-t">Do dado à decisão</span>':
     ('<span class="sol-k">01 · Data &amp; Analytics</span><span class="sol-t">From data to decision</span>',
