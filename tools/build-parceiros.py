@@ -54,7 +54,7 @@ FORNECEDORES = [
          produtos=['Power BI', 'Microsoft Fabric', 'Azure', 'SQL Server', 'Purview']),
     dict(slug='google-cloud', nome='Google Cloud', logo='google.svg',
          programa='Google Cloud Partner Advantage', chave_case='Google Cloud',
-         produtos=['Google Cloud', 'BigQuery', 'Looker', 'Gemini'], revenda=True),
+         produtos=['Google Cloud', 'BigQuery', 'Cloud Composer', 'Looker', 'Gemini'], revenda=True),
     dict(slug='aws', nome='Amazon Web Services', logo='aws.svg',
          programa='Amazon Web Services Partner Network', chave_case='AWS',
          produtos=['AWS', 'Redshift']),

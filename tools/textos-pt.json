@@ -1,5 +1,5 @@
 {
- "total": 762,
+ "total": 766,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -2807,6 +2807,26 @@
    "cls": "pf-entrega-caso"
   },
   {
+   "chave": "Cloud Composer",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Airflow gerenciado do Google Cloud.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Aberto + pago</span><span>SaaS</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Orquestração dos pipelines em todos os projetos entregues em Google Cloud.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
    "chave": "Camada semântica única sobre o dado.",
    "tag": "p",
    "cls": ""
@@ -3467,7 +3487,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>GCP</span><span>BigQuery</span><span>Airflow</span><span>Power BI</span>",
+   "chave": "<span>GCP</span><span>BigQuery</span><span>Airflow</span><span>Cloud Composer</span><span>Power BI</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -3542,7 +3562,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>GCP</span><span>BigQuery</span><span>dbt</span><span>Airflow</span><span>Looker</span>",
+   "chave": "<span>GCP</span><span>BigQuery</span><span>dbt</span><span>Airflow</span><span>Cloud Composer</span><span>Looker</span>",
    "tag": "dd",
    "cls": ""
   },

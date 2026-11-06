@@ -132,6 +132,7 @@
       "BigQuery",
       "dbt",
       "Airflow",
+      "Cloud Composer",
       "Looker"
     ],
     "desafios": [
@@ -545,6 +546,7 @@
       "GCP",
       "BigQuery",
       "Airflow",
+      "Cloud Composer",
       "Power BI"
     ],
     "desafios": [
