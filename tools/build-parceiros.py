@@ -59,7 +59,7 @@ FORNECEDORES = [
          programa='Amazon Web Services Partner Network', chave_case='AWS',
          produtos=['AWS', 'Redshift']),
     dict(slug='ibm', nome='IBM', logo='ibm.svg',
-         programa='IBM Partner Plus', chave_case='IBM', produtos=[]),
+         programa='IBM Partner Plus', chave_case='IBM', produtos=['watsonx', 'Db2']),
     dict(slug='databricks', nome='Databricks', logo='databricks.png',
          programa='Databricks Partner Program', chave_case='Databricks',
          produtos=['Databricks', 'Unity Catalog']),
@@ -107,12 +107,6 @@ CSS = '''<style>
   .pf-revenda h2 { font-size: 1.4rem; font-weight: 550; margin-bottom: 0.7rem; }
   .pf-revenda p { color: var(--muted); max-width: 54ch; }
   .pf-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2.2rem; }
-  .pf-caso { display: block; background: var(--panel); border: 1px solid var(--line);
-    border-radius: 16px; padding: 1.4rem 1.5rem; text-decoration: none; color: inherit;
-    transition: border-color 0.25s var(--ease), transform 0.25s var(--ease); }
-  .pf-caso:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
-  .pf-caso strong { display: block; font-weight: 550; font-size: 1.02rem; margin-bottom: 0.45rem; }
-  .pf-caso span { color: var(--muted); font-size: 0.9rem; }
   @media (max-width: 1000px) { .pf-prod, .pf-cases { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 620px)  { .pf-prod, .pf-cases { grid-template-columns: 1fr; } }
 </style>'''
@@ -137,6 +131,27 @@ def card_produto(t):
         partes.append('          <p class="pf-entrega-caso">%s</p>\n' % e(t['caso']))
     partes.append('        </article>\n')
     return ''.join(partes)
+
+
+def card_case(c):
+    """Mesmo cartao do carrossel da home: arte, setor, titulo, resumo e
+    etiquetas. Reaproveita as classes .cc da folha principal em vez de um
+    estilo proprio, entao os dois lugares nao podem divergir com o tempo."""
+    setor = c.get('setor') or (c['meta'][0] if c.get('meta') else 'Projeto entregue')
+    etiquetas = (c.get('meta') or [])[1:3]
+    chips = ''.join('<span>%s</span>' % e(t) for t in etiquetas)
+    return ('        <article class="cc">\n'
+            '          <figure class="cc-art"><img src="../media/cases/%s.svg" alt="%s" loading="lazy" decoding="async"></figure>\n'
+            '          <div class="cc-corpo">\n'
+            '            <p class="cc-setor">%s</p>\n'
+            '            <h3 class="cc-t">%s</h3>\n'
+            '            <p class="cc-cap">%s</p>\n'
+            '            <div class="cc-chips">%s</div>\n'
+            '            <a class="cc-link" href="../cases/%s.html">Ver case <span class="arr">&rarr;</span></a>\n'
+            '          </div>\n'
+            '        </article>\n'
+            % (c['arte'], e(c.get('capa', '')), e(setor), e(c['titulo']),
+               e(c.get('capa', '')), chips, c['slug']))
 
 
 def corpo(f, cases):
@@ -185,8 +200,7 @@ def corpo(f, cases):
         p.append('      <h2 class="h-xl" style="font-size:1.6rem;margin-top:2.8rem">Cases entregues com %s</h2>\n' % e(f['nome']))
         p.append('      <div class="pf-cases">\n')
         for c in meus:
-            p.append('        <a class="pf-caso" href="../cases/%s.html"><strong>%s</strong><span>%s</span></a>\n'
-                     % (c['slug'], e(c['titulo']), e(c.get('sub', ''))))
+            p.append(card_case(c))
         p.append('      </div>\n')
 
     p.append('      <div class="sol-foot" style="margin-top:2.6rem">\n'

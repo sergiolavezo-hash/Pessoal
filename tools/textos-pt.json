@@ -1,5 +1,5 @@
 {
- "total": 766,
+ "total": 762,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -2782,11 +2782,6 @@
    "cls": "h-xl"
   },
   {
-   "chave": "<strong>Canais separados viraram uma plataforma só</strong><span>Plataforma omnichannel de dados em Azure</span>",
-   "tag": "a",
-   "cls": "pf-caso"
-  },
-  {
    "chave": "Licença e implantação na mesma empresa",
    "tag": "h2",
    "cls": ""
@@ -2842,24 +2837,34 @@
    "cls": "h-xl"
   },
   {
-   "chave": "<strong>Legado Oracle aposentado sem parar a operação</strong><span>Modernização para Google Cloud</span>",
-   "tag": "a",
-   "cls": "pf-caso"
+   "chave": "watsonx",
+   "tag": "h3",
+   "cls": ""
   },
   {
-   "chave": "<strong>De 200+ painéis sem padrão a um ambiente só</strong><span>Migração e governança de BI em escala</span>",
-   "tag": "a",
-   "cls": "pf-caso"
-  },
-  {
-   "chave": "<strong>Duas ferramentas de BI viraram uma</strong><span></span>",
-   "tag": "a",
-   "cls": "pf-caso"
-  },
-  {
-   "chave": "Esta página lista o programa de parceria. Os produtos IBM ainda não estão no catálogo de tecnologia da Atlas, e nada aqui é escrito sem essa fonte.",
+   "chave": "Plataforma de IA e governança de modelos da IBM.",
    "tag": "p",
-   "cls": "pf-vazio"
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>SaaS ou self-hosted</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Db2",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Banco relacional corporativo da IBM.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>Self-hosted ou nuvem</span>",
+   "tag": "div",
+   "cls": "pf-meta"
   },
   {
    "chave": "Dashboards executivos e self-service BI para as áreas.",
@@ -2932,24 +2937,9 @@
    "cls": "h-xl"
   },
   {
-   "chave": "<strong>Os acessos da holding inteira sob auditoria</strong><span></span>",
-   "tag": "a",
-   "cls": "pf-caso"
-  },
-  {
-   "chave": "<strong>O padrão visual antes do primeiro painel</strong><span></span>",
-   "tag": "a",
-   "cls": "pf-caso"
-  },
-  {
    "chave": "Banco de missão crítica.",
    "tag": "p",
    "cls": ""
-  },
-  {
-   "chave": "<span>Proprietária</span><span>Self-hosted ou nuvem</span>",
-   "tag": "div",
-   "cls": "pf-meta"
   },
   {
    "chave": "Migração de legado Oracle em projeto de nuvem.",
@@ -2972,11 +2962,6 @@
    "cls": ""
   },
   {
-   "chave": "<span>Proprietária</span><span>SaaS ou self-hosted</span>",
-   "tag": "div",
-   "cls": "pf-meta"
-  },
-  {
    "chave": "Rede de diagnóstico, na migração da visualização para Power BI.",
    "tag": "p",
    "cls": "pf-entrega-caso"
@@ -2985,11 +2970,6 @@
    "chave": "Cases entregues com Tableau",
    "tag": "h2",
    "cls": "h-xl"
-  },
-  {
-   "chave": "<strong>A voz do cliente virou indicador vivo</strong><span></span>",
-   "tag": "a",
-   "cls": "pf-caso"
   },
   {
    "chave": "<span aria-hidden=\"true\">←</span> Voltar para cases",

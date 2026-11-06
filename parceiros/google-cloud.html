@@ -1574,12 +1574,6 @@
   .pf-revenda h2 { font-size: 1.4rem; font-weight: 550; margin-bottom: 0.7rem; }
   .pf-revenda p { color: var(--muted); max-width: 54ch; }
   .pf-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2.2rem; }
-  .pf-caso { display: block; background: var(--panel); border: 1px solid var(--line);
-    border-radius: 16px; padding: 1.4rem 1.5rem; text-decoration: none; color: inherit;
-    transition: border-color 0.25s var(--ease), transform 0.25s var(--ease); }
-  .pf-caso:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
-  .pf-caso strong { display: block; font-weight: 550; font-size: 1.02rem; margin-bottom: 0.45rem; }
-  .pf-caso span { color: var(--muted); font-size: 0.9rem; }
   @media (max-width: 1000px) { .pf-prod, .pf-cases { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 620px)  { .pf-prod, .pf-cases { grid-template-columns: 1fr; } }
 </style>
@@ -1830,9 +1824,36 @@
       <p class="parc-nota">&#10022; marca os produtos com projeto entregue pela Atlas</p>
       <h2 class="h-xl" style="font-size:1.6rem;margin-top:2.8rem">Cases entregues com Google Cloud</h2>
       <div class="pf-cases">
-        <a class="pf-caso" href="../cases/legado-oracle-aposentado-sem-parar-a-operacao.html"><strong>Legado Oracle aposentado sem parar a operação</strong><span>Modernização para Google Cloud</span></a>
-        <a class="pf-caso" href="../cases/de-200-paineis-sem-padrao-a-um-ambiente-so.html"><strong>De 200+ painéis sem padrão a um ambiente só</strong><span>Migração e governança de BI em escala</span></a>
-        <a class="pf-caso" href="../cases/duas-ferramentas-de-bi-viraram-uma.html"><strong>Duas ferramentas de BI viraram uma</strong><span></span></a>
+        <article class="cc">
+          <figure class="cc-art"><img src="../media/cases/nuvem.svg" alt="Data Lake em Google Cloud com BigQuery, dbt e Airflow — e o legado fora da conta." loading="lazy" decoding="async"></figure>
+          <div class="cc-corpo">
+            <p class="cc-setor">Serviços Financeiros</p>
+            <h3 class="cc-t">Legado Oracle aposentado sem parar a operação</h3>
+            <p class="cc-cap">Data Lake em Google Cloud com BigQuery, dbt e Airflow — e o legado fora da conta.</p>
+            <div class="cc-chips"><span>Data Engineering</span><span>Cloud GCP</span></div>
+            <a class="cc-link" href="../cases/legado-oracle-aposentado-sem-parar-a-operacao.html">Ver case <span class="arr">&rarr;</span></a>
+          </div>
+        </article>
+        <article class="cc">
+          <figure class="cc-art"><img src="../media/cases/governanca.svg" alt="Mais de 200 dashboards com definições divergentes viraram um ambiente governado." loading="lazy" decoding="async"></figure>
+          <div class="cc-corpo">
+            <p class="cc-setor">BI Governance</p>
+            <h3 class="cc-t">De 200+ painéis sem padrão a um ambiente só</h3>
+            <p class="cc-cap">Mais de 200 dashboards com definições divergentes viraram um ambiente governado.</p>
+            <div class="cc-chips"><span>Migração</span><span>Self-Service BI</span></div>
+            <a class="cc-link" href="../cases/de-200-paineis-sem-padrao-a-um-ambiente-so.html">Ver case <span class="arr">&rarr;</span></a>
+          </div>
+        </article>
+        <article class="cc">
+          <figure class="cc-art"><img src="../media/cases/unificacao.svg" alt="Pipelines em BigQuery e Airflow, com a visualização migrada de Tableau para Power BI." loading="lazy" decoding="async"></figure>
+          <div class="cc-corpo">
+            <p class="cc-setor">Saúde &amp; Diagnóstico</p>
+            <h3 class="cc-t">Duas ferramentas de BI viraram uma</h3>
+            <p class="cc-cap">Pipelines em BigQuery e Airflow, com a visualização migrada de Tableau para Power BI.</p>
+            <div class="cc-chips"></div>
+            <a class="cc-link" href="../cases/duas-ferramentas-de-bi-viraram-uma.html">Ver case <span class="arr">&rarr;</span></a>
+          </div>
+        </article>
       </div>
       <div class="sol-foot" style="margin-top:2.6rem">
         <a class="btn btn-accent" href="../index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
