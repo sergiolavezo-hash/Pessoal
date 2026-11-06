@@ -42,7 +42,8 @@
     "arte": "omnichannel",
     "capa": "Loja física e canais digitais passaram a ser medidos na mesma plataforma, em Azure.",
     "parceiros": [
-      "Microsoft"
+      "Microsoft",
+      "Databricks"
     ],
     "areas": [
       "Data & Analytics",
@@ -246,10 +247,12 @@
       "Java",
       "MicroStrategy",
       "Power BI",
-      "Informatica PowerCenter"
+      "Informatica PowerCenter",
+      "Oracle"
     ],
     "parceiros": [
-      "Microsoft"
+      "Microsoft",
+      "Oracle"
     ],
     "areas": [
       "Desenvolvimento de sistemas",
@@ -444,7 +447,9 @@
     ],
     "arte": "nps",
     "capa": "O NPS deixou de ser relatório avulso e virou indicador de experiência acompanhado.",
-    "parceiros": [],
+    "parceiros": [
+      "Tableau"
+    ],
     "areas": [
       "Analytics",
       "Customer Experience",
@@ -453,7 +458,8 @@
     "tecnologias": [
       "NPS",
       "Analytics",
-      "CX"
+      "CX",
+      "Tableau"
     ],
     "desafios": [
       "O NPS saía como relatório avulso, lido uma vez e arquivado.",

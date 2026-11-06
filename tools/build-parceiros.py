@@ -74,7 +74,10 @@ FORNECEDORES = [
          produtos=['Oracle']),
 ]
 
-CSS = '''
+# O parametro 'extra' de pagina() e colado cru no HTML: tem de trazer as
+# proprias tags <style>. Sem elas o navegador imprime a folha como texto no
+# topo da pagina — foi o que aconteceu no ar.
+CSS = '''<style>
   .pf-topo { padding: 7rem 0 0; }
   .voltar { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono);
     font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim);
@@ -112,7 +115,7 @@ CSS = '''
   .pf-caso span { color: var(--muted); font-size: 0.9rem; }
   @media (max-width: 1000px) { .pf-prod, .pf-cases { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 620px)  { .pf-prod, .pf-cases { grid-template-columns: 1fr; } }
-'''
+</style>'''
 
 CHECK = ('<svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" '
          'stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg>')

@@ -241,6 +241,7 @@ TRAD.update({
   '✦ marca os produtos com projeto entregue pela Atlas':
     ('✦ marks the products with a project delivered by Atlas',
      '✦ marca los productos con proyecto entregado por Atlas'),
+  'Cases entregues com Databricks': ('Projects delivered with Databricks', 'Casos entregados con Databricks'),
   'Cases entregues com Microsoft': ('Projects delivered with Microsoft', 'Casos entregados con Microsoft'),
   'Cases entregues com Google Cloud': ('Projects delivered with Google Cloud', 'Casos entregados con Google Cloud'),
   'Cases entregues com Tableau': ('Projects delivered with Tableau', 'Casos entregados con Tableau'),

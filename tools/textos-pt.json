@@ -1,5 +1,5 @@
 {
- "total": 761,
+ "total": 766,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -2777,6 +2777,16 @@
    "cls": "parc-nota"
   },
   {
+   "chave": "Cases entregues com Databricks",
+   "tag": "h2",
+   "cls": "h-xl"
+  },
+  {
+   "chave": "<strong>Canais separados viraram uma plataforma só</strong><span>Plataforma omnichannel de dados em Azure</span>",
+   "tag": "a",
+   "cls": "pf-caso"
+  },
+  {
    "chave": "Licença e implantação na mesma empresa",
    "tag": "h2",
    "cls": ""
@@ -2922,11 +2932,6 @@
    "cls": "h-xl"
   },
   {
-   "chave": "<strong>Canais separados viraram uma plataforma só</strong><span>Plataforma omnichannel de dados em Azure</span>",
-   "tag": "a",
-   "cls": "pf-caso"
-  },
-  {
    "chave": "<strong>Os acessos da holding inteira sob auditoria</strong><span></span>",
    "tag": "a",
    "cls": "pf-caso"
@@ -2980,6 +2985,11 @@
    "chave": "Cases entregues com Tableau",
    "tag": "h2",
    "cls": "h-xl"
+  },
+  {
+   "chave": "<strong>A voz do cliente virou indicador vivo</strong><span></span>",
+   "tag": "a",
+   "cls": "pf-caso"
   },
   {
    "chave": "<span aria-hidden=\"true\">←</span> Voltar para cases",
@@ -3142,7 +3152,12 @@
    "cls": ""
   },
   {
-   "chave": "<span>NPS</span><span>Analytics</span><span>CX</span>",
+   "chave": "<span>Tableau</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>NPS</span><span>Analytics</span><span>CX</span><span>Tableau</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -3212,7 +3227,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Microsoft</span>",
+   "chave": "<span>Microsoft</span><span>Databricks</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -3262,7 +3277,12 @@
    "cls": ""
   },
   {
-   "chave": "<span>Java</span><span>MicroStrategy</span><span>Power BI</span><span>Informatica PowerCenter</span>",
+   "chave": "<span>Microsoft</span><span>Oracle</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Java</span><span>MicroStrategy</span><span>Power BI</span><span>Informatica PowerCenter</span><span>Oracle</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -3624,6 +3644,11 @@
   {
    "chave": "Padrão depois → Padrão antes",
    "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Microsoft</span>",
+   "tag": "dd",
    "cls": ""
   },
   {
