@@ -58,7 +58,7 @@
 | 4 | Remada alta (high row) na máquina articulada | 3×8-10 | dorsal · unilateral se der, direito primeiro · **última série + 4–6 parciais alongadas** |
 | 5 | Pullover no cabo (corda) | 2×12-15 | finalizador · **drop set na última** |
 | 6 | Rosca inversa, barra W | 2×10-12 | braquiorradial/braquial |
-| 7 | Rosca martelo com halteres | 2×10-12 | braquial · direito primeiro |
+| 7 | Rosca martelo na polia baixa, unilateral, cruzando o corpo | 2×10-12/lado | braquial · cotovelo parado, 1s no topo, descida 3s · direito primeiro (08/11: substituiu a martelo com halteres) |
 | 8 | Rosca Scott, barra W | 3×8-10 | descida 3s |
 | 9 | Elevação lateral no cabo | 3×30-50 | carga baixa |
 
