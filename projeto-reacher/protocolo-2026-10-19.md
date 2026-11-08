@@ -28,9 +28,11 @@
 
 ---
 
-# 🏋️ TREINO v3.1
+# 🏋️ TREINO v3.2
 
 > 19/10: costas passou para segunda (ênfase do usuário) e peito para terça. A elevação lateral 3×30-50 foi junto para a segunda, mantendo deltoide lateral em seg/qui/sex.
+>
+> 08/11 (v3.2): segunda com os exercícios do treino do Cbum, em séries normais.
 >
 > 02/11 (v3.1): segunda reformulada (dorsal "não blocada") e técnicas avançadas na última série de exercícios de costas e peito.
 
@@ -42,24 +44,23 @@
 | Qui | ⭐ Ombros + Braços (pump técnico) — refeed |
 | Sex | Peito + Costas (volume menor) + ombro + panturrilha |
 
-## SEG — COSTAS + BÍCEPS (v3.1 — 02/11)
-> Reformulada a pedido: dorsal sem densidade ("não blocada"). Remada pesada com apoio no peito para espessura, unilaterais para alongamento e lado direito, técnicas avançadas na última série. Strap nos exercícios 1–4.
+## SEG — COSTAS + BÍCEPS (v3.2 — 08/11)
+> Exercícios do treino de costas/bíceps atribuído ao Chris Bumstead (reel de @leonardogramkow), feitos em séries normais a pedido do usuário (tri-set é difícil de montar na academia). Strap nos exercícios 1–4.
+> Histórico: v3.1 (02/11) tinha remada T, puxada unilateral, remada unilateral, puxada aberta, remada baixa e pullover.
+
+**Ativação antes do exercício 1:** 2×15 pulldown braço estendido leve (1s embaixo) + 1×10 depressão de escápula pendurado na barra. Não conta como série.
 
 | # | Exercício | Séries | Foco |
 |---|---|---|---|
-| 1 | Remada T (cavalinho) com apoio no peito, pegada aberta | aquec + aprox · 3×6-8 | espessura · aperta escápulas 1s |
-| 2 | Puxada unilateral no cabo, ajoelhado (polia no alto, pegador simples) | 3×10-12/lado | dorsal · cotovelo ao quadril, alongamento total · direito primeiro |
-| 3 | Remada unilateral com halter, apoio no banco (ou máquina articulada unilateral com apoio no peito) | 3×8-10/lado | dorsal baixa · **última série + 4–6 parciais alongadas** |
-| 4 | Puxada alta aberta (pronada) | 3×8-10 | largura · **última série rest-pause** |
-| 5 | Remada baixa, triângulo | 2×10-12 | espessura · 2s na contração |
-| 6 | Pullover no cabo (corda) | 2×12-15 | finalizador · **drop set na última** |
-| 7 | Rosca inclinada com halteres | 3×10-12 | cabeça longa · descida 3s |
-| 8 | Rosca Scott unilateral | 3×8-10 | começar pelo direito |
+| 1 | Puxada alta supinada (barra) | aquec + aprox · 2×8 | dorsal · **1ª série 1 rest-pause, 2ª série 2 rest-pauses (20–30s)** |
+| 2 | Remada T (cavalinho) com apoio no peito | 3×6-8 | espessura · aperta escápulas 1s |
+| 3 | Remada na máquina com cotovelos altos (pegada aberta) | 3×8-10 | parte alta das costas + deltoide posterior |
+| 4 | Remada alta (high row) na máquina articulada | 3×8-10 | dorsal · unilateral se der, direito primeiro · **última série + 4–6 parciais alongadas** |
+| 5 | Pullover no cabo (corda) | 2×12-15 | finalizador · **drop set na última** |
+| 6 | Rosca inversa, barra W | 2×10-12 | braquiorradial/braquial |
+| 7 | Rosca martelo com halteres | 2×10-12 | braquial · direito primeiro |
+| 8 | Rosca Scott, barra W | 3×8-10 | descida 3s |
 | 9 | Elevação lateral no cabo | 3×30-50 | carga baixa |
-
-Rosca martelo saiu da segunda (continua na quinta, martelo na corda).
-
-**Ativação antes do exercício 1 (05/11):** 2×15 pulldown braço estendido leve (1s embaixo) + 1×10 depressão de escápula pendurado na barra. Não conta como série. Motivo: usuário não sente pump nem dor na costas.
 
 ## TER — PEITO + TRÍCEPS
 | # | Exercício | Séries | Foco |
@@ -90,7 +91,7 @@ Rosca martelo saiu da segunda (continua na quinta, martelo na corda).
 | 1 | Elevação lateral máquina | aquec 1×20 · 3×10-12 | drop na última |
 | 2 | Desenvolvimento Hammer | aprox 1×6 · 3×8-10 | |
 | 3 | Elevação lateral com halteres | 3×30-50 | carga baixa |
-| 4 | Crucifixo inverso (máquina) | 3×30-50 | carga baixa |
+| 4 | Crucifixo inverso no cabo cruzado (polia dupla) | 3×30-50 | carga baixa |
 
 Braços — bi-sets (sem pausa entre os dois; 60s após o par):
 | Par | Bíceps | Tríceps | Séries |
@@ -114,16 +115,16 @@ Braços — bi-sets (sem pausa entre os dois; 60s após o par):
 **Cardio:** 4×/semana, 30 min, leve. Não aumentar.
 
 ## Volume semanal
-| Grupo | Antes (v2) | v3.1 |
+| Grupo | Antes (v2) | v3.2 |
 |---|---|---|
 | Peito | 20 | 21 |
-| Costas | 19 | 21 |
+| Costas | 19 | 18 (+ rest-pause) |
 | Deltoide lateral | 16 | 12 (9 em 30-50) |
-| Bíceps | 9 | 14 |
+| Bíceps | 9 | 15 |
 | Tríceps | 10 | 16 |
 | Quadríceps / Posterior | 9 / 8 | 10 / 7 |
 | Panturrilha | 10 | 9 |
-| Total | ~124 | ~123 |
+| Total | ~124 | ~121 |
 
 ## Técnicas avançadas (v3.1)
 - **Rest-pause:** carga de 8–10 reps; até 1 rep da falha, 15s, repete até falhar, 15s, mais uma vez.
@@ -132,7 +133,7 @@ Braços — bi-sets (sem pausa entre os dois; 60s após o par):
 - Só na última série do exercício marcado, em máquina/cabo/halter. Sem técnicas na semana leve (16–22/11). Força caindo 2 treinos: tirar técnicas antes de tirar a sexta.
 
 ## Execução
-- **Costas:** começar cada repetição pela escápula (ombro longe da orelha); cotovelo vai ao bolso de trás, a mão é só gancho; 1s esticado no alongamento; descida 2–3s; strap nos exercícios pesados. Anotar carga × reps dos exercícios 1–4. Pump e dor muscular não medem hipertrofia: o indicador é a carga subindo no caderno. Se bíceps/antebraço queimam antes, carga 10–20% menor com foco em sentir a dorsal. A densidade aparece com a perda de gordura da lombar e dos flancos; mudança de treino aparece em 6–8 semanas.
+- **Costas:** começar cada repetição pela escápula (ombro longe da orelha); cotovelo vai ao bolso de trás, a mão é só gancho; 1s esticado no alongamento; descida 2–3s; strap nos exercícios pesados. Anotar carga × reps dos exercícios 1–4 de costas. Pump e dor muscular não medem hipertrofia: o indicador é a carga subindo no caderno. Se bíceps/antebraço queimam antes, carga 10–20% menor com foco em sentir a dorsal. A densidade aparece com a perda de gordura da lombar e dos flancos; mudança de treino aparece em 6–8 semanas.
 - **30-50 reps:** ~20-30% da carga de 10 reps, tensão contínua, terminar perto da falha; >50 fácil → sobe carga; <30 → baixa. Descanso 60-90s.
 - **Braço:** tríceps ≈ 2/3 do braço; cabeça longa precisa de exercício acima da cabeça. Bíceps responde a alongamento (inclinada, Bayesian); martelo trabalha o braquial. Glicogênio = músculo cheio → carbo concentrado no pré/pós e refeed na quinta. Cadência 2s/2s, 1s de pico, sem embalo.
 - **Pernas:** definição vem do % de gordura; hack mantido em carga moderada para preservar massa no déficit.
