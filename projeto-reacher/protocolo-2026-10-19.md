@@ -40,7 +40,7 @@
 |---|---|
 | Seg | Costas (espessura + dorsal, com técnicas avançadas) + Bíceps + lateral |
 | Ter | Peito (clavicular + inferior, com técnicas avançadas) + Tríceps |
-| Qua | Pernas (pump/definição) + Panturrilha |
+| Qua | Pernas (posterior priorizado, sem stiff) + Panturrilha + abdômen |
 | Qui | ⭐ Ombros + Braços (pump técnico) — refeed |
 | Sex | Peito + Costas (volume menor) + ombro + panturrilha |
 
@@ -73,17 +73,29 @@
 | 6 | Tríceps francês no cabo (corda, acima da cabeça) | 3×10-12 | cabeça longa |
 | 7 | Tríceps corda | 2×12-15 | drop na última |
 
-## QUA — PERNAS + PANTURRILHA (descanso 60-90s)
+## QUA — PERNAS + PANTURRILHA (v3.2 — 08/11; descanso 60-90s)
+> Posterior priorizado a pedido do usuário. Stiff removido: doía a lombar. Cadeira flexora sentada trabalha o posterior mais alongado e cresceu mais que a mesa flexora em estudo (Maeo et al., 2021).
+
 | # | Exercício | Séries | Execução |
 |---|---|---|---|
-| 1 | Cadeira extensora | 4×15-20 | 1s no topo · drop na última |
-| 2 | Hack ou leg press | aquec 1×15 · 3×12-15 | descida 3s |
-| 3 | Búlgaro com halteres | 3×12/perna | começar pela direita |
-| 4 | Mesa flexora | 4×12-15 | drop na última |
-| 5 | Stiff | 3×10-12 | RIR 2 |
-| 6 | Panturrilha em pé | 3×30-50 | carga baixa |
-| 7 | Panturrilha sentado | 3×30-50 | carga baixa |
-| 8 | Abdômen | 3×15 | |
+| 1 | Cadeira flexora (sentado) | aquec 1×15 · 4×10-12 | tronco levemente à frente · **última série + 4–6 parciais alongadas** |
+| 2 | Cadeira extensora | 3×15-20 | 1s no topo · drop na última |
+| 3 | Hack ou leg press | aquec 1×15 · 3×12-15 | descida 3s |
+| 4 | Búlgaro com halteres | 3×12/perna | começar pela direita · tronco um pouco à frente |
+| 5 | Mesa flexora | 3×12-15 | quadril colado · drop na última |
+| 6 | Pull-through no cabo (no lugar do stiff) | 3×12-15 | quadril para trás, coluna neutra, quase sem carga na lombar |
+| 7 | Panturrilha em pé | 3×30-50 | carga baixa |
+| 8 | Panturrilha sentado | 3×30-50 | carga baixa |
+| 9 | Abdominal na polia, ajoelhado | 3×10-15 | enrola a coluna, progressão de carga |
+
+Dor lombar que desce para a perna, formigamento ou sem melhora em 1–2 semanas → médico ou fisioterapeuta.
+
+### Cintura
+- Nenhum exercício queima gordura localizada; a cintura afina com a dieta (gordura concentrada no tronco, InBody 28/08).
+- Vácuo abdominal 3×20–30s diário (controle do abdômen em pose/foto, não tira gordura).
+- Abdominal com carga (polia na quarta, elevação de pernas na sexta).
+- Evitar oblíquo pesado (flexão lateral/rotação com muita carga).
+- Ombro e dorsal largos fazem a cintura parecer menor. Barriga estufada por intestino preso (GLP-1) → fibra 30–38 g e água pela sede.
 
 ## ⭐ QUI — OMBROS + BRAÇOS
 | # | Exercício | Séries | Execução |
@@ -110,7 +122,8 @@ Braços — bi-sets (sem pausa entre os dois; 60s após o par):
 | 5 | Encolhimento Hammer | 3×12-15, 2s no topo |
 | 6 | Elevação lateral no cabo | 3×30-50 |
 | 7 | Panturrilha em pé | 3×30-50 |
-| 8 | Abdômen | 3×15 |
+| 8 | Elevação de pernas (suspenso ou no banco) | 3×10-15 |
+| 9 | Vácuo abdominal | 3×20-30s |
 
 **Cardio:** 4×/semana, 30 min, leve. Não aumentar.
 
@@ -122,9 +135,9 @@ Braços — bi-sets (sem pausa entre os dois; 60s após o par):
 | Deltoide lateral | 16 | 12 (9 em 30-50) |
 | Bíceps | 9 | 15 |
 | Tríceps | 10 | 16 |
-| Quadríceps / Posterior | 9 / 8 | 10 / 7 |
+| Quadríceps / Posterior | 9 / 8 | 9 / 10 |
 | Panturrilha | 10 | 9 |
-| Total | ~124 | ~121 |
+| Total | ~124 | ~123 |
 
 ## Técnicas avançadas (v3.1)
 - **Rest-pause:** carga de 8–10 reps; até 1 rep da falha, 15s, repete até falhar, 15s, mais uma vez.
