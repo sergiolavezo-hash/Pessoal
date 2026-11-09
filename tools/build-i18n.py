@@ -203,9 +203,9 @@ TRAD.update({
 
   # ---------------- soluções ----------------
   'Da informação à ação.': ('From information to action.', 'De la información a la acción.'),
-  'Cinco frentes. E, quando o que falta é time, os especialistas para tocá-las. Não vendemos ferramenta: resolvemos o problema por trás dela.':
-    ('Five fronts. And, when what is missing is the team, the specialists to run them. We don’t sell tools: we solve the problem behind them.',
-     'Cinco frentes. Y, cuando lo que falta es equipo, los especialistas para llevarlos. No vendemos herramienta: resolvemos el problema detrás de ella.'),
+  'Seis frentes. E, quando o que falta é time, os especialistas para tocá-las. Não vendemos ferramenta: resolvemos o problema por trás dela.':
+    ('Six fronts. And, when what is missing is the team, the specialists to run them. We don’t sell tools: we solve the problem behind them.',
+     'Seis frentes. Y, cuando lo que falta es equipo, los especialistas para llevarlos. No vendemos herramienta: resolvemos el problema detrás de ella.'),
   # ---------------- numeros da Atlas ----------------
   # O unico indicador que precisa de traducao: "mil" e portugues e
   # aparecia cru na versao em ingles. Os demais (500+, 10+, 150+) sao
@@ -241,22 +241,38 @@ TRAD.update({
     ('Legacy retired without stopping the operation', 'Legado retirado sin parar la operación'),
   'Falar sobre modernização <span class="arr">→</span>':
     ('Talk about modernisation <span class="arr">→</span>', 'Hablar sobre modernización <span class="arr">→</span>'),
-  # ---------------- cinco frentes de atuacao ----------------
-  '<span class="sol-k">01 · Engenharia de Dados</span><span class="sol-t">A base que conecta seus dados</span>':
-    ('<span class="sol-k">01 · Data Engineering</span><span class="sol-t">The foundation that connects your data</span>',
-     '<span class="sol-k">01 · Ingeniería de Datos</span><span class="sol-t">La base que conecta sus datos</span>'),
-  '<span class="sol-k">02 · Cloud &amp; Modernização</span><span class="sol-t">Infraestrutura preparada para evoluir</span>':
-    ('<span class="sol-k">02 · Cloud &amp; Modernization</span><span class="sol-t">Infrastructure ready to evolve</span>',
-     '<span class="sol-k">02 · Cloud &amp; Modernización</span><span class="sol-t">Infraestructura preparada para evolucionar</span>'),
-  '<span class="sol-k">03 · Analytics &amp; BI</span><span class="sol-t">Do dado à decisão</span>':
-    ('<span class="sol-k">03 · Analytics &amp; BI</span><span class="sol-t">From data to decision</span>',
-     '<span class="sol-k">03 · Analytics &amp; BI</span><span class="sol-t">Del dato a la decisión</span>'),
-  '<span class="sol-k">04 · IA &amp; Automação</span><span class="sol-t">Inteligência que gera ação</span>':
-    ('<span class="sol-k">04 · AI &amp; Automation</span><span class="sol-t">Intelligence that drives action</span>',
-     '<span class="sol-k">04 · IA &amp; Automatización</span><span class="sol-t">Inteligencia que genera acción</span>'),
-  '<span class="sol-k">05 · Especialistas &amp; Squads</span><span class="sol-t">As pessoas certas no seu time</span>':
-    ('<span class="sol-k">05 · Specialists &amp; Squads</span><span class="sol-t">The right people on your team</span>',
-     '<span class="sol-k">05 · Especialistas &amp; Squads</span><span class="sol-t">Las personas correctas en su equipo</span>'),
+  '<span class="sol-k">01 · Estratégia &amp; Inovação</span><span class="sol-t">Da visão à transformação</span>':
+    ('<span class="sol-k">01 · Strategy &amp; Innovation</span><span class="sol-t">From vision to transformation</span>',
+     '<span class="sol-k">01 · Estrategia &amp; Innovación</span><span class="sol-t">De la visión a la transformación</span>'),
+  'Estratégia &amp; Inovação': ('Strategy &amp; Innovation', 'Estrategia &amp; Innovación'),
+  'Da visão à transformação': ('From vision to transformation', 'De la visión a la transformación'),
+  'Antes de construir, decidir o que construir. Diagnóstico do que já existe, desenho do destino e a ordem em que cada passo paga o próximo — para o investimento virar entrega e não estudo.':
+    ('Before building, deciding what to build. A read of what is already there, a design for where it should go, and the order in which each step pays for the next — so the investment turns into delivery, not a study.',
+     'Antes de construir, decidir qué construir. Diagnóstico de lo que ya existe, diseño del destino y el orden en que cada paso paga el siguiente — para que la inversión se convierta en entrega y no en estudio.'),
+  '<span>Diagnóstico de maturidade</span><span>Roadmap de dados</span><span>Arquitetura alvo</span><span>Governança</span><span>Priorização de casos de uso</span>':
+    ('<span>Maturity assessment</span><span>Data roadmap</span><span>Target architecture</span><span>Governance</span><span>Use case prioritisation</span>',
+     '<span>Diagnóstico de madurez</span><span>Roadmap de datos</span><span>Arquitectura objetivo</span><span>Gobernanza</span><span>Priorización de casos de uso</span>'),
+  'Começa pelo que a empresa já tem, não por um projeto novo de coleta':
+    ('Starts from what the company already has, not from a new collection project',
+     'Empieza por lo que la empresa ya tiene, no por un proyecto nuevo de recolección'),
+  'Falar sobre estratégia <span class="arr">→</span>':
+    ('Talk about strategy <span class="arr">→</span>', 'Hablar sobre estrategia <span class="arr">→</span>'),
+  # ---------------- seis frentes de atuacao ----------------
+  '<span class="sol-k">02 · Engenharia de Dados</span><span class="sol-t">A base que conecta seus dados</span>':
+    ('<span class="sol-k">02 · Data Engineering</span><span class="sol-t">The foundation that connects your data</span>',
+     '<span class="sol-k">02 · Ingeniería de Datos</span><span class="sol-t">La base que conecta sus datos</span>'),
+  '<span class="sol-k">03 · Cloud &amp; Modernização</span><span class="sol-t">Infraestrutura preparada para evoluir</span>':
+    ('<span class="sol-k">03 · Cloud &amp; Modernization</span><span class="sol-t">Infrastructure ready to evolve</span>',
+     '<span class="sol-k">03 · Cloud &amp; Modernización</span><span class="sol-t">Infraestructura preparada para evolucionar</span>'),
+  '<span class="sol-k">04 · Analytics &amp; BI</span><span class="sol-t">Do dado à decisão</span>':
+    ('<span class="sol-k">04 · Analytics &amp; BI</span><span class="sol-t">From data to decision</span>',
+     '<span class="sol-k">04 · Analytics &amp; BI</span><span class="sol-t">Del dato a la decisión</span>'),
+  '<span class="sol-k">05 · IA &amp; Automação</span><span class="sol-t">Inteligência que gera ação</span>':
+    ('<span class="sol-k">05 · AI &amp; Automation</span><span class="sol-t">Intelligence that drives action</span>',
+     '<span class="sol-k">05 · IA &amp; Automatización</span><span class="sol-t">Inteligencia que genera acción</span>'),
+  '<span class="sol-k">06 · Especialistas &amp; Squads</span><span class="sol-t">As pessoas certas no seu time</span>':
+    ('<span class="sol-k">06 · Specialists &amp; Squads</span><span class="sol-t">The right people on your team</span>',
+     '<span class="sol-k">06 · Especialistas &amp; Squads</span><span class="sol-t">Las personas correctas en su equipo</span>'),
   'Cloud &amp; Modernização': ('Cloud &amp; Modernization', 'Cloud &amp; Modernización'),
   'Analytics &amp; BI': ('Analytics &amp; BI', 'Analytics &amp; BI'),
   'IA &amp; Automação': ('AI &amp; Automation', 'IA &amp; Automatización'),

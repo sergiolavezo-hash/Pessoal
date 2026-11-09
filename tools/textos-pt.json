@@ -1,5 +1,5 @@
 {
- "total": 770,
+ "total": 777,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -492,12 +492,12 @@
    "cls": "h-xl reveal d1"
   },
   {
-   "chave": "Cinco frentes. E, quando o que falta é time, os especialistas para tocá-las. Não vendemos ferramenta: resolvemos o problema por trás dela.",
+   "chave": "Seis frentes. E, quando o que falta é time, os especialistas para tocá-las. Não vendemos ferramenta: resolvemos o problema por trás dela.",
    "tag": "p",
    "cls": "sub reveal d2"
   },
   {
-   "chave": "<span class=\"sol-k\">01 · Engenharia de Dados</span><span class=\"sol-t\">A base que conecta seus dados</span>",
+   "chave": "<span class=\"sol-k\">01 · Estratégia &amp; Inovação</span><span class=\"sol-t\">Da visão à transformação</span>",
    "tag": "span",
    "cls": ""
   },
@@ -507,24 +507,54 @@
    "cls": "sol-arr"
   },
   {
-   "chave": "<span class=\"sol-k\">02 · Cloud &amp; Modernização</span><span class=\"sol-t\">Infraestrutura preparada para evoluir</span>",
+   "chave": "<span class=\"sol-k\">02 · Engenharia de Dados</span><span class=\"sol-t\">A base que conecta seus dados</span>",
    "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"sol-k\">03 · Analytics &amp; BI</span><span class=\"sol-t\">Do dado à decisão</span>",
+   "chave": "<span class=\"sol-k\">03 · Cloud &amp; Modernização</span><span class=\"sol-t\">Infraestrutura preparada para evoluir</span>",
    "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"sol-k\">04 · IA &amp; Automação</span><span class=\"sol-t\">Inteligência que gera ação</span>",
+   "chave": "<span class=\"sol-k\">04 · Analytics &amp; BI</span><span class=\"sol-t\">Do dado à decisão</span>",
    "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"sol-k\">05 · Especialistas &amp; Squads</span><span class=\"sol-t\">As pessoas certas no seu time</span>",
+   "chave": "<span class=\"sol-k\">05 · IA &amp; Automação</span><span class=\"sol-t\">Inteligência que gera ação</span>",
    "tag": "span",
    "cls": ""
+  },
+  {
+   "chave": "<span class=\"sol-k\">06 · Especialistas &amp; Squads</span><span class=\"sol-t\">As pessoas certas no seu time</span>",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Estratégia &amp; Inovação",
+   "tag": "span",
+   "cls": "pill"
+  },
+  {
+   "chave": "Da visão à transformação",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Antes de construir, decidir o que construir. Diagnóstico do que já existe, desenho do destino e a ordem em que cada passo paga o próximo — para o investimento virar entrega e não estudo.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Diagnóstico de maturidade</span><span>Roadmap de dados</span><span>Arquitetura alvo</span><span>Governança</span><span>Priorização de casos de uso</span>",
+   "tag": "div",
+   "cls": "sol-tags"
+  },
+  {
+   "chave": "Falar sobre estratégia <span class=\"arr\">→</span>",
+   "tag": "a",
+   "cls": "btn btn-accent"
   },
   {
    "chave": "Engenharia de Dados",
@@ -1250,6 +1280,11 @@
    "chave": "Alocação de especialistas",
    "tag": "span#texto",
    "cls": "pill"
+  },
+  {
+   "chave": "Começa pelo que a empresa já tem, não por um projeto novo de coleta",
+   "tag": "span#texto",
+   "cls": "sol-sig"
   },
   {
    "chave": "Regra de negócio em código, testada e versionada",
