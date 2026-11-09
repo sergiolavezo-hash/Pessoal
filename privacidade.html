@@ -2864,9 +2864,11 @@
   (function () {
     var alvos = [].slice.call(document.querySelectorAll('.tiles .tile > b'));
     if (!alvos.length || !('IntersectionObserver' in window)) return;
-    /* Quem pediu menos movimento no sistema ja ve o numero final, que esta
-       no HTML: aqui basta nao animar. */
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    /* Este contador anima mesmo com "reduzir movimento" ligado no sistema,
+       por decisao do dono do site: com a guarda, quem tem a opcao desligada
+       no Windows nunca via a contagem — os numeros apareciam parados no
+       valor final. As demais animacoes do site continuam respeitando o
+       pedido do sistema; a excecao e so aqui. */
 
     function desmontar(txt) {
       var m = /^(\D*)([\d.,]+)(\D*)$/.exec(txt.trim());
