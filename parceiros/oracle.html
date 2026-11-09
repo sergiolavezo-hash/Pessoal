@@ -1134,11 +1134,27 @@
     transition: border-color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease);
   }
   .sol-item:hover { border-color: rgba(46,134,255,0.4); transform: translateX(3px); }
-  /* position/overflow existem para a barra de leitura caber dentro do
-     canto arredondado do card. */
-  .sol-item { position: relative; overflow: hidden; }
-  .sol-prog { position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
-    background: var(--accent); border-radius: 0 2px 2px 0; pointer-events: none; }
+
+  /* ---------- Degrade de leve ao passar o mouse nos conteineres ----------
+     Vai num ::after com opacidade em transicao, e nao trocando o
+     background-image direto: gradiente nao interpola de forma confiavel
+     entre navegadores, entao a troca direta apareceria como um corte seco.
+     O pseudo-elemento herda o raio do card e nao captura ponteiro.
+     Os blocos que ja tem imagem de fundo propria (.banner) ficam de fora,
+     para o degrade nao substituir o desenho deles. */
+  :root { --degrade-hover: linear-gradient(135deg, rgba(46,134,255,0.085), rgba(46,134,255,0) 58%); }
+  :root[data-tema="claro"] { --degrade-hover: linear-gradient(135deg, rgba(46,134,255,0.06), rgba(46,134,255,0) 58%); }
+  .tile, .pillar, .sol-item, .cc, .parc-card, .pf-card, .mega-card, .case-card { position: relative; }
+  .tile::after, .pillar::after, .sol-item::after, .cc::after, .parc-card::after,
+  .pf-card::after, .mega-card::after, .case-card::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit;
+    background: var(--degrade-hover); opacity: 0; pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+  }
+  .tile:hover::after, .pillar:hover::after, .sol-item:hover::after, .cc:hover::after,
+  .parc-card:hover::after, .pf-card:hover::after, .mega-card:hover::after,
+  .case-card:hover::after { opacity: 1; }
+
   .sol-item[aria-selected="true"] { border-color: var(--accent); background: var(--panel-2); }
   .sol-ico { width: 2.7rem; height: 2.7rem; display: grid; place-items: center; border-radius: 11px; background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.24); }
   .sol-ico svg { width: 1.35rem; height: 1.35rem; stroke: var(--accent); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
@@ -2701,77 +2717,23 @@
   });
   abrir(0, false);
 
-  /* Avanca sozinho entre as frentes, para quem chega ver que ha mais de
-     uma. Tres correcoes em relacao a versao anterior:
+  /* A troca e por passagem do mouse, nao automatica: o painel do lado
+     muda assim que o ponteiro entra em um item da lista. O avanco por
+     tempo que existia aqui foi retirado a pedido — com hover, um relogio
+     correndo por baixo brigaria com a intencao de quem esta apontando.
 
-     1. Pausava com o ponteiro sobre .sol, que ocupa quase a tela inteira.
-        No desktop o cursor parado em qualquer lugar da secao travava o
-        avanco para sempre — medido: com o ponteiro sobre ela o painel
-        ficava no 01 indefinidamente. Agora so pausa sobre a lista, que e
-        onde uma troca sob o cursor atrapalha de verdade.
-     2. O tempo era fixo em 6s. O painel 05 tem 52 palavras e os outros 30
-        a 38, entao 6s era curto para um e arrastado para os demais. Agora
-        cada um ganha o proprio tempo: palavras a 250 por minuto, com piso
-        de 6s e teto de 13s.
-     3. Uma barra fina mostra quanto falta, para a troca parecer escolha e
-        nao sobressalto. Ela e criada aqui e nao no HTML, para nao mexer
-        na chave de traducao do botao. */
-  var parado = false, pausado = false, visivel = false, raf = 0, t0 = 0;
-
-  var tempos = abas.map(function (ab) {
-    var pan = document.getElementById(ab.getAttribute('aria-controls'));
-    if (!pan) return 7000;
-    var t = pan.querySelector('h3'), d = pan.querySelector('p');
-    var txt = ((t ? t.textContent : '') + ' ' + (d ? d.textContent : '')).replace(/\s+/g, ' ').trim();
-    var n = txt ? txt.split(' ').length : 0;
-    return Math.max(6000, Math.min(13000, Math.round(n / 250 * 60000)));
-  });
-
-  var barras = abas.map(function (ab) {
-    var i = document.createElement('i');
-    i.className = 'sol-prog';
-    i.setAttribute('aria-hidden', 'true');
-    ab.appendChild(i);
-    return i;
-  });
-
-  function atual() {
-    for (var k = 0; k < abas.length; k++) if (abas[k].getAttribute('aria-selected') === 'true') return k;
-    return 0;
-  }
-  function zerar() { barras.forEach(function (b) { b.style.width = '0%'; }); }
-
-  function quadro(ts) {
-    raf = 0;
-    if (parado || pausado || !visivel) { zerar(); return; }
-    if (!t0) t0 = ts;
-    var i = atual(), k = (ts - t0) / tempos[i];
-    zerar();
-    barras[i].style.width = Math.min(100, k * 100) + '%';
-    if (k >= 1) { t0 = 0; abrir((i + 1) % abas.length, false); }
-    raf = requestAnimationFrame(quadro);
-  }
-  function tocar() { if (!parado && !raf) { t0 = 0; raf = requestAnimationFrame(quadro); } }
-  function pausar() { if (raf) { cancelAnimationFrame(raf); raf = 0; } t0 = 0; zerar(); }
-  function parar() { parado = true; pausar(); }
-
-  var caixa = abas[0].closest('.sol');
-  var lista = abas[0].closest('.sol-list') || caixa;
-  if (caixa) {
-    abas.forEach(function (ab) { ab.addEventListener('click', parar); ab.addEventListener('keydown', parar); });
-    ['pointerenter', 'focusin'].forEach(function (e) {
-      lista.addEventListener(e, function () { pausado = true; pausar(); });
+     pointerenter e nao mouseenter porque o primeiro tambem cobre caneta e
+     toque. Em tela sem ponteiro de verdade (celular) o evento nao dispara
+     de forma util, entao o clique continua sendo o caminho — e ele ja
+     funciona pelo mesmo abrir(). */
+  var fino = window.matchMedia ? window.matchMedia('(hover: hover) and (pointer: fine)') : null;
+  abas.forEach(function (ab, i) {
+    ab.addEventListener('pointerenter', function (e) {
+      if (e.pointerType === 'touch') return;
+      if (fino && !fino.matches) return;
+      abrir(i, false);
     });
-    ['pointerleave', 'focusout'].forEach(function (e) {
-      lista.addEventListener(e, function () { pausado = false; tocar(); });
-    });
-    document.addEventListener('visibilitychange', function () { document.hidden ? pausar() : tocar(); });
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) {
-        es.forEach(function (e) { visivel = e.isIntersecting; visivel ? tocar() : pausar(); });
-      }, { threshold: 0.3 }).observe(caixa);
-    } else { visivel = true; tocar(); }
-  }
+  });
 })();
 </script>
 
