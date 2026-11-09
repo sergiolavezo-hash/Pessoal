@@ -703,7 +703,7 @@ TRAD.update({
   'Cada pergunta nova vira uma extração nova. A resposta chega tarde, e ninguém sabe de onde veio o número.':
     ('Every new question turns into a new extraction. The answer arrives late, and nobody knows where the number came from.',
      'Cada pregunta nueva se vuelve una extracción nueva. La respuesta llega tarde, y nadie sabe de dónde salió el número.'),
-  'Falar sobre Data Engineering <span class="arr">→</span>':
+  'Falar sobre Engenharia de Dados <span class="arr">→</span>':
     ('Talk about Data Engineering <span class="arr">→</span>', 'Hablar sobre Data Engineering <span class="arr">→</span>'),
   'Ingestão e integração': ('Ingestion and integration', 'Ingesta e integración'),
   'Conectores gerenciados': ('Managed connectors', 'Conectores gestionados'),

@@ -93,12 +93,12 @@ PAGINAS = [
     dict(
         arquivo='bi-analytics.html',
         slug='bi-analytics',
-        titulo='BI & Data Visualization',
+        titulo='Analytics & BI',
         h1='Uma métrica, uma definição, e o indicador na mão de quem decide.',
         meta='Consultoria de Business Intelligence e Data Visualization: camada '
              'semântica, dashboards executivos e governança de indicadores em '
              'Power BI, Looker, Tableau e MicroStrategy.',
-        eyebrow='BI &amp; Analytics',
+        eyebrow='Analytics &amp; BI',
         contexto=('O indicador existe. Mas cada área chega a um número diferente. '
                   'A reunião discute o dado, não a decisão.'),
         capacidades=[
@@ -134,12 +134,12 @@ PAGINAS = [
     dict(
         arquivo='data-engineering.html',
         slug='data-engineering',
-        titulo='Data Engineering',
+        titulo='Engenharia de Dados',
         h1='A base confiável que sustenta todo o resto.',
         meta='Consultoria de Data Engineering: ingestão, Data Lake, Lakehouse, Data '
              'Warehouse, transformação em dbt e orquestração em Airflow, em Azure, '
              'AWS e Google Cloud.',
-        eyebrow='Data Engineering',
+        eyebrow='Engenharia de Dados',
         contexto=('Cada pergunta nova vira uma extração nova. A resposta chega tarde, '
                   'e ninguém sabe de onde veio o número.'),
         capacidades=[
@@ -168,13 +168,13 @@ PAGINAS = [
             mudou=[('Legado fora da conta', 'o custo de manter o ambiente Oracle deixou de existir'),
                    ('Regra em código', 'as transformações saíram de scripts avulsos para dbt, testado e versionado'),
                    ('Uma camada só', 'Looker passou a ser o único caminho entre o dado e o negócio')]),
-        cta='Falar sobre Data Engineering',
+        cta='Falar sobre Engenharia de Dados',
         cta2='Quero avaliar minha arquitetura',
     ),
     dict(
         arquivo='alocacao.html',
         slug='alocacao',
-        titulo='Alocação de especialistas',
+        titulo='Especialistas & Squads',
         h1='Quando o que falta não é projeto, é time.',
         meta='Alocação de especialistas de dados e squads: engenheiros de dados, '
              'analistas de BI, cientistas de dados e arquitetos alocados no time do '
@@ -693,6 +693,29 @@ def montar_privacidade(comum):
           conversa evoluir para uma relação contratual — caso em que passa a valer
           o prazo do contrato e as obrigações legais de guarda.</p>
 
+        <h3>Envio de currículo</h3>
+        <p>Na página de alocação, quem quiser se candidatar envia:</p>
+        <ul>
+          <li><strong>Nome</strong> e <strong>e-mail</strong> — obrigatórios.</li>
+          <li><strong>Perfil</strong> e <strong>senioridade</strong> — para saber onde você se encaixa.</li>
+          <li><strong>LinkedIn</strong> — opcional.</li>
+          <li><strong>O arquivo do currículo</strong>, em PDF, DOC ou DOCX.</li>
+        </ul>
+        <p>O currículo segue pelo mesmo caminho do formulário de contato: vai
+          para o <strong>FormSubmit</strong>, que encaminha por e-mail para a
+          Atlas. Vale aqui a mesma observação sobre
+          <strong>transferência internacional de dados</strong>, e o site também
+          não guarda o arquivo: não há banco de dados nesta página.</p>
+        <p><strong>Para que serve:</strong> recrutamento e seleção. O perfil fica
+          no banco de talentos da Atlas e pode ser consultado em vagas futuras,
+          não só na oportunidade do momento.</p>
+        <p><strong>Por quanto tempo:</strong> o currículo e os dados enviados com
+          ele são apagados em até <strong>6 meses</strong> contados do envio, salvo
+          se você for contratado — caso em que passam a valer os prazos
+          trabalhistas e as obrigações legais de guarda.</p>
+        <p>Você pode pedir a exclusão antes desse prazo a qualquer momento, pelos
+          mesmos canais descritos em <em>Seus direitos</em>, abaixo.</p>
+
         <h3>Chat do site</h3>
         <p>O assistente do site envia o que você digita e o contato que você
           deixar pelo mesmo caminho do formulário, para o FormSubmit. A conversa
@@ -723,7 +746,9 @@ def montar_privacidade(comum):
         <h2>Para que a Atlas usa esses dados</h2>
         <ul>
           <li><strong>Responder ao seu contato.</strong> É a única finalidade do que
-            chega pelo formulário e pelo chat.</li>
+            chega pelo formulário comercial e pelo chat.</li>
+          <li><strong>Recrutamento e seleção.</strong> É a finalidade do currículo e
+            dos dados enviados com ele, inclusive para vagas futuras.</li>
           <li><strong>Entender o uso do site</strong> de forma agregada, para
             melhorá-lo.</li>
         </ul>

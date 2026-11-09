@@ -1,5 +1,5 @@
 {
- "total": 777,
+ "total": 788,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -2037,7 +2037,7 @@
    "cls": "sub reveal d2 in"
   },
   {
-   "chave": "Falar sobre Data Engineering <span class=\"arr\">→</span>",
+   "chave": "Falar sobre Engenharia de Dados <span class=\"arr\">→</span>",
    "tag": "a",
    "cls": "btn btn-accent"
   },
@@ -2562,6 +2562,56 @@
    "cls": ""
   },
   {
+   "chave": "Envio de currículo",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Na página de alocação, quem quiser se candidatar envia:",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>Nome</strong> e <strong>e-mail</strong> — obrigatórios.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>Perfil</strong> e <strong>senioridade</strong> — para saber onde você se encaixa.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>LinkedIn</strong> — opcional.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>O arquivo do currículo</strong>, em PDF, DOC ou DOCX.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "O currículo segue pelo mesmo caminho do formulário de contato: vai para o <strong>FormSubmit</strong>, que encaminha por e-mail para a Atlas. Vale aqui a mesma observação sobre <strong>transferência internacional de dados</strong>, e o site também não guarda o arquivo: não há banco de dados nesta página.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>Para que serve:</strong> recrutamento e seleção. O perfil fica no banco de talentos da Atlas e pode ser consultado em vagas futuras, não só na oportunidade do momento.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>Por quanto tempo:</strong> o currículo e os dados enviados com ele são apagados em até <strong>6 meses</strong> contados do envio, salvo se você for contratado — caso em que passam a valer os prazos trabalhistas e as obrigações legais de guarda.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Você pode pedir a exclusão antes desse prazo a qualquer momento, pelos mesmos canais descritos em <em>Seus direitos</em>, abaixo.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
    "chave": "Chat do site",
    "tag": "h3",
    "cls": ""
@@ -2647,7 +2697,12 @@
    "cls": ""
   },
   {
-   "chave": "<strong>Responder ao seu contato.</strong> É a única finalidade do que chega pelo formulário e pelo chat.",
+   "chave": "<strong>Responder ao seu contato.</strong> É a única finalidade do que chega pelo formulário comercial e pelo chat.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<strong>Recrutamento e seleção.</strong> É a finalidade do currículo e dos dados enviados com ele, inclusive para vagas futuras.",
    "tag": "li",
    "cls": ""
   },
