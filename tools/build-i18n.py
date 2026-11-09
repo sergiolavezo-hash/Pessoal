@@ -64,8 +64,8 @@ TRAD = {
     ('See the case studies <span class="arr">→</span>', 'Ver los casos <span class="arr">→</span>'),
   'Conhecer alocação <span class="arr">→</span>':
     ('Explore staffing <span class="arr">→</span>', 'Conocer la asignación <span class="arr">→</span>'),
-  'Conhecer BI &amp; Analytics <span class="arr">→</span>':
-    ('Explore BI &amp; Analytics <span class="arr">→</span>', 'Conocer BI &amp; Analytics <span class="arr">→</span>'),
+  'Conhecer Analytics &amp; BI <span class="arr">→</span>':
+    ('Explore Analytics &amp; BI <span class="arr">→</span>', 'Conocer Analytics &amp; BI <span class="arr">→</span>'),
   'Conhecer Data Engineering <span class="arr">→</span>':
     ('Explore Data Engineering <span class="arr">→</span>', 'Conocer Data Engineering <span class="arr">→</span>'),
   'Conhecer IA <span class="arr">→</span>': ('Explore AI <span class="arr">→</span>', 'Conocer IA <span class="arr">→</span>'),
@@ -104,10 +104,9 @@ TRAD = {
   'Modelos preditivos, detecção de anomalias, GenAI e Document AI.':
     ('Predictive models, anomaly detection, GenAI and Document AI.',
      'Modelos predictivos, detección de anomalías, GenAI y Document AI.'),
-  'O que a IA resolve': ('What AI solves', 'Lo que resuelve la IA'),
-  'Alocação de especialistas <span class="mega-tag">150+ alocados</span>':
-    ('Specialist staffing <span class="mega-tag">150+ placed</span>',
-     'Asignación de especialistas <span class="mega-tag">150+ asignados</span>'),
+  'Especialistas &amp; Squads <span class="mega-tag">150+ alocados</span>':
+    ('Specialists &amp; Squads <span class="mega-tag">150+ placed</span>',
+     'Especialistas &amp; Squads <span class="mega-tag">150+ asignados</span>'),
   'Todos os cases <span class="mega-tag">15 projetos</span>':
     ('All case studies <span class="mega-tag">15 projects</span>',
      'Todos los casos <span class="mega-tag">15 proyectos</span>'),
@@ -184,7 +183,6 @@ TRAD.update({
   'Setores onde já transformamos dados em decisão':
     ('Industries where we have already turned data into decisions',
      'Sectores donde ya transformamos datos en decisión'),
-  'Setores atendidos': ('Industries served', 'Sectores atendidos'),
 
   # ---------------- essência e valores ----------------
   'Atlas em números': ('Atlas by the numbers', 'Atlas en números'),
@@ -199,7 +197,6 @@ TRAD.update({
   'Permanência': ('Tenure', 'Permanencia'),
 
   # ---------------- faixa de alocação ----------------
-  'Alocação de especialistas': ('Specialist staffing', 'Asignación de especialistas'),
 
   # ---------------- soluções ----------------
   'Da informação à ação.': ('From information to action.', 'De la información a la acción.'),
@@ -277,6 +274,8 @@ TRAD.update({
   'Analytics &amp; BI': ('Analytics &amp; BI', 'Analytics &amp; BI'),
   'IA &amp; Automação': ('AI &amp; Automation', 'IA &amp; Automatización'),
   'Especialistas &amp; Squads': ('Specialists &amp; Squads', 'Especialistas &amp; Squads'),
+  'Especialistas & Squads': ('Specialists & Squads', 'Especialistas & Squads'),
+  'Engenharia de Dados': ('Data Engineering', 'Ingeniería de Datos'),
   'A base que conecta seus dados': ('The foundation that connects your data', 'La base que conecta sus datos'),
   'Infraestrutura preparada para evoluir': ('Infrastructure ready to evolve', 'Infraestructura preparada para evolucionar'),
   'Inteligência que gera ação': ('Intelligence that drives action', 'Inteligencia que genera acción'),
@@ -348,7 +347,6 @@ TRAD.update({
 
 TRAD.update({
   # ---------------- cases ----------------
-  'Histórias de sucesso': ('Success stories', 'Historias de éxito'),
   'Resultados que falam por si.': ('Results that speak for themselves.', 'Resultados que hablan por sí solos.'),
   'Cliente confidencial': ('Confidential client', 'Cliente confidencial'),
   'Antes e depois': ('Before and after', 'Antes y después'),
@@ -357,7 +355,6 @@ TRAD.update({
   'Cenário': ('Context', 'Escenario'),
   'Arquitetura': ('Architecture', 'Arquitectura'),
   'Solução': ('Solution', 'Solución'),
-  'Tecnologias': ('Technologies', 'Tecnologías'),
   'O que mudou': ('What changed', 'Qué cambió'),
 
   # case 1
@@ -417,7 +414,6 @@ TRAD.update({
   'Operação': ('Operations', 'Operación'),
 
   # ---------------- capacidades de IA ----------------
-  'Inteligência Artificial': ('Artificial Intelligence', 'Inteligencia Artificial'),
   'A próxima vantagem competitiva já está nos seus dados.':
     ('Your next competitive advantage is already in your data.',
      'La próxima ventaja competitiva ya está en sus datos.'),
@@ -540,8 +536,6 @@ TRAD.update({
      'Este sitio funciona sin cookies de rastreo. Con su permiso, usamos Google Analytics para medir visitas de forma agregada. Usted elige, y puede cambiarlo después.'),
   'Food Service': ('Food Service', 'Food Service'),
   'Infraestrutura &amp; Mobilidade': ('Infrastructure &amp; Mobility', 'Infraestructura &amp; Movilidad'),
-  'Saúde Hospitalar': ('Hospital Healthcare', 'Salud Hospitalaria'),
-  'Varejo de Moda': ('Fashion Retail', 'Retail de Moda'),
 
   # ---------------- restos medidos na varredura ----------------
 })
@@ -742,7 +736,6 @@ TRAD.update({
   # ---------------- parceiros ----------------
   # Os nomes dos programas são nomes próprios dos fabricantes: ficam iguais
   # nas três línguas. Só a moldura em volta deles muda.
-  'Parceiros': ('Partners', 'Socios'),
   'Parceiros <span class="mega-tag">8 programas</span>':
     ('Partners <span class="mega-tag">8 programs</span>', 'Socios <span class="mega-tag">8 programas</span>'),
   'Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake e Oracle.':
@@ -1188,6 +1181,7 @@ TERMOS = {
   'Crescimento com padrão': ('Growth with a standard', 'Crecimiento con estándar'),
 
   # categorias do filtro de cases
+  'Analytics &amp; BI': ('Analytics &amp; BI', 'Analytics &amp; BI'),
   'BI &amp; Analytics': ('BI &amp; Analytics', 'BI &amp; Analytics'),
   'Engenharia de Dados': ('Data Engineering', 'Ingeniería de Datos'),
   'Cloud': ('Cloud', 'Cloud'),
