@@ -121,7 +121,7 @@
       var(--bg0);
     color: var(--ink);
     font-family: var(--body);
-    font-size: 1.0625rem;
+    font-size: 1rem;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
@@ -141,8 +141,12 @@
   img, canvas, svg { max-width: 100%; }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 
-  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
-  section[id] { scroll-margin-top: 5rem; }
+  /* 1336 de caixa com 3,25rem de respiro dao 1232px de texto comecando a
+     52px da borda numa janela de 1440 — as medidas da referencia. O
+     max-width antigo ja era 1280, mas o respiro de 3rem deixava a coluna
+     em 1184 e a margem em 128. */
+  .wrap { max-width: 1336px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3.25rem); }
+  section[id] { scroll-margin-top: 5.7rem; }
   .skip-link {
     position: absolute; left: -999px; top: 0; z-index: 100;
     background: var(--btn-fill); color: #fff; padding: 0.7rem 1.2rem; border-radius: 0 0 8px 0;
@@ -215,7 +219,7 @@
      Agora o "Menu" é centrado por posicionamento absoluto dentro da .nav,
      que ocupa a largura toda, entao o centro e o da tela de verdade e os
      lados ficam livres para ter a largura que precisam. */
-  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 5rem; transition: height 0.3s var(--ease); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 5.7rem; transition: height 0.3s var(--ease); }
   /* A ordem visual e logo, Menu, controles — mas no HTML o burger vem
      depois do bloco de acoes. Em flex quem manda e a ordem do documento,
      entao ela e declarada aqui; sem isso o "Menu" ia parar na direita
@@ -294,7 +298,7 @@
      serviços logo abaixo. O território 3D fica com aquele espaço. */
   .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; align-items: center; }
   .hero .wrap > div { max-width: 44rem; }
-  .hero h1 { font-size: clamp(2.4rem, 5vw, 3.9rem); font-weight: 400; margin: 1.1rem 0 1.2rem; max-width: 16ch; }
+  .hero h1 { font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 400; margin: 1.1rem 0 1.2rem; max-width: 16ch; }
   .hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; }
   .hero h1 .w > span { display: inline-block; opacity: 0; transform: translateY(0.65em); animation: word-in 0.7s var(--ease) forwards; }
   @keyframes word-in { to { opacity: 1; transform: none; } }
@@ -1027,8 +1031,11 @@
      qualquer altura. O piso continua sendo o conteudo: 425px mais o
      respiro, e abaixo de 820px de altura o respiro encolhe para o piso
      nao estourar a dobra em notebook de 768. */
-  .hero-c { min-height: calc(100svh - 5rem - 8rem - 2rem); display: grid; align-items: center; padding: 4rem 0 5rem; }
-  @media (max-height: 820px) { .hero-c { padding: 3rem 0 4rem; } }
+  .hero-c { min-height: calc(100svh - 5.7rem - 8rem - 2rem); display: grid; align-items: center; padding: 4rem 0 5rem; }
+  /* O h1 subiu para 4,5rem e o cabecalho para 5,7rem, entao o piso do
+     hero cresceu e o trilho saia da dobra em 1366x768. Menos respiro
+     aqui devolve o espaco. */
+  @media (max-height: 820px) { .hero-c { padding: 2.4rem 0 3rem; } }
   /* Em 720 de altura nem esse respiro cabe: 425 de conteudo mais 112 dao
      537, e so ha 514 depois do cabecalho e do trilho. Encolhe mais um
      degrau para o trilho continuar inteiro no notebook antigo. */
@@ -1208,7 +1215,9 @@
   @media (max-width: 760px) {
     .rail-grid { grid-template-columns: 1fr; gap: 1.2rem; }
     .rail-label { border-right: 0; border-bottom: 1px solid var(--line); padding-right: 0; padding-bottom: 1rem; max-width: none; }
-    .hero-c { min-height: auto; padding: 5.5rem 0 3rem; }
+    /* 2,3rem embaixo e nao 3rem: o cabecalho ganhou 11px e sem isso o
+       trilho perderia exatamente essa altura na dobra do celular. */
+    .hero-c { min-height: auto; padding: 5.5rem 0 2.3rem; }
   }
   @media (max-width: 520px) {
     .tiles { grid-template-columns: 1fr; }
