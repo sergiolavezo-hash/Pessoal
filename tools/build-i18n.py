@@ -118,8 +118,8 @@ TRAD = {
   'Perfis disponíveis': ('Available profiles', 'Perfiles disponibles'),
   'Trabalhe com a gente <span class="mega-tag">Carreiras</span>':
     ('Work with us <span class="mega-tag">Careers</span>', 'Trabaje con nosotros <span class="mega-tag">Carreras</span>'),
-  'Permanência <span class="mega-tag">150.000+ horas</span>':
-    ('Tenure <span class="mega-tag">150,000+ hours</span>', 'Permanencia <span class="mega-tag">150.000+ horas</span>'),
+  'Permanência <span class="mega-tag">150 mil+ horas</span>':
+    ('Tenure <span class="mega-tag">150k+ hours</span>', 'Permanencia <span class="mega-tag">150 mil+ horas</span>'),
   'Valores e método': ('Values and method', 'Valores y método'),
   'Números <span class="mega-tag">500+ projetos</span>':
     ('Numbers <span class="mega-tag">500+ projects</span>', 'Números <span class="mega-tag">500+ proyectos</span>'),
@@ -160,9 +160,9 @@ TRAD = {
   '<b>Reforçar o time com especialistas</b><span>Quando o que falta não é projeto, é gente de dados.</span>':
     ('<b>Strengthen the team with specialists</b><span>When what is missing is not a project, but data people.</span>',
      '<b>Reforzar el equipo con especialistas</b><span>Cuando lo que falta no es proyecto, es gente de datos.</span>'),
-  '<b>500+</b> projetos <i>·</i> <b>150+</b> alocados <i>·</i> <b>10+</b> setores <i>·</i> <b>150.000+</b> horas':
-    ('<b>500+</b> projects <i>·</i> <b>150+</b> placed <i>·</i> <b>10+</b> industries <i>·</i> <b>150,000+</b> hours',
-     '<b>500+</b> proyectos <i>·</i> <b>150+</b> asignados <i>·</i> <b>10+</b> sectores <i>·</i> <b>150.000+</b> horas'),
+  '<b>500+</b> projetos <i>·</i> <b>150+</b> alocados <i>·</i> <b>10+</b> setores <i>·</i> <b>150 mil+</b> horas':
+    ('<b>500+</b> projects <i>·</i> <b>150+</b> placed <i>·</i> <b>10+</b> industries <i>·</i> <b>150k+</b> hours',
+     '<b>500+</b> proyectos <i>·</i> <b>150+</b> asignados <i>·</i> <b>10+</b> sectores <i>·</i> <b>150 mil+</b> horas'),
 
   # ---------------- hero ----------------
   'A Atlas transforma dados complexos em decisões extraordinárias.':
@@ -207,6 +207,11 @@ TRAD.update({
     ('Five fronts. And, when what is missing is the team, the specialists to run them. We don’t sell tools: we solve the problem behind them.',
      'Cinco frentes. Y, cuando lo que falta es equipo, los especialistas para llevarlos. No vendemos herramienta: resolvemos el problema detrás de ella.'),
   # ---------------- numeros da Atlas ----------------
+  # O unico indicador que precisa de traducao: "mil" e portugues e
+  # aparecia cru na versao em ingles. Os demais (500+, 10+, 150+) sao
+  # numeros puros e saem iguais nos tres idiomas.
+  '150 mil+': ('150k+', '150 mil+'),
+
   'Experiência comprovada. Resultados construídos na prática.':
     ('Proven experience. Results built in practice.',
      'Experiencia comprobada. Resultados construidos en la práctica.'),
@@ -226,6 +231,16 @@ TRAD.update({
   'Experiência acumulada em operações e projetos.':
     ('Experience accumulated across operations and projects.',
      'Experiencia acumulada en operaciones y proyectos.'),
+  'Tirar o peso do legado sem parar a operação, e deixar a base pronta para crescer. Migração e modernização em etapas, com o que roda hoje de pé durante o caminho.':
+    ('Taking the weight off the legacy without stopping the operation, and leaving the foundation ready to grow. Migration and modernisation in stages, with what runs today kept on its feet along the way.',
+     'Quitar el peso del legado sin parar la operación, y dejar la base lista para crecer. Migración y modernización por etapas, con lo que funciona hoy en pie durante el camino.'),
+  '<span>Migração para nuvem</span><span>Modernização de legado</span><span>Modern Data Stack</span><span>Automação</span>':
+    ('<span>Cloud migration</span><span>Legacy modernisation</span><span>Modern Data Stack</span><span>Automation</span>',
+     '<span>Migración a la nube</span><span>Modernización de legado</span><span>Modern Data Stack</span><span>Automatización</span>'),
+  'Legado aposentado sem parar a operação':
+    ('Legacy retired without stopping the operation', 'Legado retirado sin parar la operación'),
+  'Falar sobre modernização <span class="arr">→</span>':
+    ('Talk about modernisation <span class="arr">→</span>', 'Hablar sobre modernización <span class="arr">→</span>'),
   # ---------------- cinco frentes de atuacao ----------------
   '<span class="sol-k">01 · Engenharia de Dados</span><span class="sol-t">A base que conecta seus dados</span>':
     ('<span class="sol-k">01 · Data Engineering</span><span class="sol-t">The foundation that connects your data</span>',
@@ -250,18 +265,12 @@ TRAD.update({
   'Infraestrutura preparada para evoluir': ('Infrastructure ready to evolve', 'Infraestructura preparada para evolucionar'),
   'Inteligência que gera ação': ('Intelligence that drives action', 'Inteligencia que genera acción'),
   'As pessoas certas no seu time': ('The right people on your team', 'Las personas correctas en su equipo'),
-  'Tirar o peso do legado sem parar a operação, e deixar a base pronta para crescer. A Atlas faz parte do Google Cloud Partner Advantage e comercializa produtos Google Cloud, então licença e implantação saem da mesma empresa.':
-    ('Taking the weight off the legacy without stopping the operation, and leaving the foundation ready to grow. Atlas is part of Google Cloud Partner Advantage and sells Google Cloud products, so licence and deployment come from the same company.',
-     'Quitar el peso del legado sin parar la operación, y dejar la base lista para crecer. Atlas forma parte de Google Cloud Partner Advantage y comercializa productos Google Cloud, así que licencia e implementación salen de la misma empresa.'),
   'A camada que lê o que já existe, antecipa o que vem e tira trabalho repetitivo do caminho. Começa pelo dado que você já tem — não por um projeto novo de coleta.':
     ('The layer that reads what is already there, anticipates what is coming and takes repetitive work out of the way. It starts from the data you already have — not from a new collection project.',
      'La capa que lee lo que ya existe, anticipa lo que viene y quita trabajo repetitivo del camino. Empieza por el dato que usted ya tiene — no por un proyecto nuevo de recolección.'),
   '<span>Data Engineering</span><span>Pipelines</span><span>Modelagem</span><span>Automação</span><span>Qualidade de dados</span>':
     ('<span>Data Engineering</span><span>Pipelines</span><span>Modelling</span><span>Automation</span><span>Data quality</span>',
      '<span>Data Engineering</span><span>Pipelines</span><span>Modelado</span><span>Automatización</span><span>Calidad de datos</span>'),
-  '<span>Migração para nuvem</span><span>Modernização de legado</span><span>Google Cloud</span><span>Licenciamento</span><span>Contrato único</span>':
-    ('<span>Cloud migration</span><span>Legacy modernisation</span><span>Google Cloud</span><span>Licensing</span><span>Single contract</span>',
-     '<span>Migración a la nube</span><span>Modernización de legado</span><span>Google Cloud</span><span>Licenciamiento</span><span>Contrato único</span>'),
   '<span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Governança de métricas</span><span>Data Design</span>':
     ('<span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Metric governance</span><span>Data Design</span>',
      '<span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Gobernanza de métricas</span><span>Data Design</span>'),
@@ -274,8 +283,6 @@ TRAD.update({
      'Atlas forma parte de Google Cloud Partner Advantage y comercializa productos Google Cloud. En lugar de comprar la licencia a un proveedor y la implementación a otro, ambos vienen de la misma empresa: un contrato, un interlocutor, y quien vende es quien lo pone en producción.'),
   'Implantação': ('Deployment', 'Implementación'),
   'Contrato único': ('Single contract', 'Contrato único'),
-  'Ver produtos Google <span class="arr">→</span>':
-    ('See Google products <span class="arr">→</span>', 'Ver productos Google <span class="arr">→</span>'),
   '<span aria-hidden="true">←</span> Voltar para parceiros':
     ('<span aria-hidden="true">←</span> Back to partners',
      '<span aria-hidden="true">←</span> Volver a socios'),
