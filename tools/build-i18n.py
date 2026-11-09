@@ -188,27 +188,15 @@ TRAD.update({
 
   # ---------------- essência e valores ----------------
   'Atlas em números': ('Atlas by the numbers', 'Atlas en números'),
-  'Não é promessa. É o que já foi entregue.':
-    ('Not a promise. It is what has already been delivered.',
-     'No es promesa. Es lo que ya fue entregado.'),
   'A Atlas é uma consultoria de tecnologia em dados e alocação de especialistas. Da engenharia à decisão, em produção.':
     ('Atlas is a technology consultancy in data and specialist staffing. From engineering to decision, in production.',
      'Atlas es una consultoría de tecnología en datos y asignación de especialistas. De la ingeniería a la decisión, en producción.'),
 
   # ---------------- ladrilhos de números ----------------
   'Entrega': ('Delivery', 'Entrega'),
-  'projetos entregues em dados, BI e inteligência':
-    ('projects delivered in data, BI and intelligence', 'proyectos entregados en datos, BI e inteligencia'),
   'Alcance': ('Reach', 'Alcance'),
-  'setores atendidos — do bancário ao food service':
-    ('industries served — from banking to food service', 'sectores atendidos — de la banca al food service'),
   'Time': ('Team', 'Equipo'),
-  'profissionais alocados dentro do time do cliente':
-    ('professionals placed inside the client’s team', 'profesionales asignados dentro del equipo del cliente'),
   'Permanência': ('Tenure', 'Permanencia'),
-  'horas em alocação — contratos de no mínimo 6 meses, muitos por tempo indeterminado':
-    ('hours on assignment — contracts of at least 6 months, many of them open-ended',
-     'horas en asignación — contratos de 6 meses como mínimo, muchos por tiempo indefinido'),
 
   # ---------------- faixa de alocação ----------------
   'Alocação de especialistas': ('Specialist staffing', 'Asignación de especialistas'),
@@ -218,20 +206,76 @@ TRAD.update({
   'Cinco frentes. E, quando o que falta é time, os especialistas para tocá-las. Não vendemos ferramenta: resolvemos o problema por trás dela.':
     ('Five fronts. And, when what is missing is the team, the specialists to run them. We don’t sell tools: we solve the problem behind them.',
      'Cinco frentes. Y, cuando lo que falta es equipo, los especialistas para llevarlos. No vendemos herramienta: resolvemos el problema detrás de ella.'),
+  # ---------------- numeros da Atlas ----------------
+  'Experiência comprovada. Resultados construídos na prática.':
+    ('Proven experience. Results built in practice.',
+     'Experiencia comprobada. Resultados construidos en la práctica.'),
+  'Projetos entregues': ('Projects delivered', 'Proyectos entregados'),
+  'Iniciativas em dados, BI, engenharia e inteligência.':
+    ('Initiatives in data, BI, engineering and intelligence.',
+     'Iniciativas en datos, BI, ingeniería e inteligencia.'),
+  'Setores atendidos': ('Industries served', 'Sectores atendidos'),
+  'Experiência em diferentes segmentos da economia.':
+    ('Experience across different segments of the economy.',
+     'Experiencia en diferentes segmentos de la economía.'),
+  'Profissionais alocados': ('Professionals placed', 'Profesionales asignados'),
+  'Especialistas atuando em projetos e operações de clientes.':
+    ('Specialists working inside client projects and operations.',
+     'Especialistas actuando en proyectos y operaciones de clientes.'),
+  'Horas de alocação': ('Hours of placement', 'Horas de asignación'),
+  'Experiência acumulada em operações e projetos.':
+    ('Experience accumulated across operations and projects.',
+     'Experiencia acumulada en operaciones y proyectos.'),
+  # ---------------- cinco frentes de atuacao ----------------
+  '<span class="sol-k">01 · Engenharia de Dados</span><span class="sol-t">A base que conecta seus dados</span>':
+    ('<span class="sol-k">01 · Data Engineering</span><span class="sol-t">The foundation that connects your data</span>',
+     '<span class="sol-k">01 · Ingeniería de Datos</span><span class="sol-t">La base que conecta sus datos</span>'),
+  '<span class="sol-k">02 · Cloud &amp; Modernização</span><span class="sol-t">Infraestrutura preparada para evoluir</span>':
+    ('<span class="sol-k">02 · Cloud &amp; Modernization</span><span class="sol-t">Infrastructure ready to evolve</span>',
+     '<span class="sol-k">02 · Cloud &amp; Modernización</span><span class="sol-t">Infraestructura preparada para evolucionar</span>'),
+  '<span class="sol-k">03 · Analytics &amp; BI</span><span class="sol-t">Do dado à decisão</span>':
+    ('<span class="sol-k">03 · Analytics &amp; BI</span><span class="sol-t">From data to decision</span>',
+     '<span class="sol-k">03 · Analytics &amp; BI</span><span class="sol-t">Del dato a la decisión</span>'),
+  '<span class="sol-k">04 · IA &amp; Automação</span><span class="sol-t">Inteligência que gera ação</span>':
+    ('<span class="sol-k">04 · AI &amp; Automation</span><span class="sol-t">Intelligence that drives action</span>',
+     '<span class="sol-k">04 · IA &amp; Automatización</span><span class="sol-t">Inteligencia que genera acción</span>'),
+  '<span class="sol-k">05 · Especialistas &amp; Squads</span><span class="sol-t">As pessoas certas no seu time</span>':
+    ('<span class="sol-k">05 · Specialists &amp; Squads</span><span class="sol-t">The right people on your team</span>',
+     '<span class="sol-k">05 · Especialistas &amp; Squads</span><span class="sol-t">Las personas correctas en su equipo</span>'),
+  'Cloud &amp; Modernização': ('Cloud &amp; Modernization', 'Cloud &amp; Modernización'),
+  'Analytics &amp; BI': ('Analytics &amp; BI', 'Analytics &amp; BI'),
+  'IA &amp; Automação': ('AI &amp; Automation', 'IA &amp; Automatización'),
+  'Especialistas &amp; Squads': ('Specialists &amp; Squads', 'Especialistas &amp; Squads'),
+  'A base que conecta seus dados': ('The foundation that connects your data', 'La base que conecta sus datos'),
+  'Infraestrutura preparada para evoluir': ('Infrastructure ready to evolve', 'Infraestructura preparada para evolucionar'),
+  'Inteligência que gera ação': ('Intelligence that drives action', 'Inteligencia que genera acción'),
+  'As pessoas certas no seu time': ('The right people on your team', 'Las personas correctas en su equipo'),
+  'Tirar o peso do legado sem parar a operação, e deixar a base pronta para crescer. A Atlas faz parte do Google Cloud Partner Advantage e comercializa produtos Google Cloud, então licença e implantação saem da mesma empresa.':
+    ('Taking the weight off the legacy without stopping the operation, and leaving the foundation ready to grow. Atlas is part of Google Cloud Partner Advantage and sells Google Cloud products, so licence and deployment come from the same company.',
+     'Quitar el peso del legado sin parar la operación, y dejar la base lista para crecer. Atlas forma parte de Google Cloud Partner Advantage y comercializa productos Google Cloud, así que licencia e implementación salen de la misma empresa.'),
+  'A camada que lê o que já existe, antecipa o que vem e tira trabalho repetitivo do caminho. Começa pelo dado que você já tem — não por um projeto novo de coleta.':
+    ('The layer that reads what is already there, anticipates what is coming and takes repetitive work out of the way. It starts from the data you already have — not from a new collection project.',
+     'La capa que lee lo que ya existe, anticipa lo que viene y quita trabajo repetitivo del camino. Empieza por el dato que usted ya tiene — no por un proyecto nuevo de recolección.'),
+  '<span>Data Engineering</span><span>Pipelines</span><span>Modelagem</span><span>Automação</span><span>Qualidade de dados</span>':
+    ('<span>Data Engineering</span><span>Pipelines</span><span>Modelling</span><span>Automation</span><span>Data quality</span>',
+     '<span>Data Engineering</span><span>Pipelines</span><span>Modelado</span><span>Automatización</span><span>Calidad de datos</span>'),
+  '<span>Migração para nuvem</span><span>Modernização de legado</span><span>Google Cloud</span><span>Licenciamento</span><span>Contrato único</span>':
+    ('<span>Cloud migration</span><span>Legacy modernisation</span><span>Google Cloud</span><span>Licensing</span><span>Single contract</span>',
+     '<span>Migración a la nube</span><span>Modernización de legado</span><span>Google Cloud</span><span>Licenciamiento</span><span>Contrato único</span>'),
+  '<span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Governança de métricas</span><span>Data Design</span>':
+    ('<span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Metric governance</span><span>Data Design</span>',
+     '<span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Gobernanza de métricas</span><span>Data Design</span>'),
+  '<span>Modelos preditivos</span><span>Detecção de anomalias</span><span>GenAI e agentes</span><span>Document AI</span><span>Automação de processos</span>':
+    ('<span>Predictive models</span><span>Anomaly detection</span><span>GenAI and agents</span><span>Document AI</span><span>Process automation</span>',
+     '<span>Modelos predictivos</span><span>Detección de anomalías</span><span>GenAI y agentes</span><span>Document AI</span><span>Automatización de procesos</span>'),
   # ---------------- licenciamento e parceiros ----------------
-  '<span class="sol-k">05 · Licenciamento Google Cloud</span><span class="sol-t">A licença e quem implanta, juntos</span>':
-    ('<span class="sol-k">05 · Google Cloud licensing</span><span class="sol-t">The licence and the team that deploys it</span>',
-     '<span class="sol-k">05 · Licenciamiento Google Cloud</span><span class="sol-t">La licencia y quien implementa, juntos</span>'),
-  'Licenciamento Google Cloud': ('Google Cloud licensing', 'Licenciamiento Google Cloud'),
-  'A licença e quem implanta, juntos':
-    ('The licence and the team that deploys it', 'La licencia y quien implementa, juntos'),
   'A Atlas faz parte do Google Cloud Partner Advantage e comercializa produtos Google Cloud. Em vez de comprar a licença com um fornecedor e a implantação com outro, os dois vêm da mesma empresa: um contrato, um interlocutor, e quem vende é quem coloca em produção.':
     ('Atlas is part of Google Cloud Partner Advantage and sells Google Cloud products. Instead of buying the licence from one supplier and the deployment from another, both come from the same company: one contract, one point of contact, and whoever sells is who puts it in production.',
      'Atlas forma parte de Google Cloud Partner Advantage y comercializa productos Google Cloud. En lugar de comprar la licencia a un proveedor y la implementación a otro, ambos vienen de la misma empresa: un contrato, un interlocutor, y quien vende es quien lo pone en producción.'),
   'Implantação': ('Deployment', 'Implementación'),
   'Contrato único': ('Single contract', 'Contrato único'),
-  'Ver produtos Google <span class="arr">&rarr;</span>':
-    ('See Google products <span class="arr">&rarr;</span>', 'Ver productos Google <span class="arr">&rarr;</span>'),
+  'Ver produtos Google <span class="arr">→</span>':
+    ('See Google products <span class="arr">→</span>', 'Ver productos Google <span class="arr">→</span>'),
   '<span aria-hidden="true">←</span> Voltar para parceiros':
     ('<span aria-hidden="true">←</span> Back to partners',
      '<span aria-hidden="true">←</span> Volver a socios'),
@@ -249,37 +293,20 @@ TRAD.update({
   'Licença e implantação na mesma empresa':
     ('Licence and deployment from the same company', 'Licencia e implementación en la misma empresa'),
   'Frentes de atuação': ('Areas of work', 'Frentes de actuación'),
-  '<span class="sol-k">01 · Data &amp; Analytics</span><span class="sol-t">Do dado à decisão</span>':
-    ('<span class="sol-k">01 · Data &amp; Analytics</span><span class="sol-t">From data to decision</span>',
-     '<span class="sol-k">01 · Data &amp; Analytics</span><span class="sol-t">Del dato a la decisión</span>'),
-  '<span class="sol-k">02 · Engenharia &amp; Cloud</span><span class="sol-t">A base por onde o dado anda</span>':
-    ('<span class="sol-k">02 · Engineering &amp; Cloud</span><span class="sol-t">The foundation data travels on</span>',
-     '<span class="sol-k">02 · Ingeniería &amp; Cloud</span><span class="sol-t">La base por donde circula el dato</span>'),
-  '<span class="sol-k">03 · Inteligência &amp; IA</span><span class="sol-t">O que os dados antecipam</span>':
-    ('<span class="sol-k">03 · Intelligence &amp; AI</span><span class="sol-t">What the data sees coming</span>',
-     '<span class="sol-k">03 · Inteligencia &amp; IA</span><span class="sol-t">Lo que los datos anticipan</span>'),
-  '<span class="sol-k">04 · Pessoas &amp; Alocação</span><span class="sol-t">Especialistas no seu time</span>':
-    ('<span class="sol-k">04 · People &amp; Staffing</span><span class="sol-t">Specialists in your team</span>',
-     '<span class="sol-k">04 · Personas &amp; Asignación</span><span class="sol-t">Especialistas en su equipo</span>'),
   'Do dado à decisão': ('From data to decision', 'Del dato a la decisión'),
   'Transformar o dado organizado em leitura do negócio — e a leitura em decisão. O painel não é o fim: ele existe para alguém escolher melhor com ele na frente.':
     ('Turning organized data into business insight — and insight into a decision. The dashboard is not the end: it exists so somebody chooses better with it in front of them.',
      'Transformar el dato organizado en lectura del negocio — y la lectura en decisión. El panel no es el fin: existe para que alguien elija mejor con él delante.'),
   'Padrão visual antes do desenvolvimento': ('Visual standard before development', 'Estándar visual antes del desarrollo'),
-  'Engenharia de Dados &amp; Cloud': ('Data Engineering &amp; Cloud', 'Ingeniería de Datos &amp; Cloud'),
-  'A base por onde o dado anda': ('The foundation data travels on', 'La base por donde circula el dato'),
   'A infraestrutura por onde o dado anda: ingestão, armazenamento, transformação e governança. Feita para aguentar a próxima pergunta, não só a de hoje.':
     ('The infrastructure the data travels on: ingestion, storage, transformation and governance. Built to hold the next question, not just today’s.',
      'La infraestructura por donde circula el dato: ingesta, almacenamiento, transformación y gobernanza. Hecha para aguantar la próxima pregunta, no solo la de hoy.'),
   'Regra de negócio em código, testada e versionada': ('Business rules as code, tested and versioned', 'Regla de negocio en código, probada y versionada'),
-  'Inteligência &amp; Transformação': ('Intelligence &amp; Transformation', 'Inteligencia &amp; Transformación'),
-  'O que os dados antecipam': ('What the data sees coming', 'Lo que los datos anticipan'),
   'A camada que lê o que já existe, antecipa o que vem e muda como a empresa opera. Começa pelo dado que você já tem — não por um projeto novo de coleta.':
     ('The layer that reads what already exists, anticipates what is coming and changes how the company operates. It starts from the data you already have — not from a new collection project.',
      'La capa que lee lo que ya existe, anticipa lo que viene y cambia cómo opera la empresa. Empieza por el dato que usted ya tiene — no por un nuevo proyecto de recolección.'),
   'Em produção, não em prova de conceito': ('In production, not in proof of concept', 'En producción, no en prueba de concepto'),
   'Pessoas &amp; Alocação': ('People &amp; Staffing', 'Personas &amp; Asignación'),
-  'Especialistas no seu time': ('Specialists in your team', 'Especialistas en su equipo'),
   '150+ profissionais alocados, muitos por tempo indeterminado':
     ('150+ professionals placed, many of them open-ended', '150+ profesionales asignados, muchos por tiempo indefinido'),
   '<span>Data &amp; Analytics</span><span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Governança de métricas</span>':

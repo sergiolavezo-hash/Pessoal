@@ -1,5 +1,5 @@
 {
- "total": 766,
+ "total": 769,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -377,7 +377,7 @@
    "cls": "eyebrow"
   },
   {
-   "chave": "Não é promessa. É o que já foi entregue.",
+   "chave": "Experiência comprovada. Resultados construídos na prática.",
    "tag": "h2",
    "cls": ""
   },
@@ -402,7 +402,12 @@
    "cls": ""
   },
   {
-   "chave": "projetos entregues em dados, BI e inteligência",
+   "chave": "Projetos entregues",
+   "tag": "strong",
+   "cls": "tile-nome"
+  },
+  {
+   "chave": "Iniciativas em dados, BI, engenharia e inteligência.",
    "tag": "span",
    "cls": ""
   },
@@ -417,7 +422,12 @@
    "cls": ""
   },
   {
-   "chave": "setores atendidos — do bancário ao food service",
+   "chave": "Setores atendidos",
+   "tag": "strong",
+   "cls": "tile-nome"
+  },
+  {
+   "chave": "Experiência em diferentes segmentos da economia.",
    "tag": "span",
    "cls": ""
   },
@@ -432,7 +442,12 @@
    "cls": ""
   },
   {
-   "chave": "profissionais alocados dentro do time do cliente",
+   "chave": "Profissionais alocados",
+   "tag": "strong",
+   "cls": "tile-nome"
+  },
+  {
+   "chave": "Especialistas atuando em projetos e operações de clientes.",
    "tag": "span",
    "cls": ""
   },
@@ -447,7 +462,12 @@
    "cls": ""
   },
   {
-   "chave": "horas em alocação — contratos de no mínimo 6 meses, muitos por tempo indeterminado",
+   "chave": "Horas de alocação",
+   "tag": "strong",
+   "cls": "tile-nome"
+  },
+  {
+   "chave": "Experiência acumulada em operações e projetos.",
    "tag": "span",
    "cls": ""
   },
@@ -477,7 +497,7 @@
    "cls": "sub reveal d2"
   },
   {
-   "chave": "<span class=\"sol-k\">01 · Data &amp; Analytics</span><span class=\"sol-t\">Do dado à decisão</span>",
+   "chave": "<span class=\"sol-k\">01 · Engenharia de Dados</span><span class=\"sol-t\">A base que conecta seus dados</span>",
    "tag": "span",
    "cls": ""
   },
@@ -487,27 +507,77 @@
    "cls": "sol-arr"
   },
   {
-   "chave": "<span class=\"sol-k\">02 · Engenharia &amp; Cloud</span><span class=\"sol-t\">A base por onde o dado anda</span>",
+   "chave": "<span class=\"sol-k\">02 · Cloud &amp; Modernização</span><span class=\"sol-t\">Infraestrutura preparada para evoluir</span>",
    "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"sol-k\">03 · Inteligência &amp; IA</span><span class=\"sol-t\">O que os dados antecipam</span>",
+   "chave": "<span class=\"sol-k\">03 · Analytics &amp; BI</span><span class=\"sol-t\">Do dado à decisão</span>",
    "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"sol-k\">04 · Pessoas &amp; Alocação</span><span class=\"sol-t\">Especialistas no seu time</span>",
+   "chave": "<span class=\"sol-k\">04 · IA &amp; Automação</span><span class=\"sol-t\">Inteligência que gera ação</span>",
    "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"sol-k\">05 · Licenciamento Google Cloud</span><span class=\"sol-t\">A licença e quem implanta, juntos</span>",
+   "chave": "<span class=\"sol-k\">05 · Especialistas &amp; Squads</span><span class=\"sol-t\">As pessoas certas no seu time</span>",
    "tag": "span",
    "cls": ""
   },
   {
-   "chave": "Data &amp; Analytics",
+   "chave": "Engenharia de Dados",
+   "tag": "span",
+   "cls": "pill"
+  },
+  {
+   "chave": "A base que conecta seus dados",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "A infraestrutura por onde o dado anda: ingestão, armazenamento, transformação e governança. Feita para aguentar a próxima pergunta, não só a de hoje.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data Engineering</span><span>Pipelines</span><span>Modelagem</span><span>Automação</span><span>Qualidade de dados</span>",
+   "tag": "div",
+   "cls": "sol-tags"
+  },
+  {
+   "chave": "Conhecer Data Engineering <span class=\"arr\">→</span>",
+   "tag": "a",
+   "cls": "btn btn-accent"
+  },
+  {
+   "chave": "Cloud &amp; Modernização",
+   "tag": "span",
+   "cls": "pill"
+  },
+  {
+   "chave": "Infraestrutura preparada para evoluir",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Tirar o peso do legado sem parar a operação, e deixar a base pronta para crescer. A Atlas faz parte do Google Cloud Partner Advantage e comercializa produtos Google Cloud, então licença e implantação saem da mesma empresa.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Migração para nuvem</span><span>Modernização de legado</span><span>Google Cloud</span><span>Licenciamento</span><span>Contrato único</span>",
+   "tag": "div",
+   "cls": "sol-tags"
+  },
+  {
+   "chave": "Ver produtos Google <span class=\"arr\">→</span>",
+   "tag": "a",
+   "cls": "btn btn-accent"
+  },
+  {
+   "chave": "Analytics &amp; BI",
    "tag": "span",
    "cls": "pill"
   },
@@ -522,7 +592,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Data &amp; Analytics</span><span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Governança de métricas</span>",
+   "chave": "<span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Governança de métricas</span><span>Data Design</span>",
    "tag": "div",
    "cls": "sol-tags"
   },
@@ -532,47 +602,22 @@
    "cls": "btn btn-accent"
   },
   {
-   "chave": "Engenharia de Dados &amp; Cloud",
+   "chave": "IA &amp; Automação",
    "tag": "span",
    "cls": "pill"
   },
   {
-   "chave": "A base por onde o dado anda",
+   "chave": "Inteligência que gera ação",
    "tag": "h3",
    "cls": ""
   },
   {
-   "chave": "A infraestrutura por onde o dado anda: ingestão, armazenamento, transformação e governança. Feita para aguentar a próxima pergunta, não só a de hoje.",
+   "chave": "A camada que lê o que já existe, antecipa o que vem e tira trabalho repetitivo do caminho. Começa pelo dado que você já tem — não por um projeto novo de coleta.",
    "tag": "p",
    "cls": ""
   },
   {
-   "chave": "<span>Data Engineering</span><span>Cloud &amp; Modern Data Stack</span><span>Pipelines</span><span>Automação</span><span>Migração de legado</span>",
-   "tag": "div",
-   "cls": "sol-tags"
-  },
-  {
-   "chave": "Conhecer Data Engineering <span class=\"arr\">→</span>",
-   "tag": "a",
-   "cls": "btn btn-accent"
-  },
-  {
-   "chave": "Inteligência &amp; Transformação",
-   "tag": "span",
-   "cls": "pill"
-  },
-  {
-   "chave": "O que os dados antecipam",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
-   "chave": "A camada que lê o que já existe, antecipa o que vem e muda como a empresa opera. Começa pelo dado que você já tem — não por um projeto novo de coleta.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Modelos preditivos</span><span>Detecção de anomalias</span><span>GenAI e agentes</span><span>Document AI</span><span>Modernização de sistemas</span>",
+   "chave": "<span>Modelos preditivos</span><span>Detecção de anomalias</span><span>GenAI e agentes</span><span>Document AI</span><span>Automação de processos</span>",
    "tag": "div",
    "cls": "sol-tags"
   },
@@ -582,12 +627,12 @@
    "cls": "btn btn-accent"
   },
   {
-   "chave": "Pessoas &amp; Alocação",
+   "chave": "Especialistas &amp; Squads",
    "tag": "span",
    "cls": "pill"
   },
   {
-   "chave": "Especialistas no seu time",
+   "chave": "As pessoas certas no seu time",
    "tag": "h3",
    "cls": ""
   },
@@ -600,31 +645,6 @@
    "chave": "<span>Alocação de especialistas</span><span>Squads de dados</span><span>Engenheiros e analistas</span><span>Contratos de no mínimo 6 meses</span>",
    "tag": "div",
    "cls": "sol-tags"
-  },
-  {
-   "chave": "Licenciamento Google Cloud",
-   "tag": "span",
-   "cls": "pill"
-  },
-  {
-   "chave": "A licença e quem implanta, juntos",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
-   "chave": "A Atlas faz parte do Google Cloud Partner Advantage e comercializa produtos Google Cloud. Em vez de comprar a licença com um fornecedor e a implantação com outro, os dois vêm da mesma empresa: um contrato, um interlocutor, e quem vende é quem coloca em produção.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Google Cloud</span><span>Licenciamento</span><span>Implantação</span><span>Contrato único</span>",
-   "tag": "div",
-   "cls": "sol-tags"
-  },
-  {
-   "chave": "Ver produtos Google <span class=\"arr\">→</span>",
-   "tag": "a",
-   "cls": "btn btn-accent"
   },
   {
    "chave": "Programas de parceria.",
@@ -1232,12 +1252,12 @@
    "cls": "pill"
   },
   {
-   "chave": "Padrão visual antes do desenvolvimento",
+   "chave": "Regra de negócio em código, testada e versionada",
    "tag": "span#texto",
    "cls": "sol-sig"
   },
   {
-   "chave": "Regra de negócio em código, testada e versionada",
+   "chave": "Padrão visual antes do desenvolvimento",
    "tag": "span#texto",
    "cls": "sol-sig"
   },
@@ -1402,11 +1422,6 @@
    "cls": ""
   },
   {
-   "chave": "Setores atendidos",
-   "tag": "@aria-label",
-   "cls": "rail"
-  },
-  {
    "chave": "Frentes de atuação",
    "tag": "@aria-label",
    "cls": "sol-list"
@@ -1450,11 +1465,6 @@
    "chave": "Oracle",
    "tag": "@alt",
    "cls": ""
-  },
-  {
-   "chave": "Projetos entregues",
-   "tag": "@aria-label",
-   "cls": "carr-trilho"
   },
   {
    "chave": "Ver o case 1 de 15",
@@ -1618,11 +1628,6 @@
   },
   {
    "chave": "Todos",
-   "tag": "button",
-   "cls": "filtro"
-  },
-  {
-   "chave": "Engenharia de Dados",
    "tag": "button",
    "cls": "filtro"
   },
@@ -2190,6 +2195,11 @@
    "chave": "Airbyte",
    "tag": "@title",
    "cls": "pag-tec"
+  },
+  {
+   "chave": "Pessoas &amp; Alocação",
+   "tag": "span",
+   "cls": "eyebrow reveal in"
   },
   {
    "chave": "Roadmap definido, orçamento aprovado. A vaga de engenheiro de dados segue aberta, e o projeto não anda.",
@@ -2784,6 +2794,11 @@
   {
    "chave": "Licença e implantação na mesma empresa",
    "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "A Atlas faz parte do Google Cloud Partner Advantage e comercializa produtos Google Cloud. Em vez de comprar a licença com um fornecedor e a implantação com outro, os dois vêm da mesma empresa: um contrato, um interlocutor, e quem vende é quem coloca em produção.",
+   "tag": "p",
    "cls": ""
   },
   {

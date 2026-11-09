@@ -1126,7 +1126,10 @@
   /* tabular-nums trava a largura do digito. Sem isso o numero balanca a
      cada quadro da contagem, porque 1 e mais estreito que 8. */
   .tile b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.3vw, 2.6rem); font-weight: 500; letter-spacing: -0.035em; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
-  .tile > span { display: block; color: var(--muted); font-size: 0.89rem; margin-top: 0.65rem; }
+  /* Nome do indicador entre o numero e a frase: o numero diz quanto, o
+     nome diz do que, a frase diz por que importa. */
+  .tile-nome { display: block; font-family: var(--display); font-weight: 550; font-size: 1rem; color: var(--ink); margin-top: 0.7rem; }
+  .tile > span { display: block; color: var(--muted); font-size: 0.89rem; margin-top: 0.3rem; }
 
   /* ---------- Faixa de destaque ---------- */
   .banner {
@@ -1200,6 +1203,22 @@
     background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><rect x=%2218%22 y=%22104%22 width=%2226%22 height=%2234%22 rx=%223%22/><rect x=%2258%22 y=%2286%22 width=%2226%22 height=%2252%22 rx=%223%22/><rect x=%2298%22 y=%2262%22 width=%2226%22 height=%2276%22 rx=%223%22/><rect x=%22138%22 y=%2238%22 width=%2226%22 height=%22100%22 rx=%223%22/><path d=%22M18 92 71 70l40-26 44-22 40-10%22/><circle cx=%2218%22 cy=%2292%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/><circle cx=%2271%22 cy=%2270%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/><circle cx=%22111%22 cy=%2244%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/><circle cx=%22155%22 cy=%2222%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/><circle cx=%22195%22 cy=%2212%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/></svg>") no-repeat right bottom / contain;
     opacity: 0.12; pointer-events: none; z-index: 0;
   }
+
+  /* Arte propria por frente. O painel 04, de Analytics, fica com o
+     grafico da regra acima — era o desenho original e combina com o tema.
+     Os outros cinco trocam so a imagem: posicao, tamanho e opacidade
+     continuam vindo da mesma regra, entao nao ha como um painel destoar
+     dos demais em enquadramento. */
+  /* estrategia: alvo e a trajetoria que chega nele */
+  #sol-p1::after { background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><circle cx=%22186%22 cy=%2252%22 r=%2234%22/><circle cx=%22186%22 cy=%2252%22 r=%2219%22/><circle cx=%22186%22 cy=%2252%22 r=%225%22 fill=%22%232E86FF%22 stroke=%22none%22/><path d=%22M14 136 70 114l34 12 48-44%22/><path d=%22M136 82h20v20%22/></svg>") no-repeat right bottom / contain; }
+  /* engenharia: dois repositorios ligados por um duto */
+  #sol-p1::after { background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><ellipse cx=%2258%22 cy=%2246%22 rx=%2234%22 ry=%2212%22/><path d=%22M24 46v38c0 6.6 15.2 12 34 12s34-5.4 34-12V46%22/><path d=%22M24 65c0 6.6 15.2 12 34 12s34-5.4 34-12%22/><ellipse cx=%22182%22 cy=%2286%22 rx=%2228%22 ry=%2210%22/><path d=%22M154 86v30c0 5.5 12.5 10 28 10s28-4.5 28-10V86%22/><path d=%22M92 72h28a16 16 0 0 1 16 16v8%22/></svg>") no-repeat right bottom / contain; }
+  /* nuvem: a nuvem e os pontos que ela atende */
+  #sol-p2::after { background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><path d=%22M72 108h80a30 30 0 0 0 3-60A44 44 0 0 0 66 62 30 30 0 0 0 72 108Z%22/><circle cx=%2238%22 cy=%22134%22 r=%226%22/><circle cx=%22118%22 cy=%22140%22 r=%226%22/><circle cx=%22202%22 cy=%22134%22 r=%226%22/><path d=%22M44 130 76 112M118 134v-20M196 130 162 112%22/></svg>") no-repeat right bottom / contain; }
+  /* ia: no central e as ligacoes que convergem nele */
+  #sol-p4::after { background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><circle cx=%2236%22 cy=%2242%22 r=%229%22/><circle cx=%2236%22 cy=%22112%22 r=%229%22/><circle cx=%22120%22 cy=%2277%22 r=%2213%22/><circle cx=%22204%22 cy=%2242%22 r=%229%22/><circle cx=%22204%22 cy=%22112%22 r=%229%22/><path d=%22M45 47l63 24M45 107l63-24M133 71l62-23M133 83l62 23%22/></svg>") no-repeat right bottom / contain; }
+  /* pessoas: tres figuras, a do meio a frente */
+  #sol-p5::after { background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><circle cx=%2248%22 cy=%2262%22 r=%2216%22/><path d=%22M18 126a30 30 0 0 1 60 0%22/><circle cx=%22120%22 cy=%2246%22 r=%2219%22/><path d=%22M84 122a36 36 0 0 1 72 0%22/><circle cx=%22192%22 cy=%2262%22 r=%2216%22/><path d=%22M162 126a30 30 0 0 1 60 0%22/></svg>") no-repeat right bottom / contain; }
   .sol-panel > * { position: relative; z-index: 1; }
   .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 500; margin: 1.1rem 0 1rem; }
   .sol-panel > p { color: var(--muted); font-size: 1rem; }
