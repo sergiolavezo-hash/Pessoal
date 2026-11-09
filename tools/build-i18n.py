@@ -710,9 +710,9 @@ TRAD.update({
 
 TRAD.update({
   # ---------------- ajustes desta rodada ----------------
-  '<span>Clareza</span> <span>Resultado</span> <span>Parceria</span>':
-    ('<span>Clarity</span> <span>Results</span> <span>Partnership</span>',
-     '<span>Claridad</span> <span>Resultado</span> <span>Alianza</span>'),
+  '<span>Clareza</span> <span>Resultado</span> <span>Parceria</span> <span>Pessoas</span>':
+    ('<span>Clarity</span> <span>Results</span> <span>Partnership</span> <span>People</span>',
+     '<span>Claridad</span> <span>Resultado</span> <span>Alianza</span> <span>Personas</span>'),
   'Especialistas de dados dentro do seu time.':
     ('Data specialists inside your team.', 'Especialistas de datos dentro de su equipo.'),
   'Quando o gargalo não é o projeto e sim quem vai tocá-lo, a Atlas aloca especialistas que entram na sua operação e respondem à sua gestão — em contratos de no mínimo 6 meses, muitos por tempo indeterminado.':
