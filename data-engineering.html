@@ -1116,7 +1116,9 @@
   .tile-cat { font-family: var(--mono); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-align: right; }
   /* 600, o mesmo peso das chamadas do site. Em 800 o número ficava pesado
      demais ao lado de um h2 mais leve que ele. */
-  .tile b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.3vw, 2.6rem); font-weight: 500; letter-spacing: -0.035em; color: var(--ink); line-height: 1; }
+  /* tabular-nums trava a largura do digito. Sem isso o numero balanca a
+     cada quadro da contagem, porque 1 e mais estreito que 8. */
+  .tile b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.3vw, 2.6rem); font-weight: 500; letter-spacing: -0.035em; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
   .tile > span { display: block; color: var(--muted); font-size: 0.89rem; margin-top: 0.65rem; }
 
   /* ---------- Faixa de destaque ---------- */
@@ -2926,6 +2928,60 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
   else iniciar();
 })();
+  /* ---------- Contagem dos numeros da secao "Atlas em numeros" ---------- */
+  /* O valor escrito no HTML e a unica fonte: o script le o que esta la,
+     anima de zero ate ele e devolve a string exata no fim. Nao ha numero
+     cravado aqui de proposito — se o texto mudar, ou se algum dia o
+     separador de milhar mudar com o idioma (em ingles seria 150,000+), a
+     animacao acompanha sozinha em vez de exibir outro valor. */
+  (function () {
+    var alvos = [].slice.call(document.querySelectorAll('.tiles .tile > b'));
+    if (!alvos.length || !('IntersectionObserver' in window)) return;
+    /* Quem pediu menos movimento no sistema ja ve o numero final, que esta
+       no HTML: aqui basta nao animar. */
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    function desmontar(txt) {
+      var m = /^(\D*)([\d.,]+)(\D*)$/.exec(txt.trim());
+      if (!m) return null;
+      var corpo = m[2];
+      var sep = /[.,]/.test(corpo) ? corpo.replace(/[^.,]/g, '').charAt(0) : '';
+      var n = parseInt(corpo.replace(/[.,]/g, ''), 10);
+      return isFinite(n) ? { antes: m[1], fim: n, sep: sep, depois: m[3] } : null;
+    }
+
+    function formatar(n, p) {
+      var s = String(n);
+      if (p.sep) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, p.sep);
+      return p.antes + s + p.depois;
+    }
+
+    function animar(el) {
+      var original = el.textContent;
+      var p = desmontar(original);
+      if (!p) return;
+      var dur = 1100, t0 = 0;
+      function passo(ts) {
+        if (!t0) t0 = ts;
+        var k = Math.min(1, (ts - t0) / dur);
+        el.textContent = formatar(Math.round(p.fim * (1 - Math.pow(1 - k, 3))), p);
+        if (k < 1) requestAnimationFrame(passo);
+        else el.textContent = original;   /* devolve a string exata do HTML */
+      }
+      el.textContent = formatar(0, p);
+      requestAnimationFrame(passo);
+    }
+
+    var obs = new IntersectionObserver(function (ents) {
+      ents.forEach(function (ent) {
+        if (!ent.isIntersecting) return;
+        obs.unobserve(ent.target);
+        /* escalonado: os quatro contam em sequencia, nao em bloco */
+        alvos.forEach(function (el, i) { setTimeout(function () { animar(el); }, i * 110); });
+      });
+    }, { threshold: 0.35 });
+    obs.observe(alvos[0].parentNode.parentNode);
+  })();
 </script>
 </body>
 </html>
