@@ -2960,11 +2960,16 @@
       var original = el.textContent;
       var p = desmontar(original);
       if (!p) return;
-      var dur = 1100, t0 = 0;
+      /* 2,6s com expoente 2,6. A curva antiga era 1,1s com expoente 3, que
+         despejava 308 de 500 nos primeiros 300ms: virava um estalo seguido
+         de rastejo. Assim a subida fica visivel do comeco ao fim (136, 247,
+         334, 400, 458 aos 300, 600, 900, 1200 e 1600ms) e o ultimo segundo
+         inteiro cobre so os 42 finais, que e a freada perto do alvo. */
+      var dur = 2600, t0 = 0;
       function passo(ts) {
         if (!t0) t0 = ts;
         var k = Math.min(1, (ts - t0) / dur);
-        el.textContent = formatar(Math.round(p.fim * (1 - Math.pow(1 - k, 3))), p);
+        el.textContent = formatar(Math.round(p.fim * (1 - Math.pow(1 - k, 2.6))), p);
         if (k < 1) requestAnimationFrame(passo);
         else el.textContent = original;   /* devolve a string exata do HTML */
       }
@@ -2977,7 +2982,7 @@
         if (!ent.isIntersecting) return;
         obs.unobserve(ent.target);
         /* escalonado: os quatro contam em sequencia, nao em bloco */
-        alvos.forEach(function (el, i) { setTimeout(function () { animar(el); }, i * 110); });
+        alvos.forEach(function (el, i) { setTimeout(function () { animar(el); }, i * 150); });
       });
     }, { threshold: 0.35 });
     obs.observe(alvos[0].parentNode.parentNode);
