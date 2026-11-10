@@ -231,9 +231,6 @@ TRAD.update({
   'Tirar o peso do legado sem parar a operação, e deixar a base pronta para crescer. Migração e modernização em etapas, com o que roda hoje de pé durante o caminho.':
     ('Taking the weight off the legacy without stopping the operation, and leaving the foundation ready to grow. Migration and modernisation in stages, with what runs today kept on its feet along the way.',
      'Quitar el peso del legado sin parar la operación, y dejar la base lista para crecer. Migración y modernización por etapas, con lo que funciona hoy en pie durante el camino.'),
-  '<span>Migração para nuvem</span><span>Modernização de legado</span><span>Modern Data Stack</span><span>Automação</span>':
-    ('<span>Cloud migration</span><span>Legacy modernisation</span><span>Modern Data Stack</span><span>Automation</span>',
-     '<span>Migración a la nube</span><span>Modernización de legado</span><span>Modern Data Stack</span><span>Automatización</span>'),
   'Legado aposentado sem parar a operação':
     ('Legacy retired without stopping the operation', 'Legado retirado sin parar la operación'),
   'Falar sobre modernização <span class="arr">→</span>':
@@ -242,13 +239,9 @@ TRAD.update({
     ('<span class="sol-k">01 · Strategy &amp; Innovation</span><span class="sol-t">From vision to transformation</span>',
      '<span class="sol-k">01 · Estrategia &amp; Innovación</span><span class="sol-t">De la visión a la transformación</span>'),
   'Estratégia &amp; Inovação': ('Strategy &amp; Innovation', 'Estrategia &amp; Innovación'),
-  'Da visão à transformação': ('From vision to transformation', 'De la visión a la transformación'),
   'Antes de construir, decidir o que construir. Diagnóstico do que já existe, desenho do destino e a ordem em que cada passo paga o próximo — para o investimento virar entrega e não estudo.':
     ('Before building, deciding what to build. A read of what is already there, a design for where it should go, and the order in which each step pays for the next — so the investment turns into delivery, not a study.',
      'Antes de construir, decidir qué construir. Diagnóstico de lo que ya existe, diseño del destino y el orden en que cada paso paga el siguiente — para que la inversión se convierta en entrega y no en estudio.'),
-  '<span>Diagnóstico de maturidade</span><span>Roadmap de dados</span><span>Arquitetura alvo</span><span>Governança</span><span>Priorização de casos de uso</span>':
-    ('<span>Maturity assessment</span><span>Data roadmap</span><span>Target architecture</span><span>Governance</span><span>Use case prioritisation</span>',
-     '<span>Diagnóstico de madurez</span><span>Roadmap de datos</span><span>Arquitectura objetivo</span><span>Gobernanza</span><span>Priorización de casos de uso</span>'),
   'Começa pelo que a empresa já tem, não por um projeto novo de coleta':
     ('Starts from what the company already has, not from a new collection project',
      'Empieza por lo que la empresa ya tiene, no por un proyecto nuevo de recolección'),
@@ -275,22 +268,9 @@ TRAD.update({
   'IA &amp; Automação': ('AI &amp; Automation', 'IA &amp; Automatización'),
   'Especialistas &amp; Squads': ('Specialists &amp; Squads', 'Especialistas &amp; Squads'),
   'Engenharia de Dados': ('Data Engineering', 'Ingeniería de Datos'),
-  'A base que conecta seus dados': ('The foundation that connects your data', 'La base que conecta sus datos'),
-  'Infraestrutura preparada para evoluir': ('Infrastructure ready to evolve', 'Infraestructura preparada para evolucionar'),
-  'Inteligência que gera ação': ('Intelligence that drives action', 'Inteligencia que genera acción'),
-  'As pessoas certas no seu time': ('The right people on your team', 'Las personas correctas en su equipo'),
   'A camada que lê o que já existe, antecipa o que vem e tira trabalho repetitivo do caminho. Começa pelo dado que você já tem — não por um projeto novo de coleta.':
     ('The layer that reads what is already there, anticipates what is coming and takes repetitive work out of the way. It starts from the data you already have — not from a new collection project.',
      'La capa que lee lo que ya existe, anticipa lo que viene y quita trabajo repetitivo del camino. Empieza por el dato que usted ya tiene — no por un proyecto nuevo de recolección.'),
-  '<span>Data Engineering</span><span>Pipelines</span><span>Modelagem</span><span>Automação</span><span>Qualidade de dados</span>':
-    ('<span>Data Engineering</span><span>Pipelines</span><span>Modelling</span><span>Automation</span><span>Data quality</span>',
-     '<span>Data Engineering</span><span>Pipelines</span><span>Modelado</span><span>Automatización</span><span>Calidad de datos</span>'),
-  '<span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Governança de métricas</span><span>Data Design</span>':
-    ('<span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Metric governance</span><span>Data Design</span>',
-     '<span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Gobernanza de métricas</span><span>Data Design</span>'),
-  '<span>Modelos preditivos</span><span>Detecção de anomalias</span><span>GenAI e agentes</span><span>Document AI</span><span>Automação de processos</span>':
-    ('<span>Predictive models</span><span>Anomaly detection</span><span>GenAI and agents</span><span>Document AI</span><span>Process automation</span>',
-     '<span>Modelos predictivos</span><span>Detección de anomalías</span><span>GenAI y agentes</span><span>Document AI</span><span>Automatización de procesos</span>'),
   # ---------------- licenciamento e parceiros ----------------
   'A Atlas faz parte do Google Cloud Partner Advantage e comercializa produtos Google Cloud. Em vez de comprar a licença com um fornecedor e a implantação com outro, os dois vêm da mesma empresa: um contrato, um interlocutor, e quem vende é quem coloca em produção.':
     ('Atlas is part of Google Cloud Partner Advantage and sells Google Cloud products. Instead of buying the licence from one supplier and the deployment from another, both come from the same company: one contract, one point of contact, and whoever sells is who puts it in production.',
@@ -314,7 +294,6 @@ TRAD.update({
   'Licença e implantação na mesma empresa':
     ('Licence and deployment from the same company', 'Licencia e implementación en la misma empresa'),
   'Frentes de atuação': ('Areas of work', 'Frentes de actuación'),
-  'Do dado à decisão': ('From data to decision', 'Del dato a la decisión'),
   'Transformar o dado organizado em leitura do negócio — e a leitura em decisão. O painel não é o fim: ele existe para alguém escolher melhor com ele na frente.':
     ('Turning organized data into business insight — and insight into a decision. The dashboard is not the end: it exists so somebody chooses better with it in front of them.',
      'Transformar el dato organizado en lectura del negocio — y la lectura en decisión. El panel no es el fin: existe para que alguien elija mejor con él delante.'),
@@ -339,9 +318,6 @@ TRAD.update({
   '<span>Modelos preditivos</span><span>Detecção de anomalias</span><span>GenAI e agentes</span><span>Document AI</span><span>Modernização de sistemas</span>':
     ('<span>Predictive models</span><span>Anomaly detection</span><span>GenAI and agents</span><span>Document AI</span><span>Systems modernization</span>',
      '<span>Modelos predictivos</span><span>Detección de anomalías</span><span>GenAI y agentes</span><span>Document AI</span><span>Modernización de sistemas</span>'),
-  '<span>Alocação de especialistas</span><span>Squads de dados</span><span>Engenheiros e analistas</span><span>Contratos de no mínimo 6 meses</span>':
-    ('<span>Specialist staffing</span><span>Data squads</span><span>Engineers and analysts</span><span>Contracts of at least 6 months</span>',
-     '<span>Asignación de especialistas</span><span>Squads de datos</span><span>Ingenieros y analistas</span><span>Contratos de 6 meses como mínimo</span>'),
 })
 
 TRAD.update({
@@ -1109,6 +1085,36 @@ TRAD.update({
   'Tableau — ver produtos e cases': ('Tableau — see products and cases', 'Tableau — ver productos y casos'),
   'Snowflake — ver produtos e cases': ('Snowflake — see products and cases', 'Snowflake — ver productos y casos'),
   'Oracle — ver produtos e cases': ('Oracle — see products and cases', 'Oracle — ver productos y casos'),
+})
+
+# Solucoes: titulos com enfase e legendas dos cartoes-icone (um bloco por legenda)
+TRAD.update({
+  'Da visão à <em class="ac">transformação</em>': ('From vision to <em class="ac">transformation</em>', 'De la visión a la <em class="ac">transformación</em>'),
+  'A base que <em class="ac">conecta seus dados</em>': ('The foundation that <em class="ac">connects your data</em>', 'La base que <em class="ac">conecta sus datos</em>'),
+  'Infraestrutura <em class="ac">preparada para evoluir</em>': ('Infrastructure <em class="ac">ready to evolve</em>', 'Infraestructura <em class="ac">preparada para evolucionar</em>'),
+  'Do dado <em class="ac">à decisão</em>': ('From data <em class="ac">to decision</em>', 'Del dato <em class="ac">a la decisión</em>'),
+  'Inteligência <em class="ac">que gera ação</em>': ('Intelligence <em class="ac">that drives action</em>', 'Inteligencia <em class="ac">que genera acción</em>'),
+  'As pessoas certas <em class="ac">no seu time</em>': ('The right people <em class="ac">on your team</em>', 'Las personas correctas <em class="ac">en su equipo</em>'),
+  'Diagnóstico de maturidade': ('Maturity assessment', 'Diagnóstico de madurez'),
+  'Roadmap de dados': ('Data roadmap', 'Hoja de ruta de datos'),
+  'Arquitetura alvo': ('Target architecture', 'Arquitectura objetivo'),
+  'Governança': ('Governance', 'Gobernanza'),
+  'Priorização de casos de uso': ('Use-case prioritisation', 'Priorización de casos de uso'),
+  'Data Engineering': ('Data Engineering', 'Data Engineering'),
+  'Pipelines': ('Pipelines', 'Pipelines'),
+  'Qualidade de dados': ('Data quality', 'Calidad de datos'),
+  'Migração para nuvem': ('Cloud migration', 'Migración a la nube'),
+  'Modernização de legado': ('Legacy modernisation', 'Modernización de sistemas heredados'),
+  'Modern Data Stack': ('Modern Data Stack', 'Modern Data Stack'),
+  'Business Intelligence': ('Business Intelligence', 'Business Intelligence'),
+  'Data Visualization': ('Data Visualization', 'Data Visualization'),
+  'Self-service BI': ('Self-service BI', 'Self-service BI'),
+  'Governança de métricas': ('Metrics governance', 'Gobernanza de métricas'),
+  'Data Design': ('Data Design', 'Data Design'),
+  'Automação de processos': ('Process automation', 'Automatización de procesos'),
+  'Alocação de especialistas': ('Specialist staffing', 'Asignación de especialistas'),
+  'Squads de dados': ('Data squads', 'Squads de datos'),
+  'Engenheiros e analistas': ('Engineers and analysts', 'Ingenieros y analistas'),
 })
 
 TERMOS = {

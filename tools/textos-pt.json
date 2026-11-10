@@ -1,5 +1,5 @@
 {
- "total": 800,
+ "total": 812,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -522,7 +522,7 @@
    "cls": "pill"
   },
   {
-   "chave": "Da visão à transformação",
+   "chave": "Da visão à <em class=\"ac\">transformação</em>",
    "tag": "h3",
    "cls": ""
   },
@@ -532,9 +532,29 @@
    "cls": ""
   },
   {
-   "chave": "<span>Diagnóstico de maturidade</span><span>Roadmap de dados</span><span>Arquitetura alvo</span><span>Governança</span><span>Priorização de casos de uso</span>",
-   "tag": "div",
-   "cls": "sol-tags"
+   "chave": "Diagnóstico de maturidade",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Roadmap de dados",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Arquitetura alvo",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Governança",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Priorização de casos de uso",
+   "tag": "span",
+   "cls": "sol-capt"
   },
   {
    "chave": "Falar sobre estratégia <span class=\"arr\">→</span>",
@@ -542,7 +562,7 @@
    "cls": "btn btn-accent"
   },
   {
-   "chave": "A base que conecta seus dados",
+   "chave": "A base que <em class=\"ac\">conecta seus dados</em>",
    "tag": "h3",
    "cls": ""
   },
@@ -552,9 +572,29 @@
    "cls": ""
   },
   {
-   "chave": "<span>Data Engineering</span><span>Pipelines</span><span>Modelagem</span><span>Automação</span><span>Qualidade de dados</span>",
-   "tag": "div",
-   "cls": "sol-tags"
+   "chave": "Data Engineering",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Pipelines",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Modelagem",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Automação",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Qualidade de dados",
+   "tag": "span",
+   "cls": "sol-capt"
   },
   {
    "chave": "Conhecer Data Engineering <span class=\"arr\">→</span>",
@@ -567,7 +607,7 @@
    "cls": "pill"
   },
   {
-   "chave": "Infraestrutura preparada para evoluir",
+   "chave": "Infraestrutura <em class=\"ac\">preparada para evoluir</em>",
    "tag": "h3",
    "cls": ""
   },
@@ -577,9 +617,19 @@
    "cls": ""
   },
   {
-   "chave": "<span>Migração para nuvem</span><span>Modernização de legado</span><span>Modern Data Stack</span><span>Automação</span>",
-   "tag": "div",
-   "cls": "sol-tags"
+   "chave": "Migração para nuvem",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Modernização de legado",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Modern Data Stack",
+   "tag": "span",
+   "cls": "sol-capt"
   },
   {
    "chave": "Falar sobre modernização <span class=\"arr\">→</span>",
@@ -587,7 +637,7 @@
    "cls": "btn btn-accent"
   },
   {
-   "chave": "Do dado à decisão",
+   "chave": "Do dado <em class=\"ac\">à decisão</em>",
    "tag": "h3",
    "cls": ""
   },
@@ -597,9 +647,29 @@
    "cls": ""
   },
   {
-   "chave": "<span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Governança de métricas</span><span>Data Design</span>",
-   "tag": "div",
-   "cls": "sol-tags"
+   "chave": "Business Intelligence",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Data Visualization",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Self-service BI",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Governança de métricas",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Data Design",
+   "tag": "span",
+   "cls": "sol-capt"
   },
   {
    "chave": "Conhecer Analytics &amp; BI <span class=\"arr\">→</span>",
@@ -607,7 +677,7 @@
    "cls": "btn btn-accent"
   },
   {
-   "chave": "Inteligência que gera ação",
+   "chave": "Inteligência <em class=\"ac\">que gera ação</em>",
    "tag": "h3",
    "cls": ""
   },
@@ -617,9 +687,29 @@
    "cls": ""
   },
   {
-   "chave": "<span>Modelos preditivos</span><span>Detecção de anomalias</span><span>GenAI e agentes</span><span>Document AI</span><span>Automação de processos</span>",
-   "tag": "div",
-   "cls": "sol-tags"
+   "chave": "Modelos preditivos",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Detecção de anomalias",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "GenAI e agentes",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Document AI",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Automação de processos",
+   "tag": "span",
+   "cls": "sol-capt"
   },
   {
    "chave": "Conhecer IA <span class=\"arr\">→</span>",
@@ -627,7 +717,7 @@
    "cls": "btn btn-accent"
   },
   {
-   "chave": "As pessoas certas no seu time",
+   "chave": "As pessoas certas <em class=\"ac\">no seu time</em>",
    "tag": "h3",
    "cls": ""
   },
@@ -637,9 +727,24 @@
    "cls": ""
   },
   {
-   "chave": "<span>Alocação de especialistas</span><span>Squads de dados</span><span>Engenheiros e analistas</span><span>Contratos de no mínimo 6 meses</span>",
-   "tag": "div",
-   "cls": "sol-tags"
+   "chave": "Alocação de especialistas",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Squads de dados",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Engenheiros e analistas",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Contratos de no mínimo 6 meses",
+   "tag": "span",
+   "cls": "sol-capt"
   },
   {
    "chave": "Conhecer alocação <span class=\"arr\">→</span>",
@@ -1052,11 +1157,6 @@
    "cls": "pillar-k"
   },
   {
-   "chave": "Modelos preditivos",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
    "chave": "Aprendem com o histórico da operação para estimar o que tende a acontecer — demanda, ruptura, risco, churn — enquanto ainda dá tempo de agir.",
    "tag": "p",
    "cls": ""
@@ -1065,11 +1165,6 @@
    "chave": "02",
    "tag": "p",
    "cls": "pillar-k"
-  },
-  {
-   "chave": "Detecção de anomalias",
-   "tag": "h3",
-   "cls": ""
   },
   {
    "chave": "Apontam o que foge do padrão no momento em que acontece, em vez de o desvio aparecer só no fechamento do mês.",
@@ -1082,11 +1177,6 @@
    "cls": "pillar-k"
   },
   {
-   "chave": "GenAI e agentes",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
    "chave": "Uma camada de conversa sobre a sua própria base: a pergunta em linguagem natural volta como número, com o contexto de onde ele veio.",
    "tag": "p",
    "cls": ""
@@ -1095,11 +1185,6 @@
    "chave": "04",
    "tag": "p",
    "cls": "pillar-k"
-  },
-  {
-   "chave": "Document AI",
-   "tag": "h3",
-   "cls": ""
   },
   {
    "chave": "Leitura automática de contratos, notas e relatórios — o que estava preso em PDF passa a ser dado consultável.",
@@ -1177,22 +1262,12 @@
    "cls": ""
   },
   {
-   "chave": "Data Engineering",
-   "tag": "span",
-   "cls": ""
-  },
-  {
    "chave": "IA",
    "tag": "span",
    "cls": ""
   },
   {
    "chave": "Cloud",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "Automação",
    "tag": "span",
    "cls": ""
   },
@@ -1727,11 +1802,6 @@
    "cls": "tl-d"
   },
   {
-   "chave": "Modelagem",
-   "tag": "h3",
-   "cls": "tl-t"
-  },
-  {
    "chave": "A definição de cada métrica acordada antes do primeiro painel.",
    "tag": "p",
    "cls": "tl-d"
@@ -2137,11 +2207,6 @@
    "cls": ""
   },
   {
-   "chave": "Contratos de no mínimo 6 meses",
-   "tag": "li",
-   "cls": ""
-  },
-  {
    "chave": "Alocações por tempo indeterminado",
    "tag": "li",
    "cls": ""
@@ -2398,11 +2463,6 @@
   },
   {
    "chave": "BI &amp; Analytics",
-   "tag": "button",
-   "cls": "filtro"
-  },
-  {
-   "chave": "Governança",
    "tag": "button",
    "cls": "filtro"
   },

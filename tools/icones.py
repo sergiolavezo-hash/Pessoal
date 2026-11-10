@@ -87,6 +87,31 @@ ICONES = {
                    'relógio — permanência'),
 }
 
+
+# ---- Solucoes: um icone por assunto (traco do conjunto, grade 24, ate 4 elementos) ----
+ICONES.update({
+    'diagnostico':     ('<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/><path d="m8.5 11.2 1.8 1.8 3-3.4"/>', 'lupa com visto — diagnóstico'),
+    'roadmap':         ('<path d="M12 3v18M7 21h10"/><path d="M12 5h6l2 2-2 2h-6zM12 11H6l-2 2 2 2h6"/>', 'placa de direção — roadmap'),
+    'arquitetura':     ('<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="9" y="14" width="6" height="6" rx="1"/><path d="M7 10v2h10v-2M12 12v2"/>', 'blocos ligados — arquitetura'),
+    'governanca':      ('<path d="M12 3 4.5 6v5.5c0 4.5 3 7.7 7.5 9.5 4.5-1.8 7.5-5 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/>', 'escudo com visto — governança'),
+    'priorizacao':     ('<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>', 'bandeira — priorização'),
+    'pipeline':        ('<rect x="3" y="9" width="5" height="6" rx="1"/><rect x="16" y="9" width="5" height="6" rx="1"/><path d="M8 12h8m-3-3 3 3-3 3"/>', 'origem ao destino — pipeline'),
+    'modelagem':       ('<rect x="3" y="4" width="7" height="6" rx="1"/><rect x="14" y="14" width="7" height="6" rx="1"/><path d="M10 7h4a3 3 0 0 1 3 3v4"/>', 'tabelas ligadas — modelagem'),
+    'automacao':       ('<circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21"/><path d="m5.6 5.6 1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/>', 'engrenagem — automação'),
+    'qualidade':       ('<circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/>', 'selo com visto — qualidade'),
+    'modernizacao':    ('<path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/>', 'setas de renovação — modernização'),
+    'stack':           ('<rect x="4" y="4" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="16" width="16" height="4" rx="1"/>', 'pilha de camadas — stack'),
+    'visualizacao':    ('<path d="M12 3v9h9"/><path d="M20.5 15A9 9 0 1 1 9 3.5"/>', 'pizza — visualização'),
+    'autoatendimento': ('<circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/><path d="m16 15 2 2 3-3"/>', 'pessoa com visto — self-service'),
+    'design':          ('<path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="m14 7 3 3"/>', 'lápis — design'),
+    'preditivo':       ('<path d="M3 3v18h18"/><path d="m7 15 4-4 3 2"/><circle cx="18" cy="8" r="2.5"/>', 'curva até o alvo — preditivo'),
+    'anomalia':        ('<path d="M3 12h4l2-6 4 12 2-6h6"/>', 'pulso com pico — anomalia'),
+    'agente':          ('<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z"/>', 'brilhos — GenAI e agentes'),
+    'documento':       ('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>', 'documento — Document AI'),
+    'desenvolvimento': ('<path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/>', 'código — engenheiros'),
+    'contrato':        ('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3"/>', 'calendário — contrato'),
+})
+
 ALIASES = {'alocacao': 'pessoas', 'ia-capacidades': 'ia'}
 
 

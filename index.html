@@ -1253,31 +1253,52 @@
      continuam vindo da mesma regra, entao nao ha como um painel destoar
      dos demais em enquadramento. */
   /* estrategia: alvo e a trajetoria que chega nele */
-  #sol-p1::after { background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><circle cx=%22186%22 cy=%2252%22 r=%2234%22/><circle cx=%22186%22 cy=%2252%22 r=%2219%22/><circle cx=%22186%22 cy=%2252%22 r=%225%22 fill=%22%232E86FF%22 stroke=%22none%22/><path d=%22M14 136 70 114l34 12 48-44%22/><path d=%22M136 82h20v20%22/></svg>") no-repeat right bottom / contain; }
   /* engenharia: dois repositorios ligados por um duto */
-  #sol-p2::after { background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><ellipse cx=%2258%22 cy=%2246%22 rx=%2234%22 ry=%2212%22/><path d=%22M24 46v38c0 6.6 15.2 12 34 12s34-5.4 34-12V46%22/><path d=%22M24 65c0 6.6 15.2 12 34 12s34-5.4 34-12%22/><ellipse cx=%22182%22 cy=%2286%22 rx=%2228%22 ry=%2210%22/><path d=%22M154 86v30c0 5.5 12.5 10 28 10s28-4.5 28-10V86%22/><path d=%22M92 72h28a16 16 0 0 1 16 16v8%22/></svg>") no-repeat right bottom / contain; }
   /* nuvem: a nuvem e os pontos que ela atende */
-  #sol-p3::after { background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><path d=%22M72 108h80a30 30 0 0 0 3-60A44 44 0 0 0 66 62 30 30 0 0 0 72 108Z%22/><circle cx=%2238%22 cy=%22134%22 r=%226%22/><circle cx=%22118%22 cy=%22140%22 r=%226%22/><circle cx=%22202%22 cy=%22134%22 r=%226%22/><path d=%22M44 130 76 112M118 134v-20M196 130 162 112%22/></svg>") no-repeat right bottom / contain; }
   /* ia: no central e as ligacoes que convergem nele */
-  #sol-p5::after { background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><circle cx=%2236%22 cy=%2242%22 r=%229%22/><circle cx=%2236%22 cy=%22112%22 r=%229%22/><circle cx=%22120%22 cy=%2277%22 r=%2213%22/><circle cx=%22204%22 cy=%2242%22 r=%229%22/><circle cx=%22204%22 cy=%22112%22 r=%229%22/><path d=%22M45 47l63 24M45 107l63-24M133 71l62-23M133 83l62 23%22/></svg>") no-repeat right bottom / contain; }
   /* pessoas: tres figuras, a do meio a frente */
-  #sol-p6::after { background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><circle cx=%2248%22 cy=%2262%22 r=%2216%22/><path d=%22M18 126a30 30 0 0 1 60 0%22/><circle cx=%22120%22 cy=%2246%22 r=%2219%22/><path d=%22M84 122a36 36 0 0 1 72 0%22/><circle cx=%22192%22 cy=%2262%22 r=%2216%22/><path d=%22M162 126a30 30 0 0 1 60 0%22/></svg>") no-repeat right bottom / contain; }
   .sol-panel > * { position: relative; z-index: 1; }
-  /* ---- Solucoes com foto de fundo: a foto cobre o painel inteiro, bem
-     escurecida, e esmaece para o navy de cima para baixo. Titulo, texto,
-     etiquetas e botao continuam em HTML por cima (traduzem e sao lidos por
-     leitor de tela). O degrade garante contraste mesmo nas fotos claras. ---- */
+  /* ---- Solucoes: detalhe elaborado sobre foto. A foto cobre o painel, mais clara a
+     direita (onde ficam as pessoas) e escura onde esta o texto; icones por assunto,
+     objetos de vidro e uma onda de pontos. Titulo, texto, legendas e botao sao HTML. ---- */
   .sol-panel.foto { --navy: #0A1428; color: #F2F3F5; border-color: rgba(46,134,255,0.28);
     background-color: var(--navy);
-    background-image: linear-gradient(180deg, rgba(10,20,40,0.42) 0, rgba(10,20,40,0.7) 30%, rgba(10,20,40,0.9) 62%, rgba(10,20,40,0.96) 100%), var(--foto);
-    background-size: 100% 100%, cover; background-position: center, 72% 30%; background-repeat: no-repeat; }
-  .sol-panel.foto::after { display: none; }
+    background-image: linear-gradient(90deg, rgba(10,20,40,0.94) 0, rgba(10,20,40,0.84) 44%, rgba(10,20,40,0.36) 80%, rgba(10,20,40,0.2) 100%),
+      linear-gradient(180deg, rgba(10,20,40,0.1) 0, rgba(10,20,40,0.55) 55%, rgba(10,20,40,0.94) 100%), var(--foto);
+    background-size: 100% 100%, 100% 100%, cover; background-position: center, center, 72% 30%; background-repeat: no-repeat; }
+  .sol-panel.foto::after { content: ''; display: block; position: absolute; right: 0; bottom: 0; width: 62%; height: 36%;
+    aspect-ratio: auto; opacity: 1; pointer-events: none; z-index: 0;
+    background: radial-gradient(circle, rgba(110,180,255,0.95) 0 1.1px, transparent 1.7px) 0 0 / 8px 8px;
+    clip-path: polygon(0 100%, 0 86%, 8% 80%, 16% 78%, 24% 82%, 32% 80%, 40% 70%, 48% 58%, 56% 48%, 64% 44%, 72% 36%, 80% 24%, 88% 14%, 100% 8%, 100% 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 58%); mask-image: linear-gradient(90deg, transparent 0, #000 58%); }
+  .sol-panel.foto h3, .sol-panel.foto > p { max-width: 62%; }
+  .sol-panel.foto h3 .ac { display: block; color: #4DA3FF; font-weight: 600; font-style: normal; }
   .sol-panel.foto > .pill { color: #9CC7FF; background: rgba(46,134,255,0.18); border-color: rgba(46,134,255,0.45); }
   .sol-panel.foto h3 { color: #FFFFFF; }
   .sol-panel.foto > p { color: rgba(242,243,245,0.86); }
   .sol-panel.foto .sol-tags span { color: rgba(242,243,245,0.92); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
   .sol-panel.foto .sol-sig { color: rgba(242,243,245,0.84); }
-  .sol-panel.foto .sol-sig svg { stroke: #6FB0FF; }
+
+  /* cartoes-icone por assunto */
+  .sol-caps { display: grid; grid-template-columns: repeat(auto-fit, minmax(5.6rem, 1fr)); gap: 0.8rem; margin-top: 1.5rem; }
+  .sol-cap { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; text-align: center; font-size: 0.8rem; line-height: 1.28; color: rgba(242,243,245,0.92); }
+  .sol-capi { width: 3.4rem; height: 3.4rem; border-radius: 15px; display: grid; place-items: center; color: #8EC2FF;
+    background: linear-gradient(160deg, rgba(46,134,255,0.24), rgba(46,134,255,0.06)); border: 1px solid rgba(70,150,255,0.42);
+    box-shadow: inset 0 0 16px rgba(46,134,255,0.16), 0 6px 16px -8px rgba(0,0,0,0.6); transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease); }
+  .sol-capi svg { width: 1.7rem; height: 1.7rem; }
+  .sol-cap:hover .sol-capi { transform: translateY(-3px); border-color: rgba(120,190,255,0.8); box-shadow: inset 0 0 18px rgba(46,134,255,0.25), 0 10px 22px -8px rgba(46,134,255,0.55); }
+  /* linha de resultado e botao */
+  .sol-panel.foto .sol-foot { flex-direction: column; align-items: flex-start; gap: 1.1rem; margin-top: auto; padding-top: 1.2rem; }
+  .sol-panel.foto .sol-sig { width: 100%; display: flex; align-items: center; gap: 0.7rem; padding: 0.95rem 0; margin-top: 1.4rem;
+    border-top: 1px solid rgba(255,255,255,0.14); border-bottom: 1px solid rgba(255,255,255,0.14); }
+  .sol-panel.foto .sol-sig svg { flex: none; width: 1.45rem; height: 1.45rem; padding: 0.3rem; border-radius: 50%; background: #2E86FF; stroke: #fff; stroke-width: 2.6; }
+  /* lista da esquerda: seta em botao circular, item ativo com brilho */
+  .sol-arr { width: 2rem; height: 2rem; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; font-size: 0.95rem; transition: border-color 0.3s var(--ease), color 0.3s var(--ease); }
+  .sol-item[aria-selected="true"] { box-shadow: 0 0 0 1px rgba(46,134,255,0.3), 0 10px 26px -14px rgba(46,134,255,0.55); }
+  .sol-item[aria-selected="true"] .sol-arr, .sol-item:hover .sol-arr { border-color: var(--accent); color: var(--accent); }
+  @media (max-width: 760px) { .sol-panel.foto h3, .sol-panel.foto > p { max-width: none; }
+    .sol-caps { grid-template-columns: repeat(3, 1fr); } .sol-panel.foto::after { width: 80%; height: 22%; opacity: 0.8; } }
+  @media (prefers-reduced-motion: reduce) { .sol-capi { transition: none; } }
 
   .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 500; margin: 1.1rem 0 1rem; }
   .sol-panel > p { color: var(--muted); font-size: 1rem; }
@@ -2022,9 +2043,9 @@
         <div class="sol-panels">
           <article class="sol-panel foto" style="--foto:url(media/solucoes/estrategia.webp)" id="sol-p1" role="tabpanel" aria-labelledby="sol-t1" tabindex="0">
             <span class="pill">Estratégia &amp; Inovação</span>
-            <h3>Da visão à transformação</h3>
+            <h3>Da visão à <em class="ac">transformação</em></h3>
             <p>Antes de construir, decidir o que construir. Diagnóstico do que já existe, desenho do destino e a ordem em que cada passo paga o próximo — para o investimento virar entrega e não estudo.</p>
-            <div class="sol-tags"><span>Diagnóstico de maturidade</span><span>Roadmap de dados</span><span>Arquitetura alvo</span><span>Governança</span><span>Priorização de casos de uso</span></div>
+            <div class="sol-caps"><span class="sol-cap"><span class="sol-capi" data-ico="diagnostico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/><path d="m8.5 11.2 1.8 1.8 3-3.4"/></svg></span><span class="sol-capt">Diagnóstico de maturidade</span></span><span class="sol-cap"><span class="sol-capi" data-ico="roadmap"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10"/><path d="M12 5h6l2 2-2 2h-6zM12 11H6l-2 2 2 2h6"/></svg></span><span class="sol-capt">Roadmap de dados</span></span><span class="sol-cap"><span class="sol-capi" data-ico="arquitetura"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="9" y="14" width="6" height="6" rx="1"/><path d="M7 10v2h10v-2M12 12v2"/></svg></span><span class="sol-capt">Arquitetura alvo</span></span><span class="sol-cap"><span class="sol-capi" data-ico="governanca"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3 7.7 7.5 9.5 4.5-1.8 7.5-5 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="sol-capt">Governança</span></span><span class="sol-cap"><span class="sol-capi" data-ico="priorizacao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></svg></span><span class="sol-capt">Priorização de casos de uso</span></span></div>
             <div class="sol-foot">
               <span class="sol-sig"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg> Começa pelo que a empresa já tem, não por um projeto novo de coleta</span>
               <a class="btn btn-accent" href="#contato" data-magnetic>Falar sobre estratégia <span class="arr">&rarr;</span></a>
@@ -2032,9 +2053,9 @@
           </article>
           <article class="sol-panel foto" style="--foto:url(media/solucoes/engenharia.webp)" id="sol-p2" role="tabpanel" aria-labelledby="sol-t2" tabindex="0" hidden>
             <span class="pill">Engenharia de Dados</span>
-            <h3>A base que conecta seus dados</h3>
+            <h3>A base que <em class="ac">conecta seus dados</em></h3>
             <p>A infraestrutura por onde o dado anda: ingestão, armazenamento, transformação e governança. Feita para aguentar a próxima pergunta, não só a de hoje.</p>
-            <div class="sol-tags"><span>Data Engineering</span><span>Pipelines</span><span>Modelagem</span><span>Automação</span><span>Qualidade de dados</span></div>
+            <div class="sol-caps"><span class="sol-cap"><span class="sol-capi" data-ico="engenharia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><span class="sol-capt">Data Engineering</span></span><span class="sol-cap"><span class="sol-capi" data-ico="pipeline"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="5" height="6" rx="1"/><rect x="16" y="9" width="5" height="6" rx="1"/><path d="M8 12h8m-3-3 3 3-3 3"/></svg></span><span class="sol-capt">Pipelines</span></span><span class="sol-cap"><span class="sol-capi" data-ico="modelagem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="6" rx="1"/><rect x="14" y="14" width="7" height="6" rx="1"/><path d="M10 7h4a3 3 0 0 1 3 3v4"/></svg></span><span class="sol-capt">Modelagem</span></span><span class="sol-cap"><span class="sol-capi" data-ico="automacao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21"/><path d="m5.6 5.6 1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/></svg></span><span class="sol-capt">Automação</span></span><span class="sol-cap"><span class="sol-capi" data-ico="qualidade"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg></span><span class="sol-capt">Qualidade de dados</span></span></div>
             <div class="sol-foot">
               <span class="sol-sig"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg> Regra de negócio em código, testada e versionada</span>
               <a class="btn btn-accent" href="data-engineering.html" data-magnetic>Conhecer Data Engineering <span class="arr">&rarr;</span></a>
@@ -2042,9 +2063,9 @@
           </article>
           <article class="sol-panel foto" style="--foto:url(media/solucoes/cloud.webp)" id="sol-p3" role="tabpanel" aria-labelledby="sol-t3" tabindex="0" hidden>
             <span class="pill">Cloud &amp; Modernização</span>
-            <h3>Infraestrutura preparada para evoluir</h3>
+            <h3>Infraestrutura <em class="ac">preparada para evoluir</em></h3>
             <p>Tirar o peso do legado sem parar a operação, e deixar a base pronta para crescer. Migração e modernização em etapas, com o que roda hoje de pé durante o caminho.</p>
-            <div class="sol-tags"><span>Migração para nuvem</span><span>Modernização de legado</span><span>Modern Data Stack</span><span>Automação</span></div>
+            <div class="sol-caps"><span class="sol-cap"><span class="sol-capi" data-ico="migracao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><path d="M9 6h6M18 9v6M6 9v9h9"/></svg></span><span class="sol-capt">Migração para nuvem</span></span><span class="sol-cap"><span class="sol-capi" data-ico="modernizacao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/></svg></span><span class="sol-capt">Modernização de legado</span></span><span class="sol-cap"><span class="sol-capi" data-ico="stack"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="16" width="16" height="4" rx="1"/></svg></span><span class="sol-capt">Modern Data Stack</span></span><span class="sol-cap"><span class="sol-capi" data-ico="automacao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21"/><path d="m5.6 5.6 1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/></svg></span><span class="sol-capt">Automação</span></span></div>
             <div class="sol-foot">
               <span class="sol-sig"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg> Legado aposentado sem parar a operação</span>
               <a class="btn btn-accent" href="#contato" data-magnetic>Falar sobre modernização <span class="arr">&rarr;</span></a>
@@ -2052,9 +2073,9 @@
           </article>
           <article class="sol-panel foto" style="--foto:url(media/solucoes/analytics.webp)" id="sol-p4" role="tabpanel" aria-labelledby="sol-t4" tabindex="0" hidden>
             <span class="pill">Analytics &amp; BI</span>
-            <h3>Do dado à decisão</h3>
+            <h3>Do dado <em class="ac">à decisão</em></h3>
             <p>Transformar o dado organizado em leitura do negócio — e a leitura em decisão. O painel não é o fim: ele existe para alguém escolher melhor com ele na frente.</p>
-            <div class="sol-tags"><span>Business Intelligence</span><span>Data Visualization</span><span>Self-service BI</span><span>Governança de métricas</span><span>Data Design</span></div>
+            <div class="sol-caps"><span class="sol-cap"><span class="sol-capi" data-ico="analytics"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M8 15v3M13 10v8M18 5v13"/></svg></span><span class="sol-capt">Business Intelligence</span></span><span class="sol-cap"><span class="sol-capi" data-ico="visualizacao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9h9"/><path d="M20.5 15A9 9 0 1 1 9 3.5"/></svg></span><span class="sol-capt">Data Visualization</span></span><span class="sol-cap"><span class="sol-capi" data-ico="autoatendimento"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/><path d="m16 15 2 2 3-3"/></svg></span><span class="sol-capt">Self-service BI</span></span><span class="sol-cap"><span class="sol-capi" data-ico="governanca"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3 7.7 7.5 9.5 4.5-1.8 7.5-5 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="sol-capt">Governança de métricas</span></span><span class="sol-cap"><span class="sol-capi" data-ico="design"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="m14 7 3 3"/></svg></span><span class="sol-capt">Data Design</span></span></div>
             <div class="sol-foot">
               <span class="sol-sig"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg> Padrão visual antes do desenvolvimento</span>
               <a class="btn btn-accent" href="bi-analytics.html" data-magnetic>Conhecer Analytics &amp; BI <span class="arr">&rarr;</span></a>
@@ -2062,9 +2083,9 @@
           </article>
           <article class="sol-panel foto" style="--foto:url(media/solucoes/ia.webp)" id="sol-p5" role="tabpanel" aria-labelledby="sol-t5" tabindex="0" hidden>
             <span class="pill">IA &amp; Automação</span>
-            <h3>Inteligência que gera ação</h3>
+            <h3>Inteligência <em class="ac">que gera ação</em></h3>
             <p>A camada que lê o que já existe, antecipa o que vem e tira trabalho repetitivo do caminho. Começa pelo dado que você já tem — não por um projeto novo de coleta.</p>
-            <div class="sol-tags"><span>Modelos preditivos</span><span>Detecção de anomalias</span><span>GenAI e agentes</span><span>Document AI</span><span>Automação de processos</span></div>
+            <div class="sol-caps"><span class="sol-cap"><span class="sol-capi" data-ico="preditivo"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 2"/><circle cx="18" cy="8" r="2.5"/></svg></span><span class="sol-capt">Modelos preditivos</span></span><span class="sol-cap"><span class="sol-capi" data-ico="anomalia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg></span><span class="sol-capt">Detecção de anomalias</span></span><span class="sol-cap"><span class="sol-capi" data-ico="agente"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z"/></svg></span><span class="sol-capt">GenAI e agentes</span></span><span class="sol-cap"><span class="sol-capi" data-ico="documento"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span class="sol-capt">Document AI</span></span><span class="sol-cap"><span class="sol-capi" data-ico="automacao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21"/><path d="m5.6 5.6 1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/></svg></span><span class="sol-capt">Automação de processos</span></span></div>
             <div class="sol-foot">
               <span class="sol-sig"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg> Em produção, não em prova de conceito</span>
               <a class="btn btn-accent" href="#ia-capacidades" data-magnetic>Conhecer IA <span class="arr">&rarr;</span></a>
@@ -2072,9 +2093,9 @@
           </article>
           <article class="sol-panel foto" style="--foto:url(media/solucoes/squads.webp)" id="sol-p6" role="tabpanel" aria-labelledby="sol-t6" tabindex="0" hidden>
             <span class="pill">Especialistas &amp; Squads</span>
-            <h3>As pessoas certas no seu time</h3>
+            <h3>As pessoas certas <em class="ac">no seu time</em></h3>
             <p>Quando o gargalo não é o projeto e sim quem vai tocá-lo: especialistas de dados que entram na sua operação, respondem à sua gestão e ficam.</p>
-            <div class="sol-tags"><span>Alocação de especialistas</span><span>Squads de dados</span><span>Engenheiros e analistas</span><span>Contratos de no mínimo 6 meses</span></div>
+            <div class="sol-caps"><span class="sol-cap"><span class="sol-capi" data-ico="pessoas"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.3"/><path d="M5.5 20.5a6.5 6.5 0 0 1 13 0"/></svg></span><span class="sol-capt">Alocação de especialistas</span></span><span class="sol-cap"><span class="sol-capi" data-ico="time"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span><span class="sol-capt">Squads de dados</span></span><span class="sol-cap"><span class="sol-capi" data-ico="desenvolvimento"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg></span><span class="sol-capt">Engenheiros e analistas</span></span><span class="sol-cap"><span class="sol-capi" data-ico="contrato"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3"/></svg></span><span class="sol-capt">Contratos de no mínimo 6 meses</span></span></div>
             <div class="sol-foot">
               <span class="sol-sig"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg> 150+ profissionais alocados, muitos por tempo indeterminado</span>
               <a class="btn btn-accent" href="alocacao.html" data-magnetic>Conhecer alocação <span class="arr">&rarr;</span></a>
