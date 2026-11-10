@@ -1188,7 +1188,7 @@
   /* ---- Solucoes: detalhe elaborado sobre foto. A foto cobre o painel, mais clara a
      direita (onde ficam as pessoas) e escura onde esta o texto; icones por assunto,
      objetos de vidro e uma onda de pontos. Titulo, texto, legendas e botao sao HTML. ---- */
-  .sol-panel.foto { --navy: #0A1428; color: #F2F3F5; border-color: rgba(46,134,255,0.28);
+  .sol-panel.foto { --foto: var(--foto-escuro); --navy: #0A1428; color: #F2F3F5; border-color: rgba(46,134,255,0.28);
     background-color: var(--navy);
     background-image: linear-gradient(90deg, rgba(10,20,40,0.94) 0, rgba(10,20,40,0.84) 44%, rgba(10,20,40,0.36) 80%, rgba(10,20,40,0.2) 100%),
       linear-gradient(180deg, rgba(10,20,40,0.1) 0, rgba(10,20,40,0.55) 55%, rgba(10,20,40,0.94) 100%), var(--foto);
@@ -1200,7 +1200,7 @@
     -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 58%); mask-image: linear-gradient(90deg, transparent 0, #000 58%); }
   .sol-panel.foto h3, .sol-panel.foto > p { max-width: 62%; }
   .sol-panel.foto h3 .ac { display: block; color: #4DA3FF; font-weight: 600; font-style: normal; }
-  .sol-panel.foto > .pill { color: #9CC7FF; background: rgba(46,134,255,0.18); border-color: rgba(46,134,255,0.45); }
+  .sol-panel.foto > .pill { color: #9CC7FF; background: rgba(10,20,40,0.9); border-color: rgba(70,150,255,0.55); }
   .sol-panel.foto h3 { color: #FFFFFF; }
   .sol-panel.foto > p { color: rgba(242,243,245,0.86); }
   .sol-panel.foto .sol-tags span { color: rgba(242,243,245,0.92); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
@@ -1226,6 +1226,35 @@
   @media (max-width: 760px) { .sol-panel.foto h3, .sol-panel.foto > p { max-width: none; }
     .sol-caps { grid-template-columns: repeat(3, 1fr); } .sol-panel.foto::after { width: 80%; height: 22%; opacity: 0.8; } }
   @media (prefers-reduced-motion: reduce) { .sol-capi { transition: none; } }
+
+  /* ---- Solucoes no tema claro: foto clara com leve sombreamento branco (o par do navy do tema
+     escuro), texto escuro, cartoes-icone claros e onda em azul. A foto muda por tema. ---- */
+  .sol-panel.foto .sol-foot { border-top: 0; }   /* a linha de resultado ja tem as suas reguas */
+  /* Os veus (navy ou branco) tinham o tamanho da area interna e a foto, maior, aparecia sem veu
+     pela faixa de 1px da borda: linhas escuras ou claras soltas nas bordas. Todas as camadas passam
+     a partir da caixa inteira, borda incluida. */
+  .sol-panel.foto { background-origin: border-box; }
+  :root[data-tema="claro"] .sol-panel.foto { --foto: var(--foto-claro); color: var(--ink); border-color: var(--line); box-shadow: var(--sombra);
+    background-color: #F4F7FB;
+    background-image: linear-gradient(90deg, rgba(255,255,255,0.95) 0, rgba(255,255,255,0.88) 44%, rgba(255,255,255,0.3) 80%, rgba(255,255,255,0.08) 100%),
+      linear-gradient(180deg, rgba(244,247,251,0) 0, rgba(244,247,251,0.55) 55%, rgba(244,247,251,0.94) 100%), var(--foto); }
+  :root[data-tema="claro"] .sol-panel.foto > .pill { color: var(--accent); background: rgba(255,255,255,0.97); border-color: rgba(11,94,215,0.4); }
+  :root[data-tema="claro"] .sol-panel.foto h3 { color: var(--ink); }
+  :root[data-tema="claro"] .sol-panel.foto h3 .ac { color: var(--accent); }
+  :root[data-tema="claro"] .sol-panel.foto > p { color: #3A3A42; }
+  :root[data-tema="claro"] .sol-cap { color: #26262C; }
+  :root[data-tema="claro"] .sol-capi { color: var(--accent); background: linear-gradient(160deg, #FFFFFF, #E8F0FF); border-color: rgba(11,94,215,0.32);
+    box-shadow: inset 0 0 12px rgba(11,94,215,0.07), 0 8px 18px -10px rgba(19,60,140,0.4); }
+  :root[data-tema="claro"] .sol-cap:hover .sol-capi { border-color: rgba(11,94,215,0.65); box-shadow: inset 0 0 14px rgba(11,94,215,0.12), 0 12px 24px -10px rgba(11,94,215,0.45); }
+  :root[data-tema="claro"] .sol-panel.foto .sol-sig { color: #26262C; border-color: rgba(19,19,22,0.14); }
+  :root[data-tema="claro"] .sol-panel.foto .sol-sig svg { background: var(--accent); stroke: #FFFFFF; }
+  :root[data-tema="claro"] .sol-panel.foto::after { background: radial-gradient(circle, rgba(11,94,215,0.8) 0 1.1px, transparent 1.7px) 0 0 / 8px 8px; }
+  @media (max-width: 760px) {
+    .sol-panel.foto { background-image: linear-gradient(180deg, rgba(10,20,40,0.56) 0, rgba(10,20,40,0.8) 30%, rgba(10,20,40,0.93) 62%, rgba(10,20,40,0.97) 100%), var(--foto);
+      background-size: 100% 100%, cover; background-position: center, 72% 30%; }
+    :root[data-tema="claro"] .sol-panel.foto { background-image: linear-gradient(180deg, rgba(255,255,255,0.7) 0, rgba(255,255,255,0.87) 32%, rgba(247,250,254,0.95) 62%, rgba(247,250,254,0.98) 100%), var(--foto);
+      background-size: 100% 100%, cover; background-position: center, 72% 30%; }
+  }
 
   .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 500; margin: 1.1rem 0 1rem; }
   .sol-panel > p { color: var(--muted); font-size: 1rem; }
@@ -2869,19 +2898,25 @@
 })();
 </script>
 <script>
-/* Fotos de fundo das Solucoes: so o painel aberto carrega a sua. Para o primeiro
-   hover nao ter atraso, as seis sao buscadas quando a secao se aproxima da tela. */
+/* Fotos de fundo das Solucoes: so o painel aberto carrega a sua. Para o primeiro hover nao ter
+   atraso, as seis do tema atual sao buscadas quando a secao se aproxima da tela, e as do outro
+   tema so se o visitante trocar de tema. */
 (function () {
   var sec = document.getElementById('solucoes');
   if (!sec || !('IntersectionObserver' in window)) return;
-  var feito = false;
+  var NOMES = ['estrategia', 'engenharia', 'cloud', 'analytics', 'ia', 'squads'], feito = {}, perto = false;
+  function prefixo() { return document.documentElement.getAttribute('data-tema') === 'claro' ? 'claro-' : ''; }
+  function buscar() {
+    var t = prefixo();
+    if (!perto || feito[t]) return;
+    feito[t] = true;
+    NOMES.forEach(function (n) { (new Image()).src = 'media/solucoes/' + t + n + '.webp'; });
+  }
   new IntersectionObserver(function (es, ob) {
-    if (feito || !es[0].isIntersecting) return;
-    feito = true; ob.disconnect();
-    ['estrategia', 'engenharia', 'cloud', 'analytics', 'ia', 'squads'].forEach(function (n) {
-      (new Image()).src = 'media/solucoes/' + n + '.webp';
-    });
+    if (!es[0].isIntersecting) return;
+    perto = true; ob.disconnect(); buscar();
   }, { rootMargin: '600px 0px' }).observe(sec);
+  new MutationObserver(buscar).observe(document.documentElement, { attributes: true, attributeFilter: ['data-tema'] });
 })();
 </script>
 <script src="../media/js/i18n-dic.js" defer></script>
