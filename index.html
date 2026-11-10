@@ -1227,15 +1227,15 @@
      para o degrade nao substituir o desenho deles. */
   :root { --degrade-hover: linear-gradient(135deg, rgba(46,134,255,0.085), rgba(46,134,255,0) 58%); }
   :root[data-tema="claro"] { --degrade-hover: linear-gradient(135deg, rgba(46,134,255,0.06), rgba(46,134,255,0) 58%); }
-  .tile, .pillar, .sol-item, .cc, .parc-card, .pf-card, .mega-card, .case-card { position: relative; }
-  .tile::after, .pillar::after, .sol-item::after, .cc::after, .parc-card::after,
+  .tile, .pillar, .sol-item, .cc, .pf-card, .mega-card, .case-card { position: relative; }
+  .tile::after, .pillar::after, .sol-item::after, .cc::after,
   .pf-card::after, .mega-card::after, .case-card::after {
     content: ''; position: absolute; inset: 0; border-radius: inherit;
     background: var(--degrade-hover); opacity: 0; pointer-events: none;
     transition: opacity 0.3s var(--ease);
   }
   .tile:hover::after, .pillar:hover::after, .sol-item:hover::after, .cc:hover::after,
-  .parc-card:hover::after, .pf-card:hover::after, .mega-card:hover::after,
+  .pf-card:hover::after, .mega-card:hover::after,
   .case-card:hover::after { opacity: 1; }
 
   .sol-item[aria-selected="true"] { border-color: var(--accent); background: var(--panel-2); }
@@ -1584,33 +1584,46 @@
      fixa — o cinza da Microsoft, o preto da Databricks, o azul-marinho do
      Tableau — e sobre o fundo escuro metade deles sumiria. Trocar a cor da
      marca não é opção, então o fundo é que se mantém. */
-  .parc { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; margin-top: 2.4rem; }
-  /* Virou <a>: cada logo leva para a pagina do fornecedor. Sem
-     text-decoration e color o link pegaria o azul e o sublinhado
-     padrao do navegador dentro de um card branco. A cor e fixa e nao
-     herdada: o card tem fundo branco nos dois temas, entao herdar a
-     tinta do tema escuro daria texto quase branco sobre branco —
-     razao de contraste 1,11 contra o minimo de 4,5. */
-  .parc-card {
-    text-decoration: none; color: #56565E;
-    background: #FFFFFF; border: 1px solid var(--line); border-radius: 14px;
-    padding: 1.5rem 1.1rem 1.1rem; text-align: center;
-    display: grid; grid-template-rows: 1fr auto; gap: 1rem; align-items: center;
-    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-  }
-  .parc-card:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); box-shadow: 0 12px 28px -14px rgba(19,19,22,0.35); }
-  .parc-card img {
-    display: block; margin: 0 auto; max-width: 100%; width: auto;
-    max-height: 2.4rem; object-fit: contain;
-  }
-  .parc-card span {
-    display: block; color: #56565E; font-size: 0.74rem; line-height: 1.45;
-    border-top: 1px solid rgba(19,19,22,0.09); padding-top: 0.8rem;
+  /* Parceiros em campo de hexagonos. Os 8 links ficam no HTML (funciona sem JS);
+     o script so distribui os links nas fileiras e preenche o resto com celulas
+     vazias decorativas. O fundo do hexagono de logo e branco nos dois temas
+     porque os logos sao coloridos para fundo claro. */
+  .favo { --base: 0.05; --topo: 0.16; position: relative; margin-top: 2.4rem; padding: 1rem 0;
+    background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(46,134,255,0.10), transparent 70%); }
+  :root[data-tema="claro"] .favo { --base: 0.07; --topo: 0.2; }
+  .favo-linhas { --w: 104px; --g: 4px; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--g); }
+  .favo-linhas.pronto { flex-direction: column; flex-wrap: nowrap; align-items: center; gap: 0; }
+  .favo-linha { display: flex; gap: var(--g); justify-content: center; }
+  .favo-linha + .favo-linha { margin-top: calc(var(--w) * -0.2887 + var(--g) * 0.866); }
+  .hex { --l: 0; --t: 0.5; position: relative; display: block; width: var(--w); aspect-ratio: 1 / 1.1547; flex: none;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+  .hex.vazio { background: rgba(46,134,255, calc(var(--base) + var(--t) * 0.07 + var(--l) * var(--topo))); }
+  .hex.vazio.pisca { animation: favo-pisca 5.5s ease-in-out infinite; animation-delay: var(--d, 0s); }
+  @keyframes favo-pisca { 0%, 100% { filter: none; } 50% { filter: brightness(1.9) saturate(1.3); } }
+  .hex.logo { text-decoration: none; outline: 0; color: #56565E; background: #FFFFFF; transition: transform 0.35s var(--ease); }
+  .hex.logo .borda { position: absolute; inset: 0; background: rgba(46,134,255, calc(0.28 + var(--l) * 0.7)); }
+  .hex.logo .miolo { position: absolute; inset: 3px; background: #FFFFFF; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.35rem;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+  .hex.logo .miolo::after { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s var(--ease);
+    background: linear-gradient(135deg, rgba(46,134,255,0.16), rgba(46,134,255,0) 62%); }
+  .hex.logo img { position: relative; z-index: 1; max-width: 70%; max-height: 32%; width: auto; height: auto;
+    object-fit: contain; transition: transform 0.35s var(--ease); }
+  .hex.logo em { position: relative; z-index: 1; font: 600 calc(var(--w) * 0.075)/1.1 var(--mono, monospace);
+    letter-spacing: 0.06em; text-transform: uppercase; font-style: normal; color: #56565E; text-align: center;
+    opacity: 0; max-height: 0; padding: 0 12%; transition: opacity 0.3s var(--ease), max-height 0.3s var(--ease); }
+  .hex.logo:hover, .hex.logo:focus-visible { transform: translateY(-3px); }
+  .hex.logo:hover .borda, .hex.logo:focus-visible .borda { background: var(--accent); }
+  .hex.logo:hover .miolo::after, .hex.logo:focus-visible .miolo::after { opacity: 1; }
+  .hex.logo:hover img, .hex.logo:focus-visible img { transform: translateY(-0.15rem); }
+  .hex.logo:hover em, .hex.logo:focus-visible em { opacity: 1; max-height: 3em; }
+  @media (prefers-reduced-motion: reduce) {
+    .hex.logo, .hex.logo img { transition: none; }
+    .hex.logo:hover, .hex.logo:focus-visible { transform: none; }
+    .hex.vazio.pisca { animation: none; }
   }
   .parc-nota { margin-top: 1.4rem; color: var(--dim); font-size: 0.84rem; }
 
-  @media (max-width: 1000px) { .parc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 440px)  { .parc { grid-template-columns: 1fr; } }
 
 
   /* A segunda linha do título troca de frase sozinha, como na referência.
@@ -2116,39 +2129,17 @@
         </p>
       </div>
 
-      <div class="parc reveal d2">
-        <a class="parc-card" href="parceiros/microsoft.html">
-          <img src="media/logos/parceiros/microsoft.svg" alt="Microsoft" loading="lazy" decoding="async">
-          <span>Microsoft AI Cloud Partner Program</span>
-        </a>
-        <a class="parc-card" href="parceiros/google-cloud.html">
-          <img src="media/logos/parceiros/google.svg" alt="Google Cloud" loading="lazy" decoding="async">
-          <span>Google Cloud Partner Advantage</span>
-        </a>
-        <a class="parc-card" href="parceiros/aws.html">
-          <img src="media/logos/parceiros/aws.svg" alt="Amazon Web Services" loading="lazy" decoding="async">
-          <span>Amazon Web Services Partner Network</span>
-        </a>
-        <a class="parc-card" href="parceiros/ibm.html">
-          <img src="media/logos/parceiros/ibm.svg" alt="IBM" loading="lazy" decoding="async">
-          <span>IBM Partner Plus</span>
-        </a>
-        <a class="parc-card" href="parceiros/databricks.html">
-          <img src="media/logos/parceiros/databricks.png" alt="Databricks" loading="lazy" decoding="async">
-          <span>Databricks Partner Program</span>
-        </a>
-        <a class="parc-card" href="parceiros/tableau.html">
-          <img src="media/logos/parceiros/tableau.png" alt="Tableau" loading="lazy" decoding="async">
-          <span>Tableau Partner Program &middot; Salesforce</span>
-        </a>
-        <a class="parc-card" href="parceiros/snowflake.html">
-          <img src="media/logos/parceiros/snowflake.svg" alt="Snowflake" loading="lazy" decoding="async">
-          <span>Snowflake Partner Network</span>
-        </a>
-        <a class="parc-card" href="parceiros/oracle.html">
-          <img src="media/logos/parceiros/oracle.svg" alt="Oracle" loading="lazy" decoding="async">
-          <span>Oracle PartnerNetwork</span>
-        </a>
+      <div class="favo reveal d2" id="favo">
+        <div class="favo-linhas" id="favo-linhas">
+          <a class="hex logo" href="parceiros/microsoft.html" aria-label="Microsoft — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/microsoft.svg" alt="" loading="lazy" decoding="async"><em>Microsoft</em></span></a>
+          <a class="hex logo" href="parceiros/google-cloud.html" aria-label="Google Cloud — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/google.svg" alt="" loading="lazy" decoding="async"><em>Google Cloud</em></span></a>
+          <a class="hex logo" href="parceiros/aws.html" aria-label="Amazon Web Services — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/aws.svg" alt="" loading="lazy" decoding="async"><em>Amazon Web Services</em></span></a>
+          <a class="hex logo" href="parceiros/ibm.html" aria-label="IBM — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/ibm.svg" alt="" loading="lazy" decoding="async"><em>IBM</em></span></a>
+          <a class="hex logo" href="parceiros/databricks.html" aria-label="Databricks — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/databricks.png" alt="" loading="lazy" decoding="async"><em>Databricks</em></span></a>
+          <a class="hex logo" href="parceiros/tableau.html" aria-label="Tableau — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/tableau.png" alt="" loading="lazy" decoding="async"><em>Tableau</em></span></a>
+          <a class="hex logo" href="parceiros/snowflake.html" aria-label="Snowflake — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/snowflake.svg" alt="" loading="lazy" decoding="async"><em>Snowflake</em></span></a>
+          <a class="hex logo" href="parceiros/oracle.html" aria-label="Oracle — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/oracle.svg" alt="" loading="lazy" decoding="async"><em>Oracle</em></span></a>
+        </div>
       </div>
 
       <p class="parc-nota reveal d3" style="text-align:center">
@@ -3396,6 +3387,61 @@
   btn.addEventListener('click', function () {
     aplicar(raiz.getAttribute('data-tema') === 'claro' ? 'escuro' : 'claro', true);
   });
+})();
+</script>
+<script>
+/* Campo de hexagonos dos parceiros: distribui os 8 links nas fileiras e completa
+   com celulas vazias. Horizontal em todas as telas: 3 fileiras no desktop e no
+   tablet, 4 no celular (5 colunas), sempre mais largo que alto. */
+(function () {
+  var box = document.getElementById('favo'), L = document.getElementById('favo-linhas');
+  if (!box || !L) return;
+  var links = [].slice.call(L.querySelectorAll('.logo')), cels = [], modoAtual = '', largAtual = 0, q = null;
+  var fino = window.matchMedia ? window.matchMedia('(hover: hover) and (pointer: fine)') : null;
+  var LAY = {
+    d: { c: 10, r: 3, p: [[0,1],[0,5],[0,9],[1,3],[1,7],[2,0],[2,4],[2,9]] },
+    t: { c: 8,  r: 3, p: [[0,1],[0,4],[0,7],[1,2],[1,5],[2,0],[2,3],[2,7]] },
+    m: { c: 5,  r: 4, p: [[0,1],[0,4],[1,0],[1,2],[2,1],[2,4],[3,1],[3,3]] }
+  };
+  function montar() {
+    var w = box.clientWidth; if (!w) return;
+    var m = w >= 900 ? 'd' : (w >= 560 ? 't' : 'm'), cfg = LAY[m];
+    if (m === modoAtual && w === largAtual) return;
+    modoAtual = m; largAtual = w;
+    var W = Math.floor((w - cfg.c * 4) / cfg.c);
+    L.style.setProperty('--w', W + 'px'); L.classList.add('pronto'); L.innerHTML = ''; cels = [];
+    var mapa = {}; cfg.p.forEach(function (p, i) { mapa[p[0] + ',' + p[1]] = links[i]; });
+    for (var r = 0; r < cfg.r; r++) {
+      var li = document.createElement('div'); li.className = 'favo-linha';
+      var n = r % 2 ? cfg.c - 1 : cfg.c;
+      for (var c = 0; c < n; c++) {
+        var e = mapa[r + ',' + c];
+        if (!e) {
+          e = document.createElement('i'); e.className = 'hex vazio'; e.setAttribute('aria-hidden', 'true');
+          e.style.setProperty('--t', ((r * 7 + c * 13) % 10) / 10);
+          if ((r * 5 + c * 3) % 9 === 0) { e.classList.add('pisca'); e.style.setProperty('--d', ((r + c) % 7) * 0.8 + 's'); }
+        }
+        li.appendChild(e); cels.push(e);
+      }
+      L.appendChild(li);
+    }
+  }
+  function luz(x, y) {
+    var W = parseFloat(L.style.getPropertyValue('--w')) || 100;
+    cels.forEach(function (e) {
+      var r = e.getBoundingClientRect(), dx = x - (r.left + r.width / 2), dy = y - (r.top + r.height / 2);
+      var v = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / (W * 2.6));
+      e.style.setProperty('--l', (v * v).toFixed(3));
+    });
+  }
+  box.addEventListener('pointermove', function (e) {
+    if (e.pointerType === 'touch' || (fino && !fino.matches) || q) return;
+    var x = e.clientX, y = e.clientY;
+    q = requestAnimationFrame(function () { q = null; luz(x, y); });
+  });
+  box.addEventListener('pointerleave', function () { cels.forEach(function (e) { e.style.setProperty('--l', 0); }); });
+  window.addEventListener('resize', function () { requestAnimationFrame(montar); });
+  montar();
 })();
 </script>
 <script src="media/js/i18n-dic.js" defer></script>

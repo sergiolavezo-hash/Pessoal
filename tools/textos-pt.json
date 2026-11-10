@@ -1,5 +1,5 @@
 {
- "total": 791,
+ "total": 799,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -667,43 +667,43 @@
    "cls": "sub reveal d2"
   },
   {
-   "chave": "Microsoft AI Cloud Partner Program",
-   "tag": "span",
+   "chave": "Microsoft",
+   "tag": "em",
    "cls": ""
   },
   {
-   "chave": "Google Cloud Partner Advantage",
-   "tag": "span",
+   "chave": "Google Cloud",
+   "tag": "em",
    "cls": ""
   },
   {
-   "chave": "Amazon Web Services Partner Network",
-   "tag": "span",
+   "chave": "Amazon Web Services",
+   "tag": "em",
    "cls": ""
   },
   {
-   "chave": "IBM Partner Plus",
-   "tag": "span",
+   "chave": "IBM",
+   "tag": "em",
    "cls": ""
   },
   {
-   "chave": "Databricks Partner Program",
-   "tag": "span",
+   "chave": "Databricks",
+   "tag": "em",
    "cls": ""
   },
   {
-   "chave": "Tableau Partner Program · Salesforce",
-   "tag": "span",
+   "chave": "Tableau",
+   "tag": "em",
    "cls": ""
   },
   {
-   "chave": "Snowflake Partner Network",
-   "tag": "span",
+   "chave": "Snowflake",
+   "tag": "em",
    "cls": ""
   },
   {
-   "chave": "Oracle PartnerNetwork",
-   "tag": "span",
+   "chave": "Oracle",
+   "tag": "em",
    "cls": ""
   },
   {
@@ -1452,44 +1452,44 @@
    "cls": "sol-list"
   },
   {
-   "chave": "Microsoft",
-   "tag": "@alt",
-   "cls": ""
+   "chave": "Microsoft — ver produtos e cases",
+   "tag": "@aria-label",
+   "cls": "hex logo"
   },
   {
-   "chave": "Google Cloud",
-   "tag": "@alt",
-   "cls": ""
+   "chave": "Google Cloud — ver produtos e cases",
+   "tag": "@aria-label",
+   "cls": "hex logo"
   },
   {
-   "chave": "Amazon Web Services",
-   "tag": "@alt",
-   "cls": ""
+   "chave": "Amazon Web Services — ver produtos e cases",
+   "tag": "@aria-label",
+   "cls": "hex logo"
   },
   {
-   "chave": "IBM",
-   "tag": "@alt",
-   "cls": ""
+   "chave": "IBM — ver produtos e cases",
+   "tag": "@aria-label",
+   "cls": "hex logo"
   },
   {
-   "chave": "Databricks",
-   "tag": "@alt",
-   "cls": ""
+   "chave": "Databricks — ver produtos e cases",
+   "tag": "@aria-label",
+   "cls": "hex logo"
   },
   {
-   "chave": "Tableau",
-   "tag": "@alt",
-   "cls": ""
+   "chave": "Tableau — ver produtos e cases",
+   "tag": "@aria-label",
+   "cls": "hex logo"
   },
   {
-   "chave": "Snowflake",
-   "tag": "@alt",
-   "cls": ""
+   "chave": "Snowflake — ver produtos e cases",
+   "tag": "@aria-label",
+   "cls": "hex logo"
   },
   {
-   "chave": "Oracle",
-   "tag": "@alt",
-   "cls": ""
+   "chave": "Oracle — ver produtos e cases",
+   "tag": "@aria-label",
+   "cls": "hex logo"
   },
   {
    "chave": "Ver o case 1 de 15",
@@ -2832,6 +2832,11 @@
    "cls": "voltar"
   },
   {
+   "chave": "Amazon Web Services Partner Network",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
    "chave": "Produtos com que a Atlas trabalha",
    "tag": "h2",
    "cls": "h-xl"
@@ -2860,6 +2865,11 @@
    "chave": "<span>Proprietária</span><span>SaaS</span>",
    "tag": "div",
    "cls": "pf-meta"
+  },
+  {
+   "chave": "Databricks Partner Program",
+   "tag": "p",
+   "cls": "sub"
   },
   {
    "chave": "Lakehouse e processamento de dados em escala.",
@@ -2900,6 +2910,11 @@
    "chave": "Cases entregues com Databricks",
    "tag": "h2",
    "cls": "h-xl"
+  },
+  {
+   "chave": "Google Cloud Partner Advantage",
+   "tag": "p",
+   "cls": "sub"
   },
   {
    "chave": "Licença e implantação na mesma empresa",
@@ -2982,6 +2997,11 @@
    "cls": "h-xl"
   },
   {
+   "chave": "IBM Partner Plus",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
    "chave": "watsonx",
    "tag": "h3",
    "cls": ""
@@ -3010,6 +3030,11 @@
    "chave": "<span>Proprietária</span><span>Self-hosted ou nuvem</span>",
    "tag": "div",
    "cls": "pf-meta"
+  },
+  {
+   "chave": "Microsoft AI Cloud Partner Program",
+   "tag": "p",
+   "cls": "sub"
   },
   {
    "chave": "Dashboards executivos e self-service BI para as áreas.",
@@ -3082,6 +3107,11 @@
    "cls": "h-xl"
   },
   {
+   "chave": "Oracle PartnerNetwork",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
    "chave": "Banco de missão crítica.",
    "tag": "p",
    "cls": ""
@@ -3097,9 +3127,19 @@
    "cls": "h-xl"
   },
   {
+   "chave": "Snowflake Partner Network",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
    "chave": "Data warehouse em nuvem com escala elástica.",
    "tag": "p",
    "cls": ""
+  },
+  {
+   "chave": "Tableau Partner Program · Salesforce",
+   "tag": "p",
+   "cls": "sub"
   },
   {
    "chave": "Exploração visual de grandes volumes de dados.",

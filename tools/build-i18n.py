@@ -1106,6 +1106,17 @@ TRAD.update({
 # mesmos nas três línguas e o composto resolve sozinho quando o termo
 # não está no glossário.
 # ============================================================
+TRAD.update({
+  'Microsoft — ver produtos e cases': ('Microsoft — see products and cases', 'Microsoft — ver productos y casos'),
+  'Google Cloud — ver produtos e cases': ('Google Cloud — see products and cases', 'Google Cloud — ver productos y casos'),
+  'Amazon Web Services — ver produtos e cases': ('Amazon Web Services — see products and cases', 'Amazon Web Services — ver productos y casos'),
+  'IBM — ver produtos e cases': ('IBM — see products and cases', 'IBM — ver productos y casos'),
+  'Databricks — ver produtos e cases': ('Databricks — see products and cases', 'Databricks — ver productos y casos'),
+  'Tableau — ver produtos e cases': ('Tableau — see products and cases', 'Tableau — ver productos y casos'),
+  'Snowflake — ver produtos e cases': ('Snowflake — see products and cases', 'Snowflake — ver productos y casos'),
+  'Oracle — ver produtos e cases': ('Oracle — see products and cases', 'Oracle — ver productos y casos'),
+})
+
 TERMOS = {
   # setores
   'Bancário': ('Banking', 'Banca'),
