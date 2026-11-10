@@ -1263,6 +1263,22 @@
   /* pessoas: tres figuras, a do meio a frente */
   #sol-p6::after { background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><circle cx=%2248%22 cy=%2262%22 r=%2216%22/><path d=%22M18 126a30 30 0 0 1 60 0%22/><circle cx=%22120%22 cy=%2246%22 r=%2219%22/><path d=%22M84 122a36 36 0 0 1 72 0%22/><circle cx=%22192%22 cy=%2262%22 r=%2216%22/><path d=%22M162 126a30 30 0 0 1 60 0%22/></svg>") no-repeat right bottom / contain; }
   .sol-panel > * { position: relative; z-index: 1; }
+  /* ---- Solucoes com foto de fundo: a foto cobre o painel inteiro, bem
+     escurecida, e esmaece para o navy de cima para baixo. Titulo, texto,
+     etiquetas e botao continuam em HTML por cima (traduzem e sao lidos por
+     leitor de tela). O degrade garante contraste mesmo nas fotos claras. ---- */
+  .sol-panel.foto { --navy: #0A1428; color: #F2F3F5; border-color: rgba(46,134,255,0.28);
+    background-color: var(--navy);
+    background-image: linear-gradient(180deg, rgba(10,20,40,0.42) 0, rgba(10,20,40,0.7) 30%, rgba(10,20,40,0.9) 62%, rgba(10,20,40,0.96) 100%), var(--foto);
+    background-size: 100% 100%, cover; background-position: center, 72% 30%; background-repeat: no-repeat; }
+  .sol-panel.foto::after { display: none; }
+  .sol-panel.foto > .pill { color: #9CC7FF; background: rgba(46,134,255,0.18); border-color: rgba(46,134,255,0.45); }
+  .sol-panel.foto h3 { color: #FFFFFF; }
+  .sol-panel.foto > p { color: rgba(242,243,245,0.86); }
+  .sol-panel.foto .sol-tags span { color: rgba(242,243,245,0.92); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+  .sol-panel.foto .sol-sig { color: rgba(242,243,245,0.84); }
+  .sol-panel.foto .sol-sig svg { stroke: #6FB0FF; }
+
   .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 500; margin: 1.1rem 0 1rem; }
   .sol-panel > p { color: var(--muted); font-size: 1rem; }
   .sol-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.3rem; }
@@ -1949,25 +1965,6 @@
         </div>
         </div>
       </div>
-
-      <div class="banner reveal d3" style="margin-top:1.2rem">
-        <div>
-          <span class="pill"><span data-ico="pessoas"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.3"/><path d="M5.5 20.5a6.5 6.5 0 0 1 13 0"/></svg></span>
-            Especialistas &amp; Squads
-          </span>
-          <h2>Especialistas de dados dentro do seu time.</h2>
-          <p>
-            Quando o gargalo não é o projeto e sim quem vai tocá-lo, a Atlas
-            aloca especialistas que entram na sua operação e respondem à sua
-            gestão — em contratos de no mínimo 6 meses, muitos por tempo
-            indeterminado.
-          </p>
-        </div>
-        <div class="banner-cta">
-          <a class="btn btn-accent" href="alocacao.html" data-magnetic>Conhecer alocação <span class="arr">&rarr;</span></a>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -2023,7 +2020,7 @@
         </div>
 
         <div class="sol-panels">
-          <article class="sol-panel" id="sol-p1" role="tabpanel" aria-labelledby="sol-t1" tabindex="0">
+          <article class="sol-panel foto" style="--foto:url(media/solucoes/estrategia.webp)" id="sol-p1" role="tabpanel" aria-labelledby="sol-t1" tabindex="0">
             <span class="pill">Estratégia &amp; Inovação</span>
             <h3>Da visão à transformação</h3>
             <p>Antes de construir, decidir o que construir. Diagnóstico do que já existe, desenho do destino e a ordem em que cada passo paga o próximo — para o investimento virar entrega e não estudo.</p>
@@ -2033,7 +2030,7 @@
               <a class="btn btn-accent" href="#contato" data-magnetic>Falar sobre estratégia <span class="arr">&rarr;</span></a>
             </div>
           </article>
-          <article class="sol-panel" id="sol-p2" role="tabpanel" aria-labelledby="sol-t2" tabindex="0" hidden>
+          <article class="sol-panel foto" style="--foto:url(media/solucoes/engenharia.webp)" id="sol-p2" role="tabpanel" aria-labelledby="sol-t2" tabindex="0" hidden>
             <span class="pill">Engenharia de Dados</span>
             <h3>A base que conecta seus dados</h3>
             <p>A infraestrutura por onde o dado anda: ingestão, armazenamento, transformação e governança. Feita para aguentar a próxima pergunta, não só a de hoje.</p>
@@ -2043,7 +2040,7 @@
               <a class="btn btn-accent" href="data-engineering.html" data-magnetic>Conhecer Data Engineering <span class="arr">&rarr;</span></a>
             </div>
           </article>
-          <article class="sol-panel" id="sol-p3" role="tabpanel" aria-labelledby="sol-t3" tabindex="0" hidden>
+          <article class="sol-panel foto" style="--foto:url(media/solucoes/cloud.webp)" id="sol-p3" role="tabpanel" aria-labelledby="sol-t3" tabindex="0" hidden>
             <span class="pill">Cloud &amp; Modernização</span>
             <h3>Infraestrutura preparada para evoluir</h3>
             <p>Tirar o peso do legado sem parar a operação, e deixar a base pronta para crescer. Migração e modernização em etapas, com o que roda hoje de pé durante o caminho.</p>
@@ -2053,7 +2050,7 @@
               <a class="btn btn-accent" href="#contato" data-magnetic>Falar sobre modernização <span class="arr">&rarr;</span></a>
             </div>
           </article>
-          <article class="sol-panel" id="sol-p4" role="tabpanel" aria-labelledby="sol-t4" tabindex="0" hidden>
+          <article class="sol-panel foto" style="--foto:url(media/solucoes/analytics.webp)" id="sol-p4" role="tabpanel" aria-labelledby="sol-t4" tabindex="0" hidden>
             <span class="pill">Analytics &amp; BI</span>
             <h3>Do dado à decisão</h3>
             <p>Transformar o dado organizado em leitura do negócio — e a leitura em decisão. O painel não é o fim: ele existe para alguém escolher melhor com ele na frente.</p>
@@ -2063,7 +2060,7 @@
               <a class="btn btn-accent" href="bi-analytics.html" data-magnetic>Conhecer Analytics &amp; BI <span class="arr">&rarr;</span></a>
             </div>
           </article>
-          <article class="sol-panel" id="sol-p5" role="tabpanel" aria-labelledby="sol-t5" tabindex="0" hidden>
+          <article class="sol-panel foto" style="--foto:url(media/solucoes/ia.webp)" id="sol-p5" role="tabpanel" aria-labelledby="sol-t5" tabindex="0" hidden>
             <span class="pill">IA &amp; Automação</span>
             <h3>Inteligência que gera ação</h3>
             <p>A camada que lê o que já existe, antecipa o que vem e tira trabalho repetitivo do caminho. Começa pelo dado que você já tem — não por um projeto novo de coleta.</p>
@@ -3423,6 +3420,22 @@
   box.addEventListener('pointerleave', function () { cels.forEach(function (e) { e.style.setProperty('--l', 0); }); });
   window.addEventListener('resize', function () { requestAnimationFrame(montar); });
   montar();
+})();
+</script>
+<script>
+/* Fotos de fundo das Solucoes: so o painel aberto carrega a sua. Para o primeiro
+   hover nao ter atraso, as cinco sao buscadas quando a secao se aproxima da tela. */
+(function () {
+  var sec = document.getElementById('solucoes');
+  if (!sec || !('IntersectionObserver' in window)) return;
+  var feito = false;
+  new IntersectionObserver(function (es, ob) {
+    if (feito || !es[0].isIntersecting) return;
+    feito = true; ob.disconnect();
+    ['estrategia', 'engenharia', 'cloud', 'analytics', 'ia'].forEach(function (n) {
+      (new Image()).src = 'media/solucoes/' + n + '.webp';
+    });
+  }, { rootMargin: '600px 0px' }).observe(sec);
 })();
 </script>
 <script src="media/js/i18n-dic.js" defer></script>

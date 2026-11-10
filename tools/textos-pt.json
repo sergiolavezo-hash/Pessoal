@@ -1,5 +1,5 @@
 {
- "total": 803,
+ "total": 800,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -472,21 +472,6 @@
    "cls": ""
   },
   {
-   "chave": "Especialistas de dados dentro do seu time.",
-   "tag": "h2",
-   "cls": ""
-  },
-  {
-   "chave": "Quando o gargalo não é o projeto e sim quem vai tocá-lo, a Atlas aloca especialistas que entram na sua operação e respondem à sua gestão — em contratos de no mínimo 6 meses, muitos por tempo indeterminado.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Conhecer alocação <span class=\"arr\">→</span>",
-   "tag": "a",
-   "cls": "btn btn-accent"
-  },
-  {
    "chave": "Da informação à ação.",
    "tag": "h2",
    "cls": "h-xl reveal d1"
@@ -655,6 +640,11 @@
    "chave": "<span>Alocação de especialistas</span><span>Squads de dados</span><span>Engenheiros e analistas</span><span>Contratos de no mínimo 6 meses</span>",
    "tag": "div",
    "cls": "sol-tags"
+  },
+  {
+   "chave": "Conhecer alocação <span class=\"arr\">→</span>",
+   "tag": "a",
+   "cls": "btn btn-accent"
   },
   {
    "chave": "Programas de parceria.",
@@ -1260,11 +1250,6 @@
    "chave": "Descubra mais da Atlas",
    "tag": "a#texto",
    "cls": "hero-cue reveal d3 in"
-  },
-  {
-   "chave": "Especialistas & Squads",
-   "tag": "span#texto",
-   "cls": "pill"
   },
   {
    "chave": "Começa pelo que a empresa já tem, não por um projeto novo de coleta",

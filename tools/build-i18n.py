@@ -274,7 +274,6 @@ TRAD.update({
   'Analytics &amp; BI': ('Analytics &amp; BI', 'Analytics &amp; BI'),
   'IA &amp; Automação': ('AI &amp; Automation', 'IA &amp; Automatización'),
   'Especialistas &amp; Squads': ('Specialists &amp; Squads', 'Especialistas &amp; Squads'),
-  'Especialistas & Squads': ('Specialists & Squads', 'Especialistas & Squads'),
   'Engenharia de Dados': ('Data Engineering', 'Ingeniería de Datos'),
   'A base que conecta seus dados': ('The foundation that connects your data', 'La base que conecta sus datos'),
   'Infraestrutura preparada para evoluir': ('Infrastructure ready to evolve', 'Infraestructura preparada para evolucionar'),
@@ -756,11 +755,6 @@ TRAD.update({
   '<span>Clareza</span> <span>Resultado</span> <span>Parceria</span> <span>Pessoas</span>':
     ('<span>Clarity</span> <span>Results</span> <span>Partnership</span> <span>People</span>',
      '<span>Claridad</span> <span>Resultado</span> <span>Alianza</span> <span>Personas</span>'),
-  'Especialistas de dados dentro do seu time.':
-    ('Data specialists inside your team.', 'Especialistas de datos dentro de su equipo.'),
-  'Quando o gargalo não é o projeto e sim quem vai tocá-lo, a Atlas aloca especialistas que entram na sua operação e respondem à sua gestão — em contratos de no mínimo 6 meses, muitos por tempo indeterminado.':
-    ('When the bottleneck is not the project but who will run it, Atlas places specialists who join your operation and report to your management — on contracts of at least 6 months, many of them open-ended.',
-     'Cuando el cuello de botella no es el proyecto sino quién va a llevarlo, Atlas asigna especialistas que entran en su operación y responden a su gestión — en contratos de 6 meses como mínimo, muchos por tiempo indefinido.'),
   'Quando o gargalo não é o projeto e sim quem vai tocá-lo: especialistas de dados que entram na sua operação, respondem à sua gestão e ficam.':
     ('When the bottleneck is not the project but who will run it: data specialists who join your operation, report to your management and stay.',
      'Cuando el cuello de botella no es el proyecto sino quién va a llevarlo: especialistas de datos que entran en su operación, responden a su gestión y se quedan.'),
