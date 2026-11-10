@@ -1014,33 +1014,15 @@
 
 
   /* ---------- Hero centralizado ---------- */
-  /* O bloco é centrado dentro da área com respiro, então a diferença
-     entre o respiro de cima e o de baixo desloca o texto por metade
-     dela. Com o botão fora do hero, mais respiro embaixo que em cima
-     puxa a chamada para cima sem mexer no tamanho de nada.
-     A altura é 82svh e não 100svh de propósito: o hero deixa de ocupar
-     a tela inteira para que o trilho de setores entre na primeira dobra
-     já aparecendo de verdade (uns dois terços dele a 900px de altura),
-     e não como uma fresta que parece corte acidental. Abaixo de ~760px
-     de altura o respiro vira o piso e o hero ignora o svh, que é o que
-     evita a chamada apertada em telas baixas. */
-  /* A altura reserva espaco para o trilho de setores em vez de empurra-lo
-     para fora. Com uma fracao fixa de svh o hero crescia junto com a tela
-     e o trilho ficava sempre cortado: media -12px a 1080 de altura, -35 a
-     955, -45 a 900 e -104 a 768. Descontando o cabecalho (5rem), o trilho
-     (126px, 8rem com folga) e 2rem de respiro, sobra a mesma margem em
-     qualquer altura. O piso continua sendo o conteudo: 425px mais o
-     respiro, e abaixo de 820px de altura o respiro encolhe para o piso
-     nao estourar a dobra em notebook de 768. */
-  .hero-c { min-height: calc(100svh - 5.7rem - 8rem - 2rem); display: grid; align-items: center; padding: 4rem 0 5rem; }
-  /* O h1 subiu para 4,5rem e o cabecalho para 5,7rem, entao o piso do
-     hero cresceu e o trilho saia da dobra em 1366x768. Menos respiro
-     aqui devolve o espaco. */
-  @media (max-height: 820px) { .hero-c { padding: 2.4rem 0 3rem; } }
-  /* Em 720 de altura nem esse respiro cabe: 425 de conteudo mais 112 dao
-     537, e so ha 514 depois do cabecalho e do trilho. Encolhe mais um
-     degrau para o trilho continuar inteiro no notebook antigo. */
-  @media (max-height: 740px) { .hero-c { padding: 2rem 0 2.5rem; } }
+  /* O bloco é centrado dentro da área com respiro, então a diferença entre o
+     respiro de cima e o de baixo desloca o texto por metade dela. Mais
+     respiro embaixo que em cima puxa a chamada para cima sem mexer no
+     tamanho de nada.
+     A altura ocupa a primeira dobra inteira: 100svh menos o cabeçalho
+     (5,7rem) e 2rem de respiro. O trilho de setores desceu para junto dos
+     números, na seção Sobre, então não há mais o que reservar aqui. O piso
+     continua sendo o conteúdo (425px mais o respiro). */
+  .hero-c { min-height: calc(100svh - 5.7rem - 2rem); display: grid; align-items: center; padding: 4rem 0 5rem; }
   .hero-c .wrap > div { max-width: 56rem; margin: 0 auto; text-align: center; }
   .hero-c h1 { max-width: 20ch; margin-left: auto; margin-right: auto; }
   .hero-c h1 .ac { color: var(--accent-light); }
@@ -1235,9 +1217,7 @@
   @media (max-width: 760px) {
     .rail-grid { grid-template-columns: 1fr; gap: 1.2rem; }
     .rail-label { border-right: 0; border-bottom: 1px solid var(--line); padding-right: 0; padding-bottom: 1rem; max-width: none; }
-    /* 2,3rem embaixo e nao 3rem: o cabecalho ganhou 11px e sem isso o
-       trilho perderia exatamente essa altura na dobra do celular. */
-    .hero-c { min-height: auto; padding: 5.5rem 0 2.3rem; }
+    .hero-c { min-height: calc(100svh - 5.7rem - 2rem); padding: 5.5rem 0 3.5rem; }
   }
   @media (max-width: 520px) {
     .tiles { grid-template-columns: 1fr; }
@@ -2885,7 +2865,7 @@
   var links = [].slice.call(L.querySelectorAll('.logo')), cels = [], modoAtual = '', largAtual = 0, q = null;
   var fino = window.matchMedia ? window.matchMedia('(hover: hover) and (pointer: fine)') : null;
   var LAY = {
-    d: { c: 10, r: 3, p: [[0,1],[0,5],[0,9],[1,3],[1,7],[2,0],[2,4],[2,9]] },
+    d: { c: 8,  r: 3, p: [[0,1],[0,4],[0,7],[1,2],[1,5],[2,0],[2,3],[2,7]] },
     t: { c: 8,  r: 3, p: [[0,1],[0,4],[0,7],[1,2],[1,5],[2,0],[2,3],[2,7]] },
     m: { c: 5,  r: 4, p: [[0,1],[0,4],[1,0],[1,2],[2,1],[2,4],[3,1],[3,3]] }
   };
