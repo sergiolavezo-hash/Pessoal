@@ -2070,7 +2070,7 @@
               <a class="btn btn-accent" href="#ia-capacidades" data-magnetic>Conhecer IA <span class="arr">&rarr;</span></a>
             </div>
           </article>
-          <article class="sol-panel" id="sol-p6" role="tabpanel" aria-labelledby="sol-t6" tabindex="0" hidden>
+          <article class="sol-panel foto" style="--foto:url(media/solucoes/squads.webp)" id="sol-p6" role="tabpanel" aria-labelledby="sol-t6" tabindex="0" hidden>
             <span class="pill">Especialistas &amp; Squads</span>
             <h3>As pessoas certas no seu time</h3>
             <p>Quando o gargalo não é o projeto e sim quem vai tocá-lo: especialistas de dados que entram na sua operação, respondem à sua gestão e ficam.</p>
@@ -3424,7 +3424,7 @@
 </script>
 <script>
 /* Fotos de fundo das Solucoes: so o painel aberto carrega a sua. Para o primeiro
-   hover nao ter atraso, as cinco sao buscadas quando a secao se aproxima da tela. */
+   hover nao ter atraso, as seis sao buscadas quando a secao se aproxima da tela. */
 (function () {
   var sec = document.getElementById('solucoes');
   if (!sec || !('IntersectionObserver' in window)) return;
@@ -3432,7 +3432,7 @@
   new IntersectionObserver(function (es, ob) {
     if (feito || !es[0].isIntersecting) return;
     feito = true; ob.disconnect();
-    ['estrategia', 'engenharia', 'cloud', 'analytics', 'ia'].forEach(function (n) {
+    ['estrategia', 'engenharia', 'cloud', 'analytics', 'ia', 'squads'].forEach(function (n) {
       (new Image()).src = 'media/solucoes/' + n + '.webp';
     });
   }, { rootMargin: '600px 0px' }).observe(sec);
