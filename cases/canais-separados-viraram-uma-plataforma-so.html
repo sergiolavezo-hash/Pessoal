@@ -1637,6 +1637,66 @@
     .caso-info { position: static; }
     .rels { grid-template-columns: 1fr; }
   }
+
+  /* ---- vida nas paginas de case: so CSS, em cima do .reveal/.in que o script ja aplica ---- */
+  .caso-capa { overflow: hidden; }
+  .caso-capa img { animation: capa-in 1.8s var(--ease) both; transform-origin: 50% 40%; }
+  @keyframes capa-in { from { transform: scale(1.09); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  /* Antes -> Depois: o "antes" aparece, esmaece, a seta cresce e o "depois" entra em azul */
+  .caso-main .ad { position: relative; padding: 1.5rem 1.7rem; gap: 1.4rem; overflow: hidden; }
+  .caso-main .ad-n { font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
+  .caso-main .ad-lado:not(.ad-pos) { transition: opacity 0.8s var(--ease) 0.5s; }
+  .caso-main .ad.in .ad-lado:not(.ad-pos) { opacity: 0.55; }
+  .caso-main .ad-pos { position: relative; opacity: 0; transform: translateX(-16px);
+    transition: opacity 0.8s var(--ease) 0.55s, transform 0.8s var(--ease) 0.55s; }
+  .caso-main .ad.in .ad-pos { opacity: 1; transform: none; }
+  .caso-main .ad-pos::before { content: ''; position: absolute; inset: -1rem -1.4rem; border-radius: 14px; pointer-events: none;
+    background: radial-gradient(ellipse at 20% 50%, rgba(46,134,255,0.14), transparent 70%); opacity: 0; transition: opacity 1s var(--ease) 0.9s; }
+  .caso-main .ad.in .ad-pos::before { opacity: 1; }
+  .caso-main .ad-seta { display: inline-block; font-size: 1.6rem; transform: scaleX(0); transform-origin: left; transition: transform 0.6s var(--ease) 0.25s; }
+  .caso-main .ad.in .ad-seta { transform: none; animation: ad-nudge 2.6s ease-in-out 1.6s infinite; }
+  @keyframes ad-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+
+  /* Desafios e Resultados: itens entram em sequencia */
+  .caso-lista li { --t: 0s; opacity: 0; transform: translateX(-10px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), border-color 0.35s var(--ease); }
+  .caso-lista li::before { transform: scale(0); transition: transform 0.4s var(--ease); }
+  .caso-bloco.in .caso-lista li { opacity: 1; transform: none; transition-delay: var(--t); }
+  .caso-bloco.in .caso-lista li::before { transform: scale(1); transition-delay: calc(var(--t) + 0.2s); }
+  .caso-lista li:nth-child(1) { --t: 0.15s; } .caso-lista li:nth-child(2) { --t: 0.27s; }
+  .caso-lista li:nth-child(3) { --t: 0.39s; } .caso-lista li:nth-child(4) { --t: 0.51s; }
+  .caso-lista li:nth-child(n+5) { --t: 0.63s; }
+
+  /* Resultados viram cartoes, como os numeros da home */
+  .caso-res { gap: 0.85rem; }
+  .caso-res li { position: relative; overflow: hidden; padding: 1.1rem 1.3rem 1.1rem 3.5rem; background: var(--panel-2);
+    border: 1px solid var(--line-soft); border-radius: 14px; }
+  .caso-res li::before { left: 1.2rem; top: 1.15rem; width: 1.4rem; height: 1.4rem; border-radius: 50%;
+    background: rgba(46,134,255,0.12) url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232E86FF' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'><path d='m5 12.5 4.5 4.5L19 7.5'/></svg>") center / 0.8rem no-repeat; }
+  .caso-res li::after { content: ''; position: absolute; inset: 0; background: var(--degrade-hover); opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease); }
+  .caso-res li:hover { border-color: rgba(46,134,255,0.32); }
+  .caso-res li:hover::after { opacity: 1; }
+  .caso-res b { display: block; font-family: var(--display); font-size: 1.08rem; margin-bottom: 0.15rem; }
+
+  /* Ficha lateral: os grupos entram um a um e as etiquetas reagem ao mouse */
+  .caso-info .inf-campo { opacity: 0; transform: translateY(10px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+  .caso-info.in .inf-campo { opacity: 1; transform: none; }
+  .caso-info.in .inf-campo:nth-child(1) { transition-delay: 0.2s; } .caso-info.in .inf-campo:nth-child(2) { transition-delay: 0.32s; }
+  .caso-info.in .inf-campo:nth-child(3) { transition-delay: 0.44s; } .caso-info.in .inf-campo:nth-child(4) { transition-delay: 0.56s; }
+  .inf-campo dd span { transition: border-color 0.3s var(--ease), color 0.3s var(--ease); }
+  .inf-campo dd span:hover { border-color: rgba(46,134,255,0.45); color: var(--ink); }
+
+  /* Outros projetos */
+  .rel img { transition: transform 0.8s var(--ease); }
+  .rel:hover img { transform: scale(1.06); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .caso-capa img { animation: none; }
+    .caso-main .ad-lado, .caso-main .ad-pos, .caso-main .ad-seta, .caso-lista li, .caso-lista li::before, .caso-info .inf-campo {
+      opacity: 1 !important; transform: none !important; transition: none !important; animation: none !important; }
+    .rel img, .rel:hover img { transition: none; transform: none; }
+  }
 </style>
 </head>
 <body>
@@ -1853,12 +1913,12 @@
   <section class="sec caso-corpo">
     <div class="wrap caso-grid">
       <div class="caso-main">
-      <div class="ad" aria-label="Antes e depois">
+      <div class="ad reveal" aria-label="Antes e depois">
         <div class="ad-lado"><p class="ad-k">Antes</p><p class="ad-n">Vários</p><p class="ad-d">sistemas medindo os canais em separado</p></div>
         <span class="ad-seta" aria-hidden="true">&rarr;</span>
         <div class="ad-lado ad-pos"><p class="ad-k">Depois</p><p class="ad-n">Uma</p><p class="ad-d">plataforma com venda e operação lado a lado</p></div>
       </div>
-      <section class="caso-bloco">
+      <section class="caso-bloco reveal">
         <h2>Desafios</h2>
         <ul class="caso-lista">
             <li>Dados de lojas físicas e de canais digitais espalhados em sistemas diferentes, sem visão única de performance.</li>
@@ -1866,13 +1926,13 @@
             <li>A consolidação para qualquer leitura conjunta era manual e refeita a cada pergunta.</li>
         </ul>
       </section>
-      <section class="caso-bloco">
+      <section class="caso-bloco reveal">
         <h2>Solução</h2>
         <p>Plataforma de dados em Azure integrando todos os canais de venda, com pipelines em Synapse, Data Factory e Databricks. Sobre ela, dashboards Power BI de vendas, operação e performance por canal, lendo as mesmas definições.</p>
       </section>
-      <section class="caso-bloco">
+      <section class="caso-bloco reveal">
         <h2>Resultados</h2>
-        <ul class="caso-lista">
+        <ul class="caso-lista caso-res">
             <li><b>Canais comparáveis</b> loja física e digital deixaram de ser medidos em sistemas separados</li>
             <li><b>Fim da consolidação manual</b> venda e operação passaram a ser lidas no mesmo painel</li>
             <li><b>Base reaproveitável</b> nova análise parte da plataforma existente, não de uma nova extração</li>
@@ -1880,7 +1940,7 @@
       </section>
       </div>
 
-      <aside class="caso-info">
+      <aside class="caso-info reveal d1">
         <h2>Informações do projeto</h2>
         <dl>
           <div class="inf-campo">

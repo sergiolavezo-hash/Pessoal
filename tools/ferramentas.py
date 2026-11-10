@@ -254,7 +254,7 @@ F = [
       para='Análise de contrato, relatório e base documental.',
       como='API com o documento e as regras da empresa no contexto.',
       mercado='Escolha frequente quando o caso envolve documento extenso.',
-      caso=''),
+      caso='Presente em um sistema de faturamento desenvolvido para corretora de seguros.'),
  dict(nome='Gemini', grupo='ia', icone='gemini', etapa='dash',
       licenca='Proprietária', modelo='API',
       oque='Modelos multimodais do Google, integrados ao Cloud.',

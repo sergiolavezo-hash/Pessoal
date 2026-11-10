@@ -292,8 +292,13 @@
       "Desenvolvimento de sistemas",
       "Automação"
     ],
-    "tecnologias": [],
-    "parceiros": [],
+    "tecnologias": [
+      "Claude",
+      "Power BI"
+    ],
+    "parceiros": [
+      "Microsoft"
+    ],
     "areas": [
       "Desenvolvimento de sistemas",
       "Automação de processos",
@@ -580,13 +585,19 @@
     ],
     "arte": "preditivo",
     "capa": "Modelos preditivos anteciparam a evasão escolar para apoiar ações preventivas.",
-    "parceiros": [],
+    "parceiros": [
+      "Google Cloud",
+      "Microsoft"
+    ],
     "areas": [
       "Analytics",
       "Machine Learning",
       "Modelos preditivos"
     ],
     "tecnologias": [
+      "GCP",
+      "Cloud Composer",
+      "Power BI",
       "Analytics",
       "Machine Learning",
       "BI"
@@ -660,12 +671,18 @@
     ],
     "arte": "diario",
     "capa": "Acompanhamento diário das unidades de um grande grupo de restaurantes.",
-    "parceiros": [],
+    "parceiros": [
+      "Google Cloud",
+      "Microsoft"
+    ],
     "areas": [
       "Business Intelligence",
       "Indicadores operacionais"
     ],
     "tecnologias": [
+      "GCP",
+      "Cloud Composer",
+      "Power BI",
       "Dashboards",
       "Operações"
     ],
@@ -696,13 +713,16 @@
     ],
     "arte": "operacoes",
     "capa": "Acidentes, pedágios e operação aeroportuária integrados numa visão única.",
-    "parceiros": [],
+    "parceiros": [
+      "Microsoft"
+    ],
     "areas": [
       "Business Intelligence",
       "Data Integration",
       "Indicadores operacionais"
     ],
     "tecnologias": [
+      "Power BI",
       "Data & BI",
       "Operações"
     ],

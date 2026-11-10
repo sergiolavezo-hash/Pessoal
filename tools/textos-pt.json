@@ -1,5 +1,5 @@
 {
- "total": 799,
+ "total": 803,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -3222,7 +3222,12 @@
    "cls": ""
   },
   {
-   "chave": "<span>Analytics</span><span>Machine Learning</span><span>BI</span>",
+   "chave": "<span>Google Cloud</span><span>Microsoft</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>GCP</span><span>Cloud Composer</span><span>Power BI</span><span>Analytics</span><span>Machine Learning</span><span>BI</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -3284,7 +3289,7 @@
   {
    "chave": "Antes e depois",
    "tag": "@aria-label",
-   "cls": "ad"
+   "cls": "ad reveal"
   },
   {
    "chave": "Relatório avulso",
@@ -3607,6 +3612,11 @@
    "cls": ""
   },
   {
+   "chave": "<span>GCP</span><span>Cloud Composer</span><span>Power BI</span><span>Dashboards</span><span>Operações</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
    "chave": "<span>Business Intelligence</span><span>Indicadores operacionais</span>",
    "tag": "dd",
    "cls": ""
@@ -3857,6 +3867,11 @@
    "cls": ""
   },
   {
+   "chave": "<span>Claude</span><span>Power BI</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
    "chave": "<span>Desenvolvimento de sistemas</span><span>Automação de processos</span><span>Faturamento</span>",
    "tag": "dd",
    "cls": ""
@@ -3984,6 +3999,11 @@
   {
    "chave": "3 operações → 1 leitura",
    "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Power BI</span><span>Data &amp; BI</span><span>Operações</span>",
+   "tag": "dd",
    "cls": ""
   },
   {
