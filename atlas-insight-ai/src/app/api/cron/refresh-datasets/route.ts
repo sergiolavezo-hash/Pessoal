@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "node:crypto";
 import { NextResponse, type NextRequest } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { systemWorkspaceContext } from "@/services/api-context";
@@ -28,7 +29,12 @@ function isAuthorized(request: NextRequest): boolean {
   const secret = process.env.CRON_SECRET;
   if (!secret) return false;
   const header = request.headers.get("authorization");
-  return header === `Bearer ${secret}`;
+  if (!header) return false;
+  // Comparação em tempo constante: `===` termina no primeiro byte diferente
+  // e deixaria medir o segredo pelo tempo de resposta.
+  const a = Buffer.from(header);
+  const b = Buffer.from(`Bearer ${secret}`);
+  return a.length === b.length && timingSafeEqual(a, b);
 }
 
 export async function GET(request: NextRequest) {

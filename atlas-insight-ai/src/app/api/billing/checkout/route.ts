@@ -3,6 +3,7 @@ import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { ApiError, handleApiError } from "@/services/api-context";
 import { getStripe } from "@/services/stripe";
+import { appOrigin } from "@/lib/app-url";
 import type { BillingPlan, OrgRole } from "@/types";
 
 const bodySchema = z.object({
@@ -49,7 +50,7 @@ export async function POST(request: NextRequest) {
     }
 
     const stripe = getStripe();
-    const origin = request.nextUrl.origin;
+    const origin = appOrigin(request);
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       customer_email: user.email ?? undefined,

@@ -15,6 +15,16 @@ export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    // Sem a configuração do Supabase não há como saber quem é o usuário.
+    // Em produção, liberar a requisição deixaria as páginas abertas; por isso
+    // falha fechado. Fora de produção (desenvolvimento e testes sem .env) o
+    // comportamento anterior continua.
+    if (process.env.NODE_ENV === "production") {
+      return NextResponse.json(
+        { error: "Serviço indisponível: autenticação não configurada." },
+        { status: 503 }
+      );
+    }
     return supabaseResponse;
   }
 

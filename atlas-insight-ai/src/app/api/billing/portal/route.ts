@@ -3,6 +3,7 @@ import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { ApiError, handleApiError } from "@/services/api-context";
 import { getStripe } from "@/services/stripe";
+import { appOrigin } from "@/lib/app-url";
 import type { OrgRole } from "@/types";
 
 const bodySchema = z.object({ organizationId: z.string().uuid() });
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     const session = await getStripe().billingPortal.sessions.create({
       customer: sub.external_customer_id,
-      return_url: `${request.nextUrl.origin}/settings/billing`,
+      return_url: `${appOrigin(request)}/settings/billing`,
     });
     return NextResponse.json({ url: session.url });
   } catch (error) {

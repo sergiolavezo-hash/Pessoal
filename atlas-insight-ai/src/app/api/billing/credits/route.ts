@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { requireWorkspace, handleApiError, ApiError, auditLog } from "@/services/api-context";
 import { getStripe } from "@/services/stripe";
+import { appOrigin } from "@/lib/app-url";
 import {
   CREDIT_PACKS,
   findCreditPack,
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
     if (!pack) throw new ApiError(400, "Pacote de recarga inválido");
 
     const stripe = getStripe();
-    const origin = request.nextUrl.origin;
+    const origin = appOrigin(request);
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
