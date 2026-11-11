@@ -1,5 +1,5 @@
 {
- "total": 812,
+ "total": 817,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -557,6 +557,11 @@
    "cls": "sol-capt"
   },
   {
+   "chave": "Sequência de entregas",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
    "chave": "Falar sobre estratégia <span class=\"arr\">→</span>",
    "tag": "a",
    "cls": "btn btn-accent"
@@ -597,6 +602,11 @@
    "cls": "sol-capt"
   },
   {
+   "chave": "Orquestração",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
    "chave": "Conhecer Data Engineering <span class=\"arr\">→</span>",
    "tag": "a",
    "cls": "btn btn-accent"
@@ -628,6 +638,16 @@
   },
   {
    "chave": "Modern Data Stack",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Data Lake",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Cloud Data Platform",
    "tag": "span",
    "cls": "sol-capt"
   },
@@ -672,6 +692,11 @@
    "cls": "sol-capt"
   },
   {
+   "chave": "Camada semântica",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
    "chave": "Conhecer Analytics &amp; BI <span class=\"arr\">→</span>",
    "tag": "a",
    "cls": "btn btn-accent"
@@ -712,6 +737,11 @@
    "cls": "sol-capt"
   },
   {
+   "chave": "Machine Learning",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
    "chave": "Conhecer IA <span class=\"arr\">→</span>",
    "tag": "a",
    "cls": "btn btn-accent"
@@ -743,6 +773,11 @@
   },
   {
    "chave": "Contratos de no mínimo 6 meses",
+   "tag": "span",
+   "cls": "sol-capt"
+  },
+  {
+   "chave": "Banco de talentos",
    "tag": "span",
    "cls": "sol-capt"
   },
@@ -1707,11 +1742,6 @@
    "cls": "h-xl reveal d1 in"
   },
   {
-   "chave": "Camada semântica",
-   "tag": "h3",
-   "cls": "svc-t"
-  },
-  {
    "chave": "Modelagem dimensional",
    "tag": "li",
    "cls": ""
@@ -2000,11 +2030,6 @@
    "chave": "Armazenamento",
    "tag": "h3",
    "cls": "svc-t"
-  },
-  {
-   "chave": "Data Lake",
-   "tag": "li",
-   "cls": ""
   },
   {
    "chave": "Data Warehouse",

@@ -112,6 +112,17 @@ ICONES.update({
     'contrato':        ('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3"/>', 'calendário — contrato'),
 })
 
+
+# ---- Solucoes (6 por painel): assuntos acrescentados para a grade nunca deixar buraco ----
+ICONES.update({
+    'sequencia':    ('<path d="M3 20h5v-5h5v-5h5V4h3"/><path d="M3 20h18"/>', 'degraus — sequência de entregas'),
+    'orquestracao': ('<path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/><path d="M10 9l5 3-5 3z"/>', 'ciclo com play — orquestração'),
+    'plataforma':   ('<path d="M7 13h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 6a4 4 0 0 0 1 7Z"/><path d="M4 17h16M4 21h16"/>', 'nuvem sobre base — plataforma'),
+    'datalake':     ('<path d="M3 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 13c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>', 'ondas — data lake'),
+    'semantica':    ('<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3Z"/><path d="M5 17a3 3 0 0 1 3-3h11M9 8h6"/>', 'livro de definições — camada semântica'),
+    'aprendizado':  ('<circle cx="6" cy="7" r="2"/><circle cx="6" cy="17" r="2"/><circle cx="18" cy="12" r="2.5"/><path d="M8 7l8 4M8 17l8-4"/>', 'nós convergindo — machine learning'),
+})
+
 ALIASES = {'alocacao': 'pessoas', 'ia-capacidades': 'ia'}
 
 

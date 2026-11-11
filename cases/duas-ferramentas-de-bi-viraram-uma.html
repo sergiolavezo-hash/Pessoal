@@ -1207,7 +1207,15 @@
   .sol-panel.foto .sol-sig { color: rgba(242,243,245,0.84); }
 
   /* cartoes-icone por assunto */
-  .sol-caps { display: grid; grid-template-columns: repeat(auto-fit, minmax(5.6rem, 1fr)); gap: 0.8rem; margin-top: 1.5rem; }
+  /* Seis cartoes por painel em colunas que dividem 6 (3 ou 6): a ultima fileira nunca fica incompleta, em
+     nenhuma largura. Seis numa fileira so quando o painel e largo o bastante para as legendas respirarem. */
+  .sol-caps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem 0.8rem; margin-top: 1.5rem; }
+  .sol-panel.foto { container-type: inline-size; }
+  @container (min-width: 820px) { .sol-caps { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+  /* painel muito estreito (celular pequeno): 2 colunas x 3 linhas, que tambem divide 6; em 3 colunas as palavras
+     longas (Orquestracao, Modelagem) empurravam a grade para fora. */
+  @container (max-width: 290px) { .sol-panel.foto .sol-caps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .sol-capt { overflow-wrap: break-word; }
   .sol-cap { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; text-align: center; font-size: 0.8rem; line-height: 1.28; color: rgba(242,243,245,0.92); }
   .sol-capi { width: 3.4rem; height: 3.4rem; border-radius: 15px; display: grid; place-items: center; color: #8EC2FF;
     background: linear-gradient(160deg, rgba(46,134,255,0.24), rgba(46,134,255,0.06)); border: 1px solid rgba(70,150,255,0.42);
