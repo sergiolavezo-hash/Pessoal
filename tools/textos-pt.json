@@ -2872,336 +2872,6 @@
    "cls": "h-xl"
   },
   {
-   "chave": "<span aria-hidden=\"true\">←</span> Voltar para parceiros",
-   "tag": "a",
-   "cls": "voltar"
-  },
-  {
-   "chave": "Amazon Web Services Partner Network",
-   "tag": "p",
-   "cls": "sub"
-  },
-  {
-   "chave": "Produtos com que a Atlas trabalha",
-   "tag": "h2",
-   "cls": "h-xl"
-  },
-  {
-   "chave": "AWS",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
-   "chave": "Nuvem com o portfólio mais amplo de serviços.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Proprietária</span><span>Nuvem</span>",
-   "tag": "div",
-   "cls": "pf-meta"
-  },
-  {
-   "chave": "Data warehouse da AWS.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Proprietária</span><span>SaaS</span>",
-   "tag": "div",
-   "cls": "pf-meta"
-  },
-  {
-   "chave": "Databricks Partner Program",
-   "tag": "p",
-   "cls": "sub"
-  },
-  {
-   "chave": "Lakehouse e processamento de dados em escala.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Projeto entregue pela Atlas",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "Pipelines da plataforma omnichannel em Azure.",
-   "tag": "p",
-   "cls": "pf-entrega-caso"
-  },
-  {
-   "chave": "Unity Catalog",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
-   "chave": "Catálogo e permissão no Databricks.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Open source</span><span>Gerenciado</span>",
-   "tag": "div",
-   "cls": "pf-meta"
-  },
-  {
-   "chave": "✦ marca os produtos com projeto entregue pela Atlas",
-   "tag": "p",
-   "cls": "parc-nota"
-  },
-  {
-   "chave": "Cases entregues com Databricks",
-   "tag": "h2",
-   "cls": "h-xl"
-  },
-  {
-   "chave": "Google Cloud Partner Advantage",
-   "tag": "p",
-   "cls": "sub"
-  },
-  {
-   "chave": "Licença e implantação na mesma empresa",
-   "tag": "h2",
-   "cls": ""
-  },
-  {
-   "chave": "A Atlas faz parte do Google Cloud Partner Advantage e comercializa produtos Google Cloud. Em vez de comprar a licença com um fornecedor e a implantação com outro, os dois vêm da mesma empresa: um contrato, um interlocutor, e quem vende é quem coloca em produção.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Nuvem Google, forte em analytics e IA.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Data Lake em GCP e migração de legado Oracle.",
-   "tag": "p",
-   "cls": "pf-entrega-caso"
-  },
-  {
-   "chave": "Data warehouse analítico gerenciado do Google.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Data Lake em GCP para serviços financeiros e pipelines em saúde.",
-   "tag": "p",
-   "cls": "pf-entrega-caso"
-  },
-  {
-   "chave": "Cloud Composer",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
-   "chave": "Airflow gerenciado do Google Cloud.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Aberto + pago</span><span>SaaS</span>",
-   "tag": "div",
-   "cls": "pf-meta"
-  },
-  {
-   "chave": "Orquestração dos pipelines em todos os projetos entregues em Google Cloud.",
-   "tag": "p",
-   "cls": "pf-entrega-caso"
-  },
-  {
-   "chave": "Camada semântica única sobre o dado.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Mais de 200 dashboards migrados num projeto de governança de BI.",
-   "tag": "p",
-   "cls": "pf-entrega-caso"
-  },
-  {
-   "chave": "Gemini",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
-   "chave": "Modelos multimodais do Google, integrados ao Cloud.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Proprietária</span><span>API</span>",
-   "tag": "div",
-   "cls": "pf-meta"
-  },
-  {
-   "chave": "Cases entregues com Google Cloud",
-   "tag": "h2",
-   "cls": "h-xl"
-  },
-  {
-   "chave": "IBM Partner Plus",
-   "tag": "p",
-   "cls": "sub"
-  },
-  {
-   "chave": "watsonx",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
-   "chave": "Plataforma de IA e governança de modelos da IBM.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Proprietária</span><span>SaaS ou self-hosted</span>",
-   "tag": "div",
-   "cls": "pf-meta"
-  },
-  {
-   "chave": "Db2",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
-   "chave": "Banco relacional corporativo da IBM.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Proprietária</span><span>Self-hosted ou nuvem</span>",
-   "tag": "div",
-   "cls": "pf-meta"
-  },
-  {
-   "chave": "Microsoft AI Cloud Partner Program",
-   "tag": "p",
-   "cls": "sub"
-  },
-  {
-   "chave": "Dashboards executivos e self-service BI para as áreas.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Proprietária</span><span>SaaS + desktop</span>",
-   "tag": "div",
-   "cls": "pf-meta"
-  },
-  {
-   "chave": "Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.",
-   "tag": "p",
-   "cls": "pf-entrega-caso"
-  },
-  {
-   "chave": "Microsoft Fabric",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
-   "chave": "Plataforma unificada de dados e BI da Microsoft.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Azure",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
-   "chave": "Nuvem Microsoft para dados e analytics.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Synapse e Data Factory na plataforma omnichannel.",
-   "tag": "p",
-   "cls": "pf-entrega-caso"
-  },
-  {
-   "chave": "SQL Server",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
-   "chave": "Banco relacional corporativo da Microsoft.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Proprietária</span><span>Self-hosted ou gerenciado</span>",
-   "tag": "div",
-   "cls": "pf-meta"
-  },
-  {
-   "chave": "Purview",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
-   "chave": "Governança e linhagem de dados na Azure.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Cases entregues com Microsoft",
-   "tag": "h2",
-   "cls": "h-xl"
-  },
-  {
-   "chave": "Oracle PartnerNetwork",
-   "tag": "p",
-   "cls": "sub"
-  },
-  {
-   "chave": "Banco de missão crítica.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Migração de legado Oracle em projeto de nuvem.",
-   "tag": "p",
-   "cls": "pf-entrega-caso"
-  },
-  {
-   "chave": "Cases entregues com Oracle",
-   "tag": "h2",
-   "cls": "h-xl"
-  },
-  {
-   "chave": "Snowflake Partner Network",
-   "tag": "p",
-   "cls": "sub"
-  },
-  {
-   "chave": "Data warehouse em nuvem com escala elástica.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Tableau Partner Program · Salesforce",
-   "tag": "p",
-   "cls": "sub"
-  },
-  {
-   "chave": "Exploração visual de grandes volumes de dados.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Rede de diagnóstico, na migração da visualização para Power BI.",
-   "tag": "p",
-   "cls": "pf-entrega-caso"
-  },
-  {
-   "chave": "Cases entregues com Tableau",
-   "tag": "h2",
-   "cls": "h-xl"
-  },
-  {
    "chave": "<span aria-hidden=\"true\">←</span> Voltar para cases",
    "tag": "a",
    "cls": "voltar"
@@ -4060,6 +3730,336 @@
    "chave": "<span>Infraestrutura &amp; Mobilidade</span>",
    "tag": "dd",
    "cls": ""
+  },
+  {
+   "chave": "<span aria-hidden=\"true\">←</span> Voltar para parceiros",
+   "tag": "a",
+   "cls": "voltar"
+  },
+  {
+   "chave": "Amazon Web Services Partner Network",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
+   "chave": "Produtos com que a Atlas trabalha",
+   "tag": "h2",
+   "cls": "h-xl"
+  },
+  {
+   "chave": "AWS",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Nuvem com o portfólio mais amplo de serviços.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>Nuvem</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Data warehouse da AWS.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>SaaS</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Databricks Partner Program",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
+   "chave": "Lakehouse e processamento de dados em escala.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Projeto entregue pela Atlas",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Pipelines da plataforma omnichannel em Azure.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Unity Catalog",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Catálogo e permissão no Databricks.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Open source</span><span>Gerenciado</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "✦ marca os produtos com projeto entregue pela Atlas",
+   "tag": "p",
+   "cls": "parc-nota"
+  },
+  {
+   "chave": "Cases entregues com Databricks",
+   "tag": "h2",
+   "cls": "h-xl"
+  },
+  {
+   "chave": "Google Cloud Partner Advantage",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
+   "chave": "Licença e implantação na mesma empresa",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "A Atlas faz parte do Google Cloud Partner Advantage e comercializa produtos Google Cloud. Em vez de comprar a licença com um fornecedor e a implantação com outro, os dois vêm da mesma empresa: um contrato, um interlocutor, e quem vende é quem coloca em produção.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Nuvem Google, forte em analytics e IA.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Data Lake em GCP e migração de legado Oracle.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Data warehouse analítico gerenciado do Google.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Data Lake em GCP para serviços financeiros e pipelines em saúde.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Cloud Composer",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Airflow gerenciado do Google Cloud.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Aberto + pago</span><span>SaaS</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Orquestração dos pipelines em todos os projetos entregues em Google Cloud.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Camada semântica única sobre o dado.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Mais de 200 dashboards migrados num projeto de governança de BI.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Gemini",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Modelos multimodais do Google, integrados ao Cloud.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>API</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Cases entregues com Google Cloud",
+   "tag": "h2",
+   "cls": "h-xl"
+  },
+  {
+   "chave": "IBM Partner Plus",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
+   "chave": "watsonx",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Plataforma de IA e governança de modelos da IBM.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>SaaS ou self-hosted</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Db2",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Banco relacional corporativo da IBM.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>Self-hosted ou nuvem</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Microsoft AI Cloud Partner Program",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
+   "chave": "Dashboards executivos e self-service BI para as áreas.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>SaaS + desktop</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Microsoft Fabric",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Plataforma unificada de dados e BI da Microsoft.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Azure",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Nuvem Microsoft para dados e analytics.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Synapse e Data Factory na plataforma omnichannel.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "SQL Server",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Banco relacional corporativo da Microsoft.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>Self-hosted ou gerenciado</span>",
+   "tag": "div",
+   "cls": "pf-meta"
+  },
+  {
+   "chave": "Purview",
+   "tag": "h3",
+   "cls": ""
+  },
+  {
+   "chave": "Governança e linhagem de dados na Azure.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Cases entregues com Microsoft",
+   "tag": "h2",
+   "cls": "h-xl"
+  },
+  {
+   "chave": "Oracle PartnerNetwork",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
+   "chave": "Banco de missão crítica.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Migração de legado Oracle em projeto de nuvem.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Cases entregues com Oracle",
+   "tag": "h2",
+   "cls": "h-xl"
+  },
+  {
+   "chave": "Snowflake Partner Network",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
+   "chave": "Data warehouse em nuvem com escala elástica.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Tableau Partner Program · Salesforce",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
+   "chave": "Exploração visual de grandes volumes de dados.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Rede de diagnóstico, na migração da visualização para Power BI.",
+   "tag": "p",
+   "cls": "pf-entrega-caso"
+  },
+  {
+   "chave": "Cases entregues com Tableau",
+   "tag": "h2",
+   "cls": "h-xl"
   }
  ]
 }

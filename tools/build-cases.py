@@ -164,7 +164,7 @@ def corpo_indice(cases):
         '    </div>\n'
         '  </section>\n\n'
         '  <div class="divider"></div>\n\n'
-        '  <section class="sec">\n'
+        '  <section class="sec" id="cases">\n'
         '    <div class="wrap">\n'
         '      <h2 class="h-xl" style="max-width:none">Todos os cases de sucesso</h2>\n'
         '      <p class="filtro-k">Categorias</p>\n'

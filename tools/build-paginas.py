@@ -346,7 +346,7 @@ def montar(pag, comum):
 
   <div class="divider"></div>
 
-  <section class="sec">
+  <section class="sec" id="perfis">
     <div class="wrap">
       <div class="sec-lead">
         <span class="eyebrow reveal">O que fazemos</span>
@@ -528,6 +528,7 @@ CASCA_404 = '''<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Página não encontrada &mdash; Atlas Tec</title>
 <meta name="description" content="A página pedida não existe neste endereço.">
+<meta property="og:title" content="Página não encontrada &mdash; Atlas Tec">
 <meta name="robots" content="noindex, follow">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -566,11 +567,11 @@ def montar_404(comum):
     c = dict(comum)
     for k in ('header', 'menu', 'rodape', 'chat', 'topo', 'script'):
         c[k] = re.sub(r'(href|src)="(?!https?:|#|mailto:|//|/)', r'\1="/', c[k])
-        c[k] = c[k].replace('href="#', 'href="/index.html#')
+        c[k] = c[k].replace('href="#', 'href="/index.html#').replace('href="/index.html#inicio"', 'href="#inicio"')
     c['estilo'] = re.sub(r'url\((?!https?:|data:|/)', 'url(/', comum['estilo'])
 
     corpo = (
-        '<main id="conteudo">\n'
+        '<main id="inicio">\n'
         '  <section class="sec">\n'
         '    <div class="wrap" style="min-height:52vh;display:flex;flex-direction:column;justify-content:center">\n'
         '      <p class="eyebrow"><i></i> Erro 404</p>\n'
@@ -658,7 +659,7 @@ def montar_privacidade(comum):
     guardado no navegador. Nada de declaração genérica de conformidade —
     isso depende de avaliação jurídica, não de configuração técnica.
     """
-    corpo = '''<main id="conteudo">
+    corpo = '''<main id="inicio">
   <section class="sec">
     <div class="wrap">
       <span class="eyebrow">Privacidade</span>
