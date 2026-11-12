@@ -43,6 +43,11 @@ def extrair(html):
     # O tema é decidido antes da primeira pintura. Sem este bloco a página
     # interna abre no escuro enquanto a home abre no claro.
     boot = um(r'  <script>\n  /\* Antes da primeira pintura.*?</script>', 'script de tema do head')
+    # Google Analytics (GA4), sempre ativo. Estava só no index.html: as páginas
+    # geradas não traziam o script, então nenhuma página interna era
+    # contabilizada. Segue o <head>, no mesmo bloco do tema.
+    ga = um(r'<script>\n  /\* Google Analytics \(GA4\) sempre ativo \*/.*?</script>', 'script do Analytics')
+    boot = boot + '\n' + ga
 
     # TODOS os blocos de script que vêm depois do widget de chat, na ordem.
     #
@@ -724,14 +729,15 @@ def montar_privacidade(comum):
 
         <h3>Medição de audiência</h3>
         <p>O site usa <strong>Google Analytics 4</strong> para entender quantas
-          pessoas o visitam e por quais páginas passam — <strong>e só com a sua
-          permissão</strong>. Enquanto você não aceitar, nada é baixado do Google e
-          nenhum cookie de medição é gravado. Aceitando, entram dois cookies:</p>
+          pessoas o visitam e por quais páginas passam. A medição acontece em
+          todas as visitas e grava dois cookies no seu navegador:</p>
         <table>
           <tr><th>Cookie</th><th>Para quê</th></tr>
           <tr><td><code>_ga</code></td><td>Distingue visitantes entre si, sem identificar quem são.</td></tr>
           <tr><td><code>_ga_B0QFW3ZH7K</code></td><td>Mantém o estado da sessão de medição.</td></tr>
         </table>
+        <p>Se não quiser ser medido, você pode bloquear cookies no navegador ou
+          instalar o complemento oficial do Google para desativar o Analytics.</p>
         <p>O Google também recebe o seu endereço de IP ao carregar a fonte
           <code>IBM Plex Mono</code> usada no site.</p>
 
@@ -775,12 +781,6 @@ def montar_privacidade(comum):
           <strong>Privacidade</strong>. É o canal de comunicação com o encarregado
           pelo tratamento de dados da Atlas, e o pedido é respondido no mesmo
           e-mail que você informar.</p>
-
-        <h2>Como mudar sua escolha sobre cookies</h2>
-        <p>A escolha fica guardada no seu próprio navegador e vale só para ele.
-          Para rever, use o botão abaixo: o aviso reaparece e você decide de novo.
-          Recusar também apaga os cookies de medição que já existirem.</p>
-        <p><button class="btn btn-line" type="button" id="cookies-rever">Rever escolha de cookies</button></p>
 
         <h2>Segurança</h2>
         <p>O site é servido por HTTPS e não armazena dados de visitantes. As

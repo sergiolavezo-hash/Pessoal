@@ -29,6 +29,20 @@
     } catch (e) { document.documentElement.setAttribute('data-tema', 'claro'); }
   })();
   </script>
+<script>
+  /* Google Analytics (GA4) sempre ativo */
+  (function () {
+    var ID = 'G-B0QFW3ZH7K';
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', ID);
+    var s = document.createElement('script');
+    s.id = 'ga-src'; s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID;
+    document.head.appendChild(s);
+  })();
+</script>
 <style>
 
   /* Mona Sans, variável, hospedada aqui mesmo. É a fonte da referência e
@@ -1356,26 +1370,6 @@
   :root[data-tema="claro"] .pilar,
   :root[data-tema="claro"] .banner { box-shadow: var(--sombra); }
 
-  /* ---------- Aviso de cookies ---------- */
-  /* Canto inferior esquerdo: o direito é do Átis. Não bloqueia a página —
-     quem quiser ler antes de escolher, lê. */
-  .cookies {
-    position: fixed; left: 1.3rem; bottom: 1.3rem; z-index: 151;
-    width: min(26rem, calc(100vw - 2.6rem));
-    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
-    box-shadow: 0 18px 50px -20px rgba(0,0,0,0.45);
-    padding: 1.15rem 1.25rem;
-    opacity: 0; transform: translateY(12px);
-    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
-  }
-  .cookies.on { opacity: 1; transform: none; }
-  .cookies-t { display: flex; align-items: center; gap: 0.5rem; font-family: var(--display); font-weight: 600; font-size: 0.95rem; color: var(--ink); margin-bottom: 0.5rem; }
-  .cookies-t svg { width: 1.05rem; height: 1.05rem; stroke: var(--accent); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-  .cookies-d { color: var(--muted); font-size: 0.87rem; line-height: 1.55; }
-  .cookies-d a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
-  .cookies-acoes { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1rem; }
-  .cookies-acoes .btn { font-size: 0.85rem; padding: 0.6rem 1.1rem; }
-  @media (max-width: 520px) { .cookies { left: 0.9rem; right: 0.9rem; bottom: 0.9rem; width: auto; } }
 
   /* ---------- Alternador de tema ---------- */
   /* Vive no cabeçalho, ao lado do idioma. Antes flutuava no canto inferior
@@ -2041,18 +2035,6 @@
     </button>
   </div>
 </div>
-<div class="cookies" id="cookies" role="dialog" aria-labelledby="cookies-t" hidden>
-  <p class="cookies-t" id="cookies-t">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="9.5" cy="10" r="1.1" fill="currentColor" stroke="none"/><circle cx="14.5" cy="13.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="10" cy="15.5" r="1.1" fill="currentColor" stroke="none"/></svg>
-    Cookies
-  </p>
-  <p class="cookies-d">Este site funciona sem cookies de rastreamento. Com a sua permissão, usamos o Google Analytics para medir visitas de forma agregada. Você escolhe, e pode mudar depois.</p>
-  <p class="cookies-d"><a href="../privacidade.html">Saiba mais</a></p>
-  <div class="cookies-acoes">
-    <button class="btn btn-accent" type="button" id="cookies-sim">Aceitar</button>
-    <button class="btn btn-line" type="button" id="cookies-nao">Recusar</button>
-  </div>
-</div>
 
 <!-- /chat -->
 <script>
@@ -2682,37 +2664,6 @@
       es.forEach(function (e) { e.isIntersecting ? tocar() : pausar(); });
     }, { threshold: 0.25 }).observe(trilho);
   } else { tocar(); }
-})();
-</script>
-
-<script>
-/* ---------- Aviso de cookies ---------- */
-(function () {
-  var caixa = document.getElementById('cookies');
-  if (!caixa || !window.AtlasCookies) return;
-  var sim = document.getElementById('cookies-sim');
-  var nao = document.getElementById('cookies-nao');
-
-  function mostrar() {
-    caixa.hidden = false;
-    /* um quadro entre revelar e animar, senão a transição não roda */
-    requestAnimationFrame(function () { caixa.classList.add('on'); });
-  }
-  function esconder() {
-    caixa.classList.remove('on');
-    setTimeout(function () { caixa.hidden = true; }, 420);
-  }
-
-  /* Só aparece para quem ainda não escolheu. Com um respiro, para não
-     disputar a atenção com o primeiro quadro da página. */
-  if (!AtlasCookies.estado()) setTimeout(mostrar, 1200);
-
-  sim.addEventListener('click', function () { AtlasCookies.aceitar(); esconder(); });
-  nao.addEventListener('click', function () { AtlasCookies.recusar(); esconder(); });
-
-  /* A política de privacidade traz um botão para rever a escolha. */
-  var rever = document.getElementById('cookies-rever');
-  if (rever) rever.addEventListener('click', function () { AtlasCookies.reabrir(); mostrar(); });
 })();
 </script>
 

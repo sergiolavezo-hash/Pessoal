@@ -1,5 +1,5 @@
 {
- "total": 817,
+ "total": 810,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -1482,31 +1482,6 @@
    "cls": ""
   },
   {
-   "chave": "Este site funciona sem cookies de rastreamento. Com a sua permissão, usamos o Google Analytics para medir visitas de forma agregada. Você escolhe, e pode mudar depois.",
-   "tag": "p",
-   "cls": "cookies-d"
-  },
-  {
-   "chave": "Saiba mais",
-   "tag": "a",
-   "cls": ""
-  },
-  {
-   "chave": "Aceitar",
-   "tag": "button",
-   "cls": "btn btn-accent"
-  },
-  {
-   "chave": "Recusar",
-   "tag": "button",
-   "cls": "btn btn-line"
-  },
-  {
-   "chave": "Cookies",
-   "tag": "p#texto",
-   "cls": "cookies-t"
-  },
-  {
    "chave": "Escolher idioma",
    "tag": "@aria-label",
    "cls": "lang-btn"
@@ -2687,7 +2662,7 @@
    "cls": ""
   },
   {
-   "chave": "O site usa <strong>Google Analytics 4</strong> para entender quantas pessoas o visitam e por quais páginas passam — <strong>e só com a sua permissão</strong>. Enquanto você não aceitar, nada é baixado do Google e nenhum cookie de medição é gravado. Aceitando, entram dois cookies:",
+   "chave": "O site usa <strong>Google Analytics 4</strong> para entender quantas pessoas o visitam e por quais páginas passam. A medição acontece em todas as visitas e grava dois cookies no seu navegador:",
    "tag": "p",
    "cls": ""
   },
@@ -2719,6 +2694,11 @@
   {
    "chave": "Mantém o estado da sessão de medição.",
    "tag": "td",
+   "cls": ""
+  },
+  {
+   "chave": "Se não quiser ser medido, você pode bloquear cookies no navegador ou instalar o complemento oficial do Google para desativar o Analytics.",
+   "tag": "p",
    "cls": ""
   },
   {
@@ -2825,21 +2805,6 @@
    "chave": "formulário de contato",
    "tag": "a",
    "cls": ""
-  },
-  {
-   "chave": "Como mudar sua escolha sobre cookies",
-   "tag": "h2",
-   "cls": ""
-  },
-  {
-   "chave": "A escolha fica guardada no seu próprio navegador e vale só para ele. Para rever, use o botão abaixo: o aviso reaparece e você decide de novo. Recusar também apaga os cookies de medição que já existirem.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Rever escolha de cookies",
-   "tag": "button",
-   "cls": "btn btn-line"
   },
   {
    "chave": "Segurança",
