@@ -482,7 +482,7 @@
    "cls": "sub reveal d2"
   },
   {
-   "chave": "<span class=\"sol-k\">01 · Estratégia &amp; Inovação</span><span class=\"sol-t\">Da visão à transformação</span>",
+   "chave": "<span class=\"sol-k\">Estratégia &amp; Inovação</span><span class=\"sol-t\">Da visão à transformação</span>",
    "tag": "span",
    "cls": ""
   },
@@ -492,27 +492,27 @@
    "cls": "sol-arr"
   },
   {
-   "chave": "<span class=\"sol-k\">02 · Engenharia de Dados</span><span class=\"sol-t\">A base que conecta seus dados</span>",
+   "chave": "<span class=\"sol-k\">Engenharia de Dados</span><span class=\"sol-t\">A base que conecta seus dados</span>",
    "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"sol-k\">03 · Cloud &amp; Modernização</span><span class=\"sol-t\">Infraestrutura preparada para evoluir</span>",
+   "chave": "<span class=\"sol-k\">Cloud &amp; Modernização</span><span class=\"sol-t\">Infraestrutura preparada para evoluir</span>",
    "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"sol-k\">04 · Analytics &amp; BI</span><span class=\"sol-t\">Do dado à decisão</span>",
+   "chave": "<span class=\"sol-k\">Analytics &amp; BI</span><span class=\"sol-t\">Do dado à decisão</span>",
    "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"sol-k\">05 · IA &amp; Automação</span><span class=\"sol-t\">Inteligência que gera ação</span>",
+   "chave": "<span class=\"sol-k\">IA &amp; Automação</span><span class=\"sol-t\">Inteligência que gera ação</span>",
    "tag": "span",
    "cls": ""
   },
   {
-   "chave": "<span class=\"sol-k\">06 · Especialistas &amp; Squads</span><span class=\"sol-t\">As pessoas certas no seu time</span>",
+   "chave": "<span class=\"sol-k\">Especialistas &amp; Squads</span><span class=\"sol-t\">As pessoas certas no seu time</span>",
    "tag": "span",
    "cls": ""
   },
