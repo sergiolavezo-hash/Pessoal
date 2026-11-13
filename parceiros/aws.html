@@ -1668,7 +1668,8 @@
   .pf-marca img { max-width: 100%; max-height: 100%; object-fit: contain; }
   .pf-prod { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2.2rem; }
   .pf-card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 1.4rem 1.5rem; }
-  .pf-card h3 { font-size: 1.12rem; font-weight: 550; margin-bottom: 0.5rem; }
+  .pf-head { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.6rem; }
+  .pf-card h3 { font-size: 1.12rem; font-weight: 550; margin: 0; }
   .pf-card p { color: var(--muted); font-size: 0.93rem; margin-bottom: 0.7rem; }
   .pf-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .pf-meta span { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.1em;
@@ -1688,6 +1689,21 @@
   .pf-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2.2rem; }
   @media (max-width: 1000px) { .pf-prod, .pf-cases { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 620px)  { .pf-prod, .pf-cases { grid-template-columns: 1fr; } }
+
+  /* ---- logos das ferramentas ---- */
+  .lg-ring { position: relative; flex: none; display: grid; place-items: center; border-radius: 50%; background: #fff; border: 1px solid var(--line); }
+  .lg-ring.lg-sm { width: 1.7rem; height: 1.7rem; } .lg-ring.lg-md { width: 2.1rem; height: 2.1rem; } .lg-ring.lg-xl { width: 2.7rem; height: 2.7rem; }
+  .lg-ico { display: block; width: 56%; height: 56%; background: var(--bc, #131316); -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat; }
+  .lg-mn { font-family: var(--mono); font-size: .46rem; font-weight: 600; letter-spacing: .02em; color: #131316; }
+  .lg-xl .lg-mn { font-size: .62rem; } .lg-md .lg-mn { font-size: .52rem; }
+  .lg-star { position: absolute; margin: -1.5rem 0 0 1.25rem; font-size: .7rem; color: var(--accent); line-height: 1; }
+  .lg-tec { display: inline-flex; align-items: center; gap: .5rem; border: 1px solid var(--line); border-radius: 999px; padding: .22rem .75rem .22rem .22rem;
+    font-size: .8rem; color: var(--muted); background: var(--panel-2); transition: border-color .3s, color .3s; }
+  .lg-tec:hover { border-color: rgba(46,134,255,.45); color: var(--ink); }
+  .lg-solo { display: inline-flex; }
+  .cc-logos { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
+  .cc-logos { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
+  .lg-txt { font-size: .78rem; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: .28rem .7rem; }
 </style>
 </head>
 <body>
@@ -1900,12 +1916,12 @@
       <h2 class="h-xl" style="font-size:1.6rem;margin-top:2.8rem">Produtos com que a Atlas trabalha</h2>
       <div class="pf-prod">
         <article class="pf-card">
-          <h3>AWS</h3>
+          <div class="pf-head"><span class="lg-ring lg-xl"><span class="lg-ico" style="--i:url(../media/logos/aws.svg);--bc:#FF9900"></span></span><h3>AWS</h3></div>
           <p>Nuvem com o portfólio mais amplo de serviços.</p>
           <div class="pf-meta"><span>Proprietária</span><span>Nuvem</span></div>
         </article>
         <article class="pf-card">
-          <h3>Redshift</h3>
+          <div class="pf-head"><span class="lg-ring lg-xl"><span class="lg-ico" style="--i:url(../media/logos/redshift.svg);--bc:#8C4FFF"></span></span><h3>Redshift</h3></div>
           <p>Data warehouse da AWS.</p>
           <div class="pf-meta"><span>Proprietária</span><span>SaaS</span></div>
         </article>

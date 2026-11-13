@@ -22,6 +22,8 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from importlib import import_module
+
+import logos
 bp = import_module('build-paginas')
 
 RAIZ = bp.RAIZ
@@ -44,6 +46,14 @@ def arte(c, classe='case-art'):
             % (classe, c.get('base', ''), c['arte'], e(c['capa'])))
 
 
+def logos_do_case(c, prefixo):
+    """Linha de logos das ferramentas do case (sem repetir marca, sem conceitos)."""
+    lista = logos.unicas(c.get('tecnologias'))
+    if not lista:
+        return ''
+    return '\n          <div class="cc-logos">%s</div>' % ''.join(logos.so_logo(n, prefixo) for n in lista)
+
+
 # ------------------------------------------------------------ carrossel
 def cartao(c):
     """Cartão de capa: arte, setor, título, chamada e o link para o case."""
@@ -62,11 +72,11 @@ def cartao(c):
           <p class="cc-setor">%(setor)s</p>
           <h3 class="cc-t">%(titulo)s</h3>
           <p class="cc-cap">%(capa)s</p>%(ad)s
-          <div class="cc-chips">%(chips)s</div>
+          <div class="cc-chips">%(chips)s</div>%(logos)s
           <a class="cc-link" href="cases/%(slug)s.html">Ver case <span class="arr">&rarr;</span></a>
         </div>
       </article>''' % dict(arte=c['arte'], alt=e(c['capa']), setor=e(setor), titulo=e(c['titulo']),
-                           capa=e(c['capa']), ad=ad, chips=chips, slug=c['slug'])
+                           capa=e(c['capa']), ad=ad, chips=chips, slug=c['slug'], logos='')
 
 
 def carrossel(cases):
@@ -99,12 +109,12 @@ def destaque(c):
         '          <p class="dest-setor">%s</p>\n'
         '          <h3 class="dest-t">%s</h3>\n'
         '          <p class="dest-cap">%s</p>\n'
-        '          <div class="dest-chips">%s</div>\n'
+        '          <div class="dest-chips">%s</div>%s\n'
         '          <a class="dest-link" href="cases/%s.html">Continuar lendo <span class="arr">&rarr;</span></a>\n'
         '        </div>\n'
         '        <figure class="dest-art"><img src="media/cases/%s.svg" alt="%s" loading="lazy" decoding="async"></figure>\n'
         '      </article>' % (e(c.get('setor') or (c['meta'][0] if c.get('meta') else '')),
-                             e(c['titulo']), e(c['capa']), chips, c['slug'], c['arte'], e(c['capa'])))
+                             e(c['titulo']), e(c['capa']), chips, logos_do_case(c, ''), c['slug'], c['arte'], e(c['capa'])))
 
 
 def cartao_grade(c):
@@ -116,12 +126,12 @@ def cartao_grade(c):
         '            <p class="gc-setor">%s</p>\n'
         '            <h3 class="gc-t">%s</h3>\n'
         '            <p class="gc-cap">%s</p>\n'
-        '            <div class="gc-chips">%s</div>\n'
+        '            <div class="gc-chips">%s</div>%s\n'
         '            <span class="gc-link">Ver estudo de caso completo <span class="arr">&rarr;</span></span>\n'
         '          </div>\n'
         '        </a>' % (c['slug'], e(' '.join(c['categorias'])), c['arte'],
                          e(c.get('setor') or (c['meta'][0] if c.get('meta') else '')),
-                         e(c['titulo']), e(c['capa']), chips))
+                         e(c['titulo']), e(c['capa']), chips, logos_do_case(c, '')))
 
 
 def corpo_indice(cases):
@@ -201,6 +211,19 @@ def campo(rotulo, itens):
             '          </div>\n' % (e(rotulo), chips))
 
 
+def campo_tec(itens):
+    """Tecnologias: ferramentas com o logo real; conceitos (Analytics, BI...) como texto."""
+    if not itens:
+        return ''
+    ferr = [i for i in itens if logos.eh_ferramenta(i)]
+    conc = [i for i in itens if not logos.eh_ferramenta(i)]
+    chips = ''.join(logos.chip(i, prefixo='../') for i in ferr) + ''.join('<span class="lg-txt">%s</span>' % e(i) for i in conc)
+    return ('          <div class="inf-campo">\n'
+            '            <dt>Tecnologias</dt>\n'
+            '            <dd>%s</dd>\n'
+            '          </div>\n' % chips)
+
+
 def corpo_case(c, cases):
     """Segue o modelo da referência: desafios, solução e resultados na coluna
     principal; parceiros, tecnologias e áreas de atuação na ficha lateral."""
@@ -245,7 +268,7 @@ def corpo_case(c, cases):
         partes.append(bloco('Resultados', '        <ul class="caso-lista caso-res">\n%s\n        </ul>' % itens))
 
     info = (campo('Parceiros', c.get('parceiros'))
-            + campo('Tecnologias', c.get('tecnologias'))
+            + campo_tec(c.get('tecnologias'))
             + campo('Áreas de atuação', c.get('areas'))
             + campo('Setor', [setor]))
 
@@ -338,7 +361,7 @@ CSS_CASO = '''<style>
   .caso-info dl { display: grid; gap: 1.3rem; }
   .inf-campo dt { font-family: var(--display); font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 0.6rem; }
   .inf-campo dd { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0; }
-  .inf-campo dd span { font-size: 0.78rem; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 0.28rem 0.7rem; }
+  .inf-campo dd > span:not(.lg-tec) { font-size: 0.78rem; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 0.28rem 0.7rem; }
   .inf-nota { border-top: 1px solid var(--line-soft); margin-top: 1.5rem; padding-top: 1rem; color: var(--dim); font-size: 0.8rem; }
 
   .rels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1.4rem; }
@@ -401,7 +424,7 @@ CSS_CASO = '''<style>
   .caso-info.in .inf-campo { opacity: 1; transform: none; }
   .caso-info.in .inf-campo:nth-child(1) { transition-delay: 0.2s; } .caso-info.in .inf-campo:nth-child(2) { transition-delay: 0.32s; }
   .caso-info.in .inf-campo:nth-child(3) { transition-delay: 0.44s; } .caso-info.in .inf-campo:nth-child(4) { transition-delay: 0.56s; }
-  .inf-campo dd span { transition: border-color 0.3s var(--ease), color 0.3s var(--ease); }
+  .inf-campo dd > span { transition: border-color 0.3s var(--ease), color 0.3s var(--ease); }
   .inf-campo dd span:hover { border-color: rgba(46,134,255,0.45); color: var(--ink); }
 
   /* Outros projetos */
@@ -415,6 +438,7 @@ CSS_CASO = '''<style>
     .rel img, .rel:hover img { transition: none; transform: none; }
   }
 </style>'''
+CSS_CASO = CSS_CASO.replace('</style>', logos.css() + '</style>')
 
 
 CSS_INDICE = '''<style>

@@ -1,5 +1,5 @@
 {
- "total": 1122,
+ "total": 1133,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -2307,7 +2307,7 @@
    "cls": "h-xl reveal d1"
   },
   {
-   "chave": "<span class=\"pag-tec\" title=\"Power BI\"><span class=\"arq-ring\"><span class=\"arq-mn\">PBI</span><span class=\"arq-star\">✦</span></span>Power BI</span> <span class=\"pag-tec\" title=\"Tableau\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/tableau.svg)\"></span><span class=\"arq-star\">✦</span></span>Tableau</span> <span class=\"pag-tec\" title=\"Looker\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/looker.svg)\"></span><span class=\"arq-star\">✦</span></span>Looker</span> <span class=\"pag-tec\" title=\"MicroStrategy\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/microstrategy.svg)\"></span><span class=\"arq-star\">✦</span></span>MicroStrategy</span> <span class=\"pag-tec\" title=\"Qlik\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/qlik.svg)\"></span></span>Qlik</span> <span class=\"pag-tec\" title=\"Metabase\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/metabase.svg)\"></span></span>Metabase</span> <span class=\"pag-tec\" title=\"Superset\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/superset.svg)\"></span></span>Superset</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/powerbi.svg);--bc:#E8B80A\"></span></span><span class=\"lg-star\">✦</span>Power BI</span> <span class=\"lg-tec\" title=\"Tableau\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/tableau.svg);--bc:#E97627\"></span></span><span class=\"lg-star\">✦</span>Tableau</span> <span class=\"lg-tec\" title=\"Looker\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/looker.svg);--bc:#4285F4\"></span></span><span class=\"lg-star\">✦</span>Looker</span> <span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/microstrategy.svg);--bc:#D9232E\"></span></span><span class=\"lg-star\">✦</span>MicroStrategy</span> <span class=\"lg-tec\" title=\"Qlik\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/qlik.svg);--bc:#009848\"></span></span>Qlik</span> <span class=\"lg-tec\" title=\"Metabase\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/metabase.svg);--bc:#509EE3\"></span></span>Metabase</span> <span class=\"lg-tec\" title=\"Superset\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/superset.svg);--bc:#20A6C9\"></span></span>Superset</span>",
    "tag": "div",
    "cls": "pag-tecs reveal d2"
   },
@@ -2434,32 +2434,32 @@
   {
    "chave": "Power BI",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "Looker",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "MicroStrategy",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "Qlik",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "Metabase",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "Superset",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "Cada pergunta nova vira uma extração nova. A resposta chega tarde, e ninguém sabe de onde veio o número.",
@@ -2957,7 +2957,7 @@
    "cls": "tl-d"
   },
   {
-   "chave": "<span class=\"pag-tec\" title=\"Databricks\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/databricks.svg)\"></span><span class=\"arq-star\">✦</span></span>Databricks</span> <span class=\"pag-tec\" title=\"BigQuery\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/bigquery.svg)\"></span><span class=\"arq-star\">✦</span></span>BigQuery</span> <span class=\"pag-tec\" title=\"dbt\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/dbt.svg)\"></span><span class=\"arq-star\">✦</span></span>dbt</span> <span class=\"pag-tec\" title=\"Airflow\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/airflow.svg)\"></span><span class=\"arq-star\">✦</span></span>Airflow</span> <span class=\"pag-tec\" title=\"Snowflake\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/snowflake.svg)\"></span></span>Snowflake</span> <span class=\"pag-tec\" title=\"Redshift\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/redshift.svg)\"></span></span>Redshift</span> <span class=\"pag-tec\" title=\"Spark\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/spark.svg)\"></span></span>Spark</span> <span class=\"pag-tec\" title=\"Kafka\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/kafka.svg)\"></span></span>Kafka</span> <span class=\"pag-tec\" title=\"Fivetran\"><span class=\"arq-ring\"><span class=\"arq-mn\">FVT</span></span>Fivetran</span> <span class=\"pag-tec\" title=\"Airbyte\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/airbyte.svg)\"></span></span>Airbyte</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Databricks\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/databricks.svg);--bc:#FF3621\"></span></span><span class=\"lg-star\">✦</span>Databricks</span> <span class=\"lg-tec\" title=\"BigQuery\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/bigquery.svg);--bc:#669DF6\"></span></span><span class=\"lg-star\">✦</span>BigQuery</span> <span class=\"lg-tec\" title=\"dbt\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/dbt.svg);--bc:#FF694B\"></span></span><span class=\"lg-star\">✦</span>dbt</span> <span class=\"lg-tec\" title=\"Airflow\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/airflow.svg);--bc:#017CEE\"></span></span><span class=\"lg-star\">✦</span>Airflow</span> <span class=\"lg-tec\" title=\"Snowflake\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/snowflake.svg);--bc:#29B5E8\"></span></span>Snowflake</span> <span class=\"lg-tec\" title=\"Redshift\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/redshift.svg);--bc:#8C4FFF\"></span></span>Redshift</span> <span class=\"lg-tec\" title=\"Spark\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/spark.svg);--bc:#E25A1C\"></span></span>Spark</span> <span class=\"lg-tec\" title=\"Kafka\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/kafka.svg);--bc:#231F20\"></span></span>Kafka</span> <span class=\"lg-tec\" title=\"Fivetran\"><span class=\"lg-ring lg-md\"><span class=\"lg-mn\">FIV</span></span>Fivetran</span> <span class=\"lg-tec\" title=\"Airbyte\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/airbyte.svg);--bc:#615EFF\"></span></span>Airbyte</span>",
    "tag": "div",
    "cls": "pag-tecs reveal d2"
   },
@@ -3049,42 +3049,42 @@
   {
    "chave": "BigQuery",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "dbt",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "Airflow",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "Redshift",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "Spark",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "Kafka",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "Fivetran",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "Airbyte",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "Falar sobre IA &amp; Automação <span class=\"arr\">→</span>",
@@ -3837,7 +3837,7 @@
    "cls": "tl-d"
   },
   {
-   "chave": "<span class=\"pag-tec\" title=\"Python\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/python.svg)\"></span><span class=\"arq-star\">✦</span></span>Python</span> <span class=\"pag-tec\" title=\"SQL\"><span class=\"arq-ring\"><span class=\"arq-mn\">SQL</span><span class=\"arq-star\">✦</span></span>SQL</span> <span class=\"pag-tec\" title=\"Power BI\"><span class=\"arq-ring\"><span class=\"arq-mn\">PBI</span><span class=\"arq-star\">✦</span></span>Power BI</span> <span class=\"pag-tec\" title=\"dbt\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/dbt.svg)\"></span><span class=\"arq-star\">✦</span></span>dbt</span> <span class=\"pag-tec\" title=\"Airflow\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/airflow.svg)\"></span><span class=\"arq-star\">✦</span></span>Airflow</span> <span class=\"pag-tec\" title=\"Databricks\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/databricks.svg)\"></span><span class=\"arq-star\">✦</span></span>Databricks</span> <span class=\"pag-tec\" title=\"BigQuery\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/bigquery.svg)\"></span><span class=\"arq-star\">✦</span></span>BigQuery</span> <span class=\"pag-tec\" title=\"Spark\"><span class=\"arq-ring\"><span class=\"arq-ico\" style=\"--i:url(media/logos/spark.svg)\"></span></span>Spark</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Python\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/python.svg);--bc:#3776AB\"></span></span><span class=\"lg-star\">✦</span>Python</span> <span class=\"lg-tec\" title=\"SQL\"><span class=\"lg-ring lg-md\"><span class=\"lg-mn\">SQL</span></span><span class=\"lg-star\">✦</span>SQL</span> <span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/powerbi.svg);--bc:#E8B80A\"></span></span><span class=\"lg-star\">✦</span>Power BI</span> <span class=\"lg-tec\" title=\"dbt\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/dbt.svg);--bc:#FF694B\"></span></span><span class=\"lg-star\">✦</span>dbt</span> <span class=\"lg-tec\" title=\"Airflow\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/airflow.svg);--bc:#017CEE\"></span></span><span class=\"lg-star\">✦</span>Airflow</span> <span class=\"lg-tec\" title=\"Databricks\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/databricks.svg);--bc:#FF3621\"></span></span><span class=\"lg-star\">✦</span>Databricks</span> <span class=\"lg-tec\" title=\"BigQuery\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/bigquery.svg);--bc:#669DF6\"></span></span><span class=\"lg-star\">✦</span>BigQuery</span> <span class=\"lg-tec\" title=\"Spark\"><span class=\"lg-ring lg-md\"><span class=\"lg-ico\" style=\"--i:url(media/logos/spark.svg);--bc:#E25A1C\"></span></span>Spark</span>",
    "tag": "div",
    "cls": "pag-tecs reveal d2"
   },
@@ -3999,12 +3999,12 @@
   {
    "chave": "Python",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "SQL",
    "tag": "@title",
-   "cls": "pag-tec"
+   "cls": "lg-tec"
   },
   {
    "chave": "https://linkedin.com/in/...",
@@ -4082,9 +4082,24 @@
    "cls": "gc-chips"
   },
   {
+   "chave": "<span class=\"lg-solo\" title=\"Pentaho\" aria-label=\"Pentaho\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span></span><span class=\"lg-solo\" title=\"SQL Server\" aria-label=\"SQL Server\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(media/logos/sqlserver.svg);--bc:#CC2927\"></span></span></span>",
+   "tag": "div",
+   "cls": "cc-logos"
+  },
+  {
+   "chave": "<span class=\"lg-solo\" title=\"Pentaho\" aria-label=\"Pentaho\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span></span><span class=\"lg-solo\" title=\"SQL Server\" aria-label=\"SQL Server\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(media/logos/sqlserver.svg);--bc:#CC2927\"></span></span></span><span class=\"lg-solo\" title=\"MicroStrategy\" aria-label=\"MicroStrategy\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(media/logos/microstrategy.svg);--bc:#D9232E\"></span></span></span>",
+   "tag": "div",
+   "cls": "cc-logos"
+  },
+  {
    "chave": "<span>BI &amp; Analytics</span>",
    "tag": "div",
    "cls": "gc-chips"
+  },
+  {
+   "chave": "<span class=\"lg-solo\" title=\"Pentaho\" aria-label=\"Pentaho\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span></span><span class=\"lg-solo\" title=\"MicroStrategy\" aria-label=\"MicroStrategy\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(media/logos/microstrategy.svg);--bc:#D9232E\"></span></span></span>",
+   "tag": "div",
+   "cls": "cc-logos"
   },
   {
    "chave": "<span>BI &amp; Analytics</span><span>IA &amp; Preditivo</span>",
@@ -4095,6 +4110,16 @@
    "chave": "Projetos em destaque",
    "tag": "@aria-label",
    "cls": "dest-trilho"
+  },
+  {
+   "chave": "Azure Synapse",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "GCP",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
   },
   {
    "chave": "Ver o destaque 1 de 3",
@@ -4115,6 +4140,41 @@
    "chave": "Filtrar por categoria",
    "tag": "@aria-label",
    "cls": "filtros"
+  },
+  {
+   "chave": "Java",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "Informatica PowerCenter",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "Claude",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "Pentaho",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "SQL Server",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "SSIS",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "Figma",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
   },
   {
    "chave": "Esta página descreve quais dados o site <strong>atlas-partner.com</strong> coleta, por que coleta, com quem compartilha e o que você pode pedir sobre eles. Ela cobre apenas este site.",
@@ -4492,7 +4552,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>GCP</span><span>Cloud Composer</span><span>Power BI</span><span>Analytics</span><span>Machine Learning</span><span>BI</span>",
+   "chave": "<span class=\"lg-tec\" title=\"GCP\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>GCP</span><span class=\"lg-tec\" title=\"Cloud Composer\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>Cloud Composer</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-txt\">Analytics</span><span class=\"lg-txt\">Machine Learning</span><span class=\"lg-txt\">BI</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -4557,6 +4617,11 @@
    "cls": "ad reveal"
   },
   {
+   "chave": "Cloud Composer",
+   "tag": "@title",
+   "cls": "lg-tec"
+  },
+  {
    "chave": "Relatório avulso",
    "tag": "p",
    "cls": "ad-n"
@@ -4592,7 +4657,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>NPS</span><span>Analytics</span><span>CX</span><span>Tableau</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Tableau\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/tableau.svg);--bc:#E97627\"></span></span>Tableau</span><span class=\"lg-txt\">NPS</span><span class=\"lg-txt\">Analytics</span><span class=\"lg-txt\">CX</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -4667,7 +4732,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Azure Synapse</span><span>Data Factory</span><span>Databricks</span><span>Power BI</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Azure Synapse\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/azure.svg);--bc:#0078D4\"></span></span>Azure Synapse</span><span class=\"lg-tec\" title=\"Data Factory\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/azure.svg);--bc:#0078D4\"></span></span>Data Factory</span><span class=\"lg-tec\" title=\"Databricks\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/databricks.svg);--bc:#FF3621\"></span></span>Databricks</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -4685,6 +4750,11 @@
    "chave": "<b>Os acessos da holding inteira sob auditoria</b><small>Instituição Financeira</small>",
    "tag": "span",
    "cls": ""
+  },
+  {
+   "chave": "Data Factory",
+   "tag": "@title",
+   "cls": "lg-tec"
   },
   {
    "chave": "Os acessos a sistemas eram concedidos e revistos empresa a empresa, sem uma central que respondesse pela holding inteira.",
@@ -4717,7 +4787,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Java</span><span>MicroStrategy</span><span>Power BI</span><span>Informatica PowerCenter</span><span>Oracle</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Java\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/java.svg);--bc:#E76F00\"></span></span>Java</span><span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span>MicroStrategy</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-tec\" title=\"Informatica PowerCenter\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/informatica.svg);--bc:#FF4D00\"></span></span>Informatica PowerCenter</span><span class=\"lg-tec\" title=\"Oracle\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/oracle.svg);--bc:#C74634\"></span></span>Oracle</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -4762,7 +4832,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Pentaho</span><span>SQL Server</span><span>Data Warehouse</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Pentaho\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span>Pentaho</span><span class=\"lg-tec\" title=\"SQL Server\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/sqlserver.svg);--bc:#CC2927\"></span></span>SQL Server</span><span class=\"lg-txt\">Data Warehouse</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -4832,7 +4902,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Power BI</span><span>Looker</span><span>Governança de dados</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-tec\" title=\"Looker\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/looker.svg);--bc:#4285F4\"></span></span>Looker</span><span class=\"lg-txt\">Governança de dados</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -4877,7 +4947,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>GCP</span><span>Cloud Composer</span><span>Power BI</span><span>Dashboards</span><span>Operações</span>",
+   "chave": "<span class=\"lg-tec\" title=\"GCP\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>GCP</span><span class=\"lg-tec\" title=\"Cloud Composer\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>Cloud Composer</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-txt\">Dashboards</span><span class=\"lg-txt\">Operações</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -4927,7 +4997,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>GCP</span><span>BigQuery</span><span>Airflow</span><span>Cloud Composer</span><span>Power BI</span>",
+   "chave": "<span class=\"lg-tec\" title=\"GCP\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>GCP</span><span class=\"lg-tec\" title=\"BigQuery\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/bigquery.svg);--bc:#669DF6\"></span></span>BigQuery</span><span class=\"lg-tec\" title=\"Airflow\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/airflow.svg);--bc:#017CEE\"></span></span>Airflow</span><span class=\"lg-tec\" title=\"Cloud Composer\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>Cloud Composer</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -4945,11 +5015,6 @@
    "chave": "legado caro de manter, distante da análise",
    "tag": "p",
    "cls": "ad-d"
-  },
-  {
-   "chave": "GCP",
-   "tag": "p",
-   "cls": "ad-n"
   },
   {
    "chave": "legado aposentado, sem interromper a operação",
@@ -5002,7 +5067,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>GCP</span><span>BigQuery</span><span>dbt</span><span>Airflow</span><span>Cloud Composer</span><span>Looker</span>",
+   "chave": "<span class=\"lg-tec\" title=\"GCP\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>GCP</span><span class=\"lg-tec\" title=\"BigQuery\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/bigquery.svg);--bc:#669DF6\"></span></span>BigQuery</span><span class=\"lg-tec\" title=\"dbt\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/dbt.svg);--bc:#FF694B\"></span></span>dbt</span><span class=\"lg-tec\" title=\"Airflow\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/airflow.svg);--bc:#017CEE\"></span></span>Airflow</span><span class=\"lg-tec\" title=\"Cloud Composer\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>Cloud Composer</span><span class=\"lg-tec\" title=\"Looker\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/looker.svg);--bc:#4285F4\"></span></span>Looker</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -5047,7 +5112,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>SSIS</span><span>Data Warehouse</span><span>MicroStrategy</span>",
+   "chave": "<span class=\"lg-tec\" title=\"SSIS\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/sqlserver.svg);--bc:#CC2927\"></span></span>SSIS</span><span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span>MicroStrategy</span><span class=\"lg-txt\">Data Warehouse</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -5092,7 +5157,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Figma</span><span>Power BI</span><span>Data Design</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Figma\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/figma.svg);--bc:#F24E1E\"></span></span>Figma</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-txt\">Data Design</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -5132,7 +5197,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Claude</span><span>Power BI</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Claude\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/claude.svg);--bc:#D97757\"></span></span>Claude</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -5177,7 +5242,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Pentaho</span><span>MicroStrategy</span><span>DW</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Pentaho\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span>Pentaho</span><span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span>MicroStrategy</span><span class=\"lg-txt\">DW</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -5222,7 +5287,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Pentaho</span><span>SQL Server</span><span>MicroStrategy</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Pentaho\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span>Pentaho</span><span class=\"lg-tec\" title=\"SQL Server\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/sqlserver.svg);--bc:#CC2927\"></span></span>SQL Server</span><span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span>MicroStrategy</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -5267,7 +5332,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Power BI</span><span>Data &amp; BI</span><span>Operações</span>",
+   "chave": "<span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-txt\">Data &amp; BI</span><span class=\"lg-txt\">Operações</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -5402,11 +5467,6 @@
    "cls": "pf-entrega-caso"
   },
   {
-   "chave": "Cloud Composer",
-   "tag": "h3",
-   "cls": ""
-  },
-  {
    "chave": "Airflow gerenciado do Google Cloud.",
    "tag": "p",
    "cls": ""
@@ -5530,11 +5590,6 @@
    "chave": "Synapse e Data Factory na plataforma omnichannel.",
    "tag": "p",
    "cls": "pf-entrega-caso"
-  },
-  {
-   "chave": "SQL Server",
-   "tag": "h3",
-   "cls": ""
   },
   {
    "chave": "Banco relacional corporativo da Microsoft.",

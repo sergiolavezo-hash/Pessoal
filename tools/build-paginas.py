@@ -16,6 +16,7 @@ import pathlib
 import re
 import sys
 
+import logos
 import vitrine_bi
 import vitrine_eng
 import vitrine_squads
@@ -89,14 +90,8 @@ def bloco_etapas(etapas):
 
 
 def bloco_tec(itens):
-    out = []
-    for nome, arq, real in itens:
-        icone = ('<span class="arq-mn">%s</span>' % arq[1:]) if arq.startswith('#') else \
-                ('<span class="arq-ico" style="--i:url(media/logos/%s.svg)"></span>' % arq)
-        estrela = '<span class="arq-star">&#10022;</span>' if real else ''
-        out.append('          <span class="pag-tec" title="%s">'
-                   '<span class="arq-ring">%s%s</span>%s</span>' % (nome, icone, estrela, nome))
-    return '\n'.join(out)
+    """Chips com o logo real de cada ferramenta (a estrela marca as que têm projeto entregue)."""
+    return '\n'.join('          ' + logos.chip(nome, tam='lg-md', estrela=bool(real)) for nome, _arq, real in itens)
 
 
 PAGINAS = [
@@ -477,15 +472,6 @@ def montar(pag, comum):
   .pag-hero h1 { font-family: var(--display); font-weight: 400; letter-spacing: -0.042em;
     font-size: clamp(2rem, 4.6vw, 3.1rem); line-height: 1.04; margin-top: 1.1rem; }
   .pag-tecs { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2.4rem; }
-  .pag-tec { display: inline-flex; align-items: center; gap: 0.6rem;
-    border: 1px solid var(--line); border-radius: 999px; padding: 0.4rem 0.9rem 0.4rem 0.4rem;
-    font-size: 0.86rem; color: var(--muted); background: var(--panel);
-    transition: border-color 0.3s var(--ease), color 0.3s var(--ease); }
-  .pag-tec:hover { border-color: rgba(46,134,255,0.45); color: var(--ink); }
-  .pag-tec .arq-ring { width: 2rem; height: 2rem; border-radius: 50%%; flex: none;
-    border: 1px solid var(--line-soft); background: var(--bg0); position: relative; }
-  .pag-tec .arq-ico { width: 1rem; height: 1rem; }
-  .pag-tec .arq-mn { font-size: 0.42rem; }
   .fam-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.6rem; }
 
   /* ---- bloco de talento ---- */
@@ -518,6 +504,7 @@ def montar(pag, comum):
     .tal-grid { grid-template-columns: 1fr; gap: 1.8rem; }
   }
 </style>'''
+    extra = extra + '<style>' + logos.css() + '</style>'
 
     return '''<!doctype html>
 <html lang="pt-BR">

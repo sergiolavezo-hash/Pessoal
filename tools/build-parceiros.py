@@ -34,6 +34,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 bp = import_module('build-paginas')
 bc = import_module('build-cases')
 import ferramentas as fer
+import logos
 
 RAIZ = bp.RAIZ
 SITE = bp.SITE
@@ -89,7 +90,8 @@ CSS = '''<style>
   .pf-marca img { max-width: 100%; max-height: 100%; object-fit: contain; }
   .pf-prod { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2.2rem; }
   .pf-card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 1.4rem 1.5rem; }
-  .pf-card h3 { font-size: 1.12rem; font-weight: 550; margin-bottom: 0.5rem; }
+  .pf-head { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.6rem; }
+  .pf-card h3 { font-size: 1.12rem; font-weight: 550; margin: 0; }
   .pf-card p { color: var(--muted); font-size: 0.93rem; margin-bottom: 0.7rem; }
   .pf-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .pf-meta span { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.1em;
@@ -110,6 +112,7 @@ CSS = '''<style>
   @media (max-width: 1000px) { .pf-prod, .pf-cases { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 620px)  { .pf-prod, .pf-cases { grid-template-columns: 1fr; } }
 </style>'''
+CSS = CSS.replace('</style>', logos.css() + '</style>')
 
 CHECK = ('<svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" '
          'stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg>')
@@ -118,7 +121,7 @@ CHECK = ('<svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" '
 def card_produto(t):
     """Um produto. A marca de entrega so acende com o campo 'caso' do catalogo."""
     partes = ['        <article class="pf-card">\n',
-              '          <h3>%s</h3>\n' % e(t['nome']),
+              '          <div class="pf-head">%s<h3>%s</h3></div>\n' % (logos._anel(t['nome'], '../', 'lg-xl'), e(t['nome'])),
               '          <p>%s</p>\n' % e(t.get('oque', '')),
               '          <div class="pf-meta"><span>%s</span><span>%s</span></div>\n'
               % (e(t.get('licenca', '')), e(t.get('modelo', '')))]
@@ -131,6 +134,13 @@ def card_produto(t):
         partes.append('          <p class="pf-entrega-caso">%s</p>\n' % e(t['caso']))
     partes.append('        </article>\n')
     return ''.join(partes)
+
+
+def _logos_case(c):
+    lista = logos.unicas(c.get('tecnologias'))
+    if not lista:
+        return ''
+    return '\n            <div class="cc-logos">%s</div>' % ''.join(logos.so_logo(n, '../') for n in lista)
 
 
 def card_case(c):
@@ -146,12 +156,12 @@ def card_case(c):
             '            <p class="cc-setor">%s</p>\n'
             '            <h3 class="cc-t">%s</h3>\n'
             '            <p class="cc-cap">%s</p>\n'
-            '            <div class="cc-chips">%s</div>\n'
+            '            <div class="cc-chips">%s</div>%s\n'
             '            <a class="cc-link" href="../cases/%s.html">Ver case <span class="arr">&rarr;</span></a>\n'
             '          </div>\n'
             '        </article>\n'
             % (c['arte'], e(c.get('capa', '')), e(setor), e(c['titulo']),
-               e(c.get('capa', '')), chips, c['slug']))
+               e(c.get('capa', '')), chips, _logos_case(c), c['slug']))
 
 
 def corpo(f, cases):
