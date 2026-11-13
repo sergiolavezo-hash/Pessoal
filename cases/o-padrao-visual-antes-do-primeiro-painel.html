@@ -1,0 +1,3161 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O padrão visual antes do primeiro painel &mdash; Atlas Tec</title>
+<meta name="description" content="Protótipos em Figma fixaram o padrão antes do desenvolvimento dos painéis.">
+<link rel="canonical" href="https://atlas-partner.com/cases/o-padrao-visual-antes-do-primeiro-painel.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="O padrão visual antes do primeiro painel &mdash; Atlas Tec">
+<meta property="og:description" content="Protótipos em Figma fixaram o padrão antes do desenvolvimento dos painéis.">
+<meta property="og:url" content="https://atlas-partner.com/cases/o-padrao-visual-antes-do-primeiro-painel.html">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="../media/fonts/mona-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#F2F1ED">
+  <script>
+  /* Antes da primeira pintura: sem isto a página aparece no tema errado
+     por um quadro e só depois corrige. */
+  (function () {
+    try {
+      var g = localStorage.getItem('atlas-tema');
+      var t = (g === 'claro' || g === 'escuro') ? g : 'claro';
+      document.documentElement.setAttribute('data-tema', t);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'claro' ? '#F2F1ED' : '#05070A');
+    } catch (e) { document.documentElement.setAttribute('data-tema', 'claro'); }
+  })();
+  </script>
+<script>
+  /* Google Analytics (GA4) sempre ativo */
+  (function () {
+    var ID = 'G-B0QFW3ZH7K';
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', ID);
+    var s = document.createElement('script');
+    s.id = 'ga-src'; s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID;
+    document.head.appendChild(s);
+  })();
+</script>
+<style>
+
+  /* Mona Sans, variável, hospedada aqui mesmo. É a fonte da referência e
+     está sob SIL OFL (media/fonts/mona-sans-LICENSE.txt). Self-host em vez
+     de CDN porque a CSP não libera fonte de terceiro — e porque dois
+     arquivos de 55 KB no mesmo domínio chegam antes de um handshake novo.
+     Um eixo só, o de peso: o de largura dobraria o download sem uso. */
+  @font-face {
+    font-family: 'Mona Sans'; font-style: normal; font-weight: 200 900; font-display: swap;
+    src: url(../media/fonts/mona-sans-latin-wght-normal.woff2) format('woff2-variations');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+  @font-face {
+    font-family: 'Mona Sans'; font-style: normal; font-weight: 200 900; font-display: swap;
+    src: url(../media/fonts/mona-sans-latin-ext-wght-normal.woff2) format('woff2-variations');
+    unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+  }
+
+  /* Fallback com métricas corrigidas. Enquanto a Mona Sans não chega, o texto
+     sai numa fonte local esticada para a largura média dela — a troca não
+     re-quebra linha nem muda a altura dos blocos. Os números saem da medição
+     dos dois arquivos, não de estimativa: largura média ponderada por
+     frequência de letra 0,4927 na Mona Sans contra 0,4683 na métrica do Arial
+     = 105,22%; ascent 1,090 e descent 0,320 divididos por esse mesmo fator.
+     Sem url: só fonte já instalada, nada de rede, nada que a CSP barre. */
+  @font-face {
+    font-family: 'Mona Sans Fallback';
+    src: local('Arial'), local('Liberation Sans'), local('Helvetica');
+    size-adjust: 105.22%;
+    ascent-override: 103.59%;
+    descent-override: 30.41%;
+    line-gap-override: 0%;
+  }
+
+  :root {
+    --bg0: #05070A;
+    --bg1: #080C12;
+    --panel: #0D1117;
+    --panel-2: #121A24;
+    --line: rgba(244, 243, 239, 0.09);
+    --line-soft: rgba(244, 243, 239, 0.055);
+    --ink: #F4F3EF;
+    --muted: #9BA3AE;
+    --dim: #767E8E;   /* 4,94:1 sobre o fundo, 4,64:1 sobre o painel */
+    --accent: #2E86FF;
+    --accent-light: #6FD4FF;
+    --accent-deep: #0A2EE0;
+    --accent-ink: #041233;
+    --chart-a: #2E86FF;
+    --chart-b: #7B9FDB;
+    --paper: #F2F1ED;
+    --paper-ink: #131316;
+    --paper-muted: #56565E;
+    --paper-line: #DCDAD2;
+    --display: 'Mona Sans', 'Mona Sans Fallback', ui-sans-serif, system-ui, sans-serif;
+    --body: 'Mona Sans', 'Mona Sans Fallback', ui-sans-serif, system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    /* Canto e tamanho do Átis. O alternador de tema se alinha pelo eixo
+       vertical dele, então os dois leem o mesmo número. */
+    --atis-dir: 1.3rem;
+    --atis-tam: 62px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --grid: rgba(244, 243, 239, 0.05);
+    --veil: rgba(5, 7, 10, 0.72);
+    --veil-forte: rgba(5, 7, 10, 0.92);
+    --veil-fundo: rgba(5, 7, 10, 0.45);
+    --line-strong: rgba(244, 243, 239, 0.25);
+    /* O accent puro com texto branco dá 3,5:1 — abaixo do mínimo. O
+       preenchimento do botão fecha um tom; o accent segue o mesmo em
+       selos, links e ícones. */
+    --btn-fill: #1F6FE0;   /* branco sobre ele: 4,76:1 */
+    --accent-quente: #F2A33C;  /* contraponto quente da constelação */
+    --accent-verde: #2FB6A4;
+    --sombra: 0 10px 30px -8px rgba(5, 7, 10, 0.55);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* O atributo hidden perde para qualquer display declarado depois — foi o
+     que fez a barra de conversa, o painel de solução e um selo de case
+     aparecerem quando não deviam. Em vez de lembrar da regra em cada
+     componente novo, ela fica aqui uma vez. */
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  /* Grade sutil de fundo — a mesma textura usada em todo o conteúdo social
+     da Atlas (carrosséis, reels, stories). Reforça a identidade entre o
+     site e as postagens sem competir com o conteúdo. */
+  body {
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 56px 56px,
+      var(--bg0);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+
+  /* Peso 600 em vez de 800 nos títulos grandes: a Mona Sans é variável,
+     então 600 é um peso desenhado, não uma simulação. O letter-spacing
+     afrouxa junto — o -0,03em foi calibrado para o peso cheio e, mais
+     leve, fechava as letras. */
+  /* Peso padrão dos títulos. Sem isto eles caem no 'bold' do navegador,
+     que é 700 — pesado demais num display grande, e era a origem dos
+     títulos grossos que sobraram depois do primeiro ajuste. */
+  h1, h2, h3, h4 { font-family: var(--display); font-weight: 500; letter-spacing: -0.022em; line-height: 1.08; text-wrap: balance; }
+  a { color: inherit; }
+  button { font-family: inherit; }
+  img, canvas, svg { max-width: 100%; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  /* 1336 de caixa com 3,25rem de respiro dao 1232px de texto comecando a
+     52px da borda numa janela de 1440 — as medidas da referencia. O
+     max-width antigo ja era 1280, mas o respiro de 3rem deixava a coluna
+     em 1184 e a margem em 128. */
+  .wrap { max-width: 1336px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3.25rem); }
+  section[id] { scroll-margin-top: 5.7rem; }
+  .skip-link {
+    position: absolute; left: -999px; top: 0; z-index: 100;
+    background: var(--btn-fill); color: #fff; padding: 0.7rem 1.2rem; border-radius: 0 0 8px 0;
+    font-weight: 600; text-decoration: none;
+  }
+  .skip-link:focus { left: 0; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent);
+    display: inline-flex; align-items: center; gap: 0.7rem;
+  }
+  .eyebrow::before { content: ''; width: 2rem; height: 1px; background: var(--accent); opacity: 0.7; }
+  .eyebrow.on-paper { color: var(--accent-deep); }
+  .eyebrow.on-paper::before { background: var(--accent-deep); }
+
+  .h-xl { font-size: clamp(2.2rem, 4.6vw, 3.4rem); font-weight: 400; color: var(--ink); margin: 1.1rem 0 1.1rem; max-width: 22ch; }
+  .sub { color: var(--muted); font-size: 1.06rem; max-width: 42rem; margin-bottom: 0.5rem; }
+  .sec { padding: 4.5rem 0; }
+  /* Sem régua entre seções. A grade do fundo é rgba(19,19,22,0.045) e
+     esta borda era rgba(19,19,22,0.07): mesma cor, só 1,5x mais forte,
+     atravessando a tela inteira em fundo vazio. Lia como linha da grade,
+     mas caía em fase arbitraria (25 e 24 no index), então partia a célula
+     ao meio e dava a impressão de que algumas quadriculas tinham
+     encolhido. Quem separa as seções agora é o respiro, que já é de
+     4,5rem de cada lado. */
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: var(--display); font-weight: 600; font-size: 0.95rem;
+    padding: 0.85rem 1.6rem; border-radius: 10px; text-decoration: none;
+    border: 1px solid transparent; cursor: pointer; transition: all 0.25s var(--ease);
+  }
+  .btn-accent { background: var(--btn-fill); color: #fff; }
+  .btn-accent:hover { background: var(--accent-light); color: var(--accent-ink); box-shadow: 0 4px 14px -6px rgba(46,134,255,0.45); }
+  .btn-line { background: none; color: var(--ink); border-color: var(--line-strong); }
+  .btn-line:hover { border-color: var(--accent); color: var(--accent-light); }
+  .btn .arr { transition: transform 0.25s var(--ease); }
+  .btn:hover .arr { transform: translateX(3px); }
+
+  /* ---------- Cursor / scroll progress (herdados, mantidos) ---------- */
+  .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 90; }
+  .cursor-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+  .cursor-ring { width: 34px; height: 34px; border: 1.5px solid rgba(46,134,255,0.5); border-radius: 50%; transition: width 0.2s, height 0.2s, border-color 0.2s; display: grid; place-items: center; }
+  .cursor-ring span { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-light); opacity: 0; }
+  .cursor-ring.is-link { width: 56px; height: 56px; border-color: var(--accent); }
+  .cursor-ring.is-label { width: 84px; height: 84px; background: var(--bg0); border-color: var(--accent); }
+  .cursor-ring.is-label span { opacity: 1; }
+  body:not(.has-cursor) .cursor-dot, body:not(.has-cursor) .cursor-ring { display: none; }
+  @media (pointer: coarse) { .cursor-dot, .cursor-ring { display: none !important; } }
+
+  .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 95; background: var(--line-soft); }
+  .scroll-progress i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); transform-origin: left; transform: scaleX(0); }
+
+  /* ---------- Header ---------- */
+  /* No topo o cabeçalho não tem barra: marca, "Menu" e CTA flutuam sobre
+     a página, e a constelação passa por trás deles. A barra só aparece
+     quando a página rola, que é quando ela precisa separar o conteúdo. */
+  .nav { position: sticky; top: 0; z-index: 50; background: transparent; border-bottom: 1px solid transparent;
+    transition: border-color 0.35s var(--ease), background 0.35s var(--ease), backdrop-filter 0.35s var(--ease); }
+  .nav.is-scrolled { background: var(--veil-forte); backdrop-filter: blur(14px); border-bottom-color: var(--line-soft); }
+  /* O "Menu" precisa ficar no centro da faixa sem depender do que existe
+     nos lados — com space-between ele se desloca a cada mudança de
+     largura. A grade 1fr auto 1fr resolvia isso, mas cobrava um preço:
+     obrigava a lateral direita a ter a mesma largura da esquerda, e a
+     direita carrega idioma, CTA e tema enquanto a esquerda carrega só o
+     logo. Em tablet em retrato a coluna espremia o CTA, que quebrava em
+     duas ou três linhas e ficava mais alto que a barra de 5rem: media
+     79px a 768, 820 e 834 de largura, e 104px a 744, invadindo o hero.
+     Agora o "Menu" é centrado por posicionamento absoluto dentro da .nav,
+     que ocupa a largura toda, entao o centro e o da tela de verdade e os
+     lados ficam livres para ter a largura que precisam. */
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 5.7rem; transition: height 0.3s var(--ease); }
+  /* A ordem visual e logo, Menu, controles — mas no HTML o burger vem
+     depois do bloco de acoes. Em flex quem manda e a ordem do documento,
+     entao ela e declarada aqui; sem isso o "Menu" ia parar na direita
+     quando ele volta ao fluxo em tela estreita. */
+  .nav .wrap > .brand { flex: none; order: 1; }
+  /* Os dois ocupam o mesmo lugar: só um deles aparece por vez. */
+  .nav-toggle, .nav-burger { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); order: 2; }
+  /* Em telefone estreito nao ha largura para o centro absoluto: a 360 a
+     folga ate o idioma cai para 1px e a 320 vira sobreposicao de 19px.
+     Ali o "Menu" volta ao fluxo e os tres se distribuem. Nao fica no
+     centro exato, mas logo e controles tem larguras parecidas, entao a
+     diferenca e pequena — e nada se sobrepoe, que importa mais. */
+  @media (max-width: 384px) {
+    .nav-toggle, .nav-burger { position: static; transform: none; }
+    /* O layout antigo cabia em 320px porque o grid espremia tudo ate folga
+       zero e comprimia o botao de idioma de 127 para 116px. Em flex os
+       lados ficaram rigidos e a barra passou a transbordar 21px a 320 e
+       41px a 300. Aqui o respiro e o vao encolhem e o bloco da direita
+       volta a poder ceder. */
+    .nav .wrap { gap: 0.25rem; padding-left: 0.9rem; padding-right: 0.9rem; }
+    .nav-acoes { flex: 0 1 auto; min-width: 0; }
+    /* Os filhos tambem precisam poder ceder: no grid antigo o botao de
+       idioma encolhia de 81 para 70px sob pressao, e era isso que fazia a
+       barra caber em 300px. Sem min-width: 0 neles o bloco da direita
+       fica travado em 127px e a barra transborda. */
+    .nav-acoes > * { min-width: 0; }
+  }
+  .nav-acoes { flex: none; order: 3; }
+  .nav.is-scrolled .wrap { height: 4.25rem; }
+
+  .brand { display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+  .brand svg { width: 2.1rem; height: 2.1rem; flex: none; }
+  .brand .wordmark { display: flex; flex-direction: column; line-height: 1; }
+  .brand .wordmark b { font-family: var(--display); font-weight: 650; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--ink); }
+  .brand .wordmark small { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.24em; color: var(--dim); margin-top: 0.15rem; }
+
+  .nav-links { display: flex; align-items: center; gap: 1.9rem; }
+  .nav-links a:not(.btn) { text-decoration: none; font-size: 0.92rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+  .nav-links a:not(.btn):hover { color: var(--ink); }
+  /* No azul da marca, não na cor do texto: assim ele se destaca igual nos
+     dois temas, em vez de virar cinza no claro e branco no escuro. */
+  .nav-burger { display: none; background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.35); border-radius: 8px; color: var(--accent); font-family: var(--mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.5rem 0.9rem; cursor: pointer; transition: background 0.25s var(--ease), border-color 0.25s var(--ease); }
+  .nav-burger:hover { background: rgba(46,134,255,0.18); border-color: var(--accent); }
+
+  .mobile-menu {
+    position: fixed; inset: 4.25rem 0 0; z-index: 45; background: var(--bg0);
+    display: flex; flex-direction: column; padding: 2rem clamp(1.25rem,4vw,3rem);
+    opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease);
+  }
+  .mobile-menu.open { opacity: 1; pointer-events: auto; }
+  .mobile-menu a { text-decoration: none; font-family: var(--display); font-size: 1.5rem; font-weight: 550; color: var(--ink); padding: 0.7rem 0; border-bottom: 1px solid var(--line-soft); opacity: 0; transform: translateY(18px); transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); }
+  .mobile-menu.open a { opacity: 1; transform: none; }
+  .mobile-menu.open a:nth-child(1) { transition-delay: 0.05s; }
+  .mobile-menu.open a:nth-child(2) { transition-delay: 0.1s; }
+  .mobile-menu.open a:nth-child(3) { transition-delay: 0.15s; }
+  .mobile-menu.open a:nth-child(4) { transition-delay: 0.2s; }
+  .mobile-menu.open a:nth-child(5) { transition-delay: 0.25s; }
+  .mobile-menu.open a:nth-child(6) { transition-delay: 0.3s; }
+  .mobile-menu.open a:nth-child(7) { transition-delay: 0.35s; }
+  .mobile-menu.open a:nth-child(8) { transition-delay: 0.4s; }
+  .mobile-menu a.btn { margin-top: 1.2rem; align-self: flex-start; border-bottom: none; font-size: 1rem; }
+  .mobile-menu a small { font-family: var(--mono); font-size: 0.6rem; color: var(--accent); letter-spacing: 0.15em; display: block; margin-top: 0.2rem; }
+
+  /* ---------- Hero ---------- */
+  /* A grade do fundo mora só no body, ancorada na origem do documento.
+     O hero repintava a mesma grade a partir do próprio topo, e como esse
+     topo (81px) não cai em múltiplo de 56 o desenho reiniciava fora de
+     compasso: na emenda aparecia uma faixa de 25px no lugar de 56. Como a
+     cor final era var(--bg0), a mesma do body, o repinte não acrescentava
+     nada além do defeito. Fica só o brilho radial, que é translúcido e
+     deixa a grade do body passar por baixo sem quebrar o ritmo. */
+  .hero { position: relative; padding: 7rem 0 5rem; overflow: hidden;
+    background: radial-gradient(60rem 34rem at 82% -12%, rgba(46,134,255,0.14), transparent 60%); }
+  .hero > canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: auto; z-index: 0; }
+  /* Uma coluna só: a lista de camadas que ocupava a direita repetia os
+     serviços logo abaixo. O território 3D fica com aquele espaço. */
+  .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; align-items: center; }
+  .hero .wrap > div { max-width: 44rem; }
+  .hero h1 { font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 400; margin: 1.1rem 0 1.2rem; max-width: 16ch; }
+  .hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; }
+  .hero h1 .w > span { display: inline-block; opacity: 0; transform: translateY(0.65em); animation: word-in 0.7s var(--ease) forwards; }
+  @keyframes word-in { to { opacity: 1; transform: none; } }
+  .hero p.sub { font-size: 1.14rem; max-width: 34rem; margin-bottom: 2.1rem; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; }
+  .hero-foot { position: absolute; z-index: 1; left: 0; right: 0; bottom: 1.4rem; display: flex; justify-content: space-between; padding: 0 clamp(1.25rem,4vw,3rem); font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+  .scroll-cue { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .scroll-cue i { width: 1px; height: 14px; background: var(--dim); position: relative; overflow: hidden; }
+  .scroll-cue i::after { content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%; background: var(--accent); animation: cue 1.8s ease-in-out infinite; }
+  @keyframes cue { 50% { top: 100%; } 100% { top: 100%; } }
+
+  /* Diagrama de arquitetura — SVG estático, sem canvas. As linhas se
+     "desenham" via stroke-dashoffset quando a seção entra na tela. */
+
+  .hero-proof {
+    margin-top: 1.6rem; font-family: var(--mono); font-size: 0.72rem;
+    letter-spacing: 0.08em; color: var(--muted);
+  }
+  .hero-proof b { color: var(--ink); font-weight: 500; }
+  .hero-proof i { font-style: normal; color: var(--dim); margin: 0 0.15rem; }
+
+  /* ---------- Barra de conversa ---------- */
+  /* O canto inferior direito ja e do Atis. Empilhar dois elementos fixos no
+     mesmo canto e ruido, e no mobile cobre conteudo — entao a barra desce
+     do topo, e so depois que o hero sai da tela. */
+  .cbar {
+    /* Filha do cabeçalho, ancorada no rodapé dele: top:100% acompanha a
+       altura real da nav sempre. Medir a altura e publicar em --navh
+       errava justamente quando a nav mudava de tamanho — bastava voltar ao
+       topo com a barra aberta para ela subir por cima do menu. */
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 45;
+    display: flex; align-items: center; justify-content: center; gap: 1.2rem;
+    padding: 0.6rem 3rem 0.6rem 1.2rem;
+    background: var(--veil-forte); border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    /* Recolhida ela não é só deslocada: fica invisível. Antes, translateY
+       sozinho a mantinha pintada em cima do cabeçalho — o atributo hidden
+       some no primeiro aparecimento e nunca volta, então era a barra
+       recolhida que cobria a marca e o menu. */
+    transform: translateY(-100%); opacity: 0; visibility: hidden; pointer-events: none;
+    transition: transform 0.45s var(--ease), opacity 0.3s var(--ease), visibility 0s linear 0.45s;
+  }
+  .cbar.on {
+    transform: none; opacity: 1; visibility: visible; pointer-events: auto;
+    transition: transform 0.45s var(--ease), opacity 0.3s var(--ease), visibility 0s;
+  }
+  .nav.mega-aberto .cbar { transform: translateY(-100%); opacity: 0; visibility: hidden; pointer-events: none; }
+  .cbar p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+  .cbar .btn { padding: 0.5rem 1rem; font-size: 0.82rem; }
+  .cbar-x {
+    position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%);
+    width: 1.8rem; height: 1.8rem; border-radius: 50%; border: 1px solid var(--line);
+    background: transparent; color: var(--dim); cursor: pointer; line-height: 1;
+    transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .cbar-x:hover { color: var(--ink); border-color: var(--line); }
+  @media (max-width: 860px) { .cbar { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .cbar { transition: none; } }
+
+  /* ---------- Serviços (accordion) ---------- */
+  .sol-list { list-style: none; border-top: 1px solid var(--line); margin-top: 1rem; }
+  .sol-item { border-bottom: 1px solid var(--line); border-left: 2px solid transparent; padding-left: 0; transition: border-color 0.45s var(--ease), background 0.45s var(--ease), padding-left 0.35s var(--ease); }
+  /* O brilho desce com a rolagem: a frente marca onde o leitor está, e o
+     que ficou para trás permanece aceso. Mesma linguagem do hero. */
+  .sol-item.is-on { border-left-color: rgba(46, 134, 255, 0.35); background: rgba(46, 134, 255, 0.03); padding-left: 1rem; }
+  .sol-item.is-head { border-left-color: var(--accent); background: rgba(46, 134, 255, 0.06); }
+  .sol-item.is-head .sol-idx { color: var(--accent-light); }
+  .sol-item:hover { border-left-color: rgba(46, 134, 255, 0.7); background: rgba(46, 134, 255, 0.07); padding-left: 1rem; }
+  .sol-head:focus-visible { outline-offset: -4px; }
+  .sol-head { width: 100%; display: grid; grid-template-columns: 3.2rem 1fr auto; align-items: center; gap: 1.2rem; background: none; border: none; color: var(--ink); cursor: pointer; padding: 1.5rem 0; text-align: left; }
+  .sol-idx { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); }
+  .sol-name { font-family: var(--display); font-size: clamp(1.25rem, 2.4vw, 1.7rem); font-weight: 550; }
+  .sol-plus { font-size: 1.6rem; font-weight: 300; color: var(--dim); transition: transform 0.3s var(--ease), color 0.3s; }
+  .sol-item.open .sol-plus { transform: rotate(45deg); color: var(--accent); }
+  .sol-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s var(--ease); }
+  .sol-body > div { overflow: hidden; }
+  .sol-item.open .sol-body { grid-template-rows: 1fr; }
+  .sol-body-inner { padding: 0 0 1.8rem 4.4rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2rem; align-items: start; }
+  .sol-specs { display: grid; gap: 1.1rem; align-content: start; }
+  .sol-label { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); margin-bottom: 0.6rem; }
+  .sol-desc { color: var(--muted); font-size: 1rem; max-width: 34rem; }
+  .sol-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.9rem; }
+  .sol-tags span { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; color: var(--accent-light); background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.25); border-radius: 999px; padding: 0.3rem 0.8rem; }
+
+  /* ---------- Problemas que resolvemos ---------- */
+  .problems-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; margin-top: 2rem; }
+  .problem-card { display: flex; align-items: center; gap: 1rem; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.3rem; }
+  .problem-card .p-txt { color: var(--muted); font-size: 0.95rem; flex: 1; }
+  .problem-card .p-arrow { color: var(--dim); flex: none; }
+  .problem-card .p-sol { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; color: var(--accent-light); white-space: nowrap; flex: none; }
+
+  /* ---------- O que acontece depois ---------- */
+  .depois { list-style: none; margin: 1.8rem 0 0; padding: 0; display: grid; gap: 1rem; counter-reset: d; }
+  .depois li {
+    position: relative; padding-left: 2.4rem; counter-increment: d;
+    display: flex; flex-direction: column; gap: 0.15rem;
+  }
+  .depois li::before {
+    content: '0' counter(d); position: absolute; left: 0; top: 0.05rem;
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em;
+    color: var(--accent-light); border: 1px solid rgba(46,134,255,0.35);
+    border-radius: 5px; padding: 0.15rem 0.3rem; background: rgba(46,134,255,0.08);
+  }
+  .depois b { font-size: 0.95rem; font-weight: 550; }
+  .depois span { color: var(--muted); font-size: 0.87rem; }
+
+  .depois-nao {
+    margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid var(--line-soft);
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; color: var(--muted);
+  }
+  .depois-nao i { font-style: normal; color: var(--dim); margin: 0 0.25rem; }
+
+  /* ---------- Chips de assunto ---------- */
+  .chips-field { border: 0; padding: 0; margin: 0; }
+  .chips-field legend {
+    padding: 0; margin-bottom: 0.6rem; font-family: var(--mono); font-size: 0.66rem;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chips label { cursor: pointer; }
+  /* O input fica acessível ao teclado, mas invisível: o chip é o alvo. */
+  .chips input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .chips span {
+    display: inline-block; border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.5rem 0.85rem; font-size: 0.8rem; color: var(--muted);
+    transition: border-color 0.25s var(--ease), color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+  .chips label:hover span { border-color: rgba(46,134,255,0.45); color: var(--ink); }
+  .chips input:focus-visible + span { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+  .chips input:checked + span { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,0.16); }
+  .field label em { font-style: normal; color: var(--dim); font-weight: 400; }
+
+  @media (max-width: 1080px) { .rotas { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 680px) {
+    .rotas { grid-template-columns: 1fr; }
+    /* Alvo de toque: o chip precisa caber o dedo. */
+    .chips span { padding: 0.62rem 0.9rem; font-size: 0.82rem; }
+  }
+
+  /* ---------- Cases ---------- */
+  /* Carrossel dos cases: trilho com scroll-snap, setas e pontos. O avanço
+     automático existe para mostrar que há mais de um, e para assim que
+     alguém usa as setas ou os pontos — depois disso quem manda é o leitor.
+     Pausa também no hover e no foco do teclado. */
+  .carr { position: relative; margin-top: 1.6rem; }
+  .carr-trilho {
+    display: flex; gap: 1.2rem; overflow-x: auto; scroll-snap-type: x mandatory;
+    scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none;
+    padding-bottom: 0.4rem;
+  }
+  .carr-trilho::-webkit-scrollbar { display: none; }
+  .carr-trilho > .case-card { flex: 0 0 100%; scroll-snap-align: start; margin-top: 0; }
+  .carr-barra { display: flex; align-items: center; gap: 0.9rem; margin-top: 1.4rem; justify-content: flex-end; }
+  .carr-pontos { display: flex; gap: 0.45rem; margin-right: auto; }
+  .carr-ponto {
+    width: 2rem; height: 3px; border-radius: 2px; border: 0; padding: 0; cursor: pointer;
+    background: var(--line-strong); transition: background 0.3s var(--ease);
+  }
+  .carr-ponto[aria-current="true"] { background: var(--accent); }
+  .carr-seta {
+    width: 2.6rem; height: 2.6rem; display: grid; place-items: center; cursor: pointer;
+    border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--muted);
+    transition: all 0.25s var(--ease);
+  }
+  .carr-seta:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .carr-seta:disabled { opacity: 0.35; cursor: default; }
+  .carr-seta svg { width: 1.1rem; height: 1.1rem; stroke: currentColor; fill: none; stroke-width: 2; }
+  @media (prefers-reduced-motion: reduce) { .carr-trilho { scroll-behavior: auto; } }
+
+  .case-card { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2.5rem; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 2.2rem; margin-top: 1.6rem; }
+  /* A arte atravessa as duas colunas no topo do cartão. É um diagrama do
+     que o projeto fez, não enfeite: por isso cada case tem a sua, e o alt
+     descreve a transformação. */
+  .case-art { grid-column: 1 / -1; margin: -2.2rem -2.2rem 0; border-radius: 16px 16px 0 0; overflow: hidden; line-height: 0; }
+  .case-art img { width: 100%; height: clamp(170px, 20vw, 250px); object-fit: cover; display: block; }
+  .case-sub {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em;
+    color: var(--dim); margin-top: 0.4rem;
+  }
+
+  .case-conf { display: inline-block; font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.7rem; margin-bottom: 0.9rem; }
+  .case-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.9rem; }
+  .case-meta span { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; color: var(--muted); background: var(--panel-2); border-radius: 999px; padding: 0.28rem 0.75rem; }
+  .case-card h3 { font-size: 1.5rem; font-weight: 550; margin-bottom: 1.1rem; }
+  .case-fields { display: grid; gap: 0.8rem; margin-bottom: 1.1rem; }
+  .case-fields div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.8rem; font-size: 0.92rem; }
+  .case-fields dt { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); padding-top: 0.15rem; }
+  .case-fields dd { color: var(--muted); }
+  .case-metrics { display: grid; gap: 1rem; align-content: start; }
+  /* Sem isto o rótulo e a descrição colam: "Canais comparáveisloja física". */
+  .case-metrics p b { display: block; font-weight: 600; color: var(--ink); }
+  .case-metrics p span { display: block; color: var(--muted); font-size: 0.88rem; margin-top: 0.2rem; }
+  .case-metrics > p:not(.cm-k) { border-left: 2px solid var(--accent); padding-left: 0.9rem; }
+  .metric { border-left: 2px solid var(--accent); padding-left: 1rem; }
+  .metric .num { font-family: var(--display); font-size: 2.1rem; font-weight: 500; color: var(--ink); line-height: 1; }
+  .metric .num-sm { font-family: var(--display); font-size: 1.15rem; font-weight: 550; color: var(--ink); }
+  .metric .lbl { font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; }
+  .cases-more-head { font-size: 1.2rem; font-weight: 500; margin: 3rem 0 1.2rem; }
+  .case-mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .case-mini { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1.3rem; }
+  .case-mini .sector { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-light); }
+  .case-mini h4 { font-size: 1.02rem; font-weight: 550; margin: 0.5rem 0 0.5rem; }
+  .case-mini p { color: var(--muted); font-size: 0.87rem; margin-bottom: 0.8rem; }
+  .case-mini .stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .case-mini .stack span { font-size: 0.68rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.55rem; }
+  .cases-note { margin-top: 1.8rem; font-size: 0.85rem; color: var(--dim); }
+
+  /* Versão compacta do eixo, para o card de setor. */
+  .adm {
+    display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+    margin: 0.2rem 0 0.7rem; font-family: var(--mono); font-size: 0.7rem;
+  }
+  .adm span { border: 1px solid var(--line); border-radius: 999px; padding: 0.22rem 0.55rem; }
+  .adm-a { color: var(--dim); }
+  .adm-d { color: var(--accent-light); border-color: rgba(46,134,255,0.45) !important; background: rgba(46,134,255,0.1); }
+  .adm i { font-style: normal; color: var(--accent); }
+
+  /* ---------- Antes e depois ---------- */
+  /* O eixo do case. Onde há número dos dois lados — 200+ painéis para 1
+     ambiente — ele é o argumento; onde não há, o contraste é o estado,
+     e não um número inventado para preencher a forma. */
+  .ad {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.9rem; align-items: stretch;
+    margin: 1.2rem 0 0.4rem; padding: 1rem; border-radius: 12px;
+    border: 1px solid var(--line); background: var(--veil-fundo);
+  }
+  .ad-lado { display: flex; flex-direction: column; gap: 0.15rem; }
+  .ad-k { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
+  .ad-n { font-family: var(--display); font-size: 1.5rem; font-weight: 550; letter-spacing: -0.03em; line-height: 1.05; margin-top: 0.15rem; }
+  .ad-d { font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-top: 0.15rem; }
+  .ad-pos .ad-k { color: var(--accent-light); }
+  .ad-pos .ad-n { color: var(--accent-light); }
+  .ad-seta { align-self: center; font-family: var(--mono); color: var(--accent); font-size: 1.1rem; }
+  @media (max-width: 560px) {
+    .ad { grid-template-columns: 1fr; gap: 0.6rem; }
+    .ad-seta { justify-self: start; transform: rotate(90deg); }
+    .ad-n { font-size: 1.3rem; }
+  }
+
+  .cm-k {
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent-light); margin-bottom: 0.2rem;
+  }
+
+  /* ---------- Como entregamos (paper) ---------- */
+  .method { background: var(--paper); color: var(--paper-ink); }
+  .method h2 { color: var(--paper-ink); }
+  .method .sub { color: var(--paper-muted); }
+  .method-track { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--paper-line); margin-top: 2rem; }
+  .m-step { padding: 1.6rem 1.2rem 0.4rem 1.2rem; border-right: 1px solid var(--paper-line); position: relative; }
+  .m-step:last-child { border-right: none; }
+  .m-step .n { font-family: var(--mono); font-size: 0.78rem; color: var(--accent-deep); }
+  .m-step h3 { font-size: 1.05rem; font-weight: 550; margin: 0.6rem 0 0.4rem; color: var(--paper-ink); }
+  .m-step p { color: var(--paper-muted); font-size: 0.88rem; }
+
+  /* ---------- Tecnologias ---------- */
+  .tech-msg { max-width: 40rem; }
+  .tech-wall { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 2.2rem; }
+  .tech-wall span { font-family: var(--mono); font-size: 0.86rem; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 0.6rem 1.1rem; transition: border-color 0.2s, transform 0.2s; }
+  .tech-wall span:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+  /* ---------- Setores ---------- */
+  .clients { padding: 4rem 0; border-top: 1px solid var(--line-soft); }
+  .clients p { text-align: center; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.6rem; }
+  .marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .marquee-track { display: flex; gap: 3.2rem; width: max-content; animation: marquee 32s linear infinite; }
+  .marquee-track span { font-family: var(--display); font-weight: 500; font-size: 1.15rem; color: var(--dim); white-space: nowrap; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  /* ---------- Sobre ---------- */
+  .about-grid { display: grid; grid-template-columns: 1fr 0.85fr; gap: 3.5rem; align-items: center; }
+  .about-lede { font-family: var(--display); font-size: 1.5rem; font-weight: 400; line-height: 1.35; margin-bottom: 1.2rem; max-width: 30ch; }
+  .about-grid > div > p:not(.about-lede) { color: var(--muted); margin-bottom: 1rem; }
+  .about-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin: 1.6rem 0; }
+  .about-stats .num { font-family: var(--display); font-size: 1.9rem; font-weight: 500; color: var(--ink); }
+  .about-stats .lbl { font-size: 0.78rem; color: var(--dim); margin-top: 0.15rem; }
+  .values { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-top: 1.4rem; }
+  .values li span { font-size: 0.9rem; color: var(--muted); }
+  .values li b { color: var(--ink); }
+  .about-visual { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 400/435; background: var(--panel); }
+  .about-visual svg, .about-visual video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .about-visual video { opacity: 0; transition: opacity 1.2s var(--ease); }
+  .about-visual video.is-playing { opacity: 1; }
+  .live-line { stroke-dasharray: 900; stroke-dashoffset: 900; animation: draw 3.4s var(--ease) forwards 0.4s; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .live-dot { opacity: 0; animation: dot-in 0.5s ease forwards; }
+  .live-dot.d2 { animation-delay: 1.6s; } .live-dot.d3 { animation-delay: 2.3s; }
+  @keyframes dot-in { to { opacity: 1; } }
+
+  /* ---------- CTA final ---------- */
+  /* Este bloco usa var(--bg1), uma cor própria, então o fundo precisa
+     ficar — e por ser opaco ele sempre cortaria a grade do body. Em vez
+     de redesenhar a grade fora de fase, fica liso: um painel chapado lê
+     como escolha, uma grade quebrada lê como defeito. */
+  .cta-final { position: relative; padding: 6.5rem 0; text-align: center; overflow: hidden;
+    background: var(--bg1); }
+  .cta-glow { position: absolute; inset: 0; background: radial-gradient(38rem 22rem at 50% 0%, rgba(46,134,255,0.22), transparent 70%); pointer-events: none; }
+  .cta-final .wrap { position: relative; }
+  .cta-final .eyebrow { justify-content: center; }
+  .cta-final .eyebrow::before { display: none; }
+  .cta-final h2 { font-family: var(--display); font-weight: 450; font-size: clamp(1.9rem, 4vw, 2.8rem); margin: 1rem auto 0.8rem; max-width: 24ch; }
+  .cta-final .sub { margin: 0 auto 2rem; text-align: center; }
+
+  /* ---------- Contato ---------- */
+  .contact-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 3.5rem; }
+  .contact-info { margin-top: 1.6rem; display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; font-size: 0.9rem; color: var(--muted); }
+  .contact-info a { color: var(--accent-light); text-decoration: none; }
+  .contact-info a:hover { text-decoration: underline; }
+  .form { display: grid; gap: 1rem; position: relative; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.4rem; }
+  .field input, .field select, .field textarea {
+    width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    color: var(--ink); font-family: var(--body); font-size: 0.95rem; padding: 0.75rem 0.9rem;
+  }
+  .field textarea { min-height: 7rem; resize: vertical; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+  .form-note { font-size: 0.78rem; color: var(--dim); }
+  .form-error { display: none; font-size: 0.85rem; color: #FF6B6B; background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.3); border-radius: 8px; padding: 0.8rem 1rem; }
+  .form-success { display: none; place-items: center; text-align: center; position: absolute; inset: 0; background: var(--bg0); border-radius: 12px; padding: 2rem; }
+  .form.sent .form-success { display: grid; }
+  .form.sent > *:not(.form-success) { visibility: hidden; }
+  .form-success .ok { width: 52px; height: 52px; border-radius: 50%; background: rgba(46,134,255,0.15); color: var(--accent-light); display: grid; place-items: center; margin: 0 auto 1rem; }
+  .form-success h3 { font-size: 1.4rem; font-weight: 550; margin-bottom: 0.5rem; }
+  .form-success p { color: var(--muted); font-size: 0.95rem; max-width: 24rem; }
+
+  /* ---------- Footer ---------- */
+  /* Mesmo caso do hero: cor idêntica à do body, grade redesenhada fora
+     de fase. Sem fundo próprio, a grade do body atravessa o rodapé.
+     A régua de cima também saiu, pela mesma razão das seções e do
+     trilho: era um fio de tela cheia na mesma cor da grade, e sua
+     posição depende da altura do conteúdo, então nunca ia cair em
+     múltiplo de 56. O rodapé se distingue pelo próprio conteúdo e
+     pelos 4rem de respiro acima dele. */
+  .footer { padding: 4rem 0 2rem; }
+  .footer-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
+  .footer .brand svg { width: 2.4rem; height: 2.4rem; }
+  .footer .brand .wordmark b { font-size: 1.15rem; }
+  .footer-sig { margin-top: 1rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--dim); text-transform: uppercase; }
+  .footer h4 { font-family: var(--mono); font-weight: 500; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; }
+  .footer ul { list-style: none; display: grid; gap: 0.55rem; }
+  .footer ul a { color: var(--muted); text-decoration: none; font-size: 0.92rem; transition: color 0.2s; }
+  .footer ul a:hover { color: var(--accent-light); }
+  /* Sem o fio de cima: ele e var(--line-soft), a mesma familia de cor da
+     grade do fundo, sem fundo proprio nem canto arredondado para o
+     distinguir, e caia fora de fase (30 no index, 13,6 nos cases). A
+     separacao fica por conta dos 3rem de margem e 1,6rem de respiro. */
+  .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.8rem; margin-top: 3rem; padding-top: 1.6rem; font-size: 0.8rem; color: var(--dim); }
+
+  @keyframes soft-pulse {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.25); }
+  }
+  /* ---------- Chat Átis (mascote) ---------- */
+  @keyframes blink {
+    0%, 91%, 100% { transform: scaleY(1); }
+    94% { transform: scaleY(0.12); }
+  }
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  .mascot-eye { animation: blink 4.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .mascot-dot { animation: soft-pulse 2.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .mascot-float { animation: floaty 3.6s ease-in-out infinite; }
+
+  .chat-fab {
+    position: fixed; right: var(--atis-dir); bottom: var(--atis-dir); z-index: 150;
+    width: var(--atis-tam); height: var(--atis-tam); border-radius: 50%;
+    background: var(--panel);
+    border: 1px solid rgba(46, 134, 255, 0.4);
+    display: grid; place-items: center;
+    cursor: pointer;
+    box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.65);
+    transition: transform 0.25s var(--ease), border-color 0.25s;
+  }
+  .chat-fab:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .chat-fab svg { width: 38px; height: 38px; }
+
+  .chat-teaser {
+    position: fixed; right: 1.3rem; bottom: 6rem; z-index: 150;
+    display: flex; align-items: center; gap: 0.75rem;
+    max-width: 280px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px 16px 4px 16px;
+    padding: 0.85rem 2.1rem 0.85rem 0.95rem;
+    box-shadow: 0 20px 44px -18px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    opacity: 0; transform: translateY(12px); pointer-events: none;
+    transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+  }
+  .chat-teaser.show { opacity: 1; transform: none; pointer-events: auto; }
+  .chat-teaser svg { width: 40px; height: 40px; flex: none; }
+  .chat-teaser p { font-size: 0.92rem; color: var(--ink); line-height: 1.35; }
+  .chat-teaser p b { color: var(--accent); }
+  .chat-teaser .x {
+    position: absolute; top: 0.35rem; right: 0.5rem;
+    background: none; border: none; color: var(--dim);
+    font-size: 1rem; cursor: pointer; line-height: 1;
+  }
+  .chat-teaser .x:hover { color: var(--ink); }
+
+  .chat-panel {
+    position: fixed; right: 1.3rem; bottom: 6rem; z-index: 160;
+    width: min(370px, calc(100vw - 1.6rem));
+    max-height: min(560px, 78vh);
+    display: flex; flex-direction: column;
+    background: var(--bg0);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 34px 80px -30px rgba(0, 0, 0, 0.8);
+    opacity: 0; transform: translateY(16px) scale(0.98); pointer-events: none;
+    transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+  }
+  .chat-panel.open { opacity: 1; transform: none; pointer-events: auto; }
+  .chat-head {
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 0.85rem 1rem;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  .chat-head svg { width: 38px; height: 38px; flex: none; }
+  .chat-head .who b { display: block; font-family: var(--display); font-size: 0.98rem; color: var(--ink); letter-spacing: -0.01em; }
+  .chat-head .who span { font-size: 0.72rem; color: var(--accent); display: inline-flex; align-items: center; gap: 0.35rem; }
+  .chat-head .who span::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .chat-close {
+    margin-left: auto;
+    background: none; border: none; color: var(--muted);
+    font-size: 1.25rem; cursor: pointer; line-height: 1; padding: 0.2rem;
+  }
+  .chat-close:hover { color: var(--ink); }
+  .chat-msgs {
+    flex: 1; min-height: 190px;
+    padding: 1rem;
+    display: flex; flex-direction: column; gap: 0.55rem;
+    overflow-y: auto;
+  }
+  .chat-msg {
+    max-width: 86%;
+    padding: 0.62rem 0.85rem;
+    border-radius: 13px;
+    font-size: 0.91rem; line-height: 1.45;
+  }
+  .chat-msg.bot {
+    align-self: flex-start;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    border-bottom-left-radius: 4px;
+  }
+  .chat-msg.user {
+    align-self: flex-end;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-bottom-right-radius: 4px;
+  }
+  .chat-msg.bot a { color: var(--accent); font-weight: 600; text-decoration: underline; }
+  .chat-msg.bot a:hover { color: #6FD4FF; }
+  .chat-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0 1rem 0.7rem; }
+  .chat-chips button {
+    background: none;
+    border: 1px solid rgba(46, 134, 255, 0.35);
+    color: var(--accent);
+    font-family: var(--body); font-size: 0.8rem;
+    padding: 0.35rem 0.8rem; border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .chat-chips button:hover { background: var(--accent); color: var(--accent-ink); }
+  .chat-input {
+    display: flex; gap: 0.5rem;
+    padding: 0.7rem;
+    background: var(--panel);
+    border-top: 1px solid var(--line);
+  }
+  .chat-input input {
+    flex: 1;
+    background: var(--bg0);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink);
+    font-family: var(--body); font-size: 0.9rem;
+    padding: 0.6rem 0.95rem;
+  }
+  .chat-input input:focus { outline: none; border-color: var(--accent); }
+  .chat-input button {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--accent); color: var(--accent-ink);
+    border: none; cursor: pointer;
+    display: grid; place-items: center;
+    transition: background 0.2s;
+    flex: none;
+  }
+  .chat-input button:hover { background: #6FD4FF; }
+  .chat-input button:disabled { opacity: 0.5; cursor: default; }
+  @media (max-width: 640px) {
+    .chat-panel { right: 0.8rem; left: 0.8rem; width: auto; bottom: 5.6rem; }
+    .chat-teaser { right: 0.8rem; max-width: calc(100vw - 5.5rem); }
+  }
+
+  /* ---------- Reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal.d1 { transition-delay: 0.08s; }
+  .reveal.d2 { transition-delay: 0.16s; }
+  .reveal.d3 { transition-delay: 0.24s; }
+
+  /* O trilho de setores e a constelação ficam de fora desta regra por
+     decisão do dono do site: é a deriva lenta que ele quer ver e ele navega
+     com "reduzir movimento" ligado. Tudo o mais continua travado. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal, .m-step, .sol-item, .hero h1 .w > span { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; opacity: 1 !important; transform: none !important; }
+    .live-line { animation: none; stroke-dashoffset: 0; }
+    .live-dot { animation: none; opacity: 1; }
+    .mascot-eye, .mascot-dot, .mascot-float { animation: none; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1080px) {
+    /* Sem a coluna lateral, a rede 3D perde o espaço só dela: recua para
+       textura de fundo em vez de disputar atenção com o texto. */
+    .hero > canvas { opacity: 0.4; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .about-visual { order: -1; max-width: 26rem; margin: 0 auto; }
+    .case-card { grid-template-columns: 1fr; }
+    .case-metrics { grid-template-columns: repeat(3, 1fr); }
+    .method-track { grid-template-columns: repeat(3, 1fr); }
+    .m-step:nth-child(3) { border-right: none; }
+    .m-step:nth-child(n+4) { border-top: 1px solid var(--paper-line); }
+    .problems-grid { grid-template-columns: 1fr; }
+    .case-mini-grid { grid-template-columns: 1fr 1fr; }
+  }
+  /* Entre a marca, sete links, o Instagram e o CTA, o nav completo só
+     cabe em tela larga. Abaixo disso ele virava uma colisão: a marca e o
+     primeiro link ocupavam a mesma coordenada. O menu assume a partir
+     daqui — inclui tablet e notebook pequeno, onde não cabia mesmo. */
+  @media (max-width: 1180px) {
+    .nav-links { display: none; }
+    .nav-burger { display: inline-flex; }
+  }
+
+  /* Na faixa logo acima do menu o nav cabe, mas justo: menos respiro
+     entre os links e um CTA um pouco menor evitam o aperto. */
+  @media (min-width: 1181px) and (max-width: 1400px) {
+    .nav-links { gap: 1.15rem; }
+    .nav-links a:not(.btn) { font-size: 0.86rem; }
+    .nav-links .btn { padding: 0.6rem 1rem; font-size: 0.84rem; }
+  }
+
+  @media (max-width: 780px) {
+    .sec { padding: 4rem 0; }
+    .sol-head { grid-template-columns: 2.6rem 1fr auto; gap: 0.8rem; }
+    .sol-body-inner { grid-template-columns: 1fr; padding-left: 0; gap: 1rem; }
+    .case-metrics { grid-template-columns: 1fr; }
+    .case-mini-grid { grid-template-columns: 1fr; }
+    .method-track { grid-template-columns: 1fr; }
+    .m-step { border-right: none; border-top: 1px solid var(--paper-line); }
+    .m-step:first-child { border-top: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .values { grid-template-columns: 1fr; }
+    .hero-foot { display: none; }
+    .brand .wordmark small { display: none; }
+  }
+  /* ============================================================
+     REDESENHO 2026 — arquitetura de informação de consultoria
+     enterprise. Mesmos tokens, mesma marca; o que muda é o ritmo:
+     cada seção responde uma pergunta e entrega o leitor à próxima.
+     ============================================================ */
+
+  .sec-lead { max-width: 46rem; }
+  .sec-lead .sub { margin-top: 1.1rem; }
+  /* Este divisor era um fio de 1px com fundo var(--line-soft), que no
+     tema escuro e rgba(244,243,239,0.055) — a grade do fundo e
+     rgba(244,243,239,0.05). Mesma cor, atravessando a tela inteira, e em
+     fase arbitraria: medido em y=2031 (fase 15), 2916 (4,5), 4527 (47,5)
+     e 5217 (9). Cada um partia uma celula de 56px em duas. Pela mesma
+     razao das reguas de secao, deixa de pintar. O elemento continua no
+     HTML porque tools/build-painel.py o usa como marcador de posicao. */
+  .divider { display: none; }
+
+
+  /* ---------- Soluções (8) ---------- */
+  .sols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; margin-top: 2.6rem; }
+  .sol {
+    position: relative; border: 1px solid var(--line); border-radius: 14px; padding: 1.5rem 1.6rem;
+    background: var(--panel); overflow: hidden;
+    transition: border-color 0.4s var(--ease), background 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .sol::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+    background: radial-gradient(120% 90% at 100% 0%, rgba(46,134,255,0.13), transparent 62%);
+    transition: opacity 0.45s var(--ease);
+  }
+  .sol:hover, .sol:focus-within { border-color: rgba(46,134,255,0.5); transform: translateY(-3px); }
+  .sol:hover::after, .sol:focus-within::after { opacity: 1; }
+  .sol-n { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--accent); }
+  .sol-t { font-family: var(--display); font-size: clamp(1.15rem, 2.1vw, 1.45rem); font-weight: 550; margin: 0.5rem 0 0.5rem; }
+  .sol-d { color: var(--muted); font-size: 0.94rem; }
+  /* O detalhe abre no hover no desktop; no toque fica sempre visível,
+     porque lá não existe hover para revelar nada. */
+  .sol-more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
+  .sol-more > div { overflow: hidden; }
+  .sol:hover .sol-more, .sol:focus-within .sol-more { grid-template-rows: 1fr; }
+  .sol-more-in { padding-top: 1rem; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .chip {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.02em; color: var(--accent-light);
+    background: rgba(46,134,255,0.09); border: 1px solid rgba(46,134,255,0.22);
+    border-radius: 999px; padding: 0.24rem 0.65rem;
+  }
+  .sol-cta {
+    display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.9rem;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-light); text-decoration: none;
+  }
+  .sol-cta:hover { color: var(--ink); }
+
+
+  .illus-note { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+
+  /* ---------- Timeline (usada em "Como entregamos" nas páginas de serviço) ---------- */
+  .tl { position: relative; margin-top: 2.8rem; padding-left: 2.6rem; }
+  .tl::before { content: ''; position: absolute; left: 0.62rem; top: 0.4rem; bottom: 0.4rem; width: 1px; background: var(--line); }
+  .tl-fill { position: absolute; left: 0.62rem; top: 0.4rem; width: 1px; background: var(--accent); height: 0; transition: height 0.2s linear; }
+  .tl-step { position: relative; padding: 0 0 2.2rem; }
+  .tl-step:last-child { padding-bottom: 0; }
+  .tl-step::before {
+    content: ''; position: absolute; left: -2.28rem; top: 0.5rem; width: 9px; height: 9px;
+    border-radius: 50%; background: var(--bg0); border: 1px solid var(--dim);
+    transition: border-color 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .tl-step.on::before { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 4px rgba(46,134,255,0.16); }
+  .tl-n { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.18em; color: var(--dim); transition: color 0.4s var(--ease); }
+  .tl-step.on .tl-n { color: var(--accent-light); }
+  .tl-t { font-family: var(--display); font-size: clamp(1.2rem, 2.2vw, 1.6rem); font-weight: 550; margin: 0.3rem 0 0.4rem; }
+  .tl-d { color: var(--muted); max-width: 40rem; }
+
+  /* ---------- Diferenciais ---------- */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.6rem; }
+  .pillars.four { grid-template-columns: repeat(4, 1fr); }
+  .pillar { border: 1px solid var(--line); border-radius: 14px; padding: 1.5rem; background: var(--panel); transition: border-color 0.4s var(--ease), transform 0.4s var(--ease); }
+  .pillar:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .pillar-k { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; color: var(--accent); }
+  .pillar h3 { font-size: 1.15rem; font-weight: 550; margin: 0.55rem 0 0.45rem; }
+  .pillar p { color: var(--muted); font-size: 0.93rem; }
+
+  /* ---------- Números reais ---------- */
+  .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.4rem; }
+  .num { border-top: 2px solid var(--line); padding-top: 1.1rem; }
+  .num b { display: block; font-family: var(--display); font-size: clamp(2rem, 4vw, 2.9rem); font-weight: 500; letter-spacing: -0.04em; color: var(--accent-light); }
+  .num span { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
+
+
+  /* ---------- CTA final ---------- */
+  .final { text-align: center; padding: clamp(4rem, 9vw, 7rem) 0; }
+  .final h2 { font-size: clamp(2rem, 5.2vw, 3.6rem); }
+  .final .sub { margin: 1.2rem auto 0; max-width: 40rem; }
+  .final .hero-ctas { justify-content: center; margin-top: 2rem; }
+
+  /* ---------- Responsivo ---------- */
+  @media (max-width: 1080px) {
+    .pillars, .pillars.four { grid-template-columns: repeat(2, 1fr); }
+    .nums { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 780px) {
+    .sols { grid-template-columns: 1fr; }
+    .pillars, .pillars.four { grid-template-columns: 1fr; }
+    /* Sem hover no toque: o detalhe da solução fica aberto. */
+    .sol-more { grid-template-rows: 1fr; }
+    .tl { padding-left: 2rem; }
+    .tl-step::before { left: -1.72rem; }
+  }
+
+  /* ---------- Soluções: quatro pilares ---------- */
+  /* Dez cards de serviço na home viravam um catálogo. A referência mostra
+     poucos blocos e joga o detalhe para a página de cada frente. */
+  .pilares { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; margin-top: 2.6rem; }
+  .pilar {
+    display: flex; flex-direction: column; gap: 0.55rem;
+    border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem 1.3rem;
+    background: var(--panel);
+    transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .pilar:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .pilar-k {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.2em; color: var(--accent);
+    width: 1.7rem; height: 1.7rem; display: grid; place-items: center; border-radius: 6px;
+    border: 1px solid rgba(46,134,255,0.35); background: rgba(46,134,255,0.08);
+  }
+  .pilar-t { font-family: var(--display); font-size: 1.12rem; font-weight: 550; letter-spacing: -0.024em; margin-top: 0.35rem; }
+  .pilar-d { color: var(--muted); font-size: 0.88rem; }
+  .pilar-list { list-style: none; padding: 0; margin: 0.4rem 0 0; display: grid; gap: 0.4rem; }
+  .pilar-list li {
+    display: flex; gap: 0.5rem; align-items: baseline;
+    font-size: 0.86rem; color: var(--ink);
+  }
+  .pilar-list li::before { content: ''; width: 4px; height: 4px; border-radius: 1px; background: var(--accent); flex: none; position: relative; top: -0.2em; }
+  .pilar-cta {
+    margin-top: auto; padding-top: 1rem; font-family: var(--mono); font-size: 0.64rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-light);
+    text-decoration: none; white-space: nowrap;
+  }
+  .pilar:hover .pilar-cta { color: var(--ink); }
+
+  @media (max-width: 1080px) { .pilares { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .pilares { grid-template-columns: 1fr; } }
+
+
+  /* ---------- Hero centralizado ---------- */
+  /* O bloco é centrado dentro da área com respiro, então a diferença entre o
+     respiro de cima e o de baixo desloca o texto por metade dela. Mais
+     respiro embaixo que em cima puxa a chamada para cima sem mexer no
+     tamanho de nada.
+     A altura ocupa a primeira dobra inteira: 100svh menos o cabeçalho
+     (5,7rem) e 2rem de respiro. O trilho de setores desceu para junto dos
+     números, na seção Sobre, então não há mais o que reservar aqui. O piso
+     continua sendo o conteúdo (425px mais o respiro). */
+  .hero-c { min-height: calc(100svh - 5.7rem - 2rem); display: grid; align-items: center; padding: 4rem 0 5rem; }
+  .hero-c .wrap > div { max-width: 56rem; margin: 0 auto; text-align: center; }
+  .hero-c h1 { max-width: 20ch; margin-left: auto; margin-right: auto; }
+  .hero-c h1 .ac { color: var(--accent-light); }
+  .hero-c p.sub { max-width: 40rem; margin-left: auto; margin-right: auto; }
+  .hero-c .hero-ctas { justify-content: center; }
+  .hero-cue {
+    display: inline-flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    margin-top: 3rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--dim); text-decoration: none;
+    transition: color 0.25s var(--ease);
+  }
+  .hero-cue:hover { color: var(--accent-light); }
+  .hero-cue svg { width: 1.1rem; height: 1.1rem; stroke: currentColor; fill: none; stroke-width: 2; transition: transform 0.25s var(--ease); }
+  .hero-cue:hover svg { transform: translateY(3px); }
+
+  /* ---------- Trilho de setores com rótulo à esquerda ---------- */
+  /* Mesmo motivo: as duas bordas do trilho atravessavam a tela em fundo
+     vazio, em fase 35 e 51, e encolhiam a célula da grade. */
+  .rail { padding: 2.4rem 0; }
+  .rail-grid { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center; }
+  .rail-label {
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--dim); max-width: 11rem; line-height: 1.5;
+    border-right: 1px solid var(--line); padding-right: 2rem;
+  }
+  .rail .marquee { min-width: 0; mask-image: linear-gradient(90deg, #000 0, #000 94%, transparent); }
+
+  /* ---------- Essência: um bloco só, não dois ---------- */
+  /* O cartão branco à esquerda tinha contorno próprio e por isso lia como
+     peça de outra seção; os quatro ladrilhos ao lado, cada um com fundo e
+     salto no hover, liam como quatro coisas soltas. Agora a esquerda é
+     texto corrido e a direita é um bloco só: uma régua fina separa as duas,
+     em vez de duas molduras disputando. */
+  .ess {
+    display: grid; grid-template-columns: 0.88fr 1.12fr;
+    gap: clamp(1.6rem, 3.6vw, 2.9rem); align-items: center;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 20px;
+    padding: clamp(1.7rem, 3.4vw, 2.8rem);
+  }
+  .ess-texto { display: flex; flex-direction: column; align-items: flex-start; }
+  .ess-texto h2 {
+    font-size: clamp(1.75rem, 3.1vw, 2.55rem); font-weight: 450;
+    letter-spacing: -0.024em; line-height: 1.12; margin: 1.1rem 0 1rem; max-width: 20ch;
+  }
+  .ess-texto > p { color: var(--muted); font-size: 1rem; max-width: 46ch; }
+  .ess-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; padding-top: 1.8rem; }
+  .ess-chips span {
+    background: var(--panel-2); border: 1px solid var(--line);
+    border-radius: 10px; padding: 0.7rem 1.1rem; font-family: var(--display); font-weight: 550;
+    font-size: 0.92rem; transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+  }
+  .ess-chips span:hover { border-color: rgba(46,134,255,0.45); color: var(--accent-light); }
+
+  /* ---------- Os números, como um bloco só ---------- */
+  .tiles {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem;
+    border-left: 1px solid var(--line); padding-left: clamp(1.6rem, 3.6vw, 2.9rem);
+  }
+  /* Sem fundo e sem salto no hover: era o que fazia cada número parecer um
+     cartão independente em vez de uma coluna de quatro leituras. */
+  .tile { background: var(--panel-2); border: 1px solid var(--line-soft); border-radius: 14px; padding: 1.4rem 1.45rem; transition: border-color 0.35s var(--ease); }
+  .tile:hover { border-color: rgba(46,134,255,0.32); }
+  .tile-top { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 1.35rem; }
+  .tile-ico { width: 2.5rem; height: 2.5rem; display: grid; place-items: center; border-radius: 11px; background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.2); }
+  .tile-ico svg { width: 1.25rem; height: 1.25rem; stroke: var(--accent); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  /* --muted, não --dim: com o ladrilho no tom --panel-2 o fundo ficou mais
+     claro no tema escuro e o rótulo caiu para 4,29:1, abaixo do mínimo. */
+  .tile-cat { font-family: var(--mono); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-align: right; }
+  /* 600, o mesmo peso das chamadas do site. Em 800 o número ficava pesado
+     demais ao lado de um h2 mais leve que ele. */
+  /* tabular-nums trava a largura do digito. Sem isso o numero balanca a
+     cada quadro da contagem, porque 1 e mais estreito que 8. */
+  .tile b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.3vw, 2.6rem); font-weight: 500; letter-spacing: -0.035em; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
+  /* Nome do indicador entre o numero e a frase: o numero diz quanto, o
+     nome diz do que, a frase diz por que importa. */
+  .tile-nome { display: block; font-family: var(--display); font-weight: 550; font-size: 1rem; color: var(--ink); margin-top: 0.7rem; }
+  .tile > span { display: block; color: var(--muted); font-size: 0.89rem; margin-top: 0.3rem; }
+
+  /* ---------- Faixa de destaque ---------- */
+  .banner {
+    position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 20px;
+    background:
+      radial-gradient(40rem 22rem at 88% 20%, rgba(46,134,255,0.17), transparent 62%),
+      var(--panel);
+    padding: clamp(1.8rem, 4vw, 3.2rem);
+    display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 2rem; align-items: center;
+  }
+  .banner h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 450; margin: 1.1rem 0 1rem; max-width: 24ch; }
+  .banner p { color: var(--muted); font-size: 0.99rem; max-width: 46ch; }
+  .banner-cta { display: flex; justify-content: flex-end; }
+
+  /* ---------- Soluções: lista 01–04 + painel ---------- */
+  /* stretch, não start: a lista parava 98px antes do fim do painel e
+     sobrava um rodapé vazio embaixo do quarto item. */
+  .sol { display: grid; grid-template-columns: 0.88fr 1.12fr; gap: 1.2rem; margin-top: 2.6rem; align-items: stretch; }
+  .sol-list { display: grid; gap: 0.7rem; grid-auto-rows: 1fr; }
+  .sol-item {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; width: 100%;
+    text-align: left; background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.1rem 1.2rem; cursor: pointer; color: inherit;
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .sol-item:hover { border-color: rgba(46,134,255,0.4); transform: translateX(3px); }
+
+  /* ---------- Degrade de leve ao passar o mouse nos conteineres ----------
+     Vai num ::after com opacidade em transicao, e nao trocando o
+     background-image direto: gradiente nao interpola de forma confiavel
+     entre navegadores, entao a troca direta apareceria como um corte seco.
+     O pseudo-elemento herda o raio do card e nao captura ponteiro.
+     Os blocos que ja tem imagem de fundo propria (.banner) ficam de fora,
+     para o degrade nao substituir o desenho deles. */
+  :root { --degrade-hover: linear-gradient(135deg, rgba(46,134,255,0.085), rgba(46,134,255,0) 58%); }
+  :root[data-tema="claro"] { --degrade-hover: linear-gradient(135deg, rgba(46,134,255,0.06), rgba(46,134,255,0) 58%); }
+  .tile, .pillar, .sol-item, .cc, .pf-card, .mega-card, .case-card { position: relative; }
+  .tile::after, .pillar::after, .sol-item::after, .cc::after,
+  .pf-card::after, .mega-card::after, .case-card::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit;
+    background: var(--degrade-hover); opacity: 0; pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+  }
+  .tile:hover::after, .pillar:hover::after, .sol-item:hover::after, .cc:hover::after,
+  .pf-card:hover::after, .mega-card:hover::after,
+  .case-card:hover::after { opacity: 1; }
+
+  .sol-item[aria-selected="true"] { border-color: var(--accent); background: var(--panel-2); }
+  .sol-ico { width: 2.7rem; height: 2.7rem; display: grid; place-items: center; border-radius: 11px; background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.24); }
+  .sol-ico svg { width: 1.35rem; height: 1.35rem; stroke: var(--accent); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .sol-item[aria-selected="true"] .sol-ico { background: var(--accent); border-color: var(--accent); }
+  .sol-item[aria-selected="true"] .sol-ico svg { stroke: #fff; }
+  .sol-k { font-family: var(--mono); font-size: 0.64rem; font-weight: 500; letter-spacing: 0.17em; text-transform: uppercase; color: var(--accent); display: block; }
+  .sol-t { font-family: var(--display); font-size: 1.05rem; font-weight: 550; display: block; margin-top: 0.2rem; }
+  .sol-arr { width: 2rem; height: 2rem; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); color: var(--dim); font-size: 0.85rem; transition: all 0.3s var(--ease); }
+  .sol-item[aria-selected="true"] .sol-arr { background: rgba(46,134,255,0.16); border-color: rgba(46,134,255,0.45); color: var(--accent-light); }
+  .sol-panel {
+    position: relative; overflow: hidden;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 18px;
+    padding: clamp(1.6rem, 3vw, 2.4rem); min-height: 100%; display: flex; flex-direction: column;
+  }
+  /* A pílula abraça o próprio texto. Num flex em coluna o filho ocupa a
+     largura inteira se ninguém disser o contrário — e ela virava uma faixa
+     atravessando o painel de ponta a ponta. */
+  .sol-panel > .pill { align-self: flex-start; }
+  /* Grafismo no canto que sobrava, na gramática dos ícones da casa: traço
+     1,6 e ponta redonda. Fica atrás do conteúdo e não recebe clique. */
+  .sol-panel::after {
+    content: ''; position: absolute; right: -0.5rem; bottom: -0.7rem;
+    width: clamp(9rem, 16vw, 13.5rem); aspect-ratio: 240 / 150;
+    background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 240 150%22 fill=%22none%22 stroke=%22%232E86FF%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><rect x=%2218%22 y=%22104%22 width=%2226%22 height=%2234%22 rx=%223%22/><rect x=%2258%22 y=%2286%22 width=%2226%22 height=%2252%22 rx=%223%22/><rect x=%2298%22 y=%2262%22 width=%2226%22 height=%2276%22 rx=%223%22/><rect x=%22138%22 y=%2238%22 width=%2226%22 height=%22100%22 rx=%223%22/><path d=%22M18 92 71 70l40-26 44-22 40-10%22/><circle cx=%2218%22 cy=%2292%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/><circle cx=%2271%22 cy=%2270%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/><circle cx=%22111%22 cy=%2244%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/><circle cx=%22155%22 cy=%2222%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/><circle cx=%22195%22 cy=%2212%22 r=%223.4%22 fill=%22%232E86FF%22 stroke=%22none%22/></svg>") no-repeat right bottom / contain;
+    opacity: 0.12; pointer-events: none; z-index: 0;
+  }
+
+  /* Arte propria por frente. O painel 04, de Analytics, fica com o
+     grafico da regra acima — era o desenho original e combina com o tema.
+     Os outros cinco trocam so a imagem: posicao, tamanho e opacidade
+     continuam vindo da mesma regra, entao nao ha como um painel destoar
+     dos demais em enquadramento. */
+  /* estrategia: alvo e a trajetoria que chega nele */
+  /* engenharia: dois repositorios ligados por um duto */
+  /* nuvem: a nuvem e os pontos que ela atende */
+  /* ia: no central e as ligacoes que convergem nele */
+  /* pessoas: tres figuras, a do meio a frente */
+  .sol-panel > * { position: relative; z-index: 1; }
+  /* ---- Solucoes: detalhe elaborado sobre foto. A foto cobre o painel, mais clara a
+     direita (onde ficam as pessoas) e escura onde esta o texto; icones por assunto,
+     objetos de vidro e uma onda de pontos. Titulo, texto, legendas e botao sao HTML. ---- */
+  .sol-panel.foto { --foto: var(--foto-escuro); --navy: #0A1428; color: #F2F3F5; border-color: rgba(46,134,255,0.28);
+    background-color: var(--navy);
+    background-image: linear-gradient(90deg, rgba(10,20,40,0.94) 0, rgba(10,20,40,0.84) 44%, rgba(10,20,40,0.36) 80%, rgba(10,20,40,0.2) 100%),
+      linear-gradient(180deg, rgba(10,20,40,0.1) 0, rgba(10,20,40,0.55) 55%, rgba(10,20,40,0.94) 100%), var(--foto);
+    background-size: 100% 100%, 100% 100%, cover; background-position: center, center, 72% 30%; background-repeat: no-repeat; }
+  .sol-panel.foto::after { content: ''; display: block; position: absolute; right: 0; bottom: 0; width: 62%; height: 36%;
+    aspect-ratio: auto; opacity: 1; pointer-events: none; z-index: 0;
+    background: radial-gradient(circle, rgba(110,180,255,0.95) 0 1.1px, transparent 1.7px) 0 0 / 8px 8px;
+    clip-path: polygon(0 100%, 0 86%, 8% 80%, 16% 78%, 24% 82%, 32% 80%, 40% 70%, 48% 58%, 56% 48%, 64% 44%, 72% 36%, 80% 24%, 88% 14%, 100% 8%, 100% 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 58%); mask-image: linear-gradient(90deg, transparent 0, #000 58%); }
+  .sol-panel.foto h3, .sol-panel.foto > p { max-width: 62%; }
+  .sol-panel.foto h3 .ac { display: block; color: #4DA3FF; font-weight: 600; font-style: normal; }
+  .sol-panel.foto > .pill { color: #9CC7FF; background: rgba(10,20,40,0.9); border-color: rgba(70,150,255,0.55); }
+  .sol-panel.foto h3 { color: #FFFFFF; }
+  .sol-panel.foto > p { color: rgba(242,243,245,0.86); }
+  .sol-panel.foto .sol-tags span { color: rgba(242,243,245,0.92); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+  .sol-panel.foto .sol-sig { color: rgba(242,243,245,0.84); }
+
+  /* cartoes-icone por assunto */
+  /* Seis cartoes por painel em colunas que dividem 6 (3 ou 6): a ultima fileira nunca fica incompleta, em
+     nenhuma largura. Seis numa fileira so quando o painel e largo o bastante para as legendas respirarem. */
+  .sol-caps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem 0.8rem; margin-top: 1.5rem; }
+  .sol-panel.foto { container-type: inline-size; }
+  @container (min-width: 820px) { .sol-caps { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+  /* painel muito estreito (celular pequeno): 2 colunas x 3 linhas, que tambem divide 6; em 3 colunas as palavras
+     longas (Orquestracao, Modelagem) empurravam a grade para fora. */
+  @container (max-width: 290px) { .sol-panel.foto .sol-caps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .sol-capt { overflow-wrap: break-word; }
+  .sol-cap { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; text-align: center; font-size: 0.8rem; line-height: 1.28; color: rgba(242,243,245,0.92); }
+  .sol-capi { width: 3.4rem; height: 3.4rem; border-radius: 15px; display: grid; place-items: center; color: #8EC2FF;
+    background: linear-gradient(160deg, rgba(46,134,255,0.24), rgba(46,134,255,0.06)); border: 1px solid rgba(70,150,255,0.42);
+    box-shadow: inset 0 0 16px rgba(46,134,255,0.16), 0 6px 16px -8px rgba(0,0,0,0.6); transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease); }
+  .sol-capi svg { width: 1.7rem; height: 1.7rem; }
+  .sol-cap:hover .sol-capi { transform: translateY(-3px); border-color: rgba(120,190,255,0.8); box-shadow: inset 0 0 18px rgba(46,134,255,0.25), 0 10px 22px -8px rgba(46,134,255,0.55); }
+  /* linha de resultado e botao */
+  .sol-panel.foto .sol-foot { flex-direction: column; align-items: flex-start; gap: 1.1rem; margin-top: auto; padding-top: 1.2rem; }
+  .sol-panel.foto .sol-sig { width: 100%; display: flex; align-items: center; gap: 0.7rem; padding: 0.95rem 0; margin-top: 1.4rem;
+    border-top: 1px solid rgba(255,255,255,0.14); border-bottom: 1px solid rgba(255,255,255,0.14); }
+  .sol-panel.foto .sol-sig svg { flex: none; width: 1.45rem; height: 1.45rem; padding: 0.3rem; border-radius: 50%; background: #2E86FF; stroke: #fff; stroke-width: 2.6; }
+  /* lista da esquerda: seta em botao circular, item ativo com brilho */
+  .sol-arr { width: 2rem; height: 2rem; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; font-size: 0.95rem; transition: border-color 0.3s var(--ease), color 0.3s var(--ease); }
+  .sol-item[aria-selected="true"] { box-shadow: 0 0 0 1px rgba(46,134,255,0.3), 0 10px 26px -14px rgba(46,134,255,0.55); }
+  .sol-item[aria-selected="true"] .sol-arr, .sol-item:hover .sol-arr { border-color: var(--accent); color: var(--accent); }
+  @media (max-width: 760px) { .sol-panel.foto h3, .sol-panel.foto > p { max-width: none; }
+    .sol-caps { grid-template-columns: repeat(3, 1fr); } .sol-panel.foto::after { width: 80%; height: 22%; opacity: 0.8; } }
+  @media (prefers-reduced-motion: reduce) { .sol-capi { transition: none; } }
+
+  /* ---- Solucoes no tema claro: foto clara com leve sombreamento branco (o par do navy do tema
+     escuro), texto escuro, cartoes-icone claros e onda em azul. A foto muda por tema. ---- */
+  .sol-panel.foto .sol-foot { border-top: 0; }   /* a linha de resultado ja tem as suas reguas */
+  /* Os veus (navy ou branco) tinham o tamanho da area interna e a foto, maior, aparecia sem veu
+     pela faixa de 1px da borda: linhas escuras ou claras soltas nas bordas. Todas as camadas passam
+     a partir da caixa inteira, borda incluida. */
+  .sol-panel.foto { background-origin: border-box; }
+  :root[data-tema="claro"] .sol-panel.foto { --foto: var(--foto-claro); color: var(--ink); border-color: var(--line); box-shadow: var(--sombra);
+    background-color: #F4F7FB;
+    background-image: linear-gradient(90deg, rgba(255,255,255,0.95) 0, rgba(255,255,255,0.88) 44%, rgba(255,255,255,0.3) 80%, rgba(255,255,255,0.08) 100%),
+      linear-gradient(180deg, rgba(244,247,251,0) 0, rgba(244,247,251,0.55) 55%, rgba(244,247,251,0.94) 100%), var(--foto); }
+  :root[data-tema="claro"] .sol-panel.foto > .pill { color: var(--accent); background: rgba(255,255,255,0.97); border-color: rgba(11,94,215,0.4); }
+  :root[data-tema="claro"] .sol-panel.foto h3 { color: var(--ink); }
+  :root[data-tema="claro"] .sol-panel.foto h3 .ac { color: var(--accent); }
+  :root[data-tema="claro"] .sol-panel.foto > p { color: #3A3A42; }
+  :root[data-tema="claro"] .sol-cap { color: #26262C; }
+  :root[data-tema="claro"] .sol-capi { color: var(--accent); background: linear-gradient(160deg, #FFFFFF, #E8F0FF); border-color: rgba(11,94,215,0.32);
+    box-shadow: inset 0 0 12px rgba(11,94,215,0.07), 0 8px 18px -10px rgba(19,60,140,0.4); }
+  :root[data-tema="claro"] .sol-cap:hover .sol-capi { border-color: rgba(11,94,215,0.65); box-shadow: inset 0 0 14px rgba(11,94,215,0.12), 0 12px 24px -10px rgba(11,94,215,0.45); }
+  :root[data-tema="claro"] .sol-panel.foto .sol-sig { color: #26262C; border-color: rgba(19,19,22,0.14); }
+  :root[data-tema="claro"] .sol-panel.foto .sol-sig svg { background: var(--accent); stroke: #FFFFFF; }
+  :root[data-tema="claro"] .sol-panel.foto::after { background: radial-gradient(circle, rgba(11,94,215,0.8) 0 1.1px, transparent 1.7px) 0 0 / 8px 8px; }
+  @media (max-width: 760px) {
+    .sol-panel.foto { background-image: linear-gradient(180deg, rgba(10,20,40,0.56) 0, rgba(10,20,40,0.8) 30%, rgba(10,20,40,0.93) 62%, rgba(10,20,40,0.97) 100%), var(--foto);
+      background-size: 100% 100%, cover; background-position: center, 72% 30%; }
+    :root[data-tema="claro"] .sol-panel.foto { background-image: linear-gradient(180deg, rgba(255,255,255,0.7) 0, rgba(255,255,255,0.87) 32%, rgba(247,250,254,0.95) 62%, rgba(247,250,254,0.98) 100%), var(--foto);
+      background-size: 100% 100%, cover; background-position: center, 72% 30%; }
+  }
+
+  .sol-panel h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 500; margin: 1.1rem 0 1rem; }
+  .sol-panel > p { color: var(--muted); font-size: 1rem; }
+  .sol-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.3rem; }
+  .sol-tags span { font-size: 0.74rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0.32rem 0.75rem; }
+  .sol-foot { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; border-top: 1px solid var(--line-soft); margin-top: auto; padding-top: 1.5rem; }
+  .sol-sig { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--dim); font-size: 0.84rem; }
+  .sol-sig svg { width: 1rem; height: 1rem; stroke: var(--accent); fill: none; stroke-width: 2.2; }
+
+  /* ---------- Cabeçalho assimétrico ---------- */
+  .head2 { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2.5rem; align-items: end; }
+  .head2 h2 { margin-bottom: 0; }
+  .head2-side { display: flex; flex-direction: column; gap: 1.3rem; align-items: flex-start; }
+  .head2-side .sub { margin: 0; }
+
+  /* ---------- Contato: formulário + contatos ---------- */
+
+  @media (max-width: 1000px) {
+    .ess, .sol, .banner, .head2 { grid-template-columns: 1fr; }
+    /* empilhado, a régua que separava as colunas passa a separar as linhas */
+    .tiles { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 1.8rem; }
+    .banner-cta { justify-content: flex-start; }
+    .head2 { align-items: start; }
+
+  }
+  @media (max-width: 760px) {
+    .rail-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .rail-label { border-right: 0; border-bottom: 1px solid var(--line); padding-right: 0; padding-bottom: 1rem; max-width: none; }
+    .hero-c { min-height: calc(100svh - 5.7rem - 2rem); padding: 5.5rem 0 3.5rem; }
+  }
+  @media (max-width: 520px) {
+    .tiles { grid-template-columns: 1fr; }
+    .ess-chips span { flex: 1 1 100%; }
+  }
+
+  /* ============================================================
+     Tema claro. Os mesmos tokens com outros valores — nenhum
+     componente precisa saber em que tema está.
+
+     Todos os pares texto/fundo daqui foram medidos: o menor é
+     4,74:1 (--dim sobre o papel), acima do mínimo de 4,5:1.
+
+     O azul claro do tema escuro não serve de texto sobre branco
+     (3,5:1), então --accent e --accent-light passam a azuis
+     fechados. E --paper, que no escuro é a seção clara que
+     inverte o ritmo da página, aqui vira a escura — a inversão
+     continua acontecendo, na direção oposta.
+     ============================================================ */
+  :root[data-tema="claro"] {
+    --bg0: #F2F1ED;
+    --bg1: #FFFFFF;
+    --panel: #FFFFFF;
+    --panel-2: #F7F6F2;
+    --line: rgba(19, 19, 22, 0.12);
+    --line-soft: rgba(19, 19, 22, 0.07);
+    --line-strong: rgba(19, 19, 22, 0.25);
+    --ink: #131316;      /* 16,4:1 sobre o papel */
+    --muted: #56565E;    /* 6,4:1 */
+    --dim: #6A6A73;      /* 4,7:1 sobre o papel, 5,0:1 sobre o painel */
+    --accent: #0B5ED7;   /* 5,2:1 como texto; branco sobre ele, 5,8:1 */
+    --accent-light: #0A54C4;  /* 6,0:1 — este token também é texto */
+    --accent-deep: #6FD4FF;
+    --accent-ink: #FFFFFF;
+    --chart-a: #0B5ED7;
+    --chart-b: #4A6FA8;
+    --paper: #0D1117;
+    --paper-ink: #F4F3EF;
+    --paper-muted: #9BA3AE;
+    --paper-line: rgba(244, 243, 239, 0.12);
+    --grid: rgba(19, 19, 22, 0.045);
+    --veil: rgba(255, 255, 255, 0.78);
+    --veil-forte: rgba(255, 255, 255, 0.94);
+    --veil-fundo: rgba(255, 255, 255, 0.62);
+    --sombra: 0 10px 30px -10px rgba(19, 19, 22, 0.18);
+    --btn-fill: #0B5ED7;   /* branco sobre ele: 5,84:1 */
+    --accent-quente: #D9822B;
+    --accent-verde: #1F8F80;
+  }
+  /* No claro a seção de papel é a escura, então o selo dela volta
+     a ser o azul aberto. */
+  :root[data-tema="claro"] .eyebrow.on-paper { color: var(--accent-deep); }
+  :root[data-tema="claro"] .eyebrow.on-paper::before { background: var(--accent-deep); }
+  /* O branco puro dos cartões pede uma sombra no lugar do contorno
+     que no escuro vinha do próprio fundo. */
+  :root[data-tema="claro"] .ess,
+  :root[data-tema="claro"] .sol-panel,
+  :root[data-tema="claro"] .sol-item,
+  :root[data-tema="claro"] .case-card,
+  :root[data-tema="claro"] .case-mini,
+  :root[data-tema="claro"] .pillar,
+  :root[data-tema="claro"] .pilar,
+  :root[data-tema="claro"] .banner { box-shadow: var(--sombra); }
+
+
+  /* ---------- Alternador de tema ---------- */
+  /* Vive no cabeçalho, ao lado do idioma. Antes flutuava no canto inferior
+     direito, onde o teaser do Átis subia por cima e comia o clique. */
+  .tema-btn {
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+    width: var(--h-ctrl); height: var(--h-ctrl); flex: none;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    color: var(--muted);
+    transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+  }
+  .tema-btn:hover { color: var(--ink); border-color: rgba(46,134,255,0.45); }
+  /* Acima da largura em que o conteúdo do cabeçalho para de crescer, o
+     alternador sai da linha e vai para o eixo vertical do Átis: mesma
+     coluna, um no topo e o outro no rodapé. Abaixo disso o cabeçalho ocupa
+     a largura toda e esse eixo já é do CTA e do burger — medido, o botão
+     ficaria por cima deles —, então ele continua na linha, depois do CTA.
+     O cálculo iguala os centros: o canto do Átis mais metade da diferença
+     entre os dois tamanhos. */
+  @media (min-width: 1340px) {
+    .tema-btn {
+      position: absolute;
+      right: calc(var(--atis-dir) + (var(--atis-tam) - var(--h-ctrl)) / 2);
+      top: 50%; transform: translateY(-50%);
+    }
+  }
+  .tema-btn svg { width: 1.02rem; height: 1.02rem; stroke: currentColor; fill: none; stroke-width: 1.9; }
+  /* O ícone mostra para onde o clique leva: lua no tema claro, sol no escuro. */
+  .tema-btn .ico-claro { display: none; }
+  :root[data-tema="escuro"] .tema-btn .ico-claro { display: block; }
+  :root[data-tema="escuro"] .tema-btn .ico-escuro { display: none; }
+
+  /* ============================================================
+     Mega-menu. O cabeçalho colapsado mostra marca, "Menu", idioma e
+     o CTA; aberto, vira um painel com os tópicos em linha, a grade de
+     cartões do tópico ativo e o painel de entrada à direita.
+     ============================================================ */
+  .nav-toggle {
+    display: inline-flex; align-items: center; gap: 0.55rem; cursor: pointer;
+    background: none; border: 0; color: var(--ink); font-family: var(--display);
+    font-weight: 700; font-size: 0.95rem; padding: 0.5rem 0.2rem;
+    transition: color 0.25s var(--ease);
+  }
+  .nav-toggle:hover { color: var(--accent); }
+  .nav-toggle i { display: grid; gap: 3.5px; width: 15px; }
+  .nav-toggle i b { display: block; height: 1.6px; background: currentColor; border-radius: 2px; transition: transform 0.3s var(--ease), opacity 0.2s; }
+  .nav-toggle[aria-expanded="true"] i b:nth-child(1) { transform: translateY(5.1px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] i b:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] i b:nth-child(3) { transform: translateY(-5.1px) rotate(-45deg); }
+
+  /* Altura comum do alternador de tema e do seletor de idioma: lado a
+     lado, 1px de diferenca aparece como degrau entre as bordas. */
+  .nav-acoes { display: flex; align-items: center; gap: 0.7rem; --h-ctrl: 2.16rem; }
+  /* Uma linha so: o rotulo quebrado e o que deixava o botao mais alto que
+     a barra. Com a lateral livre ele cabe em 272px de largura. */
+  .nav-acoes .btn { white-space: nowrap; }
+
+  /* Seletor de idioma */
+  .lang { position: relative; }
+  .lang-btn {
+    display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    color: var(--muted); font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 0 0.7rem; height: var(--h-ctrl);
+    transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+  }
+  .lang-btn:hover, .lang-btn[aria-expanded="true"] { border-color: rgba(46,134,255,0.45); color: var(--ink); }
+  .lang-btn .lang-seta { width: 0.7rem; height: 0.7rem; stroke: currentColor; fill: none; stroke-width: 2.4; transition: transform 0.25s var(--ease); }
+  /* As bandeiras são SVG desenhado aqui, não emoji: emoji de bandeira não
+     renderiza no Windows, que mostra as duas letras do país no lugar. */
+  .bandeira { width: 1.25rem; height: 0.9rem; border-radius: 2px; flex: none; display: block; box-shadow: 0 0 0 1px rgba(19,19,22,0.12) inset; }
+  .lang-btn #lang-bandeira { display: flex; }
+  .lang-menu button { gap: 0.6rem; }
+  .lang-menu button .bandeira { margin-right: 0.1rem; }
+  .lang-btn[aria-expanded="true"] .lang-seta { transform: rotate(180deg); }
+  .lang-menu {
+    position: absolute; right: 0; top: calc(100% + 0.5rem); min-width: 11rem;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 0.4rem; display: grid; gap: 0.15rem; box-shadow: var(--sombra); z-index: 70;
+  }
+  .lang-menu button {
+    display: flex; align-items: center; gap: 0.8rem;
+    width: 100%; text-align: left; cursor: pointer; background: none; border: 0;
+    border-radius: 8px; padding: 0.6rem 0.7rem; color: var(--muted); font-size: 0.9rem;
+    transition: background 0.2s, color 0.2s;
+  }
+  .lang-menu button:hover { background: var(--panel-2); color: var(--ink); }
+  .lang-menu button[aria-current="true"] { color: var(--accent); font-weight: 700; }
+  .lang-menu button em { margin-left: auto; font-style: normal; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
+
+  /* Painel */
+  .mega {
+    position: absolute; left: 0; right: 0; top: 100%;
+    /* Opaco, não translúcido: o h1 do hero é grande e escuro e
+       atravessava os 6% de transparência do véu. */
+    background: var(--bg1);
+    border-bottom: 1px solid var(--line); box-shadow: var(--sombra);
+    overflow: hidden; max-height: 0; transition: max-height 0.4s var(--ease);
+  }
+  .mega.on { max-height: min(80vh, 46rem); overflow-y: auto; }
+  .mega-in { padding: 0 clamp(1.25rem, 4vw, 3rem) 2.2rem; max-width: 1280px; margin: 0 auto; }
+
+  .mega-topicos { display: flex; flex-wrap: wrap; gap: 1.6rem; border-bottom: 1px solid var(--line-soft); padding: 0.2rem 0 0.9rem; margin-bottom: 1.8rem; }
+  .mega-topico {
+    background: none; border: 0; cursor: pointer; padding: 0.4rem 0; color: var(--muted);
+    font-family: var(--display); font-weight: 700; font-size: 1rem;
+    border-bottom: 2px solid transparent; transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+  }
+  .mega-topico:hover { color: var(--ink); }
+  .mega-topico[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .mega-corpo { display: grid; grid-template-columns: 1.55fr 0.95fr; gap: 1.6rem; align-items: start; }
+  .mega-paineis > div[hidden] { display: none; }
+  .mega-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+  .mega-card {
+    display: grid; grid-template-columns: auto 1fr; gap: 0.9rem; align-items: start;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.1rem 1.2rem; text-decoration: none;
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .mega-card:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-2px); }
+  .mega-card .tile-ico { width: 2.4rem; height: 2.4rem; }
+  .mega-card .tile-ico svg { width: 1.2rem; height: 1.2rem; }
+  .mega-card b { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-family: var(--display); font-size: 0.97rem; font-weight: 600; }
+  .mega-card p { color: var(--muted); font-size: 0.86rem; margin-top: 0.3rem; line-height: 1.5; }
+  .mega-tag { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.3); border-radius: 999px; padding: 0.14rem 0.5rem; }
+
+  .mega-side { background: var(--panel-2); border: 1px solid var(--line); border-radius: 16px; padding: 1.3rem; }
+  .mega-side > h3 { font-size: 1.1rem; font-weight: 800; }
+  .mega-side > p { color: var(--muted); font-size: 0.87rem; margin-top: 0.4rem; }
+  .mega-cam { display: grid; gap: 0.55rem; margin: 1.1rem 0; }
+  .mega-cam a {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 0.8rem; align-items: center;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 11px;
+    padding: 0.8rem 0.9rem; text-decoration: none;
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .mega-cam a:hover { border-color: rgba(46,134,255,0.45); transform: translateX(2px); }
+  .mega-cam b { display: block; font-family: var(--display); font-size: 0.9rem; font-weight: 600; }
+  .mega-cam span:not(.tile-ico) { display: block; color: var(--muted); font-size: 0.8rem; margin-top: 0.1rem; line-height: 1.45; }
+  .mega-cam i { font-style: normal; color: var(--dim); }
+  .mega-side .btn { width: 100%; justify-content: center; }
+  .mega-side .btn + .btn { margin-top: 0.5rem; }
+  .mega-prova { margin-top: 1rem; color: var(--dim); font-size: 0.78rem; line-height: 1.7; text-align: center; }
+  .mega-prova b { color: var(--ink); font-weight: 600; }
+  .mega-prova i { font-style: normal; opacity: 0.5; margin: 0 0.25rem; }
+
+  .mega-fechar {
+    display: grid; place-items: center; width: 100%; margin-top: 1.4rem;
+    background: none; border: 0; cursor: pointer; color: var(--dim);
+  }
+  .mega-fechar svg { width: 1.2rem; height: 1.2rem; stroke: currentColor; fill: none; stroke-width: 2; }
+  .mega-fechar:hover { color: var(--accent); }
+
+  @media (max-width: 1100px) {
+    .mega-corpo { grid-template-columns: 1fr; }
+    .mega-cards { grid-template-columns: 1fr; }
+  }
+  /* O burger assume a partir de 1180px (mesma faixa em que os links
+     antigos saíam), então o painel e o "Menu" central saem junto. */
+  @media (max-width: 1180px) {
+    .nav-toggle, .mega { display: none !important; }
+  }
+  /* Mais estreito, o CTA do cabecalho nao cabe ao lado do idioma e do
+     tema sem encostar no "Menu" centrado — ele continua no menu lateral e
+     na barra de conversa. O limite e 1024 e nao 680 porque o bloco da
+     direita mede 415px fixos: a folga ate o "Menu" so chega a 24px por
+     volta dessa largura (era -33px a 900 e -5px a 960). Mante-lo em
+     tablet em retrato exigiria cortar 94px de um botao de 272px, o que
+     deixaria o rotulo ilegivel. */
+  @media (max-width: 1023px) {
+    .nav-acoes .btn { display: none; }
+  }
+  @media (max-width: 400px) {
+    .lang-btn { padding: 0.5rem 0.55rem; }
+  }
+  /* Abaixo de 330 a barra ainda nao fecha: o botao de idioma mede 81px
+     (17,6 de respiro, 47 de conteudo e dois vaos de 7,2) e os filhos tem
+     tamanho fixo, entao ele nao cede sozinho como cedia sob a pressao do
+     grid antigo. Apertar o vao e o respiro devolve os 14px que faltam. */
+  @media (max-width: 330px) {
+    .lang-btn { padding: 0.5rem 0.35rem; gap: 0.2rem; }
+  }
+
+  /* ---------- Parceiros ---------- */
+  /* O ladrilho é branco nos dois temas. Logo de fabricante vem com cor
+     fixa — o cinza da Microsoft, o preto da Databricks, o azul-marinho do
+     Tableau — e sobre o fundo escuro metade deles sumiria. Trocar a cor da
+     marca não é opção, então o fundo é que se mantém. */
+  /* Parceiros em campo de hexagonos. Os 8 links ficam no HTML (funciona sem JS);
+     o script so distribui os links nas fileiras e preenche o resto com celulas
+     vazias decorativas. O fundo do hexagono de logo e branco nos dois temas
+     porque os logos sao coloridos para fundo claro. */
+  .favo { --base: 0.05; --topo: 0.16; position: relative; margin-top: 2.4rem; padding: 1rem 0;
+    background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(46,134,255,0.10), transparent 70%); }
+  :root[data-tema="claro"] .favo { --base: 0.07; --topo: 0.2; }
+  .favo-linhas { --w: 104px; --g: 4px; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--g); }
+  .favo-linhas.pronto { flex-direction: column; flex-wrap: nowrap; align-items: center; gap: 0; }
+  .favo-linha { display: flex; gap: var(--g); justify-content: center; }
+  .favo-linha + .favo-linha { margin-top: calc(var(--w) * -0.2887 + var(--g) * 0.866); }
+  .hex { --l: 0; --t: 0.5; position: relative; display: block; width: var(--w); aspect-ratio: 1 / 1.1547; flex: none;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+  .hex.vazio { background: rgba(46,134,255, calc(var(--base) + var(--t) * 0.07 + var(--l) * var(--topo))); }
+  .hex.vazio.pisca { animation: favo-pisca 5.5s ease-in-out infinite; animation-delay: var(--d, 0s); }
+  @keyframes favo-pisca { 0%, 100% { filter: none; } 50% { filter: brightness(1.9) saturate(1.3); } }
+  .hex.logo { text-decoration: none; outline: 0; color: #56565E; background: #FFFFFF; transition: transform 0.35s var(--ease); }
+  .hex.logo .borda { position: absolute; inset: 0; background: rgba(46,134,255, calc(0.28 + var(--l) * 0.7)); }
+  .hex.logo .miolo { position: absolute; inset: 3px; background: #FFFFFF; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.35rem;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+  .hex.logo .miolo::after { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s var(--ease);
+    background: linear-gradient(135deg, rgba(46,134,255,0.16), rgba(46,134,255,0) 62%); }
+  .hex.logo img { position: relative; z-index: 1; max-width: 70%; max-height: 32%; width: auto; height: auto;
+    object-fit: contain; transition: transform 0.35s var(--ease); }
+  .hex.logo em { position: relative; z-index: 1; font: 600 calc(var(--w) * 0.075)/1.1 var(--mono, monospace);
+    letter-spacing: 0.06em; text-transform: uppercase; font-style: normal; color: #56565E; text-align: center;
+    opacity: 0; max-height: 0; padding: 0 12%; transition: opacity 0.3s var(--ease), max-height 0.3s var(--ease); }
+  .hex.logo:hover, .hex.logo:focus-visible { transform: translateY(-3px); }
+  .hex.logo:hover .borda, .hex.logo:focus-visible .borda { background: var(--accent); }
+  .hex.logo:hover .miolo::after, .hex.logo:focus-visible .miolo::after { opacity: 1; }
+  .hex.logo:hover img, .hex.logo:focus-visible img { transform: translateY(-0.15rem); }
+  .hex.logo:hover em, .hex.logo:focus-visible em { opacity: 1; max-height: 3em; }
+  @media (prefers-reduced-motion: reduce) {
+    .hex.logo, .hex.logo img { transition: none; }
+    .hex.logo:hover, .hex.logo:focus-visible { transform: none; }
+    .hex.vazio.pisca { animation: none; }
+  }
+  .parc-nota { margin-top: 1.4rem; color: var(--dim); font-size: 0.84rem; }
+
+
+
+  /* A segunda linha do título troca de frase sozinha, como na referência.
+     O h1 tem aria-label fixo, então quem usa leitor de tela ouve a frase
+     canônica uma vez — não a troca a cada três segundos. */
+  /* min-height segura a dobra: as frases têm comprimentos diferentes e,
+     sem isso, o h1 muda de altura a cada troca e empurra tudo embaixo. */
+  .hero h1 .ac { transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); display: inline-block; }
+  .hero h1 { min-height: calc(3 * 1.08em); }
+  @media (max-width: 760px) { .hero h1 { min-height: calc(4 * 1.08em); } }
+  .hero h1 .ac.trocando { opacity: 0; transform: translateY(-0.18em); }
+
+  /* Restaurado: uma limpeza por expressão regular levou o selo junto com o
+     CSS do painel de contatos que saiu na mesma rodada. Sem a regra de
+     .pill svg o ícone perdia tamanho e cor e virava uma mancha preta. */
+  .pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-light);
+    background: rgba(46,134,255,0.1); border: 1px solid rgba(46,134,255,0.3);
+    border-radius: 999px; padding: 0.42rem 0.9rem;
+  }
+  .pill svg { width: 0.9rem; height: 0.9rem; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---------- Cartão de case no carrossel ---------- */
+  /* Capa, chamada curta e link. O case inteiro vive em cases/<slug>.html —
+     treze cases abertos por inteiro na home seriam quinze mil palavras
+     antes do formulário. */
+  .cc {
+    flex: 0 0 min(420px, 84vw); scroll-snap-align: start;
+    display: grid; grid-template-rows: auto 1fr;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .cc:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .cc-art { margin: 0; line-height: 0; }
+  .cc-art img { width: 100%; height: 190px; object-fit: cover; display: block; }
+  .cc-corpo { padding: 1.4rem 1.4rem 1.3rem; display: grid; grid-template-rows: auto auto 1fr auto auto auto; gap: 0.6rem; }
+  .cc-setor { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .cc-t { font-size: 1.16rem; font-weight: 550; line-height: 1.25; }
+  .cc-cap { color: var(--muted); font-size: 0.91rem; line-height: 1.55; }
+  .cc-ad { display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.7rem; }
+  .cc-ad .cc-a { color: var(--dim); }
+  .cc-ad .cc-d { color: var(--accent); }
+  .cc-ad i { font-style: normal; color: var(--dim); }
+  .cc-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .cc-chips span { font-size: 0.7rem; color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.6rem; }
+  .cc-link { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 0.4rem; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 0.9rem; color: var(--accent); }
+  .cc-link .arr { transition: transform 0.25s var(--ease); }
+  .cc:hover .cc-link .arr { transform: translateX(3px); }
+
+  /* Barra azul de progresso do avanço automático */
+  .carr-progresso { height: 2px; background: var(--line); border-radius: 2px; margin-top: 1.1rem; overflow: hidden; }
+  .carr-progresso i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 2px; }
+  .carr-progresso.parado { opacity: 0; }
+
+</style>
+<style>
+  /* Página de case no modelo da referência: capa larga, corpo em duas
+     colunas e a ficha do projeto na lateral, grudada no scroll. */
+  .caso-topo { padding-top: 6.5rem; }
+  .voltar { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--dim); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1.6rem; transition: color 0.25s var(--ease); }
+  .voltar:hover { color: var(--accent); }
+  /* Sem fio em cima e embaixo: eram duas reguas de tela cheia na familia
+     de cor da grade do fundo, em fase 12,6 e 22,6, e cortavam a celula do
+     lado de fora da imagem. A propria foto ja e a fronteira visual. */
+  .caso-capa { margin: 0 0 2.4rem; line-height: 0; }
+  .caso-capa img { width: 100%; height: clamp(220px, 32vw, 400px); object-fit: cover; display: block; }
+  .caso-eyebrow { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  .caso-topo .h-xl { max-width: 24ch; }
+  .caso-lead { max-width: 54ch; }
+  .caso-corpo { padding-top: 3rem; }
+  .caso-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.9fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .caso-bloco + .caso-bloco { margin-top: 2.6rem; }
+  .caso-bloco h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); font-weight: 500; margin-bottom: 1rem; }
+  .caso-bloco p { color: var(--muted); font-size: 1.02rem; }
+  .caso-lista { list-style: none; display: grid; gap: 0.9rem; }
+  .caso-lista li { position: relative; padding-left: 1.6rem; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+  .caso-lista li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); }
+  .caso-lista b { color: var(--ink); font-weight: 600; }
+  .caso-main .ad { margin-bottom: 2.6rem; }
+  /* O CTA de rodapé não pode gritar mais que o h1 da própria página. */
+  .caso-topo ~ .final h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
+
+  /* Ficha do projeto */
+  .caso-info { position: sticky; top: 6rem; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.4rem, 3vw, 1.9rem); }
+  .caso-info > h2 { font-family: var(--mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.4rem; }
+  .caso-info dl { display: grid; gap: 1.3rem; }
+  .inf-campo dt { font-family: var(--display); font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 0.6rem; }
+  .inf-campo dd { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0; }
+  .inf-campo dd > span:not(.lg-tec) { font-size: 0.78rem; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 0.28rem 0.7rem; }
+  .inf-nota { border-top: 1px solid var(--line-soft); margin-top: 1.5rem; padding-top: 1rem; color: var(--dim); font-size: 0.8rem; }
+
+  .rels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1.4rem; }
+  .rel { display: grid; gap: 0.9rem; text-decoration: none; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; align-content: start; padding-bottom: 1.2rem; transition: border-color 0.3s var(--ease), transform 0.3s var(--ease); }
+  .rel:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
+  .rel img { width: 100%; height: 118px; object-fit: cover; display: block; }
+  .rel > span { display: block; padding: 0 1.1rem; }
+  .rel .cc-logos { margin: 0; padding: 0 1.1rem; }
+  .rel b { display: block; font-family: var(--display); font-size: 0.98rem; font-weight: 600; line-height: 1.3; }
+  .rel small { display: block; color: var(--dim); font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 0.4rem; }
+
+  @media (max-width: 1000px) {
+    .caso-grid { grid-template-columns: 1fr; gap: 2.4rem; }
+    .caso-info { position: static; }
+    .rels { grid-template-columns: 1fr; }
+  }
+
+  /* ---- vida nas paginas de case: so CSS, em cima do .reveal/.in que o script ja aplica ---- */
+  .caso-capa { overflow: hidden; }
+  .caso-capa img { animation: capa-in 1.8s var(--ease) both; transform-origin: 50% 40%; }
+  @keyframes capa-in { from { transform: scale(1.09); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  /* Antes -> Depois: o "antes" aparece, esmaece, a seta cresce e o "depois" entra em azul */
+  .caso-main .ad { position: relative; padding: 1.5rem 1.7rem; gap: 1.4rem; overflow: hidden; }
+  .caso-main .ad-n { font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
+  .caso-main .ad-lado:not(.ad-pos) { transition: opacity 0.8s var(--ease) 0.5s; }
+  .caso-main .ad.in .ad-lado:not(.ad-pos) { opacity: 0.55; }
+  .caso-main .ad-pos { position: relative; opacity: 0; transform: translateX(-16px);
+    transition: opacity 0.8s var(--ease) 0.55s, transform 0.8s var(--ease) 0.55s; }
+  .caso-main .ad.in .ad-pos { opacity: 1; transform: none; }
+  .caso-main .ad-pos::before { content: ''; position: absolute; inset: -1rem -1.4rem; border-radius: 14px; pointer-events: none;
+    background: radial-gradient(ellipse at 20% 50%, rgba(46,134,255,0.14), transparent 70%); opacity: 0; transition: opacity 1s var(--ease) 0.9s; }
+  .caso-main .ad.in .ad-pos::before { opacity: 1; }
+  .caso-main .ad-seta { display: inline-block; font-size: 1.6rem; transform: scaleX(0); transform-origin: left; transition: transform 0.6s var(--ease) 0.25s; }
+  .caso-main .ad.in .ad-seta { transform: none; animation: ad-nudge 2.6s ease-in-out 1.6s infinite; }
+  @keyframes ad-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+
+  /* Desafios e Resultados: itens entram em sequencia */
+  .caso-lista li { --t: 0s; opacity: 0; transform: translateX(-10px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), border-color 0.35s var(--ease); }
+  .caso-lista li::before { transform: scale(0); transition: transform 0.4s var(--ease); }
+  .caso-bloco.in .caso-lista li { opacity: 1; transform: none; transition-delay: var(--t); }
+  .caso-bloco.in .caso-lista li::before { transform: scale(1); transition-delay: calc(var(--t) + 0.2s); }
+  .caso-lista li:nth-child(1) { --t: 0.15s; } .caso-lista li:nth-child(2) { --t: 0.27s; }
+  .caso-lista li:nth-child(3) { --t: 0.39s; } .caso-lista li:nth-child(4) { --t: 0.51s; }
+  .caso-lista li:nth-child(n+5) { --t: 0.63s; }
+
+  /* Resultados viram cartoes, como os numeros da home */
+  .caso-res { gap: 0.85rem; }
+  .caso-res li { position: relative; overflow: hidden; padding: 1.1rem 1.3rem 1.1rem 3.5rem; background: var(--panel-2);
+    border: 1px solid var(--line-soft); border-radius: 14px; }
+  .caso-res li::before { left: 1.2rem; top: 1.15rem; width: 1.4rem; height: 1.4rem; border-radius: 50%;
+    background: rgba(46,134,255,0.12) url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232E86FF' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'><path d='m5 12.5 4.5 4.5L19 7.5'/></svg>") center / 0.8rem no-repeat; }
+  .caso-res li::after { content: ''; position: absolute; inset: 0; background: var(--degrade-hover); opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease); }
+  .caso-res li:hover { border-color: rgba(46,134,255,0.32); }
+  .caso-res li:hover::after { opacity: 1; }
+  .caso-res b { display: block; font-family: var(--display); font-size: 1.08rem; margin-bottom: 0.15rem; }
+
+  /* Ficha lateral: os grupos entram um a um e as etiquetas reagem ao mouse */
+  .caso-info .inf-campo { opacity: 0; transform: translateY(10px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+  .caso-info.in .inf-campo { opacity: 1; transform: none; }
+  .caso-info.in .inf-campo:nth-child(1) { transition-delay: 0.2s; } .caso-info.in .inf-campo:nth-child(2) { transition-delay: 0.32s; }
+  .caso-info.in .inf-campo:nth-child(3) { transition-delay: 0.44s; } .caso-info.in .inf-campo:nth-child(4) { transition-delay: 0.56s; }
+  .inf-campo dd > span { transition: border-color 0.3s var(--ease), color 0.3s var(--ease); }
+  .inf-campo dd span:hover { border-color: rgba(46,134,255,0.45); color: var(--ink); }
+
+  /* Outros projetos */
+  .rel img { transition: transform 0.8s var(--ease); }
+  .rel:hover img { transform: scale(1.06); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .caso-capa img { animation: none; }
+    .caso-main .ad-lado, .caso-main .ad-pos, .caso-main .ad-seta, .caso-lista li, .caso-lista li::before, .caso-info .inf-campo {
+      opacity: 1 !important; transform: none !important; transition: none !important; animation: none !important; }
+    .rel img, .rel:hover img { transition: none; transform: none; }
+  }
+
+  /* ---- logos das ferramentas ---- */
+  .lg-ring { position: relative; flex: none; display: grid; place-items: center; border-radius: 50%; background: #fff; border: 1px solid var(--line); }
+  .lg-ring.lg-sm { width: 1.7rem; height: 1.7rem; } .lg-ring.lg-md { width: 2.1rem; height: 2.1rem; } .lg-ring.lg-xl { width: 2.7rem; height: 2.7rem; }
+  .lg-ico { display: block; width: 56%; height: 56%; background: var(--bc, #131316); -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat; }
+  .lg-mn { font-family: var(--mono); font-size: .46rem; font-weight: 600; letter-spacing: .02em; color: #131316; }
+  .lg-xl .lg-mn { font-size: .62rem; } .lg-md .lg-mn { font-size: .52rem; }
+  .lg-star { position: absolute; margin: -1.5rem 0 0 1.25rem; font-size: .7rem; color: var(--accent); line-height: 1; }
+  .lg-tec { display: inline-flex; align-items: center; gap: .5rem; border: 1px solid var(--line); border-radius: 999px; padding: .22rem .75rem .22rem .22rem;
+    font-size: .8rem; color: var(--muted); background: var(--panel-2); transition: border-color .3s, color .3s; }
+  .lg-tec:hover { border-color: rgba(46,134,255,.45); color: var(--ink); }
+  .lg-solo { display: inline-flex; }
+  .cc-logos { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
+  .lg-txt { font-size: .78rem; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: .28rem .7rem; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="../index.html#inicio">Pular para o conteúdo</a>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"><span></span></div>
+<div class="scroll-progress" aria-hidden="true"><i id="progress-bar"></i></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html#inicio"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="brandMarkGradient" x1="4" y1="6" x2="96" y2="92" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6FD4FF"/><stop offset="0.5" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/></linearGradient></defs><path d="M50 58 L64 82 L36 82 Z" fill="#2E9BFF"/><path d="M50 6 L94 92 L64.5 92 L50 62 L35.5 92 L6 92 Z" fill="url(#brandMarkGradient)"/></svg><span class="wordmark"><b>ATLAS</b><small>TECNOLOGIA</small></span></a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="mega">
+      Menu <i aria-hidden="true"><b></b><b></b><b></b></i>
+    </button>
+    <div class="nav-acoes">
+      <div class="lang">
+        <button class="lang-btn" id="lang-btn" type="button" aria-expanded="false" aria-controls="lang-menu" aria-label="Escolher idioma">
+          <span id="lang-bandeira"><svg class="bandeira" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2.5" fill="#009B3A"/><path d="M14 3 25 10 14 17 3 10Z" fill="#FEDF00"/><circle cx="14" cy="10" r="4.2" fill="#002776"/><path d="M9.9 8.6a9 9 0 0 1 8.1 2.2" stroke="#fff" stroke-width="1.1" fill="none"/></svg></span>
+          <span id="lang-atual">PT</span>
+          <svg class="lang-seta" viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="lang-menu" id="lang-menu" role="menu" hidden>
+          <button type="button" role="menuitemradio" data-lang="pt" aria-current="true"><svg class="bandeira" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2.5" fill="#009B3A"/><path d="M14 3 25 10 14 17 3 10Z" fill="#FEDF00"/><circle cx="14" cy="10" r="4.2" fill="#002776"/><path d="M9.9 8.6a9 9 0 0 1 8.1 2.2" stroke="#fff" stroke-width="1.1" fill="none"/></svg> Português <em>PT</em></button>
+          <button type="button" role="menuitemradio" data-lang="en" aria-current="false"><svg class="bandeira" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2.5" fill="#fff"/><g fill="#B22234"><rect width="28" height="1.54" y="0"/><rect width="28" height="1.54" y="3.08"/><rect width="28" height="1.54" y="6.15"/><rect width="28" height="1.54" y="9.23"/><rect width="28" height="1.54" y="12.31"/><rect width="28" height="1.54" y="15.38"/><rect width="28" height="1.54" y="18.46"/></g><rect width="12" height="10.77" fill="#3C3B6E"/><g fill="#fff"><circle cx="2.4" cy="2.2" r="0.8"/><circle cx="6" cy="2.2" r="0.8"/><circle cx="9.6" cy="2.2" r="0.8"/><circle cx="4.2" cy="5.4" r="0.8"/><circle cx="7.8" cy="5.4" r="0.8"/><circle cx="2.4" cy="8.6" r="0.8"/><circle cx="6" cy="8.6" r="0.8"/><circle cx="9.6" cy="8.6" r="0.8"/></g></svg> English <em>EN</em></button>
+          <button type="button" role="menuitemradio" data-lang="es" aria-current="false"><svg class="bandeira" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2.5" fill="#AA151B"/><rect y="5" width="28" height="10" fill="#F1BF00"/><rect x="4.4" y="7.6" width="4" height="4.8" rx="0.7" fill="#AD1519"/></svg> Español <em>ES</em></button>
+        </div>
+      </div>
+      <a class="btn btn-accent" href="../index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
+      <button class="tema-btn" id="tema-btn" type="button" aria-label="Alternar entre tema claro e escuro">
+        <svg class="ico-escuro" viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+        <svg class="ico-claro" viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+    </div>
+    <button class="nav-burger" id="burger" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+  </div>
+
+  <!-- O painel abre a partir do próprio cabeçalho. Os cinco tópicos e suas
+       grades ficam todos no HTML e alternam por [hidden]: quem lê sem script
+       continua com a navegação inteira na página, e o rodapé repete o mapa. -->
+  <div class="mega" id="mega" hidden>
+    <div class="mega-in">
+      <div class="mega-topicos" role="tablist" aria-label="Seções do site">
+        <button class="mega-topico" type="button" role="tab" id="mt-1" aria-controls="mp-1" aria-selected="true">Soluções</button>
+        <button class="mega-topico" type="button" role="tab" id="mt-2" aria-controls="mp-2" aria-selected="false">Cases</button>
+        <button class="mega-topico" type="button" role="tab" id="mt-3" aria-controls="mp-3" aria-selected="false">IA &amp; Automação</button>
+        <button class="mega-topico" type="button" role="tab" id="mt-4" aria-controls="mp-4" aria-selected="false">Especialistas &amp; Squads</button>
+        <button class="mega-topico" type="button" role="tab" id="mt-5" aria-controls="mp-5" aria-selected="false">Sobre</button>
+      </div>
+
+      <div class="mega-corpo">
+        <div class="mega-paineis">
+
+          <div id="mp-1" role="tabpanel" aria-labelledby="mt-1">
+            <div class="mega-cards">
+              <a class="mega-card" href="../bi-analytics.html">
+                <span class="tile-ico" data-ico="analytics"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M8 15v3M13 10v8M18 5v13"/></svg></span>
+                <span><b>Analytics &amp; BI</b><p>Do dado organizado à leitura do negócio: dashboards, self-service e governança de métricas.</p></span>
+              </a>
+              <a class="mega-card" href="../data-engineering.html">
+                <span class="tile-ico" data-ico="engenharia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span>
+                <span><b>Engenharia de Dados</b><p>Ingestão, armazenamento, transformação e governança — a base por onde o dado anda.</p></span>
+              </a>
+              <a class="mega-card" href="../ia-automacao.html">
+                <span class="tile-ico" data-ico="ia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4a3 3 0 0 0-5.7 1.2A3.5 3.5 0 0 0 5 12a3.5 3.5 0 0 0 2 6.2A3 3 0 0 0 12 20Z"/><path d="M12 4a3 3 0 0 1 5.7 1.2A3.5 3.5 0 0 1 19 12a3.5 3.5 0 0 1-2 6.2A3 3 0 0 1 12 20ZM8 8h1m-2 5h2m-1 3h1m6-8h1m-1 5h2m-2 3h1M12 4v16"/></svg></span>
+                <span><b>IA &amp; Automação</b><p>Modelos preditivos, detecção de anomalias, GenAI e Document AI sobre a sua própria base.</p></span>
+              </a>
+              <a class="mega-card" href="../alocacao.html">
+                <span class="tile-ico" data-ico="pessoas"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.3"/><path d="M5.5 20.5a6.5 6.5 0 0 1 13 0"/></svg></span>
+                <span><b>Especialistas &amp; Squads <span class="mega-tag">150+ alocados</span></b><p>Gente de dados dentro do seu time, em contratos com o prazo combinado com cada cliente.</p></span>
+              </a>
+            </div>
+          </div>
+
+          <div id="mp-2" role="tabpanel" aria-labelledby="mt-2" hidden>
+            <div class="mega-cards">
+              <a class="mega-card" href="../cases-de-sucesso.html">
+                <span class="tile-ico" data-ico="cases"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m6 14 4-4 3 2 6-7"/><path d="M15 5h4v4"/></svg></span>
+                <span><b>Todos os cases <span class="mega-tag">15 projetos</span></b><p>Cenário, arquitetura, stack e o antes e depois de cada entrega.</p></span>
+              </a>
+              <a class="mega-card" href="../cases-de-sucesso.html#cases">
+                <span class="tile-ico" data-ico="migracao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><path d="M9 6h6M18 9v6M6 9v9h9"/></svg></span>
+                <span><b>De 200+ painéis a um ambiente</b><p>Migração e governança de BI em escala, com uma definição por métrica.</p></span>
+              </a>
+              <a class="mega-card" href="../cases-de-sucesso.html#cases">
+                <span class="tile-ico" data-ico="nuvem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9.5 4.3 4.3 0 0 0 7 18Z"/></svg></span>
+                <span><b>Legado Oracle aposentado</b><p>Modernização para Google Cloud sem interromper a operação.</p></span>
+              </a>
+              <a class="mega-card" href="../index.html#setores">
+                <span class="tile-ico" data-ico="setores"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg></span>
+                <span><b>Setores atendidos <span class="mega-tag">10+</span></b><p>Do bancário ao food service, passando por saúde, educação e varejo.</p></span>
+              </a>
+            </div>
+          </div>
+
+          <div id="mp-3" role="tabpanel" aria-labelledby="mt-3" hidden>
+            <div class="mega-cards">
+              <a class="mega-card" href="../index.html#ia-capacidades">
+                <span class="tile-ico" data-ico="ia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4a3 3 0 0 0-5.7 1.2A3.5 3.5 0 0 0 5 12a3.5 3.5 0 0 0 2 6.2A3 3 0 0 0 12 20Z"/><path d="M12 4a3 3 0 0 1 5.7 1.2A3.5 3.5 0 0 1 19 12a3.5 3.5 0 0 1-2 6.2A3 3 0 0 1 12 20ZM8 8h1m-2 5h2m-1 3h1m6-8h1m-1 5h2m-2 3h1M12 4v16"/></svg></span>
+                <span><b>O que a IA resolve</b><p>Modelos preditivos, detecção de anomalias, GenAI e Document AI.</p></span>
+              </a>
+            </div>
+          </div>
+
+          <div id="mp-4" role="tabpanel" aria-labelledby="mt-4" hidden>
+            <div class="mega-cards">
+              <a class="mega-card" href="../alocacao.html">
+                <span class="tile-ico" data-ico="pessoas"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.3"/><path d="M5.5 20.5a6.5 6.5 0 0 1 13 0"/></svg></span>
+                <span><b>Como funciona</b><p>Especialistas que entram na sua operação e respondem à sua gestão.</p></span>
+              </a>
+              <a class="mega-card" href="../alocacao.html#perfis">
+                <span class="tile-ico" data-ico="perfis"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="3"/><path d="M2.5 19.5a4.5 4.5 0 0 1 9 0"/><path d="M15 8.5h6.5M15 12.5h6.5M15 16.5h4"/></svg></span>
+                <span><b>Perfis disponíveis</b><p>Engenheiros, analistas, cientistas de dados e squads completos.</p></span>
+              </a>
+              <a class="mega-card" href="../alocacao.html#talento">
+                <span class="tile-ico" data-ico="carreira"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/></svg></span>
+                <span><b>Trabalhe com a gente <span class="mega-tag">Carreiras</span></b><p>Banco de talentos da Atlas: envie seu perfil e seu currículo.</p></span>
+              </a>
+              <a class="mega-card" href="../index.html#sobre">
+                <span class="tile-ico" data-ico="tempo"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+                <span><b>Permanência <span class="mega-tag">150 mil+ horas</span></b><p>Contratos com o prazo de cada cliente, muitos por tempo indeterminado.</p></span>
+              </a>
+            </div>
+          </div>
+
+          <div id="mp-5" role="tabpanel" aria-labelledby="mt-5" hidden>
+            <div class="mega-cards">
+              <a class="mega-card" href="../index.html#sobre">
+                <span class="tile-ico" data-ico="empresa"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5h17"/><path d="M5.5 20.5V6.5L12 3.5v17"/><path d="M12 9.5h6.5v11"/><path d="M8 9h1.2M8 12.5h1.2M8 16h1.2M15 13h1.2M15 16.5h1.2"/></svg></span>
+                <span><b>A Atlas</b><p>Consultoria de tecnologia em dados e alocação de especialistas.</p></span>
+              </a>
+              <a class="mega-card" href="../index.html#sobre">
+                <span class="tile-ico" data-ico="valores"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                <span><b>Valores e método</b><p>Clareza, resultado, profundidade e parceria — e como isso vira projeto.</p></span>
+              </a>
+              <a class="mega-card" href="../index.html#sobre">
+                <span class="tile-ico" data-ico="numeros"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19a9 9 0 1 1 14.2 0"/><path d="m12 13 4-5M7 19h10"/><circle cx="12" cy="13" r="1"/></svg></span>
+                <span><b>Números <span class="mega-tag">500+ projetos</span></b><p>Entregas, setores, profissionais alocados e horas em alocação.</p></span>
+              </a>
+              <a class="mega-card" href="../index.html#parceiros">
+                <span class="tile-ico" data-ico="parceiros"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 4-4 4 1 2-1 4 1 4 4-3 3-3-2-3 2-3-2-3 1-3-3Z"/><path d="m7 7 3-3 4 1 3 3M9 14l3 2 3-2M5 13l-2 2 3 3 2-2M19 13l2 2-3 3-2-2"/></svg></span>
+                <span><b>Parceiros <span class="mega-tag">8 programas</span></b><p>Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake e Oracle.</p></span>
+              </a>
+              <a class="mega-card" href="../index.html#contato">
+                <span class="tile-ico" data-ico="contato"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+                <span><b>Contato</b><p>Conversa de 30 minutos, com quem vai executar. Resposta em 1 dia útil.</p></span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <aside class="mega-side">
+          <h3>Por onde começar?</h3>
+          <p>Escolha o caminho mais perto do seu cenário e fale com quem vai executar.</p>
+          <div class="mega-cam">
+            <a href="../index.html#contato">
+              <span class="tile-ico" data-ico="analytics"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M8 15v3M13 10v8M18 5v13"/></svg></span>
+              <span><b>Decidir mais rápido com dados</b><span>Transformar o dado que já existe em leitura do negócio.</span></span>
+              <i aria-hidden="true">&rarr;</i>
+            </a>
+            <a href="../alocacao.html">
+              <span class="tile-ico" data-ico="time"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>
+              <span><b>Reforçar o time com especialistas</b><span>Quando o que falta não é projeto, é gente de dados.</span></span>
+              <i aria-hidden="true">&rarr;</i>
+            </a>
+          </div>
+          <a class="btn btn-accent" href="../index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
+          <a class="btn btn-line" href="../cases-de-sucesso.html" data-magnetic>Ver todos os cases <span class="arr">&rarr;</span></a>
+          <p class="mega-prova">
+            <b>500+</b> projetos <i>·</i> <b>150+</b> alocados <i>·</i>
+            <b>10+</b> setores <i>·</i> <b>150 mil+</b> horas
+          </p>
+        </aside>
+      </div>
+
+      <button class="mega-fechar" id="mega-fechar" type="button" aria-label="Fechar o menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="cbar" id="cbar" hidden>
+    <p>Tem um desafio de dados?</p>
+    <a class="btn btn-accent" href="../index.html#contato">Falar com um especialista <span class="arr">→</span></a>
+    <button class="cbar-x" id="cbar-x" type="button" aria-label="Dispensar">&times;</button>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" aria-label="Navegação mobile" aria-hidden="true">
+  <a href="../index.html#solucoes">Soluções</a>
+  <a href="../index.html#cases">Cases</a>
+  <a href="../index.html#sobre">Sobre</a>
+  <a href="../index.html#ia-capacidades">IA &amp; Automação</a>
+  <a href="../alocacao.html#talento">Trabalhe com a gente</a>
+  <a class="btn btn-accent" href="../index.html#contato">Falar com um especialista <span class="arr">→</span></a>
+</nav>
+
+<main id="inicio">
+
+  <section class="caso-topo">
+    <div class="wrap">
+      <a class="voltar" href="../cases-de-sucesso.html"><span aria-hidden="true">&larr;</span> Voltar para cases</a>
+    </div>
+    <figure class="caso-capa">
+      <img src="../media/cases/design.svg" alt="Protótipos em Figma fixaram o padrão antes do desenvolvimento dos painéis.">
+    </figure>
+    <div class="wrap">
+      <p class="caso-eyebrow">Case de sucesso &mdash; cliente confidencial</p>
+      <h1 class="h-xl">O padrão visual antes do primeiro painel</h1>
+      <p class="sub caso-lead">Protótipos em Figma fixaram o padrão antes do desenvolvimento dos painéis.</p>
+    </div>
+  </section>
+
+  <section class="sec caso-corpo">
+    <div class="wrap caso-grid">
+      <div class="caso-main">
+      <div class="ad reveal" aria-label="Antes e depois">
+        <div class="ad-lado"><p class="ad-k">Antes</p><p class="ad-n">Padrão depois</p><p class="ad-d"></p></div>
+        <span class="ad-seta" aria-hidden="true">&rarr;</span>
+        <div class="ad-lado ad-pos"><p class="ad-k">Depois</p><p class="ad-n">Padrão antes</p><p class="ad-d"></p></div>
+      </div>
+      <section class="caso-bloco reveal">
+        <h2>Desafios</h2>
+        <ul class="caso-lista">
+            <li>O padrão visual era definido depois, painel a painel, quando já havia centenas deles.</li>
+            <li>Cada dashboard novo nascia com uma leitura diferente da anterior.</li>
+        </ul>
+      </section>
+      <section class="caso-bloco reveal">
+        <h2>Solução</h2>
+        <p>Protótipos em Figma fixando o padrão visual antes do desenvolvimento, e centenas de dashboards Power BI construídos já dentro dele.</p>
+      </section>
+      <section class="caso-bloco reveal">
+        <h2>Resultados</h2>
+        <ul class="caso-lista caso-res">
+            <li>Padrão depois → Padrão antes</li>
+        </ul>
+      </section>
+      </div>
+
+      <aside class="caso-info reveal d1">
+        <h2>Informações do projeto</h2>
+        <dl>
+          <div class="inf-campo">
+            <dt>Parceiros</dt>
+            <dd><span>Microsoft</span></dd>
+          </div>
+          <div class="inf-campo">
+            <dt>Tecnologias</dt>
+            <dd><span class="lg-tec" title="Figma"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/figma.svg);--bc:#F24E1E"></span></span>Figma</span><span class="lg-tec" title="Power BI"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/powerbi.svg);--bc:#E8B80A"></span></span>Power BI</span><span class="lg-txt">Data Design</span></dd>
+          </div>
+          <div class="inf-campo">
+            <dt>Áreas de atuação</dt>
+            <dd><span>Data Visualization</span><span>Design de dados</span><span>Business Intelligence</span></dd>
+          </div>
+          <div class="inf-campo">
+            <dt>Setor</dt>
+            <dd><span>Saúde Hospitalar</span></dd>
+          </div>
+        </dl>
+        <p class="inf-nota">Nome do cliente preservado por confidencialidade.</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="sec final">
+    <div class="wrap">
+      <h2>Entre em contato</h2>
+      <p class="sub">Conte o seu cenário para quem vai executar. Em 30 minutos mapeamos o caminho &mdash; mesmo que ele não passe pela gente.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-accent" href="../index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>
+        <a class="btn btn-line" href="../cases-de-sucesso.html" data-magnetic>Ver todos os cases <span class="arr">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="cases-more-head">Outros projetos</h2>
+      <div class="rels">
+        <a class="rel" href="canais-separados-viraram-uma-plataforma-so.html">
+          <img src="../media/cases/omnichannel.svg" alt="" loading="lazy" decoding="async">
+          <span><b>Canais separados viraram uma plataforma só</b><small>Varejo Multimarca</small></span>
+          <div class="cc-logos"><span class="lg-solo" title="Azure Synapse" aria-label="Azure Synapse" role="img"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/azure.svg);--bc:#0078D4"></span></span></span><span class="lg-solo" title="Databricks" aria-label="Databricks" role="img"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/databricks.svg);--bc:#FF3621"></span></span></span><span class="lg-solo" title="Power BI" aria-label="Power BI" role="img"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/powerbi.svg);--bc:#E8B80A"></span></span></span></div>
+        </a>
+        <a class="rel" href="legado-oracle-aposentado-sem-parar-a-operacao.html">
+          <img src="../media/cases/nuvem.svg" alt="" loading="lazy" decoding="async">
+          <span><b>Legado Oracle aposentado sem parar a operação</b><small>Serviços Financeiros</small></span>
+          <div class="cc-logos"><span class="lg-solo" title="GCP" aria-label="GCP" role="img"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/googlecloud.svg);--bc:#4285F4"></span></span></span><span class="lg-solo" title="BigQuery" aria-label="BigQuery" role="img"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/bigquery.svg);--bc:#669DF6"></span></span></span><span class="lg-solo" title="dbt" aria-label="dbt" role="img"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/dbt.svg);--bc:#FF694B"></span></span></span><span class="lg-solo" title="Airflow" aria-label="Airflow" role="img"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/airflow.svg);--bc:#017CEE"></span></span></span><span class="lg-solo" title="Looker" aria-label="Looker" role="img"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/looker.svg);--bc:#4285F4"></span></span></span></div>
+        </a>
+        <a class="rel" href="de-200-paineis-sem-padrao-a-um-ambiente-so.html">
+          <img src="../media/cases/governanca.svg" alt="" loading="lazy" decoding="async">
+          <span><b>De 200+ painéis sem padrão a um ambiente só</b><small>BI Governance</small></span>
+          <div class="cc-logos"><span class="lg-solo" title="Power BI" aria-label="Power BI" role="img"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/powerbi.svg);--bc:#E8B80A"></span></span></span><span class="lg-solo" title="Looker" aria-label="Looker" role="img"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/looker.svg);--bc:#4285F4"></span></span></span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a class="brand" href="../index.html#inicio"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="footerMarkGradient" x1="4" y1="6" x2="96" y2="92" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#6FD4FF"/><stop offset="0.5" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/></linearGradient></defs><path d="M50 58 L64 82 L36 82 Z" fill="#2E9BFF"/><path d="M50 6 L94 92 L64.5 92 L50 62 L35.5 92 L6 92 Z" fill="url(#footerMarkGradient)"/></svg><span class="wordmark"><b>ATLAS</b><small>TECNOLOGIA</small></span></a>
+      <div class="footer-sig">Data · AI · Cloud</div>
+    </div>
+    <nav aria-label="Soluções">
+      <h4>Soluções</h4>
+      <ul>
+        <li><a href="../bi-analytics.html">Analytics &amp; BI</a></li>
+        <li><a href="../data-engineering.html">Engenharia de Dados</a></li>
+        <li><a href="../ia-automacao.html">IA &amp; Automação</a></li>
+        <li><a href="../alocacao.html">Especialistas &amp; Squads</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Sobre a Atlas">
+      <h4>Sobre</h4>
+      <ul>
+        <li><a href="../index.html#sobre">A Atlas</a></li>
+        <li><a href="../index.html#setores">Setores</a></li>
+        <li><a href="../cases-de-sucesso.html">Cases de sucesso</a></li>
+        <li><a href="../index.html#parceiros">Parceiros</a></li>
+        <li><a href="../alocacao.html#talento">Carreiras</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h4>Fale conosco</h4>
+      <ul>
+        <li><a href="../index.html#contato">Solicitar um diagnóstico</a></li>
+        <li><a href="../privacidade.html">Política de privacidade</a></li>
+        <li><a href="https://www.linkedin.com/company/108583529/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/atlas_tecnologia" target="_blank" rel="noopener">Instagram — @atlas_tecnologia</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Atlas Tec. Todos os direitos reservados.</span>
+    <span>atlas-partner.com</span>
+  </div>
+</footer>
+<button class="chat-fab" id="chat-fab" aria-label="Abrir chat com o assistente da Atlas">
+  <svg viewBox="0 0 64 64" fill="none" class="mascot-float" aria-hidden="true">
+      <line x1="32" y1="8" x2="32" y2="15" stroke="#6E6E78" stroke-width="2"/>
+      <circle class="mascot-dot" cx="32" cy="7" r="3.4" fill="#4C9AFF"/>
+      <rect x="13" y="15" width="38" height="33" rx="11" fill="#1C1C22" stroke="rgba(46,134,255,0.5)" stroke-width="1.6"/>
+      <rect class="mascot-eye" x="22.5" y="25" width="5.6" height="11.5" rx="2.8" fill="#4C9AFF"/>
+      <rect class="mascot-eye" x="35.9" y="25" width="5.6" height="11.5" rx="2.8" fill="#4C9AFF"/>
+      <path d="M26 42.5c2 2.3 10 2.3 12 0" stroke="#6E6E78" stroke-width="1.8" stroke-linecap="round"/>
+      <rect x="8" y="26" width="4" height="10" rx="2" fill="#2A2A31"/>
+      <rect x="52" y="26" width="4" height="10" rx="2" fill="#2A2A31"/>
+    </svg>
+</button>
+
+<div class="chat-teaser" id="chat-teaser" role="button" aria-label="Abrir chat">
+  <button class="x" id="chat-teaser-x" aria-label="Fechar aviso">×</button>
+  <svg viewBox="0 0 64 64" fill="none" class="mascot-float" aria-hidden="true">
+      <line x1="32" y1="8" x2="32" y2="15" stroke="#6E6E78" stroke-width="2"/>
+      <circle class="mascot-dot" cx="32" cy="7" r="3.4" fill="#4C9AFF"/>
+      <rect x="13" y="15" width="38" height="33" rx="11" fill="#1C1C22" stroke="rgba(46,134,255,0.5)" stroke-width="1.6"/>
+      <rect class="mascot-eye" x="22.5" y="25" width="5.6" height="11.5" rx="2.8" fill="#4C9AFF"/>
+      <rect class="mascot-eye" x="35.9" y="25" width="5.6" height="11.5" rx="2.8" fill="#4C9AFF"/>
+      <path d="M26 42.5c2 2.3 10 2.3 12 0" stroke="#6E6E78" stroke-width="1.8" stroke-linecap="round"/>
+      <rect x="8" y="26" width="4" height="10" rx="2" fill="#2A2A31"/>
+      <rect x="52" y="26" width="4" height="10" rx="2" fill="#2A2A31"/>
+    </svg>
+  <p><b>Olá! Eu sou o Átis.</b><br>Como posso ajudar? 👋</p>
+</div>
+
+<div class="chat-panel" id="chat-panel" role="dialog" aria-label="Chat com o assistente da Atlas">
+  <div class="chat-head">
+    <svg viewBox="0 0 64 64" fill="none" class="mascot-float" aria-hidden="true">
+      <line x1="32" y1="8" x2="32" y2="15" stroke="#6E6E78" stroke-width="2"/>
+      <circle class="mascot-dot" cx="32" cy="7" r="3.4" fill="#4C9AFF"/>
+      <rect x="13" y="15" width="38" height="33" rx="11" fill="#1C1C22" stroke="rgba(46,134,255,0.5)" stroke-width="1.6"/>
+      <rect class="mascot-eye" x="22.5" y="25" width="5.6" height="11.5" rx="2.8" fill="#4C9AFF"/>
+      <rect class="mascot-eye" x="35.9" y="25" width="5.6" height="11.5" rx="2.8" fill="#4C9AFF"/>
+      <path d="M26 42.5c2 2.3 10 2.3 12 0" stroke="#6E6E78" stroke-width="1.8" stroke-linecap="round"/>
+      <rect x="8" y="26" width="4" height="10" rx="2" fill="#2A2A31"/>
+      <rect x="52" y="26" width="4" height="10" rx="2" fill="#2A2A31"/>
+    </svg>
+    <div class="who">
+      <b>Átis — Assistente Atlas</b>
+      <span>Online agora</span>
+    </div>
+    <button class="chat-close" id="chat-close" aria-label="Fechar chat">×</button>
+  </div>
+  <div class="chat-msgs" id="chat-msgs">
+    <div class="chat-msg bot">Olá! 👋 Eu sou o <b>Átis</b>, o assistente da Atlas. Me conta: como posso ajudar você hoje?</div>
+  </div>
+  <div class="chat-chips" id="chat-chips">
+    <button data-msg="Quero um orçamento para um projeto de dados/BI.">💼 Quero um orçamento</button>
+    <button data-msg="Preciso de especialistas em dados para o meu time.">👥 Preciso de especialistas</button>
+    <button data-msg="Tenho outro assunto para tratar.">💬 Outro assunto</button>
+  </div>
+  <div class="chat-input">
+    <input id="chat-input" type="text" placeholder="Escreva sua mensagem…" maxlength="600" autocomplete="off">
+    <button id="chat-send" aria-label="Enviar mensagem">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- /chat -->
+<script>
+(function () {
+  'use strict';
+  // O site antigo forçava reduced=false porque as animações de CANVAS
+  // (partículas, universo de tecnologias) deixavam a página parecendo
+  // travada quando o sistema pedia menos movimento. Sem canvas nesta versão,
+  // a preferência do usuário pode — e deve — ser respeitada de verdade.
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  /* ---------- Cursor customizado ---------- */
+  if (finePointer && !reduced) {
+    document.body.classList.add('has-cursor');
+    const dot = document.querySelector('.cursor-dot');
+    const ring = document.querySelector('.cursor-ring');
+    const label = ring.querySelector('span');
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+    (function loop() {
+      rx = lerp(rx, mx, 0.18); ry = lerp(ry, my, 0.18);
+      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+      requestAnimationFrame(loop);
+    })();
+    document.addEventListener('mouseover', (e) => {
+      const labelled = e.target.closest('[data-cursor]');
+      const link = e.target.closest('a, button');
+      if (labelled) {
+        ring.classList.add('is-label'); ring.classList.remove('is-link');
+        label.textContent = labelled.getAttribute('data-cursor');
+      } else if (link) {
+        ring.classList.add('is-link'); ring.classList.remove('is-label');
+      } else {
+        ring.classList.remove('is-link', 'is-label');
+      }
+    });
+  }
+
+  /* ---------- Botões magnéticos ---------- */
+  if (finePointer && !reduced) {
+    document.querySelectorAll('[data-magnetic]').forEach((el) => {
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+        const y = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+        el.style.transform = 'translate(' + x * 5 + 'px,' + y * 5 + 'px)';
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+    });
+  }
+
+  /* ---------- Nav ---------- */
+  const nav = document.getElementById('nav');
+  const onScrollNav = () => nav.classList.toggle('is-scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScrollNav, { passive: true });
+  onScrollNav();
+
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    mobileMenu.setAttribute('aria-hidden', String(!open));
+    burger.textContent = open ? 'Fechar' : 'Menu';
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileMenu.addEventListener('click', (e) => {
+    if (e.target.closest('a')) {
+      mobileMenu.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.textContent = 'Menu';
+      document.body.style.overflow = '';
+    }
+  });
+
+  /* ---------- Barra de progresso ---------- */
+  // Sem a guarda, uma página sem a barra derruba este handler e todos os
+  // que forem registrados depois dele.
+  const bar = document.getElementById('progress-bar');
+  if (bar) window.addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+  }, { passive: true });
+
+  /* ---------- Reveals ---------- */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: 0.14 });
+  document.querySelectorAll('.reveal, .m-step').forEach((el) => io.observe(el));
+
+  /* ---------- Split do título do hero ---------- */
+  const h1 = document.getElementById('hero-title');
+  if (!reduced && h1) {
+    const split = (node) => {
+      [...node.childNodes].forEach((child) => {
+        if (child.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const w = document.createElement('span'); w.className = 'w'; w.setAttribute('aria-hidden', 'true');
+            const inner = document.createElement('span'); inner.textContent = part;
+            w.appendChild(inner); frag.appendChild(w);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) split(child);
+      });
+    };
+    split(h1);
+    h1.querySelectorAll('.w > span').forEach((s, i) => { s.style.animationDelay = (0.08 + i * 0.055) + 's'; });
+  }
+
+  /* ---------- Contadores ---------- */
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      cio.unobserve(en.target);
+      const el = en.target;
+      const to = parseFloat(el.dataset.to);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      if (reduced) { el.innerHTML = prefix + to + suffix; return; }
+      const t0 = performance.now();
+      const dur = 1400;
+      (function tick(t) {
+        const p = clamp((t - t0) / dur, 0, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.innerHTML = prefix + Math.round(to * eased) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.count').forEach((el) => cio.observe(el));
+
+
+  /* ---------- Accordion de serviços ---------- */
+  document.querySelectorAll('.sol-head').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.sol-item');
+      const wasOpen = item.classList.contains('open');
+      item.parentElement.querySelectorAll('.sol-item.open').forEach((other) => {
+        if (other !== item) {
+          other.classList.remove('open');
+          other.querySelector('.sol-head').setAttribute('aria-expanded', 'false');
+        }
+      });
+      item.classList.toggle('open', !wasOpen);
+      btn.setAttribute('aria-expanded', String(!wasOpen));
+    });
+  });
+
+  /* ---------- Vídeo da marca: toca quando visível ---------- */
+  (function () {
+    const video = document.getElementById('brand-video');
+    if (!video || reduced) return;
+    const vio = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          video.play().catch(() => {});
+          vio.unobserve(video);
+        }
+      });
+    }, { threshold: 0.4 });
+    vio.observe(video);
+  })();
+
+  /* ---------- Marquee: duplicar para loop ---------- */
+  // Guarda: se a faixa de setores não estiver na página, o resto deste
+  // bloco (incluindo o chat) não pode morrer junto.
+  const track = document.getElementById('marquee-track');
+  if (track) track.innerHTML += track.innerHTML;
+
+  /* ---------- Chat Átis: mascote + captura de lead ---------- */
+  (function () {
+    const fab = document.getElementById('chat-fab');
+    const panel = document.getElementById('chat-panel');
+    const teaser = document.getElementById('chat-teaser');
+    const teaserX = document.getElementById('chat-teaser-x');
+    const closeBtn = document.getElementById('chat-close');
+    const msgs = document.getElementById('chat-msgs');
+    const chips = document.getElementById('chat-chips');
+    const input = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('chat-send');
+    if (!fab || !panel) return;
+    const ENDPOINT = 'https://formsubmit.co/ajax/sergio.lavezo@atlas-partner.com';
+    let stage = 0; // 0 = aguardando mensagem, 1 = aguardando contato, 2 = enviado
+    let pendingMsg = '';
+
+    // ---- Som de notificação Atlas (sintetizado, sem arquivo) ----
+    // Duas notas em quinta perfeita (A5 → E6), ataque suave, decaimento
+    // rápido — minimalista como WhatsApp, timbre limpo como a marca.
+    let audioCtx = null, dingPlayed = false;
+    function unlockAudio() {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        if (!audioCtx) audioCtx = new AC();
+        if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+      } catch (e) {}
+    }
+    ['pointerdown', 'touchstart', 'keydown'].forEach((ev) =>
+      window.addEventListener(ev, unlockAudio, { once: true, passive: true }));
+    // Sintetizador: notas = [freq, atraso, duração, volume, freqFinal?]
+    function tone(notes) {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return false;
+        if (!audioCtx) audioCtx = new AC();
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().catch(() => {});
+          if (audioCtx.state === 'suspended') return false; // sem gesto do usuário ainda
+        }
+        const t0 = audioCtx.currentTime + 0.02;
+        notes.forEach(([freq, dt, dur, vol, freqEnd]) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, t0 + dt);
+          if (freqEnd) osc.frequency.exponentialRampToValueAtTime(freqEnd, t0 + dt + dur);
+          gain.gain.setValueAtTime(0, t0 + dt);
+          gain.gain.linearRampToValueAtTime(vol, t0 + dt + 0.012);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dt + dur);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(t0 + dt);
+          osc.stop(t0 + dt + dur + 0.05);
+        });
+        return true;
+      } catch (e) { return false; }
+    }
+    // Convite do Átis: duas notas em quinta (A5 → E6)
+    function playDing() { if (tone([[880, 0, 0.22, 0.13], [1318.5, 0.095, 0.3, 0.13]])) dingPlayed = true; }
+    // Visitante envia: "pop" grave descendente, curtinho
+    function playSend() { tone([[520, 0, 0.1, 0.1, 330]]); }
+    // Átis responde: "ding" agudo suave, nota única
+    function playRecv() { tone([[1318.5, 0, 0.16, 0.09]]); }
+
+    function addMsg(text, who) {
+      const d = document.createElement('div');
+      d.className = 'chat-msg ' + who;
+      d.textContent = text;
+      msgs.appendChild(d);
+      msgs.scrollTop = msgs.scrollHeight;
+      if (who === 'user') playSend(); else playRecv();
+    }
+    function botSay(text, delay) {
+      setTimeout(() => { addMsg(text, 'bot'); }, delay || 650);
+    }
+    // Mensagem do bot com link de ação (usado no fallback de erro)
+    function botSayAction(text, linkText, href, delay) {
+      setTimeout(() => {
+        const d = document.createElement('div');
+        d.className = 'chat-msg bot';
+        d.appendChild(document.createTextNode(text + ' '));
+        const a = document.createElement('a');
+        a.href = href;
+        a.textContent = linkText;
+        a.addEventListener('click', closePanel);
+        d.appendChild(a);
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+        playRecv();
+      }, delay || 650);
+    }
+    function hideTeaser() { teaser.classList.remove('show'); }
+    function openPanel() {
+      hideTeaser();
+      panel.classList.add('open');
+      if (!dingPlayed) playDing();
+      try { sessionStorage.setItem('atlas-chat-seen', '1'); } catch (e) {}
+      setTimeout(() => input.focus(), 350);
+    }
+    function closePanel() { panel.classList.remove('open'); }
+
+    fab.addEventListener('click', () => panel.classList.contains('open') ? closePanel() : openPanel());
+    closeBtn.addEventListener('click', closePanel);
+    teaser.addEventListener('click', openPanel);
+    teaserX.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hideTeaser();
+      try { sessionStorage.setItem('atlas-chat-seen', '1'); } catch (e2) {}
+    });
+
+    // Convite discreto 5s após entrar no site (uma vez por sessão)
+    let seen = false;
+    try { seen = !!sessionStorage.getItem('atlas-chat-seen'); } catch (e) {}
+    if (!seen) {
+      setTimeout(() => {
+        if (!panel.classList.contains('open')) {
+          teaser.classList.add('show');
+          playDing();
+        }
+      }, 5000);
+    }
+
+    chips.addEventListener('click', (e) => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      input.value = b.dataset.msg || b.textContent;
+      submit();
+    });
+
+    async function submit() {
+      const t = input.value.trim();
+      if (!t || stage === 2) return;
+      addMsg(t, 'user');
+      input.value = '';
+      if (stage === 0) {
+        pendingMsg = t;
+        stage = 1;
+        chips.style.display = 'none';
+        botSay('Perfeito! 🙌 Para o nosso time te responder, me deixa um e-mail ou WhatsApp?');
+        input.placeholder = 'Seu e-mail ou WhatsApp…';
+      } else if (stage === 1) {
+        const contato = t;
+        stage = 2;
+        input.disabled = true;
+        sendBtn.disabled = true;
+        try {
+          const r = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              _subject: 'Novo contato pelo CHAT do site (Átis)',
+              _template: 'table',
+              origem: 'Chat do site — mascote Átis',
+              mensagem: pendingMsg,
+              contato: contato,
+              pagina: location.href,
+            }),
+          });
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          botSay('Prontinho! ✅ Sua mensagem chegou para o nosso time. Vamos te responder em breve no contato que você deixou. Obrigado!', 800);
+        } catch (err) {
+          stage = 1;
+          input.disabled = false;
+          sendBtn.disabled = false;
+          botSayAction(
+            'Ops, tive uma instabilidade aqui e sua mensagem não saiu. 😕 Tente de novo em instantes — ou envie agora mesmo pelo nosso formulário:',
+            'ir para Fale conosco →', '#contato', 800);
+        }
+      }
+    }
+    sendBtn.addEventListener('click', submit);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); submit(); }
+    });
+  })();
+
+  /* ---------- Formulário → sergio.lavezo@atlas-partner.com (FormSubmit) ---------- */
+  const form = document.getElementById('form');
+  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/sergio.lavezo@atlas-partner.com';
+  if (form) form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const btn = form.querySelector('button[type="submit"]');
+    const errEl = document.getElementById('form-error');
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    const data = Object.fromEntries(new FormData(form).entries());
+    data._subject = 'Novo contato pelo site — ' + (data.empresa || data.nome);
+    data._template = 'table';
+    try {
+      const r = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      form.classList.add('sent');
+    } catch (err) {
+      errEl.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Enviar → ';
+    }
+  });
+
+})();
+</script>
+<script>
+/* O brilho percorre a lista de serviços conforme a página desce.
+   A frente marca a frente que o leitor está encarando; o que ficou para
+   trás permanece aceso. Sem loop: só recalcula quando alguém rola. */
+(function () {
+  const items = Array.prototype.slice.call(document.querySelectorAll('.sol-item'));
+  if (!items.length) return;
+
+  let raf = 0;
+  function update() {
+    raf = 0;
+    // A linha de leitura fica a 45% da altura da janela: é onde o olho
+    // costuma estar, e não no centro exato.
+    const line = window.innerHeight * 0.45;
+    let head = -1, best = Infinity;
+    for (let i = 0; i < items.length; i++) {
+      const r = items[i].getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) continue;
+      const d = Math.abs(r.top + r.height / 2 - line);
+      if (d < best) { best = d; head = i; }
+    }
+    for (let i = 0; i < items.length; i++) {
+      items[i].classList.toggle('is-on', head >= 0 && i <= head);
+      items[i].classList.toggle('is-head', i === head);
+    }
+  }
+  function schedule() { if (!raf) raf = requestAnimationFrame(update); }
+
+  update();
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
+  // As sanfonas mudam a altura dos itens: recalcula quando abrem.
+  document.addEventListener('click', schedule, true);
+})();
+</script>
+<script>
+/* ============================================================
+   Interações do redesenho. Tudo dirigido por scroll ou toque —
+   nenhum autoplay. Cada bloco só recalcula quando há o que mudar.
+   ============================================================ */
+(function () {
+  'use strict';
+
+
+
+
+  /* ---------- Barra de conversa ---------- */
+  var cbar = document.getElementById('cbar');
+  if (cbar) {
+    var hero = document.querySelector('.hero');
+    var contato = document.getElementById('contato');
+    var dispensada = false;
+    try { dispensada = sessionStorage.getItem('cbar-off') === '1'; } catch (e) {}
+    var bx = document.getElementById('cbar-x');
+    if (bx) bx.addEventListener('click', function () {
+      dispensada = true;
+      cbar.classList.remove('on');
+      try { sessionStorage.setItem('cbar-off', '1'); } catch (e) {}
+    });
+    var navEl = document.querySelector('.nav');
+    function medirNav() {
+      if (navEl) document.documentElement.style.setProperty('--navh', navEl.getBoundingClientRect().height + 'px');
+    }
+    window.addEventListener('resize', medirNav, { passive: true });
+    // A nav encolhe com transição de 0,3s; medir só no scroll capturaria a
+    // altura no meio do caminho e a barra ficaria 1px por cima.
+    if (navEl) navEl.addEventListener('transitionend', medirNav);
+    var braf = 0;
+    function cbarCheck() {
+      braf = 0;
+      medirNav();
+      if (dispensada) { cbar.classList.remove('on'); return; }
+      var passouHero = hero ? hero.getBoundingClientRect().bottom < 0 : window.scrollY > 600;
+      // Some quando o contato entra na tela: ali o pedido já está na página.
+      var noContato = contato ? contato.getBoundingClientRect().top < window.innerHeight : false;
+      var mostrar = passouHero && !noContato;
+      if (mostrar && cbar.hidden) cbar.hidden = false;
+      cbar.classList.toggle('on', mostrar);
+    }
+    window.addEventListener('scroll', function () {
+      if (!braf) braf = requestAnimationFrame(cbarCheck);
+    }, { passive: true });
+    cbarCheck();
+  }
+
+
+  /* ---------- Acende ao entrar na tela: timeline ---------- */
+  var tl = document.getElementById('tl');
+  var tlFill = document.getElementById('tl-fill');
+  var tlSteps = tl ? [].slice.call(tl.querySelectorAll('.tl-step')) : [];
+
+
+  function timeline() {
+    if (!tl) return;
+    var r = tl.getBoundingClientRect();
+    var line = window.innerHeight * 0.5;
+    var done = 0;
+    tlSteps.forEach(function (st) {
+      var sr = st.getBoundingClientRect();
+      var on = sr.top < line;
+      st.classList.toggle('on', on);
+      if (on) done = sr.top - r.top + sr.height * 0.5;
+    });
+    tlFill.style.height = Math.max(0, Math.min(r.height, done)) + 'px';
+  }
+
+  var raf = 0;
+  function update() { raf = 0; timeline(); }
+  function schedule() { if (!raf) raf = requestAnimationFrame(update); }
+
+  update();
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
+})();
+</script>
+<script>
+/* ---------- Carrossel dos cases ---------- */
+(function () {
+  var trilho = document.getElementById('carr-trilho');
+  if (!trilho) return;
+  var cards = [].slice.call(trilho.children);
+  if (cards.length < 2) return;
+  var pontos = document.getElementById('carr-pontos');
+  var ant = document.getElementById('carr-ant');
+  var prox = document.getElementById('carr-prox');
+  var i = 0, timer = 0, parado = false;
+  var INTERVALO = 7000;
+  var barra = document.querySelector('#carr-progresso i');
+  var prog = document.getElementById('carr-progresso');
+  var t0 = 0, praf = 0;
+
+  cards.forEach(function (c, k) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'carr-ponto';
+    b.setAttribute('aria-label', 'Ver o case ' + (k + 1) + ' de ' + cards.length);
+    b.addEventListener('click', function () { parar(); ir(k); });
+    pontos.appendChild(b);
+  });
+  var bolas = [].slice.call(pontos.children);
+
+  function pintar() {
+    bolas.forEach(function (b, k) { b.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    ant.disabled = i === 0;
+    prox.disabled = i === cards.length - 1;
+  }
+
+  function ir(k) {
+    i = Math.max(0, Math.min(cards.length - 1, k));
+    /* scrollLeft em vez de scrollIntoView: scrollIntoView rola a página
+       inteira até o cartão, e a seção salta embaixo do leitor. */
+    trilho.scrollLeft = cards[i].offsetLeft - cards[0].offsetLeft;
+    pintar();
+  }
+
+  /* quem rolou com o dedo ou com o trackpad também move o indicador */
+  var tRolar;
+  trilho.addEventListener('scroll', function () {
+    clearTimeout(tRolar);
+    tRolar = setTimeout(function () {
+      var base = cards[0].offsetLeft;
+      var perto = 0, melhor = Infinity;
+      cards.forEach(function (c, k) {
+        var d = Math.abs((c.offsetLeft - base) - trilho.scrollLeft);
+        if (d < melhor) { melhor = d; perto = k; }
+      });
+      if (perto !== i) { i = perto; pintar(); }
+    }, 120);
+  }, { passive: true });
+
+  /* A barra azul mostra quanto falta para o próximo. Desenhada por rAF e
+     não por animação CSS porque precisa retomar de onde parou quando o
+     ponteiro sai do carrossel, em vez de recomeçar do zero. */
+  function pintarBarra() {
+    if (!barra) return;
+    barra.style.width = (Math.min(1, (Date.now() - t0) / INTERVALO) * 100).toFixed(2) + '%';
+    praf = requestAnimationFrame(pintarBarra);
+  }
+  function pararBarra() { if (praf) { cancelAnimationFrame(praf); praf = 0; } }
+
+  function tique() { ir(i === cards.length - 1 ? 0 : i + 1); t0 = Date.now(); }
+  function tocar() {
+    if (parado || timer) return;
+    t0 = Date.now();
+    timer = setInterval(tique, INTERVALO);
+    pararBarra(); pintarBarra();
+  }
+  function pausar() { if (timer) { clearInterval(timer); timer = 0; } pararBarra(); }
+  /* parar é definitivo: depois que alguém usou os controles, o carrossel
+     não volta a andar sozinho por cima da leitura */
+  function parar() {
+    parado = true; pausar();
+    /* some em vez de deixar uma barra congelada sem significado */
+    if (prog) prog.classList.add('parado');
+  }
+
+  ant.addEventListener('click', function () { parar(); ir(i - 1); });
+  prox.addEventListener('click', function () { parar(); ir(i + 1); });
+  /* Encostar não é comandar. No celular o carrossel ocupa quase 60% da
+     altura da tela, então o dedo passa por cima dele toda vez que alguém
+     rola a página — e tratar isso como "assumi o controle" matava o avanço
+     automático antes de o visitante ver o primeiro giro. Só arrasto
+     horizontal de verdade conta como comando: o resto pausa e volta.
+     A maior distância percorrida é medida no pointermove porque o
+     pointercancel (que é o que chega quando o navegador assume a rolagem)
+     costuma trazer a coordenada de onde o dedo começou, não de onde parou. */
+  var ARRASTO = 30;
+  var tx = 0, ty = 0, dedoNoTrilho = false, dx = 0, dy = 0;
+
+  trilho.addEventListener('pointerdown', function (e) {
+    tx = e.clientX; ty = e.clientY; dx = dy = 0;
+    dedoNoTrilho = true;
+    pausar();
+  });
+  trilho.addEventListener('pointermove', function (e) {
+    if (!dedoNoTrilho) return;
+    dx = Math.max(dx, Math.abs(e.clientX - tx));
+    dy = Math.max(dy, Math.abs(e.clientY - ty));
+  }, { passive: true });
+  ['pointerup', 'pointercancel'].forEach(function (ev) {
+    trilho.addEventListener(ev, function () {
+      if (!dedoNoTrilho) return;
+      dedoNoTrilho = false;
+      if (dx > ARRASTO && dx > dy) parar();   /* arrastou o carrossel de lado */
+      else tocar();                            /* só encostou, ou rolou a página */
+    });
+  });
+  ['pointerenter', 'focusin'].forEach(function (e) { trilho.parentNode.addEventListener(e, pausar); });
+  ['pointerleave', 'focusout'].forEach(function (e) { trilho.parentNode.addEventListener(e, tocar); });
+  document.addEventListener('visibilitychange', function () { document.hidden ? pausar() : tocar(); });
+
+  trilho.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); parar(); ir(i + 1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); parar(); ir(i - 1); }
+  });
+
+  window.addEventListener('resize', function () { ir(i); });
+
+  pintar();
+  /* só começa a girar quando a seção aparece */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { e.isIntersecting ? tocar() : pausar(); });
+    }, { threshold: 0.25 }).observe(trilho);
+  } else { tocar(); }
+})();
+</script>
+
+<script>
+/* ---------- Mega-menu ---------- */
+(function () {
+  var bt = document.getElementById('nav-toggle');
+  var mega = document.getElementById('mega');
+  if (!bt || !mega) return;
+  var fechar = document.getElementById('mega-fechar');
+  var topicos = [].slice.call(mega.querySelectorAll('.mega-topico'));
+  var aberto = false;
+
+  function mostrar(v) {
+    aberto = v;
+    bt.setAttribute('aria-expanded', v ? 'true' : 'false');
+    if (v) {
+      mega.hidden = false;
+      /* um quadro entre revelar e animar, senão a transição de max-height
+         não tem de onde partir */
+      requestAnimationFrame(function () { mega.classList.add('on'); });
+    } else {
+      mega.classList.remove('on');
+      var fim = function () { if (!aberto) mega.hidden = true; mega.removeEventListener('transitionend', fim); };
+      mega.addEventListener('transitionend', fim);
+      /* se a transição não disparar (reduced-motion), esconde mesmo assim */
+      setTimeout(function () { if (!aberto) mega.hidden = true; }, 450);
+    }
+  }
+
+  function abrirTopico(i, focar) {
+    topicos.forEach(function (t, k) {
+      var sel = k === i;
+      t.setAttribute('aria-selected', sel ? 'true' : 'false');
+      t.tabIndex = sel ? 0 : -1;
+      var pan = document.getElementById(t.getAttribute('aria-controls'));
+      if (pan) pan.hidden = !sel;
+    });
+    if (focar) topicos[i].focus();
+  }
+
+  bt.addEventListener('click', function () { mostrar(!aberto); });
+  if (fechar) fechar.addEventListener('click', function () { mostrar(false); bt.focus(); });
+
+  topicos.forEach(function (t, i) {
+    t.addEventListener('click', function () { abrirTopico(i, false); });
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) { e.preventDefault(); abrirTopico((i + d + topicos.length) % topicos.length, true); }
+    });
+  });
+  abrirTopico(0, false);
+
+  /* fecha ao navegar, ao clicar fora e no Esc */
+  mega.addEventListener('click', function (e) { if (e.target.closest('a')) mostrar(false); });
+  document.addEventListener('click', function (e) {
+    if (aberto && !mega.contains(e.target) && !bt.contains(e.target)) mostrar(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && aberto) { mostrar(false); bt.focus(); }
+  });
+})();
+</script>
+
+<script>
+/* ---------- Soluções: lista 01–04 e painel ---------- */
+(function () {
+  var abas = [].slice.call(document.querySelectorAll('.sol-item[role="tab"]'));
+  if (!abas.length) return;
+
+  function abrir(i, focar) {
+    abas.forEach(function (ab, k) {
+      var sel = k === i;
+      ab.setAttribute('aria-selected', sel ? 'true' : 'false');
+      ab.tabIndex = sel ? 0 : -1;
+      var pan = document.getElementById(ab.getAttribute('aria-controls'));
+      if (pan) pan.hidden = !sel;
+    });
+    if (focar) abas[i].focus();
+  }
+
+  abas.forEach(function (ab, i) {
+    ab.addEventListener('click', function () { abrir(i, false); });
+    ab.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1
+            : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) { e.preventDefault(); abrir((i + d + abas.length) % abas.length, true); }
+      else if (e.key === 'Home') { e.preventDefault(); abrir(0, true); }
+      else if (e.key === 'End') { e.preventDefault(); abrir(abas.length - 1, true); }
+    });
+  });
+  abrir(0, false);
+
+  /* A troca e por passagem do mouse, nao automatica: o painel do lado
+     muda assim que o ponteiro entra em um item da lista. O avanco por
+     tempo que existia aqui foi retirado a pedido — com hover, um relogio
+     correndo por baixo brigaria com a intencao de quem esta apontando.
+
+     pointerenter e nao mouseenter porque o primeiro tambem cobre caneta e
+     toque. Em tela sem ponteiro de verdade (celular) o evento nao dispara
+     de forma util, entao o clique continua sendo o caminho — e ele ja
+     funciona pelo mesmo abrir(). */
+  var fino = window.matchMedia ? window.matchMedia('(hover: hover) and (pointer: fine)') : null;
+  abas.forEach(function (ab, i) {
+    ab.addEventListener('pointerenter', function (e) {
+      if (e.pointerType === 'touch') return;
+      if (fino && !fino.matches) return;
+      abrir(i, false);
+    });
+  });
+})();
+</script>
+
+<script>
+/* ---------- Alternador de tema ---------- */
+(function () {
+  var btn = document.getElementById('tema-btn');
+  if (!btn) return;
+  var raiz = document.documentElement;
+  var meta = document.querySelector('meta[name="theme-color"]');
+
+  function aplicar(t, guardar) {
+    raiz.setAttribute('data-tema', t);
+    if (meta) meta.setAttribute('content', t === 'claro' ? '#F2F1ED' : '#05070A');
+    btn.setAttribute('aria-label', t === 'claro' ? 'Mudar para o tema escuro' : 'Mudar para o tema claro');
+    if (guardar) { try { localStorage.setItem('atlas-tema', t); } catch (e) {} }
+    /* a constelação relê as cores daqui */
+    document.dispatchEvent(new CustomEvent('atlas:tema', { detail: { tema: t } }));
+  }
+
+  aplicar(raiz.getAttribute('data-tema') === 'escuro' ? 'escuro' : 'claro', false);
+
+  btn.addEventListener('click', function () {
+    aplicar(raiz.getAttribute('data-tema') === 'claro' ? 'escuro' : 'claro', true);
+  });
+})();
+</script>
+<script>
+/* Campo de hexagonos dos parceiros: distribui os 8 links nas fileiras e completa
+   com celulas vazias. Horizontal em todas as telas: 3 fileiras no desktop e no
+   tablet, 4 no celular (5 colunas), sempre mais largo que alto. */
+(function () {
+  var box = document.getElementById('favo'), L = document.getElementById('favo-linhas');
+  if (!box || !L) return;
+  var links = [].slice.call(L.querySelectorAll('.logo')), cels = [], modoAtual = '', largAtual = 0, q = null;
+  var fino = window.matchMedia ? window.matchMedia('(hover: hover) and (pointer: fine)') : null;
+  var LAY = {
+    d: { c: 8,  r: 3, p: [[0,1],[0,4],[0,7],[1,2],[1,5],[2,0],[2,3],[2,7]] },
+    t: { c: 8,  r: 3, p: [[0,1],[0,4],[0,7],[1,2],[1,5],[2,0],[2,3],[2,7]] },
+    m: { c: 5,  r: 4, p: [[0,1],[0,4],[1,0],[1,2],[2,1],[2,4],[3,1],[3,3]] }
+  };
+  function montar() {
+    var w = box.clientWidth; if (!w) return;
+    var m = w >= 900 ? 'd' : (w >= 560 ? 't' : 'm'), cfg = LAY[m];
+    if (m === modoAtual && w === largAtual) return;
+    modoAtual = m; largAtual = w;
+    var W = Math.floor((w - cfg.c * 4) / cfg.c);
+    L.style.setProperty('--w', W + 'px'); L.classList.add('pronto'); L.innerHTML = ''; cels = [];
+    var mapa = {}; cfg.p.forEach(function (p, i) { mapa[p[0] + ',' + p[1]] = links[i]; });
+    for (var r = 0; r < cfg.r; r++) {
+      var li = document.createElement('div'); li.className = 'favo-linha';
+      var n = r % 2 ? cfg.c - 1 : cfg.c;
+      for (var c = 0; c < n; c++) {
+        var e = mapa[r + ',' + c];
+        if (!e) {
+          e = document.createElement('i'); e.className = 'hex vazio'; e.setAttribute('aria-hidden', 'true');
+          e.style.setProperty('--t', ((r * 7 + c * 13) % 10) / 10);
+          if ((r * 5 + c * 3) % 9 === 0) { e.classList.add('pisca'); e.style.setProperty('--d', ((r + c) % 7) * 0.8 + 's'); }
+        }
+        li.appendChild(e); cels.push(e);
+      }
+      L.appendChild(li);
+    }
+  }
+  function luz(x, y) {
+    var W = parseFloat(L.style.getPropertyValue('--w')) || 100;
+    cels.forEach(function (e) {
+      var r = e.getBoundingClientRect(), dx = x - (r.left + r.width / 2), dy = y - (r.top + r.height / 2);
+      var v = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / (W * 2.6));
+      e.style.setProperty('--l', (v * v).toFixed(3));
+    });
+  }
+  box.addEventListener('pointermove', function (e) {
+    if (e.pointerType === 'touch' || (fino && !fino.matches) || q) return;
+    var x = e.clientX, y = e.clientY;
+    q = requestAnimationFrame(function () { q = null; luz(x, y); });
+  });
+  box.addEventListener('pointerleave', function () { cels.forEach(function (e) { e.style.setProperty('--l', 0); }); });
+  window.addEventListener('resize', function () { requestAnimationFrame(montar); });
+  montar();
+})();
+</script>
+<script>
+/* Fotos de fundo das Solucoes: so o painel aberto carrega a sua. Para o primeiro hover nao ter
+   atraso, as seis do tema atual sao buscadas quando a secao se aproxima da tela, e as do outro
+   tema so se o visitante trocar de tema. */
+(function () {
+  var sec = document.getElementById('solucoes');
+  if (!sec || !('IntersectionObserver' in window)) return;
+  var NOMES = ['estrategia', 'engenharia', 'cloud', 'analytics', 'ia', 'squads'], feito = {}, perto = false;
+  function prefixo() { return document.documentElement.getAttribute('data-tema') === 'claro' ? 'claro-' : ''; }
+  function buscar() {
+    var t = prefixo();
+    if (!perto || feito[t]) return;
+    feito[t] = true;
+    NOMES.forEach(function (n) { (new Image()).src = 'media/solucoes/' + t + n + '.webp'; });
+  }
+  new IntersectionObserver(function (es, ob) {
+    if (!es[0].isIntersecting) return;
+    perto = true; ob.disconnect(); buscar();
+  }, { rootMargin: '600px 0px' }).observe(sec);
+  new MutationObserver(buscar).observe(document.documentElement, { attributes: true, attributeFilter: ['data-tema'] });
+})();
+</script>
+<script src="../media/js/i18n-dic.js" defer></script>
+<script src="../media/js/i18n.js" defer></script>
+<script src="../media/js/constelacao.js" defer></script>
+<script>
+/* ---------- A frase em destaque do hero gira ---------- */
+(function () {
+  /* Frases escritas pelo dono do site. São longas de propósito: cada uma
+     fecha a sentença com uma promessa inteira, não com um rótulo. */
+  var FRASES = [
+    'decisões extraordinárias',
+    'inteligência estratégica e decisões mais assertivas',
+    'oportunidades de negócio e resultados mensuráveis',
+    'conhecimento que impulsiona o crescimento',
+    'vantagem competitiva por meio de analytics e inovação',
+    'clareza para decidir, eficiência para operar',
+    'valor, conectando informação à estratégia do negócio',
+    'soluções que simplificam operações e potencializam resultados'
+  ];
+  /* Mais tempo que os 3,4s de antes: frase de oito palavras não se lê em
+     três segundos, e trocar no meio da leitura irrita. */
+  var INTERVALO = 5200;
+
+  function iniciar() {
+    var el = document.getElementById('hero-gira');
+    if (!el) return;
+    var i = 0, timer = 0;
+
+    function traduz(f) {
+      var lang = window.AtlasI18n ? window.AtlasI18n.idioma() : 'pt';
+      if (lang === 'pt') return f;
+      var d = window.ATLAS_I18N && window.ATLAS_I18N[lang];
+      return (d && d[f]) || f;
+    }
+
+    function trocar() {
+      i = (i + 1) % FRASES.length;
+      el.classList.add('trocando');
+      setTimeout(function () {
+        el.textContent = traduz(FRASES[i]);
+        el.classList.remove('trocando');
+      }, 400);
+    }
+
+    function tocar() { if (!timer) timer = setInterval(trocar, INTERVALO); }
+    function pausar() { if (timer) { clearInterval(timer); timer = 0; } }
+
+    /* O i18n reescreve o h1 inteiro ao trocar de idioma e leva o span
+       junto; depois disso é preciso reencontrá-lo e recomeçar do zero. */
+    document.addEventListener('atlas:idioma', function () {
+      pausar();
+      var novo = document.querySelector('#hero-title .ac');
+      if (!novo) return;
+      novo.id = 'hero-gira';
+      novo.setAttribute('aria-hidden', 'true');
+      el = novo; i = 0;
+      el.textContent = traduz(FRASES[0]);
+      tocar();
+    });
+
+    document.addEventListener('visibilitychange', function () { document.hidden ? pausar() : tocar(); });
+    el.textContent = traduz(FRASES[0]);
+    tocar();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
+  else iniciar();
+})();
+  /* ---------- Contagem dos numeros da secao "Atlas em numeros" ---------- */
+  /* O valor escrito no HTML e a unica fonte: o script le o que esta la,
+     anima de zero ate ele e devolve a string exata no fim. Nao ha numero
+     cravado aqui de proposito — se o texto mudar, ou se algum dia o
+     separador de milhar mudar com o idioma (em ingles seria 150,000+), a
+     animacao acompanha sozinha em vez de exibir outro valor. */
+  (function () {
+    var alvos = [].slice.call(document.querySelectorAll('.tiles .tile > b'));
+    if (!alvos.length || !('IntersectionObserver' in window)) return;
+    /* Este contador anima mesmo com "reduzir movimento" ligado no sistema,
+       por decisao do dono do site: com a guarda, quem tem a opcao desligada
+       no Windows nunca via a contagem — os numeros apareciam parados no
+       valor final. As demais animacoes do site continuam respeitando o
+       pedido do sistema; a excecao e so aqui. */
+
+    function desmontar(txt) {
+      var m = /^(\D*)([\d.,]+)(\D*)$/.exec(txt.trim());
+      if (!m) return null;
+      var corpo = m[2];
+      var sep = /[.,]/.test(corpo) ? corpo.replace(/[^.,]/g, '').charAt(0) : '';
+      var n = parseInt(corpo.replace(/[.,]/g, ''), 10);
+      return isFinite(n) ? { antes: m[1], fim: n, sep: sep, depois: m[3] } : null;
+    }
+
+    function formatar(n, p) {
+      var s = String(n);
+      if (p.sep) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, p.sep);
+      return p.antes + s + p.depois;
+    }
+
+    function animar(el) {
+      var original = el.textContent;
+      var p = desmontar(original);
+      if (!p) return;
+      /* 2,6s com expoente 2,6. A curva antiga era 1,1s com expoente 3, que
+         despejava 308 de 500 nos primeiros 300ms: virava um estalo seguido
+         de rastejo. Assim a subida fica visivel do comeco ao fim (136, 247,
+         334, 400, 458 aos 300, 600, 900, 1200 e 1600ms) e o ultimo segundo
+         inteiro cobre so os 42 finais, que e a freada perto do alvo. */
+      var dur = 2600, t0 = 0;
+      function passo(ts) {
+        if (!t0) t0 = ts;
+        var k = Math.min(1, (ts - t0) / dur);
+        el.textContent = formatar(Math.round(p.fim * (1 - Math.pow(1 - k, 2.6))), p);
+        if (k < 1) requestAnimationFrame(passo);
+        else el.textContent = original;   /* devolve a string exata do HTML */
+      }
+      el.textContent = formatar(0, p);
+      requestAnimationFrame(passo);
+    }
+
+    var obs = new IntersectionObserver(function (ents) {
+      ents.forEach(function (ent) {
+        if (!ent.isIntersecting) return;
+        obs.unobserve(ent.target);
+        /* escalonado: os quatro contam em sequencia, nao em bloco */
+        alvos.forEach(function (el, i) { setTimeout(function () { animar(el); }, i * 150); });
+      });
+    }, { threshold: 0.35 });
+    obs.observe(alvos[0].parentNode.parentNode);
+  })();
+</script>
+</body>
+</html>
