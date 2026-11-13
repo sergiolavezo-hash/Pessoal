@@ -283,9 +283,6 @@ TRAD.update({
   'Produtos com que a Atlas trabalha':
     ('Products Atlas works with', 'Productos con los que Atlas trabaja'),
   'Projeto entregue pela Atlas': ('Project delivered by Atlas', 'Proyecto entregado por Atlas'),
-  '✦ marca os produtos com projeto entregue pela Atlas':
-    ('✦ marks the products with a project delivered by Atlas',
-     '✦ marca los productos con proyecto entregado por Atlas'),
   'Cases entregues com Databricks': ('Projects delivered with Databricks', 'Casos entregados con Databricks'),
   'Cases entregues com Microsoft': ('Projects delivered with Microsoft', 'Casos entregados con Microsoft'),
   'Cases entregues com Google Cloud': ('Projects delivered with Google Cloud', 'Casos entregados con Google Cloud'),
@@ -1567,7 +1564,29 @@ EXTRAS_VITRINE |= {
   'Automatizado, cada etapa dispara a seguinte na hora: sem espera, sem fila e sem retrabalho.', 'Passando de mão em mão, cada etapa espera alguém ver, abrir e fazer: o processo anda no ritmo da fila.',
 }
 
+# ---------------- Páginas de parceiros: vitrine de produtos ----------------
+TRAD.update({
+  'Produtos do parceiro': ('Partner products', 'Productos del socio'),
+  'Onde atua no fluxo do dado': ('Where it sits in the data flow', 'Dónde actúa en el flujo del dato'),
+  'O que muda para o negócio': ('What changes for the business', 'Qué cambia para el negocio'),
+  'Quando é a melhor escolha': ('When it is the best choice', 'Cuándo es la mejor elección'),
+  'Para quem': ('Who it is for', 'Para quién'),
+  'Como a Atlas coloca em produção': ('How Atlas puts it into production', 'Cómo Atlas lo pone en producción'),
+  'Origem': ('Source', 'Origen'), 'Base de dados': ('Data foundation', 'Base de datos'),
+  'Onde o dado nasce: os sistemas que a empresa já usa.': ('Where data is born: the systems the company already uses.', 'Dónde nace el dato: los sistemas que la empresa ya usa.'),
+  'Onde o dado é reunido, tratado e fica confiável.': ('Where data is gathered, treated and becomes trustworthy.', 'Dónde el dato se reúne, se trata y se vuelve confiable.'),
+  'Onde o dado vira leitura e decisão.': ('Where data becomes insight and decisions.', 'Dónde el dato se vuelve lectura y decisión.'),
+  'Atravessa as três etapas: da origem do dado ao dashboard.': ('Spans all three stages: from the data source to the dashboard.', 'Atraviesa las tres etapas: del origen del dato al dashboard.'),
+  'produto': ('product', 'producto'), 'produtos': ('products', 'productos'), 'com projeto entregue': ('with a delivered project', 'con proyecto entregado'),
+  'case entregue': ('delivered case', 'caso entregado'), 'cases entregues': ('delivered cases', 'casos entregados'),
+})
+
 TERMOS = {
+  # licença e modelo dos produtos
+  'Proprietária': ('Proprietary', 'Propietaria'), 'Open source': ('Open source', 'Código abierto'), 'Aberto + pago': ('Open + paid', 'Abierto + de pago'),
+  'SaaS': ('SaaS', 'SaaS'), 'SaaS + desktop': ('SaaS + desktop', 'SaaS + escritorio'), 'SaaS ou self-hosted': ('SaaS or self-hosted', 'SaaS o autoalojado'),
+  'Nuvem': ('Cloud', 'Nube'), 'API': ('API', 'API'), 'Self-hosted ou gerenciado': ('Self-hosted or managed', 'Autoalojado o gestionado'),
+  'Self-hosted ou nuvem': ('Self-hosted or cloud', 'Autoalojado o en la nube'), 'Gerenciado': ('Managed', 'Gestionado'),
   # setores
   'Bancário': ('Banking', 'Banca'),
   'Educação': ('Education', 'Educación'),

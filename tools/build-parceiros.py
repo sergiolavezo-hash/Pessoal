@@ -35,6 +35,7 @@ bp = import_module('build-paginas')
 bc = import_module('build-cases')
 import ferramentas as fer
 import logos
+import vitrine_parceiro
 
 RAIZ = bp.RAIZ
 SITE = bp.SITE
@@ -85,8 +86,8 @@ CSS = '''<style>
     text-decoration: none; transition: color 0.25s var(--ease); }
   .voltar:hover { color: var(--accent); }
   .pf-cabeca { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; margin: 1.8rem 0 1.2rem; }
-  .pf-marca { display: grid; place-items: center; width: 92px; height: 92px; flex: none;
-    background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 1.1rem; }
+  .pf-marca { display: grid; place-items: center; width: 132px; height: 104px; flex: none;
+    background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 0.9rem; }
   .pf-marca img { max-width: 100%; max-height: 100%; object-fit: contain; }
   .pf-prod { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2.2rem; }
   .pf-card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 1.4rem 1.5rem; }
@@ -164,6 +165,21 @@ def card_case(c):
                e(c.get('capa', '')), chips, _logos_case(c), c['slug']))
 
 
+def estatisticas(produtos, meus):
+    """Contagens que saem direto do catálogo e do cases.json (nada digitado à mão)."""
+    itens = []
+    if produtos:
+        itens.append((len(produtos), 'produto' if len(produtos) == 1 else 'produtos'))
+        entregues = sum(1 for t in produtos if t.get('caso'))
+        if entregues:
+            itens.append((entregues, 'com projeto entregue' ))
+    if meus:
+        itens.append((len(meus), 'case entregue' if len(meus) == 1 else 'cases entregues'))
+    if not itens:
+        return ''
+    return '      <div class="pf-stats">' + ''.join('<div class="pf-stat"><p class="pf-n">%d</p><p class="pf-l">%s</p></div>' % i for i in itens) + '</div>\n'
+
+
 def corpo(f, cases):
     tabela = {t['nome']: t for t in fer.F}
     produtos = [tabela[n] for n in f['produtos'] if n in tabela]
@@ -185,6 +201,8 @@ def corpo(f, cases):
          '          <p class="sub" style="margin:0.6rem 0 0">%s</p>\n' % f['programa'],
          '        </div>\n      </div>\n']
 
+    p.append(estatisticas(produtos, meus))
+
     if f.get('revenda'):
         p.append('      <div class="pf-revenda">\n'
                  '        <h2>Licen&ccedil;a e implanta&ccedil;&atilde;o na mesma empresa</h2>\n'
@@ -196,11 +214,7 @@ def corpo(f, cases):
 
     if produtos:
         p.append('      <h2 class="h-xl" style="font-size:1.6rem;margin-top:2.8rem">Produtos com que a Atlas trabalha</h2>\n')
-        p.append('      <div class="pf-prod">\n')
-        p.extend(card_produto(t) for t in produtos)
-        p.append('      </div>\n')
-        if any(t.get('caso') for t in produtos):
-            p.append('      <p class="parc-nota">&#10022; marca os produtos com projeto entregue pela Atlas</p>\n')
+        p.append(vitrine_parceiro.secao(produtos))
     else:
         p.append('      <p class="pf-vazio">Esta p&aacute;gina lista o programa de parceria. Os produtos\n'
                  '      %s ainda n&atilde;o est&atilde;o no cat&aacute;logo de tecnologia da Atlas, e nada aqui\n'
@@ -216,7 +230,10 @@ def corpo(f, cases):
     p.append('      <div class="sol-foot" style="margin-top:2.6rem">\n'
              '        <a class="btn btn-accent" href="../index.html#contato" data-magnetic>Falar com um especialista <span class="arr">&rarr;</span></a>\n'
              '      </div>\n')
-    p.append('    </div>\n  </section>\n\n</main>')
+    p.append('    </div>\n  </section>\n\n')
+    if produtos:
+        p.append(vitrine_parceiro.js() + '\n')
+    p.append('</main>')
     return ''.join(p)
 
 
@@ -231,7 +248,7 @@ def main():
                 % f['nome'])
         destino.write_text(bc.pagina(
             '%s' % f['nome'], meta, '%s/parceiros/%s.html' % (SITE, f['slug']),
-            corpo(f, cases), comum, prefixo='../', extra=CSS))
+            corpo(f, cases), comum, prefixo='../', extra=CSS + vitrine_parceiro.css()))
         print('%-34s %6.1f KB' % ('parceiros/%s.html' % f['slug'], destino.stat().st_size / 1024))
 
 

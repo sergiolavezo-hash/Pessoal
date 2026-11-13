@@ -1,5 +1,5 @@
 {
- "total": 1133,
+ "total": 1246,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -5357,19 +5357,59 @@
    "cls": "sub"
   },
   {
+   "chave": "2",
+   "tag": "p",
+   "cls": "pf-n"
+  },
+  {
+   "chave": "produtos",
+   "tag": "p",
+   "cls": "pf-l"
+  },
+  {
    "chave": "Produtos com que a Atlas trabalha",
    "tag": "h2",
    "cls": "h-xl"
   },
   {
-   "chave": "AWS",
-   "tag": "h3",
-   "cls": ""
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/aws.svg);--bc:#FF9900\"></span></span><span class=\"t\">AWS</span>",
+   "tag": "button",
+   "cls": "vit-it"
   },
   {
-   "chave": "Nuvem com o portfólio mais amplo de serviços.",
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/redshift.svg);--bc:#8C4FFF\"></span></span><span class=\"t\">Redshift</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "AWS",
+   "tag": "span",
+   "cls": "vt"
+  },
+  {
+   "chave": "Onde atua no fluxo do dado",
+   "tag": "span",
+   "cls": "vs"
+  },
+  {
+   "chave": "Origem",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Base de dados",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Atravessa as três etapas: da origem do dado ao dashboard.",
    "tag": "p",
-   "cls": ""
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "Onde o dado é reunido, tratado e fica confiável.",
+   "tag": "p",
+   "cls": "vit-cap"
   },
   {
    "chave": "<span>Proprietária</span><span>Nuvem</span>",
@@ -5377,7 +5417,47 @@
    "cls": "pf-meta"
   },
   {
-   "chave": "Data warehouse da AWS.",
+   "chave": "Nuvem com o portfólio mais amplo de serviços.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "O que muda para o negócio",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "Escala sem reescrever a arquitetura.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Quando é a melhor escolha",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "Ter um serviço gerenciado para quase qualquer necessidade.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Para quem",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "Quem precisa de amplitude e de maturidade operacional.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Como a Atlas coloca em produção",
+   "tag": "b",
+   "cls": ""
+  },
+  {
+   "chave": "S3 como base, com Glue, Athena e Redshift em volta.",
    "tag": "p",
    "cls": ""
   },
@@ -5387,12 +5467,82 @@
    "cls": "pf-meta"
   },
   {
+   "chave": "Data warehouse da AWS.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Escala analítica dentro do ecossistema Amazon.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Ficar perto do dado que já vive na AWS.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Quem tem a operação toda em AWS e quer evitar travessia de nuvem.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Clusters ou serverless, lendo também direto do S3.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Produtos do parceiro",
+   "tag": "@aria-label",
+   "cls": "vit-nav"
+  },
+  {
    "chave": "Databricks Partner Program",
    "tag": "p",
    "cls": "sub"
   },
   {
+   "chave": "com projeto entregue",
+   "tag": "p",
+   "cls": "pf-l"
+  },
+  {
+   "chave": "case entregue",
+   "tag": "p",
+   "cls": "pf-l"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/databricks.svg);--bc:#FF3621\"></span></span><span class=\"t\">Databricks</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/databricks.svg);--bc:#FF3621\"></span></span><span class=\"t\">Unity Catalog</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
    "chave": "Lakehouse e processamento de dados em escala.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Volume deixa de ser o limite da análise.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Processar volume alto e servir engenharia, análise e IA no mesmo lugar.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Operação com terabytes e time de engenharia próprio.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Notebooks e jobs em Spark sobre tabelas Delta, com catálogo unificado.",
    "tag": "p",
    "cls": ""
   },
@@ -5404,7 +5554,12 @@
   {
    "chave": "Pipelines da plataforma omnichannel em Azure.",
    "tag": "p",
-   "cls": "pf-entrega-caso"
+   "cls": ""
+  },
+  {
+   "chave": "<span>Open source</span><span>Gerenciado</span>",
+   "tag": "div",
+   "cls": "pf-meta"
   },
   {
    "chave": "Unity Catalog",
@@ -5417,14 +5572,24 @@
    "cls": ""
   },
   {
-   "chave": "<span>Open source</span><span>Gerenciado</span>",
-   "tag": "div",
-   "cls": "pf-meta"
+   "chave": "Quem vê o quê deixa de ser combinado por e-mail.",
+   "tag": "p",
+   "cls": ""
   },
   {
-   "chave": "✦ marca os produtos com projeto entregue pela Atlas",
+   "chave": "Dar uma permissão só que vale para dado, painel e modelo.",
    "tag": "p",
-   "cls": "parc-nota"
+   "cls": ""
+  },
+  {
+   "chave": "Operação em Databricks com mais de um time no mesmo dado.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Catálogo central define acesso e linhagem para todo o lakehouse.",
+   "tag": "p",
+   "cls": ""
   },
   {
    "chave": "Cases entregues com Databricks",
@@ -5437,6 +5602,21 @@
    "cls": "sub"
   },
   {
+   "chave": "5",
+   "tag": "p",
+   "cls": "pf-n"
+  },
+  {
+   "chave": "4",
+   "tag": "p",
+   "cls": "pf-n"
+  },
+  {
+   "chave": "cases entregues",
+   "tag": "p",
+   "cls": "pf-l"
+  },
+  {
    "chave": "Licença e implantação na mesma empresa",
    "tag": "h2",
    "cls": ""
@@ -5447,14 +5627,64 @@
    "cls": ""
   },
   {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span><span class=\"t\">Google Cloud</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/bigquery.svg);--bc:#669DF6\"></span></span><span class=\"t\">BigQuery</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span><span class=\"t\">Cloud Composer</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/looker.svg);--bc:#4285F4\"></span></span><span class=\"t\">Looker</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/gemini.svg);--bc:#8E75B2\"></span></span><span class=\"t\">Gemini</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "Onde o dado vira leitura e decisão.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
    "chave": "Nuvem Google, forte em analytics e IA.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "BigQuery e IA no mesmo lugar em que o dado já está.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Analisar e aplicar IA sem mover o dado de lugar.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Quem quer começar analítico sem montar infraestrutura.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "BigQuery no centro, com Vertex AI e Looker ao redor.",
    "tag": "p",
    "cls": ""
   },
   {
    "chave": "Data Lake em GCP e migração de legado Oracle.",
    "tag": "p",
-   "cls": "pf-entrega-caso"
+   "cls": ""
   },
   {
    "chave": "Data warehouse analítico gerenciado do Google.",
@@ -5462,12 +5692,27 @@
    "cls": ""
   },
   {
-   "chave": "Data Lake em GCP para serviços financeiros e pipelines em saúde.",
+   "chave": "Consulta pesada sem infraestrutura para administrar.",
    "tag": "p",
-   "cls": "pf-entrega-caso"
+   "cls": ""
   },
   {
-   "chave": "Airflow gerenciado do Google Cloud.",
+   "chave": "Rodar consulta grande sem ninguém cuidar de servidor.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Quem já está no Google Cloud ou quer começar sem operação.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "SQL direto no console, com cobrança por dado lido.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Data Lake em GCP para serviços financeiros e pipelines em saúde.",
    "tag": "p",
    "cls": ""
   },
@@ -5477,9 +5722,34 @@
    "cls": "pf-meta"
   },
   {
+   "chave": "Airflow gerenciado do Google Cloud.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Orquestração em produção sem manter o servidor do orquestrador.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Rodar Airflow sem cuidar da infraestrutura dele.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Quem já tem a analítica dentro do Google Cloud.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "O mesmo fluxo em Python do Airflow, operado pelo Google.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
    "chave": "Orquestração dos pipelines em todos os projetos entregues em Google Cloud.",
    "tag": "p",
-   "cls": "pf-entrega-caso"
+   "cls": ""
   },
   {
    "chave": "Camada semântica única sobre o dado.",
@@ -5487,9 +5757,34 @@
    "cls": ""
   },
   {
+   "chave": "Uma métrica, uma definição — fim da divergência entre áreas.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Garantir que receita signifique a mesma coisa em toda a empresa.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Organização com muitas áreas e histórico de números divergentes.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "As métricas são escritas em LookML, versionadas em Git, e todo painel as reusa.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
    "chave": "Mais de 200 dashboards migrados num projeto de governança de BI.",
    "tag": "p",
-   "cls": "pf-entrega-caso"
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>API</span>",
+   "tag": "div",
+   "cls": "pf-meta"
   },
   {
    "chave": "Gemini",
@@ -5502,9 +5797,19 @@
    "cls": ""
   },
   {
-   "chave": "<span>Proprietária</span><span>API</span>",
-   "tag": "div",
-   "cls": "pf-meta"
+   "chave": "IA ao lado do dado que já está no BigQuery.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Aplicar IA sem tirar o dado do ambiente onde ele vive.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Chamada direta pelo Vertex AI, com acesso ao warehouse.",
+   "tag": "p",
+   "cls": ""
   },
   {
    "chave": "Cases entregues com Google Cloud",
@@ -5517,9 +5822,29 @@
    "cls": "sub"
   },
   {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/ibm.svg);--bc:#0F62FE\"></span></span><span class=\"t\">watsonx</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/ibm.svg);--bc:#0F62FE\"></span></span><span class=\"t\">Db2</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
    "chave": "watsonx",
-   "tag": "h3",
-   "cls": ""
+   "tag": "span",
+   "cls": "vt"
+  },
+  {
+   "chave": "Onde o dado nasce: os sistemas que a empresa já usa.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "<span>Proprietária</span><span>SaaS ou self-hosted</span>",
+   "tag": "div",
+   "cls": "pf-meta"
   },
   {
    "chave": "Plataforma de IA e governança de modelos da IBM.",
@@ -5527,7 +5852,27 @@
    "cls": ""
   },
   {
-   "chave": "<span>Proprietária</span><span>SaaS ou self-hosted</span>",
+   "chave": "IA aplicada com registro de como o modelo chegou ao resultado.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Levar modelo a produção onde a auditoria pesa.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Setor regulado que precisa explicar a decisão do modelo.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Treino, publicação e monitoramento na mesma plataforma.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Proprietária</span><span>Self-hosted ou nuvem</span>",
    "tag": "div",
    "cls": "pf-meta"
   },
@@ -5542,9 +5887,24 @@
    "cls": ""
   },
   {
-   "chave": "<span>Proprietária</span><span>Self-hosted ou nuvem</span>",
-   "tag": "div",
-   "cls": "pf-meta"
+   "chave": "O sistema que roda a operação vira fonte analítica.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Sustentar transação crítica em ambiente IBM.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Banco, seguradora e indústria com núcleo de grande porte.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Extração incremental para a nuvem, sem tocar no núcleo.",
+   "tag": "p",
+   "cls": ""
   },
   {
    "chave": "Microsoft AI Cloud Partner Program",
@@ -5552,9 +5912,34 @@
    "cls": "sub"
   },
   {
-   "chave": "Dashboards executivos e self-service BI para as áreas.",
+   "chave": "8",
    "tag": "p",
-   "cls": ""
+   "cls": "pf-n"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span><span class=\"t\">Power BI</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microsoft.svg);--bc:#5E5E5E\"></span></span><span class=\"t\">Microsoft Fabric</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/azure.svg);--bc:#0078D4\"></span></span><span class=\"t\">Azure</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/sqlserver.svg);--bc:#CC2927\"></span></span><span class=\"t\">SQL Server</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microsoft.svg);--bc:#5E5E5E\"></span></span><span class=\"t\">Purview</span>",
+   "tag": "button",
+   "cls": "vit-it"
   },
   {
    "chave": "<span>Proprietária</span><span>SaaS + desktop</span>",
@@ -5562,9 +5947,34 @@
    "cls": "pf-meta"
   },
   {
+   "chave": "Dashboards executivos e self-service BI para as áreas.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "A área deixa de pedir relatório e passa a responder a própria pergunta.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Colocar indicador confiável na mão de quem não é técnico.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Empresa que já vive no ecossistema Microsoft e precisa de BI corporativo.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Modelo publicado num workspace, com métrica definida em DAX e atualização agendada.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
    "chave": "Plataforma omnichannel de varejo, com indicadores de venda e operação por canal.",
    "tag": "p",
-   "cls": "pf-entrega-caso"
+   "cls": ""
   },
   {
    "chave": "Microsoft Fabric",
@@ -5573,6 +5983,26 @@
   },
   {
    "chave": "Plataforma unificada de dados e BI da Microsoft.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Um ambiente só, do pipeline ao relatório.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Reunir ingestão, armazenamento e Power BI sob um contrato.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Empresa Microsoft que quer reduzir número de ferramentas.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Tudo num workspace, com o OneLake como armazenamento comum.",
    "tag": "p",
    "cls": ""
   },
@@ -5587,12 +6017,27 @@
    "cls": ""
   },
   {
-   "chave": "Synapse e Data Factory na plataforma omnichannel.",
+   "chave": "Integra com o que a empresa já usa no dia a dia.",
    "tag": "p",
-   "cls": "pf-entrega-caso"
+   "cls": ""
   },
   {
-   "chave": "Banco relacional corporativo da Microsoft.",
+   "chave": "Aproveitar identidade, licença e governança que a empresa já tem.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Organização que já roda Microsoft na operação.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Data Factory, Synapse e Databricks sob a mesma assinatura.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Synapse e Data Factory na plataforma omnichannel.",
    "tag": "p",
    "cls": ""
   },
@@ -5602,12 +6047,57 @@
    "cls": "pf-meta"
   },
   {
+   "chave": "Banco relacional corporativo da Microsoft.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "O sistema que roda a empresa vira fonte analítica.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Sustentar ERP e sistema crítico com ferramental maduro.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Empresa com sistema corporativo sobre plataforma Microsoft.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Réplica de leitura alimenta o pipeline sem afetar a operação.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
    "chave": "Purview",
    "tag": "h3",
    "cls": ""
   },
   {
    "chave": "Governança e linhagem de dados na Azure.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Dá para provar de onde veio cada número.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Mostrar o caminho completo do dado, da origem ao painel.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Empresa com exigência regulatória ou auditoria frequente.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Varre as fontes, cataloga e monta a linhagem automaticamente.",
    "tag": "p",
    "cls": ""
   },
@@ -5622,14 +6112,39 @@
    "cls": "sub"
   },
   {
+   "chave": "produto",
+   "tag": "p",
+   "cls": "pf-l"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/oracle.svg);--bc:#C74634\"></span></span><span class=\"t\">Oracle</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
    "chave": "Banco de missão crítica.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "O legado segue de pé enquanto a análise avança.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Sustentar transação crítica com décadas de ajuste fino.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Core bancário, seguro e industrial de grande porte.",
    "tag": "p",
    "cls": ""
   },
   {
    "chave": "Migração de legado Oracle em projeto de nuvem.",
    "tag": "p",
-   "cls": "pf-entrega-caso"
+   "cls": ""
   },
   {
    "chave": "Cases entregues com Oracle",
@@ -5642,7 +6157,32 @@
    "cls": "sub"
   },
   {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/snowflake.svg);--bc:#29B5E8\"></span></span><span class=\"t\">Snowflake</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
    "chave": "Data warehouse em nuvem com escala elástica.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "O custo acompanha o uso, não o pico.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Separar processamento de armazenamento e pagar só pelo que roda.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Quem tem demanda irregular e não quer dimensionar para o pico.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "O warehouse liga para a consulta e desliga sozinho depois.",
    "tag": "p",
    "cls": ""
   },
@@ -5652,14 +6192,39 @@
    "cls": "sub"
   },
   {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/tableau.svg);--bc:#E97627\"></span></span><span class=\"t\">Tableau</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
    "chave": "Exploração visual de grandes volumes de dados.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "O analista encontra o padrão antes de alguém pedir o relatório.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Descobrir o que está acontecendo quando ainda não se sabe o que perguntar.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Time de análise que explora antes de publicar.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Conecta à base, monta a visão arrastando campos e publica no servidor.",
    "tag": "p",
    "cls": ""
   },
   {
    "chave": "Rede de diagnóstico, na migração da visualização para Power BI.",
    "tag": "p",
-   "cls": "pf-entrega-caso"
+   "cls": ""
   },
   {
    "chave": "Cases entregues com Tableau",
