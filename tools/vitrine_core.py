@@ -32,7 +32,7 @@ def _svg(ic, n):
             'stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>')
 
 
-def secao(grupos, paineis, sub, aria, aba_id='perfis'):
+def secao(grupos, paineis, sub, aria, aba_id='perfis', interno=False):
     ic = _icones()
     nav = info = panes = ''
     i = 0
@@ -48,6 +48,15 @@ def secao(grupos, paineis, sub, aria, aba_id='perfis'):
                       % (' on' if i == 0 else '', i, i, '' if i == 0 else ' hidden', paineis[i]))
             i += 1
         nav += '</ul></div>'
+    if interno:
+        # só a vitrine, para entrar dentro de uma seção que já tem título (a home)
+        return '''<div class="vit reveal d2" id="vit">
+        <div class="vit-nav" role="tablist" aria-label="%s" style="--vit-g:%d">%s</div>
+        <div class="vit-stage">
+          <div class="vit-win"><div class="vit-bar"><div class="vit-dots" aria-hidden="true"><i></i><i></i><i></i></div><span class="vt" id="vit-tit"></span><span class="vs">Exemplo ilustrativo &middot; sem dados reais</span></div>%s</div>
+          %s
+        </div>
+      </div>''' % (aria, len(grupos), nav, panes, info)
     return '''  <section class="sec" id="%s">
     <div class="wrap">
       <div class="sec-lead">
@@ -56,14 +65,14 @@ def secao(grupos, paineis, sub, aria, aba_id='perfis'):
         <p class="sub reveal d2">%s</p>
       </div>
       <div class="vit reveal d2" id="vit">
-        <div class="vit-nav" role="tablist" aria-label="%s">%s</div>
+        <div class="vit-nav" role="tablist" aria-label="%s" style="--vit-g:%d">%s</div>
         <div class="vit-stage">
           <div class="vit-win"><div class="vit-bar"><div class="vit-dots" aria-hidden="true"><i></i><i></i><i></i></div><span class="vt" id="vit-tit"></span><span class="vs">Exemplo ilustrativo &middot; sem dados reais</span></div>%s</div>
           %s
         </div>
       </div>
     </div>
-  </section>''' % (aba_id, sub, aria, nav, panes, info)
+  </section>''' % (aba_id, sub, aria, len(grupos), nav, panes, info)
 
 
 def css(arquivo_css):

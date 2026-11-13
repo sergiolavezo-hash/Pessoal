@@ -1,0 +1,47 @@
+  /* ===== Vitrine de IA & Automação ===== */
+  .av { width: 2.2rem; height: 2.2rem; fill: var(--accent); opacity: .9; display: block; flex: none; }
+  .pz-bars { display: flex; align-items: flex-end; gap: .3rem; height: 3rem; } .pz-bars i { flex: 1; border-radius: 3px 3px 0 0; background: linear-gradient(var(--accent-light), var(--accent)); display: block; height: var(--h, 40%); transition: height .6s cubic-bezier(.2,.8,.2,1); }
+  /* 0 preditivo */
+  .pv { position: relative; z-index: 1; padding: .9rem; gap: .6rem; } .pv-plot { position: relative; height: 12rem; } .pv-plot svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .pv-plot path { fill: none; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; }
+  .pv .hist { stroke: var(--accent-light); stroke-width: 2.4; } .pv .fc { stroke: var(--accent-verde); stroke-width: 2.4; stroke-dasharray: 6 5; } .pv .band { fill: var(--accent-verde); opacity: .16; stroke: none; }
+  .pv .now { stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+  .pv-act { position: absolute; top: .2rem; border: 1px dashed var(--accent-verde); border-radius: 8px; background: rgba(47,182,164,.12); height: 92%; display: flex; align-items: flex-start; justify-content: center; padding-top: .3rem; font-size: .66rem; color: color-mix(in srgb, var(--accent-verde) 62%, var(--ink)); font-family: var(--mono); letter-spacing: .06em; text-transform: uppercase; transition: left .6s, width .6s; }
+  .pv-leg { display: flex; gap: 1.2rem; font-family: var(--mono); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); } .pv-leg span::before { content: ""; display: inline-block; width: 1rem; height: 2px; margin-right: .4rem; vertical-align: middle; background: var(--accent-light); } .pv-leg .l2::before { background: var(--accent-verde); }
+  /* 1 machine learning */
+  .ml { position: relative; z-index: 1; padding: .6rem; } .ml-plot { position: relative; height: 13rem; }
+  .ml-p { position: absolute; width: .7rem; height: .7rem; margin: -.35rem 0 0 -.35rem; border-radius: 50%; background: var(--dim); transition: left .9s cubic-bezier(.6,0,.2,1), top .9s cubic-bezier(.6,0,.2,1), background .5s; }
+  .ml-plot[data-m="1"] .ml-p.a { background: var(--accent); } .ml-plot[data-m="1"] .ml-p.b { background: var(--accent-quente); }
+  .ml-line { position: absolute; left: 8%; right: 8%; top: 50%; height: 0; border-top: 2px dashed var(--accent-light); opacity: 0; transition: opacity .6s .5s; transform: rotate(-12deg); } .ml-plot[data-m="1"] .ml-line { opacity: 1; }
+  /* 2 anomalias */
+  .an { position: relative; z-index: 1; padding: .8rem; gap: .5rem; } .an-plot { position: relative; height: 11rem; } .an-plot svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .an-plot path { fill: none; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; } .an .base { stroke: var(--line-strong); stroke-width: 2; } .an .run { stroke: var(--accent-light); stroke-width: 2.6; }
+  .an-spk, .an-fch { position: absolute; width: .8rem; height: .8rem; margin: -.4rem 0 0 -.4rem; border-radius: 50%; background: #E5575B; box-shadow: 0 0 12px #E5575B; opacity: 0; transition: opacity .3s; } .an-fch { background: var(--accent-quente); box-shadow: 0 0 10px var(--accent-quente); }
+  .an-spk.on, .an-fch.on { opacity: 1; }
+  .an-al { position: absolute; transform: translate(-50%, -150%); padding: .15rem .5rem; border-radius: 999px; background: #E5575B; color: #fff; font-size: .66rem; font-family: var(--mono); letter-spacing: .06em; text-transform: uppercase; opacity: 0; transition: opacity .3s; white-space: nowrap; } .an-al.late { background: #B26B14; } .an-al.on { opacity: 1; }
+  .an-axis { display: flex; justify-content: space-between; font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  /* 3 genai */
+  .ga { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: stretch; min-height: 14rem; }
+  .ga-chat { gap: .9rem; align-content: start; } .ga-q { display: grid; grid-template-columns: 2.2rem 1fr; gap: .6rem; align-items: center; } .ga-q .sk { grid-column: 2; }
+  .ga-a { border: 1px solid var(--accent); border-radius: 12px; padding: .7rem; background: rgba(46,134,255,.08); display: grid; gap: .5rem; transition: box-shadow .3s; } .ga-a:hover { box-shadow: 0 0 24px -8px rgba(46,134,255,.8); }
+  .ga-typing { display: none; gap: .3rem; } .ga-typing i { width: .5rem; height: .5rem; border-radius: 50%; background: var(--accent-light); display: block; animation: ga-t .9s ease-in-out infinite; } .ga-typing i:nth-child(2) { animation-delay: .15s; } .ga-typing i:nth-child(3) { animation-delay: .3s; }
+  @keyframes ga-t { 50% { transform: translateY(-4px); opacity: .4; } } .ga[data-s="t"] .ga-typing { display: flex; } .ga[data-s="t"] .ga-ans { display: none; }
+  .ga-num { height: 1.6rem; width: 45%; border-radius: 6px; background: var(--accent); }
+  .ga-src { display: grid; gap: .9rem; align-content: center; } .ga-src .vit-k { color: var(--accent-light); }
+  /* 4 document ai */
+  .dc2 { display: grid; grid-template-columns: .8fr 1.2fr; gap: 3.4rem; align-items: start; position: relative; z-index: 1; }
+  .dc2-page { position: relative; margin-top: .5rem; height: 11rem; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--panel); padding: .7rem; display: grid; gap: .4rem; align-content: start; overflow: hidden; } .dc2-page s { display: block; height: .4rem; border-radius: 3px; background: var(--line-strong); text-decoration: none; } .dc2-page s.h { background: var(--accent); height: .55rem; opacity: .8; }
+  .beam { position: absolute; left: 0; right: 0; height: 2.2rem; top: -2.2rem; background: linear-gradient(transparent, rgba(111,212,255,.45), transparent); border-bottom: 2px solid var(--accent-light); } .dc2-page.scan .beam { animation: dc-scan 1.6s linear 1; }
+  @keyframes dc-scan { from { top: -2.2rem; } to { top: 100%; } }
+  .dc2-rows { display: grid; gap: .4rem; margin-top: .5rem; } .dc2-rows span { display: grid; grid-template-columns: 1fr 1.4fr; gap: .6rem; align-items: center; padding: .4rem .55rem; border: 1px solid var(--line); border-radius: 7px; opacity: 0; transform: translateX(-8px); transition: opacity .4s, transform .4s; } .dc2-rows span.on { opacity: 1; transform: none; }
+  .dc2-rows span s { display: block; height: .4rem; border-radius: 3px; background: var(--line-strong); text-decoration: none; } .dc2-rows span s:last-child { background: var(--accent); opacity: .75; }
+  /* 5 automação */
+  .au { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.6rem; align-items: center; min-height: 8rem; position: relative; z-index: 1; margin-top: .6rem; }
+  .au-n { justify-items: center; text-align: center; gap: .5rem; transition: border-color .3s, box-shadow .3s; } .au-i { width: 2rem; height: 2rem; border-radius: 50%; border: 1px solid var(--line-strong); display: grid; place-items: center; } .au-i svg { width: 1.1rem; height: 1.1rem; }
+  .au-s { width: .7rem; height: .7rem; border-radius: 50%; background: var(--line-strong); display: block; transition: background .3s; } .au-n.run { border-color: var(--accent); box-shadow: 0 0 22px -6px rgba(46,134,255,.8); } .au-n.run .au-s { background: var(--accent-light); animation: or-p .7s ease-in-out infinite; }
+  .au-n.ok .au-s { background: var(--accent-verde); box-shadow: 0 0 8px var(--accent-verde); } .au-n.wait .au-s { background: var(--accent-quente); }
+  @keyframes or-p { 50% { transform: scale(1.6); opacity: .5; } }
+  .au-time { position: relative; z-index: 1; margin-top: 1rem; display: grid; gap: .4rem; } .au-bar { height: .6rem; border-radius: 4px; background: var(--line); overflow: hidden; } .au-bar i { display: block; height: 100%; width: 0; background: var(--accent); }
+  @media (max-width: 1100px) { .ga, .dc2 { gap: 1.6rem; } }
+  @media (max-width: 680px) { .ga, .dc2 { grid-template-columns: 1fr; gap: 1rem; } .au { grid-template-columns: repeat(5, 1fr); gap: .4rem; } .au .au-n { padding: .4rem; } .au-i { width: 1.5rem; height: 1.5rem; } .au .sk { display: none; } .pv-plot { height: 9rem; } }
+  @media (prefers-reduced-motion: reduce) { .ga-typing i, .au-n.run .au-s, .dc2-page.scan .beam { animation: none; } }

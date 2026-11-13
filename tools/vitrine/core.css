@@ -65,7 +65,7 @@
   .vit-info .vit-k { color: var(--accent-light); } .vit-info h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 700; margin-top: .2rem; }
   .vit-info p { color: var(--muted); margin-top: .45rem; max-width: 50rem; } .vit-info p.hint { font-size: .85rem; color: var(--accent-light); margin-top: .7rem; }
   @media (max-width: 960px) {
-    .vit { grid-template-columns: 1fr; } .vit-nav { position: static; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; align-items: start; }
+    .vit { grid-template-columns: 1fr; } .vit-nav { position: static; grid-template-columns: repeat(var(--vit-g, 3), minmax(0, 1fr)); gap: .8rem; align-items: start; }
     .vit-it { grid-template-columns: 1fr; } .vit-it .tile-ico { display: none; }
   }
   @media (max-width: 680px) {

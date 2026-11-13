@@ -19,6 +19,7 @@ import sys
 import vitrine_bi
 import vitrine_eng
 import vitrine_squads
+import vitrine_ia
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 BASE = RAIZ / 'index.html'
@@ -65,6 +66,9 @@ def extrair(html):
     script = html[ini:fim].strip()
     if 'Mega-menu' not in script:
         sys.exit('o bloco de scripts não inclui o mega-menu — a fatia saiu errada')
+    # A vitrine de IA mora só na home (entre marcadores): as outras páginas
+    # têm a sua e não podem herdar a da home.
+    script = re.sub(r'<!-- vitrine-ia:js -->.*?<!-- /vitrine-ia:js -->', '', script, flags=re.S)
     return dict(estilo=estilo, header=header, menu=menu, rodape=rodape,
                 topo=topo, chat=chat.rstrip(), script=script,
                 boot=boot)
@@ -215,6 +219,39 @@ PAGINAS = [
         # O site falava só com quem contrata. Quem vende alocação precisa
         # dos dois lados: sem profissional não há o que alocar.
         talento=True,
+    ),
+    dict(
+        arquivo='ia-automacao.html',
+        slug='ia-automacao',
+        titulo='IA & Automação',
+        h1='A próxima vantagem competitiva já está nos seus dados.',
+        meta='Consultoria de IA & Automação: modelos preditivos, detecção de anomalias, '
+             'Machine Learning, GenAI e agentes, Document AI e automação de processos '
+             'sobre a sua própria base de dados.',
+        eyebrow='IA &amp; Automação',
+        contexto='IA sobre a sua própria base. Lê o que existe, aponta o desvio e antecipa o que vem.',
+        capacidades=[
+            ('Prever e detectar', ['Modelos preditivos', 'Detecção de anomalias', 'Machine Learning']),
+            ('Conversar, ler e automatizar', ['GenAI e agentes', 'Document AI', 'Automação de processos']),
+        ],
+        etapas=[('Entendimento', 'Que decisão a IA precisa melhorar e com que dado ela conta hoje.'),
+                ('Base', 'O dado que já existe, organizado para o modelo conseguir ler.'),
+                ('Construção', 'O modelo ou o agente, treinado e testado sobre a sua própria base.'),
+                ('Produção', 'No ar, dentro do processo, com acompanhamento do que ele entrega.')],
+        tecnologias=[],
+        case=dict(
+            setor='Educação', tipo='Machine Learning', nuvem='Modelos preditivos',
+            titulo='A evasão passou a ser antecipada',
+            cenario='A evasão só era constatada depois de acontecer, quando já não havia ação '
+                    'possível. Os dados educacionais existiam, mas descreviam o passado em vez '
+                    'de apontar risco.',
+            solucao='Centenas de dashboards educacionais somados a modelos preditivos que '
+                    'estimam risco de evasão a tempo de apoiar ações preventivas.',
+            tec='GCP, Cloud Composer, Power BI, Analytics, Machine Learning, BI',
+            mudou=[('Constatada → Antecipada',
+                    'a evasão deixou de ser constatada depois de acontecer e passou a ser estimada a tempo de agir')]),
+        cta='Falar sobre IA & Automação',
+        cta2='Quero avaliar um caso de uso',
     ),
 ]
 
@@ -426,9 +463,11 @@ def montar(pag, comum):
                   tecs=bloco_tec(pag['tecnologias']), prova=prova,
                   titulo_prova=titulo_prova, cta2=pag['cta2'])
     corpo = corpo.replace('@TALENTO@', TALENTO if pag.get('talento') else '')
+    if not pag['tecnologias']:
+        corpo = re.sub(r'  <section class="sec">\s*<div class="wrap">\s*<div class="sec-lead">\s*<span class="eyebrow reveal">Tecnologias</span>.*?</section>\n\n  <div class="divider"></div>\n\n', '', corpo, count=1, flags=re.S)
     # Analytics & BI troca os três cartões de texto por uma vitrine interativa.
     vitrine_css = vitrine_js = ''
-    vitrine = {'bi-analytics.html': vitrine_bi, 'data-engineering.html': vitrine_eng, 'alocacao.html': vitrine_squads}.get(pag['arquivo'])
+    vitrine = {'bi-analytics.html': vitrine_bi, 'data-engineering.html': vitrine_eng, 'alocacao.html': vitrine_squads, 'ia-automacao.html': vitrine_ia}.get(pag['arquivo'])
     if vitrine:
         corpo, n = re.subn(r'  <section class="sec" id="perfis">.*?</section>', lambda m: vitrine.secao(), corpo, count=1, flags=re.S)
         if n != 1:
