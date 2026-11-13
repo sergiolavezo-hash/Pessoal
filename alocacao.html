@@ -1715,7 +1715,151 @@
     .tal-grid { grid-template-columns: 1fr; gap: 1.8rem; }
   }
 </style>
+<style>
+  /* ===== Vitrine de BI v2: 12 produtos, cada um com seu dashboard ===== */
+  .vit { --vit-on: #1D6FE3; display: grid; grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 1.6rem; margin-top: 2.4rem; align-items: start; }
+  .vit-nav { display: grid; gap: 1.1rem; position: sticky; top: 6.5rem; }
+  .vit-grp > .vit-k { display: flex; align-items: center; gap: .5rem; margin: 0 0 .45rem .2rem; color: var(--accent-light); }
+  .vit-grp > .vit-k::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line-strong), transparent); }
+  .vit-grp ul { list-style: none; display: grid; gap: .3rem; padding: 0; margin: 0; }
+  .vit-it { display: grid; grid-template-columns: 1.9rem 1fr; gap: .65rem; align-items: center; width: 100%; text-align: left; font: inherit; color: var(--muted);
+    padding: .5rem .65rem; border-radius: 12px; border: 1px solid transparent; background: none; cursor: pointer; transition: border-color .25s, background .25s, color .25s, transform .25s; }
+  .vit-it .tile-ico { width: 1.9rem; height: 1.9rem; border-radius: 9px; }
+  .vit-it .tile-ico svg { width: 1rem; height: 1rem; }
+  .vit-it span.t { font-size: .88rem; line-height: 1.3; font-family: var(--display); font-weight: 500; }
+  .vit-it:hover { color: var(--ink); background: var(--panel-2); transform: translateX(2px); }
+  .vit-it:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .vit-it[aria-selected="true"] { color: var(--ink); border-color: var(--accent); background: linear-gradient(90deg, rgba(46,134,255,.16), transparent 85%), var(--panel-2); box-shadow: 0 8px 24px -14px rgba(46,134,255,.7); }
+  .vit-it[aria-selected="true"] .tile-ico { background: var(--accent); border-color: var(--accent); } .vit-it[aria-selected="true"] .tile-ico svg { stroke: #fff; }
+  .vit-stage { min-width: 0; scroll-margin-top: 5.5rem; }
+  .vit-win { position: relative; border: 1px solid var(--line-strong); border-radius: 18px; overflow: hidden; background: var(--panel); box-shadow: var(--sombra), 0 0 0 1px rgba(46,134,255,.06);
+    background-image: radial-gradient(circle at 88% -10%, rgba(46,134,255,.22), transparent 46%), radial-gradient(circle at 0% 110%, rgba(111,212,255,.12), transparent 42%); }
+  .vit-win::after { content: ""; position: absolute; right: 0; bottom: 0; width: 46%; height: 42%; pointer-events: none; opacity: .55;
+    background: radial-gradient(circle, var(--accent) 1px, transparent 1.6px) 0 0 / 13px 13px; -webkit-mask: linear-gradient(135deg, transparent 45%, #000); mask: linear-gradient(135deg, transparent 45%, #000);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+  .vit-bar { position: relative; z-index: 2; display: flex; align-items: center; gap: .45rem; padding: .65rem .95rem; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--panel-2) 80%, transparent); backdrop-filter: blur(8px); }
+  .vit-dots { display: flex; align-items: center; gap: .45rem; }
+  .cat-tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .vit-bar i { width: .6rem; height: .6rem; border-radius: 50%; background: var(--line-strong); display: block; }
+  .vit-bar .vt { margin-left: .5rem; font-family: var(--display); font-weight: 600; font-size: .82rem; color: var(--ink); }
+  .vit-bar .vs { margin-left: auto; font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; text-align: right; }
+  .vit-pane { position: relative; z-index: 1; display: none; padding: 1.15rem 1.15rem 1.4rem; min-height: 22rem; }
+  .vit-pane.on { display: block; animation: vit-in .45s ease both; }
+  @keyframes vit-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .cv { position: relative; }
+  .wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 0; }
+  .wires path { fill: none; stroke: var(--accent); stroke-opacity: .38; stroke-width: 1.6; transition: stroke-opacity .25s, stroke-width .25s; }
+  .wires path.hl { stroke-opacity: 1; stroke-width: 2.4; filter: drop-shadow(0 0 5px var(--accent)); }
+  .wires path.bad { stroke: #E5575B; stroke-dasharray: 3 6; stroke-opacity: .7; }
+  .wires circle { fill: var(--accent-light); filter: drop-shadow(0 0 4px var(--accent-light)); }
+  .wires.off circle { display: none; }
+  .vit-ctl { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: .95rem; }
+  .vit-ctl .push { margin-left: auto; }
+  .vit-seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--panel-2); }
+  .vit-seg button, .vit-chip { font: inherit; font-size: .8rem; color: var(--muted); background: none; border: 0; border-radius: 999px; padding: .35rem .85rem; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+  .vit-seg button[aria-pressed="true"] { background: var(--vit-on); color: #fff; }
+  .vit-chip { border: 1px solid var(--line); background: var(--panel); }
+  .vit-chip:hover { border-color: rgba(46,134,255,.5); color: var(--ink); }
+  .vit-chip[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,.14); }
+  .vit-seg button:focus-visible, .vit-chip:focus-visible, .nd:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .vit-k { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .vit-cap { position: relative; z-index: 1; margin-top: 1rem; color: var(--muted); font-size: .86rem; min-height: 1.4em; }
+  /* nós de vidro */
+  .nd { position: relative; z-index: 1; border: 1px solid var(--line-strong); border-radius: 12px; padding: .6rem .7rem; display: grid; gap: .38rem;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--panel-2) 92%, transparent), color-mix(in srgb, var(--panel) 80%, transparent)); backdrop-filter: blur(6px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06); transition: border-color .25s, box-shadow .25s, opacity .3s, transform .3s; }
+  .nd.hl, button.nd:hover, .nd[tabindex]:hover, .nd:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, 0 0 26px -8px rgba(46,134,255,.8); }
+  .nd.dim { opacity: .35; }
+  .nd.core { border-color: var(--accent); background: linear-gradient(160deg, rgba(46,134,255,.2), transparent 75%), var(--panel-2); }
+  .sk { display: block; height: .42rem; border-radius: 4px; background: var(--line-strong); opacity: .75; text-decoration: none; }
+  .sk.a { width: 62%; } .sk.b { width: 80%; } .sk.c { width: 38%; background: var(--accent); opacity: .85; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; padding: .15rem .45rem; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--muted); }
+  .tag.ok { border-color: var(--accent-verde); color: color-mix(in srgb, var(--accent-verde) 62%, var(--ink)); } .tag.ac { border-color: var(--accent); color: var(--accent-light); }
+  .spark { height: 1.5rem; width: 100%; display: block; } .spark path { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ico-s { width: 1.1rem; height: 1.1rem; stroke: var(--accent-light); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  /* explicação */
+  .vit-info { margin-top: 1.1rem; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); padding: 1.15rem 1.3rem; display: none; }
+  .vit-info.on { display: block; animation: vit-in .4s ease both; }
+  .vit-info .vit-k { color: var(--accent-light); } .vit-info h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 700; margin-top: .2rem; }
+  .vit-info p { color: var(--muted); margin-top: .45rem; max-width: 50rem; } .vit-info p.hint { font-size: .85rem; color: var(--accent-light); margin-top: .7rem; }
+  @media (max-width: 960px) {
+    .vit { grid-template-columns: 1fr; } .vit-nav { position: static; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; align-items: start; }
+    .vit-it { grid-template-columns: 1fr; } .vit-it .tile-ico { display: none; }
+  }
+  @media (max-width: 680px) {
+    .vit-nav { grid-template-columns: 1fr; } .vit-it { grid-template-columns: 1.9rem 1fr; } .vit-it .tile-ico { display: grid; }
+    .vit-pane { padding: .8rem; } .vit-bar .vs { display: none; } .wires { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .vit-pane.on, .vit-info.on { animation: none; } }
 
+  /* ===== Vitrine de Especialistas & Squads ===== */
+  .av { width: 2.4rem; height: 2.4rem; fill: var(--accent); opacity: .9; display: block; flex: none; }
+  .av.c2 { fill: var(--accent-verde); } .av.c3 { fill: var(--accent-quente); } .av.c4 { fill: var(--accent-light); }
+  /* perfis */
+  .pr { display: grid; grid-template-columns: 15rem 1fr; gap: 1.2rem; position: relative; z-index: 1; align-items: stretch; }
+  .pr-card { justify-items: start; align-content: start; gap: .6rem; } .pr-av { width: 3.6rem; height: 3.6rem; border-radius: 50%; border: 1px solid var(--accent); background: rgba(46,134,255,.15); display: grid; place-items: center; }
+  .pr-av .av { width: 2.6rem; height: 2.6rem; } .pr-role { font-family: var(--display); font-size: 1rem; line-height: 1.25; }
+  .pr-chips { display: grid; gap: .4rem; width: 100%; } .pr-chips .vit-chip { text-align: left; border-radius: 9px; }
+  .pr-vis { min-height: 15rem; align-content: start; } .pr-canvas { display: grid; gap: .7rem; align-content: center; min-height: 12rem; }
+  .pz { position: relative; border: 1px solid var(--line-strong); border-radius: 10px; padding: .6rem .7rem; display: grid; gap: .35rem; background: var(--panel); transition: border-color .3s, box-shadow .3s, opacity .3s, transform .3s; opacity: .55; }
+  .pz.on { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, 0 0 24px -8px rgba(46,134,255,.8); transform: translateY(-2px); }
+  .pz small { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .pz-row { display: flex; align-items: center; gap: .6rem; } .pz-row .pz { flex: 1; } .pz-row em { font-style: normal; color: var(--accent-light); }
+  .pz-g { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4rem; } .pz-g i { display: block; height: 1.4rem; border-radius: 5px; background: var(--accent); opacity: .85; } .pz-g i:nth-child(2) { background: var(--accent-verde); } .pz-g i:nth-child(3) { background: var(--accent-quente); } .pz-g i:nth-child(4) { background: var(--accent-light); }
+  .pz-bars { display: flex; align-items: flex-end; gap: .3rem; height: 2.4rem; } .pz-bars i { flex: 1; border-radius: 3px 3px 0 0; background: linear-gradient(var(--accent-light), var(--accent)); display: block; }
+  .pz-dots { display: flex; flex-wrap: wrap; gap: .3rem; } .pz-dots i { width: .5rem; height: .5rem; border-radius: 50%; background: var(--accent-light); display: block; } .pz-dots i.x { background: #E5575B; box-shadow: 0 0 8px #E5575B; }
+  .pz-curve { width: 100%; height: 2.4rem; display: block; } .pz-curve path { fill: none; stroke: var(--accent-verde); stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .pz-stack { display: grid; gap: .4rem; }
+  /* contratos */
+  .ct { position: relative; z-index: 1; } .ct-track { display: grid; grid-template-columns: repeat(12, 1fr); gap: .35rem; margin: 1.4rem 0 .7rem; }
+  .ct-s { height: 2.6rem; border-radius: 8px; border: 1px dashed var(--line-strong); background: transparent; display: block; position: relative; transition: background .4s, border-color .4s; }
+  .ct-s.on { background: var(--accent); border-style: solid; border-color: var(--accent); }
+  .ct-leg { display: grid; grid-template-columns: 1fr 1fr; gap: .35rem; font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); } .ct-b { text-align: right; }
+  /* tempo indeterminado */
+  .ti { position: relative; z-index: 1; display: grid; gap: 1.6rem; padding-top: .8rem; }
+  .ti-line { position: relative; height: .9rem; border-radius: 6px; background: var(--line); } .ti-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); transition: width .8s cubic-bezier(.2,.8,.2,1); }
+  .ti[data-m="0"] .ti-fill { width: 58%; } .ti-end { position: absolute; left: 58%; top: -.6rem; width: 4px; height: 2.1rem; border-radius: 2px; background: #E5575B; opacity: 0; transition: opacity .4s; } .ti[data-m="0"] .ti-end { opacity: 1; }
+  .ti-inf { position: absolute; right: -.2rem; top: -.9rem; width: 2.4rem; height: 2.4rem; fill: none; stroke: var(--accent-light); stroke-width: 1.8; stroke-linecap: round; opacity: 0; transition: opacity .5s; } .ti[data-m="1"] .ti-inf { opacity: 1; }
+  .ti[data-m="1"] .ti-fill { background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent)); background-size: 200% 100%; animation: ti-flow 3s linear infinite; } @keyframes ti-flow { to { background-position: -200% 0; } }
+  .ti-people { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; } .ti-people .nd { grid-template-columns: 2.4rem 1fr; align-items: center; column-gap: .6rem; } .ti-people .nd .sk { grid-column: 2; }
+  .ti[data-m="0"] .ti-people .nd:nth-child(3) { opacity: .35; border-style: dashed; }
+  /* gestão */
+  .gs { display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: 3.4rem; align-items: center; min-height: 13rem; } .gs .nd { justify-items: center; text-align: center; } .gs-t { font-family: var(--display); font-size: .9rem; }
+  .gs-atlas { border-style: dashed; }
+  /* substituição */
+  .sb { position: relative; z-index: 1; display: grid; gap: .8rem; } .sb-team { display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem; }
+  .sb-p { grid-template-columns: 2.4rem 1fr; align-items: center; column-gap: .6rem; transition: opacity .5s, transform .5s, border-color .4s; } .sb-p .sk { grid-column: 2; }
+  .sb-p.sai { opacity: .2; transform: scale(.94); border-style: dashed; } .sb-p.novo { border-color: var(--accent-verde); } .sb-p .tag { grid-column: 1 / -1; justify-self: start; }
+  .sb-lane { display: grid; grid-template-columns: repeat(14, 1fr); gap: .3rem; } .sb-lane i { height: 1.8rem; border-radius: 5px; background: var(--line); display: block; transition: background .3s; } .sb-lane i.ok { background: var(--accent); } .sb-lane i.stall { background: #E5575B; }
+  /* time por perfil */
+  .mt { display: grid; grid-template-columns: 1.3fr 1fr; gap: 1rem; position: relative; z-index: 1; align-items: start; } .mt-rows { display: grid; gap: .5rem; }
+  .mt-r { display: grid; grid-template-columns: 1.4fr repeat(3, auto); gap: .35rem; align-items: center; padding: .45rem .6rem; } .mt-r .vit-chip { font-size: .74rem; padding: .25rem .6rem; } .mt-r .vit-chip.role { text-align: left; border-radius: 9px; }
+  .mt-prev { min-height: 12rem; align-content: start; } .mt-squad { display: flex; flex-wrap: wrap; gap: .8rem; padding-top: .6rem; }
+  .mt-m { display: grid; justify-items: center; gap: .25rem; animation: vit-in .4s ease both; } .mt-m .av { width: 2.4rem; height: 2.4rem; } .mt-m.s0 .av { width: 1.8rem; height: 1.8rem; } .mt-m.s2 .av { width: 3rem; height: 3rem; filter: drop-shadow(0 0 6px var(--accent-light)); }
+  .mt-m small { font-family: var(--mono); font-size: .58rem; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; text-align: center; max-width: 5rem; }
+  /* liderança */
+  .ld { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: center; min-height: 14rem; } .ld .nd { grid-template-columns: 2.4rem 1fr; align-items: center; column-gap: .6rem; } .ld .nd .sk { grid-column: 2; } .ld .nd .vit-k { grid-column: 1 / -1; }
+  .ld-col { display: grid; gap: .7rem; } .ld[data-m="0"] .core { opacity: .3; filter: grayscale(1); } .ld[data-m="0"] .ld-col .nd { border-style: dashed; transform: translateX(var(--o, 0)); } .ld[data-m="0"] .ld-col .nd:nth-child(2n) { --o: 10px; } .ld[data-m="0"] .ld-col .nd:nth-child(3) { --o: -8px; }
+  .ld .ld-col .nd { transition: transform .5s, border-color .4s; }
+  /* ritmo */
+  .rt { position: relative; z-index: 1; display: grid; gap: .9rem; } .rt-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; }
+  .rt-st { text-align: center; padding: .7rem .4rem; font-family: var(--display); font-size: .86rem; transition: all .3s; } .rt-st.on { border-color: var(--accent); background: rgba(46,134,255,.18); box-shadow: 0 0 22px -6px rgba(46,134,255,.8); }
+  .rt-done { display: grid; grid-template-columns: repeat(10, 1fr); gap: .3rem; min-height: 2rem; } .rt-done i { height: 2rem; border-radius: 6px; background: var(--accent-verde); display: block; animation: vit-in .4s ease both; }
+  /* transferência */
+  .tk { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1.6fr 1fr; gap: 1.2rem; align-items: center; min-height: 12rem; }
+  .tk-side { display: grid; gap: .6rem; justify-items: center; } .tk-av { display: flex; gap: .3rem; } .tk-av .av { transition: opacity .5s, transform .5s; } .tk-av .av.off { opacity: .15; transform: scale(.8); }
+  .tk-mid { display: grid; gap: .6rem; } .tk-bar { display: flex; height: 1.3rem; border-radius: 7px; overflow: hidden; background: var(--line); }
+  .tk-a, .tk-c { display: block; height: 100%; transition: width .8s cubic-bezier(.2,.8,.2,1); } .tk-a { background: var(--accent); width: 80%; } .tk-c { background: var(--accent-verde); width: 20%; }
+  .tk[data-f="1"] .tk-a { width: 50%; } .tk[data-f="1"] .tk-c { width: 50%; } .tk[data-f="2"] .tk-a { width: 20%; } .tk[data-f="2"] .tk-c { width: 80%; }
+  .tk-docs { display: flex; justify-content: center; gap: .5rem; } .tk-docs i { width: .9rem; height: 1.2rem; border-radius: 3px; border: 1.5px solid var(--accent-light); display: block; animation: tk-fl 1.6s ease-in-out infinite; } .tk-docs i:nth-child(2) { animation-delay: .25s; } .tk-docs i:nth-child(3) { animation-delay: .5s; }
+  @keyframes tk-fl { 50% { transform: translateY(-5px); opacity: .5; } }
+  @media (max-width: 1100px) { .gs, .ld { gap: 1.8rem; } }
+  @media (max-width: 680px) {
+    .pr, .gs, .mt, .ld, .tk { grid-template-columns: 1fr; gap: 1rem; } .pz-row { flex-direction: column; align-items: stretch; } .pz-row em { transform: rotate(90deg); text-align: center; } .pr-vis, .pr-card, .pr-canvas { min-width: 0; } .sb-team { grid-template-columns: 1fr 1fr; } .ti-people { grid-template-columns: 1fr; } .rt-steps { grid-template-columns: 1fr 1fr; }
+    .ct-track { grid-template-columns: repeat(6, 1fr); } .sb-lane { grid-template-columns: repeat(7, 1fr); } .mt-r { grid-template-columns: 1fr 1fr 1fr 1fr; } .mt-r .role { grid-column: 1 / -1; } .rt-done { grid-template-columns: repeat(5, 1fr); }
+  }
+  @media (prefers-reduced-motion: reduce) { .ti[data-m="1"] .ti-fill, .tk-docs i { animation: none; } }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#inicio">Pular para o conteúdo</a>
@@ -1935,37 +2079,83 @@
       <div class="sec-lead">
         <span class="eyebrow reveal">O que fazemos</span>
         <h2 class="h-xl reveal d1">As frentes que entregamos.</h2>
+        <p class="sub reveal d2">Doze entregas, três frentes. Escolha uma e veja como funciona na prática: clique, alterne e monte o seu squad.</p>
       </div>
-      <div class="fam-grid reveal d2">
-          <article class="svc">
-            <h3 class="svc-t">Perfis que alocamos</h3>
-            <ul class="svc-list">
-              <li>Engenheiro de dados</li>
-              <li>Analista e desenvolvedor de BI</li>
-              <li>Cientista de dados</li>
-              <li>Arquiteto de dados</li>
-            </ul>
-          </article>
-
-          <article class="svc">
-            <h3 class="svc-t">Como funciona</h3>
-            <ul class="svc-list">
-              <li>Contratos de no mínimo 6 meses</li>
-              <li>Alocações por tempo indeterminado</li>
-              <li>Sob a gestão do cliente, com respaldo técnico da Atlas</li>
-              <li>Substituição sem quebra de ritmo</li>
-            </ul>
-          </article>
-
-          <article class="svc">
-            <h3 class="svc-t">Squads completos</h3>
-            <ul class="svc-list">
-              <li>Time montado por perfil e senioridade</li>
-              <li>Liderança técnica da Atlas</li>
-              <li>Ritmo de entrega acordado</li>
-              <li>Transferência de conhecimento</li>
-            </ul>
-          </article>
+      <div class="vit reveal d2" id="vit">
+        <div class="vit-nav" role="tablist" aria-label="Entregas de Especialistas e Squads"><div class="vit-grp"><span class="vit-k">Perfis que alocamos</span><ul><li><button class="vit-it" role="tab" id="vt0" aria-controls="vp0" aria-selected="true" type="button"><span class="tile-ico" data-ico="engenharia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><span class="t">Engenheiro de dados</span></button></li><li><button class="vit-it" role="tab" id="vt1" aria-controls="vp1" aria-selected="false" type="button"><span class="tile-ico" data-ico="analytics"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M8 15v3M13 10v8M18 5v13"/></svg></span><span class="t">Analista e desenvolvedor de BI</span></button></li><li><button class="vit-it" role="tab" id="vt2" aria-controls="vp2" aria-selected="false" type="button"><span class="tile-ico" data-ico="preditivo"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 2"/><circle cx="18" cy="8" r="2.5"/></svg></span><span class="t">Cientista de dados</span></button></li><li><button class="vit-it" role="tab" id="vt3" aria-controls="vp3" aria-selected="false" type="button"><span class="tile-ico" data-ico="arquitetura"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="9" y="14" width="6" height="6" rx="1"/><path d="M7 10v2h10v-2M12 12v2"/></svg></span><span class="t">Arquiteto de dados</span></button></li></ul></div><div class="vit-grp"><span class="vit-k">Como funciona</span><ul><li><button class="vit-it" role="tab" id="vt4" aria-controls="vp4" aria-selected="false" type="button"><span class="tile-ico" data-ico="contrato"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3"/></svg></span><span class="t">Contratos com o prazo de cada cliente</span></button></li><li><button class="vit-it" role="tab" id="vt5" aria-controls="vp5" aria-selected="false" type="button"><span class="tile-ico" data-ico="permanencia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="t">Alocações por tempo indeterminado</span></button></li><li><button class="vit-it" role="tab" id="vt6" aria-controls="vp6" aria-selected="false" type="button"><span class="tile-ico" data-ico="time"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span><span class="t">Sob a gestão do cliente, com respaldo técnico da Atlas</span></button></li><li><button class="vit-it" role="tab" id="vt7" aria-controls="vp7" aria-selected="false" type="button"><span class="tile-ico" data-ico="modernizacao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/></svg></span><span class="t">Substituição sem quebra de ritmo</span></button></li></ul></div><div class="vit-grp"><span class="vit-k">Squads completos</span><ul><li><button class="vit-it" role="tab" id="vt8" aria-controls="vp8" aria-selected="false" type="button"><span class="tile-ico" data-ico="pessoas"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.3"/><path d="M5.5 20.5a6.5 6.5 0 0 1 13 0"/></svg></span><span class="t">Time montado por perfil e senioridade</span></button></li><li><button class="vit-it" role="tab" id="vt9" aria-controls="vp9" aria-selected="false" type="button"><span class="tile-ico" data-ico="governanca"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3 7.7 7.5 9.5 4.5-1.8 7.5-5 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="t">Liderança técnica da Atlas</span></button></li><li><button class="vit-it" role="tab" id="vt10" aria-controls="vp10" aria-selected="false" type="button"><span class="tile-ico" data-ico="sequencia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h5v-5h5v-5h5V4h3"/><path d="M3 20h18"/></svg></span><span class="t">Ritmo de entrega acordado</span></button></li><li><button class="vit-it" role="tab" id="vt11" aria-controls="vp11" aria-selected="false" type="button"><span class="tile-ico" data-ico="documento"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span class="t">Transferência de conhecimento</span></button></li></ul></div></div>
+        <div class="vit-stage">
+          <div class="vit-win"><div class="vit-bar"><div class="vit-dots" aria-hidden="true"><i></i><i></i><i></i></div><span class="vt" id="vit-tit"></span><span class="vs">Exemplo ilustrativo &middot; sem dados reais</span></div><div class="vit-pane on" id="vp0" role="tabpanel" aria-labelledby="vt0">
+<div class="pr">
+  <div class="nd pr-card"><div class="pr-av"><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg></div><b class="pr-role">Engenheiro de dados</b><span class="tag ac">Perfil alocado</span>
+    <span class="vit-k">Atuação</span><div class="pr-chips" id="prc0"><button class="vit-chip" type="button" data-s="0" aria-pressed="true">Pipelines</button><button class="vit-chip" type="button" data-s="1" aria-pressed="false">Orquestração</button><button class="vit-chip" type="button" data-s="2" aria-pressed="false">Modelagem</button><button class="vit-chip" type="button" data-s="3" aria-pressed="false">Qualidade</button></div></div>
+  <div class="nd pr-vis"><span class="vit-k">Onde ele atua</span><div class="pr-canvas" id="prv0"></div></div>
+</div>
+<p class="vit-cap" id="prp0" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp1" role="tabpanel" aria-labelledby="vt1" hidden>
+<div class="pr">
+  <div class="nd pr-card"><div class="pr-av"><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg></div><b class="pr-role">Analista e desenvolvedor de BI</b><span class="tag ac">Perfil alocado</span>
+    <span class="vit-k">Atuação</span><div class="pr-chips" id="prc1"><button class="vit-chip" type="button" data-s="0" aria-pressed="true">Dashboards</button><button class="vit-chip" type="button" data-s="1" aria-pressed="false">Modelo semântico</button><button class="vit-chip" type="button" data-s="2" aria-pressed="false">Performance</button><button class="vit-chip" type="button" data-s="3" aria-pressed="false">Governança</button></div></div>
+  <div class="nd pr-vis"><span class="vit-k">Onde ele atua</span><div class="pr-canvas" id="prv1"></div></div>
+</div>
+<p class="vit-cap" id="prp1" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp2" role="tabpanel" aria-labelledby="vt2" hidden>
+<div class="pr">
+  <div class="nd pr-card"><div class="pr-av"><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg></div><b class="pr-role">Cientista de dados</b><span class="tag ac">Perfil alocado</span>
+    <span class="vit-k">Atuação</span><div class="pr-chips" id="prc2"><button class="vit-chip" type="button" data-s="0" aria-pressed="true">Modelos preditivos</button><button class="vit-chip" type="button" data-s="1" aria-pressed="false">Anomalias</button><button class="vit-chip" type="button" data-s="2" aria-pressed="false">Experimentos</button><button class="vit-chip" type="button" data-s="3" aria-pressed="false">Produção</button></div></div>
+  <div class="nd pr-vis"><span class="vit-k">Onde ele atua</span><div class="pr-canvas" id="prv2"></div></div>
+</div>
+<p class="vit-cap" id="prp2" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp3" role="tabpanel" aria-labelledby="vt3" hidden>
+<div class="pr">
+  <div class="nd pr-card"><div class="pr-av"><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg></div><b class="pr-role">Arquiteto de dados</b><span class="tag ac">Perfil alocado</span>
+    <span class="vit-k">Atuação</span><div class="pr-chips" id="prc3"><button class="vit-chip" type="button" data-s="0" aria-pressed="true">Desenho da base</button><button class="vit-chip" type="button" data-s="1" aria-pressed="false">Nuvem</button><button class="vit-chip" type="button" data-s="2" aria-pressed="false">Segurança</button><button class="vit-chip" type="button" data-s="3" aria-pressed="false">Padrões</button></div></div>
+  <div class="nd pr-vis"><span class="vit-k">Onde ele atua</span><div class="pr-canvas" id="prv3"></div></div>
+</div>
+<p class="vit-cap" id="prp3" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp4" role="tabpanel" aria-labelledby="vt4" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Prazo da alocação"><button type="button" data-ct="0" aria-pressed="true">Prazo mais curto</button><button type="button" data-ct="1" aria-pressed="false">Prazo médio</button><button type="button" data-ct="2" aria-pressed="false">Prazo mais longo</button></div></div>
+<div class="ct"><div class="ct-track" id="sqc-track"></div><div class="ct-leg"><div class="ct-a">Início da alocação</div><div class="ct-b">Prazo combinado com cada cliente</div></div></div>
+<p class="vit-cap" id="sqc-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp5" role="tabpanel" aria-labelledby="vt5" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Duração da alocação"><button type="button" data-ti="0" aria-pressed="true">Prazo fechado</button><button type="button" data-ti="1" aria-pressed="false">Tempo indeterminado</button></div></div>
+<div class="ti" id="sqti" data-m="0"><div class="ti-line"><i class="ti-fill"></i><b class="ti-end"></b><svg class="ti-inf" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8a4 4 0 1 0 0 8c4 0 6-8 10-8a4 4 0 1 1 0 8c-4 0-6-8-10-8z"/></svg></div>
+  <div class="ti-people"><div class="nd"><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><s class="sk"></s><s class="sk a"></s></div><div class="nd"><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><s class="sk"></s><s class="sk a"></s></div><div class="nd"><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><s class="sk"></s><s class="sk a"></s></div></div></div>
+<p class="vit-cap" id="sqti-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp6" role="tabpanel" aria-labelledby="vt6" hidden>
+<div class="vit-ctl"><span class="vit-k">Destacar</span><button class="vit-chip" type="button" data-g="gestao" aria-pressed="false">Gestão</button><button class="vit-chip" type="button" data-g="respaldo" aria-pressed="false">Respaldo técnico</button></div>
+<div class="cv gs" id="sqgs" data-fios="gc>ge;ge>ga"><svg class="wires" aria-hidden="true"></svg>
+  <div class="nd" id="gc"><span class="vit-k">Seu time</span><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><b class="gs-t">Gestão do cliente</b><s class="sk"></s><s class="sk a"></s></div>
+  <div class="nd core" id="ge"><span class="vit-k">No seu time</span><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><b class="gs-t">Especialista alocado</b><s class="sk"></s><s class="sk a"></s></div>
+  <div class="nd gs-atlas" id="ga"><span class="vit-k">Por trás</span><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><b class="gs-t">Respaldo técnico da Atlas</b><s class="sk"></s><s class="sk a"></s></div>
+</div>
+<p class="vit-cap" id="sqgs-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp7" role="tabpanel" aria-labelledby="vt7" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Como a troca acontece"><button type="button" data-sb="0" aria-pressed="true">Sem reposição estruturada</button><button type="button" data-sb="1" aria-pressed="false">Substituição Atlas</button></div><button class="vit-chip push" type="button" id="sqs-go">&#9654; Simular uma saída</button></div>
+<div class="sb"><div class="sb-team" id="sqs-team"></div><span class="vit-k">Ritmo de entrega</span><div class="sb-lane" id="sqs-lane"></div></div>
+<p class="vit-cap" id="sqs-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp8" role="tabpanel" aria-labelledby="vt8" hidden>
+<div class="mt"><div class="mt-rows" id="sqm-rows"></div><div class="nd mt-prev"><span class="vit-k">Seu squad</span><div class="mt-squad" id="sqm-squad"></div></div></div>
+<p class="vit-cap" id="sqm-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp9" role="tabpanel" aria-labelledby="vt9" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Liderança"><button type="button" data-ld="0" aria-pressed="true">Sem liderança técnica</button><button type="button" data-ld="1" aria-pressed="false">Com liderança técnica</button></div></div>
+<div class="cv ld" id="sqld" data-m="0" data-fios=""><svg class="wires off" aria-hidden="true"></svg>
+  <div class="nd core" id="ldl"><span class="vit-k">Liderança técnica Atlas</span><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><s class="sk"></s><s class="sk a"></s></div>
+  <div class="ld-col"><div class="nd" id="ldm0"><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><s class="sk"></s><s class="sk a"></s></div><div class="nd" id="ldm1"><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><s class="sk"></s><s class="sk a"></s></div><div class="nd" id="ldm2"><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><s class="sk"></s><s class="sk a"></s></div><div class="nd" id="ldm3"><svg class="av " viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><s class="sk"></s><s class="sk a"></s></div></div>
+</div>
+<p class="vit-cap" id="sqld-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp10" role="tabpanel" aria-labelledby="vt10" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Ritmo"><button type="button" data-rt="curto" aria-pressed="true">Ciclo curto</button><button type="button" data-rt="longo" aria-pressed="false">Ciclo longo</button></div></div>
+<div class="rt" id="sqrt" data-m="curto"><div class="rt-steps" id="sqrt-steps"></div><span class="vit-k">Entregas acumuladas</span><div class="rt-done" id="sqrt-done"></div></div>
+<p class="vit-cap" id="sqrt-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp11" role="tabpanel" aria-labelledby="vt11" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Fase do projeto"><button type="button" data-tk="0" aria-pressed="true">Início</button><button type="button" data-tk="1" aria-pressed="false">Meio</button><button type="button" data-tk="2" aria-pressed="false">Fim</button></div></div>
+<div class="tk" id="sqtk" data-f="0"><div class="tk-side"><span class="vit-k">Time Atlas</span><div class="tk-av" id="sqtk-a"></div></div>
+  <div class="tk-mid"><span class="vit-k">Quem conduz</span><div class="tk-bar"><i class="tk-a"></i><i class="tk-c"></i></div><div class="tk-docs" aria-hidden="true"><i></i><i></i><i></i></div></div>
+  <div class="tk-side"><span class="vit-k">Time do cliente</span><div class="tk-av" id="sqtk-c"></div></div></div>
+<p class="vit-cap" id="sqtk-cap" aria-live="polite"></p>
+</div></div>
+          <div class="vit-info on" id="vi0"><span class="vit-k">Perfis que alocamos</span><h3>Engenheiro de dados</h3><p>Constrói e mantém a base de dados dentro do seu time: pipelines, armazenamento e qualidade.</p><p class="hint">Escolha uma atuação e veja onde ele entra.</p></div><div class="vit-info" id="vi1"><span class="vit-k">Perfis que alocamos</span><h3>Analista e desenvolvedor de BI</h3><p>Transforma o dado em indicador que o negócio usa: modelo, dashboards e governança, dentro do seu time.</p><p class="hint">Escolha uma atuação e veja onde ele entra.</p></div><div class="vit-info" id="vi2"><span class="vit-k">Perfis que alocamos</span><h3>Cientista de dados</h3><p>Leva modelos preditivos e análises avançadas até a decisão, dentro do seu time.</p><p class="hint">Escolha uma atuação e veja onde ele entra.</p></div><div class="vit-info" id="vi3"><span class="vit-k">Perfis que alocamos</span><h3>Arquiteto de dados</h3><p>Desenha a base: o que guarda o quê, onde roda e como tudo se conecta, para o time construir sobre ela.</p><p class="hint">Escolha uma atuação e veja onde ele entra.</p></div><div class="vit-info" id="vi4"><span class="vit-k">Como funciona</span><h3>Contratos com o prazo de cada cliente</h3><p>O prazo da alocação é combinado caso a caso, conforme a necessidade de cada cliente e do projeto.</p><p class="hint">Escolha um prazo e veja a alocação se ajustar.</p></div><div class="vit-info" id="vi5"><span class="vit-k">Como funciona</span><h3>Alocações por tempo indeterminado</h3><p>Quando o time precisa de continuidade, a alocação não tem data final: segue enquanto fizer sentido.</p><p class="hint">Alterne entre prazo fechado e tempo indeterminado.</p></div><div class="vit-info" id="vi6"><span class="vit-k">Como funciona</span><h3>Sob a gestão do cliente, com respaldo técnico da Atlas</h3><p>O especialista responde à sua gestão e trabalha como parte do seu time, com o respaldo técnico da Atlas por trás.</p><p class="hint">Destaque a gestão ou o respaldo.</p></div><div class="vit-info" id="vi7"><span class="vit-k">Como funciona</span><h3>Substituição sem quebra de ritmo</h3><p>Se um especialista precisar sair, a Atlas faz a substituição para o time não parar.</p><p class="hint">Compare as duas formas e simule uma saída.</p></div><div class="vit-info" id="vi8"><span class="vit-k">Squads completos</span><h3>Time montado por perfil e senioridade</h3><p>O squad é composto pelos perfis e pelas senioridades que o projeto pede, não por um pacote fechado.</p><p class="hint">Ligue perfis e escolha a senioridade de cada um.</p></div><div class="vit-info" id="vi9"><span class="vit-k">Squads completos</span><h3>Liderança técnica da Atlas</h3><p>Um líder técnico da Atlas acompanha o squad: orienta as decisões técnicas e cuida da qualidade da entrega.</p><p class="hint">Alterne entre sem e com liderança técnica.</p></div><div class="vit-info" id="vi10"><span class="vit-k">Squads completos</span><h3>Ritmo de entrega acordado</h3><p>Frequência e formato das entregas combinados no início, para o negócio saber quando esperar resultado.</p><p class="hint">Alterne entre ciclo curto e ciclo longo.</p></div><div class="vit-info" id="vi11"><span class="vit-k">Squads completos</span><h3>Transferência de conhecimento</h3><p>O conhecimento construído no projeto passa para o seu time de forma contínua, e não fica só na cabeça de quem entregou.</p><p class="hint">Percorra as fases do projeto.</p></div>
+        </div>
       </div>
     </div>
   </section>
@@ -3191,6 +3381,229 @@
     }, { threshold: 0.35 });
     obs.observe(alvos[0].parentNode.parentNode);
   })();
+</script>
+<script>
+/* Vitrine interativa: cada entrega com o seu dashboard de exemplo. Só formas, sem dados reais. */
+(function () {
+  var raiz = document.getElementById('vit'); if (!raiz) return;
+  var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NS = 'http://www.w3.org/2000/svg';
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return [].slice.call((r || document).querySelectorAll(s)); }
+  function sem(s) { return function () { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
+  function pressiona(lista, fn) { $$(lista).forEach(function (b) { b.addEventListener('click', function () { fn(b); }); }); }
+  function marca(grupo, atrib, val) { $$(grupo).forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute(atrib) === String(val))); }); }
+  /* Textos que o script escreve depois do carregamento. O motor de idiomas só
+     alcança o que já estava na página, então a vitrine se traduz sozinha:
+     cada texto dinâmico guarda o português em data-pt e é reescrito quando o
+     idioma muda. */
+  function idi() { return window.AtlasI18n ? AtlasI18n.idioma() : 'pt'; }
+  function T(s) { var l = idi(); return l === 'pt' ? s : ((window.ATLAS_I18N && ATLAS_I18N[l] && ATLAS_I18N[l][s]) || s); }
+  function put(el, pt) { el.setAttribute('data-pt', pt); el.textContent = T(pt); el.__pt = pt; }
+  document.addEventListener('atlas:idioma', function () {
+    $$('[data-pt]', raiz).forEach(function (e) { e.textContent = T(e.getAttribute('data-pt')); e.__pt = e.getAttribute('data-pt'); });
+    var n = itens.map(function (a) { return a.getAttribute('aria-selected') === 'true'; }).indexOf(true);
+    if (n > -1) $('#vit-tit').textContent = itens[n].querySelector('.t').textContent;
+  });
+  function caminho(v, w, h, max) { return v.map(function (y, i) { return (i ? 'L' : 'M') + (i * w / (v.length - 1)).toFixed(1) + ' ' + (h - (y / max) * (h - 1) - 0.5).toFixed(1); }).join(' '); }
+
+  /* ---------- fios: ligam um nó a outro, de verdade, e carregam partículas ---------- */
+  function fios(cv) {
+    var svg = $(':scope > .wires', cv); if (!svg) return;
+    var lista = (cv.getAttribute('data-fios') || '').split(';').filter(Boolean);
+    var R = cv.getBoundingClientRect(); if (!R.width) return;
+    svg.setAttribute('viewBox', '0 0 ' + R.width + ' ' + R.height);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    lista.forEach(function (par, n) {
+      var ab = par.split('>'), a = document.getElementById(ab[0]), b = document.getElementById(ab[1]); if (!a || !b) return;
+      var A = a.getBoundingClientRect(), B = b.getBoundingClientRect(); if (!A.width || !B.width) return;
+      var x1 = A.right - R.left, y1 = A.top + A.height / 2 - R.top, x2 = B.left - R.left, y2 = B.top + B.height / 2 - R.top, xm = (x1 + x2) / 2;
+      var d = 'M' + x1.toFixed(1) + ' ' + y1.toFixed(1) + ' C' + xm.toFixed(1) + ' ' + y1.toFixed(1) + ',' + xm.toFixed(1) + ' ' + y2.toFixed(1) + ',' + x2.toFixed(1) + ' ' + y2.toFixed(1);
+      var p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); p.setAttribute('data-par', par); svg.appendChild(p);
+      if (reduz) return;
+      [0, 1].forEach(function (k) {
+        var c = document.createElementNS(NS, 'circle'); c.setAttribute('r', '3.2'); c.setAttribute('data-par', par);
+        var m = document.createElementNS(NS, 'animateMotion'); m.setAttribute('dur', (2.4 + (n % 3) * 0.35).toFixed(2) + 's'); m.setAttribute('repeatCount', 'indefinite');
+        m.setAttribute('begin', '-' + (k * 1.2 + n * 0.17).toFixed(2) + 's'); m.setAttribute('path', d); c.appendChild(m); svg.appendChild(c);
+      });
+    });
+    (cv._rehl || function () {})();
+  }
+  function wireMarca(cv, fn) { cv._rehl = function () { $$('.wires path', cv).forEach(function (p) { p.classList.toggle('hl', !!fn && fn(p.getAttribute('data-par'))); p.classList.toggle('bad', !!(cv._bad && cv._bad(p.getAttribute('data-par')))); }); }; cv._rehl(); }
+
+  /* ---------- navegação: 12 itens ---------- */
+  var itens = $$('.vit-it', raiz), iniciado = {}, INIT = {};
+  function mostra(n, foco) {
+    itens.forEach(function (a, i) {
+      var on = i === n; a.setAttribute('aria-selected', String(on)); a.tabIndex = on ? 0 : -1;
+      var p = document.getElementById('vp' + i), v = document.getElementById('vi' + i); p.hidden = !on; p.classList.toggle('on', on); v.classList.toggle('on', on);
+    });
+    put($('#vit-tit'), itens[n].querySelector('.t').__pt || itens[n].querySelector('.t').textContent);
+    var p = document.getElementById('vp' + n);
+    if (!iniciado[n]) { iniciado[n] = 1; if (INIT[n]) INIT[n](p); }
+    requestAnimationFrame(function () { $$('.cv', p).forEach(fios); if (p._mostrou) p._mostrou(); });
+    if (foco) itens[n].focus();
+  }
+  itens.forEach(function (a, i) {
+    a.addEventListener('click', function () {
+      mostra(i);
+      /* No celular a lista vem antes da tela: leva a pessoa até o dashboard. */
+      if (window.matchMedia('(max-width: 960px)').matches) $('.vit-stage', raiz).scrollIntoView({ behavior: reduz ? 'auto' : 'smooth', block: 'start' });
+    });
+    a.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (!d) return; e.preventDefault(); mostra((i + d + itens.length) % itens.length, true);
+    });
+  });
+  function refaz() { var p = $('.vit-pane.on'); if (p) $$('.cv', p).forEach(fios); }
+  window.addEventListener('resize', refaz);
+  if (window.ResizeObserver) new ResizeObserver(refaz).observe($('.vit-win', raiz));
+
+  /* perfis: 0 a 3 */
+  function perfil(n, build, caps) {
+    var p = document.getElementById('vp' + n), v = $('#prv' + n, p), cap = $('#prp' + n, p), chips = $$('#prc' + n + ' .vit-chip', p);
+    build(v);
+    function s(i) {
+      chips.forEach(function (c, k) { c.setAttribute('aria-pressed', String(k === i)); });
+      $$('[data-z]', v).forEach(function (e) { e.classList.toggle('on', e.getAttribute('data-z').split(' ').indexOf(String(i)) > -1); });
+      put(cap, caps[i]);
+    }
+    chips.forEach(function (c, i) { c.addEventListener('click', function () { s(i); }); }); s(0);
+  }
+  function blk(z, rot, corpo) { return '<div class="pz" data-z="' + z + '"><small data-pt="' + rot + '">' + T(rot) + '</small>' + corpo + '</div>'; }
+  var SKL = '<s class="sk"></s><s class="sk a"></s>', BARS = '<div class="pz-bars"><i style="height:45%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:65%"></i></div>';
+  INIT[0] = function () { perfil(0, function (v) {
+    v.innerHTML = '<div class="pz-row">' + blk('0', 'Fontes', SKL) + '<em>&rarr;</em>' + blk('0 1', 'Pipeline', SKL) + '<em>&rarr;</em>' + blk('2 3', 'Base', SKL) + '<em>&rarr;</em>' + blk('3', 'Consumo', SKL) + '</div>';
+  }, ['Constrói os pipelines que levam o dado das fontes até a base.', 'Orquestra as etapas para rodar na ordem e na hora certas.', 'Modela a base para que o negócio consiga perguntar.', 'Cria os testes que protegem a qualidade do dado.']); };
+  INIT[1] = function () { perfil(1, function (v) {
+    v.innerHTML = blk('0', 'Indicadores', '<div class="pz-g"><i></i><i></i><i></i><i></i></div>') + '<div class="pz-row">' + blk('0 2', 'Gráficos', BARS) + blk('1', 'Modelo semântico', '<div class="pz-g"><i></i><i></i><i></i></div>' + SKL) + blk('3', 'Acesso por perfil', SKL) + '</div>';
+  }, ['Constrói os dashboards que as áreas usam no dia a dia.', 'Organiza o modelo semântico para existir uma definição por métrica.', 'Otimiza as medidas para o painel responder rápido.', 'Aplica o padrão de layout e o controle de acesso por perfil.']); };
+  INIT[2] = function () { perfil(2, function (v) {
+    var pts = '<div class="pz-dots">' + Array.apply(null, Array(26)).map(function (_, i) { return '<i' + (i === 17 ? ' class="x"' : '') + '></i>'; }).join('') + '</div>';
+    v.innerHTML = '<div class="pz-row">' + blk('1 2', 'Dados históricos', pts) + '<em>&rarr;</em>' + blk('0 2', 'Modelo', '<svg class="pz-curve" viewBox="0 0 60 20" preserveAspectRatio="none"><path d="M1 17 C 14 16, 20 4, 32 8 S 52 3, 59 2"/></svg>') + '<em>&rarr;</em>' + blk('3', 'Em produção', SKL) + '</div>';
+  }, ['Treina modelos preditivos para antecipar o que vem.', 'Detecta o que foge do padrão antes que vire problema.', 'Testa hipóteses e compara abordagens antes de escolher uma.', 'Leva o modelo para produção, onde ele gera decisão.']); };
+  INIT[3] = function () { perfil(3, function (v) {
+    v.innerHTML = '<div class="pz-stack">' + blk('0 2', 'Fontes', SKL) + blk('0 1', 'Armazenamento', SKL) + blk('0 1 3', 'Transformação', SKL) + blk('0 2 3', 'Consumo', SKL) + '</div>';
+  }, ['Desenha a base inteira: o que guarda o quê e como tudo se conecta.', 'Escolhe a nuvem e os serviços que servem ao problema.', 'Define quem acessa o quê, da fonte ao consumo.', 'Estabelece os padrões que o time segue ao construir.']); };
+
+  /* 4. contratos com o prazo de cada cliente */
+  INIT[4] = function (p) {
+    var tr = $('#sqc-track', p), cap = $('#sqc-cap', p), N = [4, 8, 12];
+    tr.innerHTML = Array.apply(null, Array(12)).map(function () { return '<i class="ct-s"></i>'; }).join('');
+    var S = $$('.ct-s', tr);
+    var C = ['Alocação mais curta, para uma necessidade pontual do projeto. O prazo é combinado com cada cliente.', 'Prazo intermediário, acompanhando uma etapa do roadmap. O prazo é combinado com cada cliente.', 'Alocação mais longa, para quem precisa de continuidade no time. O prazo é combinado com cada cliente.'];
+    function f(i) { S.forEach(function (s, k) { s.classList.toggle('on', k < N[i]); }); marca('#vp4 [data-ct]', 'data-ct', i); put(cap, C[i]); }
+    pressiona('#vp4 [data-ct]', function (b) { f(+b.getAttribute('data-ct')); }); f(1);
+  };
+
+  /* 5. tempo indeterminado */
+  INIT[5] = function (p) {
+    var ti = $('#sqti', p), cap = $('#sqti-cap', p);
+    function m(x) {
+      ti.setAttribute('data-m', x); marca('#vp5 [data-ti]', 'data-ti', x);
+      put(cap, x ? 'Sem data final: a alocação segue enquanto o time precisar, com o mesmo especialista conhecendo o contexto.' : 'Com prazo fechado, o contrato termina numa data e o conhecimento acumulado vai embora junto.');
+    }
+    pressiona('#vp5 [data-ti]', function (b) { m(+b.getAttribute('data-ti')); }); m(0);
+  };
+
+  /* 6. gestão do cliente, respaldo da Atlas */
+  INIT[6] = function (p) {
+    var cv = $('#sqgs', p), cap = $('#sqgs-cap', p), sel = null;
+    cv._bad = function (q) { return q === 'ge>ga'; }; wireMarca(cv, null);
+    var ALVO = { gestao: 'gc>ge', respaldo: 'ge>ga' };
+    function pinta() {
+      wireMarca(cv, sel ? function (q) { return q === ALVO[sel]; } : null); cv._bad = function (q) { return q === 'ge>ga'; }; cv._rehl();
+      $$('#vp6 [data-g]', p).forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-g') === sel)); });
+      $('#gc', p).classList.toggle('hl', sel === 'gestao'); $('#ga', p).classList.toggle('hl', sel === 'respaldo'); $('#ge', p).classList.toggle('hl', !!sel);
+      put(cap, sel === 'gestao' ? 'O especialista responde à sua gestão e trabalha como parte do seu time.' : sel === 'respaldo' ? 'A Atlas segue por trás, como respaldo técnico, sem entrar na gestão do dia a dia.' : 'O especialista trabalha dentro do seu time e responde à sua gestão. A Atlas segue por trás, como respaldo técnico.');
+    }
+    pressiona('#vp6 [data-g]', function (b) { var g = b.getAttribute('data-g'); sel = sel === g ? null : g; pinta(); }); pinta();
+  };
+
+  /* 7. substituição sem quebra de ritmo */
+  INIT[7] = function (p) {
+    var modo = 0, team = $('#sqs-team', p), lane = $('#sqs-lane', p), cap = $('#sqs-cap', p), t = [], COR = ['', 'c2', 'c3', 'c4'];
+    lane.innerHTML = Array.apply(null, Array(14)).map(function () { return '<i></i>'; }).join('');
+    function monta() { team.innerHTML = COR.map(function (c, i) { return '<div class="nd sb-p" id="sqsp' + i + '">' + '<svg class="av ' + c + '" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><s class="sk"></s><s class="sk a"></s></div>'; }).join(''); }
+    function zera() { t.forEach(clearTimeout); t = []; $$('i', lane).forEach(function (i) { i.className = ''; }); monta(); }
+    function ag(ms, fn) { t.push(setTimeout(fn, reduz ? 0 : ms)); }
+    function roda() {
+      zera(); var B = $$('i', lane), D = 330;
+      B.forEach(function (b, i) {
+        var parado = modo === 0 && i >= 5 && i <= 8;
+        ag(D * (i + 1), function () { b.className = parado ? 'stall' : 'ok'; });
+      });
+      ag(D * 4, function () { $('#sqsp2', p).classList.add('sai'); });
+      if (modo === 1) { ag(D * 4.4, function () { var n = $('#sqsp2', p); n.classList.remove('sai'); n.classList.add('novo'); n.insertAdjacentHTML('beforeend', '<span class="tag ok" data-pt="substituto em passagem">' + T('substituto em passagem') + '</span>'); }); }
+      else { ag(D * 9, function () { var n = $('#sqsp2', p); n.classList.remove('sai'); n.classList.add('novo'); }); }
+    }
+    function m(x) {
+      modo = x; marca('#vp7 [data-sb]', 'data-sb', x);
+      put(cap, x ? 'A Atlas indica o substituto e faz a passagem enquanto a entrega continua: o ritmo não para.' : 'Sem reposição estruturada, a saída de uma pessoa abre um buraco: a entrega para até alguém novo entender o contexto.'); zera();
+    }
+    pressiona('#vp7 [data-sb]', function (b) { m(+b.getAttribute('data-sb')); }); $('#sqs-go', p).addEventListener('click', roda); m(0);
+  };
+
+  /* 8. time por perfil e senioridade */
+  INIT[8] = function (p) {
+    var ROLES = ['Engenheiro de dados', 'Analista de BI', 'Cientista de dados', 'Arquiteto de dados'], SEN = ['Júnior', 'Pleno', 'Sênior'], COR = ['', 'c2', 'c3', 'c4'], on = [1, 1, 0, 0], sen = [1, 1, 1, 2];
+    var rows = $('#sqm-rows', p), sq = $('#sqm-squad', p), cap = $('#sqm-cap', p);
+    function pinta() {
+      rows.innerHTML = ROLES.map(function (r, i) {
+        return '<div class="nd mt-r"><button type="button" class="vit-chip role" data-r="' + i + '" aria-pressed="' + !!on[i] + '" data-pt="' + r + '">' + T(r) + '</button>' +
+          SEN.map(function (s, k) { return '<button type="button" class="vit-chip" data-r="' + i + '" data-k="' + k + '" aria-pressed="' + (sen[i] === k) + '" data-pt="' + s + '">' + T(s) + '</button>'; }).join('') + '</div>';
+      }).join('');
+      sq.innerHTML = ROLES.map(function (r, i) { return on[i] ? '<div class="mt-m s' + sen[i] + '"><svg class="av ' + COR[i] + '" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg><small data-pt="' + r + '">' + T(r) + '</small></div>' : ''; }).join('');
+      $$('.vit-chip', rows).forEach(function (b) { b.addEventListener('click', function () {
+        var i = +b.getAttribute('data-r'); if (b.hasAttribute('data-k')) sen[i] = +b.getAttribute('data-k'); else on[i] = on[i] ? 0 : 1; pinta();
+      }); });
+    }
+    put(cap, 'O squad é montado pelos perfis e pelas senioridades que o projeto pede, não por um pacote fechado.'); pinta();
+  };
+
+  /* 9. liderança técnica */
+  INIT[9] = function (p) {
+    var cv = $('#sqld', p), cap = $('#sqld-cap', p), svg = $('.wires', cv);
+    wireMarca(cv, null);
+    function m(x) {
+      cv.setAttribute('data-m', x); svg.classList.toggle('off', !x); cv.setAttribute('data-fios', x ? 'ldl>ldm0;ldl>ldm1;ldl>ldm2;ldl>ldm3' : ''); fios(cv); marca('#vp9 [data-ld]', 'data-ld', x);
+      put(cap, x ? 'Um líder técnico da Atlas acompanha o squad: orienta as decisões técnicas e cuida da qualidade da entrega.' : 'Sem liderança técnica, cada pessoa decide por conta própria e o squad perde direção.');
+    }
+    pressiona('#vp9 [data-ld]', function (b) { m(+b.getAttribute('data-ld')); }); m(0);
+  };
+
+  /* 10. ritmo de entrega */
+  INIT[10] = function (p) {
+    var ST = ['Planejar', 'Executar', 'Revisar', 'Entregar'], steps = $('#sqrt-steps', p), done = $('#sqrt-done', p), cap = $('#sqrt-cap', p), rt = $('#sqrt', p), modo = 'curto', k = 0, timer = 0;
+    steps.innerHTML = ST.map(function (s) { return '<div class="nd rt-st" data-pt="' + s + '">' + T(s) + '</div>'; }).join('');
+    function para() { clearInterval(timer); timer = 0; }
+    function tick() {
+      if (p.hidden) { para(); return; }
+      $$('.rt-st', steps).forEach(function (e, i) { e.classList.toggle('on', i === k); });
+      if (k === 3) { if (done.children.length >= 10) done.innerHTML = ''; done.insertAdjacentHTML('beforeend', '<i></i>'); }
+      k = (k + 1) % 4;
+    }
+    function inicia() { para(); if (reduz) { $$('.rt-st', steps)[3].classList.add('on'); done.innerHTML = '<i></i><i></i><i></i><i></i>'; return; } tick(); timer = setInterval(tick, modo === 'curto' ? 650 : 1400); }
+    function m(x) { modo = x; rt.setAttribute('data-m', x); marca('#vp10 [data-rt]', 'data-rt', x); done.innerHTML = ''; k = 0;
+      put(cap, x === 'curto' ? 'Ciclos curtos: entregas frequentes, e o negócio vê resultado cedo.' : 'Ciclos longos: menos entregas, cada uma maior. O ritmo é combinado no início.'); inicia(); }
+    pressiona('#vp10 [data-rt]', function (b) { m(b.getAttribute('data-rt')); });
+    p._mostrou = function () { if (!timer) inicia(); }; m('curto');
+  };
+
+  /* 11. transferência de conhecimento */
+  INIT[11] = function (p) {
+    var tk = $('#sqtk', p), cap = $('#sqtk-cap', p), A = $('#sqtk-a', p), C = $('#sqtk-c', p);
+    function av(cls) { return '<svg class="av ' + cls + '" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="15" r="7"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12z"/></svg>'; }
+    A.innerHTML = av('') + av('') + av(''); C.innerHTML = av('c2') + av('c2') + av('c2');
+    var CAP = ['No início, o time da Atlas conduz e o time do cliente acompanha.', 'No meio, o conhecimento passa a ser compartilhado: o time do cliente já executa, com acompanhamento.', 'No fim, o time do cliente conduz e o que foi construído está documentado e entendido.'];
+    function f(i) {
+      tk.setAttribute('data-f', i); marca('#vp11 [data-tk]', 'data-tk', i);
+      $$('.av', A).forEach(function (e, k) { e.classList.toggle('off', k >= 3 - i); }); $$('.av', C).forEach(function (e, k) { e.classList.toggle('off', k >= i + 1); }); put(cap, CAP[i]);
+    }
+    pressiona('#vp11 [data-tk]', function (b) { f(+b.getAttribute('data-tk')); }); f(0);
+  };
+
+  mostra(0);
+})();
 </script>
 
 </body>

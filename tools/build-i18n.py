@@ -1390,6 +1390,120 @@ EXTRAS_VITRINE |= {
   'Extrair', 'Transformar', 'Carregar', 'Data Lake', 'Lakehouse',
 }
 
+# ---------------- Vitrine de Especialistas & Squads (alocacao.html) ----------------
+TRAD.update({
+  'Doze entregas, três frentes. Escolha uma e veja como funciona na prática: clique, alterne e monte o seu squad.':
+    ('Twelve deliverables, three fronts. Pick one and see how it works in practice: click, switch and build your squad.',
+     'Doce entregas, tres frentes. Elija una y vea cómo funciona en la práctica: haga clic, alterne y arme su squad.'),
+  'Entregas de Especialistas e Squads': ('Specialists & Squads deliverables', 'Entregas de Especialistas y Squads'),
+  # explicações e dicas
+  'Constrói e mantém a base de dados dentro do seu time: pipelines, armazenamento e qualidade.':
+    ('Builds and maintains the data foundation inside your team: pipelines, storage and quality.', 'Construye y mantiene la base de datos dentro de su equipo: pipelines, almacenamiento y calidad.'),
+  'Transforma o dado em indicador que o negócio usa: modelo, dashboards e governança, dentro do seu time.':
+    ('Turns data into indicators the business uses: model, dashboards and governance, inside your team.', 'Convierte el dato en un indicador que el negocio usa: modelo, dashboards y gobernanza, dentro de su equipo.'),
+  'Leva modelos preditivos e análises avançadas até a decisão, dentro do seu time.':
+    ('Takes predictive models and advanced analytics all the way to the decision, inside your team.', 'Lleva modelos predictivos y análisis avanzados hasta la decisión, dentro de su equipo.'),
+  'Desenha a base: o que guarda o quê, onde roda e como tudo se conecta, para o time construir sobre ela.':
+    ('Designs the foundation: what stores what, where it runs and how everything connects, so the team can build on it.', 'Diseña la base: qué guarda qué, dónde corre y cómo todo se conecta, para que el equipo construya sobre ella.'),
+  'Escolha uma atuação e veja onde ele entra.': ('Pick an area of work and see where they come in.', 'Elija una actuación y vea dónde entra.'),
+  'Contratos com o prazo de cada cliente': ('Contracts with each client’s own timeframe', 'Contratos con el plazo de cada cliente'),
+  'O prazo da alocação é combinado caso a caso, conforme a necessidade de cada cliente e do projeto.':
+    ('The length of the engagement is agreed case by case, according to each client’s and project’s needs.', 'El plazo de la asignación se acuerda caso a caso, según la necesidad de cada cliente y del proyecto.'),
+  'Escolha um prazo e veja a alocação se ajustar.': ('Pick a timeframe and watch the engagement adjust.', 'Elija un plazo y vea cómo se ajusta la asignación.'),
+  'Quando o time precisa de continuidade, a alocação não tem data final: segue enquanto fizer sentido.':
+    ('When the team needs continuity, the engagement has no end date: it goes on as long as it makes sense.', 'Cuando el equipo necesita continuidad, la asignación no tiene fecha final: sigue mientras tenga sentido.'),
+  'Alterne entre prazo fechado e tempo indeterminado.': ('Switch between a fixed term and an open-ended one.', 'Alterne entre plazo cerrado y tiempo indeterminado.'),
+  'O especialista responde à sua gestão e trabalha como parte do seu time, com o respaldo técnico da Atlas por trás.':
+    ('The specialist reports to your management and works as part of your team, with Atlas technical backing behind them.', 'El especialista responde a su gestión y trabaja como parte de su equipo, con el respaldo técnico de Atlas detrás.'),
+  'Destaque a gestão ou o respaldo.': ('Highlight management or backing.', 'Destaque la gestión o el respaldo.'),
+  'Se um especialista precisar sair, a Atlas faz a substituição para o time não parar.':
+    ('If a specialist needs to leave, Atlas handles the replacement so the team does not stop.', 'Si un especialista necesita salir, Atlas hace el reemplazo para que el equipo no se detenga.'),
+  'Compare as duas formas e simule uma saída.': ('Compare both ways and simulate an exit.', 'Compare las dos formas y simule una salida.'),
+  'O squad é composto pelos perfis e pelas senioridades que o projeto pede, não por um pacote fechado.':
+    ('The squad is made of the profiles and seniority levels the project calls for, not a closed package.', 'El squad se compone de los perfiles y las seniorities que el proyecto pide, no de un paquete cerrado.'),
+  'Ligue perfis e escolha a senioridade de cada um.': ('Turn profiles on and choose each one’s seniority.', 'Active perfiles y elija la seniority de cada uno.'),
+  'Um líder técnico da Atlas acompanha o squad: orienta as decisões técnicas e cuida da qualidade da entrega.':
+    ('An Atlas technical lead accompanies the squad: guides technical decisions and looks after delivery quality.', 'Un líder técnico de Atlas acompaña al squad: orienta las decisiones técnicas y cuida la calidad de la entrega.'),
+  'Alterne entre sem e com liderança técnica.': ('Switch between without and with technical leadership.', 'Alterne entre sin y con liderazgo técnico.'),
+  'Frequência e formato das entregas combinados no início, para o negócio saber quando esperar resultado.':
+    ('Delivery frequency and format agreed up front, so the business knows when to expect results.', 'Frecuencia y formato de las entregas acordados al inicio, para que el negocio sepa cuándo esperar resultados.'),
+  'Alterne entre ciclo curto e ciclo longo.': ('Switch between short cycle and long cycle.', 'Alterne entre ciclo corto y ciclo largo.'),
+  'O conhecimento construído no projeto passa para o seu time de forma contínua, e não fica só na cabeça de quem entregou.':
+    ('The knowledge built in the project passes to your team continuously, and does not stay only in the heads of those who delivered.', 'El conocimiento construido en el proyecto pasa a su equipo de forma continua, y no queda solo en la cabeza de quien entregó.'),
+  'Percorra as fases do projeto.': ('Walk through the project phases.', 'Recorra las fases del proyecto.'),
+  # rótulos
+  'Perfil alocado': ('Allocated profile', 'Perfil asignado'), 'Atuação': ('Area of work', 'Actuación'), 'Onde ele atua': ('Where they work', 'Dónde actúa'),
+  'Pipelines': ('Pipelines', 'Pipelines'), 'Orquestração': ('Orchestration', 'Orquestación'), 'Qualidade': ('Quality', 'Calidad'),
+  'Dashboards': ('Dashboards', 'Dashboards'), 'Modelo semântico': ('Semantic model', 'Modelo semántico'), 'Performance': ('Performance', 'Rendimiento'), 'Governança': ('Governance', 'Gobernanza'),
+  'Modelos preditivos': ('Predictive models', 'Modelos predictivos'), 'Anomalias': ('Anomalies', 'Anomalías'), 'Experimentos': ('Experiments', 'Experimentos'), 'Produção': ('Production', 'Producción'),
+  'Desenho da base': ('Foundation design', 'Diseño de la base'), 'Nuvem': ('Cloud', 'Nube'), 'Segurança': ('Security', 'Seguridad'), 'Padrões': ('Standards', 'Estándares'),
+  'Pipeline': ('Pipeline', 'Pipeline'), 'Base': ('Foundation', 'Base'), 'Consumo': ('Consumption', 'Consumo'), 'Fontes': ('Sources', 'Fuentes'), 'Indicadores': ('Indicators', 'Indicadores'),
+  'Gráficos': ('Charts', 'Gráficos'), 'Acesso por perfil': ('Access by profile', 'Acceso por perfil'), 'Dados históricos': ('Historical data', 'Datos históricos'), 'Modelo': ('Model', 'Modelo'),
+  'Em produção': ('In production', 'En producción'), 'Armazenamento': ('Storage', 'Almacenamiento'), 'Transformação': ('Transformation', 'Transformación'),
+  'Prazo da alocação': ('Engagement length', 'Plazo de la asignación'), 'Prazo mais curto': ('Shorter term', 'Plazo más corto'), 'Prazo médio': ('Medium term', 'Plazo medio'), 'Prazo mais longo': ('Longer term', 'Plazo más largo'),
+  'Início da alocação': ('Start of the engagement', 'Inicio de la asignación'), 'Prazo combinado com cada cliente': ('Timeframe agreed with each client', 'Plazo acordado con cada cliente'),
+  'Duração da alocação': ('Engagement duration', 'Duración de la asignación'), 'Prazo fechado': ('Fixed term', 'Plazo cerrado'), 'Tempo indeterminado': ('Open-ended', 'Tiempo indeterminado'),
+  'Destacar': ('Highlight', 'Destacar'), 'Gestão': ('Management', 'Gestión'), 'Respaldo técnico': ('Technical backing', 'Respaldo técnico'), 'Seu time': ('Your team', 'Su equipo'),
+  'Gestão do cliente': ('Client management', 'Gestión del cliente'), 'No seu time': ('On your team', 'En su equipo'), 'Especialista alocado': ('Allocated specialist', 'Especialista asignado'),
+  'Por trás': ('Behind the scenes', 'Detrás'), 'Respaldo técnico da Atlas': ('Atlas technical backing', 'Respaldo técnico de Atlas'),
+  'Como a troca acontece': ('How the swap happens', 'Cómo ocurre el cambio'), 'Sem reposição estruturada': ('No structured replacement', 'Sin reposición estructurada'), 'Substituição Atlas': ('Atlas replacement', 'Reemplazo Atlas'),
+  '▶ Simular uma saída': ('▶ Simulate an exit', '▶ Simular una salida'), 'Ritmo de entrega': ('Delivery rhythm', 'Ritmo de entrega'), 'substituto em passagem': ('replacement in handover', 'reemplazo en traspaso'),
+  'Seu squad': ('Your squad', 'Su squad'), 'Analista de BI': ('BI analyst', 'Analista de BI'), 'Júnior': ('Junior', 'Junior'), 'Sênior': ('Senior', 'Senior'),
+  'Liderança': ('Leadership', 'Liderazgo'), 'Sem liderança técnica': ('Without technical leadership', 'Sin liderazgo técnico'), 'Com liderança técnica': ('With technical leadership', 'Con liderazgo técnico'),
+  'Liderança técnica Atlas': ('Atlas technical leadership', 'Liderazgo técnico Atlas'), 'Ritmo': ('Rhythm', 'Ritmo'), 'Ciclo curto': ('Short cycle', 'Ciclo corto'), 'Ciclo longo': ('Long cycle', 'Ciclo largo'),
+  'Entregas acumuladas': ('Accumulated deliveries', 'Entregas acumuladas'), 'Planejar': ('Plan', 'Planificar'), 'Executar': ('Execute', 'Ejecutar'), 'Revisar': ('Review', 'Revisar'), 'Entregar': ('Deliver', 'Entregar'),
+  'Fase do projeto': ('Project phase', 'Fase del proyecto'), 'Início': ('Start', 'Inicio'), 'Meio': ('Middle', 'Medio'), 'Fim': ('End', 'Fin'),
+  'Time Atlas': ('Atlas team', 'Equipo Atlas'), 'Time do cliente': ('Client team', 'Equipo del cliente'), 'Quem conduz': ('Who leads', 'Quién conduce'),
+  # dinâmicos
+  'Constrói os pipelines que levam o dado das fontes até a base.': ('Builds the pipelines that carry data from the sources to the foundation.', 'Construye los pipelines que llevan el dato de las fuentes a la base.'),
+  'Orquestra as etapas para rodar na ordem e na hora certas.': ('Orchestrates the steps to run in the right order at the right time.', 'Orquesta las etapas para correr en el orden y a la hora correctos.'),
+  'Modela a base para que o negócio consiga perguntar.': ('Models the foundation so the business can ask questions.', 'Modela la base para que el negocio pueda preguntar.'),
+  'Cria os testes que protegem a qualidade do dado.': ('Creates the tests that protect data quality.', 'Crea las pruebas que protegen la calidad del dato.'),
+  'Constrói os dashboards que as áreas usam no dia a dia.': ('Builds the dashboards areas use day to day.', 'Construye los dashboards que las áreas usan en el día a día.'),
+  'Organiza o modelo semântico para existir uma definição por métrica.': ('Organizes the semantic model so there is one definition per metric.', 'Organiza el modelo semántico para que exista una definición por métrica.'),
+  'Otimiza as medidas para o painel responder rápido.': ('Optimizes the measures so the dashboard answers quickly.', 'Optimiza las medidas para que el panel responda rápido.'),
+  'Aplica o padrão de layout e o controle de acesso por perfil.': ('Applies the layout standard and access control by profile.', 'Aplica el estándar de layout y el control de acceso por perfil.'),
+  'Treina modelos preditivos para antecipar o que vem.': ('Trains predictive models to anticipate what is coming.', 'Entrena modelos predictivos para anticipar lo que viene.'),
+  'Detecta o que foge do padrão antes que vire problema.': ('Detects what breaks the pattern before it becomes a problem.', 'Detecta lo que se sale del patrón antes de que sea un problema.'),
+  'Testa hipóteses e compara abordagens antes de escolher uma.': ('Tests hypotheses and compares approaches before choosing one.', 'Prueba hipótesis y compara enfoques antes de elegir uno.'),
+  'Leva o modelo para produção, onde ele gera decisão.': ('Takes the model to production, where it drives decisions.', 'Lleva el modelo a producción, donde genera decisión.'),
+  'Desenha a base inteira: o que guarda o quê e como tudo se conecta.': ('Designs the whole foundation: what stores what and how everything connects.', 'Diseña la base entera: qué guarda qué y cómo todo se conecta.'),
+  'Escolhe a nuvem e os serviços que servem ao problema.': ('Chooses the cloud and the services that fit the problem.', 'Elige la nube y los servicios que sirven al problema.'),
+  'Define quem acessa o quê, da fonte ao consumo.': ('Defines who accesses what, from source to consumption.', 'Define quién accede a qué, de la fuente al consumo.'),
+  'Estabelece os padrões que o time segue ao construir.': ('Sets the standards the team follows when building.', 'Establece los estándares que el equipo sigue al construir.'),
+  'Alocação mais curta, para uma necessidade pontual do projeto. O prazo é combinado com cada cliente.': ('A shorter engagement, for a specific project need. The length is agreed with each client.', 'Asignación más corta, para una necesidad puntual del proyecto. El plazo se acuerda con cada cliente.'),
+  'Prazo intermediário, acompanhando uma etapa do roadmap. O prazo é combinado com cada cliente.': ('An intermediate term, following a stage of the roadmap. The length is agreed with each client.', 'Plazo intermedio, acompañando una etapa del roadmap. El plazo se acuerda con cada cliente.'),
+  'Alocação mais longa, para quem precisa de continuidade no time. O prazo é combinado com cada cliente.': ('A longer engagement, for those who need continuity on the team. The length is agreed with each client.', 'Asignación más larga, para quien necesita continuidad en el equipo. El plazo se acuerda con cada cliente.'),
+  'Sem data final: a alocação segue enquanto o time precisar, com o mesmo especialista conhecendo o contexto.': ('No end date: the engagement continues as long as the team needs it, with the same specialist who knows the context.', 'Sin fecha final: la asignación sigue mientras el equipo lo necesite, con el mismo especialista conociendo el contexto.'),
+  'Com prazo fechado, o contrato termina numa data e o conhecimento acumulado vai embora junto.': ('With a fixed term, the contract ends on a date and the accumulated knowledge leaves with it.', 'Con plazo cerrado, el contrato termina en una fecha y el conocimiento acumulado se va con él.'),
+  'O especialista responde à sua gestão e trabalha como parte do seu time.': ('The specialist reports to your management and works as part of your team.', 'El especialista responde a su gestión y trabaja como parte de su equipo.'),
+  'A Atlas segue por trás, como respaldo técnico, sem entrar na gestão do dia a dia.': ('Atlas stays behind the scenes as technical backing, without stepping into day-to-day management.', 'Atlas sigue detrás, como respaldo técnico, sin entrar en la gestión del día a día.'),
+  'O especialista trabalha dentro do seu time e responde à sua gestão. A Atlas segue por trás, como respaldo técnico.': ('The specialist works inside your team and reports to your management. Atlas stays behind the scenes as technical backing.', 'El especialista trabaja dentro de su equipo y responde a su gestión. Atlas sigue detrás, como respaldo técnico.'),
+  'A Atlas indica o substituto e faz a passagem enquanto a entrega continua: o ritmo não para.': ('Atlas provides the replacement and handles the handover while delivery continues: the rhythm does not stop.', 'Atlas indica al reemplazo y hace el traspaso mientras la entrega continúa: el ritmo no se detiene.'),
+  'Sem reposição estruturada, a saída de uma pessoa abre um buraco: a entrega para até alguém novo entender o contexto.': ('Without structured replacement, one person leaving opens a gap: delivery stops until someone new understands the context.', 'Sin reposición estructurada, la salida de una persona abre un vacío: la entrega se detiene hasta que alguien nuevo entienda el contexto.'),
+  'Sem liderança técnica, cada pessoa decide por conta própria e o squad perde direção.': ('Without technical leadership, each person decides on their own and the squad loses direction.', 'Sin liderazgo técnico, cada persona decide por su cuenta y el squad pierde dirección.'),
+  'Ciclos curtos: entregas frequentes, e o negócio vê resultado cedo.': ('Short cycles: frequent deliveries, and the business sees results early.', 'Ciclos cortos: entregas frecuentes, y el negocio ve resultados pronto.'),
+  'Ciclos longos: menos entregas, cada uma maior. O ritmo é combinado no início.': ('Long cycles: fewer deliveries, each one larger. The rhythm is agreed up front.', 'Ciclos largos: menos entregas, cada una mayor. El ritmo se acuerda al inicio.'),
+  'No início, o time da Atlas conduz e o time do cliente acompanha.': ('At the start, the Atlas team leads and the client team follows along.', 'Al inicio, el equipo de Atlas conduce y el equipo del cliente acompaña.'),
+  'No meio, o conhecimento passa a ser compartilhado: o time do cliente já executa, com acompanhamento.': ('In the middle, knowledge becomes shared: the client team already executes, with support.', 'A mitad del camino, el conocimiento pasa a compartirse: el equipo del cliente ya ejecuta, con acompañamiento.'),
+  'No fim, o time do cliente conduz e o que foi construído está documentado e entendido.': ('At the end, the client team leads and what was built is documented and understood.', 'Al final, el equipo del cliente conduce y lo construido está documentado y entendido.'),
+})
+EXTRAS_VITRINE |= {
+  'Constrói os pipelines que levam o dado das fontes até a base.', 'Orquestra as etapas para rodar na ordem e na hora certas.', 'Modela a base para que o negócio consiga perguntar.', 'Cria os testes que protegem a qualidade do dado.',
+  'Constrói os dashboards que as áreas usam no dia a dia.', 'Organiza o modelo semântico para existir uma definição por métrica.', 'Otimiza as medidas para o painel responder rápido.', 'Aplica o padrão de layout e o controle de acesso por perfil.',
+  'Treina modelos preditivos para antecipar o que vem.', 'Detecta o que foge do padrão antes que vire problema.', 'Testa hipóteses e compara abordagens antes de escolher uma.', 'Leva o modelo para produção, onde ele gera decisão.',
+  'Desenha a base inteira: o que guarda o quê e como tudo se conecta.', 'Escolhe a nuvem e os serviços que servem ao problema.', 'Define quem acessa o quê, da fonte ao consumo.', 'Estabelece os padrões que o time segue ao construir.',
+  'Alocação mais curta, para uma necessidade pontual do projeto. O prazo é combinado com cada cliente.', 'Prazo intermediário, acompanhando uma etapa do roadmap. O prazo é combinado com cada cliente.', 'Alocação mais longa, para quem precisa de continuidade no time. O prazo é combinado com cada cliente.',
+  'Sem data final: a alocação segue enquanto o time precisar, com o mesmo especialista conhecendo o contexto.', 'Com prazo fechado, o contrato termina numa data e o conhecimento acumulado vai embora junto.',
+  'O especialista responde à sua gestão e trabalha como parte do seu time.', 'A Atlas segue por trás, como respaldo técnico, sem entrar na gestão do dia a dia.', 'O especialista trabalha dentro do seu time e responde à sua gestão. A Atlas segue por trás, como respaldo técnico.',
+  'A Atlas indica o substituto e faz a passagem enquanto a entrega continua: o ritmo não para.', 'Sem reposição estruturada, a saída de uma pessoa abre um buraco: a entrega para até alguém novo entender o contexto.', 'substituto em passagem',
+  'Sem liderança técnica, cada pessoa decide por conta própria e o squad perde direção.', 'Ciclos curtos: entregas frequentes, e o negócio vê resultado cedo.', 'Ciclos longos: menos entregas, cada uma maior. O ritmo é combinado no início.',
+  'No início, o time da Atlas conduz e o time do cliente acompanha.', 'No meio, o conhecimento passa a ser compartilhado: o time do cliente já executa, com acompanhamento.', 'No fim, o time do cliente conduz e o que foi construído está documentado e entendido.',
+  'O squad é composto pelos perfis e pelas senioridades que o projeto pede, não por um pacote fechado.', 'Engenheiro de dados', 'Analista de BI', 'Cientista de dados', 'Arquiteto de dados', 'Júnior', 'Pleno', 'Sênior',
+  'Pipeline', 'Base', 'Consumo', 'Fontes', 'Indicadores', 'Gráficos', 'Modelo semântico', 'Acesso por perfil', 'Dados históricos', 'Modelo', 'Em produção', 'Armazenamento', 'Transformação',
+  'Planejar', 'Executar', 'Revisar', 'Entregar',
+}
+
 TERMOS = {
   # setores
   'Bancário': ('Banking', 'Banca'),

@@ -24,7 +24,7 @@ P[3] = perfil(3, 'Arquiteto de dados', ['Desenho da base', 'Nuvem', 'Segurança'
 # 4 contratos de no minimo 6 meses
 P[4] = '''
 <div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Prazo da alocação"><button type="button" data-ct="0" aria-pressed="true">Prazo mais curto</button><button type="button" data-ct="1" aria-pressed="false">Prazo médio</button><button type="button" data-ct="2" aria-pressed="false">Prazo mais longo</button></div></div>
-<div class="ct"><div class="ct-track" id="sqc-track"></div><div class="ct-leg"><span class="ct-a">Início da alocação</span><span class="ct-b">Prazo combinado com cada cliente</span></div></div>
+<div class="ct"><div class="ct-track" id="sqc-track"></div><div class="ct-leg"><div class="ct-a">Início da alocação</div><div class="ct-b">Prazo combinado com cada cliente</div></div></div>
 <p class="vit-cap" id="sqc-cap" aria-live="polite"></p>
 '''
 

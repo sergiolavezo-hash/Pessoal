@@ -1,5 +1,5 @@
 {
- "total": 991,
+ "total": 1069,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -3102,69 +3102,429 @@
    "cls": "btn btn-accent"
   },
   {
+   "chave": "Doze entregas, três frentes. Escolha uma e veja como funciona na prática: clique, alterne e monte o seu squad.",
+   "tag": "p",
+   "cls": "sub reveal d2"
+  },
+  {
    "chave": "Perfis que alocamos",
-   "tag": "h3",
-   "cls": "svc-t"
+   "tag": "span",
+   "cls": "vit-k"
   },
   {
    "chave": "Engenheiro de dados",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Analista e desenvolvedor de BI",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Cientista de dados",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Arquiteto de dados",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
+  },
+  {
+   "chave": "Contratos com o prazo de cada cliente",
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Alocações por tempo indeterminado",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Sob a gestão do cliente, com respaldo técnico da Atlas",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Substituição sem quebra de ritmo",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Squads completos",
-   "tag": "h3",
-   "cls": "svc-t"
+   "tag": "span",
+   "cls": "vit-k"
   },
   {
    "chave": "Time montado por perfil e senioridade",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Liderança técnica da Atlas",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Ritmo de entrega acordado",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Transferência de conhecimento",
-   "tag": "li",
+   "tag": "span",
+   "cls": "t"
+  },
+  {
+   "chave": "Perfil alocado",
+   "tag": "span",
+   "cls": "tag ac"
+  },
+  {
+   "chave": "Atuação",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Qualidade",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Onde ele atua",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Pipeline",
+   "tag": "small",
    "cls": ""
+  },
+  {
+   "chave": "Base",
+   "tag": "small",
+   "cls": ""
+  },
+  {
+   "chave": "Constrói os pipelines que levam o dado das fontes até a base.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "Dashboards",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Modelo semântico",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Performance",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Anomalias",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Experimentos",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Desenho da base",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Nuvem",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Segurança",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Padrões",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Prazo mais curto",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Prazo médio",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Prazo mais longo",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Início da alocação",
+   "tag": "div",
+   "cls": "ct-a"
+  },
+  {
+   "chave": "Prazo combinado com cada cliente",
+   "tag": "div",
+   "cls": "ct-b"
+  },
+  {
+   "chave": "Prazo fechado",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Tempo indeterminado",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Destacar",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Gestão",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Respaldo técnico",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Seu time",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Gestão do cliente",
+   "tag": "b",
+   "cls": "gs-t"
+  },
+  {
+   "chave": "No seu time",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Especialista alocado",
+   "tag": "b",
+   "cls": "gs-t"
+  },
+  {
+   "chave": "Por trás",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Respaldo técnico da Atlas",
+   "tag": "b",
+   "cls": "gs-t"
+  },
+  {
+   "chave": "Sem reposição estruturada",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Substituição Atlas",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "▶ Simular uma saída",
+   "tag": "button",
+   "cls": "vit-chip push"
+  },
+  {
+   "chave": "Ritmo de entrega",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Seu squad",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Sem liderança técnica",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Com liderança técnica",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Liderança técnica Atlas",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Ciclo curto",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Ciclo longo",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Entregas acumuladas",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Início",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Meio",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Fim",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Time Atlas",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Quem conduz",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Time do cliente",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Constrói e mantém a base de dados dentro do seu time: pipelines, armazenamento e qualidade.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Escolha uma atuação e veja onde ele entra.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Transforma o dado em indicador que o negócio usa: modelo, dashboards e governança, dentro do seu time.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Leva modelos preditivos e análises avançadas até a decisão, dentro do seu time.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Desenha a base: o que guarda o quê, onde roda e como tudo se conecta, para o time construir sobre ela.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "O prazo da alocação é combinado caso a caso, conforme a necessidade de cada cliente e do projeto.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Escolha um prazo e veja a alocação se ajustar.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Quando o time precisa de continuidade, a alocação não tem data final: segue enquanto fizer sentido.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne entre prazo fechado e tempo indeterminado.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "O especialista responde à sua gestão e trabalha como parte do seu time, com o respaldo técnico da Atlas por trás.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Destaque a gestão ou o respaldo.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Se um especialista precisar sair, a Atlas faz a substituição para o time não parar.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Compare as duas formas e simule uma saída.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "O squad é composto pelos perfis e pelas senioridades que o projeto pede, não por um pacote fechado.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Ligue perfis e escolha a senioridade de cada um.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Um líder técnico da Atlas acompanha o squad: orienta as decisões técnicas e cuida da qualidade da entrega.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne entre sem e com liderança técnica.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Frequência e formato das entregas combinados no início, para o negócio saber quando esperar resultado.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne entre ciclo curto e ciclo longo.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "O conhecimento construído no projeto passa para o seu time de forma contínua, e não fica só na cabeça de quem entregou.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Percorra as fases do projeto.",
+   "tag": "p",
+   "cls": "hint"
   },
   {
    "chave": "Entendimento",
@@ -3330,6 +3690,41 @@
    "chave": "Ver os projetos entregues <span class=\"arr\">→</span>",
    "tag": "a",
    "cls": "btn btn-line"
+  },
+  {
+   "chave": "Entregas de Especialistas e Squads",
+   "tag": "@aria-label",
+   "cls": "vit-nav"
+  },
+  {
+   "chave": "Prazo da alocação",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Duração da alocação",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Como a troca acontece",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Liderança",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Ritmo",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Fase do projeto",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
   },
   {
    "chave": "Python",
@@ -3719,11 +4114,6 @@
   {
    "chave": "formulário de contato",
    "tag": "a",
-   "cls": ""
-  },
-  {
-   "chave": "Segurança",
-   "tag": "h2",
    "cls": ""
   },
   {
