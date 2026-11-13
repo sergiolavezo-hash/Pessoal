@@ -36,7 +36,9 @@ def extrair(html):
             sys.exit('não encontrei %s no index.html' % nome)
         return m.group(0)
 
-    estilo = um(r'<style>.*?</style>', '<style>')
+    # O bloco dos logos que a home carrega para o carrossel de cases fica de
+    # fora: cada gerador acrescenta o próprio, só nas páginas que usam logos.
+    estilo = logos.sem_bloco(um(r'<style>.*?</style>', '<style>'))
     header = um(r'<header class="nav" id="nav">.*?</header>', '<header>')
     menu = um(r'<nav class="mobile-menu" id="mobile-menu".*?</nav>', 'menu mobile')
     rodape = um(r'<footer class="footer">.*?</footer>', '<footer>')

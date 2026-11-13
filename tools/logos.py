@@ -14,6 +14,7 @@ Uso (nos geradores):  import logos
 """
 import html
 import pathlib
+import re
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 
@@ -93,24 +94,26 @@ def unicas(tecs, maximo=6):
     return out[:maximo]
 
 
-def unicas(tecs, maximo=6):
-    """Ferramentas de uma lista, sem repetir a mesma marca (GCP e Cloud Composer
-    dividem o logo do Google Cloud) e sem conceitos."""
-    vistos, out = set(), []
-    for n in tecs or []:
-        if not eh_ferramenta(n):
-            continue
-        k = ALIAS.get(n, n)
-        if k in vistos:
-            continue
-        vistos.add(k)
-        out.append(n)
-    return out[:maximo]
+INI = '/* ---- logos das ferramentas ---- */'
+FIM = '/* ---- fim dos logos das ferramentas ---- */'
+
+
+def sem_bloco(estilo):
+    """Tira o bloco dos logos de um <style>. O index.html carrega o bloco para o
+    carrossel de cases; as páginas geradas copiam o <style> da home e acrescentam
+    o próprio bloco onde precisam, então o da home não pode vir junto."""
+    return re.sub(r'\n?[ \t]*' + re.escape(INI) + r'.*?' + re.escape(FIM) + r'[ \t]*\n?', '\n', estilo, flags=re.S)
+
+
+def com_bloco(estilo):
+    """Põe (ou atualiza) o bloco dos logos no fim do primeiro <style> do texto."""
+    estilo = sem_bloco(estilo)
+    return estilo.replace('</style>', css().strip('\n') + '\n  ' + FIM + '\n</style>', 1)
 
 
 def css():
     return '''
-  /* ---- logos das ferramentas ---- */
+  ''' + INI + '''
   .lg-ring { position: relative; flex: none; display: grid; place-items: center; border-radius: 50%; background: #fff; border: 1px solid var(--line); }
   .lg-ring.lg-sm { width: 1.7rem; height: 1.7rem; } .lg-ring.lg-md { width: 2.1rem; height: 2.1rem; } .lg-ring.lg-xl { width: 2.7rem; height: 2.7rem; }
   .lg-ico { display: block; width: 56%; height: 56%; background: var(--bc, #131316); -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat; }
@@ -121,7 +124,6 @@ def css():
     font-size: .8rem; color: var(--muted); background: var(--panel-2); transition: border-color .3s, color .3s; }
   .lg-tec:hover { border-color: rgba(46,134,255,.45); color: var(--ink); }
   .lg-solo { display: inline-flex; }
-  .cc-logos { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
   .cc-logos { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
   .lg-txt { font-size: .78rem; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: .28rem .7rem; }
 '''

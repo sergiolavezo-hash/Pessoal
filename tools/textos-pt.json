@@ -987,6 +987,11 @@
    "cls": "cc-chips"
   },
   {
+   "chave": "<span class=\"lg-solo\" title=\"Pentaho\" aria-label=\"Pentaho\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span></span><span class=\"lg-solo\" title=\"SQL Server\" aria-label=\"SQL Server\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(media/logos/sqlserver.svg);--bc:#CC2927\"></span></span></span>",
+   "tag": "div",
+   "cls": "cc-logos"
+  },
+  {
    "chave": "Turismo &amp; Viagens",
    "tag": "p",
    "cls": "cc-setor"
@@ -1005,6 +1010,11 @@
    "chave": "<span class=\"cc-a\">3 linhas</span><i aria-hidden=\"true\">→</i><span class=\"cc-d\">1 visão</span>",
    "tag": "p",
    "cls": "cc-ad"
+  },
+  {
+   "chave": "<span class=\"lg-solo\" title=\"Pentaho\" aria-label=\"Pentaho\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span></span><span class=\"lg-solo\" title=\"SQL Server\" aria-label=\"SQL Server\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(media/logos/sqlserver.svg);--bc:#CC2927\"></span></span></span><span class=\"lg-solo\" title=\"MicroStrategy\" aria-label=\"MicroStrategy\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(media/logos/microstrategy.svg);--bc:#D9232E\"></span></span></span>",
+   "tag": "div",
+   "cls": "cc-logos"
   },
   {
    "chave": "O comercial ganhou número próprio",
@@ -1070,6 +1080,11 @@
    "chave": "<span>Pentaho</span><span>MicroStrategy</span>",
    "tag": "div",
    "cls": "cc-chips"
+  },
+  {
+   "chave": "<span class=\"lg-solo\" title=\"Pentaho\" aria-label=\"Pentaho\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span></span><span class=\"lg-solo\" title=\"MicroStrategy\" aria-label=\"MicroStrategy\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(media/logos/microstrategy.svg);--bc:#D9232E\"></span></span></span>",
+   "tag": "div",
+   "cls": "cc-logos"
   },
   {
    "chave": "Duas ferramentas de BI viraram uma",
@@ -1560,6 +1575,81 @@
    "chave": "Oracle — ver produtos e cases",
    "tag": "@aria-label",
    "cls": "hex logo"
+  },
+  {
+   "chave": "Azure Synapse",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "Power BI",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "GCP",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "BigQuery",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "dbt",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "Airflow",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "Looker",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "Java",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "MicroStrategy",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "Informatica PowerCenter",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "Claude",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "Pentaho",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "SQL Server",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "SSIS",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
+  },
+  {
+   "chave": "Figma",
+   "tag": "@aria-label",
+   "cls": "lg-solo"
   },
   {
    "chave": "Ver o case 1 de 15",
@@ -2432,21 +2522,6 @@
    "cls": "vit-seg"
   },
   {
-   "chave": "Power BI",
-   "tag": "@title",
-   "cls": "lg-tec"
-  },
-  {
-   "chave": "Looker",
-   "tag": "@title",
-   "cls": "lg-tec"
-  },
-  {
-   "chave": "MicroStrategy",
-   "tag": "@title",
-   "cls": "lg-tec"
-  },
-  {
    "chave": "Qlik",
    "tag": "@title",
    "cls": "lg-tec"
@@ -3047,21 +3122,6 @@
    "cls": "nd tvn"
   },
   {
-   "chave": "BigQuery",
-   "tag": "@title",
-   "cls": "lg-tec"
-  },
-  {
-   "chave": "dbt",
-   "tag": "@title",
-   "cls": "lg-tec"
-  },
-  {
-   "chave": "Airflow",
-   "tag": "@title",
-   "cls": "lg-tec"
-  },
-  {
    "chave": "Redshift",
    "tag": "@title",
    "cls": "lg-tec"
@@ -3085,291 +3145,6 @@
    "chave": "Airbyte",
    "tag": "@title",
    "cls": "lg-tec"
-  },
-  {
-   "chave": "Falar sobre IA &amp; Automação <span class=\"arr\">→</span>",
-   "tag": "a",
-   "cls": "btn btn-accent"
-  },
-  {
-   "chave": "IA sobre a sua própria base. Escolha uma entrega e veja como ela funciona na prática: clique, alterne e compare.",
-   "tag": "p",
-   "cls": "sub reveal d2"
-  },
-  {
-   "chave": "Prever e detectar",
-   "tag": "span",
-   "cls": "vit-k"
-  },
-  {
-   "chave": "Conversar, ler e automatizar",
-   "tag": "span",
-   "cls": "vit-k"
-  },
-  {
-   "chave": "Prever",
-   "tag": "span",
-   "cls": "vit-k"
-  },
-  {
-   "chave": "Demanda",
-   "tag": "button",
-   "cls": "vit-chip"
-  },
-  {
-   "chave": "Ruptura",
-   "tag": "button",
-   "cls": "vit-chip"
-  },
-  {
-   "chave": "Risco",
-   "tag": "button",
-   "cls": "vit-chip"
-  },
-  {
-   "chave": "Churn",
-   "tag": "button",
-   "cls": "vit-chip"
-  },
-  {
-   "chave": "<b>Ainda dá tempo de agir</b>",
-   "tag": "span",
-   "cls": "pv-act"
-  },
-  {
-   "chave": "<span class=\"l1\">Histórico da operação</span><span class=\"l2\">Previsão</span>",
-   "tag": "div",
-   "cls": "pv-leg"
-  },
-  {
-   "chave": "Aprende com o histórico da operação e estima a demanda enquanto ainda dá tempo de agir.",
-   "tag": "p",
-   "cls": "vit-cap"
-  },
-  {
-   "chave": "Antes de aprender",
-   "tag": "button",
-   "cls": ""
-  },
-  {
-   "chave": "Depois de aprender",
-   "tag": "button",
-   "cls": ""
-  },
-  {
-   "chave": "↻ Treinar de novo",
-   "tag": "button",
-   "cls": "vit-chip push"
-  },
-  {
-   "chave": "Só no fechamento do mês",
-   "tag": "button",
-   "cls": ""
-  },
-  {
-   "chave": "No momento em que acontece",
-   "tag": "button",
-   "cls": ""
-  },
-  {
-   "chave": "▶ Reproduzir",
-   "tag": "button",
-   "cls": "vit-chip push"
-  },
-  {
-   "chave": "Alerta",
-   "tag": "span",
-   "cls": "an-al"
-  },
-  {
-   "chave": "<span>Início do mês</span><span>Fechamento do mês</span>",
-   "tag": "div",
-   "cls": "an-axis"
-  },
-  {
-   "chave": "Pergunte sobre",
-   "tag": "span",
-   "cls": "vit-k"
-  },
-  {
-   "chave": "Resposta",
-   "tag": "span",
-   "cls": "vit-k"
-  },
-  {
-   "chave": "De onde veio",
-   "tag": "span",
-   "cls": "vit-k"
-  },
-  {
-   "chave": "Documento",
-   "tag": "span",
-   "cls": "vit-k"
-  },
-  {
-   "chave": "Contrato",
-   "tag": "button",
-   "cls": "vit-chip"
-  },
-  {
-   "chave": "Nota",
-   "tag": "button",
-   "cls": "vit-chip"
-  },
-  {
-   "chave": "Relatório",
-   "tag": "button",
-   "cls": "vit-chip"
-  },
-  {
-   "chave": "↻ Ler de novo",
-   "tag": "button",
-   "cls": "vit-chip push"
-  },
-  {
-   "chave": "Documento em PDF",
-   "tag": "span",
-   "cls": "vit-k"
-  },
-  {
-   "chave": "Dado consultável",
-   "tag": "span",
-   "cls": "vit-k"
-  },
-  {
-   "chave": "Passando de mão em mão",
-   "tag": "button",
-   "cls": ""
-  },
-  {
-   "chave": "Automatizado",
-   "tag": "button",
-   "cls": ""
-  },
-  {
-   "chave": "Tempo até concluir",
-   "tag": "span",
-   "cls": "vit-k"
-  },
-  {
-   "chave": "Escolha o que prever.",
-   "tag": "p",
-   "cls": "hint"
-  },
-  {
-   "chave": "Modelos que aprendem com os dados da sua operação, em vez de regras escritas à mão.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Compare antes e depois de aprender.",
-   "tag": "p",
-   "cls": "hint"
-  },
-  {
-   "chave": "Alterne entre o fechamento do mês e o momento em que acontece.",
-   "tag": "p",
-   "cls": "hint"
-  },
-  {
-   "chave": "Escolha uma área e passe o mouse sobre a resposta.",
-   "tag": "p",
-   "cls": "hint"
-  },
-  {
-   "chave": "Escolha o tipo de documento.",
-   "tag": "p",
-   "cls": "hint"
-  },
-  {
-   "chave": "Tarefas repetitivas que passam a rodar sozinhas, em vez de passar de mão em mão.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Compare as duas formas e execute.",
-   "tag": "p",
-   "cls": "hint"
-  },
-  {
-   "chave": "Entendimento",
-   "tag": "h3",
-   "cls": "tl-t"
-  },
-  {
-   "chave": "Que decisão a IA precisa melhorar e com que dado ela conta hoje.",
-   "tag": "p",
-   "cls": "tl-d"
-  },
-  {
-   "chave": "Base",
-   "tag": "h3",
-   "cls": "tl-t"
-  },
-  {
-   "chave": "O dado que já existe, organizado para o modelo conseguir ler.",
-   "tag": "p",
-   "cls": "tl-d"
-  },
-  {
-   "chave": "O modelo ou o agente, treinado e testado sobre a sua própria base.",
-   "tag": "p",
-   "cls": "tl-d"
-  },
-  {
-   "chave": "No ar, dentro do processo, com acompanhamento do que ele entrega.",
-   "tag": "p",
-   "cls": "tl-d"
-  },
-  {
-   "chave": "<span>Educação</span><span>Machine Learning</span><span>Modelos preditivos</span>",
-   "tag": "div",
-   "cls": "case-meta"
-  },
-  {
-   "chave": "A evasão só era constatada depois de acontecer, quando já não havia ação possível. Os dados educacionais existiam, mas descreviam o passado em vez de apontar risco.",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Centenas de dashboards educacionais somados a modelos preditivos que estimam risco de evasão a tempo de apoiar ações preventivas.",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "GCP, Cloud Composer, Power BI, Analytics, Machine Learning, BI",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Constatada → Antecipada</b><span>a evasão deixou de ser constatada depois de acontecer e passou a ser estimada a tempo de agir</span>",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Quero avaliar um caso de uso <span class=\"arr\">→</span>",
-   "tag": "a",
-   "cls": "btn btn-line"
-  },
-  {
-   "chave": "Entregas de IA e Automação",
-   "tag": "@aria-label",
-   "cls": "vit-nav"
-  },
-  {
-   "chave": "Estado do modelo",
-   "tag": "@aria-label",
-   "cls": "vit-seg"
-  },
-  {
-   "chave": "Quando o desvio aparece",
-   "tag": "@aria-label",
-   "cls": "vit-seg"
-  },
-  {
-   "chave": "Como o processo roda",
-   "tag": "@aria-label",
-   "cls": "vit-seg"
   },
   {
    "chave": "Pessoas &amp; Alocação",
@@ -3478,6 +3253,11 @@
   },
   {
    "chave": "Pipeline",
+   "tag": "small",
+   "cls": ""
+  },
+  {
+   "chave": "Base",
    "tag": "small",
    "cls": ""
   },
@@ -3802,6 +3582,11 @@
    "cls": "hint"
   },
   {
+   "chave": "Entendimento",
+   "tag": "h3",
+   "cls": "tl-t"
+  },
+  {
    "chave": "Que perfil, que senioridade e para qual etapa do roadmap.",
    "tag": "p",
    "cls": "tl-d"
@@ -4012,6 +3797,281 @@
    "cls": ""
   },
   {
+   "chave": "Falar sobre IA &amp; Automação <span class=\"arr\">→</span>",
+   "tag": "a",
+   "cls": "btn btn-accent"
+  },
+  {
+   "chave": "IA sobre a sua própria base. Escolha uma entrega e veja como ela funciona na prática: clique, alterne e compare.",
+   "tag": "p",
+   "cls": "sub reveal d2"
+  },
+  {
+   "chave": "Prever e detectar",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Conversar, ler e automatizar",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Prever",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Demanda",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Ruptura",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Risco",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Churn",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "<b>Ainda dá tempo de agir</b>",
+   "tag": "span",
+   "cls": "pv-act"
+  },
+  {
+   "chave": "<span class=\"l1\">Histórico da operação</span><span class=\"l2\">Previsão</span>",
+   "tag": "div",
+   "cls": "pv-leg"
+  },
+  {
+   "chave": "Aprende com o histórico da operação e estima a demanda enquanto ainda dá tempo de agir.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "Antes de aprender",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Depois de aprender",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "↻ Treinar de novo",
+   "tag": "button",
+   "cls": "vit-chip push"
+  },
+  {
+   "chave": "Só no fechamento do mês",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "No momento em que acontece",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "▶ Reproduzir",
+   "tag": "button",
+   "cls": "vit-chip push"
+  },
+  {
+   "chave": "Alerta",
+   "tag": "span",
+   "cls": "an-al"
+  },
+  {
+   "chave": "<span>Início do mês</span><span>Fechamento do mês</span>",
+   "tag": "div",
+   "cls": "an-axis"
+  },
+  {
+   "chave": "Pergunte sobre",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Resposta",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "De onde veio",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Documento",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Contrato",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Nota",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Relatório",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "↻ Ler de novo",
+   "tag": "button",
+   "cls": "vit-chip push"
+  },
+  {
+   "chave": "Documento em PDF",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Dado consultável",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Passando de mão em mão",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Automatizado",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Tempo até concluir",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Escolha o que prever.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Modelos que aprendem com os dados da sua operação, em vez de regras escritas à mão.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Compare antes e depois de aprender.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Alterne entre o fechamento do mês e o momento em que acontece.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Escolha uma área e passe o mouse sobre a resposta.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Escolha o tipo de documento.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Tarefas repetitivas que passam a rodar sozinhas, em vez de passar de mão em mão.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Compare as duas formas e execute.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Que decisão a IA precisa melhorar e com que dado ela conta hoje.",
+   "tag": "p",
+   "cls": "tl-d"
+  },
+  {
+   "chave": "O dado que já existe, organizado para o modelo conseguir ler.",
+   "tag": "p",
+   "cls": "tl-d"
+  },
+  {
+   "chave": "O modelo ou o agente, treinado e testado sobre a sua própria base.",
+   "tag": "p",
+   "cls": "tl-d"
+  },
+  {
+   "chave": "No ar, dentro do processo, com acompanhamento do que ele entrega.",
+   "tag": "p",
+   "cls": "tl-d"
+  },
+  {
+   "chave": "<span>Educação</span><span>Machine Learning</span><span>Modelos preditivos</span>",
+   "tag": "div",
+   "cls": "case-meta"
+  },
+  {
+   "chave": "A evasão só era constatada depois de acontecer, quando já não havia ação possível. Os dados educacionais existiam, mas descreviam o passado em vez de apontar risco.",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Centenas de dashboards educacionais somados a modelos preditivos que estimam risco de evasão a tempo de apoiar ações preventivas.",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "GCP, Cloud Composer, Power BI, Analytics, Machine Learning, BI",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Constatada → Antecipada</b><span>a evasão deixou de ser constatada depois de acontecer e passou a ser estimada a tempo de agir</span>",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Quero avaliar um caso de uso <span class=\"arr\">→</span>",
+   "tag": "a",
+   "cls": "btn btn-line"
+  },
+  {
+   "chave": "Entregas de IA e Automação",
+   "tag": "@aria-label",
+   "cls": "vit-nav"
+  },
+  {
+   "chave": "Estado do modelo",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Quando o desvio aparece",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Como o processo roda",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
    "chave": "<span>BI &amp; Analytics</span><span>Engenharia de Dados</span><span>Cloud</span>",
    "tag": "div",
    "cls": "dest-chips"
@@ -4082,24 +4142,9 @@
    "cls": "gc-chips"
   },
   {
-   "chave": "<span class=\"lg-solo\" title=\"Pentaho\" aria-label=\"Pentaho\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span></span><span class=\"lg-solo\" title=\"SQL Server\" aria-label=\"SQL Server\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(media/logos/sqlserver.svg);--bc:#CC2927\"></span></span></span>",
-   "tag": "div",
-   "cls": "cc-logos"
-  },
-  {
-   "chave": "<span class=\"lg-solo\" title=\"Pentaho\" aria-label=\"Pentaho\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span></span><span class=\"lg-solo\" title=\"SQL Server\" aria-label=\"SQL Server\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(media/logos/sqlserver.svg);--bc:#CC2927\"></span></span></span><span class=\"lg-solo\" title=\"MicroStrategy\" aria-label=\"MicroStrategy\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(media/logos/microstrategy.svg);--bc:#D9232E\"></span></span></span>",
-   "tag": "div",
-   "cls": "cc-logos"
-  },
-  {
    "chave": "<span>BI &amp; Analytics</span>",
    "tag": "div",
    "cls": "gc-chips"
-  },
-  {
-   "chave": "<span class=\"lg-solo\" title=\"Pentaho\" aria-label=\"Pentaho\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span></span><span class=\"lg-solo\" title=\"MicroStrategy\" aria-label=\"MicroStrategy\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(media/logos/microstrategy.svg);--bc:#D9232E\"></span></span></span>",
-   "tag": "div",
-   "cls": "cc-logos"
   },
   {
    "chave": "<span>BI &amp; Analytics</span><span>IA &amp; Preditivo</span>",
@@ -4110,16 +4155,6 @@
    "chave": "Projetos em destaque",
    "tag": "@aria-label",
    "cls": "dest-trilho"
-  },
-  {
-   "chave": "Azure Synapse",
-   "tag": "@aria-label",
-   "cls": "lg-solo"
-  },
-  {
-   "chave": "GCP",
-   "tag": "@aria-label",
-   "cls": "lg-solo"
   },
   {
    "chave": "Ver o destaque 1 de 3",
@@ -4140,41 +4175,6 @@
    "chave": "Filtrar por categoria",
    "tag": "@aria-label",
    "cls": "filtros"
-  },
-  {
-   "chave": "Java",
-   "tag": "@aria-label",
-   "cls": "lg-solo"
-  },
-  {
-   "chave": "Informatica PowerCenter",
-   "tag": "@aria-label",
-   "cls": "lg-solo"
-  },
-  {
-   "chave": "Claude",
-   "tag": "@aria-label",
-   "cls": "lg-solo"
-  },
-  {
-   "chave": "Pentaho",
-   "tag": "@aria-label",
-   "cls": "lg-solo"
-  },
-  {
-   "chave": "SQL Server",
-   "tag": "@aria-label",
-   "cls": "lg-solo"
-  },
-  {
-   "chave": "SSIS",
-   "tag": "@aria-label",
-   "cls": "lg-solo"
-  },
-  {
-   "chave": "Figma",
-   "tag": "@aria-label",
-   "cls": "lg-solo"
   },
   {
    "chave": "Esta página descreve quais dados o site <strong>atlas-partner.com</strong> coleta, por que coleta, com quem compartilha e o que você pode pedir sobre eles. Ela cobre apenas este site.",
@@ -4497,856 +4497,6 @@
    "cls": "h-xl"
   },
   {
-   "chave": "<span aria-hidden=\"true\">←</span> Voltar para cases",
-   "tag": "a",
-   "cls": "voltar"
-  },
-  {
-   "chave": "Case de sucesso — cliente confidencial",
-   "tag": "p",
-   "cls": "caso-eyebrow"
-  },
-  {
-   "chave": "Constatada",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "Antecipada",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "Desafios",
-   "tag": "h2",
-   "cls": ""
-  },
-  {
-   "chave": "A evasão só era constatada depois de acontecer, quando já não havia ação possível.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Os dados educacionais existiam, mas descreviam o passado em vez de apontar risco.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Resultados",
-   "tag": "h2",
-   "cls": ""
-  },
-  {
-   "chave": "Constatada → Antecipada",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Informações do projeto",
-   "tag": "h2",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Google Cloud</span><span>Microsoft</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"GCP\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>GCP</span><span class=\"lg-tec\" title=\"Cloud Composer\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>Cloud Composer</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-txt\">Analytics</span><span class=\"lg-txt\">Machine Learning</span><span class=\"lg-txt\">BI</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Áreas de atuação",
-   "tag": "dt",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Analytics</span><span>Machine Learning</span><span>Modelos preditivos</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Setor",
-   "tag": "dt",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Educação</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Nome do cliente preservado por confidencialidade.",
-   "tag": "p",
-   "cls": "inf-nota"
-  },
-  {
-   "chave": "Entre em contato",
-   "tag": "h2",
-   "cls": ""
-  },
-  {
-   "chave": "Conte o seu cenário para quem vai executar. Em 30 minutos mapeamos o caminho — mesmo que ele não passe pela gente.",
-   "tag": "p",
-   "cls": "sub"
-  },
-  {
-   "chave": "Outros projetos",
-   "tag": "h2",
-   "cls": "cases-more-head"
-  },
-  {
-   "chave": "<b>Canais separados viraram uma plataforma só</b><small>Varejo Multimarca</small>",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Legado Oracle aposentado sem parar a operação</b><small>Serviços Financeiros</small>",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "<b>De 200+ painéis sem padrão a um ambiente só</b><small>BI Governance</small>",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "Antes e depois",
-   "tag": "@aria-label",
-   "cls": "ad reveal"
-  },
-  {
-   "chave": "Cloud Composer",
-   "tag": "@title",
-   "cls": "lg-tec"
-  },
-  {
-   "chave": "Relatório avulso",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "Indicador vivo",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "O NPS saía como relatório avulso, lido uma vez e arquivado.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "A voz do cliente não chegava às áreas que podiam agir sobre ela.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Acompanhamento contínuo de NPS, transformando as respostas em indicadores de experiência e em oportunidades de melhoria distribuídas às áreas.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Relatório avulso → Indicador vivo",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Tableau</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"Tableau\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/tableau.svg);--bc:#E97627\"></span></span>Tableau</span><span class=\"lg-txt\">NPS</span><span class=\"lg-txt\">Analytics</span><span class=\"lg-txt\">CX</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Analytics</span><span>Customer Experience</span><span>Indicadores de experiência</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Bancário</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Vários",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "sistemas medindo os canais em separado",
-   "tag": "p",
-   "cls": "ad-d"
-  },
-  {
-   "chave": "Uma",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "plataforma com venda e operação lado a lado",
-   "tag": "p",
-   "cls": "ad-d"
-  },
-  {
-   "chave": "Dados de lojas físicas e de canais digitais espalhados em sistemas diferentes, sem visão única de performance.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Cada canal media a própria venda com sua própria régua, o que impedia comparar um com o outro.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "A consolidação para qualquer leitura conjunta era manual e refeita a cada pergunta.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Plataforma de dados em Azure integrando todos os canais de venda, com pipelines em Synapse, Data Factory e Databricks. Sobre ela, dashboards Power BI de vendas, operação e performance por canal, lendo as mesmas definições.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Canais comparáveis</b> loja física e digital deixaram de ser medidos em sistemas separados",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Fim da consolidação manual</b> venda e operação passaram a ser lidas no mesmo painel",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Base reaproveitável</b> nova análise parte da plataforma existente, não de uma nova extração",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Microsoft</span><span>Databricks</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"Azure Synapse\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/azure.svg);--bc:#0078D4\"></span></span>Azure Synapse</span><span class=\"lg-tec\" title=\"Data Factory\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/azure.svg);--bc:#0078D4\"></span></span>Data Factory</span><span class=\"lg-tec\" title=\"Databricks\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/databricks.svg);--bc:#FF3621\"></span></span>Databricks</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Data &amp; Analytics</span><span>Cloud Data Platform</span><span>Data Integration</span><span>Business Intelligence</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Varejo Multimarca</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Os acessos da holding inteira sob auditoria</b><small>Instituição Financeira</small>",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "Data Factory",
-   "tag": "@title",
-   "cls": "lg-tec"
-  },
-  {
-   "chave": "Os acessos a sistemas eram concedidos e revistos empresa a empresa, sem uma central que respondesse pela holding inteira.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "A segurança da informação não tinha relatório de auditoria que cruzasse os acessos de todas as empresas do grupo.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Sistema IDM de gerenciamento de acessos desenvolvido em Java, servindo de central para a concessão e a revisão de acessos. Sobre ele, integração em Informatica PowerCenter e relatórios de auditoria em MicroStrategy e Power BI para a área de segurança da informação.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "A concessão e a revisão de acessos passaram a sair de uma central única, não de cada empresa em separado.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "A segurança da informação passou a ter relatório de auditoria cobrindo os acessos de toda a holding.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Microsoft</span><span>Oracle</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"Java\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/java.svg);--bc:#E76F00\"></span></span>Java</span><span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span>MicroStrategy</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-tec\" title=\"Informatica PowerCenter\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/informatica.svg);--bc:#FF4D00\"></span></span>Informatica PowerCenter</span><span class=\"lg-tec\" title=\"Oracle\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/oracle.svg);--bc:#C74634\"></span></span>Oracle</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Desenvolvimento de sistemas</span><span>Segurança da Informação</span><span>Business Intelligence</span><span>Data Integration</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Instituição Financeira</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Chamados",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "Indicadores de SLA",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "O sistema de incidentes acumulava chamados, mas nenhum indicador saía deles.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Sem SLA medido, prazo e desempenho operacional eram discutidos por impressão.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "BI sobre a base de incidentes, transformando cada chamado em indicador de SLA, prazo e desempenho operacional, com histórico em Data Warehouse.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Chamados → Indicadores de SLA",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"Pentaho\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span>Pentaho</span><span class=\"lg-tec\" title=\"SQL Server\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/sqlserver.svg);--bc:#CC2927\"></span></span>SQL Server</span><span class=\"lg-txt\">Data Warehouse</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Business Intelligence</span><span>Data Warehouse</span><span>Indicadores operacionais</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Software &amp; Tecnologia</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "200+",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "painéis crescendo sem padrão nem fonte única",
-   "tag": "p",
-   "cls": "ad-d"
-  },
-  {
-   "chave": "1",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "ambiente, com uma definição por métrica",
-   "tag": "p",
-   "cls": "ad-d"
-  },
-  {
-   "chave": "A mesma métrica tinha contas diferentes dependendo de qual painel se abrisse.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Toda pergunta nova das áreas entrava numa fila e dependia do time de dados.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Ambiente centralizado em Looker, com dados e definições unificados. A migração veio junto com padronização de nomenclatura e layout e com um modelo de self-service BI para as áreas de negócio.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Uma definição por métrica</b> a mesma conta deixou de ter versões diferentes em mais de 200 painéis",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Pergunta sem fila</b> o self-service tirou o intervalo entre a dúvida da área e a resposta",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Crescimento com padrão</b> painel novo passa a nascer dentro de um modelo, não ao lado dele",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Google Cloud</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-tec\" title=\"Looker\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/looker.svg);--bc:#4285F4\"></span></span>Looker</span><span class=\"lg-txt\">Governança de dados</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Governança de Dados</span><span>Business Intelligence</span><span>Self-service BI</span><span>Migração</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>BI Governance</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Mês",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "Dia",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "O desempenho das unidades só aparecia no fechamento do mês.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Quando o desvio era visto, o mês já tinha acabado e não dava para corrigir.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Painéis de acompanhamento diário das unidades do grupo, com os desvios visíveis em tempo de agir sobre eles.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Mês → Dia",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"GCP\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>GCP</span><span class=\"lg-tec\" title=\"Cloud Composer\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>Cloud Composer</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-txt\">Dashboards</span><span class=\"lg-txt\">Operações</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Business Intelligence</span><span>Indicadores operacionais</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Food Service</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "2 ferramentas",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "1 ferramenta",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "A rede de diagnóstico mantinha duas ferramentas de BI em paralelo, com custo e treinamento dobrados.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "A mesma leitura podia divergir dependendo de qual das duas se abrisse.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Pipelines em BigQuery e Airflow alimentando uma camada única, com a visualização migrada de Tableau para Power BI.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "2 ferramentas → 1 ferramenta",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Google Cloud</span><span>Microsoft</span><span>Tableau</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"GCP\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>GCP</span><span class=\"lg-tec\" title=\"BigQuery\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/bigquery.svg);--bc:#669DF6\"></span></span>BigQuery</span><span class=\"lg-tec\" title=\"Airflow\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/airflow.svg);--bc:#017CEE\"></span></span>Airflow</span><span class=\"lg-tec\" title=\"Cloud Composer\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>Cloud Composer</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Data Engineering</span><span>Cloud Data Platform</span><span>Business Intelligence</span><span>Migração</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Saúde &amp; Diagnóstico</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "legado caro de manter, distante da análise",
-   "tag": "p",
-   "cls": "ad-d"
-  },
-  {
-   "chave": "legado aposentado, sem interromper a operação",
-   "tag": "p",
-   "cls": "ad-d"
-  },
-  {
-   "chave": "Dados presos em um legado Oracle, caro de manter e distante das necessidades analíticas do negócio.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "As transformações viviam em scripts avulsos, sem teste nem versionamento.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "A migração precisava acontecer sem nenhuma parada da operação.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Data Lake em Google Cloud com processamento em BigQuery, transformações em dbt, orquestração em Airflow e BI unificado em Looker. A virada foi feita em paralelo ao legado, que só foi desligado depois de a nova base responder igual.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Data Lake em Google Cloud, com processamento em BigQuery.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Legado fora da conta</b> o custo de manter o ambiente Oracle deixou de existir",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Regra em código</b> as transformações saíram de scripts avulsos para dbt, testado e versionado",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<b>Uma camada só</b> Looker passou a ser o único caminho entre o dado e o negócio",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Google Cloud</span><span>Oracle</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"GCP\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>GCP</span><span class=\"lg-tec\" title=\"BigQuery\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/bigquery.svg);--bc:#669DF6\"></span></span>BigQuery</span><span class=\"lg-tec\" title=\"dbt\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/dbt.svg);--bc:#FF694B\"></span></span>dbt</span><span class=\"lg-tec\" title=\"Airflow\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/airflow.svg);--bc:#017CEE\"></span></span>Airflow</span><span class=\"lg-tec\" title=\"Cloud Composer\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>Cloud Composer</span><span class=\"lg-tec\" title=\"Looker\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/looker.svg);--bc:#4285F4\"></span></span>Looker</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Data Engineering</span><span>Cloud Data Platform</span><span>Modernização de legado</span><span>Business Intelligence</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Serviços Financeiros</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Extração pontual",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "Camada própria",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "Toda análise comercial dependia de uma extração pontual, refeita a cada pedido.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "O departamento não tinha camada de dados própria: dependia do que outras áreas haviam modelado.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Estrutura de dados e indicadores própria do comercial, consolidando as informações do departamento para análise e decisão.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Extração pontual → Camada própria",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"SSIS\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/sqlserver.svg);--bc:#CC2927\"></span></span>SSIS</span><span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span>MicroStrategy</span><span class=\"lg-txt\">Data Warehouse</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Data Engineering</span><span>Data Warehouse</span><span>Indicadores comerciais</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Padrão depois",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "Padrão antes",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "O padrão visual era definido depois, painel a painel, quando já havia centenas deles.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Cada dashboard novo nascia com uma leitura diferente da anterior.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Protótipos em Figma fixando o padrão visual antes do desenvolvimento, e centenas de dashboards Power BI construídos já dentro dele.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Padrão depois → Padrão antes",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Microsoft</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"Figma\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/figma.svg);--bc:#F24E1E\"></span></span>Figma</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-txt\">Data Design</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Data Visualization</span><span>Design de dados</span><span>Business Intelligence</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Saúde Hospitalar</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Faturamento, endossos e comissões eram controlados em rotinas separadas, cada uma com a sua própria planilha.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "O pagamento de comissão dependia de conferência manual contra o que havia sido faturado.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Sistema próprio da corretora reunindo o faturamento, o lançamento de endossos e o pagamento de comissões no mesmo fluxo, com cada etapa alimentando a seguinte.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "As três rotinas passaram a viver no mesmo sistema, em vez de em planilhas separadas.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "O pagamento de comissão passa a derivar do que foi faturado, sem conferência manual entre os dois.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"Claude\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/claude.svg);--bc:#D97757\"></span></span>Claude</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Desenvolvimento de sistemas</span><span>Automação de processos</span><span>Faturamento</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Corretagem de Seguros</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "Por área",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "Toda a empresa",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "Cada área enxergava apenas o próprio recorte de vendas, logística ou operação.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Sem acesso comum aos indicadores, decisões de uma área ignoravam o efeito nas outras.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Dashboards de vendas, logística e operações com acesso aberto a todas as áreas da organização, sobre o mesmo Data Warehouse.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "Por área → Toda a empresa",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"Pentaho\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span>Pentaho</span><span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span>MicroStrategy</span><span class=\"lg-txt\">DW</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Business Intelligence</span><span>Data Warehouse</span><span>Self-service BI</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Varejo de Moda</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "3 linhas",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "1 visão",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "Viagens, hospedagens e locações eram medidas em três linhas separadas.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Não existia leitura conjunta do negócio: cada linha tinha seu próprio número.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Arquitetura completa ETL → DW → BI consolidando as três linhas em um modelo único, com a visão do negócio inteiro em MicroStrategy.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "3 linhas → 1 visão",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"Pentaho\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span>Pentaho</span><span class=\"lg-tec\" title=\"SQL Server\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/sqlserver.svg);--bc:#CC2927\"></span></span>SQL Server</span><span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span>MicroStrategy</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Data Engineering</span><span>Data Warehouse</span><span>Business Intelligence</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Turismo &amp; Viagens</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "3 operações",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "1 leitura",
-   "tag": "p",
-   "cls": "ad-n"
-  },
-  {
-   "chave": "Gestão de acidentes, arrecadação de pedágios e operação aeroportuária eram acompanhadas em três lugares.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Não havia leitura integrada das três operações, que dividem a mesma estrutura.",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Painéis integrando as três operações em uma visão única, sobre a mesma base de dados e indicadores.",
-   "tag": "p",
-   "cls": ""
-  },
-  {
-   "chave": "3 operações → 1 leitura",
-   "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "<span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-txt\">Data &amp; BI</span><span class=\"lg-txt\">Operações</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Business Intelligence</span><span>Data Integration</span><span>Indicadores operacionais</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
-   "chave": "<span>Infraestrutura &amp; Mobilidade</span>",
-   "tag": "dd",
-   "cls": ""
-  },
-  {
    "chave": "<span aria-hidden=\"true\">←</span> Voltar para parceiros",
    "tag": "a",
    "cls": "voltar"
@@ -5500,6 +4650,11 @@
    "chave": "Databricks Partner Program",
    "tag": "p",
    "cls": "sub"
+  },
+  {
+   "chave": "1",
+   "tag": "p",
+   "cls": "pf-n"
   },
   {
    "chave": "com projeto entregue",
@@ -5720,6 +4875,11 @@
    "chave": "<span>Aberto + pago</span><span>SaaS</span>",
    "tag": "div",
    "cls": "pf-meta"
+  },
+  {
+   "chave": "Cloud Composer",
+   "tag": "h3",
+   "cls": ""
   },
   {
    "chave": "Airflow gerenciado do Google Cloud.",
@@ -6230,6 +5390,846 @@
    "chave": "Cases entregues com Tableau",
    "tag": "h2",
    "cls": "h-xl"
+  },
+  {
+   "chave": "<span aria-hidden=\"true\">←</span> Voltar para cases",
+   "tag": "a",
+   "cls": "voltar"
+  },
+  {
+   "chave": "Case de sucesso — cliente confidencial",
+   "tag": "p",
+   "cls": "caso-eyebrow"
+  },
+  {
+   "chave": "Constatada",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Antecipada",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Desafios",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "A evasão só era constatada depois de acontecer, quando já não havia ação possível.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Os dados educacionais existiam, mas descreviam o passado em vez de apontar risco.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Resultados",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "Constatada → Antecipada",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Informações do projeto",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Google Cloud</span><span>Microsoft</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"GCP\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>GCP</span><span class=\"lg-tec\" title=\"Cloud Composer\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>Cloud Composer</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-txt\">Analytics</span><span class=\"lg-txt\">Machine Learning</span><span class=\"lg-txt\">BI</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Áreas de atuação",
+   "tag": "dt",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Analytics</span><span>Machine Learning</span><span>Modelos preditivos</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Setor",
+   "tag": "dt",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Educação</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Nome do cliente preservado por confidencialidade.",
+   "tag": "p",
+   "cls": "inf-nota"
+  },
+  {
+   "chave": "Entre em contato",
+   "tag": "h2",
+   "cls": ""
+  },
+  {
+   "chave": "Conte o seu cenário para quem vai executar. Em 30 minutos mapeamos o caminho — mesmo que ele não passe pela gente.",
+   "tag": "p",
+   "cls": "sub"
+  },
+  {
+   "chave": "Outros projetos",
+   "tag": "h2",
+   "cls": "cases-more-head"
+  },
+  {
+   "chave": "<b>Canais separados viraram uma plataforma só</b><small>Varejo Multimarca</small>",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Legado Oracle aposentado sem parar a operação</b><small>Serviços Financeiros</small>",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "<b>De 200+ painéis sem padrão a um ambiente só</b><small>BI Governance</small>",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Antes e depois",
+   "tag": "@aria-label",
+   "cls": "ad reveal"
+  },
+  {
+   "chave": "Relatório avulso",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Indicador vivo",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "O NPS saía como relatório avulso, lido uma vez e arquivado.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A voz do cliente não chegava às áreas que podiam agir sobre ela.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Acompanhamento contínuo de NPS, transformando as respostas em indicadores de experiência e em oportunidades de melhoria distribuídas às áreas.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Relatório avulso → Indicador vivo",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Tableau</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"Tableau\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/tableau.svg);--bc:#E97627\"></span></span>Tableau</span><span class=\"lg-txt\">NPS</span><span class=\"lg-txt\">Analytics</span><span class=\"lg-txt\">CX</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Analytics</span><span>Customer Experience</span><span>Indicadores de experiência</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Bancário</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Vários",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "sistemas medindo os canais em separado",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "Uma",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "plataforma com venda e operação lado a lado",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "Dados de lojas físicas e de canais digitais espalhados em sistemas diferentes, sem visão única de performance.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Cada canal media a própria venda com sua própria régua, o que impedia comparar um com o outro.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A consolidação para qualquer leitura conjunta era manual e refeita a cada pergunta.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Plataforma de dados em Azure integrando todos os canais de venda, com pipelines em Synapse, Data Factory e Databricks. Sobre ela, dashboards Power BI de vendas, operação e performance por canal, lendo as mesmas definições.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Canais comparáveis</b> loja física e digital deixaram de ser medidos em sistemas separados",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Fim da consolidação manual</b> venda e operação passaram a ser lidas no mesmo painel",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Base reaproveitável</b> nova análise parte da plataforma existente, não de uma nova extração",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Microsoft</span><span>Databricks</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"Azure Synapse\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/azure.svg);--bc:#0078D4\"></span></span>Azure Synapse</span><span class=\"lg-tec\" title=\"Data Factory\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/azure.svg);--bc:#0078D4\"></span></span>Data Factory</span><span class=\"lg-tec\" title=\"Databricks\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/databricks.svg);--bc:#FF3621\"></span></span>Databricks</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data &amp; Analytics</span><span>Cloud Data Platform</span><span>Data Integration</span><span>Business Intelligence</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Varejo Multimarca</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Os acessos da holding inteira sob auditoria</b><small>Instituição Financeira</small>",
+   "tag": "span",
+   "cls": ""
+  },
+  {
+   "chave": "Data Factory",
+   "tag": "@title",
+   "cls": "lg-tec"
+  },
+  {
+   "chave": "Os acessos a sistemas eram concedidos e revistos empresa a empresa, sem uma central que respondesse pela holding inteira.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A segurança da informação não tinha relatório de auditoria que cruzasse os acessos de todas as empresas do grupo.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Sistema IDM de gerenciamento de acessos desenvolvido em Java, servindo de central para a concessão e a revisão de acessos. Sobre ele, integração em Informatica PowerCenter e relatórios de auditoria em MicroStrategy e Power BI para a área de segurança da informação.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "A concessão e a revisão de acessos passaram a sair de uma central única, não de cada empresa em separado.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A segurança da informação passou a ter relatório de auditoria cobrindo os acessos de toda a holding.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Microsoft</span><span>Oracle</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"Java\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/java.svg);--bc:#E76F00\"></span></span>Java</span><span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span>MicroStrategy</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-tec\" title=\"Informatica PowerCenter\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/informatica.svg);--bc:#FF4D00\"></span></span>Informatica PowerCenter</span><span class=\"lg-tec\" title=\"Oracle\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/oracle.svg);--bc:#C74634\"></span></span>Oracle</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Desenvolvimento de sistemas</span><span>Segurança da Informação</span><span>Business Intelligence</span><span>Data Integration</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Instituição Financeira</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Chamados",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Indicadores de SLA",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "O sistema de incidentes acumulava chamados, mas nenhum indicador saía deles.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Sem SLA medido, prazo e desempenho operacional eram discutidos por impressão.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "BI sobre a base de incidentes, transformando cada chamado em indicador de SLA, prazo e desempenho operacional, com histórico em Data Warehouse.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Chamados → Indicadores de SLA",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"Pentaho\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span>Pentaho</span><span class=\"lg-tec\" title=\"SQL Server\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/sqlserver.svg);--bc:#CC2927\"></span></span>SQL Server</span><span class=\"lg-txt\">Data Warehouse</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Business Intelligence</span><span>Data Warehouse</span><span>Indicadores operacionais</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Software &amp; Tecnologia</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "200+",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "painéis crescendo sem padrão nem fonte única",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "ambiente, com uma definição por métrica",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "A mesma métrica tinha contas diferentes dependendo de qual painel se abrisse.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Toda pergunta nova das áreas entrava numa fila e dependia do time de dados.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Ambiente centralizado em Looker, com dados e definições unificados. A migração veio junto com padronização de nomenclatura e layout e com um modelo de self-service BI para as áreas de negócio.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Uma definição por métrica</b> a mesma conta deixou de ter versões diferentes em mais de 200 painéis",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Pergunta sem fila</b> o self-service tirou o intervalo entre a dúvida da área e a resposta",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Crescimento com padrão</b> painel novo passa a nascer dentro de um modelo, não ao lado dele",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Google Cloud</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-tec\" title=\"Looker\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/looker.svg);--bc:#4285F4\"></span></span>Looker</span><span class=\"lg-txt\">Governança de dados</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Governança de Dados</span><span>Business Intelligence</span><span>Self-service BI</span><span>Migração</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>BI Governance</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Mês",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Dia",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "O desempenho das unidades só aparecia no fechamento do mês.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Quando o desvio era visto, o mês já tinha acabado e não dava para corrigir.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Painéis de acompanhamento diário das unidades do grupo, com os desvios visíveis em tempo de agir sobre eles.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Mês → Dia",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"GCP\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>GCP</span><span class=\"lg-tec\" title=\"Cloud Composer\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>Cloud Composer</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-txt\">Dashboards</span><span class=\"lg-txt\">Operações</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Business Intelligence</span><span>Indicadores operacionais</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Food Service</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "2 ferramentas",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "1 ferramenta",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "A rede de diagnóstico mantinha duas ferramentas de BI em paralelo, com custo e treinamento dobrados.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A mesma leitura podia divergir dependendo de qual das duas se abrisse.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Pipelines em BigQuery e Airflow alimentando uma camada única, com a visualização migrada de Tableau para Power BI.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "2 ferramentas → 1 ferramenta",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Google Cloud</span><span>Microsoft</span><span>Tableau</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"GCP\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>GCP</span><span class=\"lg-tec\" title=\"BigQuery\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/bigquery.svg);--bc:#669DF6\"></span></span>BigQuery</span><span class=\"lg-tec\" title=\"Airflow\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/airflow.svg);--bc:#017CEE\"></span></span>Airflow</span><span class=\"lg-tec\" title=\"Cloud Composer\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>Cloud Composer</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data Engineering</span><span>Cloud Data Platform</span><span>Business Intelligence</span><span>Migração</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Saúde &amp; Diagnóstico</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "legado caro de manter, distante da análise",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "legado aposentado, sem interromper a operação",
+   "tag": "p",
+   "cls": "ad-d"
+  },
+  {
+   "chave": "Dados presos em um legado Oracle, caro de manter e distante das necessidades analíticas do negócio.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "As transformações viviam em scripts avulsos, sem teste nem versionamento.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "A migração precisava acontecer sem nenhuma parada da operação.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Data Lake em Google Cloud com processamento em BigQuery, transformações em dbt, orquestração em Airflow e BI unificado em Looker. A virada foi feita em paralelo ao legado, que só foi desligado depois de a nova base responder igual.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Data Lake em Google Cloud, com processamento em BigQuery.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Legado fora da conta</b> o custo de manter o ambiente Oracle deixou de existir",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Regra em código</b> as transformações saíram de scripts avulsos para dbt, testado e versionado",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Uma camada só</b> Looker passou a ser o único caminho entre o dado e o negócio",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Google Cloud</span><span>Oracle</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"GCP\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>GCP</span><span class=\"lg-tec\" title=\"BigQuery\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/bigquery.svg);--bc:#669DF6\"></span></span>BigQuery</span><span class=\"lg-tec\" title=\"dbt\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/dbt.svg);--bc:#FF694B\"></span></span>dbt</span><span class=\"lg-tec\" title=\"Airflow\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/airflow.svg);--bc:#017CEE\"></span></span>Airflow</span><span class=\"lg-tec\" title=\"Cloud Composer\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/googlecloud.svg);--bc:#4285F4\"></span></span>Cloud Composer</span><span class=\"lg-tec\" title=\"Looker\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/looker.svg);--bc:#4285F4\"></span></span>Looker</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data Engineering</span><span>Cloud Data Platform</span><span>Modernização de legado</span><span>Business Intelligence</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Serviços Financeiros</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Extração pontual",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Camada própria",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Toda análise comercial dependia de uma extração pontual, refeita a cada pedido.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "O departamento não tinha camada de dados própria: dependia do que outras áreas haviam modelado.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Estrutura de dados e indicadores própria do comercial, consolidando as informações do departamento para análise e decisão.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Extração pontual → Camada própria",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"SSIS\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/sqlserver.svg);--bc:#CC2927\"></span></span>SSIS</span><span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span>MicroStrategy</span><span class=\"lg-txt\">Data Warehouse</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data Engineering</span><span>Data Warehouse</span><span>Indicadores comerciais</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Padrão depois",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Padrão antes",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "O padrão visual era definido depois, painel a painel, quando já havia centenas deles.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Cada dashboard novo nascia com uma leitura diferente da anterior.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Protótipos em Figma fixando o padrão visual antes do desenvolvimento, e centenas de dashboards Power BI construídos já dentro dele.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Padrão depois → Padrão antes",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Microsoft</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"Figma\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/figma.svg);--bc:#F24E1E\"></span></span>Figma</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-txt\">Data Design</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data Visualization</span><span>Design de dados</span><span>Business Intelligence</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Saúde Hospitalar</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Faturamento, endossos e comissões eram controlados em rotinas separadas, cada uma com a sua própria planilha.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "O pagamento de comissão dependia de conferência manual contra o que havia sido faturado.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Sistema próprio da corretora reunindo o faturamento, o lançamento de endossos e o pagamento de comissões no mesmo fluxo, com cada etapa alimentando a seguinte.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "As três rotinas passaram a viver no mesmo sistema, em vez de em planilhas separadas.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "O pagamento de comissão passa a derivar do que foi faturado, sem conferência manual entre os dois.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"Claude\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/claude.svg);--bc:#D97757\"></span></span>Claude</span><span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Desenvolvimento de sistemas</span><span>Automação de processos</span><span>Faturamento</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Corretagem de Seguros</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Por área",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Toda a empresa",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Cada área enxergava apenas o próprio recorte de vendas, logística ou operação.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Sem acesso comum aos indicadores, decisões de uma área ignoravam o efeito nas outras.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Dashboards de vendas, logística e operações com acesso aberto a todas as áreas da organização, sobre o mesmo Data Warehouse.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Por área → Toda a empresa",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"Pentaho\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span>Pentaho</span><span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span>MicroStrategy</span><span class=\"lg-txt\">DW</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Business Intelligence</span><span>Data Warehouse</span><span>Self-service BI</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Varejo de Moda</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "3 linhas",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "1 visão",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Viagens, hospedagens e locações eram medidas em três linhas separadas.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Não existia leitura conjunta do negócio: cada linha tinha seu próprio número.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Arquitetura completa ETL → DW → BI consolidando as três linhas em um modelo único, com a visão do negócio inteiro em MicroStrategy.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "3 linhas → 1 visão",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"Pentaho\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span>Pentaho</span><span class=\"lg-tec\" title=\"SQL Server\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/sqlserver.svg);--bc:#CC2927\"></span></span>SQL Server</span><span class=\"lg-tec\" title=\"MicroStrategy\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span>MicroStrategy</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Data Engineering</span><span>Data Warehouse</span><span>Business Intelligence</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Turismo &amp; Viagens</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "3 operações",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "1 leitura",
+   "tag": "p",
+   "cls": "ad-n"
+  },
+  {
+   "chave": "Gestão de acidentes, arrecadação de pedágios e operação aeroportuária eram acompanhadas em três lugares.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Não havia leitura integrada das três operações, que dividem a mesma estrutura.",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "Painéis integrando as três operações em uma visão única, sobre a mesma base de dados e indicadores.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "3 operações → 1 leitura",
+   "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span class=\"lg-tec\" title=\"Power BI\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/powerbi.svg);--bc:#E8B80A\"></span></span>Power BI</span><span class=\"lg-txt\">Data &amp; BI</span><span class=\"lg-txt\">Operações</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Business Intelligence</span><span>Data Integration</span><span>Indicadores operacionais</span>",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<span>Infraestrutura &amp; Mobilidade</span>",
+   "tag": "dd",
+   "cls": ""
   }
  ]
 }

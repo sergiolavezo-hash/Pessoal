@@ -76,7 +76,7 @@ def cartao(c):
           <a class="cc-link" href="cases/%(slug)s.html">Ver case <span class="arr">&rarr;</span></a>
         </div>
       </article>''' % dict(arte=c['arte'], alt=e(c['capa']), setor=e(setor), titulo=e(c['titulo']),
-                           capa=e(c['capa']), ad=ad, chips=chips, slug=c['slug'], logos='')
+                           capa=e(c['capa']), ad=ad, chips=chips, slug=c['slug'], logos=logos_do_case(c, ''))
 
 
 def carrossel(cases):
@@ -275,9 +275,10 @@ def corpo_case(c, cases):
     relacionados = '\n'.join(
         '        <a class="rel" href="%s.html">\n'
         '          <img src="../media/cases/%s.svg" alt="" loading="lazy" decoding="async">\n'
-        '          <span><b>%s</b><small>%s</small></span>\n'
+        '          <span><b>%s</b><small>%s</small></span>%s\n'
         '        </a>' % (o['slug'], o['arte'], e(o['titulo']),
-                          e(o.get('setor') or (o['meta'][0] if o.get('meta') else '')))
+                          e(o.get('setor') or (o['meta'][0] if o.get('meta') else '')),
+                          logos_do_case(o, '../'))
         for o in outros)
 
     return (
@@ -365,10 +366,11 @@ CSS_CASO = '''<style>
   .inf-nota { border-top: 1px solid var(--line-soft); margin-top: 1.5rem; padding-top: 1rem; color: var(--dim); font-size: 0.8rem; }
 
   .rels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1.4rem; }
-  .rel { display: grid; gap: 0.9rem; text-decoration: none; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; align-content: start; transition: border-color 0.3s var(--ease), transform 0.3s var(--ease); }
+  .rel { display: grid; gap: 0.9rem; text-decoration: none; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; align-content: start; padding-bottom: 1.2rem; transition: border-color 0.3s var(--ease), transform 0.3s var(--ease); }
   .rel:hover { border-color: rgba(46,134,255,0.45); transform: translateY(-3px); }
   .rel img { width: 100%; height: 118px; object-fit: cover; display: block; }
-  .rel span { display: block; padding: 0 1.1rem 1.2rem; }
+  .rel > span { display: block; padding: 0 1.1rem; }
+  .rel .cc-logos { margin: 0; padding: 0 1.1rem; }
   .rel b { display: block; font-family: var(--display); font-size: 0.98rem; font-weight: 600; line-height: 1.3; }
   .rel small { display: block; color: var(--dim); font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 0.4rem; }
 
@@ -686,10 +688,13 @@ def main():
     cases = json.loads(DADOS.read_text())
     html = (RAIZ / 'index.html').read_text()
 
-    # 1) carrossel na home, entre marcadores
+    # 1) carrossel na home, entre marcadores. Os cartões levam a linha de logos
+    #    das ferramentas, então o estilo do componente entra no <style> da home
+    #    num bloco delimitado (o mesmo que as outras páginas recebem de logos.css()).
     novo = carrossel(cases)
     if '<!-- cases:inicio' in html:
-        html = re.sub(r'  <!-- cases:inicio.*?<!-- cases:fim -->', novo, html, flags=re.S)
+        html = re.sub(r'  <!-- cases:inicio.*?<!-- cases:fim -->', lambda _: novo, html, flags=re.S)
+        html = logos.com_bloco(html)
         (RAIZ / 'index.html').write_text(html)
         print('carrossel da home: %d cartões' % len(cases))
     else:
