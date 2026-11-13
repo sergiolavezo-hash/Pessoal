@@ -18,6 +18,7 @@ import sys
 
 import vitrine_bi
 import vitrine_eng
+import vitrine_squads
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 BASE = RAIZ / 'index.html'
@@ -427,7 +428,7 @@ def montar(pag, comum):
     corpo = corpo.replace('@TALENTO@', TALENTO if pag.get('talento') else '')
     # Analytics & BI troca os três cartões de texto por uma vitrine interativa.
     vitrine_css = vitrine_js = ''
-    vitrine = {'bi-analytics.html': vitrine_bi, 'data-engineering.html': vitrine_eng}.get(pag['arquivo'])
+    vitrine = {'bi-analytics.html': vitrine_bi, 'data-engineering.html': vitrine_eng, 'alocacao.html': vitrine_squads}.get(pag['arquivo'])
     if vitrine:
         corpo, n = re.subn(r'  <section class="sec" id="perfis">.*?</section>', lambda m: vitrine.secao(), corpo, count=1, flags=re.S)
         if n != 1:
