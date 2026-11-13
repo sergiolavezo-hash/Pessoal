@@ -1,5 +1,5 @@
 {
- "total": 906,
+ "total": 991,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -2472,74 +2472,459 @@
    "cls": "btn btn-accent"
   },
   {
+   "chave": "Doze entregas, três frentes. Escolha uma e veja como ela funciona na prática: clique, alterne e compare.",
+   "tag": "p",
+   "cls": "sub reveal d2"
+  },
+  {
    "chave": "Ingestão e integração",
-   "tag": "h3",
-   "cls": "svc-t"
+   "tag": "span",
+   "cls": "vit-k"
   },
   {
    "chave": "Conectores gerenciados",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Streaming de eventos",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Integração de sistemas legados",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "APIs e arquivos",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Armazenamento",
-   "tag": "h3",
-   "cls": "svc-t"
+   "tag": "span",
+   "cls": "vit-k"
   },
   {
    "chave": "Data Warehouse",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Lakehouse",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Modelagem de dados",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Transformação e orquestração",
-   "tag": "h3",
-   "cls": "svc-t"
+   "tag": "span",
+   "cls": "vit-k"
   },
   {
    "chave": "ETL e ELT",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Transformação versionada e testada",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Orquestração de pipelines",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Testes de qualidade",
-   "tag": "li",
+   "tag": "span",
+   "cls": "t"
+  },
+  {
+   "chave": "Scripts avulsos",
+   "tag": "button",
    "cls": ""
+  },
+  {
+   "chave": "Conector gerenciado",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "agenda e monitora",
+   "tag": "span",
+   "cls": "tag ac"
+  },
+  {
+   "chave": "Destino",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Cada fonte com o seu script: funciona até quebrar, e ninguém sabe de onde veio o número.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "Lote",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Streaming",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Eventos",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Quando o dado chega",
+   "tag": "b",
+   "cls": "sm-b"
+  },
+  {
+   "chave": "Ponto a ponto",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Camada de integração",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Legado",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "legado",
+   "tag": "span",
+   "cls": "tag"
+  },
+  {
+   "chave": "Integração",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Plataforma atual",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "API",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Arquivos",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "↻ Ingerir de novo",
+   "tag": "button",
+   "cls": "vit-chip push"
+  },
+  {
+   "chave": "Resposta da API",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Tabela de destino",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Mostrar",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Tudo",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Tabelas",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Semiestruturado",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Arquivos livres",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "O dado entra do jeito que chega, em qualquer formato, e fica disponível para quem precisar.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "Consulta",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Consulta 1",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Consulta 2",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Consulta 3",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Lake + Warehouse",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Consumo",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "BI",
+   "tag": "span",
+   "cls": "tag ac"
+  },
+  {
+   "chave": "Ciência de dados",
+   "tag": "span",
+   "cls": "tag ac"
+  },
+  {
+   "chave": "Origem normalizada",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Modelo analítico",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "ETL",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "ELT",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Extrair",
+   "tag": "b",
+   "cls": "el-t"
+  },
+  {
+   "chave": "Transformar",
+   "tag": "b",
+   "cls": "el-t"
+  },
+  {
+   "chave": "Carregar",
+   "tag": "b",
+   "cls": "el-t"
+  },
+  {
+   "chave": "Quebrar um teste",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Clique num modelo para ver a linhagem",
+   "tag": "span",
+   "cls": "vit-k push"
+  },
+  {
+   "chave": "Brutos",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Preparados",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Entregues",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Versões",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "▶ Executar",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Simular falha",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "agenda diária",
+   "tag": "span",
+   "cls": "tag push"
+  },
+  {
+   "chave": "Injetar dado ruim",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Corrigir",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Cada fonte entra por um conector com agenda e monitoramento, em vez de um script avulso que quebra sem ninguém ver.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne entre scripts avulsos e conectores gerenciados.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Quando a decisão não pode esperar o lote da noite, o evento chega ao destino no momento em que acontece.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne entre lote e streaming.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Em vez de cada sistema falar com todos os outros, uma camada de integração concentra a conversa entre o legado e a plataforma atual.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne entre ponto a ponto e camada de integração.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Dado que chega por API ou por arquivo vira tabela, sem retrabalho manual a cada envio.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Escolha a origem e ingira de novo.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Guarda o dado como ele chega, em qualquer formato, para quando alguém precisar dele.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Filtre por tipo de dado.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Dado estruturado e organizado para responder consultas analíticas com rapidez.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Escolha uma consulta e veja as colunas que ela usa.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Junta a flexibilidade do lake com a organização do warehouse: uma só cópia do dado, lida por BI e por ciência de dados.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne entre lake + warehouse e lakehouse.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Do desenho da origem, pensado para o sistema que grava, ao modelo analítico, pensado para quem pergunta.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne entre a origem e o modelo analítico.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "A diferença está na ordem: transformar antes de gravar (ETL) ou gravar primeiro e transformar no próprio destino (ELT).",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne entre ETL e ELT.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "A regra de negócio sai de scripts avulsos e vira código versionado, com teste em cada etapa.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Clique num modelo e quebre um teste.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Cada etapa roda na ordem certa, na hora certa, e a falha de uma não passa despercebida pelas seguintes.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Execute o fluxo, com e sem falha.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "O dado é verificado antes de chegar ao usuário: a falha fica visível primeiro para o time de dados.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Injete um dado ruim e veja o teste falhar.",
+   "tag": "p",
+   "cls": "hint"
   },
   {
    "chave": "Diagnóstico",
@@ -2620,6 +3005,46 @@
    "chave": "Quero avaliar minha arquitetura <span class=\"arr\">→</span>",
    "tag": "a",
    "cls": "btn btn-line"
+  },
+  {
+   "chave": "Entregas de Engenharia de Dados",
+   "tag": "@aria-label",
+   "cls": "vit-nav"
+  },
+  {
+   "chave": "Como a fonte chega ao destino",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Sincronizar fonte",
+   "tag": "@aria-label",
+   "cls": "nd src"
+  },
+  {
+   "chave": "Como o evento chega",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Como os sistemas conversam",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Tipo de origem",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Ordem das etapas",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Ver linhagem do modelo",
+   "tag": "@aria-label",
+   "cls": "nd tvn"
   },
   {
    "chave": "BigQuery",

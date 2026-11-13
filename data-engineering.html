@@ -1715,7 +1715,188 @@
     .tal-grid { grid-template-columns: 1fr; gap: 1.8rem; }
   }
 </style>
+<style>
+  /* ===== Vitrine de BI v2: 12 produtos, cada um com seu dashboard ===== */
+  .vit { --vit-on: #1D6FE3; display: grid; grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 1.6rem; margin-top: 2.4rem; align-items: start; }
+  .vit-nav { display: grid; gap: 1.1rem; position: sticky; top: 6.5rem; }
+  .vit-grp > .vit-k { display: flex; align-items: center; gap: .5rem; margin: 0 0 .45rem .2rem; color: var(--accent-light); }
+  .vit-grp > .vit-k::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line-strong), transparent); }
+  .vit-grp ul { list-style: none; display: grid; gap: .3rem; padding: 0; margin: 0; }
+  .vit-it { display: grid; grid-template-columns: 1.9rem 1fr; gap: .65rem; align-items: center; width: 100%; text-align: left; font: inherit; color: var(--muted);
+    padding: .5rem .65rem; border-radius: 12px; border: 1px solid transparent; background: none; cursor: pointer; transition: border-color .25s, background .25s, color .25s, transform .25s; }
+  .vit-it .tile-ico { width: 1.9rem; height: 1.9rem; border-radius: 9px; }
+  .vit-it .tile-ico svg { width: 1rem; height: 1rem; }
+  .vit-it span.t { font-size: .88rem; line-height: 1.3; font-family: var(--display); font-weight: 500; }
+  .vit-it:hover { color: var(--ink); background: var(--panel-2); transform: translateX(2px); }
+  .vit-it:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .vit-it[aria-selected="true"] { color: var(--ink); border-color: var(--accent); background: linear-gradient(90deg, rgba(46,134,255,.16), transparent 85%), var(--panel-2); box-shadow: 0 8px 24px -14px rgba(46,134,255,.7); }
+  .vit-it[aria-selected="true"] .tile-ico { background: var(--accent); border-color: var(--accent); } .vit-it[aria-selected="true"] .tile-ico svg { stroke: #fff; }
+  .vit-stage { min-width: 0; scroll-margin-top: 5.5rem; }
+  .vit-win { position: relative; border: 1px solid var(--line-strong); border-radius: 18px; overflow: hidden; background: var(--panel); box-shadow: var(--sombra), 0 0 0 1px rgba(46,134,255,.06);
+    background-image: radial-gradient(circle at 88% -10%, rgba(46,134,255,.22), transparent 46%), radial-gradient(circle at 0% 110%, rgba(111,212,255,.12), transparent 42%); }
+  .vit-win::after { content: ""; position: absolute; right: 0; bottom: 0; width: 46%; height: 42%; pointer-events: none; opacity: .55;
+    background: radial-gradient(circle, var(--accent) 1px, transparent 1.6px) 0 0 / 13px 13px; -webkit-mask: linear-gradient(135deg, transparent 45%, #000); mask: linear-gradient(135deg, transparent 45%, #000);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+  .vit-bar { position: relative; z-index: 2; display: flex; align-items: center; gap: .45rem; padding: .65rem .95rem; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--panel-2) 80%, transparent); backdrop-filter: blur(8px); }
+  .vit-dots { display: flex; align-items: center; gap: .45rem; }
+  .cat-tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .vit-bar i { width: .6rem; height: .6rem; border-radius: 50%; background: var(--line-strong); display: block; }
+  .vit-bar .vt { margin-left: .5rem; font-family: var(--display); font-weight: 600; font-size: .82rem; color: var(--ink); }
+  .vit-bar .vs { margin-left: auto; font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; text-align: right; }
+  .vit-pane { position: relative; z-index: 1; display: none; padding: 1.15rem 1.15rem 1.4rem; min-height: 22rem; }
+  .vit-pane.on { display: block; animation: vit-in .45s ease both; }
+  @keyframes vit-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .cv { position: relative; }
+  .wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 0; }
+  .wires path { fill: none; stroke: var(--accent); stroke-opacity: .38; stroke-width: 1.6; transition: stroke-opacity .25s, stroke-width .25s; }
+  .wires path.hl { stroke-opacity: 1; stroke-width: 2.4; filter: drop-shadow(0 0 5px var(--accent)); }
+  .wires path.bad { stroke: #E5575B; stroke-dasharray: 3 6; stroke-opacity: .7; }
+  .wires circle { fill: var(--accent-light); filter: drop-shadow(0 0 4px var(--accent-light)); }
+  .wires.off circle { display: none; }
+  .vit-ctl { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: .95rem; }
+  .vit-ctl .push { margin-left: auto; }
+  .vit-seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--panel-2); }
+  .vit-seg button, .vit-chip { font: inherit; font-size: .8rem; color: var(--muted); background: none; border: 0; border-radius: 999px; padding: .35rem .85rem; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+  .vit-seg button[aria-pressed="true"] { background: var(--vit-on); color: #fff; }
+  .vit-chip { border: 1px solid var(--line); background: var(--panel); }
+  .vit-chip:hover { border-color: rgba(46,134,255,.5); color: var(--ink); }
+  .vit-chip[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,.14); }
+  .vit-seg button:focus-visible, .vit-chip:focus-visible, .nd:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .vit-k { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .vit-cap { position: relative; z-index: 1; margin-top: 1rem; color: var(--muted); font-size: .86rem; min-height: 1.4em; }
+  /* nós de vidro */
+  .nd { position: relative; z-index: 1; border: 1px solid var(--line-strong); border-radius: 12px; padding: .6rem .7rem; display: grid; gap: .38rem;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--panel-2) 92%, transparent), color-mix(in srgb, var(--panel) 80%, transparent)); backdrop-filter: blur(6px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06); transition: border-color .25s, box-shadow .25s, opacity .3s, transform .3s; }
+  .nd.hl, button.nd:hover, .nd[tabindex]:hover, .nd:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, 0 0 26px -8px rgba(46,134,255,.8); }
+  .nd.dim { opacity: .35; }
+  .nd.core { border-color: var(--accent); background: linear-gradient(160deg, rgba(46,134,255,.2), transparent 75%), var(--panel-2); }
+  .sk { display: block; height: .42rem; border-radius: 4px; background: var(--line-strong); opacity: .75; text-decoration: none; }
+  .sk.a { width: 62%; } .sk.b { width: 80%; } .sk.c { width: 38%; background: var(--accent); opacity: .85; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; padding: .15rem .45rem; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--muted); }
+  .tag.ok { border-color: var(--accent-verde); color: color-mix(in srgb, var(--accent-verde) 62%, var(--ink)); } .tag.ac { border-color: var(--accent); color: var(--accent-light); }
+  .spark { height: 1.5rem; width: 100%; display: block; } .spark path { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ico-s { width: 1.1rem; height: 1.1rem; stroke: var(--accent-light); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  /* explicação */
+  .vit-info { margin-top: 1.1rem; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); padding: 1.15rem 1.3rem; display: none; }
+  .vit-info.on { display: block; animation: vit-in .4s ease both; }
+  .vit-info .vit-k { color: var(--accent-light); } .vit-info h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 700; margin-top: .2rem; }
+  .vit-info p { color: var(--muted); margin-top: .45rem; max-width: 50rem; } .vit-info p.hint { font-size: .85rem; color: var(--accent-light); margin-top: .7rem; }
+  @media (max-width: 960px) {
+    .vit { grid-template-columns: 1fr; } .vit-nav { position: static; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; align-items: start; }
+    .vit-it { grid-template-columns: 1fr; } .vit-it .tile-ico { display: none; }
+  }
+  @media (max-width: 680px) {
+    .vit-nav { grid-template-columns: 1fr; } .vit-it { grid-template-columns: 1.9rem 1fr; } .vit-it .tile-ico { display: grid; }
+    .vit-pane { padding: .8rem; } .vit-bar .vs { display: none; } .wires { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .vit-pane.on, .vit-info.on { animation: none; } }
 
+  /* ===== Vitrine de Engenharia de Dados ===== */
+  .st { width: .55rem; height: .55rem; border-radius: 50%; background: var(--c, var(--dim)); box-shadow: 0 0 8px var(--c, transparent); display: block; transition: background .3s, box-shadow .3s; }
+  /* 0 conectores */
+  .cn { display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: 3.4rem; align-items: center; min-height: 15rem; }
+  .cn-col { display: grid; gap: .55rem; align-content: center; } .cn-col > .vit-k { color: var(--accent-light); }
+  .src { grid-template-columns: 1.4rem 1fr .6rem; align-items: center; column-gap: .6rem; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%; } .src .sk { grid-column: 2; }
+  .src .st { grid-column: 3; grid-row: 1 / span 2; }
+  .src.sync::after, .cn-hub.sync::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(100deg, transparent 20%, rgba(111,212,255,.3) 50%, transparent 80%); animation: eng-sh 1s linear 1; pointer-events: none; }
+  @keyframes eng-sh { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+  .cn-hub { text-align: center; justify-items: center; transition: opacity .4s, filter .4s; } .cn-dst { justify-items: center; }
+  .cn[data-s="0"] .cn-hub { opacity: .35; filter: grayscale(.8); }
+  .cn[data-s="0"] .src:nth-of-type(odd) .st { --c: #E5575B; } .cn[data-s="0"] .src:nth-of-type(even) .st { --c: var(--accent-quente); }
+  .cn[data-s="1"] .src .st { --c: var(--accent-verde); }
+  /* 1 streaming */
+  .sm { display: grid; grid-template-columns: 9rem 1fr 11rem; gap: 1.2rem; align-items: center; min-height: 14rem; }
+  .sm-col { display: grid; gap: .8rem; align-content: center; } .sm-col .nd { grid-template-columns: 1.4rem 1fr; align-items: center; column-gap: .5rem; } .sm-col .nd .sk { grid-column: 2; }
+  .sm-lanes { display: grid; gap: 1.4rem; align-content: center; padding: 1.7rem 0; }
+  .sm-lane { position: relative; height: .5rem; border-radius: 4px; background: linear-gradient(90deg, rgba(46,134,255,.35), rgba(111,212,255,.15)); }
+  .sm-lane i { position: absolute; top: 50%; width: .75rem; height: .75rem; margin-top: -.375rem; border-radius: 50%; background: var(--accent-light); box-shadow: 0 0 10px var(--accent-light); left: 0; }
+  .sm[data-m="stream"] .sm-lane i { animation: sm-str 2.6s linear infinite; animation-delay: calc(var(--d) * -1); }
+  .sm[data-m="lote"] .sm-lane i { animation: sm-lote 4.4s ease-in-out infinite; left: calc(var(--b) * 1%); }
+  @keyframes sm-str { from { left: 0; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } to { left: calc(100% - .75rem); opacity: 0; } }
+  @keyframes sm-lote { 0%, 55% { left: calc(var(--b) * 1%); opacity: .9; } 85% { left: calc(100% - .75rem); opacity: 1; } 100% { left: calc(100% - .75rem); opacity: 0; } }
+  .sm-col .nd.sm-dst { grid-template-columns: 1fr; text-align: center; justify-items: center; row-gap: .6rem; } .sm-b { font-family: var(--display); font-size: .9rem; }
+  .sm-pulse { width: 100%; height: .5rem; border-radius: 4px; background: var(--line); position: relative; overflow: hidden; }
+  .sm-pulse::after { content: ""; position: absolute; inset: 0; background: var(--accent-verde); transform-origin: left; }
+  .sm[data-m="stream"] .sm-pulse::after { animation: sm-p-s 1.3s ease-in-out infinite; } .sm[data-m="lote"] .sm-pulse::after { animation: sm-p-l 4.4s ease-in-out infinite; }
+  @keyframes sm-p-s { 0%, 100% { transform: scaleX(.25); opacity: .6; } 50% { transform: scaleX(1); opacity: 1; } }
+  @keyframes sm-p-l { 0%, 80% { transform: scaleX(0); } 85% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
+  /* 2 legado */
+  .lg { display: grid; grid-template-columns: 1fr .9fr 1fr; gap: 3.4rem; align-items: start; min-height: 14rem; }
+  .lg-col { display: grid; gap: 1.6rem; align-content: center; } .lg-col > .vit-k { color: var(--accent-light); margin-bottom: -.8rem; }
+  .lg-mid { display: grid; place-items: center; align-self: center; margin-top: 2rem; } .lg #lh { transition: opacity .4s, filter .4s; width: 100%; text-align: center; justify-items: center; }
+  .lg[data-m="0"] #lh { opacity: .22; filter: grayscale(1); }
+  .lg-old { border-style: dashed; background: color-mix(in srgb, var(--panel-2) 85%, var(--accent-quente) 15%); }
+  /* 3 apis e arquivos */
+  .ap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; }
+  .ap-body { display: grid; gap: .4rem; font-family: var(--mono); font-size: .7rem; }
+  .ap-body span { display: flex; gap: .5rem; align-items: center; } .ap-body span s { display: block; height: .42rem; border-radius: 4px; background: var(--line-strong); opacity: .75; text-decoration: none; }
+  .ap-body .br { color: var(--accent-light); } .ap-body .ind { padding-left: 1rem; }
+  .ap-rows { display: grid; gap: .4rem; margin-top: .3rem; }
+  .ap-rows span { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; padding: .35rem .5rem; border-radius: 6px; border: 1px solid var(--line); opacity: 0; transform: translateY(6px); transition: opacity .4s, transform .4s; }
+  .ap-rows span.on { opacity: 1; transform: none; } .ap-rows span s { display: block; height: .4rem; border-radius: 4px; background: var(--line-strong); text-decoration: none; }
+  .ap-rows span s:nth-child(2) { background: var(--accent); opacity: .7; }
+  /* 4 lake */
+  .lk { position: relative; display: flex; flex-wrap: wrap; gap: .55rem; align-content: flex-start; min-height: 11.5rem; padding: 1rem; border: 1px solid var(--line-strong); border-radius: 14px; overflow: hidden; z-index: 1;
+    background: linear-gradient(180deg, transparent 45%, rgba(46,134,255,.14)), var(--panel-2); }
+  .lk::after { content: ""; position: absolute; left: -10%; right: -10%; bottom: -1.2rem; height: 3rem; background: radial-gradient(ellipse at 50% 100%, rgba(46,134,255,.5), transparent 70%); animation: lk-w 6s ease-in-out infinite alternate; pointer-events: none; }
+  @keyframes lk-w { to { transform: translateX(4%) scaleY(1.25); } }
+  .lk i { display: block; width: 2.4rem; height: 1.8rem; flex: none; transition: opacity .3s, transform .3s; animation: lk-in .5s ease both; animation-delay: calc(var(--n) * 30ms); }
+  @keyframes lk-in { from { opacity: 0; transform: translateY(-10px); } }
+  .lk i.t { background: var(--accent); border-radius: 4px; } .lk i.s { border: 2px solid var(--accent-verde); border-radius: 12px; background: rgba(47,182,164,.18); } .lk i.f { border-radius: 50%; width: 1.8rem; background: var(--accent-quente); opacity: .9; }
+  .lk.f-t i:not(.t), .lk.f-s i:not(.s), .lk.f-f i:not(.f) { opacity: .15; transform: scale(.85); }
+  /* 5 warehouse */
+  .wh { padding: .8rem; position: relative; z-index: 1; } .wh-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: .35rem; }
+  .wh-grid i { height: 1.35rem; border-radius: 4px; background: var(--line); display: block; transition: background .35s, opacity .35s, box-shadow .35s; }
+  .wh-grid i.h { background: color-mix(in srgb, var(--accent) 35%, var(--line)); height: 1.1rem; }
+  .wh-grid i.on { background: var(--accent); box-shadow: 0 0 10px -2px var(--accent); } .wh-grid i.h.on { background: var(--accent-light); } .wh-grid.q i:not(.on) { opacity: .35; }
+  /* 6 lakehouse */
+  .lh { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem; align-items: center; min-height: 14rem; } .lh-col { display: grid; gap: 1rem; align-content: center; }
+  .lh-col > .vit-k { color: var(--accent-light); } .lh-copy { display: flex; gap: .3rem; } .lh-copy i { flex: 1; height: 1rem; border-radius: 4px; background: var(--accent); opacity: .8; display: block; transition: opacity .4s; }
+  .lh-copy i:nth-child(2) { background: var(--accent-light); }
+  .lh #hw-col { transition: opacity .4s; } .lh[data-m="1"] #hw-col { opacity: 0; pointer-events: none; }
+  /* 7 modelagem */
+  .md { position: relative; z-index: 1; height: 17rem; border: 1px dashed var(--line-strong); border-radius: 14px; }
+  .mdn { position: absolute; width: 5.4rem; padding: .4rem .5rem; transition: left .8s cubic-bezier(.6,0,.2,1), top .8s cubic-bezier(.6,0,.2,1), opacity .5s, transform .5s; z-index: 1; }
+  .mdn .sk { height: .35rem; } .mdn.fact { border-color: var(--accent); background: linear-gradient(160deg, rgba(46,134,255,.25), transparent), var(--panel-2); }
+  .md[data-m="a"] .mdn.aux { opacity: .12; transform: scale(.8); }
+  .md svg.wires { z-index: 0; } .md svg.wires.off { display: none; }
+  /* 8 etl/elt */
+  .el { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.4rem; align-items: center; min-height: 11rem; }
+  .el .nd { align-content: center; justify-items: start; } .el-t { font-family: var(--display); font-size: .95rem; transition: opacity .25s; } .el-t.sw { opacity: 0; }
+  /* 9 transformação */
+  .tv { display: grid; grid-template-columns: 1fr 1fr 1fr 1.2fr; gap: 2.6rem; align-items: start; }
+  .tv-col { display: grid; gap: 1.4rem; align-content: center; } .tv-col > .vit-k { color: var(--accent-light); margin-bottom: -.8rem; }
+  .tvn { grid-template-columns: 1fr auto; align-items: center; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%; } .tvn > * { grid-column: 1; } .tvn .tt { grid-column: 2; grid-row: 1 / span 2; }
+  .tt { width: .8rem; height: .8rem; border-radius: 50%; background: var(--accent-verde); display: block; box-shadow: 0 0 8px var(--accent-verde); } .tvn.fail .tt { background: #E5575B; box-shadow: 0 0 8px #E5575B; }
+  .tvn.fail { border-color: #E5575B; } .tvn.blocked { opacity: .4; border-style: dashed; } .tvn.blocked .tt { background: var(--accent-quente); box-shadow: none; }
+  .tvn.sel { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, 0 0 24px -8px rgba(46,134,255,.8); } .tvn.rel { border-color: var(--accent-light); }
+  .code { font-family: var(--mono); font-size: .74rem; display: grid; gap: .3rem; }
+  .code span { display: flex; align-items: center; gap: .5rem; padding: .18rem .45rem; border-radius: 6px; border-left: 2px solid transparent; }
+  .code .add { background: rgba(47,182,164,.14); border-color: var(--accent-verde); }
+  .code s { display: block; height: .42rem; border-radius: 4px; background: var(--line-strong); text-decoration: none; }
+  .tv-log { gap: .4rem; }
+  /* 10 orquestração */
+  .or { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.6rem; align-items: center; min-height: 12rem; } .or-c { display: grid; gap: 1.4rem; }
+  .ot { grid-template-columns: 1fr auto; align-items: center; } .ot .sk { grid-column: 1; } .ot .os { grid-column: 2; grid-row: 1 / span 2; }
+  .os { width: .8rem; height: .8rem; border-radius: 50%; background: var(--line-strong); display: block; transition: background .3s; }
+  .ot.run .os { background: var(--accent-light); animation: or-p .8s ease-in-out infinite; } .ot.ok .os { background: var(--accent-verde); box-shadow: 0 0 8px var(--accent-verde); }
+  .ot.fail .os { background: #E5575B; box-shadow: 0 0 8px #E5575B; } .ot.fail { border-color: #E5575B; } .ot.wait .os { background: var(--accent-quente); } .ot.run { border-color: var(--accent); }
+  @keyframes or-p { 50% { transform: scale(1.6); opacity: .5; } }
+  /* 11 testes */
+  .qt { display: grid; grid-template-columns: 1.3fr 1fr; gap: 1rem; position: relative; z-index: 1; } .qt-tab { padding: .8rem; }
+  .qt-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: .35rem; margin-top: .5rem; } .qt-grid i { height: 1.3rem; border-radius: 4px; background: var(--line); display: block; transition: background .3s; } .qt-grid i.h { background: color-mix(in srgb, var(--accent) 35%, var(--line)); }
+  .qt-grid i.bad { background: #E5575B; box-shadow: 0 0 10px #E5575B; }
+  .qt-tests { display: grid; gap: .5rem; align-content: start; }
+  .qtt { grid-template-columns: 1.1rem 1fr; align-items: center; column-gap: .6rem; } .qtt .st { --c: var(--accent-verde); } .qtt.fail { border-color: #E5575B; } .qtt.fail .st { --c: #E5575B; }
+  .vit-cap.alerta { color: #E5575B; }
+  @media (max-width: 1100px) { .cn, .lg, .lh, .tv, .or, .el { gap: 1.6rem; } .ap { gap: 2rem; } }
+  @media (max-width: 680px) {
+    .cn, .sm, .lg, .ap, .lh, .el, .tv, .or, .qt { grid-template-columns: 1fr; gap: 1rem; } .or-c { grid-template-columns: 1fr 1fr; } .tv-col { grid-template-columns: 1fr 1fr; } .tv-col > .vit-k { grid-column: 1 / -1; margin-bottom: 0; }
+    .wh-grid { grid-template-columns: repeat(6, 1fr); } .md { height: 20rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .sm-lane i, .sm-pulse::after, .lk::after, .lk i, .ot.run .os { animation: none !important; } .sm-lane i { left: 50%; } }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#inicio">Pular para o conteúdo</a>
@@ -1935,37 +2116,103 @@
       <div class="sec-lead">
         <span class="eyebrow reveal">O que fazemos</span>
         <h2 class="h-xl reveal d1">As frentes que entregamos.</h2>
+        <p class="sub reveal d2">Doze entregas, três frentes. Escolha uma e veja como ela funciona na prática: clique, alterne e compare.</p>
       </div>
-      <div class="fam-grid reveal d2">
-          <article class="svc">
-            <h3 class="svc-t">Ingestão e integração</h3>
-            <ul class="svc-list">
-              <li>Conectores gerenciados</li>
-              <li>Streaming de eventos</li>
-              <li>Integração de sistemas legados</li>
-              <li>APIs e arquivos</li>
-            </ul>
-          </article>
-
-          <article class="svc">
-            <h3 class="svc-t">Armazenamento</h3>
-            <ul class="svc-list">
-              <li>Data Lake</li>
-              <li>Data Warehouse</li>
-              <li>Lakehouse</li>
-              <li>Modelagem de dados</li>
-            </ul>
-          </article>
-
-          <article class="svc">
-            <h3 class="svc-t">Transformação e orquestração</h3>
-            <ul class="svc-list">
-              <li>ETL e ELT</li>
-              <li>Transformação versionada e testada</li>
-              <li>Orquestração de pipelines</li>
-              <li>Testes de qualidade</li>
-            </ul>
-          </article>
+      <div class="vit reveal d2" id="vit">
+        <div class="vit-nav" role="tablist" aria-label="Entregas de Engenharia de Dados"><div class="vit-grp"><span class="vit-k">Ingestão e integração</span><ul><li><button class="vit-it" role="tab" id="vt0" aria-controls="vp0" aria-selected="true" type="button"><span class="tile-ico" data-ico="pipeline"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="5" height="6" rx="1"/><rect x="16" y="9" width="5" height="6" rx="1"/><path d="M8 12h8m-3-3 3 3-3 3"/></svg></span><span class="t">Conectores gerenciados</span></button></li><li><button class="vit-it" role="tab" id="vt1" aria-controls="vp1" aria-selected="false" type="button"><span class="tile-ico" data-ico="anomalia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg></span><span class="t">Streaming de eventos</span></button></li><li><button class="vit-it" role="tab" id="vt2" aria-controls="vp2" aria-selected="false" type="button"><span class="tile-ico" data-ico="arquitetura"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="9" y="14" width="6" height="6" rx="1"/><path d="M7 10v2h10v-2M12 12v2"/></svg></span><span class="t">Integração de sistemas legados</span></button></li><li><button class="vit-it" role="tab" id="vt3" aria-controls="vp3" aria-selected="false" type="button"><span class="tile-ico" data-ico="documento"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span class="t">APIs e arquivos</span></button></li></ul></div><div class="vit-grp"><span class="vit-k">Armazenamento</span><ul><li><button class="vit-it" role="tab" id="vt4" aria-controls="vp4" aria-selected="false" type="button"><span class="tile-ico" data-ico="datalake"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 13c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg></span><span class="t">Data Lake</span></button></li><li><button class="vit-it" role="tab" id="vt5" aria-controls="vp5" aria-selected="false" type="button"><span class="tile-ico" data-ico="engenharia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><span class="t">Data Warehouse</span></button></li><li><button class="vit-it" role="tab" id="vt6" aria-controls="vp6" aria-selected="false" type="button"><span class="tile-ico" data-ico="plataforma"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 6a4 4 0 0 0 1 7Z"/><path d="M4 17h16M4 21h16"/></svg></span><span class="t">Lakehouse</span></button></li><li><button class="vit-it" role="tab" id="vt7" aria-controls="vp7" aria-selected="false" type="button"><span class="tile-ico" data-ico="modelagem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="6" rx="1"/><rect x="14" y="14" width="7" height="6" rx="1"/><path d="M10 7h4a3 3 0 0 1 3 3v4"/></svg></span><span class="t">Modelagem de dados</span></button></li></ul></div><div class="vit-grp"><span class="vit-k">Transformação e orquestração</span><ul><li><button class="vit-it" role="tab" id="vt8" aria-controls="vp8" aria-selected="false" type="button"><span class="tile-ico" data-ico="migracao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><path d="M9 6h6M18 9v6M6 9v9h9"/></svg></span><span class="t">ETL e ELT</span></button></li><li><button class="vit-it" role="tab" id="vt9" aria-controls="vp9" aria-selected="false" type="button"><span class="tile-ico" data-ico="stack"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="16" width="16" height="4" rx="1"/></svg></span><span class="t">Transformação versionada e testada</span></button></li><li><button class="vit-it" role="tab" id="vt10" aria-controls="vp10" aria-selected="false" type="button"><span class="tile-ico" data-ico="orquestracao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/><path d="M10 9l5 3-5 3z"/></svg></span><span class="t">Orquestração de pipelines</span></button></li><li><button class="vit-it" role="tab" id="vt11" aria-controls="vp11" aria-selected="false" type="button"><span class="tile-ico" data-ico="qualidade"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg></span><span class="t">Testes de qualidade</span></button></li></ul></div></div>
+        <div class="vit-stage">
+          <div class="vit-win"><div class="vit-bar"><div class="vit-dots" aria-hidden="true"><i></i><i></i><i></i></div><span class="vt" id="vit-tit"></span><span class="vs">Exemplo ilustrativo &middot; sem dados reais</span></div><div class="vit-pane on" id="vp0" role="tabpanel" aria-labelledby="vt0">
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Como a fonte chega ao destino"><button type="button" data-cn="0" aria-pressed="true">Scripts avulsos</button><button type="button" data-cn="1" aria-pressed="false">Conectores gerenciados</button></div></div>
+<div class="cv cn" data-fios="c0>hub;c1>hub;c2>hub;c3>hub;hub>dst"><svg class="wires off" aria-hidden="true"></svg>
+  <div class="cn-col"><span class="vit-k">Fontes</span>
+    <button type="button" class="nd src" aria-label="Sincronizar fonte" id="c0"><svg class="ico-s" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg><s class="sk"></s><s class="sk a"></s><i class="st"></i></button>
+    <button type="button" class="nd src" aria-label="Sincronizar fonte" id="c1"><svg class="ico-s" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 3v18"/></svg><s class="sk"></s><s class="sk a"></s><i class="st"></i></button>
+    <button type="button" class="nd src" aria-label="Sincronizar fonte" id="c2"><svg class="ico-s" viewBox="0 0 24 24"><path d="M8 8 3 12l5 4M16 8l5 4-5 4M14 5l-4 14"/></svg><s class="sk"></s><s class="sk a"></s><i class="st"></i></button>
+    <button type="button" class="nd src" aria-label="Sincronizar fonte" id="c3"><svg class="ico-s" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg><s class="sk"></s><s class="sk a"></s><i class="st"></i></button></div>
+  <div class="nd core cn-hub" id="hub"><span class="vit-k">Conector gerenciado</span><s class="sk"></s><s class="sk a"></s><span class="tag ac" id="cn-tag">agenda e monitora</span></div>
+  <div class="nd cn-dst" id="dst"><span class="vit-k">Destino</span><svg class="ico-s" viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 11a3.5 3.5 0 0 0 1 7Z"/></svg><s class="sk"></s><s class="sk a"></s></div>
+</div>
+<p class="vit-cap" id="cn-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp1" role="tabpanel" aria-labelledby="vt1" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Como o evento chega"><button type="button" data-sm="lote" aria-pressed="true">Lote</button><button type="button" data-sm="stream" aria-pressed="false">Streaming</button></div></div>
+<div class="sm" id="sm" data-m="lote">
+  <div class="sm-col"><span class="vit-k">Eventos</span><div class="nd"><svg class="ico-s" viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6z"/></svg><s class="sk"></s><s class="sk a"></s></div><div class="nd"><svg class="ico-s" viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6z"/></svg><s class="sk"></s><s class="sk a"></s></div><div class="nd"><svg class="ico-s" viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6z"/></svg><s class="sk"></s><s class="sk a"></s></div></div>
+  <div class="sm-lanes"><div class="sm-lane"><i style="--d:0.0s;--b:3"></i><i style="--d:0.6s;--b:7"></i><i style="--d:1.1s;--b:11"></i><i style="--d:1.7s;--b:15"></i><i style="--d:2.2s;--b:19"></i></div><div class="sm-lane"><i style="--d:0.2s;--b:3"></i><i style="--d:0.7s;--b:7"></i><i style="--d:1.3s;--b:11"></i><i style="--d:1.8s;--b:15"></i><i style="--d:2.4s;--b:19"></i></div><div class="sm-lane"><i style="--d:0.4s;--b:3"></i><i style="--d:0.9s;--b:7"></i><i style="--d:1.5s;--b:11"></i><i style="--d:2.0s;--b:15"></i><i style="--d:2.6s;--b:19"></i></div></div>
+  <div class="sm-col"><span class="vit-k">Destino</span><div class="nd core sm-dst"><b class="sm-b">Quando o dado chega</b><div class="sm-pulse"></div></div></div>
+</div>
+<p class="vit-cap" id="sm-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp2" role="tabpanel" aria-labelledby="vt2" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Como os sistemas conversam"><button type="button" data-lg="0" aria-pressed="true">Ponto a ponto</button><button type="button" data-lg="1" aria-pressed="false">Camada de integração</button></div></div>
+<div class="cv lg" id="lg" data-fios=""><svg class="wires off" aria-hidden="true"></svg>
+  <div class="lg-col"><span class="vit-k">Legado</span><div class="nd lg-old" id="l0"><s class="sk"></s><s class="sk a"></s><span class="tag">legado</span></div><div class="nd lg-old" id="l1"><s class="sk"></s><s class="sk a"></s><span class="tag">legado</span></div></div>
+  <div class="lg-mid"><div class="nd core" id="lh"><span class="vit-k">Integração</span><s class="sk"></s><s class="sk a"></s></div></div>
+  <div class="lg-col"><span class="vit-k">Plataforma atual</span><div class="nd" id="pa0"><s class="sk"></s><s class="sk a"></s></div><div class="nd" id="pa1"><s class="sk"></s><s class="sk a"></s></div></div>
+</div>
+<p class="vit-cap" id="lg-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp3" role="tabpanel" aria-labelledby="vt3" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Tipo de origem"><button type="button" data-ap="api" aria-pressed="true">API</button><button type="button" data-ap="arq" aria-pressed="false">Arquivos</button></div><button class="vit-chip push" type="button" id="ap-go">&#8635; Ingerir de novo</button></div>
+<div class="cv ap" data-fios="apsrc>aptab"><svg class="wires" aria-hidden="true"></svg>
+  <div class="nd ap-src" id="apsrc"><span class="vit-k" id="ap-k">Resposta da API</span><div class="ap-body" id="ap-body"></div></div>
+  <div class="nd ap-tab" id="aptab"><span class="vit-k">Tabela de destino</span><div class="ap-rows" id="ap-rows"></div></div>
+</div>
+<p class="vit-cap" id="ap-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp4" role="tabpanel" aria-labelledby="vt4" hidden>
+<div class="vit-ctl"><span class="vit-k">Mostrar</span><button class="vit-chip" type="button" data-lk="" aria-pressed="true">Tudo</button><button class="vit-chip" type="button" data-lk="t" aria-pressed="false">Tabelas</button><button class="vit-chip" type="button" data-lk="s" aria-pressed="false">Semiestruturado</button><button class="vit-chip" type="button" data-lk="f" aria-pressed="false">Arquivos livres</button></div>
+<div class="lk" id="lk"></div>
+<p class="vit-cap">O dado entra do jeito que chega, em qualquer formato, e fica disponível para quem precisar.</p>
+</div><div class="vit-pane" id="vp5" role="tabpanel" aria-labelledby="vt5" hidden>
+<div class="vit-ctl"><span class="vit-k">Consulta</span><button class="vit-chip" type="button" data-wq="0" aria-pressed="true">Consulta 1</button><button class="vit-chip" type="button" data-wq="1" aria-pressed="false">Consulta 2</button><button class="vit-chip" type="button" data-wq="2" aria-pressed="false">Consulta 3</button></div>
+<div class="nd wh"><div class="wh-grid" id="wh"></div></div>
+<p class="vit-cap" id="wh-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp6" role="tabpanel" aria-labelledby="vt6" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Arquitetura"><button type="button" data-lh="0" aria-pressed="true">Lake + Warehouse</button><button type="button" data-lh="1" aria-pressed="false">Lakehouse</button></div></div>
+<div class="cv lh" id="lhv" data-fios=""><svg class="wires off" aria-hidden="true"></svg>
+  <div class="lh-col"><div class="nd core" id="hl"><span class="vit-k" id="hl-k">Data Lake</span><s class="sk"></s><s class="sk a"></s><div class="lh-copy"><i></i><i></i><i></i></div></div></div>
+  <div class="lh-col" id="hw-col"><div class="nd" id="hw"><span class="vit-k">Data Warehouse</span><s class="sk"></s><s class="sk a"></s><div class="lh-copy"><i></i><i></i><i></i></div></div></div>
+  <div class="lh-col"><span class="vit-k">Consumo</span><div class="nd" id="hb"><span class="tag ac">BI</span><s class="sk"></s><s class="sk a"></s></div><div class="nd" id="hm"><span class="tag ac">Ciência de dados</span><s class="sk"></s><s class="sk a"></s></div></div>
+</div>
+<p class="vit-cap" id="lh-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp7" role="tabpanel" aria-labelledby="vt7" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Modelo"><button type="button" data-md="o" aria-pressed="true">Origem normalizada</button><button type="button" data-md="a" aria-pressed="false">Modelo analítico</button></div></div>
+<div class="cv md" id="md"><svg class="wires off" aria-hidden="true"></svg></div>
+<p class="vit-cap" id="md-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp8" role="tabpanel" aria-labelledby="vt8" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Ordem das etapas"><button type="button" data-el="etl" aria-pressed="true">ETL</button><button type="button" data-el="elt" aria-pressed="false">ELT</button></div></div>
+<div class="cv el" data-fios="e0>e1;e1>e2;e2>e3"><svg class="wires" aria-hidden="true"></svg>
+  <div class="nd" id="e0"><b class="el-t" id="el0">Extrair</b><s class="sk"></s><s class="sk a"></s></div>
+  <div class="nd" id="e1"><b class="el-t" id="el1">Transformar</b><s class="sk"></s><s class="sk a"></s></div>
+  <div class="nd" id="e2"><b class="el-t" id="el2">Carregar</b><s class="sk"></s><s class="sk a"></s></div>
+  <div class="nd core" id="e3"><span class="vit-k">Destino</span><svg class="ico-s" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg><s class="sk"></s><s class="sk a"></s></div>
+</div>
+<p class="vit-cap" id="el-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp9" role="tabpanel" aria-labelledby="vt9" hidden>
+<div class="vit-ctl"><button class="vit-chip" type="button" id="tv-bad" aria-pressed="false">Quebrar um teste</button><span class="vit-k push">Clique num modelo para ver a linhagem</span></div>
+<div class="cv tv" id="tv" data-fios="r0>s0;r1>s0;r1>s1;s0>m0;s1>m0;s1>m1"><svg class="wires" aria-hidden="true"></svg>
+  <div class="tv-col"><span class="vit-k">Brutos</span><button class="nd tvn" aria-label="Ver linhagem do modelo" id="r0" type="button"><s class="sk"></s><s class="sk a"></s></button><button class="nd tvn" aria-label="Ver linhagem do modelo" id="r1" type="button"><s class="sk"></s><s class="sk a"></s></button></div>
+  <div class="tv-col"><span class="vit-k">Preparados</span><button class="nd tvn" aria-label="Ver linhagem do modelo" id="s0" type="button"><s class="sk"></s><s class="sk a"></s><i class="tt"></i></button><button class="nd tvn" aria-label="Ver linhagem do modelo" id="s1" type="button"><s class="sk"></s><s class="sk a"></s><i class="tt"></i></button></div>
+  <div class="tv-col"><span class="vit-k">Entregues</span><button class="nd tvn" aria-label="Ver linhagem do modelo" id="m0" type="button"><s class="sk"></s><s class="sk a"></s><i class="tt"></i></button><button class="nd tvn" aria-label="Ver linhagem do modelo" id="m1" type="button"><s class="sk"></s><s class="sk a"></s><i class="tt"></i></button></div>
+  <div class="nd code tv-log"><span class="vit-k">Versões</span><span class="add">+<s style="width:70%"></s></span><span class="">&nbsp;<s style="width:55%"></s></span><span class="add">+<s style="width:62%"></s></span></div>
+</div>
+<p class="vit-cap" id="tv-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp10" role="tabpanel" aria-labelledby="vt10" hidden>
+<div class="vit-ctl"><button class="vit-chip" type="button" id="or-go">&#9654; Executar</button><button class="vit-chip" type="button" id="or-fail" aria-pressed="false">Simular falha</button><span class="tag push">agenda diária</span></div>
+<div class="cv or" id="or" data-fios="o0>o1;o0>o2;o1>o3;o2>o3;o3>o4"><svg class="wires" aria-hidden="true"></svg>
+  <div class="or-c"><div class="nd ot" id="o0"><s class="sk"></s><s class="sk a"></s><i class="os"></i></div></div>
+  <div class="or-c"><div class="nd ot" id="o1"><s class="sk"></s><s class="sk a"></s><i class="os"></i></div><div class="nd ot" id="o2"><s class="sk"></s><s class="sk a"></s><i class="os"></i></div></div>
+  <div class="or-c"><div class="nd ot" id="o3"><s class="sk"></s><s class="sk a"></s><i class="os"></i></div></div>
+  <div class="or-c"><div class="nd ot" id="o4"><s class="sk"></s><s class="sk a"></s><i class="os"></i></div></div>
+</div>
+<p class="vit-cap" id="or-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp11" role="tabpanel" aria-labelledby="vt11" hidden>
+<div class="vit-ctl"><button class="vit-chip" type="button" id="qt-bad" aria-pressed="false">Injetar dado ruim</button><button class="vit-chip" type="button" id="qt-ok">Corrigir</button></div>
+<div class="qt">
+  <div class="nd qt-tab"><span class="vit-k">Tabela</span><div class="qt-grid" id="qt-grid"></div></div>
+  <div class="qt-tests" id="qt-tests"></div>
+</div>
+<p class="vit-cap" id="qt-cap" aria-live="polite"></p>
+</div></div>
+          <div class="vit-info on" id="vi0"><span class="vit-k">Ingestão e integração</span><h3>Conectores gerenciados</h3><p>Cada fonte entra por um conector com agenda e monitoramento, em vez de um script avulso que quebra sem ninguém ver.</p><p class="hint">Alterne entre scripts avulsos e conectores gerenciados.</p></div><div class="vit-info" id="vi1"><span class="vit-k">Ingestão e integração</span><h3>Streaming de eventos</h3><p>Quando a decisão não pode esperar o lote da noite, o evento chega ao destino no momento em que acontece.</p><p class="hint">Alterne entre lote e streaming.</p></div><div class="vit-info" id="vi2"><span class="vit-k">Ingestão e integração</span><h3>Integração de sistemas legados</h3><p>Em vez de cada sistema falar com todos os outros, uma camada de integração concentra a conversa entre o legado e a plataforma atual.</p><p class="hint">Alterne entre ponto a ponto e camada de integração.</p></div><div class="vit-info" id="vi3"><span class="vit-k">Ingestão e integração</span><h3>APIs e arquivos</h3><p>Dado que chega por API ou por arquivo vira tabela, sem retrabalho manual a cada envio.</p><p class="hint">Escolha a origem e ingira de novo.</p></div><div class="vit-info" id="vi4"><span class="vit-k">Armazenamento</span><h3>Data Lake</h3><p>Guarda o dado como ele chega, em qualquer formato, para quando alguém precisar dele.</p><p class="hint">Filtre por tipo de dado.</p></div><div class="vit-info" id="vi5"><span class="vit-k">Armazenamento</span><h3>Data Warehouse</h3><p>Dado estruturado e organizado para responder consultas analíticas com rapidez.</p><p class="hint">Escolha uma consulta e veja as colunas que ela usa.</p></div><div class="vit-info" id="vi6"><span class="vit-k">Armazenamento</span><h3>Lakehouse</h3><p>Junta a flexibilidade do lake com a organização do warehouse: uma só cópia do dado, lida por BI e por ciência de dados.</p><p class="hint">Alterne entre lake + warehouse e lakehouse.</p></div><div class="vit-info" id="vi7"><span class="vit-k">Armazenamento</span><h3>Modelagem de dados</h3><p>Do desenho da origem, pensado para o sistema que grava, ao modelo analítico, pensado para quem pergunta.</p><p class="hint">Alterne entre a origem e o modelo analítico.</p></div><div class="vit-info" id="vi8"><span class="vit-k">Transformação e orquestração</span><h3>ETL e ELT</h3><p>A diferença está na ordem: transformar antes de gravar (ETL) ou gravar primeiro e transformar no próprio destino (ELT).</p><p class="hint">Alterne entre ETL e ELT.</p></div><div class="vit-info" id="vi9"><span class="vit-k">Transformação e orquestração</span><h3>Transformação versionada e testada</h3><p>A regra de negócio sai de scripts avulsos e vira código versionado, com teste em cada etapa.</p><p class="hint">Clique num modelo e quebre um teste.</p></div><div class="vit-info" id="vi10"><span class="vit-k">Transformação e orquestração</span><h3>Orquestração de pipelines</h3><p>Cada etapa roda na ordem certa, na hora certa, e a falha de uma não passa despercebida pelas seguintes.</p><p class="hint">Execute o fluxo, com e sem falha.</p></div><div class="vit-info" id="vi11"><span class="vit-k">Transformação e orquestração</span><h3>Testes de qualidade</h3><p>O dado é verificado antes de chegar ao usuário: a falha fica visível primeiro para o time de dados.</p><p class="hint">Injete um dado ruim e veja o teste falhar.</p></div>
+        </div>
       </div>
     </div>
   </section>
@@ -3127,6 +3374,285 @@
     }, { threshold: 0.35 });
     obs.observe(alvos[0].parentNode.parentNode);
   })();
+</script>
+<script>
+/* Vitrine interativa: cada entrega com o seu dashboard de exemplo. Só formas, sem dados reais. */
+(function () {
+  var raiz = document.getElementById('vit'); if (!raiz) return;
+  var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NS = 'http://www.w3.org/2000/svg';
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return [].slice.call((r || document).querySelectorAll(s)); }
+  function sem(s) { return function () { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
+  function pressiona(lista, fn) { $$(lista).forEach(function (b) { b.addEventListener('click', function () { fn(b); }); }); }
+  function marca(grupo, atrib, val) { $$(grupo).forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute(atrib) === String(val))); }); }
+  /* Textos que o script escreve depois do carregamento. O motor de idiomas só
+     alcança o que já estava na página, então a vitrine se traduz sozinha:
+     cada texto dinâmico guarda o português em data-pt e é reescrito quando o
+     idioma muda. */
+  function idi() { return window.AtlasI18n ? AtlasI18n.idioma() : 'pt'; }
+  function T(s) { var l = idi(); return l === 'pt' ? s : ((window.ATLAS_I18N && ATLAS_I18N[l] && ATLAS_I18N[l][s]) || s); }
+  function put(el, pt) { el.setAttribute('data-pt', pt); el.textContent = T(pt); el.__pt = pt; }
+  document.addEventListener('atlas:idioma', function () {
+    $$('[data-pt]', raiz).forEach(function (e) { e.textContent = T(e.getAttribute('data-pt')); e.__pt = e.getAttribute('data-pt'); });
+    var n = itens.map(function (a) { return a.getAttribute('aria-selected') === 'true'; }).indexOf(true);
+    if (n > -1) $('#vit-tit').textContent = itens[n].querySelector('.t').textContent;
+  });
+  function caminho(v, w, h, max) { return v.map(function (y, i) { return (i ? 'L' : 'M') + (i * w / (v.length - 1)).toFixed(1) + ' ' + (h - (y / max) * (h - 1) - 0.5).toFixed(1); }).join(' '); }
+
+  /* ---------- fios: ligam um nó a outro, de verdade, e carregam partículas ---------- */
+  function fios(cv) {
+    var svg = $(':scope > .wires', cv); if (!svg) return;
+    var lista = (cv.getAttribute('data-fios') || '').split(';').filter(Boolean);
+    var R = cv.getBoundingClientRect(); if (!R.width) return;
+    svg.setAttribute('viewBox', '0 0 ' + R.width + ' ' + R.height);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    lista.forEach(function (par, n) {
+      var ab = par.split('>'), a = document.getElementById(ab[0]), b = document.getElementById(ab[1]); if (!a || !b) return;
+      var A = a.getBoundingClientRect(), B = b.getBoundingClientRect(); if (!A.width || !B.width) return;
+      var x1 = A.right - R.left, y1 = A.top + A.height / 2 - R.top, x2 = B.left - R.left, y2 = B.top + B.height / 2 - R.top, xm = (x1 + x2) / 2;
+      var d = 'M' + x1.toFixed(1) + ' ' + y1.toFixed(1) + ' C' + xm.toFixed(1) + ' ' + y1.toFixed(1) + ',' + xm.toFixed(1) + ' ' + y2.toFixed(1) + ',' + x2.toFixed(1) + ' ' + y2.toFixed(1);
+      var p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); p.setAttribute('data-par', par); svg.appendChild(p);
+      if (reduz) return;
+      [0, 1].forEach(function (k) {
+        var c = document.createElementNS(NS, 'circle'); c.setAttribute('r', '3.2'); c.setAttribute('data-par', par);
+        var m = document.createElementNS(NS, 'animateMotion'); m.setAttribute('dur', (2.4 + (n % 3) * 0.35).toFixed(2) + 's'); m.setAttribute('repeatCount', 'indefinite');
+        m.setAttribute('begin', '-' + (k * 1.2 + n * 0.17).toFixed(2) + 's'); m.setAttribute('path', d); c.appendChild(m); svg.appendChild(c);
+      });
+    });
+    (cv._rehl || function () {})();
+  }
+  function wireMarca(cv, fn) { cv._rehl = function () { $$('.wires path', cv).forEach(function (p) { p.classList.toggle('hl', !!fn && fn(p.getAttribute('data-par'))); p.classList.toggle('bad', !!(cv._bad && cv._bad(p.getAttribute('data-par')))); }); }; cv._rehl(); }
+
+  /* ---------- navegação: 12 itens ---------- */
+  var itens = $$('.vit-it', raiz), iniciado = {}, INIT = {};
+  function mostra(n, foco) {
+    itens.forEach(function (a, i) {
+      var on = i === n; a.setAttribute('aria-selected', String(on)); a.tabIndex = on ? 0 : -1;
+      var p = document.getElementById('vp' + i), v = document.getElementById('vi' + i); p.hidden = !on; p.classList.toggle('on', on); v.classList.toggle('on', on);
+    });
+    put($('#vit-tit'), itens[n].querySelector('.t').__pt || itens[n].querySelector('.t').textContent);
+    var p = document.getElementById('vp' + n);
+    if (!iniciado[n]) { iniciado[n] = 1; if (INIT[n]) INIT[n](p); }
+    requestAnimationFrame(function () { $$('.cv', p).forEach(fios); if (p._mostrou) p._mostrou(); });
+    if (foco) itens[n].focus();
+  }
+  itens.forEach(function (a, i) {
+    a.addEventListener('click', function () {
+      mostra(i);
+      /* No celular a lista vem antes da tela: leva a pessoa até o dashboard. */
+      if (window.matchMedia('(max-width: 960px)').matches) $('.vit-stage', raiz).scrollIntoView({ behavior: reduz ? 'auto' : 'smooth', block: 'start' });
+    });
+    a.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (!d) return; e.preventDefault(); mostra((i + d + itens.length) % itens.length, true);
+    });
+  });
+  function refaz() { var p = $('.vit-pane.on'); if (p) $$('.cv', p).forEach(fios); }
+  window.addEventListener('resize', refaz);
+  if (window.ResizeObserver) new ResizeObserver(refaz).observe($('.vit-win', raiz));
+
+  /* 0. conectores gerenciados */
+  INIT[0] = function (p) {
+    var cv = $('.cn', p), cap = $('#cn-cap', p), svg = $('.wires', cv);
+    wireMarca(cv, null);
+    function est(s) {
+      cv.setAttribute('data-s', s); svg.classList.toggle('off', !s); cv._bad = s ? null : function () { return true; }; cv._rehl();
+      put(cap, s ? 'Cada fonte tem agenda, monitoramento e alerta: se algo falha, alguém vê antes do usuário.' : 'Cada fonte com o seu script: funciona até quebrar, e ninguém sabe de onde veio o número.');
+      marca('#vp0 [data-cn]', 'data-cn', s);
+    }
+    pressiona('#vp0 [data-cn]', function (b) { est(+b.getAttribute('data-cn')); });
+    $$('.src', p).forEach(function (b) { b.addEventListener('click', function () {
+      [b, $('#hub', p)].forEach(function (e) { e.classList.remove('sync'); void e.offsetWidth; e.classList.add('sync'); });
+    }); });
+    est(0);
+  };
+
+  /* 1. streaming */
+  INIT[1] = function (p) {
+    var sm = $('#sm', p), cap = $('#sm-cap', p);
+    function m(x) {
+      sm.setAttribute('data-m', x); marca('#vp1 [data-sm]', 'data-sm', x);
+      put(cap, x === 'lote' ? 'No lote, o dado espera a próxima janela: quem decide enxerga o que aconteceu horas atrás.' : 'No streaming, cada evento chega ao destino assim que acontece.');
+    }
+    pressiona('#vp1 [data-sm]', function (b) { m(b.getAttribute('data-sm')); }); m('lote');
+  };
+
+  /* 2. integração de sistemas legados */
+  INIT[2] = function (p) {
+    var cv = $('#lg', p), cap = $('#lg-cap', p), svg = $('.wires', cv);
+    wireMarca(cv, null);
+    function m(x) {
+      cv.setAttribute('data-m', x); svg.classList.toggle('off', !x);
+      cv.setAttribute('data-fios', x ? 'l0>lh;l1>lh;lh>pa0;lh>pa1' : 'l0>pa0;l0>pa1;l1>pa0;l1>pa1');
+      cv._bad = x ? null : function () { return true; }; fios(cv);
+      put(cap, x ? 'Uma camada de integração concentra a conversa: cada sistema fala só com ela, e o legado deixa de ser o gargalo.' : 'Cada sistema fala com todos os outros: qualquer mudança em um quebra os demais.');
+      marca('#vp2 [data-lg]', 'data-lg', x);
+    }
+    pressiona('#vp2 [data-lg]', function (b) { m(+b.getAttribute('data-lg')); }); m(0);
+  };
+
+  /* 3. APIs e arquivos */
+  INIT[3] = function (p) {
+    var modo = 'api', body = $('#ap-body', p), rows = $('#ap-rows', p), cap = $('#ap-cap', p), t = [];
+    rows.innerHTML = Array.apply(null, Array(6)).map(function () { return '<span><s></s><s></s><s></s><s></s></span>'; }).join('');
+    function pinta() {
+      if (modo === 'api') {
+        body.innerHTML = '<span class="br">{</span>' + [60, 44, 70, 38].map(function (w, i) { return '<span class="ind"><s style="width:' + (18 + i * 4) + '%"></s><s style="width:' + w + '%"></s></span>'; }).join('') + '<span class="br">}</span>';
+        put($('#ap-k', p), 'Resposta da API');
+        put(cap, 'A resposta da API vira linhas de uma tabela, com a estrutura mantida a cada chamada.');
+      } else {
+        body.innerHTML = ['CSV', 'JSON', 'XLSX'].map(function (f, i) { return '<span><span class="tag ac">' + f + '</span><s style="width:' + (60 - i * 12) + '%"></s></span>'; }).join('');
+        put($('#ap-k', p), 'Arquivos recebidos');
+        put(cap, 'Cada arquivo recebido é lido, validado e gravado na mesma tabela, sem abrir planilha na mão.');
+      }
+      marca('#vp3 [data-ap]', 'data-ap', modo); ingere();
+    }
+    function ingere() {
+      t.forEach(clearTimeout); t = []; $$('span', rows).forEach(function (r) { r.classList.remove('on'); });
+      $$('span', rows).forEach(function (r, i) { t.push(setTimeout(function () { r.classList.add('on'); }, reduz ? 0 : 140 * (i + 1))); });
+    }
+    pressiona('#vp3 [data-ap]', function (b) { modo = b.getAttribute('data-ap'); pinta(); });
+    $('#ap-go', p).addEventListener('click', ingere); pinta();
+  };
+
+  /* 4. data lake */
+  INIT[4] = function (p) {
+    var lk = $('#lk', p), r = sem(9), tipos = ['t', 's', 'f'];
+    lk.innerHTML = Array.apply(null, Array(64)).map(function (_, i) { return '<i class="' + tipos[Math.floor(r() * 3)] + '" style="--n:' + i + '"></i>'; }).join('');
+    pressiona('#vp4 [data-lk]', function (b) { var v = b.getAttribute('data-lk'); lk.className = 'lk' + (v ? ' f-' + v : ''); marca('#vp4 [data-lk]', 'data-lk', v); });
+  };
+
+  /* 5. data warehouse */
+  INIT[5] = function (p) {
+    var g = $('#wh', p), cap = $('#wh-cap', p), COLS = 6, ROWS = 7, h = '';
+    for (var r = 0; r < ROWS; r++) for (var c = 0; c < COLS; c++) h += '<i class="' + (r === 0 ? 'h' : '') + '" data-r="' + r + '" data-c="' + c + '"></i>';
+    g.innerHTML = h;
+    var Q = [{ c: [0, 2], r: [1, 2, 3, 4] }, { c: [1, 3, 4], r: [2, 5, 6] }, { c: [0, 5], r: [1, 3, 5, 6] }];
+    function q(n) {
+      $$('i', g).forEach(function (e) { var rr = +e.getAttribute('data-r'), cc = +e.getAttribute('data-c'); e.classList.toggle('on', Q[n].c.indexOf(cc) > -1 && (rr === 0 || Q[n].r.indexOf(rr) > -1)); });
+      g.classList.add('q'); marca('#vp5 [data-wq]', 'data-wq', n);
+      put(cap, 'A consulta lê só as colunas de que precisa, e o warehouse responde rápido porque o dado já está organizado.');
+    }
+    pressiona('#vp5 [data-wq]', function (b) { q(+b.getAttribute('data-wq')); }); q(0);
+  };
+
+  /* 6. lakehouse */
+  INIT[6] = function (p) {
+    var cv = $('#lhv', p), cap = $('#lh-cap', p), svg = $('.wires', cv);
+    wireMarca(cv, null);
+    function m(x) {
+      cv.setAttribute('data-m', x); svg.classList.remove('off');
+      cv.setAttribute('data-fios', x ? 'hl>hb;hl>hm' : 'hl>hw;hw>hb;hl>hm'); fios(cv);
+      put($('#hl-k', p), x ? 'Lakehouse' : 'Data Lake');
+      put(cap, x ? 'Uma só cópia do dado, lida tanto pelo BI quanto pela ciência de dados: sem duplicar, sem divergir.' : 'O dado vive em dois lugares: duplicado, mais caro de manter e sujeito a divergir entre as cópias.');
+      marca('#vp6 [data-lh]', 'data-lh', x);
+    }
+    pressiona('#vp6 [data-lh]', function (b) { m(+b.getAttribute('data-lh')); }); m(0);
+  };
+
+  /* 7. modelagem de dados */
+  INIT[7] = function (p) {
+    var cv = $('#md', p), cap = $('#md-cap', p), svg = $('.wires', cv), modo = 'o', tm = 0;
+    var PO = [[40, 36], [4, 10], [66, 2], [14, 52], [76, 40], [36, 70], [2, 80], [70, 74], [34, 4]];
+    var PA = [[40, 38], [6, 6], [74, 6], [6, 70], [74, 70], [40, 4], [40, 78], [4, 38], [78, 38]];
+    var LO = [[1, 8], [8, 2], [2, 4], [1, 3], [3, 0], [0, 4], [3, 6], [0, 5], [5, 7], [6, 5], [4, 7]], LA = [[1, 0], [2, 0], [3, 0], [4, 0]];
+    cv.insertAdjacentHTML('beforeend', PO.map(function (_, i) { return '<div class="nd mdn' + (i === 0 ? ' fact' : i > 4 ? ' aux' : '') + '" id="mn' + i + '"><s class="sk"></s><s class="sk a"></s></div>'; }).join(''));
+    function centro(i) { var R = cv.getBoundingClientRect(), r = document.getElementById('mn' + i).getBoundingClientRect(); return [r.left + r.width / 2 - R.left, r.top + r.height / 2 - R.top]; }
+    function linhas() {
+      var R = cv.getBoundingClientRect(); if (!R.width) return; while (svg.firstChild) svg.removeChild(svg.firstChild); svg.setAttribute('viewBox', '0 0 ' + R.width + ' ' + R.height);
+      (modo === 'o' ? LO : LA).forEach(function (l) {
+        var a = centro(l[0]), b = centro(l[1]), e = document.createElementNS(NS, 'path'); e.setAttribute('d', 'M' + a[0] + ' ' + a[1] + ' L' + b[0] + ' ' + b[1]);
+        if (modo === 'o') e.setAttribute('class', 'bad'); else e.setAttribute('class', 'hl'); svg.appendChild(e);
+      });
+    }
+    function pos() { (modo === 'o' ? PO : PA).forEach(function (q, i) { var n = document.getElementById('mn' + i); n.style.left = 'calc((100% - 5.4rem) * ' + (q[0] / 100).toFixed(3) + ')'; n.style.top = 'calc((100% - 2.6rem) * ' + (q[1] / 100).toFixed(3) + ')'; }); }
+    function m(x) {
+      modo = x; cv.setAttribute('data-m', x); while (svg.firstChild) svg.removeChild(svg.firstChild); svg.classList.remove('off'); pos(); clearTimeout(tm); tm = setTimeout(linhas, reduz ? 50 : 900);
+      put(cap, x === 'o' ? 'A origem é desenhada para o sistema que grava: muitas tabelas pequenas, ligadas em todas as direções.' : 'O modelo analítico é desenhado para quem pergunta: uma tabela de fatos no centro e as dimensões em volta.');
+      marca('#vp7 [data-md]', 'data-md', x);
+    }
+    pressiona('#vp7 [data-md]', function (b) { m(b.getAttribute('data-md')); });
+    p._mostrou = function () { pos(); clearTimeout(tm); tm = setTimeout(linhas, 60); }; m('o');
+  };
+
+  /* 8. ETL e ELT */
+  INIT[8] = function (p) {
+    var cap = $('#el-cap', p), t0 = $('#el0', p), t1 = $('#el1', p), t2 = $('#el2', p);
+    function m(x) {
+      [t1, t2].forEach(function (e) { e.classList.add('sw'); });
+      setTimeout(function () {
+        put(t1, x === 'etl' ? 'Transformar' : 'Carregar'); put(t2, x === 'etl' ? 'Carregar' : 'Transformar'); [t1, t2].forEach(function (e) { e.classList.remove('sw'); });
+      }, reduz ? 0 : 220);
+      put(t0, 'Extrair');
+      put(cap, x === 'etl' ? 'Transforma no meio do caminho e grava o resultado já pronto.' : 'Grava primeiro e transforma no próprio destino, aproveitando a força do warehouse ou do lakehouse.');
+      marca('#vp8 [data-el]', 'data-el', x);
+    }
+    pressiona('#vp8 [data-el]', function (b) { m(b.getAttribute('data-el')); }); m('etl');
+  };
+
+  /* 9. transformação versionada e testada */
+  INIT[9] = function (p) {
+    var cv = $('#tv', p), cap = $('#tv-cap', p), E = [['r0', 's0'], ['r1', 's0'], ['r1', 's1'], ['s0', 'm0'], ['s1', 'm0'], ['s1', 'm1']], sel = null, quebrado = false;
+    wireMarca(cv, null);
+    function rel(id) {
+      var s = {}; s[id] = 1; var mudou = true;
+      while (mudou) { mudou = false; E.forEach(function (e) { if (s[e[0]] && !s[e[1]]) { s[e[1]] = 1; mudou = true; } if (s[e[1]] && !s[e[0]]) { s[e[0]] = 1; mudou = true; } }); }
+      return s;
+    }
+    function pinta() {
+      var r = sel ? rel(sel) : {};
+      $$('.tvn', p).forEach(function (n) { n.classList.toggle('sel', n.id === sel); n.classList.toggle('rel', !!r[n.id] && n.id !== sel); });
+      wireMarca(cv, sel ? function (q) { var a = q.split('>'); return r[a[0]] && r[a[1]]; } : null);
+      $('#s0', p).classList.toggle('fail', quebrado); $('#m0', p).classList.toggle('blocked', quebrado);
+      put(cap, quebrado ? 'Um teste falhou em um modelo preparado: o que depende dele fica bloqueado e o restante segue.' : 'Cada modelo é código versionado e passa por teste antes de seguir adiante.');
+      cap.classList.toggle('alerta', quebrado); $('#tv-bad', p).setAttribute('aria-pressed', String(quebrado));
+    }
+    $$('.tvn', p).forEach(function (n) { n.addEventListener('click', function () { sel = sel === n.id ? null : n.id; pinta(); }); });
+    $('#tv-bad', p).addEventListener('click', function () { quebrado = !quebrado; pinta(); }); pinta();
+  };
+
+  /* 10. orquestração */
+  INIT[10] = function (p) {
+    var cap = $('#or-cap', p), falha = false, t = [];
+    function est(id, s) { var e = document.getElementById(id); ['run', 'ok', 'fail', 'wait'].forEach(function (c) { e.classList.remove(c); }); if (s) e.classList.add(s); }
+    function zera() { t.forEach(clearTimeout); t = []; ['o0', 'o1', 'o2', 'o3', 'o4'].forEach(function (i) { est(i, ''); }); }
+    function ag(ms, fn) { t.push(setTimeout(fn, reduz ? 0 : ms)); }
+    function roda() {
+      zera(); var D = 750, k = 0;
+      est('o0', 'run'); k += D; ag(k, function () { est('o0', 'ok'); est('o1', 'run'); est('o2', 'run'); });
+      if (!falha) {
+        k += D; ag(k, function () { est('o1', 'ok'); est('o2', 'ok'); est('o3', 'run'); }); k += D; ag(k, function () { est('o3', 'ok'); est('o4', 'run'); }); k += D; ag(k, function () { est('o4', 'ok'); });
+        put(cap, 'Cada tarefa roda quando a anterior termina, e tudo fica registrado.');
+      } else {
+        k += D; ag(k, function () { est('o1', 'ok'); est('o2', 'fail'); est('o3', 'wait'); }); k += D; ag(k, function () { est('o2', 'run'); });
+        k += D; ag(k, function () { est('o2', 'ok'); est('o3', 'run'); }); k += D; ag(k, function () { est('o3', 'ok'); est('o4', 'run'); }); k += D; ag(k, function () { est('o4', 'ok'); });
+        put(cap, 'A tarefa falhou, as seguintes esperaram e a nova tentativa passou, com o alerta registrado.');
+      }
+    }
+    $('#or-go', p).addEventListener('click', roda);
+    $('#or-fail', p).addEventListener('click', function () { falha = !falha; this.setAttribute('aria-pressed', String(falha)); roda(); });
+    put(cap, 'Execute o fluxo para ver cada tarefa rodar na ordem.'); p._mostrou = function () { if (!p._ja) { p._ja = 1; roda(); } };
+  };
+
+  /* 11. testes de qualidade */
+  INIT[11] = function (p) {
+    var g = $('#qt-grid', p), tl = $('#qt-tests', p), cap = $('#qt-cap', p), h = '', ruim = false;
+    for (var r = 0; r < 7; r++) for (var c = 0; c < 5; c++) h += '<i class="' + (r === 0 ? 'h' : '') + '" data-r="' + r + '" data-c="' + c + '"></i>';
+    g.innerHTML = h;
+    var TESTES = ['Sem valores nulos', 'Valores únicos', 'Valores válidos', 'Dado atualizado'];
+    tl.innerHTML = TESTES.map(function (t, i) { return '<div class="nd qtt" id="qtt' + i + '"><i class="st"></i><span data-pt="' + t + '">' + T(t) + '</span></div>'; }).join('');
+    function pinta() {
+      $$('i', g).forEach(function (e) { e.classList.toggle('bad', ruim && e.getAttribute('data-r') === '3' && e.getAttribute('data-c') === '2'); });
+      $('#qtt2', p).classList.toggle('fail', ruim);
+      put(cap, ruim ? 'Falha detectada antes de chegar ao usuário: o time de dados vê primeiro.' : 'Todos os testes passaram: o dado segue para o usuário.');
+      cap.classList.toggle('alerta', ruim); $('#qt-bad', p).setAttribute('aria-pressed', String(ruim));
+    }
+    $('#qt-bad', p).addEventListener('click', function () { ruim = true; pinta(); });
+    $('#qt-ok', p).addEventListener('click', function () { ruim = false; pinta(); }); pinta();
+  };
+
+  mostra(0);
+})();
 </script>
 
 </body>

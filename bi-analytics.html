@@ -1777,6 +1777,21 @@
   .tag.ok { border-color: var(--accent-verde); color: color-mix(in srgb, var(--accent-verde) 62%, var(--ink)); } .tag.ac { border-color: var(--accent); color: var(--accent-light); }
   .spark { height: 1.5rem; width: 100%; display: block; } .spark path { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
   .ico-s { width: 1.1rem; height: 1.1rem; stroke: var(--accent-light); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  /* explicação */
+  .vit-info { margin-top: 1.1rem; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); padding: 1.15rem 1.3rem; display: none; }
+  .vit-info.on { display: block; animation: vit-in .4s ease both; }
+  .vit-info .vit-k { color: var(--accent-light); } .vit-info h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 700; margin-top: .2rem; }
+  .vit-info p { color: var(--muted); margin-top: .45rem; max-width: 50rem; } .vit-info p.hint { font-size: .85rem; color: var(--accent-light); margin-top: .7rem; }
+  @media (max-width: 960px) {
+    .vit { grid-template-columns: 1fr; } .vit-nav { position: static; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; align-items: start; }
+    .vit-it { grid-template-columns: 1fr; } .vit-it .tile-ico { display: none; }
+  }
+  @media (max-width: 680px) {
+    .vit-nav { grid-template-columns: 1fr; } .vit-it { grid-template-columns: 1.9rem 1fr; } .vit-it .tile-ico { display: grid; }
+    .vit-pane { padding: .8rem; } .vit-bar .vs { display: none; } .wires { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .vit-pane.on, .vit-info.on { animation: none; } }
+
   /* 1 pipeline */
   .flow { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 3.2rem; align-items: center; }
   .flow-col { display: grid; gap: .6rem; align-content: center; } .flow-col > .vit-k { color: var(--accent-light); }
@@ -1889,24 +1904,13 @@
   .dc-t { display: grid; gap: .5rem; } .dc-t button { text-align: left; font: inherit; color: inherit; cursor: pointer; grid-template-columns: 1.2rem 1fr; align-items: center; column-gap: .55rem; }
   .dc-t button[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, 0 0 22px -8px rgba(46,134,255,.8); }
   .dc-d { gap: .7rem; padding: .9rem; } .dc-f { display: grid; gap: .35rem; } .dc-f span { display: grid; grid-template-columns: 1fr 5rem; gap: .6rem; align-items: center; }
-  /* explicação */
-  .vit-info { margin-top: 1.1rem; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); padding: 1.15rem 1.3rem; display: none; }
-  .vit-info.on { display: block; animation: vit-in .4s ease both; }
-  .vit-info .vit-k { color: var(--accent-light); } .vit-info h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 700; margin-top: .2rem; }
-  .vit-info p { color: var(--muted); margin-top: .45rem; max-width: 50rem; } .vit-info p.hint { font-size: .85rem; color: var(--accent-light); margin-top: .7rem; }
   @media (max-width: 1100px) { .flow { gap: 2rem; } .def, .dc { gap: 1.6rem; } }
-  @media (max-width: 960px) {
-    .vit { grid-template-columns: 1fr; } .vit-nav { position: static; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; align-items: start; }
-    .vit-it { grid-template-columns: 1fr; } .vit-it .tile-ico { display: none; }
-  }
   @media (max-width: 680px) {
-    .vit-nav { grid-template-columns: 1fr; } .vit-it { grid-template-columns: 1.9rem 1fr; } .vit-it .tile-ico { display: grid; }
-    .vit-pane { padding: .8rem; } .vit-bar .vs { display: none; }
-    .flow, .def, .ver, .cat, .ss, .pv, .pf, .ac, .dc { grid-template-columns: 1fr; gap: 1rem; } .wires { display: none; }
+    .flow, .def, .ver, .cat, .ss, .pv, .pf, .ac, .dc { grid-template-columns: 1fr; gap: 1rem; }
     .db-kpis { grid-template-columns: repeat(2, 1fr); } .db-main { grid-template-columns: 1fr; } .gv-grid { grid-template-columns: repeat(3, 1fr); }
     .ac-m { grid-template-columns: 4.6rem repeat(5, 1fr); padding: .5rem; } .ss-f { grid-template-columns: repeat(2, 1fr); }
   }
-  @media (prefers-reduced-motion: reduce) { .vit-pane.on, .vit-info.on { animation: none; } .ver-line::after, .pf-t::after { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .ver-line::after, .pf-t::after { animation: none; } }
 </style>
 </head>
 <body>
@@ -3418,7 +3422,7 @@
   })();
 </script>
 <script>
-/* Vitrine de BI: 12 produtos, cada um com o seu dashboard. Só formas, sem dados reais. */
+/* Vitrine interativa: cada entrega com o seu dashboard de exemplo. Só formas, sem dados reais. */
 (function () {
   var raiz = document.getElementById('vit'); if (!raiz) return;
   var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -3637,6 +3641,7 @@
       requestAnimationFrame(function () { fios(cv); wireMarca(cv, function (q) { return q === 't' + i + '>d'; }); }); }
     pressiona('#vp11 [data-t]', function (b) { t(+b.getAttribute('data-t')); }); t(0);
   };
+
 
   mostra(0);
 })();

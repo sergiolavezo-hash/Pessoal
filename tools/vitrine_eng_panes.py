@@ -18,10 +18,10 @@ P[0] = '''
 <div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Como a fonte chega ao destino"><button type="button" data-cn="0" aria-pressed="true">Scripts avulsos</button><button type="button" data-cn="1" aria-pressed="false">Conectores gerenciados</button></div></div>
 <div class="cv cn" data-fios="c0>hub;c1>hub;c2>hub;c3>hub;hub>dst"><svg class="wires off" aria-hidden="true"></svg>
   <div class="cn-col"><span class="vit-k">Fontes</span>
-    <button type="button" class="nd src" id="c0">%(a)s%(sk)s<i class="st"></i></button>
-    <button type="button" class="nd src" id="c1">%(b)s%(sk)s<i class="st"></i></button>
-    <button type="button" class="nd src" id="c2">%(c)s%(sk)s<i class="st"></i></button>
-    <button type="button" class="nd src" id="c3">%(d)s%(sk)s<i class="st"></i></button></div>
+    <button type="button" class="nd src" aria-label="Sincronizar fonte" id="c0">%(a)s%(sk)s<i class="st"></i></button>
+    <button type="button" class="nd src" aria-label="Sincronizar fonte" id="c1">%(b)s%(sk)s<i class="st"></i></button>
+    <button type="button" class="nd src" aria-label="Sincronizar fonte" id="c2">%(c)s%(sk)s<i class="st"></i></button>
+    <button type="button" class="nd src" aria-label="Sincronizar fonte" id="c3">%(d)s%(sk)s<i class="st"></i></button></div>
   <div class="nd core cn-hub" id="hub"><span class="vit-k">Conector gerenciado</span>%(sk)s<span class="tag ac" id="cn-tag">agenda e monitora</span></div>
   <div class="nd cn-dst" id="dst"><span class="vit-k">Destino</span>%(db)s%(sk)s</div>
 </div>
@@ -108,9 +108,9 @@ P[8] = '''
 P[9] = '''
 <div class="vit-ctl"><button class="vit-chip" type="button" id="tv-bad" aria-pressed="false">Quebrar um teste</button><span class="vit-k push">Clique num modelo para ver a linhagem</span></div>
 <div class="cv tv" id="tv" data-fios="r0>s0;r1>s0;r1>s1;s0>m0;s1>m0;s1>m1"><svg class="wires" aria-hidden="true"></svg>
-  <div class="tv-col"><span class="vit-k">Brutos</span><button class="nd tvn" id="r0" type="button">%(sk)s</button><button class="nd tvn" id="r1" type="button">%(sk)s</button></div>
-  <div class="tv-col"><span class="vit-k">Preparados</span><button class="nd tvn" id="s0" type="button">%(sk)s<i class="tt"></i></button><button class="nd tvn" id="s1" type="button">%(sk)s<i class="tt"></i></button></div>
-  <div class="tv-col"><span class="vit-k">Entregues</span><button class="nd tvn" id="m0" type="button">%(sk)s<i class="tt"></i></button><button class="nd tvn" id="m1" type="button">%(sk)s<i class="tt"></i></button></div>
+  <div class="tv-col"><span class="vit-k">Brutos</span><button class="nd tvn" aria-label="Ver linhagem do modelo" id="r0" type="button">%(sk)s</button><button class="nd tvn" aria-label="Ver linhagem do modelo" id="r1" type="button">%(sk)s</button></div>
+  <div class="tv-col"><span class="vit-k">Preparados</span><button class="nd tvn" aria-label="Ver linhagem do modelo" id="s0" type="button">%(sk)s<i class="tt"></i></button><button class="nd tvn" aria-label="Ver linhagem do modelo" id="s1" type="button">%(sk)s<i class="tt"></i></button></div>
+  <div class="tv-col"><span class="vit-k">Entregues</span><button class="nd tvn" aria-label="Ver linhagem do modelo" id="m0" type="button">%(sk)s<i class="tt"></i></button><button class="nd tvn" aria-label="Ver linhagem do modelo" id="m1" type="button">%(sk)s<i class="tt"></i></button></div>
   <div class="nd code tv-log"><span class="vit-k">Versões</span><span class="add">+<s style="width:70%%"></s></span><span class="">&nbsp;<s style="width:55%%"></s></span><span class="add">+<s style="width:62%%"></s></span></div>
 </div>
 <p class="vit-cap" id="tv-cap" aria-live="polite"></p>

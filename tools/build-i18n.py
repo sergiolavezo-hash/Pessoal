@@ -501,8 +501,6 @@ TRAD.update({
   'Holding': ('Holding companies', 'Holdings'),
   'Privacidade': ('Privacy', 'Privacidad'),
   'Política de privacidade': ('Privacy policy', 'Política de privacidad'),
-  'Cookies': ('Cookies', 'Cookies'),
-  'Saiba mais': ('Learn more', 'Saber más'),
   'Food Service': ('Food Service', 'Food Service'),
   'Infraestrutura &amp; Mobilidade': ('Infrastructure &amp; Mobility', 'Infraestructura &amp; Movilidad'),
 
@@ -1256,6 +1254,140 @@ EXTRAS_VITRINE = {
   'Nomenclatura e layout padronizados: quem abre qualquer painel sabe onde está cada coisa.',
   'Painéis migrados e consolidados num conjunto padronizado, todos sobre o mesmo modelo.', 'Mais de 200 painéis crescendo sem padrão, sem governança e sem fonte única da verdade.',
   'Comercial', 'Financeiro', 'Operações', 'Área', 'Certificado', 'Todas',
+}
+
+# ---------------- Vitrine de Engenharia de Dados (data-engineering.html) ----------------
+# Textos marcados como dinâmicos são escritos pelo script da vitrine; entram
+# também em EXTRAS_VITRINE (não saem da extração estática).
+TRAD.update({
+  'Doze entregas, três frentes. Escolha uma e veja como ela funciona na prática: clique, alterne e compare.':
+    ('Twelve deliverables, three fronts. Pick one and see how it works in practice: click, switch and compare.',
+     'Doce entregas, tres frentes. Elija una y vea cómo funciona en la práctica: haga clic, alterne y compare.'),
+  'Entregas de Engenharia de Dados': ('Data Engineering deliverables', 'Entregas de Ingeniería de Datos'),
+  # explicações
+  'Cada fonte entra por um conector com agenda e monitoramento, em vez de um script avulso que quebra sem ninguém ver.':
+    ('Each source comes in through a connector with scheduling and monitoring, instead of a standalone script that breaks unnoticed.',
+     'Cada fuente entra por un conector con agenda y monitoreo, en lugar de un script suelto que se rompe sin que nadie lo vea.'),
+  'Alterne entre scripts avulsos e conectores gerenciados.': ('Switch between standalone scripts and managed connectors.', 'Alterne entre scripts sueltos y conectores gestionados.'),
+  'Quando a decisão não pode esperar o lote da noite, o evento chega ao destino no momento em que acontece.':
+    ('When the decision cannot wait for the nightly batch, the event reaches its destination the moment it happens.',
+     'Cuando la decisión no puede esperar el lote de la noche, el evento llega al destino en el momento en que ocurre.'),
+  'Alterne entre lote e streaming.': ('Switch between batch and streaming.', 'Alterne entre lote y streaming.'),
+  'Em vez de cada sistema falar com todos os outros, uma camada de integração concentra a conversa entre o legado e a plataforma atual.':
+    ('Instead of every system talking to all the others, an integration layer centralizes the conversation between the legacy and the current platform.',
+     'En lugar de que cada sistema hable con todos los demás, una capa de integración concentra la conversación entre el legado y la plataforma actual.'),
+  'Alterne entre ponto a ponto e camada de integração.': ('Switch between point-to-point and an integration layer.', 'Alterne entre punto a punto y capa de integración.'),
+  'Dado que chega por API ou por arquivo vira tabela, sem retrabalho manual a cada envio.':
+    ('Data arriving by API or file becomes a table, without manual rework on every delivery.', 'El dato que llega por API o por archivo se convierte en tabla, sin retrabajo manual en cada envío.'),
+  'Escolha a origem e ingira de novo.': ('Pick the source and ingest again.', 'Elija el origen e ingiera de nuevo.'),
+  'Guarda o dado como ele chega, em qualquer formato, para quando alguém precisar dele.':
+    ('Stores data as it arrives, in any format, for when someone needs it.', 'Guarda el dato como llega, en cualquier formato, para cuando alguien lo necesite.'),
+  'Filtre por tipo de dado.': ('Filter by data type.', 'Filtre por tipo de dato.'),
+  'Dado estruturado e organizado para responder consultas analíticas com rapidez.':
+    ('Structured, organized data to answer analytical queries quickly.', 'Dato estructurado y organizado para responder consultas analíticas con rapidez.'),
+  'Escolha uma consulta e veja as colunas que ela usa.': ('Pick a query and see the columns it uses.', 'Elija una consulta y vea las columnas que usa.'),
+  'Junta a flexibilidade do lake com a organização do warehouse: uma só cópia do dado, lida por BI e por ciência de dados.':
+    ('Combines the flexibility of a lake with the organization of a warehouse: a single copy of the data, read by BI and by data science.',
+     'Une la flexibilidad del lake con la organización del warehouse: una sola copia del dato, leída por BI y por ciencia de datos.'),
+  'Alterne entre lake + warehouse e lakehouse.': ('Switch between lake + warehouse and lakehouse.', 'Alterne entre lake + warehouse y lakehouse.'),
+  'Do desenho da origem, pensado para o sistema que grava, ao modelo analítico, pensado para quem pergunta.':
+    ('From the source design, built for the system that writes, to the analytical model, built for those who ask.',
+     'Del diseño del origen, pensado para el sistema que graba, al modelo analítico, pensado para quien pregunta.'),
+  'Alterne entre a origem e o modelo analítico.': ('Switch between the source and the analytical model.', 'Alterne entre el origen y el modelo analítico.'),
+  'A diferença está na ordem: transformar antes de gravar (ETL) ou gravar primeiro e transformar no próprio destino (ELT).':
+    ('The difference is the order: transform before writing (ETL) or write first and transform at the destination (ELT).',
+     'La diferencia está en el orden: transformar antes de grabar (ETL) o grabar primero y transformar en el propio destino (ELT).'),
+  'Alterne entre ETL e ELT.': ('Switch between ETL and ELT.', 'Alterne entre ETL y ELT.'),
+  'A regra de negócio sai de scripts avulsos e vira código versionado, com teste em cada etapa.':
+    ('Business rules move out of standalone scripts and become versioned code, with a test at every step.',
+     'La regla de negocio sale de scripts sueltos y se vuelve código versionado, con prueba en cada etapa.'),
+  'Clique num modelo e quebre um teste.': ('Click a model and break a test.', 'Haga clic en un modelo y rompa una prueba.'),
+  'Cada etapa roda na ordem certa, na hora certa, e a falha de uma não passa despercebida pelas seguintes.':
+    ('Each step runs in the right order at the right time, and one failure does not go unnoticed by the next steps.',
+     'Cada etapa corre en el orden correcto, a la hora correcta, y la falla de una no pasa inadvertida para las siguientes.'),
+  'Execute o fluxo, com e sem falha.': ('Run the flow, with and without a failure.', 'Ejecute el flujo, con y sin falla.'),
+  'O dado é verificado antes de chegar ao usuário: a falha fica visível primeiro para o time de dados.':
+    ('Data is checked before it reaches the user: the failure is visible to the data team first.', 'El dato se verifica antes de llegar al usuario: la falla es visible primero para el equipo de datos.'),
+  'Injete um dado ruim e veja o teste falhar.': ('Inject bad data and watch the test fail.', 'Inyecte un dato malo y vea fallar la prueba.'),
+  # rótulos
+  'Como a fonte chega ao destino': ('How the source reaches the destination', 'Cómo llega la fuente al destino'),
+  'Scripts avulsos': ('Standalone scripts', 'Scripts sueltos'), 'Conector gerenciado': ('Managed connector', 'Conector gestionado'),
+  'agenda e monitora': ('schedules and monitors', 'agenda y monitorea'), 'Destino': ('Destination', 'Destino'),
+  'Como o evento chega': ('How the event arrives', 'Cómo llega el evento'), 'Lote': ('Batch', 'Lote'), 'Streaming': ('Streaming', 'Streaming'),
+  'Eventos': ('Events', 'Eventos'), 'Quando o dado chega': ('When the data arrives', 'Cuando llega el dato'),
+  'Como os sistemas conversam': ('How the systems talk', 'Cómo conversan los sistemas'), 'Ponto a ponto': ('Point-to-point', 'Punto a punto'),
+  'Camada de integração': ('Integration layer', 'Capa de integración'), 'Legado': ('Legacy', 'Legado'), 'legado': ('legacy', 'legado'),
+  'Integração': ('Integration', 'Integración'), 'Plataforma atual': ('Current platform', 'Plataforma actual'),
+  'Tipo de origem': ('Source type', 'Tipo de origen'), 'Arquivos': ('Files', 'Archivos'), '↻ Ingerir de novo': ('↻ Ingest again', '↻ Ingerir de nuevo'),
+  'Resposta da API': ('API response', 'Respuesta de la API'), 'Arquivos recebidos': ('Files received', 'Archivos recibidos'),
+  'Tabela de destino': ('Destination table', 'Tabla de destino'), 'Mostrar': ('Show', 'Mostrar'), 'Tudo': ('All', 'Todo'), 'Tabelas': ('Tables', 'Tablas'),
+  'Semiestruturado': ('Semi-structured', 'Semiestructurado'), 'Arquivos livres': ('Free-form files', 'Archivos libres'),
+  'Consulta': ('Query', 'Consulta'), 'Consulta 1': ('Query 1', 'Consulta 1'), 'Consulta 2': ('Query 2', 'Consulta 2'), 'Consulta 3': ('Query 3', 'Consulta 3'),
+  'Lake + Warehouse': ('Lake + Warehouse', 'Lake + Warehouse'), 'Data Lake': ('Data Lake', 'Data Lake'), 'Data Warehouse': ('Data Warehouse', 'Data Warehouse'),
+  'Lakehouse': ('Lakehouse', 'Lakehouse'), 'Consumo': ('Consumption', 'Consumo'), 'Ciência de dados': ('Data science', 'Ciencia de datos'),
+  'Origem normalizada': ('Normalized source', 'Origen normalizado'), 'Modelo analítico': ('Analytical model', 'Modelo analítico'), 'Modelo': ('Model', 'Modelo'),
+  'Ordem das etapas': ('Order of steps', 'Orden de las etapas'), 'Extrair': ('Extract', 'Extraer'), 'Transformar': ('Transform', 'Transformar'), 'Carregar': ('Load', 'Cargar'),
+  'Quebrar um teste': ('Break a test', 'Romper una prueba'), 'Clique num modelo para ver a linhagem': ('Click a model to see its lineage', 'Haga clic en un modelo para ver su linaje'),
+  'Brutos': ('Raw', 'Crudos'), 'Preparados': ('Prepared', 'Preparados'), 'Entregues': ('Delivered', 'Entregados'), 'Versões': ('Versions', 'Versiones'),
+  '▶ Executar': ('▶ Run', '▶ Ejecutar'), 'Simular falha': ('Simulate failure', 'Simular falla'), 'agenda diária': ('daily schedule', 'agenda diaria'),
+  'Injetar dado ruim': ('Inject bad data', 'Inyectar dato malo'), 'Corrigir': ('Fix', 'Corregir'), 'Sincronizar fonte': ('Sync source', 'Sincronizar fuente'), 'Ver linhagem do modelo': ('See model lineage', 'Ver linaje del modelo'), 'Orquestração': ('Orchestration', 'Orquestación'),
+  # dinâmicos
+  'Cada fonte tem agenda, monitoramento e alerta: se algo falha, alguém vê antes do usuário.':
+    ('Each source has scheduling, monitoring and alerts: if something fails, someone sees it before the user does.', 'Cada fuente tiene agenda, monitoreo y alerta: si algo falla, alguien lo ve antes que el usuario.'),
+  'Cada fonte com o seu script: funciona até quebrar, e ninguém sabe de onde veio o número.':
+    ('Each source with its own script: it works until it breaks, and nobody knows where the number came from.', 'Cada fuente con su script: funciona hasta que se rompe, y nadie sabe de dónde vino el número.'),
+  'No lote, o dado espera a próxima janela: quem decide enxerga o que aconteceu horas atrás.':
+    ('In batch, data waits for the next window: whoever decides sees what happened hours ago.', 'En el lote, el dato espera la próxima ventana: quien decide ve lo que pasó horas atrás.'),
+  'No streaming, cada evento chega ao destino assim que acontece.': ('In streaming, each event reaches its destination as soon as it happens.', 'En el streaming, cada evento llega al destino apenas ocurre.'),
+  'Uma camada de integração concentra a conversa: cada sistema fala só com ela, e o legado deixa de ser o gargalo.':
+    ('An integration layer centralizes the conversation: each system talks only to it, and the legacy stops being the bottleneck.', 'Una capa de integración concentra la conversación: cada sistema habla solo con ella, y el legado deja de ser el cuello de botella.'),
+  'Cada sistema fala com todos os outros: qualquer mudança em um quebra os demais.':
+    ('Every system talks to all the others: a change in one breaks the rest.', 'Cada sistema habla con todos los demás: cualquier cambio en uno rompe los otros.'),
+  'A resposta da API vira linhas de uma tabela, com a estrutura mantida a cada chamada.':
+    ('The API response becomes table rows, with the structure preserved on every call.', 'La respuesta de la API se vuelve filas de una tabla, con la estructura preservada en cada llamada.'),
+  'Cada arquivo recebido é lido, validado e gravado na mesma tabela, sem abrir planilha na mão.':
+    ('Each file received is read, validated and written to the same table, without opening a spreadsheet by hand.', 'Cada archivo recibido se lee, valida y graba en la misma tabla, sin abrir una planilla a mano.'),
+  'O dado entra do jeito que chega, em qualquer formato, e fica disponível para quem precisar.':
+    ('Data comes in as it arrives, in any format, and stays available for whoever needs it.', 'El dato entra como llega, en cualquier formato, y queda disponible para quien lo necesite.'),
+  'A consulta lê só as colunas de que precisa, e o warehouse responde rápido porque o dado já está organizado.':
+    ('The query reads only the columns it needs, and the warehouse answers fast because the data is already organized.', 'La consulta lee solo las columnas que necesita, y el warehouse responde rápido porque el dato ya está organizado.'),
+  'Uma só cópia do dado, lida tanto pelo BI quanto pela ciência de dados: sem duplicar, sem divergir.':
+    ('A single copy of the data, read by both BI and data science: no duplication, no divergence.', 'Una sola copia del dato, leída tanto por el BI como por la ciencia de datos: sin duplicar, sin divergir.'),
+  'O dado vive em dois lugares: duplicado, mais caro de manter e sujeito a divergir entre as cópias.':
+    ('Data lives in two places: duplicated, costlier to maintain and liable to diverge between copies.', 'El dato vive en dos lugares: duplicado, más caro de mantener y sujeto a divergir entre las copias.'),
+  'A origem é desenhada para o sistema que grava: muitas tabelas pequenas, ligadas em todas as direções.':
+    ('The source is designed for the system that writes: many small tables, linked in every direction.', 'El origen se diseña para el sistema que graba: muchas tablas pequeñas, ligadas en todas las direcciones.'),
+  'O modelo analítico é desenhado para quem pergunta: uma tabela de fatos no centro e as dimensões em volta.':
+    ('The analytical model is designed for those who ask: a fact table in the center and dimensions around it.', 'El modelo analítico se diseña para quien pregunta: una tabla de hechos al centro y las dimensiones alrededor.'),
+  'Transforma no meio do caminho e grava o resultado já pronto.': ('Transforms along the way and writes the finished result.', 'Transforma en el camino y graba el resultado ya listo.'),
+  'Grava primeiro e transforma no próprio destino, aproveitando a força do warehouse ou do lakehouse.':
+    ('Writes first and transforms at the destination, taking advantage of the warehouse or lakehouse.', 'Graba primero y transforma en el propio destino, aprovechando la potencia del warehouse o del lakehouse.'),
+  'Um teste falhou em um modelo preparado: o que depende dele fica bloqueado e o restante segue.':
+    ('A test failed on a prepared model: whatever depends on it is blocked and the rest carries on.', 'Una prueba falló en un modelo preparado: lo que depende de él queda bloqueado y el resto sigue.'),
+  'Cada modelo é código versionado e passa por teste antes de seguir adiante.':
+    ('Each model is versioned code and passes a test before moving on.', 'Cada modelo es código versionado y pasa por una prueba antes de seguir.'),
+  'Execute o fluxo para ver cada tarefa rodar na ordem.': ('Run the flow to see each task run in order.', 'Ejecute el flujo para ver cada tarea correr en orden.'),
+  'Cada tarefa roda quando a anterior termina, e tudo fica registrado.': ('Each task runs when the previous one finishes, and everything is logged.', 'Cada tarea corre cuando termina la anterior, y todo queda registrado.'),
+  'A tarefa falhou, as seguintes esperaram e a nova tentativa passou, com o alerta registrado.':
+    ('The task failed, the next ones waited and the retry passed, with the alert logged.', 'La tarea falló, las siguientes esperaron y el nuevo intento pasó, con la alerta registrada.'),
+  'Sem valores nulos': ('No null values', 'Sin valores nulos'), 'Valores únicos': ('Unique values', 'Valores únicos'),
+  'Valores válidos': ('Valid values', 'Valores válidos'), 'Dado atualizado': ('Up-to-date data', 'Dato actualizado'),
+  'Falha detectada antes de chegar ao usuário: o time de dados vê primeiro.': ('Failure detected before reaching the user: the data team sees it first.', 'Falla detectada antes de llegar al usuario: el equipo de datos la ve primero.'),
+  'Todos os testes passaram: o dado segue para o usuário.': ('All tests passed: the data goes on to the user.', 'Todas las pruebas pasaron: el dato sigue hacia el usuario.'),
+})
+EXTRAS_VITRINE |= {
+  'Cada fonte tem agenda, monitoramento e alerta: se algo falha, alguém vê antes do usuário.', 'Cada fonte com o seu script: funciona até quebrar, e ninguém sabe de onde veio o número.',
+  'No lote, o dado espera a próxima janela: quem decide enxerga o que aconteceu horas atrás.', 'No streaming, cada evento chega ao destino assim que acontece.',
+  'Uma camada de integração concentra a conversa: cada sistema fala só com ela, e o legado deixa de ser o gargalo.', 'Cada sistema fala com todos os outros: qualquer mudança em um quebra os demais.',
+  'Arquivos recebidos', 'A resposta da API vira linhas de uma tabela, com a estrutura mantida a cada chamada.', 'Cada arquivo recebido é lido, validado e gravado na mesma tabela, sem abrir planilha na mão.',
+  'A consulta lê só as colunas de que precisa, e o warehouse responde rápido porque o dado já está organizado.', 'Uma só cópia do dado, lida tanto pelo BI quanto pela ciência de dados: sem duplicar, sem divergir.',
+  'O dado vive em dois lugares: duplicado, mais caro de manter e sujeito a divergir entre as cópias.', 'A origem é desenhada para o sistema que grava: muitas tabelas pequenas, ligadas em todas as direções.',
+  'O modelo analítico é desenhado para quem pergunta: uma tabela de fatos no centro e as dimensões em volta.', 'Transforma no meio do caminho e grava o resultado já pronto.',
+  'Grava primeiro e transforma no próprio destino, aproveitando a força do warehouse ou do lakehouse.', 'Um teste falhou em um modelo preparado: o que depende dele fica bloqueado e o restante segue.',
+  'Cada modelo é código versionado e passa por teste antes de seguir adiante.', 'Execute o fluxo para ver cada tarefa rodar na ordem.', 'Cada tarefa roda quando a anterior termina, e tudo fica registrado.',
+  'A tarefa falhou, as seguintes esperaram e a nova tentativa passou, com o alerta registrado.', 'Sem valores nulos', 'Valores únicos', 'Valores válidos', 'Dado atualizado',
+  'Falha detectada antes de chegar ao usuário: o time de dados vê primeiro.', 'Todos os testes passaram: o dado segue para o usuário.',
+  'Extrair', 'Transformar', 'Carregar', 'Data Lake', 'Lakehouse',
 }
 
 TERMOS = {
