@@ -195,7 +195,7 @@ PAGINAS = [
         capacidades=[
             ('Perfis que alocamos', ['Engenheiro de dados', 'Analista e desenvolvedor de BI',
                                      'Cientista de dados', 'Arquiteto de dados']),
-            ('Como funciona', ['Contratos de no mínimo 6 meses', 'Alocações por tempo indeterminado',
+            ('Como funciona', ['Contratos com o prazo de cada cliente', 'Alocações por tempo indeterminado',
                                'Sob a gestão do cliente, com respaldo técnico da Atlas',
                                'Substituição sem quebra de ritmo']),
             ('Squads completos', ['Time montado por perfil e senioridade', 'Liderança técnica da Atlas',
@@ -209,7 +209,7 @@ PAGINAS = [
                      ('dbt', 'dbt', 1), ('Airflow', 'airflow', 1), ('Databricks', 'databricks', 1),
                      ('BigQuery', 'bigquery', 1), ('Spark', 'spark', 0)],
         case=None,
-        prova=('Mais de 150 profissionais alocados. Contratos de no mínimo seis meses, '
+        prova=('Mais de 150 profissionais alocados. Contratos com o prazo combinado com cada cliente, '
                'boa parte por tempo indeterminado: o cliente renova para manter a pessoa.'),
         cta='Falar sobre alocação',
         cta2='Ver os projetos entregues',
@@ -270,7 +270,7 @@ TALENTO = '''
 
       <div class="tal-grid">
         <ul class="tal-pontos reveal d2">
-          <li><b>Contratos longos</b><span>No mínimo seis meses, boa parte por tempo indeterminado.</span></li>
+          <li><b>Contratos sob medida</b><span>Prazo combinado com cada cliente, boa parte por tempo indeterminado.</span></li>
           <li><b>Projeto de verdade</b><span>Dados, BI, engenharia e IA em mais de 10 setores.</span></li>
           <li><b>Respaldo técnico</b><span>Você não fica sozinho no cliente: a Atlas está atrás.</span></li>
         </ul>

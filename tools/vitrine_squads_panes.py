@@ -21,7 +21,7 @@ P[1] = perfil(1, 'Analista e desenvolvedor de BI', ['Dashboards', 'Modelo semân
 P[2] = perfil(2, 'Cientista de dados', ['Modelos preditivos', 'Anomalias', 'Experimentos', 'Produção'], 'Onde ele atua')
 P[3] = perfil(3, 'Arquiteto de dados', ['Desenho da base', 'Nuvem', 'Segurança', 'Padrões'], 'Onde ele atua')
 
-# 4 contratos de no minimo 6 meses
+# 4 contratos com o prazo de cada cliente
 P[4] = '''
 <div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Prazo da alocação"><button type="button" data-ct="0" aria-pressed="true">Prazo mais curto</button><button type="button" data-ct="1" aria-pressed="false">Prazo médio</button><button type="button" data-ct="2" aria-pressed="false">Prazo mais longo</button></div></div>
 <div class="ct"><div class="ct-track" id="sqc-track"></div><div class="ct-leg"><div class="ct-a">Início da alocação</div><div class="ct-b">Prazo combinado com cada cliente</div></div></div>

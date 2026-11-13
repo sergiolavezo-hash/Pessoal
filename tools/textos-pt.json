@@ -1,5 +1,5 @@
 {
- "total": 1123,
+ "total": 1122,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -97,7 +97,7 @@
    "cls": ""
   },
   {
-   "chave": "Gente de dados dentro do seu time, em contratos de no mínimo 6 meses.",
+   "chave": "Gente de dados dentro do seu time, em contratos com o prazo combinado com cada cliente.",
    "tag": "p",
    "cls": ""
   },
@@ -187,7 +187,7 @@
    "cls": ""
   },
   {
-   "chave": "Contratos de no mínimo 6 meses, muitos por tempo indeterminado.",
+   "chave": "Contratos com o prazo de cada cliente, muitos por tempo indeterminado.",
    "tag": "p",
    "cls": ""
   },
@@ -772,7 +772,7 @@
    "cls": "sol-capt"
   },
   {
-   "chave": "Contratos de no mínimo 6 meses",
+   "chave": "Contratos com o prazo de cada cliente",
    "tag": "span",
    "cls": "sol-capt"
   },
@@ -3417,11 +3417,6 @@
    "cls": "t"
   },
   {
-   "chave": "Contratos com o prazo de cada cliente",
-   "tag": "span",
-   "cls": "t"
-  },
-  {
    "chave": "Alocações por tempo indeterminado",
    "tag": "span",
    "cls": "t"
@@ -3852,7 +3847,7 @@
    "cls": "eyebrow reveal"
   },
   {
-   "chave": "Mais de 150 profissionais alocados. Contratos de no mínimo seis meses, boa parte por tempo indeterminado: o cliente renova para manter a pessoa.",
+   "chave": "Mais de 150 profissionais alocados. Contratos com o prazo combinado com cada cliente, boa parte por tempo indeterminado: o cliente renova para manter a pessoa.",
    "tag": "p",
    "cls": "sub reveal d2"
   },
@@ -3872,7 +3867,7 @@
    "cls": "sub reveal d2"
   },
   {
-   "chave": "<b>Contratos longos</b><span>No mínimo seis meses, boa parte por tempo indeterminado.</span>",
+   "chave": "<b>Contratos sob medida</b><span>Prazo combinado com cada cliente, boa parte por tempo indeterminado.</span>",
    "tag": "li",
    "cls": ""
   },

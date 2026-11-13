@@ -86,9 +86,9 @@ TRAD = {
   'Modelos preditivos, detecção de anomalias, GenAI e Document AI sobre a sua própria base.':
     ('Predictive models, anomaly detection, GenAI and Document AI on your own data.',
      'Modelos predictivos, detección de anomalías, GenAI y Document AI sobre su propia base.'),
-  'Gente de dados dentro do seu time, em contratos de no mínimo 6 meses.':
-    ('Data people inside your team, on contracts of at least 6 months.',
-     'Gente de datos dentro de su equipo, en contratos de 6 meses como mínimo.'),
+  'Gente de dados dentro do seu time, em contratos com o prazo combinado com cada cliente.':
+    ('Data people inside your team, on contracts with a timeframe agreed with each client.',
+     'Gente de datos dentro de su equipo, en contratos con el plazo acordado con cada cliente.'),
   'Cenário, arquitetura, stack e o antes e depois de cada entrega.':
     ('Context, architecture, stack and the before and after of every delivery.',
      'Escenario, arquitectura, stack y el antes y el después de cada entrega.'),
@@ -134,9 +134,9 @@ TRAD = {
   'Banco de talentos da Atlas: envie seu perfil e seu currículo.':
     ('Atlas talent pool: send your profile and your CV.',
      'Banco de talentos de Atlas: envíe su perfil y su currículum.'),
-  'Contratos de no mínimo 6 meses, muitos por tempo indeterminado.':
-    ('Contracts of at least 6 months, many of them open-ended.',
-     'Contratos de 6 meses como mínimo, muchos por tiempo indefinido.'),
+  'Contratos com o prazo de cada cliente, muitos por tempo indeterminado.':
+    ('Contracts with each client\u2019s own timeframe, many of them open-ended.',
+     'Contratos con el plazo de cada cliente, muchos por tiempo indefinido.'),
   'Consultoria de tecnologia em dados e alocação de especialistas.':
     ('Technology consultancy in data and specialist staffing.',
      'Consultoría de tecnología en datos y asignación de especialistas.'),
@@ -560,7 +560,6 @@ TRAD.update({
   'Analista e desenvolvedor de BI': ('BI analyst and developer', 'Analista y desarrollador de BI'),
   'Cientista de dados': ('Data scientist', 'Científico de datos'),
   'Arquiteto de dados': ('Data architect', 'Arquitecto de datos'),
-  'Contratos de no mínimo 6 meses': ('Contracts of at least 6 months', 'Contratos de 6 meses como mínimo'),
   'Alocações por tempo indeterminado': ('Open-ended assignments', 'Asignaciones por tiempo indefinido'),
   'Sob a gestão do cliente, com respaldo técnico da Atlas':
     ('Under the client\u2019s management, with technical backing from Atlas',
@@ -584,17 +583,17 @@ TRAD.update({
     ('The specialist joins your team and your management.', 'El especialista entra en su equipo y en su gestión.'),
   'Acompanhamento': ('Follow-up', 'Seguimiento'),
   'A Atlas segue por trás, como respaldo técnico.': ('Atlas stays behind, as technical backing.', 'Atlas sigue detrás, como respaldo técnico.'),
-  'Mais de 150 profissionais alocados. Contratos de no mínimo seis meses, boa parte por tempo indeterminado: o cliente renova para manter a pessoa.':
-    ('Over 150 professionals placed. Contracts of at least six months, a good share of them open-ended: the client renews to keep the person.',
-     'Más de 150 profesionales asignados. Contratos de seis meses como mínimo, buena parte por tiempo indefinido: el cliente renueva para mantener a la persona.'),
+  'Mais de 150 profissionais alocados. Contratos com o prazo combinado com cada cliente, boa parte por tempo indeterminado: o cliente renova para manter a pessoa.':
+    ('Over 150 professionals placed. Contracts with a timeframe agreed with each client, a good share of them open-ended: the client renews to keep the person.',
+     'Más de 150 profesionales asignados. Contratos con el plazo acordado con cada cliente, buena parte por tiempo indefinido: el cliente renueva para mantener a la persona.'),
   'Para profissionais de TI': ('For IT professionals', 'Para profesionales de TI'),
   'Trabalhe com a gente.': ('Work with us.', 'Trabaje con nosotros.'),
   'Você atua dentro do time do cliente, com o respaldo técnico da Atlas por trás. Deixe seu perfil e a gente chama quando houver encaixe.':
     ('You work inside the client\u2019s team, with Atlas\u2019s technical backing behind you. Leave your profile and we will call when there is a fit.',
      'Usted trabaja dentro del equipo del cliente, con el respaldo técnico de Atlas detrás. Deje su perfil y lo llamamos cuando haya encaje.'),
-  '<b>Contratos longos</b><span>No mínimo seis meses, boa parte por tempo indeterminado.</span>':
-    ('<b>Long contracts</b><span>At least six months, a good share of them open-ended.</span>',
-     '<b>Contratos largos</b><span>Seis meses como mínimo, buena parte por tiempo indefinido.</span>'),
+  '<b>Contratos sob medida</b><span>Prazo combinado com cada cliente, boa parte por tempo indeterminado.</span>':
+    ('<b>Tailored contracts</b><span>Timeframe agreed with each client, a good share of them open-ended.</span>',
+     '<b>Contratos a medida</b><span>Plazo acordado con cada cliente, buena parte por tiempo indefinido.</span>'),
   '<b>Projeto de verdade</b><span>Dados, BI, engenharia e IA em mais de 10 setores.</span>':
     ('<b>Real projects</b><span>Data, BI, engineering and AI across more than 10 industries.</span>',
      '<b>Proyecto de verdad</b><span>Datos, BI, ingeniería e IA en más de 10 sectores.</span>'),
