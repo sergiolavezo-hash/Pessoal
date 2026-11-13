@@ -1663,8 +1663,8 @@
     text-decoration: none; transition: color 0.25s var(--ease); }
   .voltar:hover { color: var(--accent); }
   .pf-cabeca { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; margin: 1.8rem 0 1.2rem; }
-  .pf-marca { display: grid; place-items: center; width: 92px; height: 92px; flex: none;
-    background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 1.1rem; }
+  .pf-marca { display: grid; place-items: center; width: 132px; height: 104px; flex: none;
+    background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 0.9rem; }
   .pf-marca img { max-width: 100%; max-height: 100%; object-fit: contain; }
   .pf-prod { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2.2rem; }
   .pf-card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 1.4rem 1.5rem; }
@@ -1704,6 +1704,98 @@
   .cc-logos { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
   .cc-logos { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
   .lg-txt { font-size: .78rem; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: .28rem .7rem; }
+</style><style>
+  /* ===== Vitrine de BI v2: 12 produtos, cada um com seu dashboard ===== */
+  .vit { --vit-on: #1D6FE3; display: grid; grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 1.6rem; margin-top: 2.4rem; align-items: start; }
+  .vit-nav { display: grid; gap: 1.1rem; position: sticky; top: 6.5rem; }
+  .vit-grp > .vit-k { display: flex; align-items: center; gap: .5rem; margin: 0 0 .45rem .2rem; color: var(--accent-light); }
+  .vit-grp > .vit-k::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line-strong), transparent); }
+  .vit-grp ul { list-style: none; display: grid; gap: .3rem; padding: 0; margin: 0; }
+  .vit-it { display: grid; grid-template-columns: 1.9rem 1fr; gap: .65rem; align-items: center; width: 100%; text-align: left; font: inherit; color: var(--muted);
+    padding: .5rem .65rem; border-radius: 12px; border: 1px solid transparent; background: none; cursor: pointer; transition: border-color .25s, background .25s, color .25s, transform .25s; }
+  .vit-it .tile-ico { width: 1.9rem; height: 1.9rem; border-radius: 9px; }
+  .vit-it .tile-ico svg { width: 1rem; height: 1rem; }
+  .vit-it span.t { font-size: .88rem; line-height: 1.3; font-family: var(--display); font-weight: 500; }
+  .vit-it:hover { color: var(--ink); background: var(--panel-2); transform: translateX(2px); }
+  .vit-it:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .vit-it[aria-selected="true"] { color: var(--ink); border-color: var(--accent); background: linear-gradient(90deg, rgba(46,134,255,.16), transparent 85%), var(--panel-2); box-shadow: 0 8px 24px -14px rgba(46,134,255,.7); }
+  .vit-it[aria-selected="true"] .tile-ico { background: var(--accent); border-color: var(--accent); } .vit-it[aria-selected="true"] .tile-ico svg { stroke: #fff; }
+  .vit-stage { min-width: 0; scroll-margin-top: 5.5rem; }
+  .vit-win { position: relative; border: 1px solid var(--line-strong); border-radius: 18px; overflow: hidden; background: var(--panel); box-shadow: var(--sombra), 0 0 0 1px rgba(46,134,255,.06);
+    background-image: radial-gradient(circle at 88% -10%, rgba(46,134,255,.22), transparent 46%), radial-gradient(circle at 0% 110%, rgba(111,212,255,.12), transparent 42%); }
+  .vit-win::after { content: ""; position: absolute; right: 0; bottom: 0; width: 46%; height: 42%; pointer-events: none; opacity: .55;
+    background: radial-gradient(circle, var(--accent) 1px, transparent 1.6px) 0 0 / 13px 13px; -webkit-mask: linear-gradient(135deg, transparent 45%, #000); mask: linear-gradient(135deg, transparent 45%, #000);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+  .vit-bar { position: relative; z-index: 2; display: flex; align-items: center; gap: .45rem; padding: .65rem .95rem; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--panel-2) 80%, transparent); backdrop-filter: blur(8px); }
+  .vit-dots { display: flex; align-items: center; gap: .45rem; }
+  .cat-tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .vit-bar i { width: .6rem; height: .6rem; border-radius: 50%; background: var(--line-strong); display: block; }
+  .vit-bar .vt { margin-left: .5rem; font-family: var(--display); font-weight: 600; font-size: .82rem; color: var(--ink); }
+  .vit-bar .vs { margin-left: auto; font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; text-align: right; }
+  .vit-pane { position: relative; z-index: 1; display: none; padding: 1.15rem 1.15rem 1.4rem; min-height: 22rem; }
+  .vit-pane.on { display: block; animation: vit-in .45s ease both; }
+  @keyframes vit-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .cv { position: relative; }
+  .wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 0; }
+  .wires path { fill: none; stroke: var(--accent); stroke-opacity: .38; stroke-width: 1.6; transition: stroke-opacity .25s, stroke-width .25s; }
+  .wires path.hl { stroke-opacity: 1; stroke-width: 2.4; filter: drop-shadow(0 0 5px var(--accent)); }
+  .wires path.bad { stroke: #E5575B; stroke-dasharray: 3 6; stroke-opacity: .7; }
+  .wires circle { fill: var(--accent-light); filter: drop-shadow(0 0 4px var(--accent-light)); }
+  .wires.off circle { display: none; }
+  .vit-ctl { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: .95rem; }
+  .vit-ctl .push { margin-left: auto; }
+  .vit-seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--panel-2); }
+  .vit-seg button, .vit-chip { font: inherit; font-size: .8rem; color: var(--muted); background: none; border: 0; border-radius: 999px; padding: .35rem .85rem; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+  .vit-seg button[aria-pressed="true"] { background: var(--vit-on); color: #fff; }
+  .vit-chip { border: 1px solid var(--line); background: var(--panel); }
+  .vit-chip:hover { border-color: rgba(46,134,255,.5); color: var(--ink); }
+  .vit-chip[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,.14); }
+  .vit-seg button:focus-visible, .vit-chip:focus-visible, .nd:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .vit-k { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .vit-cap { position: relative; z-index: 1; margin-top: 1rem; color: var(--muted); font-size: .86rem; min-height: 1.4em; }
+  /* nós de vidro */
+  .nd { position: relative; z-index: 1; border: 1px solid var(--line-strong); border-radius: 12px; padding: .6rem .7rem; display: grid; gap: .38rem;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--panel-2) 92%, transparent), color-mix(in srgb, var(--panel) 80%, transparent)); backdrop-filter: blur(6px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06); transition: border-color .25s, box-shadow .25s, opacity .3s, transform .3s; }
+  .nd.hl, button.nd:hover, .nd[tabindex]:hover, .nd:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, 0 0 26px -8px rgba(46,134,255,.8); }
+  .nd.dim { opacity: .35; }
+  .nd.core { border-color: var(--accent); background: linear-gradient(160deg, rgba(46,134,255,.2), transparent 75%), var(--panel-2); }
+  .sk { display: block; height: .42rem; border-radius: 4px; background: var(--line-strong); opacity: .75; text-decoration: none; }
+  .sk.a { width: 62%; } .sk.b { width: 80%; } .sk.c { width: 38%; background: var(--accent); opacity: .85; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; padding: .15rem .45rem; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--muted); }
+  .tag.ok { border-color: var(--accent-verde); color: color-mix(in srgb, var(--accent-verde) 62%, var(--ink)); } .tag.ac { border-color: var(--accent); color: var(--accent-light); }
+  .spark { height: 1.5rem; width: 100%; display: block; } .spark path { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ico-s { width: 1.1rem; height: 1.1rem; stroke: var(--accent-light); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  /* explicação */
+  .vit-info { margin-top: 1.1rem; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); padding: 1.15rem 1.3rem; display: none; }
+  .vit-info.on { display: block; animation: vit-in .4s ease both; }
+  .vit-info .vit-k { color: var(--accent-light); } .vit-info h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 700; margin-top: .2rem; }
+  .vit-info p { color: var(--muted); margin-top: .45rem; max-width: 50rem; } .vit-info p.hint { font-size: .85rem; color: var(--accent-light); margin-top: .7rem; }
+  @media (max-width: 960px) {
+    .vit { grid-template-columns: 1fr; } .vit-nav { position: static; grid-template-columns: repeat(var(--vit-g, 3), minmax(0, 1fr)); gap: .8rem; align-items: start; }
+    .vit-it { grid-template-columns: 1fr; } .vit-it .tile-ico { display: none; }
+  }
+  @media (max-width: 680px) {
+    .vit-nav { grid-template-columns: 1fr; } .vit-it { grid-template-columns: 1.9rem 1fr; } .vit-it .tile-ico { display: grid; }
+    .vit-pane { padding: .8rem; } .vit-bar .vs { display: none; } .wires { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .vit-pane.on, .vit-info.on { animation: none; } }
+
+  /* ===== Vitrine de produtos do parceiro ===== */
+  .vit-it .lg-ring { width: 1.9rem; height: 1.9rem; } .vit-it .lg-ico { width: 56%; height: 56%; }
+  .vit-it[aria-selected="true"] .lg-ring { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(46,134,255,.35); }
+  .vit-pane { min-height: 16rem; }
+  .pf-fluxo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.4rem; align-items: center; min-height: 11rem; }
+  .pf-no { justify-items: center; text-align: center; gap: .5rem; transition: opacity .3s; } .pf-no:not(.core) { opacity: .5; }
+  .pf-no .sk { width: 70%; } .pf-no .vit-k { color: var(--accent-light); } .pf-no-l .lg-ring { width: 3rem; height: 3rem; }
+  .pf-fichagrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem 1.4rem; margin-top: 1.1rem; }
+  .pf-f b { display: block; font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-light); font-weight: 500; margin-bottom: .25rem; }
+  .pf-f p { margin: 0; color: var(--muted); font-size: .92rem; max-width: none; }
+  .pf-caso { margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--line); } .pf-caso p { margin: .25rem 0 0; color: var(--muted); font-size: .9rem; max-width: none; }
+  .pf-caso-k { display: flex; align-items: center; gap: .55rem; color: var(--accent-light); font-size: .88rem; } .pf-caso-k svg { width: 1rem; height: 1rem; stroke: currentColor; fill: none; stroke-width: 2.2; }
+  .pf-stats { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.2rem; } .pf-stat { display: flex; align-items: baseline; gap: .5rem; border: 1px solid var(--line); border-radius: 12px; padding: .55rem .9rem; background: var(--panel); }
+  .pf-stat .pf-n { margin: 0; font-family: var(--display); font-size: 1.4rem; font-weight: 600; color: var(--ink); } .pf-stat .pf-l { margin: 0; color: var(--muted); font-size: .84rem; }
+  @media (max-width: 680px) { .pf-fluxo { grid-template-columns: 1fr; gap: 1rem; } .pf-fichagrid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -1913,17 +2005,15 @@
           <p class="sub" style="margin:0.6rem 0 0">Oracle PartnerNetwork</p>
         </div>
       </div>
+      <div class="pf-stats"><div class="pf-stat"><p class="pf-n">1</p><p class="pf-l">produto</p></div><div class="pf-stat"><p class="pf-n">1</p><p class="pf-l">com projeto entregue</p></div><div class="pf-stat"><p class="pf-n">2</p><p class="pf-l">cases entregues</p></div></div>
       <h2 class="h-xl" style="font-size:1.6rem;margin-top:2.8rem">Produtos com que a Atlas trabalha</h2>
-      <div class="pf-prod">
-        <article class="pf-card">
-          <div class="pf-head"><span class="lg-ring lg-xl"><span class="lg-ico" style="--i:url(../media/logos/oracle.svg);--bc:#C74634"></span></span><h3>Oracle</h3></div>
-          <p>Banco de missão crítica.</p>
-          <div class="pf-meta"><span>Proprietária</span><span>Self-hosted ou nuvem</span></div>
-          <p class="pf-entrega"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg> <span>Projeto entregue pela Atlas</span></p>
-          <p class="pf-entrega-caso">Migração de legado Oracle em projeto de nuvem.</p>
-        </article>
+      <div class="vit reveal d2" id="vit">
+        <div class="vit-nav" role="tablist" aria-label="Produtos do parceiro" style="--vit-g:1"><div class="vit-grp"><ul><li><button class="vit-it" role="tab" id="vt0" aria-controls="vp0" aria-selected="true" type="button"><span class="lg-ring lg-sm"><span class="lg-ico" style="--i:url(../media/logos/oracle.svg);--bc:#C74634"></span></span><span class="t">Oracle</span></button></li></ul></div></div>
+        <div class="vit-stage">
+          <div class="vit-win"><div class="vit-bar"><div class="vit-dots" aria-hidden="true"><i></i><i></i><i></i></div><span class="vt" id="vit-tit"></span><span class="vs">Onde atua no fluxo do dado</span></div><div class="vit-pane on" id="vp0" role="tabpanel" aria-labelledby="vt0"><div class="cv pf-fluxo" data-fios="pfo0>pfb0;pfb0>pfd0"><svg class="wires" aria-hidden="true"></svg><div class="nd pf-no core" id="pfo0"><span class="vit-k">Origem</span><span class="pf-no-l"><span class="lg-ring lg-md"><span class="lg-ico" style="--i:url(../media/logos/oracle.svg);--bc:#C74634"></span></span></span><s class="sk"></s><s class="sk a"></s></div><div class="nd pf-no" id="pfb0"><span class="vit-k">Base de dados</span><s class="sk"></s><s class="sk a"></s></div><div class="nd pf-no" id="pfd0"><span class="vit-k">Dashboards</span><s class="sk"></s><s class="sk a"></s></div></div><p class="vit-cap">Onde o dado nasce: os sistemas que a empresa já usa.</p></div></div>
+          <div class="vit-info on" id="vi0"><div class="pf-meta"><span>Proprietária</span><span>Self-hosted ou nuvem</span></div><h3>Oracle</h3><p>Banco de missão crítica.</p><div class="pf-fichagrid"><div class="pf-f"><b>O que muda para o negócio</b><p>O legado segue de pé enquanto a análise avança.</p></div><div class="pf-f"><b>Quando é a melhor escolha</b><p>Sustentar transação crítica com décadas de ajuste fino.</p></div><div class="pf-f"><b>Para quem</b><p>Core bancário, seguro e industrial de grande porte.</p></div><div class="pf-f"><b>Como a Atlas coloca em produção</b><p>Extração incremental para a nuvem, sem tocar no núcleo.</p></div></div><div class="pf-caso"><span class="pf-caso-k"><svg viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 7"/></svg> <span>Projeto entregue pela Atlas</span></span><p>Migração de legado Oracle em projeto de nuvem.</p></div></div>
+        </div>
       </div>
-      <p class="parc-nota">&#10022; marca os produtos com projeto entregue pela Atlas</p>
       <h2 class="h-xl" style="font-size:1.6rem;margin-top:2.8rem">Cases entregues com Oracle</h2>
       <div class="pf-cases">
         <article class="cc">
@@ -1954,6 +2044,97 @@
       </div>
     </div>
   </section>
+
+<script>
+/* Vitrine interativa: cada entrega com o seu dashboard de exemplo. Só formas, sem dados reais. */
+(function () {
+  var raiz = document.getElementById('vit'); if (!raiz) return;
+  var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NS = 'http://www.w3.org/2000/svg';
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return [].slice.call((r || document).querySelectorAll(s)); }
+  function sem(s) { return function () { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
+  function pressiona(lista, fn) { $$(lista).forEach(function (b) { b.addEventListener('click', function () { fn(b); }); }); }
+  function marca(grupo, atrib, val) { $$(grupo).forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute(atrib) === String(val))); }); }
+  /* Textos que o script escreve depois do carregamento. O motor de idiomas só
+     alcança o que já estava na página, então a vitrine se traduz sozinha:
+     cada texto dinâmico guarda o português em data-pt e é reescrito quando o
+     idioma muda. */
+  function idi() { return window.AtlasI18n ? AtlasI18n.idioma() : 'pt'; }
+  function T(s) { var l = idi(); return l === 'pt' ? s : ((window.ATLAS_I18N && ATLAS_I18N[l] && ATLAS_I18N[l][s]) || s); }
+  function put(el, pt) { el.setAttribute('data-pt', pt); el.textContent = T(pt); el.__pt = pt; }
+  document.addEventListener('atlas:idioma', function () {
+    $$('[data-pt]', raiz).forEach(function (e) { e.textContent = T(e.getAttribute('data-pt')); e.__pt = e.getAttribute('data-pt'); });
+    var n = itens.map(function (a) { return a.getAttribute('aria-selected') === 'true'; }).indexOf(true);
+    if (n > -1) $('#vit-tit').textContent = itens[n].querySelector('.t').textContent;
+  });
+  function caminho(v, w, h, max) { return v.map(function (y, i) { return (i ? 'L' : 'M') + (i * w / (v.length - 1)).toFixed(1) + ' ' + (h - (y / max) * (h - 1) - 0.5).toFixed(1); }).join(' '); }
+
+  /* ---------- fios: ligam um nó a outro, de verdade, e carregam partículas ---------- */
+  function fios(cv) {
+    var svg = $(':scope > .wires', cv); if (!svg) return;
+    var lista = (cv.getAttribute('data-fios') || '').split(';').filter(Boolean);
+    var R = cv.getBoundingClientRect(); if (!R.width) return;
+    svg.setAttribute('viewBox', '0 0 ' + R.width + ' ' + R.height);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    lista.forEach(function (par, n) {
+      var ab = par.split('>'), a = document.getElementById(ab[0]), b = document.getElementById(ab[1]); if (!a || !b) return;
+      var A = a.getBoundingClientRect(), B = b.getBoundingClientRect(); if (!A.width || !B.width) return;
+      var x1 = A.right - R.left, y1 = A.top + A.height / 2 - R.top, x2 = B.left - R.left, y2 = B.top + B.height / 2 - R.top, xm = (x1 + x2) / 2;
+      var d = 'M' + x1.toFixed(1) + ' ' + y1.toFixed(1) + ' C' + xm.toFixed(1) + ' ' + y1.toFixed(1) + ',' + xm.toFixed(1) + ' ' + y2.toFixed(1) + ',' + x2.toFixed(1) + ' ' + y2.toFixed(1);
+      var p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); p.setAttribute('data-par', par); svg.appendChild(p);
+      if (reduz) return;
+      [0, 1].forEach(function (k) {
+        var c = document.createElementNS(NS, 'circle'); c.setAttribute('r', '3.2'); c.setAttribute('data-par', par);
+        var m = document.createElementNS(NS, 'animateMotion'); m.setAttribute('dur', (2.4 + (n % 3) * 0.35).toFixed(2) + 's'); m.setAttribute('repeatCount', 'indefinite');
+        m.setAttribute('begin', '-' + (k * 1.2 + n * 0.17).toFixed(2) + 's'); m.setAttribute('path', d); c.appendChild(m); svg.appendChild(c);
+      });
+    });
+    (cv._rehl || function () {})();
+  }
+  function wireMarca(cv, fn) { cv._rehl = function () { $$('.wires path', cv).forEach(function (p) { p.classList.toggle('hl', !!fn && fn(p.getAttribute('data-par'))); p.classList.toggle('bad', !!(cv._bad && cv._bad(p.getAttribute('data-par')))); }); }; cv._rehl(); }
+
+  /* ---------- navegação: 12 itens ---------- */
+  var itens = $$('.vit-it', raiz), iniciado = {}, INIT = {};
+  function mostra(n, foco) {
+    itens.forEach(function (a, i) {
+      var on = i === n; a.setAttribute('aria-selected', String(on)); a.tabIndex = on ? 0 : -1;
+      var p = document.getElementById('vp' + i), v = document.getElementById('vi' + i); p.hidden = !on; p.classList.toggle('on', on); v.classList.toggle('on', on);
+    });
+    put($('#vit-tit'), itens[n].querySelector('.t').__pt || itens[n].querySelector('.t').textContent);
+    var p = document.getElementById('vp' + n);
+    if (!iniciado[n]) { iniciado[n] = 1; if (INIT[n]) INIT[n](p); }
+    requestAnimationFrame(function () { $$('.cv', p).forEach(fios); if (p._mostrou) p._mostrou(); });
+    if (foco) itens[n].focus();
+  }
+  itens.forEach(function (a, i) {
+    a.addEventListener('click', function () {
+      mostra(i);
+      /* No celular a lista vem antes da tela: leva a pessoa até o dashboard. */
+      if (window.matchMedia('(max-width: 960px)').matches) $('.vit-stage', raiz).scrollIntoView({ behavior: reduz ? 'auto' : 'smooth', block: 'start' });
+    });
+    a.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (!d) return; e.preventDefault(); mostra((i + d + itens.length) % itens.length, true);
+    });
+  });
+  function refaz() { var p = $('.vit-pane.on'); if (p) $$('.cv', p).forEach(fios); }
+  window.addEventListener('resize', refaz);
+  if (window.ResizeObserver) new ResizeObserver(refaz).observe($('.vit-win', raiz));
+
+  /* cada produto: ao passar o mouse num nó do fluxo, o fio que chega a ele acende */
+  $$('.vit-pane', raiz).forEach(function (p, i) {
+    INIT[i] = function () {
+      var cv = $('.cv', p); wireMarca(cv, null);
+      $$('.pf-no', p).forEach(function (n) {
+        n.addEventListener('mouseenter', function () { wireMarca(cv, function (q) { return q.indexOf(n.id) > -1; }); });
+        n.addEventListener('mouseleave', function () { wireMarca(cv, null); });
+      });
+    };
+  });
+
+  mostra(0);
+})();
+</script>
 
 </main>
 
