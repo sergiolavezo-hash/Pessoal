@@ -18,7 +18,7 @@
   .an-plot path { fill: none; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; } .an .base { stroke: var(--line-strong); stroke-width: 2; } .an .run { stroke: var(--accent-light); stroke-width: 2.6; }
   .an-spk, .an-fch { position: absolute; width: .8rem; height: .8rem; margin: -.4rem 0 0 -.4rem; border-radius: 50%; background: #E5575B; box-shadow: 0 0 12px #E5575B; opacity: 0; transition: opacity .3s; } .an-fch { background: var(--accent-quente); box-shadow: 0 0 10px var(--accent-quente); }
   .an-spk.on, .an-fch.on { opacity: 1; }
-  .an-al { position: absolute; transform: translate(-50%, -150%); padding: .15rem .5rem; border-radius: 999px; background: #E5575B; color: #fff; font-size: .66rem; font-family: var(--mono); letter-spacing: .06em; text-transform: uppercase; opacity: 0; transition: opacity .3s; white-space: nowrap; } .an-al.late { background: #B26B14; } .an-al.on { opacity: 1; }
+  .an-al { position: absolute; transform: translate(-50%, -150%); padding: .15rem .5rem; border-radius: 999px; background: #E5575B; color: #fff; font-size: .66rem; font-family: var(--mono); letter-spacing: .06em; text-transform: uppercase; opacity: 0; transition: opacity .3s; white-space: nowrap; } .an-al.late { background: #B26B14; transform: translate(-100%, -150%); } .an-al.on { opacity: 1; }
   .an-axis { display: flex; justify-content: space-between; font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
   /* 3 genai */
   .ga { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: stretch; min-height: 14rem; }

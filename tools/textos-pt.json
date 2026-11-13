@@ -1,5 +1,5 @@
 {
- "total": 1069,
+ "total": 1123,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -3087,6 +3087,291 @@
    "cls": "pag-tec"
   },
   {
+   "chave": "Falar sobre IA &amp; Automação <span class=\"arr\">→</span>",
+   "tag": "a",
+   "cls": "btn btn-accent"
+  },
+  {
+   "chave": "IA sobre a sua própria base. Escolha uma entrega e veja como ela funciona na prática: clique, alterne e compare.",
+   "tag": "p",
+   "cls": "sub reveal d2"
+  },
+  {
+   "chave": "Prever e detectar",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Conversar, ler e automatizar",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Prever",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Demanda",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Ruptura",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Risco",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Churn",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "<b>Ainda dá tempo de agir</b>",
+   "tag": "span",
+   "cls": "pv-act"
+  },
+  {
+   "chave": "<span class=\"l1\">Histórico da operação</span><span class=\"l2\">Previsão</span>",
+   "tag": "div",
+   "cls": "pv-leg"
+  },
+  {
+   "chave": "Aprende com o histórico da operação e estima a demanda enquanto ainda dá tempo de agir.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "Antes de aprender",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Depois de aprender",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "↻ Treinar de novo",
+   "tag": "button",
+   "cls": "vit-chip push"
+  },
+  {
+   "chave": "Só no fechamento do mês",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "No momento em que acontece",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "▶ Reproduzir",
+   "tag": "button",
+   "cls": "vit-chip push"
+  },
+  {
+   "chave": "Alerta",
+   "tag": "span",
+   "cls": "an-al"
+  },
+  {
+   "chave": "<span>Início do mês</span><span>Fechamento do mês</span>",
+   "tag": "div",
+   "cls": "an-axis"
+  },
+  {
+   "chave": "Pergunte sobre",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Resposta",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "De onde veio",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Documento",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Contrato",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Nota",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Relatório",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "↻ Ler de novo",
+   "tag": "button",
+   "cls": "vit-chip push"
+  },
+  {
+   "chave": "Documento em PDF",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Dado consultável",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Passando de mão em mão",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Automatizado",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Tempo até concluir",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Escolha o que prever.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Modelos que aprendem com os dados da sua operação, em vez de regras escritas à mão.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Compare antes e depois de aprender.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Alterne entre o fechamento do mês e o momento em que acontece.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Escolha uma área e passe o mouse sobre a resposta.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Escolha o tipo de documento.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Tarefas repetitivas que passam a rodar sozinhas, em vez de passar de mão em mão.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Compare as duas formas e execute.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Entendimento",
+   "tag": "h3",
+   "cls": "tl-t"
+  },
+  {
+   "chave": "Que decisão a IA precisa melhorar e com que dado ela conta hoje.",
+   "tag": "p",
+   "cls": "tl-d"
+  },
+  {
+   "chave": "Base",
+   "tag": "h3",
+   "cls": "tl-t"
+  },
+  {
+   "chave": "O dado que já existe, organizado para o modelo conseguir ler.",
+   "tag": "p",
+   "cls": "tl-d"
+  },
+  {
+   "chave": "O modelo ou o agente, treinado e testado sobre a sua própria base.",
+   "tag": "p",
+   "cls": "tl-d"
+  },
+  {
+   "chave": "No ar, dentro do processo, com acompanhamento do que ele entrega.",
+   "tag": "p",
+   "cls": "tl-d"
+  },
+  {
+   "chave": "<span>Educação</span><span>Machine Learning</span><span>Modelos preditivos</span>",
+   "tag": "div",
+   "cls": "case-meta"
+  },
+  {
+   "chave": "A evasão só era constatada depois de acontecer, quando já não havia ação possível. Os dados educacionais existiam, mas descreviam o passado em vez de apontar risco.",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "Centenas de dashboards educacionais somados a modelos preditivos que estimam risco de evasão a tempo de apoiar ações preventivas.",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "GCP, Cloud Composer, Power BI, Analytics, Machine Learning, BI",
+   "tag": "dd",
+   "cls": ""
+  },
+  {
+   "chave": "<b>Constatada → Antecipada</b><span>a evasão deixou de ser constatada depois de acontecer e passou a ser estimada a tempo de agir</span>",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Quero avaliar um caso de uso <span class=\"arr\">→</span>",
+   "tag": "a",
+   "cls": "btn btn-line"
+  },
+  {
+   "chave": "Entregas de IA e Automação",
+   "tag": "@aria-label",
+   "cls": "vit-nav"
+  },
+  {
+   "chave": "Estado do modelo",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Quando o desvio aparece",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Como o processo roda",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
    "chave": "Pessoas &amp; Alocação",
    "tag": "span",
    "cls": "eyebrow reveal in"
@@ -3198,11 +3483,6 @@
   },
   {
    "chave": "Pipeline",
-   "tag": "small",
-   "cls": ""
-  },
-  {
-   "chave": "Base",
    "tag": "small",
    "cls": ""
   },
@@ -3525,11 +3805,6 @@
    "chave": "Percorra as fases do projeto.",
    "tag": "p",
    "cls": "hint"
-  },
-  {
-   "chave": "Entendimento",
-   "tag": "h3",
-   "cls": "tl-t"
   },
   {
    "chave": "Que perfil, que senioridade e para qual etapa do roadmap.",
@@ -4199,11 +4474,6 @@
   {
    "chave": "Os dados educacionais existiam, mas descreviam o passado em vez de apontar risco.",
    "tag": "li",
-   "cls": ""
-  },
-  {
-   "chave": "Centenas de dashboards educacionais somados a modelos preditivos que estimam risco de evasão a tempo de apoiar ações preventivas.",
-   "tag": "p",
    "cls": ""
   },
   {

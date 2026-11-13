@@ -16,6 +16,7 @@ on:
       - robots.txt
       - bi-analytics.html
       - data-engineering.html
+      - ia-automacao.html
       - alocacao.html
       - cases-de-sucesso.html
       - cases/**
@@ -50,7 +51,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p /tmp/site/media
-          cp index.html 404.html privacidade.html atlas.html bi-analytics.html data-engineering.html alocacao.html cases-de-sucesso.html robots.txt sitemap.xml llms.txt favicon.svg favicon.ico favicon-32.png apple-touch-icon.png /tmp/site/
+          cp index.html 404.html privacidade.html atlas.html bi-analytics.html data-engineering.html ia-automacao.html alocacao.html cases-de-sucesso.html robots.txt sitemap.xml llms.txt favicon.svg favicon.ico favicon-32.png apple-touch-icon.png /tmp/site/
           mkdir -p /tmp/site/.well-known && cp .well-known/security.txt /tmp/site/.well-known/
           mkdir -p /tmp/site/cases && cp cases/*.html /tmp/site/cases/
           mkdir -p /tmp/site/parceiros && cp parceiros/*.html /tmp/site/parceiros/

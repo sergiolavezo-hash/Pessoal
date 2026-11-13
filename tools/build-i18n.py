@@ -1504,6 +1504,70 @@ EXTRAS_VITRINE |= {
   'Planejar', 'Executar', 'Revisar', 'Entregar',
 }
 
+# ---------------- Página IA & Automação (ia-automacao.html) ----------------
+TRAD.update({
+  'IA sobre a sua própria base. Escolha uma entrega e veja como ela funciona na prática: clique, alterne e compare.':
+    ('AI on your own data. Pick a deliverable and see how it works in practice: click, switch and compare.', 'IA sobre su propia base. Elija una entrega y vea cómo funciona en la práctica: haga clic, alterne y compare.'),
+  'Entregas de IA e Automação': ('AI & Automation deliverables', 'Entregas de IA y Automatización'),
+  'Prever e detectar': ('Predict and detect', 'Predecir y detectar'), 'Conversar, ler e automatizar': ('Converse, read and automate', 'Conversar, leer y automatizar'),
+  'Escolha o que prever.': ('Pick what to predict.', 'Elija qué predecir.'),
+  'Alterne entre o fechamento do mês e o momento em que acontece.': ('Switch between month-end close and the moment it happens.', 'Alterne entre el cierre del mes y el momento en que ocurre.'),
+  'Modelos que aprendem com os dados da sua operação, em vez de regras escritas à mão.': ('Models that learn from your operation’s data, instead of hand-written rules.', 'Modelos que aprenden de los datos de su operación, en lugar de reglas escritas a mano.'),
+  'Compare antes e depois de aprender.': ('Compare before and after learning.', 'Compare antes y después de aprender.'),
+  'Escolha uma área e passe o mouse sobre a resposta.': ('Pick an area and hover over the answer.', 'Elija un área y pase el mouse sobre la respuesta.'),
+  'Escolha o tipo de documento.': ('Pick the document type.', 'Elija el tipo de documento.'),
+  'Tarefas repetitivas que passam a rodar sozinhas, em vez de passar de mão em mão.': ('Repetitive tasks that start running on their own, instead of being passed from hand to hand.', 'Tareas repetitivas que pasan a correr solas, en lugar de pasar de mano en mano.'),
+  'Compare as duas formas e execute.': ('Compare both ways and run it.', 'Compare las dos formas y ejecute.'),
+  'Prever': ('Predict', 'Predecir'), 'Demanda': ('Demand', 'Demanda'), 'Ruptura': ('Stock-out', 'Ruptura de stock'), 'Risco': ('Risk', 'Riesgo'), 'Churn': ('Churn', 'Churn'),
+  '<b>Ainda dá tempo de agir</b>': ('<b>Still time to act</b>', '<b>Aún hay tiempo de actuar</b>'),
+  '<span class="l1">Histórico da operação</span><span class="l2">Previsão</span>': ('<span class="l1">Operation history</span><span class="l2">Forecast</span>', '<span class="l1">Historial de la operación</span><span class="l2">Previsión</span>'),
+  'Estado do modelo': ('Model state', 'Estado del modelo'), 'Antes de aprender': ('Before learning', 'Antes de aprender'), 'Depois de aprender': ('After learning', 'Después de aprender'),
+  '↻ Treinar de novo': ('↻ Train again', '↻ Entrenar de nuevo'),
+  'Quando o desvio aparece': ('When the deviation shows up', 'Cuándo aparece el desvío'), 'Só no fechamento do mês': ('Only at month-end close', 'Solo en el cierre del mes'), 'No momento em que acontece': ('The moment it happens', 'En el momento en que ocurre'),
+  '▶ Reproduzir': ('▶ Replay', '▶ Reproducir'), 'Alerta': ('Alert', 'Alerta'),
+  '<span>Início do mês</span><span>Fechamento do mês</span>': ('<span>Start of month</span><span>Month-end close</span>', '<span>Inicio del mes</span><span>Cierre del mes</span>'),
+  'Pergunte sobre': ('Ask about', 'Pregunte sobre'), 'Resposta': ('Answer', 'Respuesta'), 'De onde veio': ('Where it came from', 'De dónde vino'),
+  'Documento': ('Document', 'Documento'), 'Contrato': ('Contract', 'Contrato'), 'Nota': ('Invoice', 'Factura'), 'Relatório': ('Report', 'Informe'), '↻ Ler de novo': ('↻ Read again', '↻ Leer de nuevo'),
+  'Documento em PDF': ('PDF document', 'Documento en PDF'), 'Dado consultável': ('Queryable data', 'Dato consultable'),
+  'Como o processo roda': ('How the process runs', 'Cómo corre el proceso'), 'Passando de mão em mão': ('Passed from hand to hand', 'Pasando de mano en mano'), 'Automatizado': ('Automated', 'Automatizado'),
+  'Tempo até concluir': ('Time to complete', 'Tiempo hasta concluir'),
+  # dinâmicos
+  'Aprende com o histórico da operação e estima a demanda enquanto ainda dá tempo de agir.': ('Learns from the operation’s history and estimates demand while there is still time to act.', 'Aprende del historial de la operación y estima la demanda mientras aún hay tiempo de actuar.'),
+  'Antecipa a ruptura antes de ela acontecer, com a janela para repor.': ('Anticipates the stock-out before it happens, with a window to replenish.', 'Anticipa la ruptura de stock antes de que ocurra, con la ventana para reponer.'),
+  'Estima o risco enquanto ainda dá para agir sobre ele.': ('Estimates risk while there is still time to act on it.', 'Estima el riesgo mientras aún se puede actuar sobre él.'),
+  'Aponta quem tende a sair antes de sair.': ('Points out who tends to leave before they leave.', 'Señala quién tiende a irse antes de que se vaya.'),
+  'Depois de aprender com o histórico, o modelo separa o que importa: padrões que ninguém escreveu como regra.': ('After learning from the history, the model separates what matters: patterns nobody wrote as a rule.', 'Después de aprender del historial, el modelo separa lo que importa: patrones que nadie escribió como regla.'),
+  'Antes de aprender, os dados da operação são só pontos soltos, sem padrão visível.': ('Before learning, the operation’s data is just scattered points, with no visible pattern.', 'Antes de aprender, los datos de la operación son solo puntos sueltos, sin patrón visible.'),
+  'O desvio é apontado no instante em que acontece: dá para agir enquanto ainda importa.': ('The deviation is flagged the instant it happens: you can act while it still matters.', 'El desvío se señala en el instante en que ocurre: se puede actuar mientras aún importa.'),
+  'O desvio só aparece no fechamento do mês, quando o estrago já foi feito.': ('The deviation only shows up at month-end close, when the damage is already done.', 'El desvío solo aparece en el cierre del mes, cuando el daño ya está hecho.'),
+  'A resposta vem com o contexto: de qual fonte e de qual modelo o número saiu.': ('The answer comes with context: which source and which model the number came from.', 'La respuesta viene con contexto: de qué fuente y de qué modelo salió el número.'),
+  'A pergunta em linguagem natural volta como número, com o contexto de onde ele veio.': ('The question in natural language comes back as a number, with the context of where it came from.', 'La pregunta en lenguaje natural vuelve como número, con el contexto de dónde vino.'),
+  'O contrato é lido e as informações que importam viram campos.': ('The contract is read and the information that matters becomes fields.', 'El contrato se lee y la información que importa se convierte en campos.'),
+  'A nota é lida e os campos saem prontos para consulta.': ('The invoice is read and the fields come out ready to query.', 'La factura se lee y los campos salen listos para consultar.'),
+  'O relatório é lido e o que estava no texto vira dado.': ('The report is read and what was in the text becomes data.', 'El informe se lee y lo que estaba en el texto se vuelve dato.'),
+  'Automatizado, cada etapa dispara a seguinte na hora: sem espera, sem fila e sem retrabalho.': ('Automated, each step triggers the next one right away: no waiting, no queue and no rework.', 'Automatizado, cada etapa dispara la siguiente al instante: sin espera, sin fila y sin retrabajo.'),
+  'Passando de mão em mão, cada etapa espera alguém ver, abrir e fazer: o processo anda no ritmo da fila.': ('Passed from hand to hand, each step waits for someone to see, open and do it: the process moves at the pace of the queue.', 'Pasando de mano en mano, cada etapa espera que alguien vea, abra y haga: el proceso avanza al ritmo de la fila.'),
+  # página
+  'Que decisão a IA precisa melhorar e com que dado ela conta hoje.': ('Which decision AI needs to improve and what data it has to work with today.', 'Qué decisión debe mejorar la IA y con qué dato cuenta hoy.'),
+  'O dado que já existe, organizado para o modelo conseguir ler.': ('The data that already exists, organized so the model can read it.', 'El dato que ya existe, organizado para que el modelo pueda leerlo.'),
+  'O modelo ou o agente, treinado e testado sobre a sua própria base.': ('The model or agent, trained and tested on your own data.', 'El modelo o el agente, entrenado y probado sobre su propia base.'),
+  'No ar, dentro do processo, com acompanhamento do que ele entrega.': ('Live, inside the process, with follow-up on what it delivers.', 'En producción, dentro del proceso, con seguimiento de lo que entrega.'),
+  'Falar sobre IA &amp; Automação <span class="arr">→</span>': ('Talk about AI &amp; Automation <span class="arr">→</span>', 'Hablar sobre IA &amp; Automatización <span class="arr">→</span>'),
+  'Quero avaliar um caso de uso <span class="arr">→</span>': ('I want to assess a use case <span class="arr">→</span>', 'Quiero evaluar un caso de uso <span class="arr">→</span>'),
+  'A evasão só era constatada depois de acontecer, quando já não havia ação possível. Os dados educacionais existiam, mas descreviam o passado em vez de apontar risco.':
+    ('Dropout was only noticed after it happened, when no action was possible anymore. The educational data existed, but it described the past instead of pointing to risk.',
+     'La deserción solo se constataba después de ocurrir, cuando ya no había acción posible. Los datos educativos existían, pero describían el pasado en lugar de señalar riesgo.'),
+  'Constatada → Antecipada': ('Noticed → Anticipated', 'Constatada → Anticipada'),
+})
+EXTRAS_VITRINE |= {
+  'Aprende com o histórico da operação e estima a demanda enquanto ainda dá tempo de agir.', 'Antecipa a ruptura antes de ela acontecer, com a janela para repor.', 'Estima o risco enquanto ainda dá para agir sobre ele.', 'Aponta quem tende a sair antes de sair.',
+  'Depois de aprender com o histórico, o modelo separa o que importa: padrões que ninguém escreveu como regra.', 'Antes de aprender, os dados da operação são só pontos soltos, sem padrão visível.',
+  'O desvio é apontado no instante em que acontece: dá para agir enquanto ainda importa.', 'O desvio só aparece no fechamento do mês, quando o estrago já foi feito.',
+  'A resposta vem com o contexto: de qual fonte e de qual modelo o número saiu.', 'A pergunta em linguagem natural volta como número, com o contexto de onde ele veio.',
+  'O contrato é lido e as informações que importam viram campos.', 'A nota é lida e os campos saem prontos para consulta.', 'O relatório é lido e o que estava no texto vira dado.',
+  'Automatizado, cada etapa dispara a seguinte na hora: sem espera, sem fila e sem retrabalho.', 'Passando de mão em mão, cada etapa espera alguém ver, abrir e fazer: o processo anda no ritmo da fila.',
+}
+
 TERMOS = {
   # setores
   'Bancário': ('Banking', 'Banca'),

@@ -66,9 +66,6 @@ def extrair(html):
     script = html[ini:fim].strip()
     if 'Mega-menu' not in script:
         sys.exit('o bloco de scripts não inclui o mega-menu — a fatia saiu errada')
-    # A vitrine de IA mora só na home (entre marcadores): as outras páginas
-    # têm a sua e não podem herdar a da home.
-    script = re.sub(r'<!-- vitrine-ia:js -->.*?<!-- /vitrine-ia:js -->', '', script, flags=re.S)
     return dict(estilo=estilo, header=header, menu=menu, rodape=rodape,
                 topo=topo, chat=chat.rstrip(), script=script,
                 boot=boot)

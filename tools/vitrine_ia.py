@@ -16,8 +16,8 @@ SUB = 'IA sobre a sua própria base. Escolha uma entrega e veja como ela funcion
 ARIA = 'Entregas de IA e Automação'
 
 
-def secao(interno=False):
-    return vitrine_core.secao(GRUPOS, P, SUB, ARIA, aba_id='perfis', interno=interno)
+def secao():
+    return vitrine_core.secao(GRUPOS, P, SUB, ARIA, aba_id='perfis')
 
 
 def css():
