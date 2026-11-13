@@ -16,6 +16,8 @@ import pathlib
 import re
 import sys
 
+import vitrine_bi
+
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 BASE = RAIZ / 'index.html'
 SITE = 'https://atlas-partner.com'
@@ -422,6 +424,13 @@ def montar(pag, comum):
                   tecs=bloco_tec(pag['tecnologias']), prova=prova,
                   titulo_prova=titulo_prova, cta2=pag['cta2'])
     corpo = corpo.replace('@TALENTO@', TALENTO if pag.get('talento') else '')
+    # Analytics & BI troca os três cartões de texto por uma vitrine interativa.
+    vitrine_css = vitrine_js = ''
+    if pag['arquivo'] == 'bi-analytics.html':
+        corpo, n = re.subn(r'  <section class="sec" id="perfis">.*?</section>', lambda m: vitrine_bi.secao(), corpo, count=1, flags=re.S)
+        if n != 1:
+            sys.exit('não encontrei a seção #perfis para trocar pela vitrine de BI')
+        vitrine_css, vitrine_js = vitrine_bi.css(), vitrine_bi.js()
 
     extra = '''<style>
   /* Ajustes próprios das páginas de serviço. O resto vem do index.html. */
@@ -504,6 +513,7 @@ def montar(pag, comum):
 </script>
 %(estilo)s
 %(extra)s
+%(vcss)s
 </head>
 <body>
 %(topo)s
@@ -517,9 +527,10 @@ def montar(pag, comum):
 %(rodape)s
 %(chat)s
 %(script)s
+%(vjs)s
 </body>
 </html>
-''' % dict(titulo=pag['titulo'], meta=pag['meta'], url=url, site=SITE,
+''' % dict(vcss=vitrine_css, vjs=vitrine_js, titulo=pag['titulo'], meta=pag['meta'], url=url, site=SITE,
            estilo=comum['estilo'], extra=extra, header=comum['header'],
            topo=comum['topo'],
            menu=comum['menu'], corpo=corpo, rodape=comum['rodape'],

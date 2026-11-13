@@ -1715,6 +1715,199 @@
     .tal-grid { grid-template-columns: 1fr; gap: 1.8rem; }
   }
 </style>
+<style>
+  /* ===== Vitrine de BI v2: 12 produtos, cada um com seu dashboard ===== */
+  .vit { --vit-on: #1D6FE3; display: grid; grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 1.6rem; margin-top: 2.4rem; align-items: start; }
+  .vit-nav { display: grid; gap: 1.1rem; position: sticky; top: 6.5rem; }
+  .vit-grp > .vit-k { display: flex; align-items: center; gap: .5rem; margin: 0 0 .45rem .2rem; color: var(--accent-light); }
+  .vit-grp > .vit-k::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line-strong), transparent); }
+  .vit-grp ul { list-style: none; display: grid; gap: .3rem; padding: 0; margin: 0; }
+  .vit-it { display: grid; grid-template-columns: 1.9rem 1fr; gap: .65rem; align-items: center; width: 100%; text-align: left; font: inherit; color: var(--muted);
+    padding: .5rem .65rem; border-radius: 12px; border: 1px solid transparent; background: none; cursor: pointer; transition: border-color .25s, background .25s, color .25s, transform .25s; }
+  .vit-it .tile-ico { width: 1.9rem; height: 1.9rem; border-radius: 9px; }
+  .vit-it .tile-ico svg { width: 1rem; height: 1rem; }
+  .vit-it span.t { font-size: .88rem; line-height: 1.3; font-family: var(--display); font-weight: 500; }
+  .vit-it:hover { color: var(--ink); background: var(--panel-2); transform: translateX(2px); }
+  .vit-it:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .vit-it[aria-selected="true"] { color: var(--ink); border-color: var(--accent); background: linear-gradient(90deg, rgba(46,134,255,.16), transparent 85%), var(--panel-2); box-shadow: 0 8px 24px -14px rgba(46,134,255,.7); }
+  .vit-it[aria-selected="true"] .tile-ico { background: var(--accent); border-color: var(--accent); } .vit-it[aria-selected="true"] .tile-ico svg { stroke: #fff; }
+  .vit-stage { min-width: 0; scroll-margin-top: 5.5rem; }
+  .vit-win { position: relative; border: 1px solid var(--line-strong); border-radius: 18px; overflow: hidden; background: var(--panel); box-shadow: var(--sombra), 0 0 0 1px rgba(46,134,255,.06);
+    background-image: radial-gradient(circle at 88% -10%, rgba(46,134,255,.22), transparent 46%), radial-gradient(circle at 0% 110%, rgba(111,212,255,.12), transparent 42%); }
+  .vit-win::after { content: ""; position: absolute; right: 0; bottom: 0; width: 46%; height: 42%; pointer-events: none; opacity: .55;
+    background: radial-gradient(circle, var(--accent) 1px, transparent 1.6px) 0 0 / 13px 13px; -webkit-mask: linear-gradient(135deg, transparent 45%, #000); mask: linear-gradient(135deg, transparent 45%, #000);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+  .vit-bar { position: relative; z-index: 2; display: flex; align-items: center; gap: .45rem; padding: .65rem .95rem; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--panel-2) 80%, transparent); backdrop-filter: blur(8px); }
+  .vit-dots { display: flex; align-items: center; gap: .45rem; }
+  .cat-tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .vit-bar i { width: .6rem; height: .6rem; border-radius: 50%; background: var(--line-strong); display: block; }
+  .vit-bar .vt { margin-left: .5rem; font-family: var(--display); font-weight: 600; font-size: .82rem; color: var(--ink); }
+  .vit-bar .vs { margin-left: auto; font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; text-align: right; }
+  .vit-pane { position: relative; z-index: 1; display: none; padding: 1.15rem 1.15rem 1.4rem; min-height: 22rem; }
+  .vit-pane.on { display: block; animation: vit-in .45s ease both; }
+  @keyframes vit-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .cv { position: relative; }
+  .wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 0; }
+  .wires path { fill: none; stroke: var(--accent); stroke-opacity: .38; stroke-width: 1.6; transition: stroke-opacity .25s, stroke-width .25s; }
+  .wires path.hl { stroke-opacity: 1; stroke-width: 2.4; filter: drop-shadow(0 0 5px var(--accent)); }
+  .wires path.bad { stroke: #E5575B; stroke-dasharray: 3 6; stroke-opacity: .7; }
+  .wires circle { fill: var(--accent-light); filter: drop-shadow(0 0 4px var(--accent-light)); }
+  .wires.off circle { display: none; }
+  .vit-ctl { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: .95rem; }
+  .vit-ctl .push { margin-left: auto; }
+  .vit-seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--panel-2); }
+  .vit-seg button, .vit-chip { font: inherit; font-size: .8rem; color: var(--muted); background: none; border: 0; border-radius: 999px; padding: .35rem .85rem; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+  .vit-seg button[aria-pressed="true"] { background: var(--vit-on); color: #fff; }
+  .vit-chip { border: 1px solid var(--line); background: var(--panel); }
+  .vit-chip:hover { border-color: rgba(46,134,255,.5); color: var(--ink); }
+  .vit-chip[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: rgba(46,134,255,.14); }
+  .vit-seg button:focus-visible, .vit-chip:focus-visible, .nd:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .vit-k { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .vit-cap { position: relative; z-index: 1; margin-top: 1rem; color: var(--muted); font-size: .86rem; min-height: 1.4em; }
+  /* nós de vidro */
+  .nd { position: relative; z-index: 1; border: 1px solid var(--line-strong); border-radius: 12px; padding: .6rem .7rem; display: grid; gap: .38rem;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--panel-2) 92%, transparent), color-mix(in srgb, var(--panel) 80%, transparent)); backdrop-filter: blur(6px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06); transition: border-color .25s, box-shadow .25s, opacity .3s, transform .3s; }
+  .nd.hl, button.nd:hover, .nd[tabindex]:hover, .nd:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, 0 0 26px -8px rgba(46,134,255,.8); }
+  .nd.dim { opacity: .35; }
+  .nd.core { border-color: var(--accent); background: linear-gradient(160deg, rgba(46,134,255,.2), transparent 75%), var(--panel-2); }
+  .sk { display: block; height: .42rem; border-radius: 4px; background: var(--line-strong); opacity: .75; text-decoration: none; }
+  .sk.a { width: 62%; } .sk.b { width: 80%; } .sk.c { width: 38%; background: var(--accent); opacity: .85; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; padding: .15rem .45rem; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--muted); }
+  .tag.ok { border-color: var(--accent-verde); color: color-mix(in srgb, var(--accent-verde) 62%, var(--ink)); } .tag.ac { border-color: var(--accent); color: var(--accent-light); }
+  .spark { height: 1.5rem; width: 100%; display: block; } .spark path { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ico-s { width: 1.1rem; height: 1.1rem; stroke: var(--accent-light); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  /* 1 pipeline */
+  .flow { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 3.2rem; align-items: center; }
+  .flow-col { display: grid; gap: .6rem; align-content: center; } .flow-col > .vit-k { color: var(--accent-light); }
+  .src { grid-template-columns: 1.4rem 1fr; align-items: center; column-gap: .6rem; } .src .sk { grid-column: 2; }
+  .star { display: grid; grid-template-columns: repeat(3, 1fr); gap: .4rem; margin-top: .2rem; }
+  .star i { height: 1.5rem; border-radius: 7px; border: 1px solid var(--line-strong); background: var(--panel); display: block; transition: background .25s, border-color .25s; }
+  .star i.f { background: var(--accent); border-color: var(--accent); } .nd.core.hl .star i { border-color: var(--accent-light); }
+  .nd.core b { font-family: var(--display); font-size: .92rem; text-align: center; }
+  /* 2 definição única */
+  .def { display: grid; grid-template-columns: .9fr 1.4fr; gap: 3.2rem; align-items: center; }
+  .def-pan { display: grid; gap: .6rem; } .def-bars { display: flex; align-items: flex-end; gap: .35rem; height: 3.4rem; }
+  .def-bars i { flex: 1; background: linear-gradient(var(--accent-light), var(--accent)); border-radius: 4px 4px 0 0; height: var(--h); transition: height .7s cubic-bezier(.2,.8,.2,1); display: block; }
+  .def-pan .nd[data-erro="1"] .def-bars i:nth-child(2) { background: #E5575B; }
+  /* 3 versionada */
+  .ver { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.4rem; align-items: start; }
+  .ver-line { display: flex; align-items: center; gap: 0; position: relative; padding: 1.2rem .4rem 2.6rem; }
+  .ver-line::before { content: ""; position: absolute; left: .8rem; right: .8rem; top: 50%; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); opacity: .5; transform: translateY(-50%); }
+  .ver-line::after { content: ""; position: absolute; top: 50%; left: .8rem; width: .55rem; height: .55rem; border-radius: 50%; background: var(--accent-light); box-shadow: 0 0 10px var(--accent-light); transform: translateY(-50%); animation: ver-run 3.6s linear infinite; }
+  @keyframes ver-run { to { left: calc(100% - 1.4rem); } }
+  .ver-v { position: relative; z-index: 1; flex: 1; display: grid; place-items: center; }
+  .ver-v button { font: inherit; font-family: var(--mono); font-size: .78rem; width: 2.7rem; height: 2.7rem; border-radius: 50%; border: 1px solid var(--line-strong); background: var(--panel-2); color: var(--ink); cursor: pointer; transition: all .25s; }
+  .ver-v button:hover { border-color: var(--accent); } .ver-v button[aria-pressed="true"] { background: var(--vit-on); border-color: var(--vit-on); color: #fff; box-shadow: 0 0 0 5px rgba(46,134,255,.25); }
+  .ver-v small { position: absolute; top: 3.1rem; font-size: .62rem; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+  .code { font-family: var(--mono); font-size: .74rem; display: grid; gap: .3rem; }
+  .code span { display: flex; align-items: center; gap: .5rem; padding: .18rem .45rem; border-radius: 6px; border-left: 2px solid transparent; }
+  .code .add { background: rgba(47,182,164,.14); border-color: var(--accent-verde); } .code .del { background: rgba(229,87,91,.12); border-color: #E5575B; text-decoration: line-through; opacity: .75; }
+  .code s { display: block; height: .42rem; border-radius: 4px; background: var(--line-strong); text-decoration: none; }
+  /* 4 catálogo */
+  .cat { display: grid; grid-template-columns: 1.1fr 1fr; gap: 1.2rem; }
+  .cat-list { display: grid; gap: .5rem; align-content: start; }
+  .cat-i { grid-template-columns: 1fr auto; align-items: center; cursor: pointer; text-align: left; font: inherit; color: inherit; }
+  .cat-i[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+  .cat-i.off { display: none; }
+  .cat-d { align-content: start; gap: .7rem; }
+  .chain { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; } .chain .tag { padding: .3rem .6rem; }
+  .chain em { font-style: normal; color: var(--accent-light); }
+  /* 5 dashboard */
+  .db { display: grid; gap: .8rem; position: relative; z-index: 1; }
+  .db-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem; }
+  .db-kpi { padding: .7rem; } .db-kpi .sk { width: 55%; } .db-kpi svg { width: 100%; height: 1.7rem; display: block; }
+  .db-kpi path { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .db-kpi:nth-child(2) path { stroke: var(--accent-verde); } .db-kpi:nth-child(3) path { stroke: var(--accent-quente); } .db-kpi:nth-child(4) path { stroke: var(--accent-light); }
+  .db-main { display: grid; grid-template-columns: 1.6fr 1fr; gap: .8rem; } .db-card { padding: .8rem; min-width: 0; }
+  .bars { display: flex; align-items: flex-end; gap: .45rem; height: 9rem; margin-top: .6rem; }
+  .bars i { flex: 1; border-radius: 5px 5px 0 0; background: linear-gradient(var(--accent-light), var(--accent)); height: var(--h, 40%); transition: height .6s cubic-bezier(.2,.8,.2,1), filter .2s, opacity .2s; cursor: pointer; display: block; }
+  .bars:hover i:not(:hover) { opacity: .45; } .bars i:hover { filter: brightness(1.2); }
+  .line { width: 100%; height: 3.2rem; display: block; margin-top: .5rem; } .line path.l { fill: none; stroke: var(--accent-verde); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; } .line path.a { fill: var(--accent-verde); opacity: .14; }
+  .don { display: grid; place-items: center; padding: .4rem 0; } .don svg { width: 7.5rem; height: 7.5rem; transform: rotate(-90deg); }
+  .don circle { fill: none; stroke-width: 6; transition: stroke-dasharray .7s cubic-bezier(.2,.8,.2,1), stroke-dashoffset .7s; }
+  .leg { display: flex; gap: .8rem; justify-content: center; margin-top: .4rem; font-size: .72rem; color: var(--muted); } .leg div::before { content: ""; display: inline-block; width: .55rem; height: .55rem; border-radius: 50%; margin-right: .3rem; background: var(--c); }
+  .db-oper { display: none; gap: .5rem; } .db[data-vis="oper"] .db-main { display: none; } .db[data-vis="oper"] .db-oper { display: grid; }
+  .db[data-vis="oper"] .db-kpis { grid-template-columns: repeat(3, 1fr); } .db[data-vis="oper"] .db-kpi:nth-child(4) { display: none; }
+  .row { grid-template-columns: .7rem 1fr 40%; align-items: center; gap: .8rem; padding: .5rem .8rem; border-radius: 10px; }
+  .row b { width: .55rem; height: .55rem; border-radius: 50%; background: var(--c, var(--accent-verde)); display: block; box-shadow: 0 0 8px var(--c, var(--accent-verde)); } .row .sk { width: 60%; }
+  .row u { display: block; height: .5rem; border-radius: 4px; background: var(--line); overflow: hidden; } .row u i { display: block; height: 100%; width: var(--w, 50%); background: var(--accent); border-radius: 4px; transition: width .6s cubic-bezier(.2,.8,.2,1); }
+  /* 6 self-service */
+  .ss { display: grid; grid-template-columns: 11.5rem 1fr; gap: 1rem; position: relative; z-index: 1; }
+  .ss-f { align-content: start; gap: .5rem; } .ss-f .vit-k { margin-top: .3rem; } .ss-f .vit-chip { text-align: left; border-radius: 9px; }
+  .ss-o { padding: .9rem; min-height: 14rem; display: grid; align-content: space-between; }
+  .ss-o svg.big { width: 100%; height: 11rem; display: block; } .ss-o .bars { height: 11rem; } .ss-o .bars i { transition: height .6s cubic-bezier(.2,.8,.2,1), background .3s; }
+  /* 7 padrão visual */
+  .pv { display: grid; grid-template-columns: 1fr 11.5rem; gap: 1rem; position: relative; z-index: 1; }
+  .pv-mock { position: relative; padding: 1rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+  .pv-mock .tile { height: 3.2rem; border-radius: 9px; background: var(--p1); opacity: .9; transition: background .4s; } .pv-mock .tile:nth-child(2) { background: var(--p2); } .pv-mock .tile:nth-child(3) { background: var(--p3); }
+  .pv-mock .wide { grid-column: 1 / -1; height: 6rem; border-radius: 9px; border: 1px solid var(--line-strong); padding: .6rem; display: flex; align-items: flex-end; gap: .4rem; }
+  .pv-mock .wide i { flex: 1; border-radius: 4px 4px 0 0; background: var(--p1); height: var(--h); transition: background .4s; display: block; } .pv-mock .wide i:nth-child(3n) { background: var(--p2); } .pv-mock .wide i:nth-child(4n) { background: var(--p3); }
+  .pv-mock .guia { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .35s; }
+  .pv-mock.g .guia.g1 { opacity: 1; background: repeating-linear-gradient(90deg, rgba(229,87,91,.16) 0 calc((100% - 11 * .8rem) / 12), transparent 0 calc((100% - 11 * .8rem) / 12 + .8rem)); inset: 0 1rem; }
+  .pv-mock.m .guia.g2 { opacity: 1; outline: 2px dashed var(--accent-light); outline-offset: -.5rem; }
+  .pv-pal { display: grid; gap: .5rem; align-content: start; } .pv-pal button { display: flex; gap: .35rem; align-items: center; padding: .45rem; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); cursor: pointer; }
+  .pv-pal button[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; } .pv-pal button i { flex: 1; height: 1.1rem; border-radius: 5px; background: var(--c); display: block; }
+  /* 8 performance */
+  .pf { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; position: relative; z-index: 1; }
+  .pf-box { padding: .8rem; gap: .6rem; } .pf-box h4 { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .pf-box.fast h4 { color: color-mix(in srgb, var(--accent-verde) 62%, var(--ink)); }
+  .pf-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+  .pf-t { height: 3.4rem; border-radius: 9px; background: var(--line); position: relative; overflow: hidden; }
+  .pf-t::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.18) 50%, transparent 80%); transform: translateX(-100%); animation: pf-sh 1.2s linear infinite; }
+  .pf-t.ok { background: linear-gradient(135deg, var(--accent), var(--accent-light)); } .pf-t.ok::after { display: none; }
+  .pf-prog { height: .4rem; border-radius: 4px; background: var(--line); overflow: hidden; } .pf-prog i { display: block; height: 100%; width: 0; background: var(--accent); }
+  @keyframes pf-sh { to { transform: translateX(100%); } }
+  /* 9 nomenclatura */
+  .gv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem; position: relative; z-index: 1; }
+  .gv-t { padding: .55rem; position: relative; transition: transform .6s cubic-bezier(.2,.8,.2,1), border-radius .4s, opacity .3s, filter .3s; }
+  .gv-t .sk { width: 50%; } .gv-t em { display: block; height: 1.7rem; border-radius: 6px; background: var(--c, var(--accent)); opacity: .85; transition: background .4s, height .4s; font-style: normal; }
+  .gv-t .nome { display: none; font-family: var(--mono); font-size: .6rem; color: var(--accent-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gv[data-estado="antes"] .gv-t:nth-child(4n+1) { transform: translate(-4px, 6px) rotate(-2.2deg); --c: var(--accent-quente); }
+  .gv[data-estado="antes"] .gv-t:nth-child(4n+2) { transform: translate(5px, -4px) rotate(1.8deg); --c: var(--accent-verde); border-radius: 18px; }
+  .gv[data-estado="antes"] .gv-t:nth-child(4n+3) { transform: translate(-3px, -5px) rotate(2.6deg); --c: #B26AF0; }
+  .gv[data-estado="antes"] .gv-t:nth-child(4n) { transform: translate(6px, 4px) rotate(-1.6deg); --c: var(--accent-light); border-radius: 3px; }
+  .gv[data-estado="antes"] .gv-t:nth-child(3n) em { height: 1.1rem; } .gv[data-estado="antes"] .gv-t:nth-child(5n) em { height: 2.5rem; }
+  .gv[data-estado="depois"] .gv-t { --c: var(--accent); } .gv[data-estado="depois"] .gv-t .nome { display: block; } .gv[data-estado="depois"] .gv-t .sk.a { display: none; }
+  /* 10 acesso */
+  .ac { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.2rem; position: relative; z-index: 1; align-items: start; }
+  .ac-m { display: grid; grid-template-columns: 6rem repeat(5, 1fr); gap: .4rem; align-items: center; padding: .8rem; }
+  .ac-m .vit-k { text-align: center; } .ac-m .rt { font-size: .8rem; color: var(--ink); font-family: var(--display); }
+  .ac-c { height: 2.1rem; border-radius: 9px; border: 1px solid var(--line-strong); background: var(--panel); cursor: pointer; display: grid; place-items: center; transition: all .25s; padding: 0; }
+  .ac-c svg { width: 1rem; height: 1rem; stroke: var(--muted); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ac-c[aria-pressed="true"] { background: rgba(46,134,255,.2); border-color: var(--accent); } .ac-c[aria-pressed="true"] svg { stroke: var(--accent-light); }
+  .ac-v { padding: .8rem; gap: .6rem; } .ac-vg { display: grid; grid-template-columns: repeat(5, 1fr); gap: .4rem; }
+  .ac-vg i { height: 2.4rem; border-radius: 7px; background: var(--accent); opacity: .9; display: block; transition: opacity .3s, filter .3s; } .ac-vg i.off { opacity: .15; filter: grayscale(1); }
+  /* 11 consolidar */
+  .mg { position: relative; z-index: 1; height: 16rem; border: 1px dashed var(--line-strong); border-radius: 14px; overflow: hidden; }
+  .mg-t { position: absolute; width: 1.7rem; height: 1.2rem; border-radius: 4px; border: 1px solid var(--line-strong); background: var(--panel-2); transition: left .9s cubic-bezier(.6,0,.2,1), top .9s cubic-bezier(.6,0,.2,1), transform .9s, background .5s, border-color .5s; }
+  .mg[data-e="depois"] .mg-t { background: rgba(46,134,255,.35); border-color: var(--accent); }
+  .mg-g { position: absolute; top: 50%; width: 5.4rem; height: 5.4rem; margin-top: -2.7rem; border-radius: 14px; border: 1px solid var(--accent); background: rgba(46,134,255,.08); opacity: 0; transition: opacity .6s .4s; display: grid; place-items: end center; padding-bottom: .3rem; font-family: var(--mono); font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-light); }
+  .mg[data-e="depois"] .mg-g { opacity: 1; }
+  /* 12 documentação */
+  .dc { display: grid; grid-template-columns: .8fr 1.2fr; gap: 3rem; position: relative; z-index: 1; align-items: center; }
+  .dc-t { display: grid; gap: .5rem; } .dc-t button { text-align: left; font: inherit; color: inherit; cursor: pointer; grid-template-columns: 1.2rem 1fr; align-items: center; column-gap: .55rem; }
+  .dc-t button[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset, 0 0 22px -8px rgba(46,134,255,.8); }
+  .dc-d { gap: .7rem; padding: .9rem; } .dc-f { display: grid; gap: .35rem; } .dc-f span { display: grid; grid-template-columns: 1fr 5rem; gap: .6rem; align-items: center; }
+  /* explicação */
+  .vit-info { margin-top: 1.1rem; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); padding: 1.15rem 1.3rem; display: none; }
+  .vit-info.on { display: block; animation: vit-in .4s ease both; }
+  .vit-info .vit-k { color: var(--accent-light); } .vit-info h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 700; margin-top: .2rem; }
+  .vit-info p { color: var(--muted); margin-top: .45rem; max-width: 50rem; } .vit-info p.hint { font-size: .85rem; color: var(--accent-light); margin-top: .7rem; }
+  @media (max-width: 1100px) { .flow { gap: 2rem; } .def, .dc { gap: 1.6rem; } }
+  @media (max-width: 960px) {
+    .vit { grid-template-columns: 1fr; } .vit-nav { position: static; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; align-items: start; }
+    .vit-it { grid-template-columns: 1fr; } .vit-it .tile-ico { display: none; }
+  }
+  @media (max-width: 680px) {
+    .vit-nav { grid-template-columns: 1fr; } .vit-it { grid-template-columns: 1.9rem 1fr; } .vit-it .tile-ico { display: grid; }
+    .vit-pane { padding: .8rem; } .vit-bar .vs { display: none; }
+    .flow, .def, .ver, .cat, .ss, .pv, .pf, .ac, .dc { grid-template-columns: 1fr; gap: 1rem; } .wires { display: none; }
+    .db-kpis { grid-template-columns: repeat(2, 1fr); } .db-main { grid-template-columns: 1fr; } .gv-grid { grid-template-columns: repeat(3, 1fr); }
+    .ac-m { grid-template-columns: 4.6rem repeat(5, 1fr); padding: .5rem; } .ss-f { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (prefers-reduced-motion: reduce) { .vit-pane.on, .vit-info.on { animation: none; } .ver-line::after, .pf-t::after { animation: none; } }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#inicio">Pular para o conteúdo</a>
@@ -1934,37 +2127,137 @@
       <div class="sec-lead">
         <span class="eyebrow reveal">O que fazemos</span>
         <h2 class="h-xl reveal d1">As frentes que entregamos.</h2>
+        <p class="sub reveal d2">Doze entregas, três frentes. Escolha uma e veja como ela aparece num dashboard de verdade: clique, filtre e compare.</p>
       </div>
-      <div class="fam-grid reveal d2">
-          <article class="svc">
-            <h3 class="svc-t">Camada semântica</h3>
-            <ul class="svc-list">
-              <li>Modelagem dimensional</li>
-              <li>Definição única por métrica</li>
-              <li>Regra de negócio versionada</li>
-              <li>Catálogo de indicadores</li>
-            </ul>
-          </article>
-
-          <article class="svc">
-            <h3 class="svc-t">Dashboards que se usam</h3>
-            <ul class="svc-list">
-              <li>Visão executiva e operacional</li>
-              <li>Self-service para as áreas</li>
-              <li>Padrão visual definido antes do desenvolvimento</li>
-              <li>Performance e otimização de DAX</li>
-            </ul>
-          </article>
-
-          <article class="svc">
-            <h3 class="svc-t">Governança de BI</h3>
-            <ul class="svc-list">
-              <li>Padrão de nomenclatura e layout</li>
-              <li>Controle de acesso por perfil</li>
-              <li>Migração e consolidação de painéis</li>
-              <li>Documentação do modelo</li>
-            </ul>
-          </article>
+      <div class="vit reveal d2" id="vit">
+        <div class="vit-nav" role="tablist" aria-label="Entregas de Analytics e BI"><div class="vit-grp"><span class="vit-k">Camada semântica</span><ul><li><button class="vit-it" role="tab" id="vt0" aria-controls="vp0" aria-selected="true" type="button"><span class="tile-ico" data-ico="modelagem"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="6" rx="1"/><rect x="14" y="14" width="7" height="6" rx="1"/><path d="M10 7h4a3 3 0 0 1 3 3v4"/></svg></span><span class="t">Modelagem dimensional</span></button></li><li><button class="vit-it" role="tab" id="vt1" aria-controls="vp1" aria-selected="false" type="button"><span class="tile-ico" data-ico="qualidade"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg></span><span class="t">Definição única por métrica</span></button></li><li><button class="vit-it" role="tab" id="vt2" aria-controls="vp2" aria-selected="false" type="button"><span class="tile-ico" data-ico="modernizacao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/></svg></span><span class="t">Regra de negócio versionada</span></button></li><li><button class="vit-it" role="tab" id="vt3" aria-controls="vp3" aria-selected="false" type="button"><span class="tile-ico" data-ico="semantica"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3Z"/><path d="M5 17a3 3 0 0 1 3-3h11M9 8h6"/></svg></span><span class="t">Catálogo de indicadores</span></button></li></ul></div><div class="vit-grp"><span class="vit-k">Dashboards que se usam</span><ul><li><button class="vit-it" role="tab" id="vt4" aria-controls="vp4" aria-selected="false" type="button"><span class="tile-ico" data-ico="analytics"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M8 15v3M13 10v8M18 5v13"/></svg></span><span class="t">Visão executiva e operacional</span></button></li><li><button class="vit-it" role="tab" id="vt5" aria-controls="vp5" aria-selected="false" type="button"><span class="tile-ico" data-ico="autoatendimento"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/><path d="m16 15 2 2 3-3"/></svg></span><span class="t">Self-service para as áreas</span></button></li><li><button class="vit-it" role="tab" id="vt6" aria-controls="vp6" aria-selected="false" type="button"><span class="tile-ico" data-ico="design"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="m14 7 3 3"/></svg></span><span class="t">Padrão visual definido antes do desenvolvimento</span></button></li><li><button class="vit-it" role="tab" id="vt7" aria-controls="vp7" aria-selected="false" type="button"><span class="tile-ico" data-ico="anomalia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg></span><span class="t">Performance e otimização de DAX</span></button></li></ul></div><div class="vit-grp"><span class="vit-k">Governança de BI</span><ul><li><button class="vit-it" role="tab" id="vt8" aria-controls="vp8" aria-selected="false" type="button"><span class="tile-ico" data-ico="arquitetura"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="9" y="14" width="6" height="6" rx="1"/><path d="M7 10v2h10v-2M12 12v2"/></svg></span><span class="t">Padrão de nomenclatura e layout</span></button></li><li><button class="vit-it" role="tab" id="vt9" aria-controls="vp9" aria-selected="false" type="button"><span class="tile-ico" data-ico="governanca"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3 7.7 7.5 9.5 4.5-1.8 7.5-5 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="t">Controle de acesso por perfil</span></button></li><li><button class="vit-it" role="tab" id="vt10" aria-controls="vp10" aria-selected="false" type="button"><span class="tile-ico" data-ico="migracao"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><path d="M9 6h6M18 9v6M6 9v9h9"/></svg></span><span class="t">Migração e consolidação de painéis</span></button></li><li><button class="vit-it" role="tab" id="vt11" aria-controls="vp11" aria-selected="false" type="button"><span class="tile-ico" data-ico="documento"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span class="t">Documentação do modelo</span></button></li></ul></div></div>
+        <div class="vit-stage">
+          <div class="vit-win"><div class="vit-bar"><div class="vit-dots" aria-hidden="true"><i></i><i></i><i></i></div><span class="vt" id="vit-tit"></span><span class="vs">Exemplo ilustrativo &middot; sem dados reais</span></div><div class="vit-pane on" id="vp0" role="tabpanel" aria-labelledby="vt0">
+<div class="cv flow" data-fios="s0>core;s1>core;s2>core;s3>core;core>i0;core>i1;core>i2;core>i3">
+  <svg class="wires" aria-hidden="true"></svg>
+  <div class="flow-col"><span class="vit-k">Fontes</span>
+    <div class="nd src" id="s0" tabindex="0" data-liga="s0"><svg class="ico-s" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg><s class="sk"></s><s class="sk a"></s></div>
+    <div class="nd src" id="s1" tabindex="0" data-liga="s1"><svg class="ico-s" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 3v18"/></svg><s class="sk"></s><s class="sk a"></s></div>
+    <div class="nd src" id="s2" tabindex="0" data-liga="s2"><svg class="ico-s" viewBox="0 0 24 24"><path d="M8 8 3 12l5 4M16 8l5 4-5 4M14 5l-4 14"/></svg><s class="sk"></s><s class="sk a"></s></div>
+    <div class="nd src" id="s3" tabindex="0" data-liga="s3"><svg class="ico-s" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg><s class="sk"></s><s class="sk a"></s></div></div>
+  <div class="flow-col"><span class="vit-k">Modelo dimensional</span>
+    <div class="nd core" id="core" tabindex="0"><b>Fatos e dimensões</b>
+      <div class="star"><i></i><i></i><i></i><i></i><i class="f"></i><i></i><i></i><i></i><i></i></div></div></div>
+  <div class="flow-col"><span class="vit-k">Catálogo de indicadores</span>
+    <div class="nd" id="i0" tabindex="0" data-tip="Cada área lê a mesma definição: a reunião discute a decisão, não o número."><s class="sk"></s><s class="sk a"></s><svg class="spark" viewBox="0 0 60 16" preserveAspectRatio="none"><path d="M1 13 L10 9 L20 11 L30 5 L42 7 L59 2"/></svg></div>
+    <div class="nd" id="i1" tabindex="0" data-tip="A regra mora no modelo, não em cada painel."><s class="sk"></s><s class="sk a"></s><svg class="spark" viewBox="0 0 60 16" preserveAspectRatio="none"><path d="M1 8 L12 12 L22 6 L33 9 L45 4 L59 6"/></svg></div>
+    <div class="nd" id="i2" tabindex="0" data-tip="O catálogo diz o que cada indicador significa e de onde ele vem."><s class="sk"></s><s class="sk a"></s><svg class="spark" viewBox="0 0 60 16" preserveAspectRatio="none"><path d="M1 10 L11 11 L24 7 L36 8 L47 3 L59 5"/></svg></div>
+    <div class="nd" id="i3" tabindex="0" data-tip="Dado de várias fontes chega ao indicador pelo mesmo caminho."><s class="sk"></s><s class="sk a"></s><svg class="spark" viewBox="0 0 60 16" preserveAspectRatio="none"><path d="M1 12 L14 8 L25 10 L38 4 L49 6 L59 3"/></svg></div></div>
+</div>
+<p class="vit-cap" data-pad="Passe o mouse numa fonte ou num indicador e acompanhe o caminho do dado." aria-live="polite">Passe o mouse numa fonte ou num indicador e acompanhe o caminho do dado.</p>
+</div><div class="vit-pane" id="vp1" role="tabpanel" aria-labelledby="vt1" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Como cada painel calcula"><button type="button" data-def="0" aria-pressed="true">Cada painel por conta própria</button><button type="button" data-def="1" aria-pressed="false">Definição única</button></div></div>
+<div class="cv def" data-fios="dn>p0;dn>p1;dn>p2">
+  <svg class="wires off" aria-hidden="true"></svg>
+  <div class="nd core" id="dn"><span class="vit-k">Definição da métrica</span><s class="sk"></s><s class="sk a"></s><s class="sk b"></s><span class="tag ac">escrita uma vez</span></div>
+  <div class="def-pan">
+    <div class="nd" id="p0" data-erro="0"><s class="sk"></s><s class="sk a"></s><div class="def-bars"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="nd" id="p1" data-erro="1"><s class="sk"></s><s class="sk a"></s><div class="def-bars"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="nd" id="p2" data-erro="0"><s class="sk"></s><s class="sk a"></s><div class="def-bars"><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div>
+</div>
+<p class="vit-cap" id="def-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp2" role="tabpanel" aria-labelledby="vt2" hidden>
+<div class="ver">
+  <div>
+    <span class="vit-k">Histórico da regra</span>
+    <div class="ver-line" id="ver-line">
+      <div class="ver-v"><button type="button" data-v="0" aria-pressed="false">v1</button><small>Criada</small></div>
+      <div class="ver-v"><button type="button" data-v="1" aria-pressed="false">v2</button><small>Ajustada</small></div>
+      <div class="ver-v"><button type="button" data-v="2" aria-pressed="false">v3</button><small>Revisada</small></div>
+      <div class="ver-v"><button type="button" data-v="3" aria-pressed="true">v4</button><small>Atual</small></div>
+    </div>
+    <div class="nd"><span class="vit-k">Resultado da métrica</span><div class="bars" id="ver-bars" style="height:5.5rem"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div>
+  <div class="nd code" id="ver-code" aria-live="polite"></div>
+</div>
+<p class="vit-cap">Cada mudança de regra fica registrada: dá para ver o que mudou e voltar atrás.</p>
+</div><div class="vit-pane" id="vp3" role="tabpanel" aria-labelledby="vt3" hidden>
+<div class="vit-ctl"><span class="vit-k">Filtrar por área</span>
+  <button class="vit-chip" type="button" data-cat="" aria-pressed="true">Todas</button><button class="vit-chip" type="button" data-cat="0" aria-pressed="false">Comercial</button><button class="vit-chip" type="button" data-cat="1" aria-pressed="false">Financeiro</button><button class="vit-chip" type="button" data-cat="2" aria-pressed="false">Operações</button></div>
+<div class="cat cv" data-fios=""><svg class="wires" aria-hidden="true"></svg>
+  <div class="cat-list" id="cat-list"></div>
+  <div>
+    <div class="nd cat-d" id="cat-d"><span class="vit-k">Indicador selecionado</span><s class="sk"></s><s class="sk b"></s><s class="sk a"></s>
+      <div class="chain" id="cat-chain"><div class="tag">Fonte</div><em aria-hidden="true">&rarr;</em><div class="tag">Modelo</div><em aria-hidden="true">&rarr;</em><div class="tag ac">Indicador</div></div>
+      <div class="cat-tags"><div class="tag ok">Certificado</div><div class="tag" id="cat-area">Área</div></div></div></div>
+</div>
+</div><div class="vit-pane" id="vp4" role="tabpanel" aria-labelledby="vt4" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Tipo de visão"><button type="button" data-vis="exec" aria-pressed="true">Visão executiva</button><button type="button" data-vis="oper" aria-pressed="false">Visão operacional</button></div>
+  <span class="vit-k push">Filtre por área</span><button class="vit-chip" type="button" data-area="0" aria-pressed="true">Comercial</button><button class="vit-chip" type="button" data-area="1" aria-pressed="false">Financeiro</button><button class="vit-chip" type="button" data-area="2" aria-pressed="false">Operações</button></div>
+<div class="db" id="db" data-vis="exec">
+  <div class="db-kpis"><div class="nd db-kpi"><s class="sk"></s><svg viewBox="0 0 60 16" preserveAspectRatio="none"><path data-k="0"/></svg></div><div class="nd db-kpi"><s class="sk"></s><svg viewBox="0 0 60 16" preserveAspectRatio="none"><path data-k="1"/></svg></div><div class="nd db-kpi"><s class="sk"></s><svg viewBox="0 0 60 16" preserveAspectRatio="none"><path data-k="2"/></svg></div><div class="nd db-kpi"><s class="sk"></s><svg viewBox="0 0 60 16" preserveAspectRatio="none"><path data-k="3"/></svg></div></div>
+  <div class="db-main">
+    <div class="nd db-card"><span class="vit-k">Evolução</span><svg class="line" viewBox="0 0 100 30" preserveAspectRatio="none"><path class="a" id="db-a"/><path class="l" id="db-l"/></svg><div class="bars" id="db-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="nd db-card"><span class="vit-k">Composição</span><div class="don"><svg viewBox="0 0 42 42" aria-hidden="true"><circle cx="21" cy="21" r="15.9155" stroke="var(--line)"/><circle id="dn0" cx="21" cy="21" r="15.9155" stroke="var(--accent)"/><circle id="dn1" cx="21" cy="21" r="15.9155" stroke="var(--accent-verde)"/><circle id="dn2" cx="21" cy="21" r="15.9155" stroke="var(--accent-quente)"/></svg></div>
+      <div class="leg"><div style="--c:var(--accent)">Grupo A</div><div style="--c:var(--accent-verde)">Grupo B</div><div style="--c:var(--accent-quente)">Grupo C</div></div></div>
+  </div>
+  <div class="db-oper" id="db-oper"><div class="nd row" style="--c:var(--accent-verde)"><b></b><s class="sk"></s><u><i></i></u></div><div class="nd row" style="--c:var(--accent-quente)"><b></b><s class="sk"></s><u><i></i></u></div><div class="nd row" style="--c:var(--accent-verde)"><b></b><s class="sk"></s><u><i></i></u></div><div class="nd row" style="--c:#E5575B"><b></b><s class="sk"></s><u><i></i></u></div><div class="nd row" style="--c:var(--accent-verde)"><b></b><s class="sk"></s><u><i></i></u></div></div>
+</div>
+</div><div class="vit-pane" id="vp5" role="tabpanel" aria-labelledby="vt5" hidden>
+<div class="ss">
+  <div class="nd ss-f" role="group" aria-label="Monte sua pergunta">
+    <span class="vit-k">Medida</span>
+    <button class="vit-chip" type="button" data-m="0" aria-pressed="true">Medida 1</button><button class="vit-chip" type="button" data-m="1" aria-pressed="false">Medida 2</button><button class="vit-chip" type="button" data-m="2" aria-pressed="false">Medida 3</button>
+    <span class="vit-k">Cortar por</span>
+    <button class="vit-chip" type="button" data-c="0" aria-pressed="true">Categoria</button><button class="vit-chip" type="button" data-c="1" aria-pressed="false">Período</button>
+    <span class="vit-k">Gráfico</span>
+    <div class="vit-seg"><button type="button" data-g="b" aria-pressed="true">Barras</button><button type="button" data-g="l" aria-pressed="false">Linha</button></div>
+  </div>
+  <div class="nd ss-o"><span class="vit-k" id="ss-t">Sua pergunta</span>
+    <div class="bars" id="ss-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <svg class="big" id="ss-line" viewBox="0 0 100 30" preserveAspectRatio="none" style="display:none"><path class="a" id="ss-a" fill="var(--accent)" opacity=".14"/><path id="ss-l" fill="none" stroke="var(--accent-light)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></div>
+</div>
+<p class="vit-cap">A área monta a própria pergunta sobre o modelo governado, sem abrir chamado para o time de dados.</p>
+</div><div class="vit-pane" id="vp6" role="tabpanel" aria-labelledby="vt6" hidden>
+<div class="vit-ctl"><button class="vit-chip" type="button" id="pv-g" aria-pressed="false">Grade</button><button class="vit-chip" type="button" id="pv-m" aria-pressed="false">Margens</button><span class="vit-k push">Paleta</span></div>
+<div class="pv">
+  <div class="nd pv-mock" id="pv-mock"><i class="guia g1"></i><i class="guia g2"></i>
+    <div class="tile"></div><div class="tile"></div><div class="tile"></div>
+    <div class="wide"><i style="--h:40%"></i><i style="--h:68%"></i><i style="--h:52%"></i><i style="--h:84%"></i><i style="--h:60%"></i><i style="--h:92%"></i><i style="--h:46%"></i><i style="--h:72%"></i></div></div>
+  <div class="pv-pal" id="pv-pal"></div>
+</div>
+<p class="vit-cap">Grade, paleta e tipografia definidas antes do primeiro painel: todo dashboard nasce com a cara do mesmo produto.</p>
+</div><div class="vit-pane" id="vp7" role="tabpanel" aria-labelledby="vt7" hidden>
+<div class="vit-ctl"><button class="vit-chip" type="button" id="pf-go">&#8635; Carregar de novo</button></div>
+<div class="pf">
+  <div class="nd pf-box"><h4>Sem otimização</h4><div class="pf-grid" id="pf-slow"><div class="pf-t"></div><div class="pf-t"></div><div class="pf-t"></div><div class="pf-t"></div></div><div class="pf-prog"><i id="pf-ps"></i></div></div>
+  <div class="nd pf-box fast"><h4>Medidas DAX e modelo otimizados</h4><div class="pf-grid" id="pf-fast"><div class="pf-t"></div><div class="pf-t"></div><div class="pf-t"></div><div class="pf-t"></div></div><div class="pf-prog"><i id="pf-pf" style="background:var(--accent-verde)"></i></div></div>
+</div>
+<p class="vit-cap">Medida bem escrita e modelo enxuto: o painel responde na hora em que a pessoa filtra.</p>
+</div><div class="vit-pane" id="vp8" role="tabpanel" aria-labelledby="vt8" hidden>
+<div class="gv" id="gv" data-estado="antes"><div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Antes e depois do padrão"><button type="button" data-est="antes" aria-pressed="true">Antes</button><button type="button" data-est="depois" aria-pressed="false">Depois</button></div></div>
+<div class="gv-grid" id="gv-grid"></div>
+<p class="vit-cap" id="gv-cap" aria-live="polite"></p></div>
+</div><div class="vit-pane" id="vp9" role="tabpanel" aria-labelledby="vt9" hidden>
+<div class="ac">
+  <div class="nd ac-m" id="ac-m"></div>
+  <div class="nd ac-v"><span class="vit-k" id="ac-t">Visto por</span><div class="ac-vg" id="ac-vg"><i></i><i></i><i></i><i></i><i></i></div></div>
+</div>
+<p class="vit-cap">Cada perfil enxerga só o que precisa. Clique na matriz para dar ou retirar acesso.</p>
+</div><div class="vit-pane" id="vp10" role="tabpanel" aria-labelledby="vt10" hidden>
+<div class="vit-ctl"><div class="vit-seg" role="group" aria-label="Migração"><button type="button" data-mg="antes" aria-pressed="true">Painéis dispersos</button><button type="button" data-mg="depois" aria-pressed="false">Consolidado</button></div></div>
+<div class="mg" id="mg" data-e="antes"></div>
+<p class="vit-cap" id="mg-cap" aria-live="polite"></p>
+</div><div class="vit-pane" id="vp11" role="tabpanel" aria-labelledby="vt11" hidden>
+<div class="dc cv" data-fios="t0>d;t1>d;t2>d;t3>d"><svg class="wires" aria-hidden="true"></svg>
+  <div class="dc-t" id="dc-t">
+    <button class="nd" type="button" aria-pressed="true" data-t="0" id="t0"><span class="tag ac">F</span><s class="sk"></s><s class="sk a"></s></button>
+    <button class="nd" type="button" aria-pressed="false" data-t="1" id="t1"><span class="tag">D</span><s class="sk"></s><s class="sk a"></s></button>
+    <button class="nd" type="button" aria-pressed="false" data-t="2" id="t2"><span class="tag">D</span><s class="sk"></s><s class="sk a"></s></button>
+    <button class="nd" type="button" aria-pressed="false" data-t="3" id="t3"><span class="tag">D</span><s class="sk"></s><s class="sk a"></s></button></div>
+  <div class="nd dc-d" id="d"><span class="vit-k" id="dc-n">Tabela</span><s class="sk"></s><s class="sk a"></s><s class="sk b"></s>
+    <div class="dc-f" id="dc-f"></div></div>
+</div>
+<p class="vit-cap">Tabelas, campos e regras descritos para que o time novo entenda o modelo sem depender de quem o criou.</p>
+</div></div>
+          <div class="vit-info on" id="vi0"><span class="vit-k">Camada semântica</span><h3>Modelagem dimensional</h3><p>Organizamos o dado em fatos (o que aconteceu) e dimensões (como você quer cortar), no desenho que o BI lê melhor. Os dados de várias fontes passam pelo modelo antes de virarem indicador.</p><p class="hint">Passe o mouse numa fonte ou num indicador para ver o caminho do dado.</p></div><div class="vit-info" id="vi1"><span class="vit-k">Camada semântica</span><h3>Definição única por métrica</h3><p>Cada indicador tem uma única conta, escrita uma vez no modelo. Todos os painéis leem a mesma definição, e a reunião deixa de discutir qual número está certo.</p><p class="hint">Alterne entre "por conta própria" e "definição única".</p></div><div class="vit-info" id="vi2"><span class="vit-k">Camada semântica</span><h3>Regra de negócio versionada</h3><p>A regra de cada métrica vive no modelo, com histórico. Dá para saber o que mudou e quando, e voltar atrás sem refazer painéis.</p><p class="hint">Clique numa versão para ver a regra e o resultado.</p></div><div class="vit-info" id="vi3"><span class="vit-k">Camada semântica</span><h3>Catálogo de indicadores</h3><p>Um lugar para consultar o que cada indicador significa, de onde ele vem e quem responde por ele.</p><p class="hint">Filtre por área e selecione um indicador.</p></div><div class="vit-info" id="vi4"><span class="vit-k">Dashboards que se usam</span><h3>Visão executiva e operacional</h3><p>O mesmo modelo alimenta a leitura de quem decide e o acompanhamento de quem opera, cada um com a visão que precisa.</p><p class="hint">Alterne a visão e filtre por área.</p></div><div class="vit-info" id="vi5"><span class="vit-k">Dashboards que se usam</span><h3>Self-service para as áreas</h3><p>As áreas montam a própria pergunta sobre o modelo governado, sem abrir chamado para o time de dados.</p><p class="hint">Escolha a medida, o corte e o tipo de gráfico.</p></div><div class="vit-info" id="vi6"><span class="vit-k">Dashboards que se usam</span><h3>Padrão visual definido antes do desenvolvimento</h3><p>Grade, paleta e tipografia definidas antes do primeiro painel, para todo dashboard nascer com a cara do mesmo produto.</p><p class="hint">Ligue as guias e troque a paleta.</p></div><div class="vit-info" id="vi7"><span class="vit-k">Dashboards que se usam</span><h3>Performance e otimização de DAX</h3><p>Medidas DAX bem escritas e modelo enxuto: o painel responde na hora em que a pessoa filtra, mesmo com o volume crescendo.</p><p class="hint">Compare o carregamento e rode de novo.</p></div><div class="vit-info" id="vi8"><span class="vit-k">Governança de BI</span><h3>Padrão de nomenclatura e layout</h3><p>Nomes e posições padronizados: quem abre qualquer painel sabe onde está cada coisa, e painel novo nasce dentro do padrão.</p><p class="hint">Alterne entre antes e depois.</p></div><div class="vit-info" id="vi9"><span class="vit-k">Governança de BI</span><h3>Controle de acesso por perfil</h3><p>Cada perfil enxerga só o que precisa, definido por regra e não por exceção.</p><p class="hint">Clique na matriz para dar ou retirar acesso.</p></div><div class="vit-info" id="vi10"><span class="vit-k">Governança de BI</span><h3>Migração e consolidação de painéis</h3><p>Painéis dispersos são migrados e consolidados num conjunto padronizado, sobre o mesmo modelo.</p><p class="hint">Alterne para ver a consolidação.</p></div><div class="vit-info" id="vi11"><span class="vit-k">Governança de BI</span><h3>Documentação do modelo</h3><p>Tabelas, campos e regras descritos para que o time novo entenda o modelo sem depender de quem o criou.</p><p class="hint">Navegue pelas tabelas do modelo.</p></div>
+        </div>
       </div>
     </div>
   </section>
@@ -3124,5 +3417,230 @@
     obs.observe(alvos[0].parentNode.parentNode);
   })();
 </script>
+<script>
+/* Vitrine de BI: 12 produtos, cada um com o seu dashboard. Só formas, sem dados reais. */
+(function () {
+  var raiz = document.getElementById('vit'); if (!raiz) return;
+  var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NS = 'http://www.w3.org/2000/svg';
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return [].slice.call((r || document).querySelectorAll(s)); }
+  function sem(s) { return function () { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
+  function pressiona(lista, fn) { $$(lista).forEach(function (b) { b.addEventListener('click', function () { fn(b); }); }); }
+  function marca(grupo, atrib, val) { $$(grupo).forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute(atrib) === String(val))); }); }
+  /* Textos que o script escreve depois do carregamento. O motor de idiomas só
+     alcança o que já estava na página, então a vitrine se traduz sozinha:
+     cada texto dinâmico guarda o português em data-pt e é reescrito quando o
+     idioma muda. */
+  function idi() { return window.AtlasI18n ? AtlasI18n.idioma() : 'pt'; }
+  function T(s) { var l = idi(); return l === 'pt' ? s : ((window.ATLAS_I18N && ATLAS_I18N[l] && ATLAS_I18N[l][s]) || s); }
+  function put(el, pt) { el.setAttribute('data-pt', pt); el.textContent = T(pt); el.__pt = pt; }
+  document.addEventListener('atlas:idioma', function () {
+    $$('[data-pt]', raiz).forEach(function (e) { e.textContent = T(e.getAttribute('data-pt')); e.__pt = e.getAttribute('data-pt'); });
+    var n = itens.map(function (a) { return a.getAttribute('aria-selected') === 'true'; }).indexOf(true);
+    if (n > -1) $('#vit-tit').textContent = itens[n].querySelector('.t').textContent;
+  });
+  function caminho(v, w, h, max) { return v.map(function (y, i) { return (i ? 'L' : 'M') + (i * w / (v.length - 1)).toFixed(1) + ' ' + (h - (y / max) * (h - 1) - 0.5).toFixed(1); }).join(' '); }
+
+  /* ---------- fios: ligam um nó a outro, de verdade, e carregam partículas ---------- */
+  function fios(cv) {
+    var svg = $(':scope > .wires', cv); if (!svg) return;
+    var lista = (cv.getAttribute('data-fios') || '').split(';').filter(Boolean);
+    var R = cv.getBoundingClientRect(); if (!R.width) return;
+    svg.setAttribute('viewBox', '0 0 ' + R.width + ' ' + R.height);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    lista.forEach(function (par, n) {
+      var ab = par.split('>'), a = document.getElementById(ab[0]), b = document.getElementById(ab[1]); if (!a || !b) return;
+      var A = a.getBoundingClientRect(), B = b.getBoundingClientRect(); if (!A.width || !B.width) return;
+      var x1 = A.right - R.left, y1 = A.top + A.height / 2 - R.top, x2 = B.left - R.left, y2 = B.top + B.height / 2 - R.top, xm = (x1 + x2) / 2;
+      var d = 'M' + x1.toFixed(1) + ' ' + y1.toFixed(1) + ' C' + xm.toFixed(1) + ' ' + y1.toFixed(1) + ',' + xm.toFixed(1) + ' ' + y2.toFixed(1) + ',' + x2.toFixed(1) + ' ' + y2.toFixed(1);
+      var p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); p.setAttribute('data-par', par); svg.appendChild(p);
+      if (reduz) return;
+      [0, 1].forEach(function (k) {
+        var c = document.createElementNS(NS, 'circle'); c.setAttribute('r', '3.2'); c.setAttribute('data-par', par);
+        var m = document.createElementNS(NS, 'animateMotion'); m.setAttribute('dur', (2.4 + (n % 3) * 0.35).toFixed(2) + 's'); m.setAttribute('repeatCount', 'indefinite');
+        m.setAttribute('begin', '-' + (k * 1.2 + n * 0.17).toFixed(2) + 's'); m.setAttribute('path', d); c.appendChild(m); svg.appendChild(c);
+      });
+    });
+    (cv._rehl || function () {})();
+  }
+  function wireMarca(cv, fn) { cv._rehl = function () { $$('.wires path', cv).forEach(function (p) { p.classList.toggle('hl', !!fn && fn(p.getAttribute('data-par'))); p.classList.toggle('bad', !!(cv._bad && cv._bad(p.getAttribute('data-par')))); }); }; cv._rehl(); }
+
+  /* ---------- navegação: 12 itens ---------- */
+  var itens = $$('.vit-it', raiz), iniciado = {}, INIT = {};
+  function mostra(n, foco) {
+    itens.forEach(function (a, i) {
+      var on = i === n; a.setAttribute('aria-selected', String(on)); a.tabIndex = on ? 0 : -1;
+      var p = document.getElementById('vp' + i), v = document.getElementById('vi' + i); p.hidden = !on; p.classList.toggle('on', on); v.classList.toggle('on', on);
+    });
+    put($('#vit-tit'), itens[n].querySelector('.t').__pt || itens[n].querySelector('.t').textContent);
+    var p = document.getElementById('vp' + n);
+    if (!iniciado[n]) { iniciado[n] = 1; if (INIT[n]) INIT[n](p); }
+    requestAnimationFrame(function () { $$('.cv', p).forEach(fios); if (p._mostrou) p._mostrou(); });
+    if (foco) itens[n].focus();
+  }
+  itens.forEach(function (a, i) {
+    a.addEventListener('click', function () {
+      mostra(i);
+      /* No celular a lista vem antes da tela: leva a pessoa até o dashboard. */
+      if (window.matchMedia('(max-width: 960px)').matches) $('.vit-stage', raiz).scrollIntoView({ behavior: reduz ? 'auto' : 'smooth', block: 'start' });
+    });
+    a.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (!d) return; e.preventDefault(); mostra((i + d + itens.length) % itens.length, true);
+    });
+  });
+  function refaz() { var p = $('.vit-pane.on'); if (p) $$('.cv', p).forEach(fios); }
+  window.addEventListener('resize', refaz);
+  if (window.ResizeObserver) new ResizeObserver(refaz).observe($('.vit-win', raiz));
+
+  /* 0. fontes > modelo > indicadores */
+  INIT[0] = function (p) {
+    var cv = $('.cv', p), cap = $('.vit-cap', p), pad = cap.getAttribute('data-pad');
+    function liga(el) {
+      var id = el.id, ehSrc = /^s\d/.test(id), par = ehSrc ? function (q) { return q === id + '>core' || /^core>/.test(q); } : function (q) { return q === 'core>' + id || /^s\d>core$/.test(q); };
+      wireMarca(cv, par); el.classList.add('hl'); $('#core', p).classList.add('hl');
+      $$('.nd[id^=s],.nd[id^=i]', p).forEach(function (n) { n.classList.toggle('dim', ehSrc ? (/^s/.test(n.id) && n !== el) : (/^i/.test(n.id) && n !== el)); });
+      put(cap, el.getAttribute('data-tip') || 'O dado entra uma vez no modelo e ganha a regra de negócio antes de chegar a qualquer painel.');
+    }
+    function solta() { wireMarca(cv, null); $$('.nd', p).forEach(function (n) { n.classList.remove('hl', 'dim'); }); put(cap, pad); }
+    $$('.nd[id^=s],.nd[id^=i]', p).forEach(function (el) { ['mouseenter', 'focus'].forEach(function (e) { el.addEventListener(e, function () { liga(el); }); }); ['mouseleave', 'blur'].forEach(function (e) { el.addEventListener(e, solta); }); });
+  };
+
+  /* 1. definição única */
+  INIT[1] = function (p) {
+    var cv = $('.cv', p), cap = $('#def-cap', p), A = [[70, 45, 82, 38, 60], [52, 80, 36, 70, 44], [88, 58, 64, 30, 74]], U = [76, 56, 68, 44, 80];
+    function estado(u) {
+      $$('.def-bars', p).forEach(function (g, k) { $$('i', g).forEach(function (b, j) { b.style.setProperty('--h', (u ? U[j] : A[k][j]) + '%'); }); });
+      cv._bad = u ? null : function () { return true; }; $('.wires', cv).classList.toggle('off', !u); (cv._rehl || function () {})();
+      put(cap, u ? 'Uma conta, escrita uma vez no modelo: todos os painéis leem o mesmo número.' : 'Cada painel faz a conta do seu jeito: números diferentes para a mesma métrica, e a reunião discute o dado.');
+      marca('#vp1 [data-def]', 'data-def', u ? 1 : 0);
+    }
+    wireMarca(cv, null); pressiona('#vp1 [data-def]', function (b) { estado(+b.getAttribute('data-def')); }); estado(0);
+  };
+
+  /* 2. regra versionada */
+  INIT[2] = function (p) {
+    var V = [{ b: [40, 55, 38, 62, 50, 58], c: [['add', 70], ['add', 52], ['add', 40]] },
+             { b: [46, 60, 44, 66, 54, 64], c: [['', 60], ['del', 48], ['add', 62], ['', 36]] },
+             { b: [52, 66, 50, 72, 60, 70], c: [['', 66], ['', 44], ['del', 58], ['add', 72]] },
+             { b: [60, 74, 58, 82, 68, 78], c: [['', 66], ['add', 54], ['', 72], ['', 40]] }];
+    function v(n) {
+      marca('#vp2 [data-v]', 'data-v', n); $$('#ver-bars i', p).forEach(function (b, i) { b.style.setProperty('--h', V[n].b[i] + '%'); });
+      $('#ver-code', p).innerHTML = '<span class="vit-k" data-pt="Regra · v' + (n + 1) + '">' + T('Regra · v' + (n + 1)) + '</span>' + V[n].c.map(function (l) { return '<span class="' + l[0] + '">' + (l[0] === 'add' ? '+' : l[0] === 'del' ? '&minus;' : '&nbsp;') + '<s style="width:' + l[1] + '%"></s></span>'; }).join('');
+    }
+    pressiona('#vp2 [data-v]', function (b) { v(+b.getAttribute('data-v')); }); v(3);
+  };
+
+  /* 3. catálogo */
+  INIT[3] = function (p) {
+    var AREAS = ['Comercial', 'Financeiro', 'Operações'], N = 6, cv = $('.cat', p), sel = 0, filtro = '';
+    $('#cat-list', p).innerHTML = Array.apply(null, Array(N)).map(function (_, i) { return '<button type="button" class="nd cat-i" id="ci' + i + '" data-a="' + (i % 3) + '" aria-pressed="false"><span style="display:grid;gap:.35rem"><s class="sk"></s><s class="sk a"></s></span><span class="tag" data-pt="' + AREAS[i % 3] + '">' + T(AREAS[i % 3]) + '</span></button>'; }).join('');
+    function pinta() {
+      $$('.cat-i', p).forEach(function (b, i) { b.classList.toggle('off', filtro !== '' && b.getAttribute('data-a') !== filtro); b.setAttribute('aria-pressed', String(i === sel)); });
+      put($('#cat-area', p), AREAS[sel % 3]);
+      cv.setAttribute('data-fios', 'ci' + sel + '>cat-d'); fios(cv); wireMarca(cv, function () { return true; });
+    }
+    $$('.cat-i', p).forEach(function (b, i) { b.addEventListener('click', function () { sel = i; pinta(); }); });
+    pressiona('#vp3 [data-cat]', function (b) { filtro = b.getAttribute('data-cat'); marca('#vp3 [data-cat]', 'data-cat', filtro);
+      var vis = $$('.cat-i', p).filter(function (x) { return filtro === '' || x.getAttribute('data-a') === filtro; }); if (vis.length && vis.indexOf($('#ci' + sel, p)) < 0) sel = +vis[0].id.slice(2); pinta(); });
+    pinta();
+  };
+
+  /* 4. dashboard executivo/operacional */
+  INIT[4] = function (p) {
+    var db = $('#db', p), D = [0, 1, 2].map(function (a) { var r = sem(7 + a * 31);
+      return { barras: Array.apply(null, Array(8)).map(function () { return 25 + r() * 70; }), linha: Array.apply(null, Array(14)).map(function (_, i) { return 8 + i * 0.9 + r() * 9; }),
+        kpi: Array.apply(null, Array(4)).map(function () { return Array.apply(null, Array(7)).map(function () { return 2 + r() * 12; }); }),
+        rosca: (function () { var x = [0.2 + r() * .3, 0.15 + r() * .25]; return [x[0], x[1], 1 - x[0] - x[1]]; })(), oper: Array.apply(null, Array(5)).map(function () { return 20 + r() * 75; }) }; });
+    var bars = $$('#db-bars i', p), L = $('#db-l', p), A = $('#db-a', p), kp = $$('[data-k]', db), rows = $$('#db-oper .row u i', p), dn = [0, 1, 2].map(function (i) { return $('#dn' + i, p); }), atual = null, raf = 0;
+    function linha(v) { var l = caminho(v, 100, 30, 26); L.setAttribute('d', l); A.setAttribute('d', l + ' L100 30 L0 30 Z'); }
+    function aplica(d) { bars.forEach(function (b, i) { b.style.setProperty('--h', d.barras[i].toFixed(1) + '%'); }); rows.forEach(function (r, i) { r.style.setProperty('--w', d.oper[i].toFixed(0) + '%'); });
+      d.kpi.forEach(function (k, i) { kp[i].setAttribute('d', caminho(k, 60, 16, 14)); }); var acc = 0;
+      dn.forEach(function (c, i) { var q = d.rosca[i] * 100, w = Math.max(q - 1, 0.5); c.style.strokeDasharray = w.toFixed(1) + ' ' + (100 - w).toFixed(1); c.style.strokeDashoffset = (-acc).toFixed(1); acc += q; }); }
+    function area(n) { var d = D[n]; marca('#vp4 [data-area]', 'data-area', n); aplica(d);
+      if (!atual || reduz) { atual = d.linha.slice(); linha(atual); return; } var de = atual.slice(), t0 = null; cancelAnimationFrame(raf);
+      (function passo(t) { if (t0 === null) t0 = t; var k = Math.min((t - t0) / 600, 1), e = 1 - Math.pow(1 - k, 3); atual = d.linha.map(function (y, i) { return de[i] + (y - de[i]) * e; }); linha(atual); if (k < 1) raf = requestAnimationFrame(passo); })(performance.now()); }
+    pressiona('#vp4 [data-area]', function (b) { area(+b.getAttribute('data-area')); });
+    pressiona('#vp4 [data-vis]', function (b) { db.setAttribute('data-vis', b.getAttribute('data-vis')); marca('#vp4 [data-vis]', 'data-vis', b.getAttribute('data-vis')); });
+    area(0);
+  };
+
+  /* 5. self-service */
+  INIT[5] = function (p) {
+    var r = sem(11), S = []; for (var m = 0; m < 3; m++) { S[m] = []; for (var c = 0; c < 2; c++) S[m][c] = Array.apply(null, Array(7)).map(function (_, i) { return c ? 20 + i * 7 + r() * 22 : 22 + r() * 70; }); }
+    var s = { m: 0, c: 0, g: 'b' }, bars = $$('#ss-bars i', p);
+    function pinta() { var v = S[s.m][s.c]; bars.forEach(function (b, i) { b.style.setProperty('--h', v[i].toFixed(1) + '%'); });
+      var l = caminho(v, 100, 30, 100); $('#ss-l', p).setAttribute('d', l); $('#ss-a', p).setAttribute('d', l + ' L100 30 L0 30 Z');
+      $('#ss-bars', p).style.display = s.g === 'b' ? '' : 'none'; $('#ss-line', p).style.display = s.g === 'l' ? '' : 'none';
+      put($('#ss-t', p), 'Medida ' + (s.m + 1) + ' por ' + (s.c ? 'período' : 'categoria')); marca('#vp5 [data-m]', 'data-m', s.m); marca('#vp5 [data-c]', 'data-c', s.c); marca('#vp5 [data-g]', 'data-g', s.g); }
+    pressiona('#vp5 [data-m]', function (b) { s.m = +b.getAttribute('data-m'); pinta(); }); pressiona('#vp5 [data-c]', function (b) { s.c = +b.getAttribute('data-c'); pinta(); });
+    pressiona('#vp5 [data-g]', function (b) { s.g = b.getAttribute('data-g'); pinta(); }); pinta();
+  };
+
+  /* 6. padrão visual */
+  INIT[6] = function (p) {
+    var PAL = [['#2E86FF', '#6FD4FF', '#2FB6A4'], ['#2FB6A4', '#6FD4FF', '#F2A33C'], ['#B26AF0', '#2E86FF', '#F2A33C'], ['#F2A33C', '#E5575B', '#2E86FF']], mock = $('#pv-mock', p);
+    $('#pv-pal', p).innerHTML = PAL.map(function (c, i) { return '<button type="button" data-p="' + i + '" aria-pressed="' + (i === 0) + '" aria-label="Paleta ' + (i + 1) + '">' + c.map(function (x) { return '<i style="--c:' + x + '"></i>'; }).join('') + '</button>'; }).join('');
+    function pal(i) { mock.style.setProperty('--p1', PAL[i][0]); mock.style.setProperty('--p2', PAL[i][1]); mock.style.setProperty('--p3', PAL[i][2]); marca('#pv-pal [data-p]', 'data-p', i); }
+    pressiona('#pv-pal [data-p]', function (b) { pal(+b.getAttribute('data-p')); }); pal(0);
+    $('#pv-g', p).addEventListener('click', function () { var on = mock.classList.toggle('g'); this.setAttribute('aria-pressed', String(on)); });
+    $('#pv-m', p).addEventListener('click', function () { var on = mock.classList.toggle('m'); this.setAttribute('aria-pressed', String(on)); });
+  };
+
+  /* 7. performance */
+  INIT[7] = function (p) {
+    var t = [], sl = $$('#pf-slow .pf-t', p), fa = $$('#pf-fast .pf-t', p), ps = $('#pf-ps', p), pf = $('#pf-pf', p);
+    function roda() { t.forEach(clearTimeout); t = []; sl.concat(fa).forEach(function (x) { x.classList.remove('ok'); }); ps.style.transition = pf.style.transition = 'none'; ps.style.width = pf.style.width = '0';
+      void ps.offsetWidth; var lento = reduz ? 0 : 3800, rapido = reduz ? 0 : 700; ps.style.transition = 'width ' + lento + 'ms linear'; pf.style.transition = 'width ' + rapido + 'ms linear'; ps.style.width = pf.style.width = '100%';
+      sl.forEach(function (x, i) { t.push(setTimeout(function () { x.classList.add('ok'); }, lento * (i + 1) / 4)); }); fa.forEach(function (x, i) { t.push(setTimeout(function () { x.classList.add('ok'); }, rapido * (i + 1) / 4)); }); }
+    $('#pf-go', p).addEventListener('click', roda); p._mostrou = function () { if (!p._ja) { p._ja = 1; roda(); } };
+  };
+
+  /* 8. nomenclatura e layout / 10. migração */
+  INIT[8] = function (p) {
+    var g = $('#gv', p), grade = $('#gv-grid', p), cap = $('#gv-cap', p), h = '';
+    for (var i = 0; i < 12; i++) h += '<div class="nd gv-t"><s class="sk a"></s><span class="nome" data-pt="Área · Tema · Visão">' + T('Área · Tema · Visão') + '</span><em></em><s class="sk b"></s></div>'; grade.innerHTML = h;
+    var C = { antes: 'Cada painel com um nome, um layout e uma cor: ninguém sabe onde achar o quê.', depois: 'Nomenclatura e layout padronizados: quem abre qualquer painel sabe onde está cada coisa.' };
+    function e(x) { g.setAttribute('data-estado', x); put(cap, C[x]); marca('#vp8 [data-est]', 'data-est', x); }
+    pressiona('#vp8 [data-est]', function (b) { e(b.getAttribute('data-est')); }); e('antes');
+  };
+
+  /* 9. acesso por perfil */
+  INIT[9] = function (p) {
+    var PERF = ['Executivo', 'Analista', 'Área'], ACC = [[1, 1, 0, 1, 0], [1, 1, 1, 1, 1], [0, 1, 1, 0, 1]], vis = 0, m = $('#ac-m', p), CK = '<svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>';
+    function desenha() { var h = '<span></span>' + [1, 2, 3, 4, 5].map(function (n) { return '<span class="vit-k">P' + n + '</span>'; }).join('');
+      PERF.forEach(function (nome, r) { h += '<button type="button" class="vit-chip rt" data-r="' + r + '" aria-pressed="' + (r === vis) + '" data-pt="' + nome + '">' + T(nome) + '</button>' + ACC[r].map(function (a, c) { return '<button type="button" class="ac-c" data-r="' + r + '" data-c="' + c + '" aria-pressed="' + !!a + '" aria-label="' + nome + ', painel ' + (c + 1) + '">' + CK + '</button>'; }).join(''); });
+      m.innerHTML = h; put($('#ac-t', p), 'Visto por: ' + PERF[vis]); $$('#ac-vg i', p).forEach(function (i, c) { i.classList.toggle('off', !ACC[vis][c]); });
+      $$('.rt', m).forEach(function (b) { b.addEventListener('click', function () { vis = +b.getAttribute('data-r'); desenha(); }); });
+      $$('.ac-c', m).forEach(function (b) { b.addEventListener('click', function () { var r = +b.getAttribute('data-r'), c = +b.getAttribute('data-c'); ACC[r][c] = ACC[r][c] ? 0 : 1; vis = r; desenha(); }); }); }
+    desenha();
+  };
+  INIT[10] = function (p) {
+    var mg = $('#mg', p), cap = $('#mg-cap', p), N = 24, r = sem(5), TP = [], G = 4, rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16, h = '';
+    for (var g = 0; g < G; g++) h += '<div class="mg-g" data-g="' + g + '" data-pt="Conjunto">' + T('Conjunto') + '</div>'; for (var i = 0; i < N; i++) { TP.push([r(), r()]); h += '<i class="mg-t"></i>'; } mg.innerHTML = h;
+    function pos(e) { var W = mg.clientWidth, H = mg.clientHeight, ts = $$('.mg-t', mg), gs = $$('.mg-g', mg);
+      gs.forEach(function (x, g) { x.style.left = ((g + 0.5) / G * W - 3.3 * rem) + 'px'; });
+      ts.forEach(function (t, i) { var x, y; if (e === 'antes') { x = 8 + TP[i][0] * (W - 60); y = 8 + TP[i][1] * (H - 40); t.style.transform = 'rotate(' + (TP[i][0] * 40 - 20).toFixed(0) + 'deg)'; }
+        else { var g = i % G, k = (i / G) | 0, cx = (g + 0.5) / G * W - 3.3 * rem; x = cx + 0.5 * rem + (k % 3) * 2 * rem; y = H / 2 - 3.3 * rem + 0.8 * rem + ((k / 3) | 0) * 1.7 * rem + 0.6 * rem; t.style.transform = 'none'; }
+        t.style.left = x + 'px'; t.style.top = y + 'px'; }); }
+    var C = { antes: 'Mais de 200 painéis crescendo sem padrão, sem governança e sem fonte única da verdade.', depois: 'Painéis migrados e consolidados num conjunto padronizado, todos sobre o mesmo modelo.' };
+    function e(x) { mg.setAttribute('data-e', x); put(cap, C[x]); marca('#vp10 [data-mg]', 'data-mg', x); pos(x); }
+    pressiona('#vp10 [data-mg]', function (b) { e(b.getAttribute('data-mg')); }); p._mostrou = function () { pos(mg.getAttribute('data-e')); }; e('antes');
+  };
+
+  /* 11. documentação */
+  INIT[11] = function (p) {
+    var TB = [{ n: 'Tabela fato', f: [['chave', 70], ['chave', 55], ['medida', 62], ['medida', 48]] }, { n: 'Dimensão 1', f: [['chave', 60], ['atributo', 72], ['atributo', 50]] },
+             { n: 'Dimensão 2', f: [['chave', 58], ['atributo', 66], ['atributo', 44], ['atributo', 70]] }, { n: 'Dimensão 3', f: [['chave', 64], ['atributo', 52]] }], cv = $('.dc', p);
+    function t(i) { marca('#vp11 [data-t]', 'data-t', i); put($('#dc-n', p), TB[i].n);
+      $('#dc-f', p).innerHTML = TB[i].f.map(function (f) { return '<span><s class="sk" style="width:' + f[1] + '%"></s><span class="tag ' + (f[0] === 'medida' ? 'ac' : '') + '" data-pt="' + f[0] + '">' + T(f[0]) + '</span></span>'; }).join('');
+      requestAnimationFrame(function () { fios(cv); wireMarca(cv, function (q) { return q === 't' + i + '>d'; }); }); }
+    pressiona('#vp11 [data-t]', function (b) { t(+b.getAttribute('data-t')); }); t(0);
+  };
+
+  mostra(0);
+})();
+</script>
+
 </body>
 </html>

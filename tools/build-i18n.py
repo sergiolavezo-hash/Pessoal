@@ -1111,6 +1111,153 @@ TRAD.update({
   'Engenheiros e analistas': ('Engineers and analysts', 'Ingenieros y analistas'),
 })
 
+# ---------------- Vitrine de BI (bi-analytics.html) ----------------
+# Os textos marcados "JS" são escritos pelo script da vitrine depois do
+# carregamento; o motor os alcança pelo MutationObserver. Não saem da
+# extração estática, então entram também em EXTRAS (abaixo).
+TRAD.update({
+  'Doze entregas, três frentes. Escolha uma e veja como ela aparece num dashboard de verdade: clique, filtre e compare.':
+    ('Twelve deliverables, three fronts. Pick one and see how it shows up in a real dashboard: click, filter and compare.',
+     'Doce entregas, tres frentes. Elija una y vea cómo aparece en un dashboard de verdad: haga clic, filtre y compare.'),
+  'Entregas de Analytics e BI': ('Analytics & BI deliverables', 'Entregas de Analytics y BI'),
+  'Exemplo ilustrativo · sem dados reais': ('Illustrative example · no real data', 'Ejemplo ilustrativo · sin datos reales'),
+  # painel 1
+  'Fontes': ('Sources', 'Fuentes'), 'Fonte': ('Source', 'Fuente'), 'Modelo': ('Model', 'Modelo'), 'Indicador': ('Indicator', 'Indicador'),
+  'Modelo dimensional': ('Dimensional model', 'Modelo dimensional'),
+  'Fatos e dimensões': ('Facts and dimensions', 'Hechos y dimensiones'),
+  'Passe o mouse numa fonte ou num indicador e acompanhe o caminho do dado.':
+    ('Hover a source or an indicator and follow the data path.', 'Pase el mouse por una fuente o un indicador y siga el camino del dato.'),
+  'Passe o mouse numa fonte ou num indicador para ver o caminho do dado.':
+    ('Hover a source or an indicator to see the data path.', 'Pase el mouse por una fuente o un indicador para ver el camino del dato.'),
+  'Organizamos o dado em fatos (o que aconteceu) e dimensões (como você quer cortar), no desenho que o BI lê melhor. Os dados de várias fontes passam pelo modelo antes de virarem indicador.':
+    ('We organize data into facts (what happened) and dimensions (how you want to slice it), in the design BI reads best. Data from several sources goes through the model before becoming an indicator.',
+     'Organizamos el dato en hechos (lo que ocurrió) y dimensiones (cómo quiere cortarlo), en el diseño que mejor lee el BI. Los datos de varias fuentes pasan por el modelo antes de convertirse en indicador.'),
+  # JS: dicas dos indicadores
+  'Cada área lê a mesma definição: a reunião discute a decisão, não o número.':
+    ('Every area reads the same definition: the meeting discusses the decision, not the number.', 'Cada área lee la misma definición: la reunión discute la decisión, no el número.'),
+  'A regra mora no modelo, não em cada painel.': ('The rule lives in the model, not in each dashboard.', 'La regla vive en el modelo, no en cada panel.'),
+  'O catálogo diz o que cada indicador significa e de onde ele vem.':
+    ('The catalog says what each indicator means and where it comes from.', 'El catálogo dice qué significa cada indicador y de dónde viene.'),
+  'Dado de várias fontes chega ao indicador pelo mesmo caminho.':
+    ('Data from several sources reaches the indicator the same way.', 'El dato de varias fuentes llega al indicador por el mismo camino.'),
+  'O dado entra uma vez no modelo e ganha a regra de negócio antes de chegar a qualquer painel.':
+    ('Data enters the model once and gets the business rule before reaching any dashboard.', 'El dato entra una vez al modelo y recibe la regla de negocio antes de llegar a cualquier panel.'),
+  # painel 2
+  'Como cada painel calcula': ('How each dashboard calculates', 'Cómo calcula cada panel'),
+  'Cada painel por conta própria': ('Each dashboard on its own', 'Cada panel por su cuenta'),
+  'Definição única': ('Single definition', 'Definición única'),
+  'Definição da métrica': ('Metric definition', 'Definición de la métrica'),
+  'escrita uma vez': ('written once', 'escrita una vez'),
+  'Alterne entre "por conta própria" e "definição única".': ('Switch between "on its own" and "single definition".', 'Alterne entre "por su cuenta" y "definición única".'),
+  'Cada indicador tem uma única conta, escrita uma vez no modelo. Todos os painéis leem a mesma definição, e a reunião deixa de discutir qual número está certo.':
+    ('Each indicator has a single calculation, written once in the model. Every dashboard reads the same definition, and the meeting stops arguing about which number is right.',
+     'Cada indicador tiene una única cuenta, escrita una vez en el modelo. Todos los paneles leen la misma definición, y la reunión deja de discutir cuál número es el correcto.'),
+  'Uma conta, escrita uma vez no modelo: todos os painéis leem o mesmo número.':
+    ('One calculation, written once in the model: every dashboard reads the same number.', 'Una cuenta, escrita una vez en el modelo: todos los paneles leen el mismo número.'),
+  'Cada painel faz a conta do seu jeito: números diferentes para a mesma métrica, e a reunião discute o dado.':
+    ('Each dashboard does the math its own way: different numbers for the same metric, and the meeting debates the data.', 'Cada panel hace la cuenta a su manera: números distintos para la misma métrica, y la reunión discute el dato.'),
+  # painel 3
+  'Histórico da regra': ('Rule history', 'Historial de la regla'), 'Criada': ('Created', 'Creada'), 'Ajustada': ('Adjusted', 'Ajustada'),
+  'Revisada': ('Reviewed', 'Revisada'), 'Atual': ('Current', 'Actual'), 'Resultado da métrica': ('Metric result', 'Resultado de la métrica'),
+  'Cada mudança de regra fica registrada: dá para ver o que mudou e voltar atrás.':
+    ('Every rule change is recorded: you can see what changed and roll back.', 'Cada cambio de regla queda registrado: se ve qué cambió y se puede volver atrás.'),
+  'A regra de cada métrica vive no modelo, com histórico. Dá para saber o que mudou e quando, e voltar atrás sem refazer painéis.':
+    ('Each metric rule lives in the model, with history. You can tell what changed and when, and roll back without rebuilding dashboards.',
+     'La regla de cada métrica vive en el modelo, con historial. Se sabe qué cambió y cuándo, y se vuelve atrás sin rehacer paneles.'),
+  'Clique numa versão para ver a regra e o resultado.': ('Click a version to see the rule and the result.', 'Haga clic en una versión para ver la regla y el resultado.'),
+  'Regra · v1': ('Rule · v1', 'Regla · v1'), 'Regra · v2': ('Rule · v2', 'Regla · v2'), 'Regra · v3': ('Rule · v3', 'Regla · v3'), 'Regra · v4': ('Rule · v4', 'Regla · v4'),
+  # painel 4
+  'Filtrar por área': ('Filter by area', 'Filtrar por área'), 'Todas': ('All', 'Todas'), 'Comercial': ('Sales', 'Comercial'), 'Financeiro': ('Finance', 'Finanzas'),
+  'Operações': ('Operations', 'Operaciones'), 'Indicador selecionado': ('Selected indicator', 'Indicador seleccionado'), 'Certificado': ('Certified', 'Certificado'),
+  'Área': ('Area', 'Área'),
+  'Um lugar para consultar o que cada indicador significa, de onde ele vem e quem responde por ele.':
+    ('One place to check what each indicator means, where it comes from and who is accountable for it.', 'Un lugar para consultar qué significa cada indicador, de dónde viene y quién responde por él.'),
+  'Filtre por área e selecione um indicador.': ('Filter by area and select an indicator.', 'Filtre por área y seleccione un indicador.'),
+  # painel 5
+  'Tipo de visão': ('View type', 'Tipo de vista'), 'Visão executiva': ('Executive view', 'Vista ejecutiva'), 'Visão operacional': ('Operational view', 'Vista operativa'),
+  'Filtre por área': ('Filter by area', 'Filtre por área'), 'Evolução': ('Trend', 'Evolución'), 'Composição': ('Composition', 'Composición'),
+  'Grupo A': ('Group A', 'Grupo A'), 'Grupo B': ('Group B', 'Grupo B'), 'Grupo C': ('Group C', 'Grupo C'),
+  'O mesmo modelo alimenta a leitura de quem decide e o acompanhamento de quem opera, cada um com a visão que precisa.':
+    ('The same model feeds the reading of those who decide and the follow-up of those who operate, each with the view they need.',
+     'El mismo modelo alimenta la lectura de quien decide y el seguimiento de quien opera, cada uno con la vista que necesita.'),
+  'Alterne a visão e filtre por área.': ('Switch the view and filter by area.', 'Alterne la vista y filtre por área.'),
+  # painel 6
+  'Monte sua pergunta': ('Build your question', 'Arme su pregunta'), 'Medida': ('Measure', 'Medida'), 'Medida 1': ('Measure 1', 'Medida 1'), 'Medida 2': ('Measure 2', 'Medida 2'),
+  'Medida 3': ('Measure 3', 'Medida 3'), 'Cortar por': ('Slice by', 'Cortar por'), 'Categoria': ('Category', 'Categoría'), 'Período': ('Period', 'Período'),
+  'Gráfico': ('Chart', 'Gráfico'), 'Barras': ('Bars', 'Barras'), 'Linha': ('Line', 'Línea'), 'Sua pergunta': ('Your question', 'Su pregunta'),
+  'A área monta a própria pergunta sobre o modelo governado, sem abrir chamado para o time de dados.':
+    ('The area builds its own question on the governed model, without opening a ticket for the data team.', 'El área arma su propia pregunta sobre el modelo gobernado, sin abrir un ticket al equipo de datos.'),
+  'As áreas montam a própria pergunta sobre o modelo governado, sem abrir chamado para o time de dados.':
+    ('Areas build their own questions on the governed model, without opening a ticket for the data team.', 'Las áreas arman su propia pregunta sobre el modelo gobernado, sin abrir un ticket al equipo de datos.'),
+  'Escolha a medida, o corte e o tipo de gráfico.': ('Choose the measure, the slice and the chart type.', 'Elija la medida, el corte y el tipo de gráfico.'),
+  'Medida 1 por categoria': ('Measure 1 by category', 'Medida 1 por categoría'), 'Medida 2 por categoria': ('Measure 2 by category', 'Medida 2 por categoría'),
+  'Medida 3 por categoria': ('Measure 3 by category', 'Medida 3 por categoría'), 'Medida 1 por período': ('Measure 1 by period', 'Medida 1 por período'),
+  'Medida 2 por período': ('Measure 2 by period', 'Medida 2 por período'), 'Medida 3 por período': ('Measure 3 by period', 'Medida 3 por período'),
+  # painel 7
+  'Grade': ('Grid', 'Cuadrícula'), 'Margens': ('Margins', 'Márgenes'), 'Paleta': ('Palette', 'Paleta'),
+  'Grade, paleta e tipografia definidas antes do primeiro painel: todo dashboard nasce com a cara do mesmo produto.':
+    ('Grid, palette and typography defined before the first dashboard: every dashboard is born looking like the same product.', 'Cuadrícula, paleta y tipografía definidas antes del primer panel: todo dashboard nace con la cara del mismo producto.'),
+  'Grade, paleta e tipografia definidas antes do primeiro painel, para todo dashboard nascer com a cara do mesmo produto.':
+    ('Grid, palette and typography defined before the first dashboard, so every dashboard is born looking like the same product.', 'Cuadrícula, paleta y tipografía definidas antes del primer panel, para que todo dashboard nazca con la cara del mismo producto.'),
+  'Ligue as guias e troque a paleta.': ('Turn the guides on and switch the palette.', 'Active las guías y cambie la paleta.'),
+  # painel 8
+  '↻ Carregar de novo': ('↻ Reload', '↻ Cargar de nuevo'), 'Sem otimização': ('Not optimized', 'Sin optimización'),
+  'Medidas DAX e modelo otimizados': ('Optimized DAX measures and model', 'Medidas DAX y modelo optimizados'),
+  'Medida bem escrita e modelo enxuto: o painel responde na hora em que a pessoa filtra.':
+    ('Well-written measures and a lean model: the dashboard answers the moment someone filters.', 'Medida bien escrita y modelo ágil: el panel responde en el momento en que la persona filtra.'),
+  'Medidas DAX bem escritas e modelo enxuto: o painel responde na hora em que a pessoa filtra, mesmo com o volume crescendo.':
+    ('Well-written DAX measures and a lean model: the dashboard answers the moment someone filters, even as volume grows.', 'Medidas DAX bien escritas y modelo ágil: el panel responde en el momento en que la persona filtra, incluso con el volumen creciendo.'),
+  'Compare o carregamento e rode de novo.': ('Compare the loading and run it again.', 'Compare la carga y ejecútela de nuevo.'),
+  # painel 9
+  'Antes e depois do padrão': ('Before and after the standard', 'Antes y después del estándar'),
+  'Cada painel com um nome, um layout e uma cor: ninguém sabe onde achar o quê.':
+    ('Each dashboard with its own name, layout and color: nobody knows where to find what.', 'Cada panel con su nombre, su layout y su color: nadie sabe dónde encontrar qué.'),
+  'Nomenclatura e layout padronizados: quem abre qualquer painel sabe onde está cada coisa.':
+    ('Standardized naming and layout: whoever opens any dashboard knows where everything is.', 'Nomenclatura y layout estandarizados: quien abre cualquier panel sabe dónde está cada cosa.'),
+  'Nomes e posições padronizados: quem abre qualquer painel sabe onde está cada coisa, e painel novo nasce dentro do padrão.':
+    ('Standardized names and positions: whoever opens any dashboard knows where everything is, and new dashboards are born inside the standard.',
+     'Nombres y posiciones estandarizados: quien abre cualquier panel sabe dónde está cada cosa, y el panel nuevo nace dentro del estándar.'),
+  'Alterne entre antes e depois.': ('Switch between before and after.', 'Alterne entre antes y después.'),
+  'Área · Tema · Visão': ('Area · Topic · View', 'Área · Tema · Vista'),
+  # painel 10
+  'Executivo': ('Executive', 'Ejecutivo'), 'Analista': ('Analyst', 'Analista'),
+  'Visto por': ('Seen by', 'Visto por'), 'Visto por: Executivo': ('Seen by: Executive', 'Visto por: Ejecutivo'), 'Visto por: Analista': ('Seen by: Analyst', 'Visto por: Analista'), 'Visto por: Área': ('Seen by: Area', 'Visto por: Área'),
+  'Cada perfil enxerga só o que precisa. Clique na matriz para dar ou retirar acesso.':
+    ('Each profile sees only what it needs. Click the matrix to grant or remove access.', 'Cada perfil ve solo lo que necesita. Haga clic en la matriz para dar o quitar acceso.'),
+  'Cada perfil enxerga só o que precisa, definido por regra e não por exceção.':
+    ('Each profile sees only what it needs, defined by rule and not by exception.', 'Cada perfil ve solo lo que necesita, definido por regla y no por excepción.'),
+  'Clique na matriz para dar ou retirar acesso.': ('Click the matrix to grant or remove access.', 'Haga clic en la matriz para dar o quitar acceso.'),
+  # painel 11
+  'Migração': ('Migration', 'Migración'), 'Painéis dispersos': ('Scattered dashboards', 'Paneles dispersos'), 'Consolidado': ('Consolidated', 'Consolidado'), 'Conjunto': ('Set', 'Conjunto'),
+  'Mais de 200 painéis crescendo sem padrão, sem governança e sem fonte única da verdade.':
+    ('Over 200 dashboards growing with no standard, no governance and no single source of truth.', 'Más de 200 paneles creciendo sin estándar, sin gobernanza y sin fuente única de la verdad.'),
+  'Painéis migrados e consolidados num conjunto padronizado, todos sobre o mesmo modelo.':
+    ('Dashboards migrated and consolidated into a standardized set, all on the same model.', 'Paneles migrados y consolidados en un conjunto estandarizado, todos sobre el mismo modelo.'),
+  'Painéis dispersos são migrados e consolidados num conjunto padronizado, sobre o mesmo modelo.':
+    ('Scattered dashboards are migrated and consolidated into a standardized set, on the same model.', 'Los paneles dispersos se migran y consolidan en un conjunto estandarizado, sobre el mismo modelo.'),
+  'Alterne para ver a consolidação.': ('Switch to see the consolidation.', 'Alterne para ver la consolidación.'),
+  # painel 12
+  'Tabela': ('Table', 'Tabla'), 'Tabela fato': ('Fact table', 'Tabla de hechos'), 'Dimensão 1': ('Dimension 1', 'Dimensión 1'), 'Dimensão 2': ('Dimension 2', 'Dimensión 2'), 'Dimensão 3': ('Dimension 3', 'Dimensión 3'),
+  'chave': ('key', 'clave'), 'medida': ('measure', 'medida'), 'atributo': ('attribute', 'atributo'),
+  'Tabelas, campos e regras descritos para que o time novo entenda o modelo sem depender de quem o criou.':
+    ('Tables, fields and rules described so a new team understands the model without depending on whoever built it.', 'Tablas, campos y reglas descritos para que el equipo nuevo entienda el modelo sin depender de quien lo creó.'),
+  'Navegue pelas tabelas do modelo.': ('Browse the model tables.', 'Navegue por las tablas del modelo.'),
+})
+EXTRAS_VITRINE = {
+  'Cada área lê a mesma definição: a reunião discute a decisão, não o número.', 'A regra mora no modelo, não em cada painel.',
+  'O catálogo diz o que cada indicador significa e de onde ele vem.', 'Dado de várias fontes chega ao indicador pelo mesmo caminho.',
+  'O dado entra uma vez no modelo e ganha a regra de negócio antes de chegar a qualquer painel.',
+  'Uma conta, escrita uma vez no modelo: todos os painéis leem o mesmo número.',
+  'Cada painel faz a conta do seu jeito: números diferentes para a mesma métrica, e a reunião discute o dado.',
+  'Regra · v1', 'Regra · v2', 'Regra · v3', 'Regra · v4', 'Medida 1 por categoria', 'Medida 2 por categoria', 'Medida 3 por categoria',
+  'Medida 1 por período', 'Medida 2 por período', 'Medida 3 por período', 'Área · Tema · Visão', 'Executivo', 'Analista',
+  'Visto por: Executivo', 'Visto por: Analista', 'Visto por: Área', 'Conjunto', 'Tabela fato', 'Dimensão 1', 'Dimensão 2', 'Dimensão 3',
+  'chave', 'medida', 'atributo', 'Cada painel com um nome, um layout e uma cor: ninguém sabe onde achar o quê.',
+  'Nomenclatura e layout padronizados: quem abre qualquer painel sabe onde está cada coisa.',
+  'Painéis migrados e consolidados num conjunto padronizado, todos sobre o mesmo modelo.', 'Mais de 200 painéis crescendo sem padrão, sem governança e sem fonte única da verdade.',
+  'Comercial', 'Financeiro', 'Operações', 'Área', 'Certificado', 'Todas',
+}
+
 TERMOS = {
   # setores
   'Bancário': ('Banking', 'Banca'),
@@ -1273,7 +1420,7 @@ def main():
         sys.exit('rode antes: node tools/extrai-textos.js index.html > tools/textos-pt.json')
     extraidas = {i['chave'] for i in json.load(FONTE.open())['itens']}
 
-    orfas = [k for k in TRAD if k not in extraidas and k not in EXTRAS]
+    orfas = [k for k in TRAD if k not in extraidas and k not in EXTRAS and k not in EXTRAS_VITRINE]
     # termos do glossário não são chaves por si: só alimentam as compostas
     if orfas:
         print('AVISO: %d chave(s) não batem com a extração — não vão traduzir nada:' % len(orfas))

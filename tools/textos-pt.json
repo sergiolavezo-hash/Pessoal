@@ -1,5 +1,5 @@
 {
- "total": 810,
+ "total": 906,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -1717,74 +1717,539 @@
    "cls": "h-xl reveal d1 in"
   },
   {
+   "chave": "Doze entregas, três frentes. Escolha uma e veja como ela aparece num dashboard de verdade: clique, filtre e compare.",
+   "tag": "p",
+   "cls": "sub reveal d2"
+  },
+  {
    "chave": "Modelagem dimensional",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Definição única por métrica",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Regra de negócio versionada",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Catálogo de indicadores",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Dashboards que se usam",
-   "tag": "h3",
-   "cls": "svc-t"
+   "tag": "span",
+   "cls": "vit-k"
   },
   {
    "chave": "Visão executiva e operacional",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Self-service para as áreas",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Padrão visual definido antes do desenvolvimento",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Performance e otimização de DAX",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Governança de BI",
-   "tag": "h3",
-   "cls": "svc-t"
+   "tag": "span",
+   "cls": "vit-k"
   },
   {
    "chave": "Padrão de nomenclatura e layout",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Controle de acesso por perfil",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Migração e consolidação de painéis",
-   "tag": "li",
-   "cls": ""
+   "tag": "span",
+   "cls": "t"
   },
   {
    "chave": "Documentação do modelo",
-   "tag": "li",
+   "tag": "span",
+   "cls": "t"
+  },
+  {
+   "chave": "Exemplo ilustrativo · sem dados reais",
+   "tag": "span",
+   "cls": "vs"
+  },
+  {
+   "chave": "Fontes",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Modelo dimensional",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Fatos e dimensões",
+   "tag": "b",
    "cls": ""
+  },
+  {
+   "chave": "Passe o mouse numa fonte ou num indicador e acompanhe o caminho do dado.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "Cada painel por conta própria",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Definição única",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Definição da métrica",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "escrita uma vez",
+   "tag": "span",
+   "cls": "tag ac"
+  },
+  {
+   "chave": "Histórico da regra",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "v1",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Criada",
+   "tag": "small",
+   "cls": ""
+  },
+  {
+   "chave": "v2",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Ajustada",
+   "tag": "small",
+   "cls": ""
+  },
+  {
+   "chave": "v3",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Revisada",
+   "tag": "small",
+   "cls": ""
+  },
+  {
+   "chave": "v4",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Atual",
+   "tag": "small",
+   "cls": ""
+  },
+  {
+   "chave": "Resultado da métrica",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Cada mudança de regra fica registrada: dá para ver o que mudou e voltar atrás.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "Filtrar por área",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Todas",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Comercial",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Financeiro",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Operações",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Indicador selecionado",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Fonte",
+   "tag": "div",
+   "cls": "tag"
+  },
+  {
+   "chave": "Modelo",
+   "tag": "div",
+   "cls": "tag"
+  },
+  {
+   "chave": "Indicador",
+   "tag": "div",
+   "cls": "tag ac"
+  },
+  {
+   "chave": "Certificado",
+   "tag": "div",
+   "cls": "tag ok"
+  },
+  {
+   "chave": "Área",
+   "tag": "div",
+   "cls": "tag"
+  },
+  {
+   "chave": "Visão executiva",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Visão operacional",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Filtre por área",
+   "tag": "span",
+   "cls": "vit-k push"
+  },
+  {
+   "chave": "Evolução",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Composição",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Grupo A",
+   "tag": "div",
+   "cls": ""
+  },
+  {
+   "chave": "Grupo B",
+   "tag": "div",
+   "cls": ""
+  },
+  {
+   "chave": "Grupo C",
+   "tag": "div",
+   "cls": ""
+  },
+  {
+   "chave": "Medida",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Medida 1",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Medida 2",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Medida 3",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Cortar por",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Categoria",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Período",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Gráfico",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Barras",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Linha",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Sua pergunta",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "A área monta a própria pergunta sobre o modelo governado, sem abrir chamado para o time de dados.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "Grade",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Margens",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Paleta",
+   "tag": "span",
+   "cls": "vit-k push"
+  },
+  {
+   "chave": "Grade, paleta e tipografia definidas antes do primeiro painel: todo dashboard nasce com a cara do mesmo produto.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "↻ Carregar de novo",
+   "tag": "button",
+   "cls": "vit-chip"
+  },
+  {
+   "chave": "Sem otimização",
+   "tag": "h4",
+   "cls": ""
+  },
+  {
+   "chave": "Medidas DAX e modelo otimizados",
+   "tag": "h4",
+   "cls": ""
+  },
+  {
+   "chave": "Medida bem escrita e modelo enxuto: o painel responde na hora em que a pessoa filtra.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "Antes",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Depois",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Visto por",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Cada perfil enxerga só o que precisa. Clique na matriz para dar ou retirar acesso.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "Painéis dispersos",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "Consolidado",
+   "tag": "button",
+   "cls": ""
+  },
+  {
+   "chave": "F",
+   "tag": "span",
+   "cls": "tag ac"
+  },
+  {
+   "chave": "D",
+   "tag": "span",
+   "cls": "tag"
+  },
+  {
+   "chave": "Tabela",
+   "tag": "span",
+   "cls": "vit-k"
+  },
+  {
+   "chave": "Tabelas, campos e regras descritos para que o time novo entenda o modelo sem depender de quem o criou.",
+   "tag": "p",
+   "cls": "vit-cap"
+  },
+  {
+   "chave": "Organizamos o dado em fatos (o que aconteceu) e dimensões (como você quer cortar), no desenho que o BI lê melhor. Os dados de várias fontes passam pelo modelo antes de virarem indicador.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Passe o mouse numa fonte ou num indicador para ver o caminho do dado.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Cada indicador tem uma única conta, escrita uma vez no modelo. Todos os painéis leem a mesma definição, e a reunião deixa de discutir qual número está certo.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne entre \"por conta própria\" e \"definição única\".",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "A regra de cada métrica vive no modelo, com histórico. Dá para saber o que mudou e quando, e voltar atrás sem refazer painéis.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Clique numa versão para ver a regra e o resultado.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Um lugar para consultar o que cada indicador significa, de onde ele vem e quem responde por ele.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Filtre por área e selecione um indicador.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "O mesmo modelo alimenta a leitura de quem decide e o acompanhamento de quem opera, cada um com a visão que precisa.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne a visão e filtre por área.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "As áreas montam a própria pergunta sobre o modelo governado, sem abrir chamado para o time de dados.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Escolha a medida, o corte e o tipo de gráfico.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Grade, paleta e tipografia definidas antes do primeiro painel, para todo dashboard nascer com a cara do mesmo produto.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Ligue as guias e troque a paleta.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Medidas DAX bem escritas e modelo enxuto: o painel responde na hora em que a pessoa filtra, mesmo com o volume crescendo.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Compare o carregamento e rode de novo.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Nomes e posições padronizados: quem abre qualquer painel sabe onde está cada coisa, e painel novo nasce dentro do padrão.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne entre antes e depois.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Cada perfil enxerga só o que precisa, definido por regra e não por exceção.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Clique na matriz para dar ou retirar acesso.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Painéis dispersos são migrados e consolidados num conjunto padronizado, sobre o mesmo modelo.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Alterne para ver a consolidação.",
+   "tag": "p",
+   "cls": "hint"
+  },
+  {
+   "chave": "Navegue pelas tabelas do modelo.",
+   "tag": "p",
+   "cls": "hint"
   },
   {
    "chave": "Como entregamos",
@@ -1935,6 +2400,36 @@
    "chave": "Quero avaliar meu BI <span class=\"arr\">→</span>",
    "tag": "a",
    "cls": "btn btn-line"
+  },
+  {
+   "chave": "Entregas de Analytics e BI",
+   "tag": "@aria-label",
+   "cls": "vit-nav"
+  },
+  {
+   "chave": "Como cada painel calcula",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Tipo de visão",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Monte sua pergunta",
+   "tag": "@aria-label",
+   "cls": "nd ss-f"
+  },
+  {
+   "chave": "Antes e depois do padrão",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
+  },
+  {
+   "chave": "Migração",
+   "tag": "@aria-label",
+   "cls": "vit-seg"
   },
   {
    "chave": "Power BI",
@@ -2472,11 +2967,6 @@
    "cls": "filtro"
   },
   {
-   "chave": "Migração",
-   "tag": "button",
-   "cls": "filtro"
-  },
-  {
    "chave": "15 cases",
    "tag": "p",
    "cls": "filtro-conta"
@@ -2872,19 +3362,9 @@
    "cls": "caso-eyebrow"
   },
   {
-   "chave": "Antes",
-   "tag": "p",
-   "cls": "ad-k"
-  },
-  {
    "chave": "Constatada",
    "tag": "p",
    "cls": "ad-n"
-  },
-  {
-   "chave": "Depois",
-   "tag": "p",
-   "cls": "ad-k"
   },
   {
    "chave": "Antecipada",
