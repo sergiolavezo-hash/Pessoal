@@ -1590,7 +1590,7 @@
      fixa — o cinza da Microsoft, o preto da Databricks, o azul-marinho do
      Tableau — e sobre o fundo escuro metade deles sumiria. Trocar a cor da
      marca não é opção, então o fundo é que se mantém. */
-  /* Parceiros em campo de hexagonos. Os 8 links ficam no HTML (funciona sem JS);
+  /* Parceiros em campo de hexagonos. Os links ficam no HTML (funciona sem JS);
      o script so distribui os links nas fileiras e preenche o resto com celulas
      vazias decorativas. O fundo do hexagono de logo e branco nos dois temas
      porque os logos sao coloridos para fundo claro. */
@@ -1618,6 +1618,10 @@
   .hex.logo em { position: relative; z-index: 1; font: 600 calc(var(--w) * 0.075)/1.1 var(--mono, monospace);
     letter-spacing: 0.06em; text-transform: uppercase; font-style: normal; color: #56565E; text-align: center;
     opacity: 0; max-height: 0; padding: 0 12%; transition: opacity 0.3s var(--ease), max-height 0.3s var(--ease); }
+  /* Logo so com a marca, sem o nome escrito: o nome fica visivel o tempo todo, no estilo do rotulo de hover.
+     No celular as celulas sao pequenas demais para o rotulo; la o nome fica so no aria-label. */
+  .hex.logo.com-nome em { opacity: 1; max-height: 3em; padding: 0 5%; font-size: max(8px, calc(var(--w) * 0.075)); }
+  .favo-linhas[data-modo="m"] .hex.logo.com-nome em { display: none; }
   .hex.logo:hover, .hex.logo:focus-visible { transform: translateY(-3px); }
   .hex.logo:hover .borda, .hex.logo:focus-visible .borda { background: var(--accent); }
   .hex.logo:hover .miolo::after, .hex.logo:focus-visible .miolo::after { opacity: 1; }
@@ -1840,7 +1844,7 @@
               </a>
               <a class="mega-card" href="#parceiros">
                 <span class="tile-ico" data-ico="parceiros"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 4-4 4 1 2-1 4 1 4 4-3 3-3-2-3 2-3-2-3 1-3-3Z"/><path d="m7 7 3-3 4 1 3 3M9 14l3 2 3-2M5 13l-2 2 3 3 2-2M19 13l2 2-3 3-2-2"/></svg></span>
-                <span><b>Parceiros <span class="mega-tag">8 programas</span></b><p>Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake e Oracle.</p></span>
+                <span><b>Parceiros <span class="mega-tag">9 programas</span></b><p>Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake, MicroStrategy e Oracle.</p></span>
               </a>
               <a class="mega-card" href="#contato">
                 <span class="tile-ico" data-ico="contato"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
@@ -2140,6 +2144,7 @@
           <a class="hex logo" href="parceiros/databricks.html" aria-label="Databricks — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/databricks.png" alt="" loading="lazy" decoding="async"><em>Databricks</em></span></a>
           <a class="hex logo" href="parceiros/tableau.html" aria-label="Tableau — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/tableau.png" alt="" loading="lazy" decoding="async"><em>Tableau</em></span></a>
           <a class="hex logo" href="parceiros/snowflake.html" aria-label="Snowflake — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/snowflake.svg" alt="" loading="lazy" decoding="async"><em>Snowflake</em></span></a>
+          <a class="hex logo com-nome" href="parceiros/microstrategy.html" aria-label="MicroStrategy — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/microstrategy.svg" alt="" loading="lazy" decoding="async"><em>MicroStrategy</em></span></a>
           <a class="hex logo" href="parceiros/oracle.html" aria-label="Oracle — ver produtos e cases"><i class="borda"></i><span class="miolo"><img src="media/logos/parceiros/oracle.svg" alt="" loading="lazy" decoding="async"><em>Oracle</em></span></a>
         </div>
       </div>
@@ -3364,7 +3369,7 @@
 })();
 </script>
 <script>
-/* Campo de hexagonos dos parceiros: distribui os 8 links nas fileiras e completa
+/* Campo de hexagonos dos parceiros: distribui os links nas fileiras e completa
    com celulas vazias. Horizontal em todas as telas: 3 fileiras no desktop e no
    tablet, 4 no celular (5 colunas), sempre mais largo que alto. */
 (function () {
@@ -3373,9 +3378,9 @@
   var links = [].slice.call(L.querySelectorAll('.logo')), cels = [], modoAtual = '', largAtual = 0, q = null;
   var fino = window.matchMedia ? window.matchMedia('(hover: hover) and (pointer: fine)') : null;
   var LAY = {
-    d: { c: 8,  r: 3, p: [[0,1],[0,4],[0,7],[1,2],[1,5],[2,0],[2,3],[2,7]] },
-    t: { c: 8,  r: 3, p: [[0,1],[0,4],[0,7],[1,2],[1,5],[2,0],[2,3],[2,7]] },
-    m: { c: 5,  r: 4, p: [[0,1],[0,4],[1,0],[1,2],[2,1],[2,4],[3,1],[3,3]] }
+    d: { c: 8,  r: 3, p: [[0,1],[0,4],[0,7],[1,2],[1,5],[2,0],[2,3],[2,5],[2,7]] },
+    t: { c: 8,  r: 3, p: [[0,1],[0,4],[0,7],[1,2],[1,5],[2,0],[2,3],[2,5],[2,7]] },
+    m: { c: 5,  r: 4, p: [[0,1],[0,4],[1,0],[1,2],[2,1],[2,4],[3,1],[3,2],[3,3]] }
   };
   function montar() {
     var w = box.clientWidth; if (!w) return;
@@ -3383,7 +3388,7 @@
     if (m === modoAtual && w === largAtual) return;
     modoAtual = m; largAtual = w;
     var W = Math.floor((w - cfg.c * 4) / cfg.c);
-    L.style.setProperty('--w', W + 'px'); L.classList.add('pronto'); L.innerHTML = ''; cels = [];
+    L.style.setProperty('--w', W + 'px'); L.setAttribute('data-modo', m); L.classList.add('pronto'); L.innerHTML = ''; cels = [];
     var mapa = {}; cfg.p.forEach(function (p, i) { mapa[p[0] + ',' + p[1]] = links[i]; });
     for (var r = 0; r < cfg.r; r++) {
       var li = document.createElement('div'); li.className = 'favo-linha';

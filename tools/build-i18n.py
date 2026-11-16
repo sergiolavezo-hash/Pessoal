@@ -699,11 +699,11 @@ TRAD.update({
   # ---------------- parceiros ----------------
   # Os nomes dos programas são nomes próprios dos fabricantes: ficam iguais
   # nas três línguas. Só a moldura em volta deles muda.
-  'Parceiros <span class="mega-tag">8 programas</span>':
-    ('Partners <span class="mega-tag">8 programs</span>', 'Socios <span class="mega-tag">8 programas</span>'),
-  'Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake e Oracle.':
-    ('Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake and Oracle.',
-     'Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake y Oracle.'),
+  'Parceiros <span class="mega-tag">9 programas</span>':
+    ('Partners <span class="mega-tag">9 programs</span>', 'Socios <span class="mega-tag">9 programas</span>'),
+  'Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake, MicroStrategy e Oracle.':
+    ('Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake, MicroStrategy and Oracle.',
+     'Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake, MicroStrategy y Oracle.'),
   'Programas de parceria.': ('Partner programs.', 'Programas de alianza.'),
   'A Atlas participa dos programas de parceria dos fabricantes com que trabalha — o que mantém o time perto da documentação, do roadmap e do suporte de cada plataforma.':
     ('Atlas takes part in the partner programs of the vendors it works with — which keeps the team close to each platform\u2019s documentation, roadmap and support.',
@@ -1073,6 +1073,7 @@ TRAD.update({
   'Tableau — ver produtos e cases': ('Tableau — see products and cases', 'Tableau — ver productos y casos'),
   'Snowflake — ver produtos e cases': ('Snowflake — see products and cases', 'Snowflake — ver productos y casos'),
   'Oracle — ver produtos e cases': ('Oracle — see products and cases', 'Oracle — ver productos y casos'),
+  'MicroStrategy — ver produtos e cases': ('MicroStrategy — see products and cases', 'MicroStrategy — ver productos y casos'),
 })
 
 # Solucoes: titulos com enfase e legendas dos cartoes-icone (um bloco por legenda)

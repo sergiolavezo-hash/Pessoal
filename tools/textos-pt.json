@@ -1,5 +1,5 @@
 {
- "total": 1246,
+ "total": 1259,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -222,12 +222,12 @@
    "cls": ""
   },
   {
-   "chave": "Parceiros <span class=\"mega-tag\">8 programas</span>",
+   "chave": "Parceiros <span class=\"mega-tag\">9 programas</span>",
    "tag": "b",
    "cls": ""
   },
   {
-   "chave": "Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake e Oracle.",
+   "chave": "Microsoft, Google, AWS, IBM, Databricks, Tableau, Snowflake, MicroStrategy e Oracle.",
    "tag": "p",
    "cls": ""
   },
@@ -828,6 +828,11 @@
   },
   {
    "chave": "Snowflake",
+   "tag": "em",
+   "cls": ""
+  },
+  {
+   "chave": "MicroStrategy",
    "tag": "em",
    "cls": ""
   },
@@ -1572,6 +1577,11 @@
    "cls": "hex logo"
   },
   {
+   "chave": "MicroStrategy — ver produtos e cases",
+   "tag": "@aria-label",
+   "cls": "hex logo com-nome"
+  },
+  {
    "chave": "Oracle — ver produtos e cases",
    "tag": "@aria-label",
    "cls": "hex logo"
@@ -1613,11 +1623,6 @@
   },
   {
    "chave": "Java",
-   "tag": "@aria-label",
-   "cls": "lg-solo"
-  },
-  {
-   "chave": "MicroStrategy",
    "tag": "@aria-label",
    "cls": "lg-solo"
   },
@@ -5267,7 +5272,7 @@
    "cls": "h-xl"
   },
   {
-   "chave": "Oracle PartnerNetwork",
+   "chave": "MicroStrategy Partner Program",
    "tag": "p",
    "cls": "sub"
   },
@@ -5275,6 +5280,61 @@
    "chave": "produto",
    "tag": "p",
    "cls": "pf-l"
+  },
+  {
+   "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span><span class=\"t\">MicroStrategy</span>",
+   "tag": "button",
+   "cls": "vit-it"
+  },
+  {
+   "chave": "BI corporativo para operações multiárea.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Vendas, logística e operação lendo os mesmos números.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Servir muitas áreas com governança central e controle fino de acesso.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Operação grande, com muitos perfis de usuário e exigência de auditoria.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Metadados centralizados alimentam relatórios e painéis por perfil.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "BI corporativo em varejo de moda e arquitetura ETL → DW → BI em turismo.",
+   "tag": "p",
+   "cls": ""
+  },
+  {
+   "chave": "Cases entregues com MicroStrategy",
+   "tag": "h2",
+   "cls": "h-xl"
+  },
+  {
+   "chave": "<span class=\"lg-solo\" title=\"Pentaho\" aria-label=\"Pentaho\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span></span><span class=\"lg-solo\" title=\"SQL Server\" aria-label=\"SQL Server\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/sqlserver.svg);--bc:#CC2927\"></span></span></span><span class=\"lg-solo\" title=\"MicroStrategy\" aria-label=\"MicroStrategy\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span></span>",
+   "tag": "div",
+   "cls": "cc-logos"
+  },
+  {
+   "chave": "<span class=\"lg-solo\" title=\"Pentaho\" aria-label=\"Pentaho\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-mn\">PEN</span></span></span><span class=\"lg-solo\" title=\"MicroStrategy\" aria-label=\"MicroStrategy\" role=\"img\"><span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/microstrategy.svg);--bc:#D9232E\"></span></span></span>",
+   "tag": "div",
+   "cls": "cc-logos"
+  },
+  {
+   "chave": "Oracle PartnerNetwork",
+   "tag": "p",
+   "cls": "sub"
   },
   {
    "chave": "<span class=\"lg-ring lg-sm\"><span class=\"lg-ico\" style=\"--i:url(../media/logos/oracle.svg);--bc:#C74634\"></span></span><span class=\"t\">Oracle</span>",
@@ -5672,7 +5732,7 @@
    "cls": ""
   },
   {
-   "chave": "<span>Microsoft</span><span>Oracle</span>",
+   "chave": "<span>Microsoft</span><span>Oracle</span><span>MicroStrategy</span>",
    "tag": "dd",
    "cls": ""
   },
@@ -5994,6 +6054,11 @@
   {
    "chave": "Extração pontual → Camada própria",
    "tag": "li",
+   "cls": ""
+  },
+  {
+   "chave": "<span>MicroStrategy</span>",
+   "tag": "dd",
    "cls": ""
   },
   {

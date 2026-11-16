@@ -253,7 +253,8 @@
     ],
     "parceiros": [
       "Microsoft",
-      "Oracle"
+      "Oracle",
+      "MicroStrategy"
     ],
     "areas": [
       "Desenvolvimento de sistemas",
@@ -373,7 +374,9 @@
     ],
     "arte": "consolidacao",
     "capa": "Viagens, hospedagens e locações consolidadas numa arquitetura ETL → DW → BI.",
-    "parceiros": [],
+    "parceiros": [
+      "MicroStrategy"
+    ],
     "areas": [
       "Data Engineering",
       "Data Warehouse",
@@ -413,7 +416,9 @@
     ],
     "arte": "comercial",
     "capa": "O departamento comercial saiu da extração pontual para uma camada de dados própria.",
-    "parceiros": [],
+    "parceiros": [
+      "MicroStrategy"
+    ],
     "areas": [
       "Data Engineering",
       "Data Warehouse",
@@ -495,7 +500,9 @@
     ],
     "arte": "difusao",
     "capa": "Vendas, logística e operações com acesso aos mesmos indicadores, em toda a empresa.",
-    "parceiros": [],
+    "parceiros": [
+      "MicroStrategy"
+    ],
     "areas": [
       "Business Intelligence",
       "Data Warehouse",

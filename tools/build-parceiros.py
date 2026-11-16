@@ -74,6 +74,9 @@ FORNECEDORES = [
     dict(slug='oracle', nome='Oracle', logo='oracle.svg',
          programa='Oracle PartnerNetwork', chave_case='Oracle',
          produtos=['Oracle']),
+    dict(slug='microstrategy', nome='MicroStrategy', logo='microstrategy.svg',
+         programa='MicroStrategy Partner Program', chave_case='MicroStrategy',
+         produtos=['MicroStrategy']),
 ]
 
 # O parametro 'extra' de pagina() e colado cru no HTML: tem de trazer as
