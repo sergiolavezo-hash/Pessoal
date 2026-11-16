@@ -16,7 +16,7 @@
 | Durateston | 250 mg |
 | Nandrolona (Deca) | 25 mg |
 | Retatrutida | 2,5 mg/semana (confirmado em mg pelo usuário em 16/11; antes registrado como "2,5 UI") |
-| Semaglutida | 10 UI |
+| Semaglutida | ~~10 UI~~ — fora do protocolo (informado em 16/11: "vou deixar pra depois") |
 | Cabergolina | 1×/semana (desde 10/09) |
 | KPV, AHK-Cu, ipamorelina | iniciados em 16/11 (doses não informadas) |
 
@@ -26,7 +26,7 @@
 
 0. **(16/11) Novos compostos antes de exame atualizado:** hematócrito 53% e subindo (set/26), HDL 32, TGP 41, estradiol 115 pg/mL, pressão nunca medida e valores de outubro não enviados. Estanozolol oral (17-alfa-alquilado) é o que mais derruba HDL e sobrecarrega o fígado; Masteron, Primobolan e estanozolol derivam de DHT (queda de cabelo já presente); mais andrógeno total sobe o hematócrito. Marcas sem registro na ANVISA: dose e pureza incertas. Peptídeos (KPV, AHK-Cu, ipamorelina) sem aprovação para uso humano e com pouca evidência em humanos. **Este acompanhamento não monta ciclo nem dose: levar a lista completa ao Dr. Nicola com exames novos antes de iniciar qualquer um.**
 
-1. **Retatrutida + semaglutida duplicam a mesma classe (agonismo GLP-1).** Sem racional clínico conhecido para a soma; efeitos colaterais se somam (náusea, vômito, desidratação, vesícula, pancreatite). O Dr. Nicola precisa saber que são as duas juntas.
+1. **[Resolvido em 16/11: semaglutida fora; segue só retatrutida 2,5 mg/sem]** **Retatrutida + semaglutida duplicam a mesma classe (agonismo GLP-1).** Sem racional clínico conhecido para a soma; efeitos colaterais se somam (náusea, vômito, desidratação, vesícula, pancreatite). O Dr. Nicola precisa saber que são as duas juntas.
 2. **"UI" não define dose desses peptídeos** — depende da diluição do frasco. Confirmar dose em mg com quem prescreveu.
 3. **Retenção súbita + histórico de hematócrito:** medir pressão; inchaço em tornozelo/rosto ou falta de ar → avisar o médico.
 4. **Expectativa:** 2000 kcal ≈ 1100 kcal abaixo da manutenção. Meta realista = perder gordura preservando músculo, com possível ganho localizado. Ganho máximo de massa exige superávit.
