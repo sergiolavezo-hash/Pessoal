@@ -91,7 +91,6 @@ Luz de teto à noite, baixa e chapada: esconde definição, então a leitura é 
 ## Pendências do usuário
 
 - Média semanal de peso (a partir de 01/11)
-- Cintura na altura do umbigo
 - Valores dos exames "normalizados"
 
 ## Registro
@@ -103,3 +102,4 @@ Luz de teto à noite, baixa e chapada: esconde definição, então a leitura é 
 | 29/10/2026 | 94,4 kg (jejum) | _pendente_ | — | −0,7 kg em 24h: retenção ainda saindo |
 | 02/11/2026 | 94,0 kg (jejum) | _pendente_ | — | −0,4 kg desde 29/10. Média da semana 26/10–01/11 não fechada (só 2 pesagens enviadas) |
 | 03/11/2026 | 93,0 kg (jejum) | _pendente_ | — | −1,0 kg em 24h (oscilação); −5 kg desde 19/10 |
+| 16/11/2026 | _peso pendente_ | 94 cm (umbigo) · 97 cm (abaixo do umbigo) | — | medidas de base: tórax 113 · quadril 104 · braço D 43 / E 42 · coxa D 65 / E 66 · cintura/quadril 0,90 · tórax/cintura 1,20 |

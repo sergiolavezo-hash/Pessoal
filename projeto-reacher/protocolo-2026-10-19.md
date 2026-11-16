@@ -18,8 +18,13 @@
 | Retatrutida | 2,5 UI |
 | Semaglutida | 10 UI |
 | Cabergolina | 1×/semana (desde 10/09) |
+| KPV, AHK-Cu, ipamorelina | iniciados em 16/11 (doses não informadas) |
+
+**16/11 — compostos pedidos pelo usuário (relato, não prescritos aqui):** Primobolan 100 mg (Oxygen KW), 2× enantato de testosterona 250 mg (Alpha Pharma), Masteron enantato 200 mg (ZPHC), estanozolol oral 10 mg (Cooper Pharma). Ainda não iniciados até este registro.
 
 ### Alertas registrados
+
+0. **(16/11) Novos compostos antes de exame atualizado:** hematócrito 53% e subindo (set/26), HDL 32, TGP 41, estradiol 115 pg/mL, pressão nunca medida e valores de outubro não enviados. Estanozolol oral (17-alfa-alquilado) é o que mais derruba HDL e sobrecarrega o fígado; Masteron, Primobolan e estanozolol derivam de DHT (queda de cabelo já presente); mais andrógeno total sobe o hematócrito. Marcas sem registro na ANVISA: dose e pureza incertas. Peptídeos (KPV, AHK-Cu, ipamorelina) sem aprovação para uso humano e com pouca evidência em humanos. **Este acompanhamento não monta ciclo nem dose: levar a lista completa ao Dr. Nicola com exames novos antes de iniciar qualquer um.**
 
 1. **Retatrutida + semaglutida duplicam a mesma classe (agonismo GLP-1).** Sem racional clínico conhecido para a soma; efeitos colaterais se somam (náusea, vômito, desidratação, vesícula, pancreatite). O Dr. Nicola precisa saber que são as duas juntas.
 2. **"UI" não define dose desses peptídeos** — depende da diluição do frasco. Confirmar dose em mg com quem prescreveu.
