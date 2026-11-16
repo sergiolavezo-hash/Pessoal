@@ -102,4 +102,11 @@ Luz de teto à noite, baixa e chapada: esconde definição, então a leitura é 
 | 29/10/2026 | 94,4 kg (jejum) | _pendente_ | — | −0,7 kg em 24h: retenção ainda saindo |
 | 02/11/2026 | 94,0 kg (jejum) | _pendente_ | — | −0,4 kg desde 29/10. Média da semana 26/10–01/11 não fechada (só 2 pesagens enviadas) |
 | 03/11/2026 | 93,0 kg (jejum) | _pendente_ | — | −1,0 kg em 24h (oscilação); −5 kg desde 19/10 |
-| 16/11/2026 | _peso pendente_ | 94 cm (umbigo) · 97 cm (abaixo do umbigo) | — | medidas de base: tórax 113 · quadril 104 · braço D 43 / E 42 · coxa D 65 / E 66 · cintura/quadril 0,90 · tórax/cintura 1,20 |
+| 16/11/2026 | 93,0 kg (jejum) | 94 cm (umbigo) · 97 cm (abaixo do umbigo) | — | medidas de base: tórax 113 · quadril 104 · braço D 43 / E 42 · coxa D 65 / E 66 · cintura/quadril 0,90 · tórax/cintura 1,20 |
+
+### Checkpoint 16/11
+- Peso 93,0 kg, igual a 03/11: ~2 semanas sem queda. Meta (≤90 kg) não atingida → pela regra 6, a estratégia segue até janeiro, sem apertar a dieta além do previsto.
+- Platô de 2 semanas (regra da dieta: <0,5 kg/semana por 2 semanas) → **+2 mil passos/dia** (10–12 mil) e 1 semana pesando a comida e anotando tudo, antes de qualquer corte.
+- Se a cintura (94 cm em 16/11) não cair até 30/11: tirar ~150 kcal de carboidrato nos dias sem refeed (~1850 kcal; mínimo 1800). Quinta segue ~2400.
+- Exames marcados para 23/11. Peptídeos (KPV, AHK-Cu, ipamorelina) iniciados em 16/11: a ipamorelina pode reter líquido, então a cintura e as fotos valem mais que a balança nas próximas semanas.
+- Nova meta realista para 31/12: visual de nov/2022 (~88 kg, ~14%). Visual da foto de maio (83–85 kg) fica para janeiro/fevereiro.
