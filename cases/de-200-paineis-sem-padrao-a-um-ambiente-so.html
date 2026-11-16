@@ -376,11 +376,6 @@
   /* ---------- Serviços (accordion) ---------- */
   .sol-list { list-style: none; border-top: 1px solid var(--line); margin-top: 1rem; }
   .sol-item { border-bottom: 1px solid var(--line); border-left: 2px solid transparent; padding-left: 0; transition: border-color 0.45s var(--ease), background 0.45s var(--ease), padding-left 0.35s var(--ease); }
-  /* O brilho desce com a rolagem: a frente marca onde o leitor está, e o
-     que ficou para trás permanece aceso. Mesma linguagem do hero. */
-  .sol-item.is-on { border-left-color: rgba(46, 134, 255, 0.35); background: rgba(46, 134, 255, 0.03); padding-left: 1rem; }
-  .sol-item.is-head { border-left-color: var(--accent); background: rgba(46, 134, 255, 0.06); }
-  .sol-item.is-head .sol-idx { color: var(--accent-light); }
   .sol-item:hover { border-left-color: rgba(46, 134, 255, 0.7); background: rgba(46, 134, 255, 0.07); padding-left: 1rem; }
   .sol-head:focus-visible { outline-offset: -4px; }
   .sol-head { width: 100%; display: grid; grid-template-columns: 3.2rem 1fr auto; align-items: center; gap: 1.2rem; background: none; border: none; color: var(--ink); cursor: pointer; padding: 1.5rem 0; text-align: left; }
@@ -1369,6 +1364,78 @@
   :root[data-tema="claro"] .pillar,
   :root[data-tema="claro"] .pilar,
   :root[data-tema="claro"] .banner { box-shadow: var(--sombra); }
+
+  /* ---- Soluções no celular e no tablet: navegação compacta + conteúdo em foco ----
+     Uma faixa de abas (ícone e nome curto) no alto, a foto da frente escolhida logo abaixo com o título
+     entrando no esmaecido, a grade de capacidades, a linha de resultado e o botão. Os painéis passam
+     de lado (arrastando ou pelas abas) e as bolinhas mostram em qual está. Tudo num container só. */
+  .sol-curto, .sol-dots { display: none; }
+  @media (max-width: 1000px) {
+    /* o .sol herdou do desenho antigo (cartão de serviço) padding, elevação e brilho ao passar o ponteiro:
+       aqui ele é só a moldura do conjunto */
+    .sol, .sol:hover, .sol:focus-within { gap: 0; margin-top: 1.8rem; padding: 0; transform: none; border-color: var(--line); border-radius: 22px; }
+    .sol::after { display: none; }
+    :root[data-tema="claro"] .sol { box-shadow: var(--sombra); }
+
+    /* faixa de abas: rola de lado quando não cabe, e a aba escolhida vem para o meio */
+    .sol-list { display: flex; gap: 0.4rem; margin: 0; border-top: 0; padding: 0.8rem 0.8rem 0.85rem; overflow-x: auto; scroll-snap-type: x proximity; overscroll-behavior-x: contain; scrollbar-width: none; }
+    .sol-list::-webkit-scrollbar { display: none; }
+    .sol-item { flex: 0 0 auto; width: auto; min-width: 3.4rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.55rem 0.55rem 0.5rem; border-radius: 12px; text-align: center; scroll-snap-align: center; }
+    .sol-item:first-child { margin-left: auto; } .sol-item:last-child { margin-right: auto; }
+    .sol-item, .sol-item:hover { padding-left: 0.55rem; transform: none; }
+    .sol-item, :root[data-tema="claro"] .sol-item { box-shadow: none; }
+    /* o nome inteiro e a frase continuam no botão para leitor de tela; na faixa só o nome curto aparece */
+    .sol-item > span:not([class]) { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .sol-item .sol-t, .sol-item .sol-arr { display: none; }
+    .sol-ico { width: auto; height: auto; border: 0; border-radius: 0; background: none; }
+    .sol-ico svg { width: 1.4rem; height: 1.4rem; }
+    .sol-curto { display: block; font-family: var(--display); font-size: 0.74rem; font-weight: 550; line-height: 1.1; color: var(--ink); white-space: nowrap; }
+    .sol-item[aria-selected="true"], :root[data-tema="claro"] .sol-item[aria-selected="true"] { background: var(--btn-fill); border-color: var(--btn-fill); box-shadow: none; }
+    .sol-item[aria-selected="true"] .sol-ico { background: none; border: 0; }
+    .sol-item[aria-selected="true"] .sol-ico svg { stroke: #fff; }
+    .sol-item[aria-selected="true"] .sol-curto { color: #fff; }
+
+    /* trilho de painéis */
+    .sol-panels { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; overscroll-behavior-x: contain; scrollbar-width: none; border-top: 1px solid var(--line); }
+    .sol-panels::-webkit-scrollbar { display: none; }
+    .sol-panels > .sol-panel, .sol-panels > .sol-panel[hidden] { display: flex !important; visibility: visible; flex: 0 0 100%; scroll-snap-align: start; }
+
+    /* painel: a foto vira uma faixa no alto (::before) que se dissolve na cor do painel (::after);
+       o título começa dentro do esmaecido, e o texto fica sempre sobre fundo liso */
+    .sol-panels > .sol-panel.foto, :root[data-tema="claro"] .sol-panels > .sol-panel.foto {
+      --h-foto: clamp(14.5rem, 66vw, 24rem);
+      border: 0; border-radius: 0; box-shadow: none; background-color: var(--panel); background-image: none;
+      padding: calc(var(--h-foto) - 3.2rem) 1.25rem 1.5rem; }
+    .sol-panels > .sol-panel.foto::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: var(--h-foto); background: var(--foto) 78% 25% / cover no-repeat; z-index: 0; }
+    .sol-panels > .sol-panel.foto::after { content: ''; display: block; position: absolute; left: 0; right: 0; top: 0; bottom: auto; width: auto; height: var(--h-foto); aspect-ratio: auto; clip-path: none; -webkit-mask-image: none; mask-image: none; opacity: 1; pointer-events: none; z-index: 0;
+      background: linear-gradient(180deg, rgba(13,17,23,0) 0, rgba(13,17,23,0) 40%, rgba(13,17,23,0.82) 82%, #0D1117 100%); }
+    :root[data-tema="claro"] .sol-panels > .sol-panel.foto::after { background: linear-gradient(180deg, rgba(255,255,255,0) 0, rgba(255,255,255,0) 40%, rgba(255,255,255,0.86) 82%, #FFFFFF 100%); }
+    .sol-panels > .sol-panel.foto > .pill { position: absolute; top: 1rem; left: 1.25rem; z-index: 2; }
+    .sol-panels > .sol-panel.foto h3, .sol-panels > .sol-panel.foto > p { max-width: none; }
+    .sol-panels > .sol-panel.foto h3 { margin: 0 0 0.65rem; font-size: clamp(1.75rem, 7.4vw, 2.2rem); line-height: 1.08; font-weight: 600; }
+    .sol-panels > .sol-panel.foto h3 .ac { display: inline; }
+    .sol-panels > .sol-panel.foto > p { margin: 0; font-size: 0.98rem; line-height: 1.55; }
+
+    /* capacidades: duas colunas de botões com ícone e nome (eram seis ícones soltos) */
+    .sol-panels > .sol-panel.foto .sol-caps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.55rem; margin-top: 1.25rem; }
+    .sol-panel.foto .sol-cap { flex-direction: row; text-align: left; gap: 0.6rem; padding: 0.5rem 0.65rem; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+    .sol-panel.foto .sol-capi { flex: none; width: 2rem; height: 2rem; border-radius: 9px; box-shadow: none; }
+    .sol-panel.foto .sol-capi svg { width: 1.1rem; height: 1.1rem; }
+    .sol-panel.foto .sol-capt { font-size: 0.84rem; font-weight: 550; line-height: 1.2; }
+    .sol-panel.foto .sol-cap:hover .sol-capi { transform: none; }
+
+    /* resultado numa faixa clara e o botão na largura toda */
+    .sol-panel.foto .sol-foot { gap: 0.9rem; margin-top: auto; padding-top: 1.1rem; align-items: stretch; }
+    .sol-panel.foto .sol-sig, :root[data-tema="claro"] .sol-panel.foto .sol-sig { margin-top: 0; padding: 0.75rem 0.9rem; align-items: flex-start; border: 0; border-radius: 12px; background: rgba(46,134,255,0.1); font-size: 0.9rem; line-height: 1.4; color: var(--ink); }
+    :root[data-tema="claro"] .sol-panel.foto .sol-sig { background: rgba(11,94,215,0.08); }
+    .sol-panel.foto .sol-foot .btn { width: 100%; justify-content: center; }
+
+    /* bolinhas: a da vez se alonga e vai enchendo enquanto o carrossel anda sozinho */
+    .sol-dots { display: flex; justify-content: center; gap: 0.5rem; padding: 0.15rem 0 1.05rem; }
+    .sol-dots i { display: block; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: rgba(120,130,150,0.38); transition: width 0.3s var(--ease), background 0.3s var(--ease); }
+    .sol-dots i.on { width: 1.6rem; background: linear-gradient(90deg, var(--btn-fill) calc(var(--p, 1) * 100%), rgba(46,134,255,0.28) 0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .sol-panels, .sol-list { scroll-behavior: auto; } .sol-dots i { transition: none; } }
 
 
   /* ---------- Alternador de tema ---------- */
@@ -2578,41 +2645,6 @@
 })();
 </script>
 <script>
-/* O brilho percorre a lista de serviços conforme a página desce.
-   A frente marca a frente que o leitor está encarando; o que ficou para
-   trás permanece aceso. Sem loop: só recalcula quando alguém rola. */
-(function () {
-  const items = Array.prototype.slice.call(document.querySelectorAll('.sol-item'));
-  if (!items.length) return;
-
-  let raf = 0;
-  function update() {
-    raf = 0;
-    // A linha de leitura fica a 45% da altura da janela: é onde o olho
-    // costuma estar, e não no centro exato.
-    const line = window.innerHeight * 0.45;
-    let head = -1, best = Infinity;
-    for (let i = 0; i < items.length; i++) {
-      const r = items[i].getBoundingClientRect();
-      if (r.bottom < 0 || r.top > window.innerHeight) continue;
-      const d = Math.abs(r.top + r.height / 2 - line);
-      if (d < best) { best = d; head = i; }
-    }
-    for (let i = 0; i < items.length; i++) {
-      items[i].classList.toggle('is-on', head >= 0 && i <= head);
-      items[i].classList.toggle('is-head', i === head);
-    }
-  }
-  function schedule() { if (!raf) raf = requestAnimationFrame(update); }
-
-  update();
-  window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', schedule, { passive: true });
-  // As sanfonas mudam a altura dos itens: recalcula quando abrem.
-  document.addEventListener('click', schedule, true);
-})();
-</script>
-<script>
 /* ============================================================
    Interações do redesenho. Tudo dirigido por scroll ou toque —
    nenhum autoplay. Cada bloco só recalcula quando há o que mudar.
@@ -2886,51 +2918,168 @@
 </script>
 
 <script>
-/* ---------- Soluções: lista 01–04 e painel ---------- */
+/* ---------- Soluções: abas e painel (desktop) · carrossel com abas, bolinhas e avanço automático (celular e tablet) ---------- */
 (function () {
   var abas = [].slice.call(document.querySelectorAll('.sol-item[role="tab"]'));
   if (!abas.length) return;
+  var paineis = abas.map(function (ab) { return document.getElementById(ab.getAttribute('aria-controls')); });
+  var trilho = document.querySelector('.sol-panels');
+  var caixa = document.querySelector('#solucoes .sol');
+  var lista = document.querySelector('.sol-list');
+  var compacto = window.matchMedia('(max-width: 1000px)');
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var fino = window.matchMedia ? window.matchMedia('(hover: hover) and (pointer: fine)') : null;
+  /* AUTOMATICO = false deixa o carrossel só no toque e no arrasto */
+  var AUTOMATICO = true, INTERVALO = 7000, ARRASTO = 30;
+  var atual = 0, timer = 0, parado = false, visivel = false, t0 = 0, praf = 0;
+  /* três motivos independentes para segurar o avanço: dedo/botão apertado, mouse em cima, foco de teclado */
+  var segurando = false, emCima = false, comFoco = false;
 
-  function abrir(i, focar) {
+  /* bolinhas: só indicam em qual painel está; quem navega usa as abas ou o dedo */
+  var dots = document.createElement('div');
+  dots.className = 'sol-dots'; dots.setAttribute('aria-hidden', 'true');
+  abas.forEach(function () { dots.appendChild(document.createElement('i')); });
+  caixa.appendChild(dots);
+  var bolas = [].slice.call(dots.children);
+
+  function centrarAba(i, suave) {
+    if (!compacto.matches || lista.scrollWidth <= lista.clientWidth + 1) return;
+    var ab = abas[i];
+    var alvo = ab.getBoundingClientRect().left - lista.getBoundingClientRect().left + lista.scrollLeft - (lista.clientWidth - ab.offsetWidth) / 2;
+    lista.scrollTo({ left: Math.max(0, alvo), behavior: suave && !reduz.matches ? 'smooth' : 'auto' });
+  }
+  function marcar(i, suave) {
+    atual = i;
     abas.forEach(function (ab, k) {
-      var sel = k === i;
-      ab.setAttribute('aria-selected', sel ? 'true' : 'false');
-      ab.tabIndex = sel ? 0 : -1;
-      var pan = document.getElementById(ab.getAttribute('aria-controls'));
-      if (pan) pan.hidden = !sel;
+      ab.setAttribute('aria-selected', k === i ? 'true' : 'false');
+      ab.tabIndex = k === i ? 0 : -1;
     });
+    bolas.forEach(function (b, k) { b.classList.toggle('on', k === i); b.style.removeProperty('--p'); });
+    /* painel que não está na vista sai da ordem de tabulação e do leitor de tela (só no carrossel) */
+    paineis.forEach(function (p, k) { p.inert = compacto.matches && k !== i; });
+    centrarAba(i, suave);
+  }
+  function abrirDesktop(i) {
+    marcar(i, false);
+    paineis.forEach(function (p, k) { p.hidden = k !== i; });
+  }
+  function irCarrossel(i, suave) {
+    marcar(i, suave);
+    /* scrollLeft e não scrollIntoView: este rola a página inteira até o painel */
+    trilho.scrollLeft = paineis[i].offsetLeft - paineis[0].offsetLeft;
+  }
+  function abrir(i, focar) {
+    if (compacto.matches) irCarrossel(i, true); else abrirDesktop(i);
     if (focar) abas[i].focus();
   }
 
+  /* ---- avanço automático (só no celular e no tablet) ---- */
+  function pintarBolinha() {
+    bolas[atual].style.setProperty('--p', Math.min(1, (Date.now() - t0) / INTERVALO).toFixed(3));
+    praf = requestAnimationFrame(pintarBolinha);
+  }
+  function pararPintura() { if (praf) { cancelAnimationFrame(praf); praf = 0; } }
+  function tique() { irCarrossel((atual + 1) % abas.length, true); t0 = Date.now(); }
+  function podeAndar() { return AUTOMATICO && compacto.matches && !reduz.matches && !parado && visivel && !segurando && !emCima && !comFoco; }
+  function sincronizar() {
+    if (podeAndar()) {
+      if (timer) return;
+      t0 = Date.now();
+      timer = setInterval(tique, INTERVALO);
+      pararPintura(); pintarBolinha();
+    } else {
+      if (timer) { clearInterval(timer); timer = 0; }
+      pararPintura();
+    }
+  }
+  /* quem usou os controles mandou: o carrossel não volta a andar sozinho por cima da leitura */
+  function parar() {
+    parado = true;
+    bolas.forEach(function (b) { b.style.removeProperty('--p'); });
+    sincronizar();
+  }
+
+  /* ---- abas ---- */
   abas.forEach(function (ab, i) {
-    ab.addEventListener('click', function () { abrir(i, false); });
+    ab.addEventListener('click', function () { if (compacto.matches) parar(); abrir(i, false); });
     ab.addEventListener('keydown', function (e) {
       var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1
             : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
-      if (d) { e.preventDefault(); abrir((i + d + abas.length) % abas.length, true); }
-      else if (e.key === 'Home') { e.preventDefault(); abrir(0, true); }
-      else if (e.key === 'End') { e.preventDefault(); abrir(abas.length - 1, true); }
+      if (d) { e.preventDefault(); if (compacto.matches) parar(); abrir((i + d + abas.length) % abas.length, true); }
+      else if (e.key === 'Home') { e.preventDefault(); if (compacto.matches) parar(); abrir(0, true); }
+      else if (e.key === 'End') { e.preventDefault(); if (compacto.matches) parar(); abrir(abas.length - 1, true); }
     });
-  });
-  abrir(0, false);
-
-  /* A troca e por passagem do mouse, nao automatica: o painel do lado
-     muda assim que o ponteiro entra em um item da lista. O avanco por
-     tempo que existia aqui foi retirado a pedido — com hover, um relogio
-     correndo por baixo brigaria com a intencao de quem esta apontando.
-
-     pointerenter e nao mouseenter porque o primeiro tambem cobre caneta e
-     toque. Em tela sem ponteiro de verdade (celular) o evento nao dispara
-     de forma util, entao o clique continua sendo o caminho — e ele ja
-     funciona pelo mesmo abrir(). */
-  var fino = window.matchMedia ? window.matchMedia('(hover: hover) and (pointer: fine)') : null;
-  abas.forEach(function (ab, i) {
+    /* no desktop a troca é por passagem do mouse (como sempre foi) */
     ab.addEventListener('pointerenter', function (e) {
-      if (e.pointerType === 'touch') return;
-      if (fino && !fino.matches) return;
+      if (compacto.matches || e.pointerType === 'touch' || (fino && !fino.matches)) return;
       abrir(i, false);
     });
   });
+
+  /* ---- quem arrastou o painel com o dedo também move a faixa e as bolinhas ---- */
+  var tRolar;
+  trilho.addEventListener('scroll', function () {
+    if (!compacto.matches) return;
+    clearTimeout(tRolar);
+    tRolar = setTimeout(function () {
+      var base = paineis[0].offsetLeft, perto = 0, melhor = Infinity;
+      paineis.forEach(function (p, k) {
+        var d = Math.abs((p.offsetLeft - base) - trilho.scrollLeft);
+        if (d < melhor) { melhor = d; perto = k; }
+      });
+      if (perto !== atual) { marcar(perto, true); if (timer) t0 = Date.now(); }
+    }, 110);
+  }, { passive: true });
+
+  /* Encostar não é comandar: o dedo passa por cima toda vez que alguém rola a página. Só arrasto horizontal
+     de verdade para o carrossel de vez; o resto pausa e volta (mesma regra dos cases). */
+  var tx = 0, ty = 0, dx = 0, dy = 0, dedo = false;
+  caixa.addEventListener('pointerdown', function (e) {
+    if (!compacto.matches) return;
+    tx = e.clientX; ty = e.clientY; dx = dy = 0; dedo = true; segurando = true; sincronizar();
+  });
+  caixa.addEventListener('pointermove', function (e) {
+    if (!dedo) return;
+    dx = Math.max(dx, Math.abs(e.clientX - tx)); dy = Math.max(dy, Math.abs(e.clientY - ty));
+  }, { passive: true });
+  ['pointerup', 'pointercancel'].forEach(function (ev) {
+    caixa.addEventListener(ev, function () {
+      if (!dedo) return;
+      dedo = false; segurando = false;
+      if (dx > ARRASTO && dx > dy) parar(); else sincronizar();
+    });
+  });
+  /* mouse em cima (tablet com mouse) e foco por teclado também seguram o avanço */
+  caixa.addEventListener('mouseenter', function () { emCima = !!(fino && fino.matches); sincronizar(); });
+  caixa.addEventListener('mouseleave', function () { emCima = false; sincronizar(); });
+  /* só o foco de teclado segura: tocar no texto do painel (que aceita foco) não pode travar o carrossel */
+  caixa.addEventListener('focusin', function (e) {
+    /* navegador sem :focus-visible no matches() lança erro: nesse caso qualquer foco segura, o lado seguro */
+    try { comFoco = e.target.matches(':focus-visible'); } catch (erro) { comFoco = true; }
+    sincronizar();
+  });
+  caixa.addEventListener('focusout', function (e) { if (!caixa.contains(e.relatedTarget)) { comFoco = false; sincronizar(); } });
+
+  /* só anda com a seção à vista */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      visivel = es[0].isIntersecting; sincronizar();
+    }, { threshold: 0.35 }).observe(caixa);
+  } else { visivel = true; }
+
+  function aoMudarModo() {
+    if (compacto.matches) {
+      paineis.forEach(function (p) { p.hidden = false; });
+      irCarrossel(atual, false);
+    } else {
+      trilho.scrollLeft = 0; lista.scrollLeft = 0;
+      abrirDesktop(atual);
+    }
+    sincronizar();
+  }
+  if (compacto.addEventListener) compacto.addEventListener('change', aoMudarModo);
+  if (reduz.addEventListener) reduz.addEventListener('change', sincronizar);
+  aoMudarModo();
 })();
 </script>
 

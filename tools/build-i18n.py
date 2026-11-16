@@ -1076,6 +1076,16 @@ TRAD.update({
   'MicroStrategy — ver produtos e cases': ('MicroStrategy — see products and cases', 'MicroStrategy — ver productos y casos'),
 })
 
+# Solucoes no celular: nome curto de cada frente na faixa de abas (o nome inteiro segue no botao e no painel).
+# 'Cloud' ja existe mais acima, com a mesma grafia nas tres linguas.
+TRAD.update({
+  'Estratégia': ('Strategy', 'Estrategia'),
+  'Engenharia': ('Engineering', 'Ingeniería'),
+  'Analytics': ('Analytics', 'Analytics'),
+  'IA': ('AI', 'IA'),
+  'Squads': ('Squads', 'Squads'),
+})
+
 # Solucoes: titulos com enfase e legendas dos cartoes-icone (um bloco por legenda)
 TRAD.update({
   'Da visão à <em class="ac">transformação</em>': ('From vision to <em class="ac">transformation</em>', 'De la visión a la <em class="ac">transformación</em>'),

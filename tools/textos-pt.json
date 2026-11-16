@@ -1,5 +1,5 @@
 {
- "total": 1259,
+ "total": 1263,
  "itens": [
   {
    "chave": "Pular para o conteúdo",
@@ -482,6 +482,11 @@
    "cls": "sub reveal d2"
   },
   {
+   "chave": "Estratégia",
+   "tag": "span",
+   "cls": "sol-curto"
+  },
+  {
    "chave": "<span class=\"sol-k\">Estratégia &amp; Inovação</span><span class=\"sol-t\">Da visão à transformação</span>",
    "tag": "span",
    "cls": ""
@@ -492,9 +497,19 @@
    "cls": "sol-arr"
   },
   {
+   "chave": "Engenharia",
+   "tag": "span",
+   "cls": "sol-curto"
+  },
+  {
    "chave": "<span class=\"sol-k\">Engenharia de Dados</span><span class=\"sol-t\">A base que conecta seus dados</span>",
    "tag": "span",
    "cls": ""
+  },
+  {
+   "chave": "Cloud",
+   "tag": "span",
+   "cls": "sol-curto"
   },
   {
    "chave": "<span class=\"sol-k\">Cloud &amp; Modernização</span><span class=\"sol-t\">Infraestrutura preparada para evoluir</span>",
@@ -502,14 +517,29 @@
    "cls": ""
   },
   {
+   "chave": "Analytics",
+   "tag": "span",
+   "cls": "sol-curto"
+  },
+  {
    "chave": "<span class=\"sol-k\">Analytics &amp; BI</span><span class=\"sol-t\">Do dado à decisão</span>",
    "tag": "span",
    "cls": ""
   },
   {
+   "chave": "IA",
+   "tag": "span",
+   "cls": "sol-curto"
+  },
+  {
    "chave": "<span class=\"sol-k\">IA &amp; Automação</span><span class=\"sol-t\">Inteligência que gera ação</span>",
    "tag": "span",
    "cls": ""
+  },
+  {
+   "chave": "Squads",
+   "tag": "span",
+   "cls": "sol-curto"
   },
   {
    "chave": "<span class=\"sol-k\">Especialistas &amp; Squads</span><span class=\"sol-t\">As pessoas certas no seu time</span>",
@@ -1313,16 +1343,6 @@
   },
   {
    "chave": "Dados &amp; BI",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "IA",
-   "tag": "span",
-   "cls": ""
-  },
-  {
-   "chave": "Cloud",
    "tag": "span",
    "cls": ""
   },
