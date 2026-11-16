@@ -15,7 +15,7 @@
 |---|---|
 | Durateston | 250 mg |
 | Nandrolona (Deca) | 25 mg |
-| Retatrutida | 2,5 UI |
+| Retatrutida | 2,5 mg/semana (confirmado em mg pelo usuário em 16/11; antes registrado como "2,5 UI") |
 | Semaglutida | 10 UI |
 | Cabergolina | 1×/semana (desde 10/09) |
 | KPV, AHK-Cu, ipamorelina | iniciados em 16/11 (doses não informadas) |
