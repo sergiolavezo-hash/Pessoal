@@ -1303,9 +1303,23 @@
     .hero-c { min-height: calc(100svh - 5.7rem - 2rem); padding: 5.5rem 0 3.5rem; }
   }
   @media (max-width: 520px) {
-    .tiles { grid-template-columns: 1fr; }
+    /* os quatro números seguem em duas colunas, como no desktop: o ladrilho é que encolhe, e o número acompanha
+       a largura do próprio ladrilho (cqw), para "150 mil+" caber em qualquer celular */
+    .tiles { gap: 0.6rem; }
+    .tile { container-type: inline-size; padding: 0.95rem 0.8rem 1rem; }
+    .tile-top { flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.85rem; }
+    .tile-ico { width: 2.1rem; height: 2.1rem; border-radius: 9px; }
+    .tile-ico svg { width: 1.05rem; height: 1.05rem; }
+    .tile-cat { font-size: 0.56rem; letter-spacing: 0.12em; text-align: left; }
+    .tile b { font-size: clamp(1.15rem, 24cqw, 2rem); letter-spacing: -0.03em; }
+    .tile-nome { font-size: clamp(0.74rem, 11.5cqw, 0.9rem); line-height: 1.25; margin-top: 0.55rem; }
+    .tile > span { font-size: 0.78rem; line-height: 1.4; }
     .ess-chips span { flex: 1 1 100%; }
   }
+  /* ladrilho estreito: o rótulo desce para baixo do ícone nos quatro ao mesmo tempo. Sozinho, só o rótulo mais
+     comprido ("Permanência") quebrava a linha, e os números da mesma fileira ficavam em alturas diferentes.
+     O ladrilho só é contêiner até 520 px (regra acima), então isto não alcança o desktop. */
+  @container (max-width: 124px) { .tile-top { flex-direction: column; align-items: flex-start; flex-wrap: nowrap; gap: 0.45rem; } }
 
   /* ============================================================
      Tema claro. Os mesmos tokens com outros valores — nenhum
@@ -1366,7 +1380,7 @@
   :root[data-tema="claro"] .banner { box-shadow: var(--sombra); }
 
   /* ---- Soluções no celular e no tablet: navegação compacta + conteúdo em foco ----
-     Uma faixa de abas (ícone e nome curto) no alto, a foto da frente escolhida logo abaixo com o título
+     Seis abas (ícone e nome curto) no alto, em duas fileiras de três, a foto da frente escolhida logo abaixo com o título
      entrando no esmaecido, a grade de capacidades, a linha de resultado e o botão. Os painéis passam
      de lado (arrastando ou pelas abas) e as bolinhas mostram em qual está. Tudo num container só. */
   .sol-curto, .sol-dots { display: none; }
@@ -1377,19 +1391,17 @@
     .sol::after { display: none; }
     :root[data-tema="claro"] .sol { box-shadow: var(--sombra); }
 
-    /* faixa de abas: rola de lado quando não cabe, e a aba escolhida vem para o meio */
-    .sol-list { display: flex; gap: 0.4rem; margin: 0; border-top: 0; padding: 0.8rem 0.8rem 0.85rem; overflow-x: auto; scroll-snap-type: x proximity; overscroll-behavior-x: contain; scrollbar-width: none; }
-    .sol-list::-webkit-scrollbar { display: none; }
-    .sol-item { flex: 0 0 auto; width: auto; min-width: 3.4rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.55rem 0.55rem 0.5rem; border-radius: 12px; text-align: center; scroll-snap-align: center; }
-    .sol-item:first-child { margin-left: auto; } .sol-item:last-child { margin-right: auto; }
-    .sol-item, .sol-item:hover { padding-left: 0.55rem; transform: none; }
+    /* as seis abas à vista, em duas fileiras de três: são só seis, não precisam rolar de lado */
+    .sol-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; margin: 0; border-top: 0; padding: 0.8rem; }
+    .sol-item { width: auto; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.65rem 0.3rem 0.6rem; border-radius: 12px; text-align: center; }
+    .sol-item, .sol-item:hover { padding-left: 0.3rem; transform: none; }
     .sol-item, :root[data-tema="claro"] .sol-item { box-shadow: none; }
     /* o nome inteiro e a frase continuam no botão para leitor de tela; na faixa só o nome curto aparece */
     .sol-item > span:not([class]) { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     .sol-item .sol-t, .sol-item .sol-arr { display: none; }
     .sol-ico { width: auto; height: auto; border: 0; border-radius: 0; background: none; }
-    .sol-ico svg { width: 1.4rem; height: 1.4rem; }
-    .sol-curto { display: block; font-family: var(--display); font-size: 0.74rem; font-weight: 550; line-height: 1.1; color: var(--ink); white-space: nowrap; }
+    .sol-ico svg { width: 1.5rem; height: 1.5rem; }
+    .sol-curto { display: block; font-family: var(--display); font-size: clamp(0.72rem, 3.3vw, 0.8rem); font-weight: 550; line-height: 1.1; color: var(--ink); white-space: nowrap; }
     .sol-item[aria-selected="true"], :root[data-tema="claro"] .sol-item[aria-selected="true"] { background: var(--btn-fill); border-color: var(--btn-fill); box-shadow: none; }
     .sol-item[aria-selected="true"] .sol-ico { background: none; border: 0; }
     .sol-item[aria-selected="true"] .sol-ico svg { stroke: #fff; }
@@ -1435,7 +1447,9 @@
     .sol-dots i { display: block; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: rgba(120,130,150,0.38); transition: width 0.3s var(--ease), background 0.3s var(--ease); }
     .sol-dots i.on { width: 1.6rem; background: linear-gradient(90deg, var(--btn-fill) calc(var(--p, 1) * 100%), rgba(46,134,255,0.28) 0); }
   }
-  @media (prefers-reduced-motion: reduce) { .sol-panels, .sol-list { scroll-behavior: auto; } .sol-dots i { transition: none; } }
+  /* tablet: há largura para as seis numa fileira */
+  @media (min-width: 640px) and (max-width: 1000px) { .sol-list { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+  @media (prefers-reduced-motion: reduce) { .sol-panels { scroll-behavior: auto; } .sol-dots i { transition: none; } }
 
 
   /* ---------- Alternador de tema ---------- */
@@ -3041,15 +3055,17 @@
   var paineis = abas.map(function (ab) { return document.getElementById(ab.getAttribute('aria-controls')); });
   var trilho = document.querySelector('.sol-panels');
   var caixa = document.querySelector('#solucoes .sol');
-  var lista = document.querySelector('.sol-list');
   var compacto = window.matchMedia('(max-width: 1000px)');
   var reduz = window.matchMedia('(prefers-reduced-motion: reduce)');
   var fino = window.matchMedia ? window.matchMedia('(hover: hover) and (pointer: fine)') : null;
   /* AUTOMATICO = false deixa o carrossel só no toque e no arrasto */
-  var AUTOMATICO = true, INTERVALO = 7000, ARRASTO = 30;
+  var AUTOMATICO = true, INTERVALO = 7000;
   var atual = 0, timer = 0, parado = false, visivel = false, t0 = 0, praf = 0;
-  /* três motivos independentes para segurar o avanço: dedo/botão apertado, mouse em cima, foco de teclado */
+  /* três motivos independentes para segurar o avanço: dedo na tela, mouse em cima, foco de teclado */
   var segurando = false, emCima = false, comFoco = false;
+  /* gestoEm: último sinal de que alguém está rolando de lado (toque, roda/trackpad, setas do teclado).
+     programadoAte: até quando uma rolagem em curso é do próprio carrossel (aba, avanço automático, realinhamento). */
+  var gestoEm = 0, programadoAte = 0;
 
   /* bolinhas: só indicam em qual painel está; quem navega usa as abas ou o dedo */
   var dots = document.createElement('div');
@@ -3058,13 +3074,7 @@
   caixa.appendChild(dots);
   var bolas = [].slice.call(dots.children);
 
-  function centrarAba(i, suave) {
-    if (!compacto.matches || lista.scrollWidth <= lista.clientWidth + 1) return;
-    var ab = abas[i];
-    var alvo = ab.getBoundingClientRect().left - lista.getBoundingClientRect().left + lista.scrollLeft - (lista.clientWidth - ab.offsetWidth) / 2;
-    lista.scrollTo({ left: Math.max(0, alvo), behavior: suave && !reduz.matches ? 'smooth' : 'auto' });
-  }
-  function marcar(i, suave) {
+  function marcar(i) {
     atual = i;
     abas.forEach(function (ab, k) {
       ab.setAttribute('aria-selected', k === i ? 'true' : 'false');
@@ -3073,19 +3083,19 @@
     bolas.forEach(function (b, k) { b.classList.toggle('on', k === i); b.style.removeProperty('--p'); });
     /* painel que não está na vista sai da ordem de tabulação e do leitor de tela (só no carrossel) */
     paineis.forEach(function (p, k) { p.inert = compacto.matches && k !== i; });
-    centrarAba(i, suave);
   }
   function abrirDesktop(i) {
-    marcar(i, false);
+    marcar(i);
     paineis.forEach(function (p, k) { p.hidden = k !== i; });
   }
-  function irCarrossel(i, suave) {
-    marcar(i, suave);
+  function alinhar() {
+    programadoAte = Date.now() + 1500;
     /* scrollLeft e não scrollIntoView: este rola a página inteira até o painel */
-    trilho.scrollLeft = paineis[i].offsetLeft - paineis[0].offsetLeft;
+    trilho.scrollLeft = paineis[atual].offsetLeft - paineis[0].offsetLeft;
   }
+  function irCarrossel(i) { marcar(i); alinhar(); }
   function abrir(i, focar) {
-    if (compacto.matches) irCarrossel(i, true); else abrirDesktop(i);
+    if (compacto.matches) irCarrossel(i); else abrirDesktop(i);
     if (focar) abas[i].focus();
   }
 
@@ -3095,7 +3105,7 @@
     praf = requestAnimationFrame(pintarBolinha);
   }
   function pararPintura() { if (praf) { cancelAnimationFrame(praf); praf = 0; } }
-  function tique() { irCarrossel((atual + 1) % abas.length, true); t0 = Date.now(); }
+  function tique() { irCarrossel((atual + 1) % abas.length); t0 = Date.now(); }
   function podeAndar() { return AUTOMATICO && compacto.matches && !reduz.matches && !parado && visivel && !segurando && !emCima && !comFoco; }
   function sincronizar() {
     if (podeAndar()) {
@@ -3117,7 +3127,8 @@
 
   /* ---- abas ---- */
   abas.forEach(function (ab, i) {
-    ab.addEventListener('click', function () { if (compacto.matches) parar(); abrir(i, false); });
+    /* o toque na aba já foi atendido aqui: zera o gesto para a rolagem até o painel não ser lida como arrasto */
+    ab.addEventListener('click', function () { gestoEm = 0; if (compacto.matches) parar(); abrir(i, false); });
     ab.addEventListener('keydown', function (e) {
       var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1
             : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
@@ -3132,7 +3143,11 @@
     });
   });
 
-  /* ---- quem arrastou o painel com o dedo também move a faixa e as bolinhas ---- */
+  /* ---- quem rola os painéis de lado troca de frente: a aba e a bolinha acompanham ----
+     E vale como comando: o carrossel deixa de andar sozinho. As abas e o avanço automático marcam o painel
+     antes de rolar, então só chega aqui com painel diferente quem rolou por conta própria (dedo, trackpad,
+     setas). A exceção é um engasgo no meio da rolagem do próprio carrossel, que não pode contar como comando:
+     por isso, enquanto ela está em curso, só vale se houver gesto recente. */
   var tRolar;
   trilho.addEventListener('scroll', function () {
     if (!compacto.matches) return;
@@ -3143,28 +3158,29 @@
         var d = Math.abs((p.offsetLeft - base) - trilho.scrollLeft);
         if (d < melhor) { melhor = d; perto = k; }
       });
-      if (perto !== atual) { marcar(perto, true); if (timer) t0 = Date.now(); }
+      if (perto === atual) return;
+      var porGesto = segurando || Date.now() - gestoEm < 2500;
+      if (!porGesto && Date.now() < programadoAte) return;
+      marcar(perto); parar();
     }, 110);
   }, { passive: true });
 
-  /* Encostar não é comandar: o dedo passa por cima toda vez que alguém rola a página. Só arrasto horizontal
-     de verdade para o carrossel de vez; o resto pausa e volta (mesma regra dos cases). */
-  var tx = 0, ty = 0, dx = 0, dy = 0, dedo = false;
-  caixa.addEventListener('pointerdown', function (e) {
+  /* Encostar não é comandar: o dedo passa por cima toda vez que alguém rola a página, então o toque só segura
+     o avanço enquanto está na tela. Eventos de toque e não de ponteiro: os de ponteiro são cancelados assim que
+     a rolagem nativa começa, e o carrossel voltava a andar com o dedo ainda arrastando. */
+  caixa.addEventListener('touchstart', function () {
     if (!compacto.matches) return;
-    tx = e.clientX; ty = e.clientY; dx = dy = 0; dedo = true; segurando = true; sincronizar();
-  });
-  caixa.addEventListener('pointermove', function (e) {
-    if (!dedo) return;
-    dx = Math.max(dx, Math.abs(e.clientX - tx)); dy = Math.max(dy, Math.abs(e.clientY - ty));
+    segurando = true; gestoEm = Date.now(); sincronizar();
   }, { passive: true });
-  ['pointerup', 'pointercancel'].forEach(function (ev) {
-    caixa.addEventListener(ev, function () {
-      if (!dedo) return;
-      dedo = false; segurando = false;
-      if (dx > ARRASTO && dx > dy) parar(); else sincronizar();
-    });
+  ['touchend', 'touchcancel'].forEach(function (ev) {
+    caixa.addEventListener(ev, function (e) {
+      if (e.touches && e.touches.length) return;
+      segurando = false; gestoEm = Date.now(); sincronizar();
+    }, { passive: true });
   });
+  /* trackpad ou roda de lado, e setas com o foco num painel, também são gesto de quem lê */
+  trilho.addEventListener('wheel', function (e) { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) gestoEm = Date.now(); }, { passive: true });
+  trilho.addEventListener('keydown', function (e) { if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') gestoEm = Date.now(); });
   /* mouse em cima (tablet com mouse) e foco por teclado também seguram o avanço */
   caixa.addEventListener('mouseenter', function () { emCima = !!(fino && fino.matches); sincronizar(); });
   caixa.addEventListener('mouseleave', function () { emCima = false; sincronizar(); });
@@ -3186,14 +3202,24 @@
   function aoMudarModo() {
     if (compacto.matches) {
       paineis.forEach(function (p) { p.hidden = false; });
-      irCarrossel(atual, false);
+      irCarrossel(atual);
     } else {
-      trilho.scrollLeft = 0; lista.scrollLeft = 0;
+      trilho.scrollLeft = 0;
       abrirDesktop(atual);
     }
     sincronizar();
   }
   if (compacto.addEventListener) compacto.addEventListener('change', aoMudarModo);
+  /* girar o aparelho muda a largura dos painéis: realinha no painel da vez, sem contar como comando de ninguém.
+     Só quando a largura muda de fato: no celular o resize também dispara quando a barra de endereço some ou
+     volta, e realinhar ali desfaria um arrasto que ainda está assentando. */
+  var largura = trilho.clientWidth;
+  window.addEventListener('resize', function () {
+    var w = trilho.clientWidth;
+    if (w === largura) return;
+    largura = w;
+    if (compacto.matches && !segurando) alinhar();
+  });
   if (reduz.addEventListener) reduz.addEventListener('change', sincronizar);
   aoMudarModo();
 })();
