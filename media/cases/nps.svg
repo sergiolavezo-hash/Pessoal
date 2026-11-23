@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 460" role="img" aria-label="Mensagens de clientes virando um indicador acompanhado">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6FD4FF"/><stop offset="0.55" stop-color="#2E86FF"/><stop offset="1" stop-color="#0A2EE0"/>
+    </linearGradient>
+    <radialGradient id="brilho" cx="78%" cy="18%" r="68%">
+      <stop offset="0" stop-color="#2E86FF" stop-opacity="0.26"/><stop offset="1" stop-color="#2E86FF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grade" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0v36" fill="none" stroke="rgba(244,243,239,0.07)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="720" height="460" fill="#0B1220"/>
+  <rect width="720" height="460" fill="url(#grade)"/>
+  <rect width="720" height="460" fill="url(#brilho)"/>
+  <path d="M70 120 h68 a9 9 0 0 1 9 9 v30 a9 9 0 0 1-9 9 h-50 l-14 12 v-12 h-4 a9 9 0 0 1-9-9 v-30 a9 9 0 0 1 9-9Z" fill="#0E1826" stroke="#2E86FF" stroke-width="1.3" opacity="0.75"/>
+  <rect x="82" y="134" width="48" height="6" rx="3" fill="#2E86FF" opacity="0.4"/>
+  <path d="M142 92 h68 a9 9 0 0 1 9 9 v30 a9 9 0 0 1-9 9 h-50 l-14 12 v-12 h-4 a9 9 0 0 1-9-9 v-30 a9 9 0 0 1 9-9Z" fill="#0E1826" stroke="#2E86FF" stroke-width="1.3" opacity="0.67"/>
+  <rect x="154" y="106" width="43" height="6" rx="3" fill="#2E86FF" opacity="0.4"/>
+  <path d="M62 206 h68 a9 9 0 0 1 9 9 v30 a9 9 0 0 1-9 9 h-50 l-14 12 v-12 h-4 a9 9 0 0 1-9-9 v-30 a9 9 0 0 1 9-9Z" fill="#0E1826" stroke="#2E86FF" stroke-width="1.3" opacity="0.59"/>
+  <rect x="74" y="220" width="38" height="6" rx="3" fill="#2E86FF" opacity="0.4"/>
+  <path d="M150 186 h68 a9 9 0 0 1 9 9 v30 a9 9 0 0 1-9 9 h-50 l-14 12 v-12 h-4 a9 9 0 0 1-9-9 v-30 a9 9 0 0 1 9-9Z" fill="#0E1826" stroke="#2E86FF" stroke-width="1.3" opacity="0.51"/>
+  <rect x="162" y="200" width="33" height="6" rx="3" fill="#2E86FF" opacity="0.4"/>
+  <path d="M92 290 h68 a9 9 0 0 1 9 9 v30 a9 9 0 0 1-9 9 h-50 l-14 12 v-12 h-4 a9 9 0 0 1-9-9 v-30 a9 9 0 0 1 9-9Z" fill="#0E1826" stroke="#2E86FF" stroke-width="1.3" opacity="0.43"/>
+  <rect x="104" y="304" width="28" height="6" rx="3" fill="#2E86FF" opacity="0.4"/>
+  <path d="M258 206 L306 206" stroke="url(#g)" stroke-width="2.4" fill="none"/>
+  <path d="M298 199 L308 206 L298 213" stroke="#6FD4FF" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="332" y="96" width="330" height="270" rx="12" fill="#0E1826" stroke="#2E86FF" stroke-width="1.4" opacity="0.95"/>
+  <path d="M332 126 h330" stroke="#2E86FF" stroke-width="1" opacity="0.35"/>
+  <rect x="346" y="107" width="84" height="8" rx="4" fill="url(#g)" opacity="0.85"/>
+  <circle cx="646" cy="111" r="2.6" fill="#2E86FF" opacity="0.5"/>
+  <circle cx="633" cy="111" r="2.6" fill="#2E86FF" opacity="0.38"/>
+  <circle cx="620" cy="111" r="2.6" fill="#2E86FF" opacity="0.26"/>
+  <circle cx="422" cy="198" r="46" fill="none" stroke="#2E86FF" stroke-width="12" opacity="0.22"/>
+  <circle cx="422" cy="198" r="46" fill="none" stroke="url(#g)" stroke-width="12" stroke-linecap="round" stroke-dasharray="225.4 289.0" transform="rotate(-90 422 198)"/>
+  <text x="422" y="206" fill="#6FD4FF" font-family="monospace" font-size="19" text-anchor="middle">NPS</text>
+  <path d="M502.0 223.6 L521.4 209.8 L540.9 214.4 L560.3 194.2 L579.7 183.1 L599.1 186.8 L618.6 164.7 L638.0 155.5" fill="none" stroke="#6FD4FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+  <rect x="508.0" y="302.7" width="15.2" height="27.3" rx="2.5" fill="#2E86FF" opacity="0.45"/>
+  <rect x="535.2" y="292.8" width="15.2" height="37.2" rx="2.5" fill="#2E86FF" opacity="0.45"/>
+  <rect x="562.4" y="296.5" width="15.2" height="33.5" rx="2.5" fill="#2E86FF" opacity="0.45"/>
+  <rect x="589.6" y="281.6" width="15.2" height="48.4" rx="2.5" fill="#2E86FF" opacity="0.45"/>
+  <rect x="616.8" y="274.2" width="15.2" height="55.8" rx="2.5" fill="url(#g)" opacity="1"/>
+</svg>
