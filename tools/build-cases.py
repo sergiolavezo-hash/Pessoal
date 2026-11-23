@@ -655,6 +655,7 @@ def pagina(titulo, meta, url, corpo, comum, prefixo='', extra=''):
 <meta property="og:title" content="%(titulo)s &mdash; Atlas Tec">
 <meta property="og:description" content="%(meta)s">
 <meta property="og:url" content="%(url)s">
+%(capa)s
 <link rel="icon" href="%(pre)sfavicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -679,7 +680,7 @@ def pagina(titulo, meta, url, corpo, comum, prefixo='', extra=''):
 %(script)s
 </body>
 </html>
-''' % dict(titulo=titulo, meta=meta, url=url, pre=prefixo, boot=boot, estilo=estilo, extra=extra,
+''' % dict(titulo=titulo, meta=meta, url=url, pre=prefixo, capa=bp.CAPA_OG, boot=boot, estilo=estilo, extra=extra,
            topo=c['topo'], header=c['header'], menu=c['menu'], corpo=corpo, rodape=c['rodape'],
            chat=c['chat'], script=c['script'])
 

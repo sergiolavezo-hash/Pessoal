@@ -26,6 +26,14 @@ RAIZ = pathlib.Path(__file__).resolve().parent.parent
 BASE = RAIZ / 'index.html'
 SITE = 'https://atlas-partner.com'
 
+# Imagem de capa das prévias de compartilhamento (LinkedIn, WhatsApp, Slack): a mesma que a home já usa.
+# Sem isto o cartão de uma página interna compartilhada sai sem imagem.
+CAPA_OG = ('<meta property="og:image" content="%s/media/og-cover.jpg">\n'
+           '<meta property="og:image:width" content="1200">\n'
+           '<meta property="og:image:height" content="630">\n'
+           '<meta name="twitter:card" content="summary_large_image">\n'
+           '<meta name="twitter:image" content="%s/media/og-cover.jpg">' % (SITE, SITE))
+
 
 # ---------------------------------------------------------------- extração
 def extrair(html):
@@ -327,6 +335,7 @@ TALENTO = '''
     // endpoint AJAX não aceita arquivo, então o formulário é POST de verdade.
     (function () {
       if (new URLSearchParams(location.search).get('enviado') !== '1') return;
+      if (window.atlasMedir) atlasMedir('talent_submit', { form_name: 'banco_de_talentos' });
       var ok = document.getElementById('tal-ok');
       var fm = document.getElementById('form-talento');
       if (ok) { ok.classList.add('on'); ok.scrollIntoView({ block: 'center' }); }
@@ -520,6 +529,7 @@ def montar(pag, comum):
 <meta property="og:title" content="%(titulo)s &mdash; Atlas Tec">
 <meta property="og:description" content="%(meta)s">
 <meta property="og:url" content="%(url)s">
+%(capa)s
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -558,7 +568,7 @@ def montar(pag, comum):
 %(vjs)s
 </body>
 </html>
-''' % dict(vcss=vitrine_css, vjs=vitrine_js, titulo=pag['titulo'], meta=pag['meta'], url=url, site=SITE,
+''' % dict(vcss=vitrine_css, vjs=vitrine_js, titulo=pag['titulo'], meta=pag['meta'], url=url, site=SITE, capa=CAPA_OG,
            estilo=comum['estilo'], extra=extra, header=comum['header'],
            topo=comum['topo'],
            menu=comum['menu'], corpo=corpo, rodape=comum['rodape'],
@@ -648,6 +658,7 @@ CASCA_PRIVACIDADE = '''<!doctype html>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Privacidade &mdash; Atlas Tec">
 <meta property="og:url" content="https://atlas-partner.com/privacidade.html">
+%(capa)s
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -836,7 +847,7 @@ def montar_privacidade(comum):
 </main>'''
 
     return CASCA_PRIVACIDADE % dict(
-        boot=comum['boot'], estilo=comum['estilo'], extra=CSS_PRIVACIDADE,
+        capa=CAPA_OG, boot=comum['boot'], estilo=comum['estilo'], extra=CSS_PRIVACIDADE,
         topo=comum['topo'], header=comum['header'], menu=comum['menu'],
         corpo=corpo, rodape=comum['rodape'], chat=comum['chat'], script=comum['script'])
 

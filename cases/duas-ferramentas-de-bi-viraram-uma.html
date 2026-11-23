@@ -10,6 +10,11 @@
 <meta property="og:title" content="Duas ferramentas de BI viraram uma &mdash; Atlas Tec">
 <meta property="og:description" content="Pipelines em BigQuery e Airflow, com a visualização migrada de Tableau para Power BI.">
 <meta property="og:url" content="https://atlas-partner.com/cases/duas-ferramentas-de-bi-viraram-uma.html">
+<meta property="og:image" content="https://atlas-partner.com/media/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atlas-partner.com/media/og-cover.jpg">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,10 +38,51 @@
   /* Google Analytics (GA4) sempre ativo */
   (function () {
     var ID = 'G-B0QFW3ZH7K';
+    /* Só o site de verdade é medido. Teste local (127.0.0.1, localhost), página aberta do disco e navegador
+       automatizado (navigator.webdriver: Playwright, Selenium, Puppeteer) não carregam o script do Google e,
+       portanto, não enviam nada: antes, cada rodada de teste entrava no relatório como visita. Os comandos
+       seguem para o dataLayer mesmo assim, o que deixa o teste conferir o que SERIA enviado. */
+    var h = location.hostname;
+    var mede = (h === 'atlas-partner.com' || h === 'www.atlas-partner.com') && navigator.webdriver !== true;
+    /* "/index.html" e "/" são a mesma página (as páginas internas apontam para index.html#...) e no relatório
+       viravam duas linhas. Em quem é medido o endereço passa a ser "/", mantendo o #trecho. */
+    if (mede && location.pathname === '/index.html') {
+      try { history.replaceState(history.state, '', '/' + location.search + location.hash); } catch (e) {}
+    }
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { dataLayer.push(arguments); };
     gtag('js', new Date());
     gtag('config', ID);
+
+    /* Eventos do site. Só rótulos fixos da interface: nada que a pessoa digite (nome, e-mail, mensagem, currículo)
+       vai para o Analytics. Para valerem como "eventos principais", é preciso marcá-los no painel do GA4. */
+    window.atlasMedir = function (nome, parametros) {
+      var p = { ui_language: document.documentElement.lang || 'pt' };
+      for (var k in parametros) if (Object.prototype.hasOwnProperty.call(parametros, k)) p[k] = parametros[k];
+      try { gtag('event', nome, p); } catch (e) {}
+    };
+    /* cta_click: qualquer botão ou link que leva ao formulário de contato (#contato, também vindo de outra página) */
+    var DESTINO = /^(?:\.\.\/|\/)?(?:index\.html)?#contato$/;
+    var LOCAIS = [['#chat-panel', 'chat'], ['#cbar', 'barra_de_conversa'], ['footer', 'rodape'], ['header', 'cabecalho'],
+                  ['.mobile-menu', 'cabecalho'], ['.final', 'chamada_final'], ['.pag-hero', 'topo_da_pagina'],
+                  ['.pf-topo', 'topo_da_pagina'], ['section[id]', '']];
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a || !DESTINO.test(a.getAttribute('href'))) return;
+      var onde = 'pagina';
+      for (var i = 0; i < LOCAIS.length; i++) {
+        var el = a.closest(LOCAIS[i][0]);
+        if (el) { onde = LOCAIS[i][1] || el.id; break; }
+      }
+      /* o rótulo que a pessoa viu: nos cartões do menu só o título (<b>), e sem a seta do fim */
+      var rotulo = (a.querySelector('b') || a).textContent || '';
+      atlasMedir('cta_click', {
+        cta_text: rotulo.replace(/\s+/g, ' ').replace(/\s*→\s*$/, '').trim().slice(0, 60) || 'sem texto',
+        cta_location: onde
+      });
+    }, true);
+
+    if (!mede) return;
     var s = document.createElement('script');
     s.id = 'ga-src'; s.async = true;
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID;
@@ -2543,7 +2589,9 @@
     function hideTeaser() { teaser.classList.remove('show'); }
     function openPanel() {
       hideTeaser();
+      const jaAberto = panel.classList.contains('open');
       panel.classList.add('open');
+      if (!jaAberto && window.atlasMedir) atlasMedir('chat_open');
       if (!dingPlayed) playDing();
       try { sessionStorage.setItem('atlas-chat-seen', '1'); } catch (e) {}
       setTimeout(() => input.focus(), 350);
@@ -2608,6 +2656,7 @@
             }),
           });
           if (!r.ok) throw new Error('HTTP ' + r.status);
+          if (window.atlasMedir) atlasMedir('generate_lead', { form_name: 'chat_atis' });
           botSay('Prontinho! ✅ Sua mensagem chegou para o nosso time. Vamos te responder em breve no contato que você deixou. Obrigado!', 800);
         } catch (err) {
           stage = 1;
@@ -2647,6 +2696,7 @@
       });
       if (!r.ok) throw new Error('HTTP ' + r.status);
       form.classList.add('sent');
+      if (window.atlasMedir) atlasMedir('generate_lead', { form_name: 'contato' });
     } catch (err) {
       errEl.style.display = 'block';
     } finally {
