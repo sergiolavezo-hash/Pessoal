@@ -20,7 +20,7 @@
 | Cabergolina | 1×/semana (desde 10/09) |
 | KPV, AHK-Cu, ipamorelina | iniciados em 16/11 (doses não informadas) |
 
-**16/11 — compostos pedidos pelo usuário (relato, não prescritos aqui):** Primobolan 100 mg (Oxygen KW), 2× enantato de testosterona 250 mg (Alpha Pharma), Masteron enantato 200 mg (ZPHC), estanozolol oral 10 mg (Cooper Pharma). Ainda não iniciados até este registro.
+**16/11 — compostos pedidos pelo usuário (relato, não prescritos aqui):** Primobolan 100 mg (Oxygen KW), 2× enantato de testosterona 250 mg (Alpha Pharma), Masteron enantato 200 mg (ZPHC), estanozolol oral 10 mg (Cooper Pharma). Ainda não iniciados até este registro. **Atualização 24/11:** estanozolol oral iniciado na semana de 16/11 e suspenso em 24/11 após hematócrito 58,1%.
 
 ### Alertas registrados
 
